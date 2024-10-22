@@ -141,3 +141,11 @@ class FluVaccineDocument{
   final int statusCode;
   FluVaccineDocument({required this.statusCode,required this.fluVaccineDocumentId, required this.name, required this.html});
 }
+
+class WFourDocument{
+  final int wFourDocumentId;
+  final String name;
+  final String html;
+  final int statusCode;
+  WFourDocument({required this.statusCode,required this.wFourDocumentId, required this.name, required this.html});
+}

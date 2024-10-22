@@ -8,6 +8,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
+import 'package:prohealth/app/services/api/managers/post_html_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employeement_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
@@ -61,6 +62,14 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ///add button
+            Container(
+              height:35,
+              width:100,
+              child:ElevatedButton(onPressed: (){
+                HtmlPostRequiest().makePostRequest("pro-health-employee-handbook", "exampleData");
+              },
+                  child: Text("Html"))
+            ),
             Container(
               width: 100,
               margin: EdgeInsets.only(right: 60),

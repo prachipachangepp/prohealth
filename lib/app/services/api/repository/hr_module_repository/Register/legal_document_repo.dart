@@ -18,7 +18,8 @@ class LegalDocumentsRepo{
   static String htmlFormTemplateSignatureAdd = "/form-html-templates-status/add/employee/form/Signatures";
   static String directDepositDocument = "/direct-deposit/generate-template";
   static String proHealthEmployeeHandbookDocument = "/pro-health-employee-handbook";
-  static String fluVaccineDocument = "  /flu-vaccine-form/{dateOfvaccination}/{siteOfAdministration}/{dose}/{manufacturer}/{dateofVaccination}/{nameOfAdministering}/{title}/{providerAddress}/{acknowledgeFacts}/{Allergis}";
+  static String fluVaccineDocument = "/flu-vaccine-form";
+  static String w4Document = "/w4";
 
 
 
@@ -88,6 +89,13 @@ class LegalDocumentsRepo{
   }
   static String getFluVaccineDocument({required int templateId,required int employeeId,required String dateOfVaccine,required String siteOfAdministration, required String vaccineType, required String dose,
    required String reactions, required String manufacturer, required String dateofVaccination, required String nameOfAdministering, required String title, required String providerAddress, required String acknowledgeFacts, required String Allergis}){
-    return "$fluVaccineDocument/$templateId/generate-html/$employeeId/$dateOfVaccine/$siteOfAdministration/$dose/$manufacturer/$dateofVaccination/$dateofVaccination/$nameOfAdministering/$title/$providerAddress/$acknowledgeFacts/$Allergis";
+    return "$fluVaccineDocument/$templateId/generate-html/$employeeId/$vaccineType/$reactions/$dateOfVaccine/$siteOfAdministration/$dose/$manufacturer/$dateofVaccination/$dateofVaccination/$nameOfAdministering/$title/$providerAddress/$acknowledgeFacts/$Allergis";
+  }
+  static String getW4Documents({required int templateId,required int employeeId, required String middleName,
+    required String marriedstatus, required int step3a,required int step3b,required int step3c,required int step4a,
+    required int step4b,required int step4c, required int multipleJW1,required int multipleJW12a,required int multipleJW12b,
+    required int multipleJW12c,required int multipleJW13,required int multipleJW14,required int deductionsWorksheet1,required int deductionsWorksheet2,
+    required int deductionsWorksheet3,required int deductionsWorksheet4,required int deductionsWorksheet5,}){
+    return "$w4Document/$templateId/$employeeId/$middleName/$marriedstatus/$step3a/$step3b/$step3c/$step4a/$step4b/$step4c/$multipleJW1/$multipleJW12a/$multipleJW12b/$multipleJW12c/$multipleJW13/$multipleJW14/$deductionsWorksheet1/$deductionsWorksheet2/$deductionsWorksheet3/$deductionsWorksheet4/$deductionsWorksheet5";
   }
 }

@@ -310,6 +310,15 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
       //   employeeId: widget.employeeID,//widget.employeeID,
       //   htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
     }
+    else if(htmlName == AppStringLegalDocument.w4){
+      // CovidVaccineDocuemnt covidVaccineDocuemnt = await getCovidVaccineDocument(context: context, employeeId: widget.employeeID, templateId: id);
+      // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+      //   documentName: covidVaccineDocuemnt.name,
+      //   onPressed: () {  },
+      //   htmlFormData: covidVaccineDocuemnt.html,
+      //   employeeId: widget.employeeID,//widget.employeeID,
+      //   htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
+    }
     else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
       showDialog(context: context, builder: (BuildContext context){
         return CandidateReleaseSignPopup(
