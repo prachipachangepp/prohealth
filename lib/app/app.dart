@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:html' as html;
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
@@ -40,6 +41,7 @@ class _App extends State<App> {
     _initializeVersion();
     _timer = Timer.periodic(Duration(minutes: 1), (timer) => _checkForUpdate());
   }
+
 
   @override
   void dispose() {
