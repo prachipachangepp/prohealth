@@ -335,7 +335,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                       routingNumberController,
                                                   specificAmountController:
                                                       specificAmountController,
-                                                  selectedType: selectedType.toString(),
+                                                  selectedType: selectedType,
                                                   onPressed: () async {
                                                     var response =
                                                         await PatchEmployeeBanking(
@@ -382,10 +382,11 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                           : routingNumberController
                                                               .text,
                                                       "NA",
-                                                     // snapshotPrefill.data!.type.toString()
+                                                   // snapshotPrefill.data!.type.toString()
+                                                          selectedType = snapshotPrefill.data!.type
 
 
-                                                      "Checking",
+                                                      //"Checking",
                                                     );
                                                     Navigator.pop(context);
                                                     if (response.statusCode ==

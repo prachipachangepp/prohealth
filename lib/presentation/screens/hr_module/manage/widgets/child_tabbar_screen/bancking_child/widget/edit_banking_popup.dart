@@ -834,6 +834,30 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                     ),
                   ],
                 ),
+                // Row(
+                //   children: [
+                //     CustomRadioListTile(
+                //       title: 'Checking',
+                //       value: 'Checking',
+                //       groupValue: widget.selectedType,
+                //       onChanged: (value) {
+                //         setState(() {
+                //           widget.selectedType = value;
+                //         });
+                //       },
+                //     ),
+                //     CustomRadioListTile(
+                //       title: 'Savings',
+                //       value: 'Savings',
+                //       groupValue: widget.selectedType,
+                //       onChanged: (value) {
+                //         setState(() {
+                //           widget.selectedType = value;
+                //         });
+                //       },
+                //     ),
+                //   ],
+                // ),
                 if (state.hasError)
                   Padding(
                     padding: const EdgeInsets.only(top:1),
