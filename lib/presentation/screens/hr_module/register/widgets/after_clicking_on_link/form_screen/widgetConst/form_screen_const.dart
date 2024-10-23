@@ -78,26 +78,26 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
   void toggleBack(){
     Navigator.pop(context);
   }
-
-  Future<String> _generatePdfAndConvertToBase64() async {
-    final pdf = pw.Document(); // Create PDF page with HTML content (or any content)
-    pdf.addPage(pw.MultiPage(
-      pageFormat: PdfPageFormat.a4, // A4 page size
-      margin: pw.EdgeInsets.zero,
-      build: (context) =>
-    [
-
-      pw.Center(child: pw.Text("PDF with HTML content"),),
-      pw.SizedBox(height: 20), pw.Paragraph(
-      text: widget.htmlFormData,),
-    ],
-    ),); // Convert the PDF document to bytes
-    final pdfBytes = await pdf.save(); // Encode bytes to Base64
-    String base64String = base64Encode(
-        pdfBytes); // Output the Base64 string to console (for example purposes)
-    print("Base64 PDF String: $base64String");
-    return base64String;
-  }
+  //
+  // Future<String> _generatePdfAndConvertToBase64() async {
+  //   final pdf = pw.Document(); // Create PDF page with HTML content (or any content)
+  //   pdf.addPage(pw.MultiPage(
+  //     pageFormat: PdfPageFormat.a4, // A4 page size
+  //     margin: pw.EdgeInsets.zero,
+  //     build: (context) =>
+  //   [
+  //
+  //     pw.Center(child: pw.Text("PDF with HTML content"),),
+  //     pw.SizedBox(height: 20), pw.Paragraph(
+  //     text: widget.htmlFormData,),
+  //   ],
+  //   ),); // Convert the PDF document to bytes
+  //   final pdfBytes = await pdf.save(); // Encode bytes to Base64
+  //   String base64String = base64Encode(
+  //       pdfBytes); // Output the Base64 string to console (for example purposes)
+  //   print("Base64 PDF String: $base64String");
+  //   return base64String;
+  // }
     @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,7 +180,8 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                           text: 'Confirm',
                           onPressed: () async{
 
-                            pdfFile = await _generatePdfAndConvertToBase64();// PdfGenerator.htmlToBase64Pdf(widget.htmlFormData);
+                          //  pdfFile = await _generatePdfAndConvertToBase64();
+                            pdfFile = await PdfGenerator.htmlToBase64Pdf(widget.htmlFormData);
                            // print("Pdf byte ${pdfFile}");
                             setState(() {
                               isLoading = true;
@@ -258,58 +259,58 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
 }
 
 ///code by sir
-// class PdfGenerator {
-//   // Convert HTML to a Base64-encoded PDF
-//   // static Future<String> htmlToBase64Pdf(String htmlContent) async {
-//   //   try {
-//   //     // Step 1: Generate PDF from HTML
-//   //     final dynamic pdfBytes = (await Printing.convertHtml(
-//   //       format: PdfPageFormat.a4,
-//   //       html: htmlContent,
-//   //     ));
-//   //
-//   //     // Step 2: Convert the generated PDF bytes to Base64
-//   //     final String base64Pdf = base64Encode(pdfBytes);
-//   //
-//   //     // Return the Base64-encoded PDF
-//   //     return base64Pdf;
-//   //   } catch (e) {
-//   //     print("Error generating PDF: $e");
-//   //     return "";
-//   //   }
-//   // }
-//   // Convert HTML string to a Base64-encoded PDF
-//   static Future<String> htmlToBase64Pdf(String htmlContent) async {
-//     try {
-//       // String strippedHtml = _removeCss(htmlContent);
-//       // String scaledHtml = _scaleHtmlToFitPage(htmlContent);
-//       final completer = Completer<String>();
-//
-//
-//       // JavaScript function to convert HTML to PDF and return Base64
-//       js.context.callMethod('htmlToPdf', [
-//         htmlContent,
-//         js.allowInterop((base64Pdf) {
-//           completer.complete(base64Pdf);
-//         })
-//       ]);
-//
-//       final base64Pdf = completer.future;
-//       print(base64Pdf);
-//       return base64Pdf;
-//     } catch (e) {
-//       print(e);
-//       return "";
-//     }
-//   }
-//   // static String _scaleHtmlToFitPage(String htmlContent) {
-//   //   return '''
-//   //   <div style="width: 100%; height: 100vh; overflow: hidden; transform: scale(0.75); transform-origin: top left;">
-//   //     $htmlContent
-//   //   </div>
-//   //   ''';
-//   // }
-// }
+class PdfGenerator {
+  // Convert HTML to a Base64-encoded PDF
+  // static Future<String> htmlToBase64Pdf(String htmlContent) async {
+  //   try {
+  //     // Step 1: Generate PDF from HTML
+  //     final dynamic pdfBytes = (await Printing.convertHtml(
+  //       format: PdfPageFormat.a4,
+  //       html: htmlContent,
+  //     ));
+  //
+  //     // Step 2: Convert the generated PDF bytes to Base64
+  //     final String base64Pdf = base64Encode(pdfBytes);
+  //
+  //     // Return the Base64-encoded PDF
+  //     return base64Pdf;
+  //   } catch (e) {
+  //     print("Error generating PDF: $e");
+  //     return "";
+  //   }
+  // }
+  // Convert HTML string to a Base64-encoded PDF
+  static Future<String> htmlToBase64Pdf(String htmlContent) async {
+    try {
+      // String strippedHtml = _removeCss(htmlContent);
+      // String scaledHtml = _scaleHtmlToFitPage(htmlContent);
+      final completer = Completer<String>();
+
+
+      // JavaScript function to convert HTML to PDF and return Base64
+      js.context.callMethod('htmlToPdf', [
+        htmlContent,
+        js.allowInterop((base64Pdf) {
+          completer.complete(base64Pdf);
+        })
+      ]);
+
+      final base64Pdf = completer.future;
+      print(base64Pdf);
+      return base64Pdf;
+    } catch (e) {
+      print(e);
+      return "";
+    }
+  }
+  // static String _scaleHtmlToFitPage(String htmlContent) {
+  //   return '''
+  //   <div style="width: 100%; height: 100vh; overflow: hidden; transform: scale(0.75); transform-origin: top left;">
+  //     $htmlContent
+  //   </div>
+  //   ''';
+  // }
+}
 ///
 // class PdfGenerator {
 //   // Convert HTML string to a Base64-encoded PDF

@@ -110,7 +110,6 @@ class _INineSignPopupState extends State<INineSignPopup> {
                 controller: citizenshipController,
                 keyboardType: TextInputType.text,
                 text: 'Citizenship',
-                showDatePicker: true,
               ),
               if (citizenshipError != null)
                 Text(
