@@ -323,66 +323,27 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                 return EditBankingPopUp(
                                                   title: 'Edit Banking',
                                                   banckId: index,
-                                                  effectiveDateController:
-                                                      effectiveDateController,
-                                                  bankNameController:
-                                                      bankNameController,
-                                                  accountNumberController:
-                                                      accountNumberController,
-                                                  verifyAccountController:
-                                                  verifyAccountController,
-                                                  routingNumberController:
-                                                      routingNumberController,
-                                                  specificAmountController:
-                                                      specificAmountController,
+                                                  effectiveDateController: effectiveDateController,
+                                                  bankNameController: bankNameController,
+                                                  accountNumberController: accountNumberController,
+                                                  verifyAccountController: verifyAccountController,
+                                                  routingNumberController: routingNumberController,
+                                                  specificAmountController: specificAmountController,
                                                   selectedType: selectedType,
                                                   onPressed: () async {
                                                     var response =
                                                         await PatchEmployeeBanking(
                                                       context,
-                                                      snapshot.data![index]
-                                                          .empBankingId,
-                                                      snapshotPrefill
-                                                          .data!.employeeId,
-                                                      accountNumber ==
-                                                              accountNumberController
-                                                                  .text
-                                                          ? accountNumber
-                                                              .toString()
-                                                          : accountNumberController
-                                                              .text,
-                                                      bankName ==
-                                                              bankNameController
-                                                                  .text
-                                                          ? bankName.toString()
-                                                          : bankNameController
-                                                              .text,
-                                                      amount ==
-                                                              int.parse(
-                                                                  specificAmountController
-                                                                      .text)
-                                                          ? amount
-                                                          : int.parse(
-                                                              specificAmountController
-                                                                  .text),
-                                                      snapshotPrefill
-                                                          .data!.checkUrl,
-                                                      effectiveDate ==
-                                                              effectiveDateController
-                                                                  .text
-                                                          ? effectiveDate
-                                                              .toString()
-                                                          : effectiveDateController
-                                                              .text,
-                                                      routingNumber ==
-                                                              routingNumberController
-                                                                  .text
-                                                          ? routingNumber
-                                                              .toString()
-                                                          : routingNumberController
-                                                              .text,
+                                                      snapshot.data![index].empBankingId,
+                                                      snapshotPrefill.data!.employeeId,
+                                                      accountNumber == accountNumberController.text ? accountNumber.toString() : accountNumberController.text,
+                                                      bankName == bankNameController.text ? bankName.toString() : bankNameController.text,
+                                                      amount == int.parse(specificAmountController.text) ? amount: int.parse(specificAmountController.text),
+                                                      snapshotPrefill.data!.checkUrl,
+                                                      effectiveDate == effectiveDateController.text ? effectiveDate.toString() : effectiveDateController.text,
+                                                      routingNumber == routingNumberController.text ? routingNumber.toString() : routingNumberController.text,
                                                       "NA",
-                                                   // snapshotPrefill.data!.type.toString()
+                                                         // snapshotPrefill.data!.type.toString()
                                                           selectedType = snapshotPrefill.data!.type
 
 

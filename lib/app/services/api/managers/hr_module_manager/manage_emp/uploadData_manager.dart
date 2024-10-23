@@ -74,8 +74,12 @@ Future<ApiData> patchEmployeeBase64Documents({
     AppFilePickerBase64.getEncodeBase64(
         bytes: documentFile);
     print("File :::${documents}" );
-    var response = await Api(context).post(
-      path: UploadDocumentRepository.PatchUploadEmployeeDocumentGet(employeeDocumentId: employeeDocumentId),
+    var response = await Api(context).patch(
+      path: UploadDocumentRepository.PatchUploadEmployeeDocumentGet(
+          employeeDocumentId: employeeDocumentId,
+          employeeDocumentTypeMetaDataId: employeeDocumentMetaId,
+          employeeDocumentTypeSetupId: employeeDocumentTypeSetupId,
+          employeeId: employeeId),
       data: {
         "EmployeeDocumentTypeMetaDataId": employeeDocumentMetaId,
         "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
@@ -87,14 +91,14 @@ Future<ApiData> patchEmployeeBase64Documents({
     );
     print("Response ${response.toString()}");
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Documents updated");
+      print("Documents updated;;;;;;;;;;;;;");
       // orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!);
     } else {
-      print("Error 1");
+      print("Error 1;;;;;;;;;;;;;;;;;;");
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
