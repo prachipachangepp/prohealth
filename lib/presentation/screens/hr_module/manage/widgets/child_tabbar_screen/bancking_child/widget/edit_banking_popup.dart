@@ -533,8 +533,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                       employeeId: widget.employeeID,
                                       accountNumber: accountnumber.text,
                                       bankName: bankname.text,
-                                      amountRequested: int.parse(
-                                          requestammount.text),
+                                      amountRequested: int.parse(requestammount.text),
                                       checkUrl: '--',
                                       effectiveDate: effectivecontroller.text,
                                       routingNumber: routingnumber.text,
@@ -907,7 +906,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
          SizedBox(height: MediaQuery.of(context).size.height / 20),
         _buildTextField(
             capitalIsSelect:false,
-          controller:widget.routingNumberController, labelText: 'Routing Number/ Transit Number',
+          controller:widget.routingNumberController,
+          labelText: 'Routing Number/ Transit Number',
           errorText: rnumber?"Please Enter Routing Number" : null, ),
           SizedBox(height: MediaQuery.of(context).size.height / 30),
         // Text('Requested Amount for this Account (select one)',

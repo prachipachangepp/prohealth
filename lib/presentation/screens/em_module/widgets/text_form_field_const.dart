@@ -119,6 +119,90 @@ class _SMTextFConstState extends State<SMTextFConst> {
   }
 }
 
+///number only
+
+class SMNumberTextFConst extends StatefulWidget {
+  final TextEditingController controller;
+  final String text;
+  final Color textColor;
+  final bool? readOnly;
+  final VoidCallback? onChange;
+  final bool? enable;
+  final Widget? prefixWidget;
+  final String? Function(String?)? validator;
+  final FocusNode? focusNode;
+  final double? width;
+  final Icon? suffixIcon;
+
+  SMNumberTextFConst({
+    Key? key,
+    this.focusNode,
+    required this.controller,
+    required this.text,
+    this.textColor = const Color(0xff686464),
+    this.onChange,
+    this.readOnly,
+    this.enable,
+    this.validator,
+    this.prefixWidget,
+    this.width,
+    this.suffixIcon,
+  }) : super(key: key);
+
+  @override
+  State<SMNumberTextFConst> createState() => _SMNumberTextFConstState();
+}
+
+class _SMNumberTextFConstState extends State<SMNumberTextFConst> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.text,
+          style: AllPopupHeadings.customTextStyle(context),
+        ),
+        const SizedBox(height: 5),
+        Container(
+          width: widget.width ?? 354,
+          height: 30,
+          decoration: BoxDecoration(
+            border: Border.all(color: const Color(0xFFB1B1B1), width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: TextFormField(
+            focusNode: widget.focusNode,
+            autofocus: true,
+            enabled: widget.enable ?? true,
+            controller: widget.controller,
+            keyboardType: TextInputType.number, // Number input type
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly, // Only digits allowed
+            ],
+            cursorHeight: 17,
+            cursorColor: Colors.black,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            decoration: InputDecoration(
+              suffixIcon: widget.suffixIcon,
+              prefix: widget.prefixWidget,
+              border: InputBorder.none,
+              contentPadding:
+              const EdgeInsets.only(bottom: 18, left: AppPadding.p15),
+            ),
+            style: TableSubHeading.customTextStyle(context),
+            onTap: widget.onChange,
+            validator: widget.validator,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+
 ////defualt Email
 
 class DemailSMTextFConst extends StatefulWidget {
@@ -396,7 +480,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      lastDate: DateTime(3000),
     );
     if (pickedDate != null) {
       widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);

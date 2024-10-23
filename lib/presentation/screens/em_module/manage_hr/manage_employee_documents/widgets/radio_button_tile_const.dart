@@ -18,29 +18,31 @@ class CustomRadioListTile extends StatefulWidget {
   @override
   _CustomRadioListTileState createState() => _CustomRadioListTileState();
 }
-
-
 class _CustomRadioListTileState extends State<CustomRadioListTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
-        children: [
-          Radio<String>(
-           splashRadius: 0,
-            focusColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            value: widget.value,
-            groupValue: widget.groupValue,
-            onChanged: widget.onChanged,
-          ),
-          const SizedBox(width: 0),
-          Text(
-            widget.title,
-            style: DocumentTypeDataStyle.customTextStyle(context),
-          ),
-        ],
+      child: Expanded(
+        child: Row(
+           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Radio<String>(
+             splashRadius: 0,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              value: widget.value,
+              groupValue: widget.groupValue,
+              onChanged: widget.onChanged,
+            ),
+            // const SizedBox(width: 0),
+            Text(
+              widget.title,
+              style: DocumentTypeDataStyle.customTextStyle(context),
+            ),
+            SizedBox( width: 40,)
+          ],
+        ),
       ),
     );
   }
