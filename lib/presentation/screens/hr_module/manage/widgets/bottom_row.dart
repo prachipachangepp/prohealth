@@ -184,10 +184,7 @@ String? _city;
                 future: getCurrentLocation(),
                 builder: (context,snapshot) {
                   if(snapshot.connectionState == ConnectionState.waiting){
-                    return Center(child: SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(color: ColorManager.blueprime,)),);
+                    return Center(child: Text("Loading.."));
                   }
                   if(snapshot.data!.isEmpty){
                     return Text(

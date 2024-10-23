@@ -459,10 +459,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                           future: getCurrentLocation(),
                           builder: (context,snapshot) {
                             if(snapshot.connectionState == ConnectionState.waiting){
-                              return SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: CircularProgressIndicator(color: ColorManager.blueprime,));
+                              return Center(child: Text("Loading.."));
                             }
                             if(snapshot.data!.isEmpty){
                               return Text(

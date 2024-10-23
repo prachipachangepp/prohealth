@@ -285,8 +285,11 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
 
 
                                                 var amount = snapshotPrefill.data!.amountRequested;
+                                                selectedType = snapshotPrefill.data!.type;
                                                 specificAmountController = TextEditingController(text: snapshotPrefill.data!.amountRequested.toString());
                                                 verifyAccountController = TextEditingController(text: snapshotPrefill.data!.accountNumber);
+
+
 
                                                 return EditBankingPopUp(
                                                   title: 'Edit Banking',
@@ -304,7 +307,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                   specificAmountController:
                                                       specificAmountController,
                                                   selectedType: selectedType,
-                                                  onPressed: () async {
+                                                  onPressed: (gropvalue) async {
                                                     var response =
                                                         await PatchEmployeeBanking(
                                                       context,
@@ -326,11 +329,16 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                           : routingNumberController.text,
                                                       "NA",
                                                    // snapshotPrefill.data!.type.toString()
-                                                          selectedType = snapshotPrefill.data!.type
+                                                          selectedType = gropvalue
 
 
                                                       //"Checking",
                                                     );
+                                                    print("::::;${bankName}");
+                                                    print("::::;${effectiveDate}");
+                                                    print("::::;${routingNumber}");
+                                                    print("::::;${accountNumber}");
+
                                                     Navigator.pop(context);
                                                     if (response.statusCode ==
                                                             200 ||
