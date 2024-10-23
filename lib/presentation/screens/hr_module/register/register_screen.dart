@@ -361,7 +361,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final Map<String, String> displayTextMap = {
       'Sort': 'Sort',
       'Opened': 'Opened',
-      'Notopen': 'Not Open',
+      'Notopen': 'Not Opened',
       'Partial': 'Partial',
       'Completed': 'Completed',
     };
@@ -486,7 +486,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                data.status == 'Notopen'
+                data.status == 'Notopened'
                     ? Text('Not Opened',
                   style: DocumentTypeDataStyle.customTextStyle(context),)
                     : Text(
@@ -494,7 +494,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style:DocumentTypeDataStyle.customTextStyle(context)
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 100),
-                data.status == 'Notopen'
+                data.status == 'Notopened'
                     ? const SizedBox(width: 10)
                     : Container(
                   width: 10.0,
@@ -509,7 +509,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 100),
-                data.status == 'Notopen'
+                data.status == 'Notopened'
                     ? const SizedBox(width: 10)
                     : Text(
                   data.status,
@@ -548,12 +548,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style:DocumentTypeDataStyle.customTextStyle(context)
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width / 20),
-                      data.status == 'Notopen'
+                      data.status == 'Notopened'
                           ? const Text('')
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:60550/#/onBordingWelcome";
+                          const url = "http://localhost:59978/#/onBordingWelcome";
                          // const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           ///
@@ -569,7 +569,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: RegisterLinkDataStyle.customTextStyle(context),
                         ),
                       ),
-                      data.status == 'Notopen'
+                      data.status == 'Notopened'
                           ? const Text('')
                           : InkWell(onTap: (){
                             _copyToClipboard(
@@ -578,7 +578,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },child: Icon(Icons.copy,size: 15,color: ColorManager.mediumgrey,)),
                     ],
                   ),
-                  data.status == 'Notopen'
+                  data.status == 'Notopened'
                       ? Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
