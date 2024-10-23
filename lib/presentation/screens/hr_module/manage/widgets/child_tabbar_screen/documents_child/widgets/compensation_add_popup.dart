@@ -854,7 +854,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                 employeeId: widget.employeeId,
                 documentUrl: widget.url,
                 uploadDate: DateTime.now().toIso8601String()+"Z",
-                expiryDate: expiryDate, documentFile: fileIsPicked ? filePath : "");
+                expiryDate: expiryDate,);
 
             if (updatedResponse.statusCode == 200 ||
                 updatedResponse.statusCode == 201) {
@@ -867,39 +867,41 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                   );
                 },
               );
-              // if (fileIsPicked) {
-              //   var response = await uploadDocuments(
-              //       context: context,
-              //       employeeDocumentMetaId: widget.docMetaDataId,
-              //       employeeDocumentTypeSetupId: widget.docSetupId,
-              //       employeeId: widget.employeeId,
-              //       documentName: fileName,
-              //       documentFile: filePath);
-              //   if (response.statusCode == 200 || response.statusCode == 201) {
-              //     Navigator.pop(context);
-              //     showDialog(
-              //       context: context,
-              //       builder: (BuildContext context) {
-              //         return AddSuccessPopup(
-              //           message: 'Document Edited Successfully',
-              //         );
-              //       },
-              //     );
-              //   } else {
-              //     Navigator.pop(context);
-              //     print('Error');
-              //   }
-              // } else {
-              //   Navigator.pop(context);
-              //   showDialog(
-              //     context: context,
-              //     builder: (BuildContext context) {
-              //       return AddSuccessPopup(
-              //         message: 'Document Edited Successfully',
-              //       );
-              //     },
-              //   );
-              // }
+              if (fileIsPicked) {
+                var response = await patchEmployeeBase64Documents(
+                    context: context,
+                    employeeDocumentId: widget.empDocumentId,
+                    expiryDate: expiryDate,
+                    employeeDocumentMetaId: widget.docMetaDataId,
+                    employeeDocumentTypeSetupId: widget.docSetupId,
+                    employeeId: widget.employeeId,
+                    documentName: fileName,
+                    documentFile: filePath);
+                if (response.statusCode == 200 || response.statusCode == 201) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddSuccessPopup(
+                        message: 'Document Edited Successfully',
+                      );
+                    },
+                  );
+                } else {
+                  Navigator.pop(context);
+                  print('Error');
+                }
+              } else {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddSuccessPopup(
+                      message: 'Document Edited Successfully',
+                    );
+                  },
+                );
+              }
             }
             setState(() {
               loading = false;

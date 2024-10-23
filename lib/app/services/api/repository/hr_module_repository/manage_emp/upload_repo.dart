@@ -1,5 +1,6 @@
 class UploadDocumentRepository{
   static const String uploadEmployeeDocument = "/employee-documents/uploadDocumentbase64";
+  static const String patchUploadEmployeeDocument = "/employee-documents/withBase64";
   static const String patchEmployeeDocument =  "/employee-documents";
 
   static String uploadEmployeeDocumentGet({required int employeeDocumentTypeMetaDataId,required int employeeDocumentTypeSetupId, required int employeeId}){
@@ -7,5 +8,8 @@ class UploadDocumentRepository{
   }
   static String PatchEmployeeDocumentGet({required int employeeDocumentId,}){
     return "$patchEmployeeDocument/$employeeDocumentId";
+  }
+  static String PatchUploadEmployeeDocumentGet({required int employeeDocumentId,}){
+    return "$patchUploadEmployeeDocument/$employeeDocumentId";
   }
 }
