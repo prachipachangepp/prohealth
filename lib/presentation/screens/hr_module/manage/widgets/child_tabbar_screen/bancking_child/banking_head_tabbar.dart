@@ -327,8 +327,10 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                   bankNameController: bankNameController,
                                                   accountNumberController: accountNumberController,
                                                   verifyAccountController: verifyAccountController,
-                                                  routingNumberController: routingNumberController,
-                                                  specificAmountController: specificAmountController,
+                                                  routingNumberController:
+                                                      routingNumberController,
+                                                  specificAmountController:
+                                                      specificAmountController,
                                                   selectedType: selectedType,
                                                   onPressed: () async {
                                                     var response =
