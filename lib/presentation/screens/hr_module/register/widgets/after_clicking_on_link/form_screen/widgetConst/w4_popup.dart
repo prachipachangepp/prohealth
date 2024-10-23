@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
+import '../../../../../../../../data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
+import '../../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/dialogue_template.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
+import 'form_screen_const.dart';
 
 class WFourSignPopup extends StatefulWidget {
   final int employeeId;
@@ -95,6 +100,9 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
 
   @override
   Widget build(BuildContext context) {
+    double textFieldWidth = 354;
+    double textFieldHeight = 30;
+    double cursorheight = 17;
     return TerminationDialogueTemplate(
       width: AppSize.s800,
       height: AppSize.s610,
@@ -131,88 +139,64 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: step3aController,
-                    keyboardType: TextInputType.text,
-                    text: 'Step 3a',
-                  ),
+                  SMNumberTextFConst(
+                      controller: step3aController, text: 'Step 3a'),
                   if (step3aError != null)
                     Text(
                       step3aError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: step3bController,
-                    keyboardType: TextInputType.text,
-                    text: 'Step 3b',
-                  ),
+                  SMNumberTextFConst(
+                      controller: step3bController, text: 'Step 3b'),
                   if (step3bError != null)
                     Text(
                       step3bError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: step3cController,
-                    keyboardType: TextInputType.text,
-                    text: 'Step 3c',
-                  ),
+                  SMNumberTextFConst(
+                      controller: step3cController, text: 'Step 3c'),
                   if (step3cError != null)
                     Text(
                       step3cError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: step4aController,
-                    keyboardType: TextInputType.text,
-                    text: 'Step 4a',
-                  ),
+                  SMNumberTextFConst(
+                      controller: step4aController, text: 'Step 4a'),
                   if (step4aError != null)
                     Text(
                       step4aError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: step4bController,
-                    keyboardType: TextInputType.text,
-                    text: 'Step 4b',
-                  ),
+                  SMNumberTextFConst(
+                      controller: step4bController, text: 'Step 4b'),
                   if (step4bError != null)
                     Text(
                       step4bError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: step4cController,
-                    keyboardType: TextInputType.text,
-                    text: 'Step 4c',
-                  ),
+                  SMNumberTextFConst(
+                      controller: step4cController, text: 'Step 4c'),
                   if (step4cError != null)
                     Text(
                       step4cError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: multipleJW1Controller,
-                    keyboardType: TextInputType.text,
-                    text: 'Multiple JW1',
-                  ),
+                  SMNumberTextFConst(
+                      controller: multipleJW1Controller, text: 'Multiple JW1'),
                   if (multipleJW1Error != null)
                     Text(
                       multipleJW1Error!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: multipleJW12aController,
-                    keyboardType: TextInputType.text,
-                    text: 'Multiple JW12a',
-                  ),
+                  SMNumberTextFConst(
+                      controller: multipleJW12aController, text: 'Multiple JW12a'),
                   if (multipleJW12aError != null)
                     Text(
                       multipleJW12aError!,
@@ -223,99 +207,72 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SMTextFConst(
-                    controller: multipleJW12bController,
-                    keyboardType: TextInputType.text,
-                    text: 'Multiple JW12b',
-                  ),
+                  SMNumberTextFConst(
+                      controller: multipleJW12bController, text: 'Multiple JW12b'),
                   if (multipleJW12bError != null)
                     Text(
                       multipleJW12bError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                    SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: multipleJW12cController,
-                    keyboardType: TextInputType.text,
-                    text: 'Multiple JW12c',
-                  ),
+                  SMNumberTextFConst(
+                      controller: multipleJW12cController, text: 'Multiple JW12c'),
                   if (multipleJW12cError != null)
                     Text(
                       multipleJW12cError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: multipleJW13Controller,
-                    keyboardType: TextInputType.text,
-                    text: 'Multiple JW13',
-                  ),
+                  SMNumberTextFConst(
+                      controller: multipleJW13Controller, text: 'Multiple JW13'),
                   if (multipleJW13Error != null)
                     Text(
                       multipleJW13Error!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: multipleJW14Controller,
-                    keyboardType: TextInputType.text,
-                    text: 'Multiple JW14',
-                  ),
+                  SMNumberTextFConst(
+                      controller: multipleJW14Controller, text: 'Multiple JW14'),
                   if (multipleJW14Error != null)
                     Text(
                       multipleJW14Error!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: dw1Controller,
-                    keyboardType: TextInputType.text,
-                    text: 'Deduction Worksheet 1',
-                  ),
+                  SMNumberTextFConst(
+                      controller: dw1Controller, text: 'Deduction Worksheet 1'),
                   if (dw1Error != null)
                     Text(
                       dw1Error!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: dw2Controller,
-                    keyboardType: TextInputType.text,
-                    text: 'Deduction Worksheet 2',
-                  ),
+                  SMNumberTextFConst(
+                      controller: dw2Controller, text: 'Deduction Worksheet 2'),
                   if (dw2Error != null)
                     Text(
                       dw2Error!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: dw3Controller,
-                    keyboardType: TextInputType.text,
-                    text: 'Deduction Worksheet 3',
-                  ),
+                  SMNumberTextFConst(
+                      controller: dw3Controller, text: 'Deduction Worksheet 3'),
                   if (dw3Error != null)
                     Text(
                       dw3Error!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: dw4Controller,
-                    keyboardType: TextInputType.text,
-                    text: 'Deduction Worksheet 4',
-                  ),
+                  SMNumberTextFConst(
+                      controller: dw4Controller, text: 'Deduction Worksheet 4'),
                   if (dw4Error != null)
                     Text(
                       dw4Error!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: dw5Controller,
-                    keyboardType: TextInputType.text,
-                    text: 'Deduction Worksheet 5',
-                  ),
+                  SMNumberTextFConst(
+                      controller: dw5Controller, text: 'Deduction Worksheet 5'),
                   if (dw5Error != null)
                     Text(
                       dw5Error!,
@@ -339,26 +296,32 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
           width: AppSize.s105,
           height: AppSize.s30,
           text: AppStringEM.submit,
-          onPressed: () {_validateForm(); // Validate the form on button press
+          onPressed: () async {_validateForm(); // Validate the form on button press
           if (_isFormValid) {
             setState(() {
               loading = true;
             });
-            // DirectDepositDocuemnt directDepositDocuemnt = await getDirectDepositDocument(context: context, employeeId: widget.employeeId, templateId: widget.htmlFormTemplateId, action1:actionController.text, type1: typeController.text,
-            //   bankNameAndAddress: bankNameController.text, routingOrtransit1: rountingController.text, account1: accountController.text, amount1: amountController.text, action2: action2Controller.text, type2: type2Controller.text, bankNameAndaddress2: bankName2Controller.text,
-            //   routingOrtransit2: rounting2Controller.text, account2: account2Controller.text, amount2: amount2Controller.text, );
-            // if(directDepositDocuemnt.statusCode == 200 || directDepositDocuemnt.statusCode == 201){
-            //   Navigator.pop(context);
-            //   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-            //     documentName: directDepositDocuemnt.name,
-            //     onPressed: () {
-            //
-            //     },
-            //     htmlFormData: directDepositDocuemnt.html,
-            //     employeeId: widget.employeeId,//widget.employeeID,
-            //     htmlFormTemplateId: directDepositDocuemnt.directDepositDocuemntId,)));
-            // }
-            //
+            WFourDocument wfourDocument = await getW4Document(context: context, templateId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
+                middleName: nameController.text, marriedstatus: statusController.text, step3a: int.parse(step3aController.text),
+                step3b: int.parse(step3bController.text), step3c: int.parse(step3cController.text), step4a: int.parse(step4aController.text),
+                step4b: int.parse(step4bController.text), step4c: int.parse(step4cController.text), multipleJW1: int.parse(multipleJW1Controller.text),
+                multipleJW12a: int.parse(multipleJW12aController.text), multipleJW12b: int.parse(multipleJW12bController.text),
+                multipleJW12c: int.parse(multipleJW12cController.text), multipleJW13: int.parse(multipleJW13Controller.text),
+                multipleJW14: int.parse(multipleJW14Controller.text), deductionsWorksheet1: int.parse(dw1Controller.text),
+                deductionsWorksheet2: int.parse(dw2Controller.text), deductionsWorksheet3: int.parse(dw3Controller.text),
+                deductionsWorksheet4: int.parse(dw4Controller.text), deductionsWorksheet5: int.parse(dw5Controller.text));
+            if(wfourDocument.statusCode == 200 || wfourDocument.statusCode == 201){
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                documentName: wfourDocument.name,
+                onPressed: () {
+
+                },
+                htmlFormData: wfourDocument.html,
+                employeeId: widget.employeeId,//widget.employeeID,
+                htmlFormTemplateId: wfourDocument.wFourDocumentId,)));
+            }
+
           };
           //finally {
           setState(() {

@@ -507,7 +507,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     if (snapshot.data!.isEmpty) {
                       return Center(
                         child: Text(
-                          AppStringHRNoData.noOnboardingData,
+                          AppStringHRNoData.nolegalDocData,
                           style: AllNoDataAvailable.customTextStyle(context),
                         ),
                       );
