@@ -21,13 +21,6 @@ import '../../../custom_icon_button_constant.dart';
 
 
 
-
-
-
-
-
-
-
 class AddBankingPopup extends StatefulWidget {
   final int employeeID;
   final int banckId;

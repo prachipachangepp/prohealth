@@ -443,10 +443,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return FutureBuilder<
-                                                      EmployeeDocumentPrefillData>(
-                                                  future:
-                                                      getPrefillEmployeeDocuments(
+                                              return FutureBuilder<EmployeeDocumentPrefillData>(
+                                                  future: getPrefillEmployeeDocuments(
                                                           context: context,
                                                           empDocumentId: ackData
                                                               .employeeDocumentId),
