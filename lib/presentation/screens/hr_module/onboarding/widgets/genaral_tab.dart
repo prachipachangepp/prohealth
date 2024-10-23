@@ -76,7 +76,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
 
                     SizedBox(width: 1,),
                     Text(
-                      'Go Back',
+                      'Back',
                       style: DefineWorkWeekStyle.customTextStyle(context),
                     ),
                   ],

@@ -160,6 +160,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
 
                               child: Row(
+
                                 children: [
                                   Icon(
                                     Icons.arrow_back,
@@ -170,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                                   SizedBox(width: 1,),
                                   Text(
-                                    'Go Back',
+                                    'Back',
                                     style: DefineWorkWeekStyle.customTextStyle(context),
                                   ),
                                 ],

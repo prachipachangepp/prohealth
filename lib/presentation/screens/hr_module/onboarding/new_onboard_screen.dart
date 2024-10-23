@@ -131,7 +131,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
 
                         SizedBox(width: 1,),
                         Text(
-                          'Go Back',
+                          'Back',
                           style: DefineWorkWeekStyle.customTextStyle(context),
                         ),
                       ],
@@ -220,7 +220,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                   ),
                   if (widget.selectedIndex != 0)
                     Padding(
-                      padding: const EdgeInsets.only(bottom: AppPadding.p10),
+                      padding: const EdgeInsets.only(bottom: AppPadding.p5),
                       child: Container(
                         //color: ColorManager.red,
                         child: Text(
