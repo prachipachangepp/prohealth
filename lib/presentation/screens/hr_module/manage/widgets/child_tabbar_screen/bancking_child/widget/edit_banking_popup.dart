@@ -121,8 +121,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
