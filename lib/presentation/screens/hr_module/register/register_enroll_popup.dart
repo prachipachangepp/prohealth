@@ -70,6 +70,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   int? _selectedItemIndex;
   int country = 0;
   int countyId =0;
+  var deptID = 1;
   String reportingOfficeId ='';
   String specialityName = '';
   String clinicialName ='';
@@ -442,7 +443,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           ),
                           ///clinician
                           FutureBuilder<List<AEClinicalDiscipline>>(
-                            future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                            future: HrAddEmplyClinicalDisciplinApi(context, deptID),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {

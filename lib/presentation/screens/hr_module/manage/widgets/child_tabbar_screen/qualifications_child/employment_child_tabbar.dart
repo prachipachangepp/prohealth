@@ -63,14 +63,6 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
           children: [
             ///add button
             Container(
-              height:35,
-              width:100,
-              child:ElevatedButton(onPressed: (){
-                HtmlPostRequiest().makePostRequest("pro-health-employee-handbook", "exampleData");
-              },
-                  child: Text("Html"))
-            ),
-            Container(
               width: 100,
               margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(

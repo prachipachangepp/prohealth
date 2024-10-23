@@ -857,8 +857,7 @@ class _generalFormState extends State<generalForm> {
                       //
                       // ///clinician
                       // FutureBuilder<List<AEClinicalDiscipline>>(
-                      //   future:
-                      //   HrAddEmplyClinicalDisciplinApi(context, 1),
+                      //   future: HrAddEmplyClinicalDisciplinApi(context, 1),
                       //   builder: (context, snapshot) {
                       //     if (snapshot.connectionState ==
                       //         ConnectionState.waiting) {

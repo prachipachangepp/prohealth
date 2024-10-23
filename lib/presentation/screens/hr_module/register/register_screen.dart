@@ -115,7 +115,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? selectedDeptName;
   int? selectedDeptId;
 
-
   //
   // final PageController _pageController = PageController();
   // int _currentIndex = 0;
@@ -132,9 +131,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   //   }
   // }
   //
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -556,7 +552,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:57651/#/onBordingWelcome";
+                          const url = "http://localhost:53617/#/onBordingWelcome";
                          // const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           ///
