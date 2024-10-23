@@ -562,3 +562,49 @@ Future<WFourDocument> getW4Document({
     return itemsData;
   }
 }
+
+///Employment Application
+Future<EmploymentAppDocument> getEmployeeApplicationDocument({ required BuildContext context, required int employmentAppFormhtmlId, required int employeeId,
+  required String middleName, required String faxNo, required String ifHired,required String positionApplying,required String positionDesired,
+  required String dateAvailable, required String specifyWorkingHrs, required String salary,required String sourceReferral,required String value,
+}) async {
+  var itemsData ;
+  try {
+    final response = await ApiOffer(context).get(
+        path: LegalDocumentsRepo.getEmplAppDocument(employmentAppFormhtmlId: employmentAppFormhtmlId, employeeId: employeeId,
+            middleName: middleName, faxNo: faxNo, ifHired: ifHired, positionApplying: positionApplying, positionDesired: positionDesired,
+            dateAvailable: dateAvailable, specifyWorkingHrs: specifyWorkingHrs, salary: salary, sourceReferral: sourceReferral, value: value));
+         if (response.statusCode == 200 || response.statusCode == 201) {
+      print('Employment Application Docuemnt Fetched');
+      itemsData = EmploymentAppDocument(EmpAppDocumentId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);
+    } else {
+      print("Employment ApplicationDocument");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
+///i9
+Future<INineDocument> getI9Document({ required BuildContext context, required int i9FormhtmlId, required int employeeId,
+  required String middleName, required String otherLastName, required String aptNumber,required String alienInfo,required String citizenship,
+}) async {
+  var itemsData ;
+  try {
+    final response = await ApiOffer(context).get(
+        path: LegalDocumentsRepo.getINineDocument(i9FormhtmlId: i9FormhtmlId, employeeId: employeeId, middleName: middleName,
+            otherLastName: otherLastName, aptNumber: aptNumber, alienInfo: alienInfo, citizenship: citizenship));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print('I9 Docuemnt Fetched');
+      itemsData = INineDocument(iNineDocumentId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);
+    } else {
+      print("I9");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}

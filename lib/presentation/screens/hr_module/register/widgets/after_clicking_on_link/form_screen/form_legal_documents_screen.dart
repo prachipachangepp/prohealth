@@ -16,9 +16,11 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/candidate_release_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/const_form_list.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/direct_deposit_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/employment_application_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/flue_vaccine_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/form_screen_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/company_property_popup_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/i9_form_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/widgetConst/w4_popup.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -293,9 +295,19 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         return FlueVaccineSignPopup(employeeId: widget.employeeID, htmlFormTemplateId: id);
       });
     }
+    else if(htmlName == AppStringLegalDocument.employmentApplication){
+      showDialog(context: context, builder: (BuildContext context){
+        return EmploymentAppSignPopup(employeeId: widget.employeeID, htmlFormTemplateId: id);
+      });
+    }
     else if(htmlName == AppStringLegalDocument.w4){
       showDialog(context: context, builder: (BuildContext context){
         return WFourSignPopup(employeeId: widget.employeeID, htmlFormTemplateId: id);
+      });
+    }
+    else if(htmlName == AppStringLegalDocument.i9){
+      showDialog(context: context, builder: (BuildContext context){
+        return INineSignPopup(employeeId: widget.employeeID, htmlFormTemplateId: id);
       });
     }
     else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
@@ -501,7 +513,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     if (snapshot.data!.isEmpty) {
                       return Center(
                         child: Text(
-                          AppStringHRNoData.noOnboardingData,
+                          AppStringHRNoData.nolegalDocData,
                           style: AllNoDataAvailable.customTextStyle(context),
                         ),
                       );

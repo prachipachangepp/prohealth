@@ -337,7 +337,7 @@ class AppStringHRNoData {
   static const String othersnNoData = 'No available others document!';
   static const String payRatesNoData = 'No available pay rates!';
   ///onboarding screen
-  // static const String employeeNoData = 'No employement available!';
+  static const String nolegalDocData = 'No Legal Document available!';
   static const String noOnboardingData = 'No available onboarding data!';
   static const String noOnboardEmpData = 'No available qualification employement!';
   static const String noOnboardEdnData = 'No available qualification education!';
@@ -373,8 +373,9 @@ class AppStringLegalDocument {
   static const String tDap = 'T dap';
   static const String flu = 'Flu-vaccine-form';
   static const String covidVaccine = 'February-covid-vaccination-policy-mandatory';
-  static const String i9 = 'i9';
+  static const String i9 = 'i-9 paper version';
+  static const String employmentApplication = 'Employment Application';
   static const String w4 = 'W4';
-  static const String employeeHandbook = 'Employee Handbook';
+  static const String employeeHandbook = 'ProHealth-Employee-Handbook';
   static const String proHealthCellPhone = "Data-Cell_Agreement";
 }
