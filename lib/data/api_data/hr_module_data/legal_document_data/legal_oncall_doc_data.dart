@@ -149,3 +149,19 @@ class WFourDocument{
   final int statusCode;
   WFourDocument({required this.statusCode,required this.wFourDocumentId, required this.name, required this.html});
 }
+
+class EmploymentAppDocument{
+  final int EmpAppDocumentId;
+  final String name;
+  final String html;
+  final int statusCode;
+  EmploymentAppDocument({required this.statusCode,required this.EmpAppDocumentId, required this.name, required this.html});
+}
+
+class INineDocument{
+  final int iNineDocumentId;
+  final String name;
+  final String html;
+  final int statusCode;
+  INineDocument({required this.statusCode,required this.iNineDocumentId, required this.name, required this.html});
+}

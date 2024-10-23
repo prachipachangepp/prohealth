@@ -374,6 +374,7 @@ class AppStringLegalDocument {
   static const String flu = 'Flu-vaccine-form';
   static const String covidVaccine = 'February-covid-vaccination-policy-mandatory';
   static const String i9 = 'i-9 paper version';
+  static const String employmentApplication = 'Employment Application';
   static const String w4 = 'W4';
   static const String employeeHandbook = 'ProHealth-Employee-Handbook';
   static const String proHealthCellPhone = "Data-Cell_Agreement";

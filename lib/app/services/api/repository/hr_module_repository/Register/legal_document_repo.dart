@@ -20,6 +20,8 @@ class LegalDocumentsRepo{
   static String proHealthEmployeeHandbookDocument = "/pro-health-employee-handbook";
   static String fluVaccineDocument = "/flu-vaccine-form";
   static String w4Document = "/w4";
+  static String i9Document = "/i-9";
+  static String empAppDocument = "/employment-application";
 
 
 
@@ -99,4 +101,18 @@ class LegalDocumentsRepo{
     required int deductionsWorksheet3,required int deductionsWorksheet4,required int deductionsWorksheet5,}){
     return "$w4Document/$templateId/$employeeId/$middleName/$marriedstatus/$step3a/$step3b/$step3c/$step4a/$step4b/$step4c/$multipleJW1/$multipleJW12a/$multipleJW12b/$multipleJW12c/$multipleJW13/$multipleJW14/$deductionsWorksheet1/$deductionsWorksheet2/$deductionsWorksheet3/$deductionsWorksheet4/$deductionsWorksheet5";
   }
+
+  ///i-9/{i9FormhtmlId}/{employeeId}/{middleName}/{otherLastName}/{aptNumber}/{alienInfo}/{citizenship}
+  static String getINineDocument({required int i9FormhtmlId,required int employeeId, required String middleName,
+    required String otherLastName, required String aptNumber,required String alienInfo,required String citizenship}){
+    return "$i9Document/$i9FormhtmlId/$employeeId/$middleName/$otherLastName/$aptNumber/$alienInfo/$citizenship";
+}
+
+///employment-application/{employmentAppFormhtmlId}/{employeeId}/{middleName}/{faxNo}/{ifHired}/{positionApplying}/{positionDesired}/
+///{dateAvailable}/{specifyWorkingHrs}/{salary}/{sourceReferral}/{value}
+ static String getEmplAppDocument({required int employmentAppFormhtmlId,required int employeeId, required String middleName,
+   required String faxNo, required String ifHired,required String positionApplying,required String positionDesired,required String dateAvailable,
+   required String specifyWorkingHrs, required String salary,required String sourceReferral,required String value}){
+    return "$empAppDocument/$employmentAppFormhtmlId/$employeeId/$middleName/$faxNo/$ifHired/$positionApplying/$positionDesired/$dateAvailable/$specifyWorkingHrs/$salary/$sourceReferral/$value";
+}
 }

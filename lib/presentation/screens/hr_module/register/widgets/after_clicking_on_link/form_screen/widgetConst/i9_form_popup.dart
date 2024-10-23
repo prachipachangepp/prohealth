@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/dialogue_template.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
+import 'form_screen_const.dart';
 
 class INineSignPopup extends StatefulWidget {
   final int employeeId;
@@ -72,7 +75,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                   nameError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: AppSize.s6),
+              SizedBox(height: AppSize.s8),
               SMTextFConst(
                 controller: lastNameController,
                 keyboardType: TextInputType.text,
@@ -83,7 +86,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                   lastNameError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: AppSize.s6),
+              SizedBox(height: AppSize.s8),
               SMTextFConst(
                 controller: aptNumController,
                 keyboardType: TextInputType.text,
@@ -94,7 +97,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                   aptNumError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: AppSize.s6),
+              SizedBox(height: AppSize.s8),
               SMTextFConst(
                 controller: alienInfoController,
                 keyboardType: TextInputType.text,
@@ -105,7 +108,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                   alienError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: AppSize.s6),
+              SizedBox(height: AppSize.s8),
               FirstSMTextFConst(
                 controller: citizenshipController,
                 keyboardType: TextInputType.text,
@@ -138,23 +141,20 @@ class _INineSignPopupState extends State<INineSignPopup> {
               loading = true;
             });
 
-            // FluVaccineDocument fluVaccineDocument = await getFluVaccineDocument(context: context, templateId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
-            //     dateOfVaccine: dateOfvaccinationController.text, siteOfAdministration: siteOfAdministrationController.text,
-            //     vaccineType: vaccineTypeController.text, dose: doseController.text, reactions: reactionsController.text,
-            //     manufacturer: manufacturerController.text, dateofVaccination: dateOfvaccinationController.text,
-            //     nameOfAdministering: nameOfAdministeringController.text, title: titleController.text,
-            //     providerAddress: address2Controller.text, acknowledgeFacts: acknowledgeFactsController.text, Allergis: AllergisController.text);
-            // if(fluVaccineDocument.statusCode == 200 || fluVaccineDocument.statusCode == 201){
-            //   Navigator.pop(context);
-            //   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-            //     documentName: fluVaccineDocument.name,
-            //     onPressed: () {
-            //
-            //     },
-            //     htmlFormData: fluVaccineDocument.html,
-            //     employeeId: widget.employeeId,//widget.employeeID,
-            //     htmlFormTemplateId: fluVaccineDocument.fluVaccineDocumentId,)));
-            // }
+            INineDocument iNineDocument = await getI9Document(context: context, i9FormhtmlId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
+                middleName: nameController.text, otherLastName: lastNameController.text, aptNumber: aptNumController.text, alienInfo: alienInfoController.text,
+                citizenship: citizenshipController.text);
+            if(iNineDocument.statusCode == 200 || iNineDocument.statusCode == 201){
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                documentName: iNineDocument.name,
+                onPressed: () {
+
+                },
+                htmlFormData: iNineDocument.html,
+                employeeId: widget.employeeId,//widget.employeeID,
+                htmlFormTemplateId: iNineDocument.iNineDocumentId,)));
+            }
 
 
           };

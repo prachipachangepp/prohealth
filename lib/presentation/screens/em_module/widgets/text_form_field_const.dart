@@ -480,7 +480,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      lastDate: DateTime(3000),
     );
     if (pickedDate != null) {
       widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
