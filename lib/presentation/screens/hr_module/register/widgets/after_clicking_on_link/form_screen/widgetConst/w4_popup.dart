@@ -359,7 +359,6 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
             //     htmlFormTemplateId: directDepositDocuemnt.directDepositDocuemntId,)));
             // }
             //
-
           };
           //finally {
           setState(() {

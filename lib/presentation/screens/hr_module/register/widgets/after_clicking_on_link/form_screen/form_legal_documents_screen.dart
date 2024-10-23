@@ -252,21 +252,6 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
         employeeId: widget.employeeID,//widget.employeeID,
         htmlFormTemplateId: proHealthCellPhoneStatement.proHealthCellPhoneStatementId,)));
     }
-    else if(htmlName == AppStringLegalDocument.returnOfcompanyProperty){
-      showDialog(context: context, builder: (BuildContext context){
-        return CompanyPropertySignPopup(
-          employeeId: widget.employeeID,
-          htmlFormTemplateId: id,
-          );
-      });
-      // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-      //   documentName: returnOfCompanyProperty.name,
-      //   onPressed: () {  },
-      //   htmlFormData: returnOfCompanyProperty.html,
-      //   employeeId: widget.employeeID,//widget.employeeID,
-      //   htmlFormTemplateId: returnOfCompanyProperty.returnOfCompanyPropertyId,)
-      // ));
-    }
     else if(htmlName == AppStringLegalDocument.hepB){
       HepBDocuemnt hepBDocuemnt = await getHepBDocument(context: context, employeeId: widget.employeeID,templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
@@ -305,17 +290,13 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     }
     else if(htmlName == AppStringLegalDocument.flu){
       showDialog(context: context, builder: (BuildContext context){
-        return WFourSignPopup(employeeId: widget.employeeID, htmlFormTemplateId: id);
+        return FlueVaccineSignPopup(employeeId: widget.employeeID, htmlFormTemplateId: id);
       });
     }
     else if(htmlName == AppStringLegalDocument.w4){
-      // CovidVaccineDocuemnt covidVaccineDocuemnt = await getCovidVaccineDocument(context: context, employeeId: widget.employeeID, templateId: id);
-      // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-      //   documentName: covidVaccineDocuemnt.name,
-      //   onPressed: () {  },
-      //   htmlFormData: covidVaccineDocuemnt.html,
-      //   employeeId: widget.employeeID,//widget.employeeID,
-      //   htmlFormTemplateId: covidVaccineDocuemnt.covidVaccineDocuemntId,)));
+      showDialog(context: context, builder: (BuildContext context){
+        return WFourSignPopup(employeeId: widget.employeeID, htmlFormTemplateId: id);
+      });
     }
     else if(htmlName == AppStringLegalDocument.candidatereLeaseForm){
       showDialog(context: context, builder: (BuildContext context){
@@ -323,6 +304,14 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
           employeeId: widget.employeeID,
           htmlFormTemplateId:id,
           );
+      });
+    }
+    else if(htmlName == AppStringLegalDocument.returnOfcompanyProperty){
+      showDialog(context: context, builder: (BuildContext context){
+        return CompanyPropertySignPopup(
+          employeeId: widget.employeeID,
+          htmlFormTemplateId: id,
+        );
       });
     }
     else if(htmlName == AppStringLegalDocument.directDeposit){
