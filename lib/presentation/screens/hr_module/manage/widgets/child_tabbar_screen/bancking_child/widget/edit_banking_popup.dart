@@ -13,8 +13,574 @@ import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_cons
 
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../custom_icon_button_constant.dart';
+
+
+
+
+
+
+
+
+
+
+class AddBankingPopup extends StatefulWidget {
+  final int employeeID;
+  final int banckId;
+  const AddBankingPopup({super.key, required this.employeeID, required this.banckId});
+
+  @override
+  State<AddBankingPopup> createState() => _AddBankingPopupState();
+}
+
+class _AddBankingPopupState extends State<AddBankingPopup> {
+
+
+  String? pickedFileName;
+  String? selectedtype;
+  dynamic pickedFile;
+  bool isLoading = false;
+  TextEditingController effectivecontroller = TextEditingController();
+  TextEditingController requestammount = TextEditingController();
+  TextEditingController accountnumber = TextEditingController();
+  TextEditingController routingnumber = TextEditingController();
+  TextEditingController bankname = TextEditingController();
+  TextEditingController verifyaccountnumber = TextEditingController();
+
+  Future<void> _handleFileUpload() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    if (result != null) {
+      setState(() {
+        pickedFileName = result.files.first.name;
+        pickedFile = result.files.first.bytes;
+      });
+      // PlatformFile file = result.files.first;
+      print('File picked: ${pickedFileName}');
+    } else {
+      // User canceled the picker
+    }
+  }
+
+  String? errorMessage;
+
+  void validateAccounts() {
+    setState(() {
+      if (accountnumber.text != verifyaccountnumber.text) {
+        errorMessage = 'Account numbers do not match';
+      } else {
+        errorMessage = null;
+      }
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    // Add listeners to controllers
+    accountnumber.addListener(validateAccounts);
+    verifyaccountnumber.addListener(validateAccounts);
+   // _initializeFormWithPrefilledData();
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers when widget is removed
+    accountnumber.dispose();
+    verifyaccountnumber.dispose();
+    super.dispose();
+  }
+
+
+  String? _PositionError;
+  String? _dateError;
+  String? _amountError;
+  String? _numberError;
+  String? _banknameError;
+  String? _acError;
+
+  bool _isFormValid = true;
+
+
+  String? _validateTextField(String value, String fieldName) {
+    if (value.isEmpty) {
+      _isFormValid = false;
+      return "$fieldName";
+    }
+    return null;
+  }
+
+  void _validateFields() {
+    setState(() {
+      _isFormValid = true;
+      _dateError = _validateTextField(effectivecontroller.text, 'Please Enter Date');
+      _amountError = _validateTextField(requestammount.text, 'Please Enter Amount');
+      _acError = _validateTextField(accountnumber.text, 'Please Enter Account Number');
+      _numberError = _validateTextField(routingnumber.text, 'Please Enter Number');
+      _banknameError = _validateTextField(bankname.text, 'Please Enter Bank Name');
+     // _emailError = _validateTextField(widget.email.text, 'Please Enter Email');
+      //_ZoneError = _validateTextField(selectedZone!, 'Please Select Zone');
+    });
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        height: 400,
+        width: 800,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                height:AppSize.s50,
+                decoration: BoxDecoration(
+                  color: ColorManager.blueprime,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                          "Add Banking",
+                          style: PopupHeadingStyle.customTextStyle(context)
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+
+                        },
+                        icon: Icon(
+                            Icons.close,
+                            color: IconColorManager.white
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20,
+                left: 20),
+                child: Column(
+
+                  children: [
+                    SizedBox(height: AppSize.s20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+
+                        Text(
+                          widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+                          style:TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w600,
+                            color: ColorManager.blackfaint,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(height: 5,),
+                            pickedFileName == null ? const Offstage():Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 60),
+                                child: Text(pickedFileName!,style:TextStyle(
+                                    fontSize: FontSize.s10,
+                                    color: ColorManager.mediumgrey
+                                ),),
+                              ),
+                            ),
+                            ElevatedButton.icon(
+                              onPressed: _handleFileUpload,
+                              icon: Icon(Icons.file_upload_outlined, color: Colors.white),
+                              label: Text(
+                                'Upload',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF27A3E0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: AppSize.s20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                'Type',
+                                style: AllPopupHeadings.customTextStyle(context),
+                              ),
+
+                              Row(
+                                children: [
+                                  CustomRadioListTile(
+                                    title: 'Checking',
+                                    value: 'Checking',
+                                    groupValue: selectedtype,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedtype = value;
+                                      });
+                                    },
+                                  ),
+                                  CustomRadioListTile(
+                                    title: 'Savings',
+                                    value: 'Savings',
+                                    groupValue: selectedtype,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedtype = value;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Text(
+                                'Routing/Transit Number',
+                                style:AllPopupHeadings.customTextStyle(context),
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              CustomTextFieldRegister(
+                                width: 240,
+                                maxLength: 9,
+                                controller: routingnumber,
+                                hintText: 'Enter Number',
+                                hintStyle:onlyFormDataStyle.customTextStyle(context),
+                                height: 30,
+                              ),
+                              if (_numberError != null) // Display error if any
+                                Text(
+                                  _numberError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Specific Amount',
+                                style: AllPopupHeadings.customTextStyle(context),
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+
+                              CustomTextFieldRegister(
+                                width: 240,
+                                controller: requestammount,
+                                prefixText: '\$',
+                                prefixStyle: onlyFormDataStyle.customTextStyle(context),
+                                height: 30,
+                                keyboardType: TextInputType.number,
+                              ),
+                              if (_amountError != null) // Display error if any
+                                Text(
+                                  _amountError!,
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: FontSize.s10,
+                                  ),
+                                ),
+
+                            ],
+                          ),
+                        ),
+
+                        Expanded(child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Effective Date',
+                              style: AllPopupHeadings.customTextStyle(context),
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            CustomTextFieldRegister(
+                              width: 240,
+                              controller: effectivecontroller,
+                              hintText: 'dd-mm-yyyy',
+                              hintStyle: onlyFormDataStyle.customTextStyle(context),
+                              height: 30,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  Icons.calendar_month_outlined,
+                                  color: Color(0xff50B5E5),
+                                  size: 16,
+                                ),
+                                onPressed: () async {
+                                  DateTime? pickedDate =
+                                  await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(2101),
+                                  );
+                                  if (pickedDate != null) {
+                                    effectivecontroller.text =
+                                    "${pickedDate.toLocal()}"
+                                        .split(' ')[0];
+                                  }
+                                },
+                              ),
+                            ),
+                            if (_dateError != null) // Display error if any
+                              Text(
+                                _dateError!,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: FontSize.s10,
+                                ),
+                              ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Account Number ',
+                              style: AllPopupHeadings.customTextStyle(context),
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            CustomTextFieldRegister(
+                              width: 240,
+                              controller: accountnumber,
+                              hintText: 'Enter AC Number',
+                              hintStyle: onlyFormDataStyle.customTextStyle(context),
+                              height: 30,
+                            ),
+                            if (_acError != null) // Display error if any
+                              Text(
+                                _acError!,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: FontSize.s10,
+                                ),
+                              ),
+                            SizedBox(
+                              height: 35,
+                            )
+                          ],
+                        )),
+
+                        Expanded(child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Bank Name',
+                              style:AllPopupHeadings.customTextStyle(context),
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            CustomTextFieldRegister(
+                              width: 240,
+                              controller: bankname,
+                              hintText: 'Enter Bank Name',
+                              hintStyle:onlyFormDataStyle.customTextStyle(context),
+                              height: 30,
+                            ),
+                            if (_banknameError != null) // Display error if any
+                              Text(
+                                _banknameError!,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: FontSize.s10,
+                                ),
+                              ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Verify Account Number',
+                              style: AllPopupHeadings.customTextStyle(context),
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            CustomTextFieldRegister(
+                              width: 240,
+                              controller: verifyaccountnumber,
+                              // controller: ,
+                              hintText: 'Enter AC Number',
+                              hintStyle: onlyFormDataStyle.customTextStyle(context),
+                              height: 30,
+                            ),
+                            if (errorMessage != null)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Text(
+                                  errorMessage!,
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 10),
+                                ),
+                              ),
+                            SizedBox(
+                              height: 35,
+                            )
+                          ],
+                        )),
+
+                      ],
+                    ),
+
+
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomButtonTransparent(
+                          text: "Cancel",
+                          onPressed: () {
+                            // widget.effectiveDateController.clear();
+                            // widget.specificAmountController.clear();
+                            // widget.bankNameController.clear();
+                            // widget.routingNumberController.clear();
+                            // widget.accountNumberController.clear();
+                            // widget.verifyAccountController.clear();
+                            // widget.selectedType = null;
+                            // _typeFieldKey.currentState?.reset();
+                          },
+                        ),
+                        SizedBox(width: AppSize.s13),
+                        isLoading
+                            ? SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(
+                              color: ColorManager.blueprime,
+                            ))
+                            : CustomElevatedButton(
+                              width: 100,
+                              text: "Save",
+                              onPressed: ()async {
+                                _validateFields();
+                                if (_isFormValid) {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  var response = await addNewEmployeeBanking(
+                                      context: context,
+                                      employeeId: widget.employeeID,
+                                      accountNumber: accountnumber.text,
+                                      bankName: bankname.text,
+                                      amountRequested: int.parse(
+                                          requestammount.text),
+                                      checkUrl: '--',
+                                      effectiveDate: effectivecontroller.text,
+                                      routingNumber: routingnumber.text,
+                                      percentage: '--',
+                                      type: selectedtype.toString()
+                                  );
+                                  await uploadBanckingDocument(
+                                      context, widget.banckId, pickedFile);
+                                  Navigator.pop(context);
+                                  if (response.statusCode == 200 ||
+                                      response.statusCode == 201) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AddSuccessPopup(
+                                          message: 'Banking Added Successfully',
+                                        );
+                                      },
+                                    );
+                                  }
+
+
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                }
+                              }
+                            ),
+
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class EditBankingPopUp extends StatefulWidget {
   final int banckId;
@@ -63,6 +629,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
  // };
 
   String?  errorKey;
+
 
   @override
   Widget build(BuildContext context) {
@@ -143,8 +710,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
           style:TextStyle(
             fontSize: 16.0,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
+            fontWeight: FontWeight.w600,
+            color: ColorManager.blackfaint,
           ),
         ),
         Row(
@@ -210,6 +777,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           'Type',
           style: AllPopupHeadings.customTextStyle(context),
         ),
+
+
         FormField<String>(
           key: _typeFieldKey,
           initialValue: widget.selectedType,
@@ -265,6 +834,30 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                     ),
                   ],
                 ),
+                // Row(
+                //   children: [
+                //     CustomRadioListTile(
+                //       title: 'Checking',
+                //       value: 'Checking',
+                //       groupValue: widget.selectedType,
+                //       onChanged: (value) {
+                //         setState(() {
+                //           widget.selectedType = value;
+                //         });
+                //       },
+                //     ),
+                //     CustomRadioListTile(
+                //       title: 'Savings',
+                //       value: 'Savings',
+                //       groupValue: widget.selectedType,
+                //       onChanged: (value) {
+                //         setState(() {
+                //           widget.selectedType = value;
+                //         });
+                //       },
+                //     ),
+                //   ],
+                // ),
                 if (state.hasError)
                   Padding(
                     padding: const EdgeInsets.only(top:1),
@@ -380,7 +973,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         SizedBox(height: 4,),
         CustomTextFieldRegister(
           capitalIsSelect: capitalIsSelect,
-          phoneNumberField: labelText == "Phone", // Specify if this is the phone field
+          phoneNumberField:false, // Specify if this is the phone field
           height: AppSize.s30,
           controller: controller,
 
@@ -598,7 +1191,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       ),
       isLoading
           ? SizedBox(
-              height: 20,
+              height: 25,
               width: 25,
               child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
