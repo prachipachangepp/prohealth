@@ -166,13 +166,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Icons.arrow_back,
                                     size: 15,
                                     color: ColorManager.mediumgrey,
-
-                                  ),
-
-                                  SizedBox(width: 1,),
-                                  Text(
-                                    'Back',
-                                    style: DefineWorkWeekStyle.customTextStyle(context),
                                   ),
                                 ],
                               )),
@@ -513,11 +506,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ? const SizedBox(width: 10)
                     : Text(
                   data.status,
-                   style: ConstTextFieldStyles.customTextStyle(textColor:  data.status == 'Opened'
+                   style: ConstTextFieldStyles.customTextStyle(
+                            textColor:  data.status == 'Opened'
                            ? Color(0xff51B5E6) : data.status == 'Partial'
                            ? Color(0xffCA8A04) : data.status == 'Completed'
-                           ? Color(0xffB4DB4C)
-                           :ColorManager.rednew,)
+                           ? Color(0xffB4DB4C) :ColorManager.rednew,)
 
                 ),
               ],
