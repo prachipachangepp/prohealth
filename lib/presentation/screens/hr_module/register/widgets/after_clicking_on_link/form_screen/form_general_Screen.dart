@@ -535,7 +535,7 @@ class _generalFormState extends State<generalForm> {
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: firstname,
-                        hintText: 'Enter Text',
+                        hintText: 'Enter First Name',
                         hintStyle: onlyFormDataStyle.customTextStyle(context),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -557,7 +557,7 @@ class _generalFormState extends State<generalForm> {
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: lastname,
-                        hintText: 'Enter Text',
+                        hintText: 'Enter Last Name',
                         hintStyle: onlyFormDataStyle.customTextStyle(context),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -580,7 +580,7 @@ class _generalFormState extends State<generalForm> {
                       StatefulBuilder(
                         builder: (BuildContext context, void Function(void Function()) setState) { return CustomTextFieldRegister(
                           controller: ssecuritynumber,
-                          hintText: 'Enter Text',
+                          hintText: 'Enter Security Number',
                           obscureText: !_passwordVisible,
                           hintStyle: onlyFormDataStyle.customTextStyle(context),
                           validator: (value) {
@@ -623,7 +623,7 @@ class _generalFormState extends State<generalForm> {
                       CustomTextFieldRegisterPhone(
                         controller: phonenumber,
                         keyboardType: TextInputType.name,
-                        hintText: 'Enter Text',
+                        hintText: 'Enter Mobile Number',
                         hintStyle: onlyFormDataStyle.customTextStyle(context),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -645,7 +645,7 @@ class _generalFormState extends State<generalForm> {
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldForEmail(
                         controller: personalemail,
-                        hintText: 'Enter Text',
+                        hintText: 'Enter Email',
                         hintStyle:  onlyFormDataStyle.customTextStyle(context),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -667,7 +667,7 @@ class _generalFormState extends State<generalForm> {
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: driverlicensenumb,
-                        hintText: 'Enter Text',
+                        hintText: 'Enter License Number',
                         hintStyle:  onlyFormDataStyle.customTextStyle(context),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -791,7 +791,7 @@ class _generalFormState extends State<generalForm> {
                                   MediaQuery.of(context).size.height / 60),
                               CustomTextFieldRegister(
                                 controller: address,
-                                hintText: 'Enter Text',
+                                hintText: 'Enter Address',
                                 hintStyle: onlyFormDataStyle.customTextStyle(context),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -945,7 +945,7 @@ class _generalFormState extends State<generalForm> {
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                    controller: spalicity,
-                        hintText: 'Enter Text',
+                        hintText: 'Enter Speciality',
                         hintStyle:  onlyFormDataStyle.customTextStyle(context),
                         validator: (value) {
                           if (value == null || value.isEmpty) {

@@ -59,38 +59,6 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
     double containerHeight = MediaQuery.of(context).size.height * 0.2;
     return Column(
       children: [
-        Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 23,vertical: 5),
-            child: InkWell(
-                onTap: widget.goBackButtion,
-                child:Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.arrow_back,
-                      size: 15,
-                      color: ColorManager.mediumgrey,
-
-                    ),
-
-                    SizedBox(width: 1,),
-                    Text(
-                      'Back',
-                      style: DefineWorkWeekStyle.customTextStyle(context),
-                    ),
-                  ],
-                )
-            ),
-          ),
-        ],
-        ),
-
-
-
-
         Expanded(
           child: StreamBuilder<List<SeeAllData>>(
             stream: generalController.stream,
