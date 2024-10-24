@@ -151,12 +151,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           InkWell(
                               onTap: widget.onBackPressed,
+
+                                // widget.backButtonCallBack(true);
+                                // Navigator.pop(context);
+                                // _pageController.animateToPage(1,
+                                //     duration: Duration(milliseconds: 500),
+                                //     curve: Curves.ease);
+
+
                               child: Row(
+
                                 children: [
                                   Icon(
                                     Icons.arrow_back,
                                     size: 15,
                                     color: ColorManager.mediumgrey,
+
+                                  ),
+
+                                  SizedBox(width: 1,),
+                                  Text(
+                                    'Back',
+                                    style: DefineWorkWeekStyle.customTextStyle(context),
                                   ),
                                 ],
                               )),
@@ -404,11 +420,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           items: displayTextMap.keys.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(displayTextMap[value]!,
-                style: TextStyle(
-                fontSize: 14,
-                  fontWeight: FontWeight.w400
-              ),),
+              child: Text(displayTextMap[value]!),
             );
           }).toList(),
         ),
@@ -474,7 +486,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                data.status == 'Notopened'
+                data.status == 'Notopen'
                     ? Text('Not Opened',
                   style: DocumentTypeDataStyle.customTextStyle(context),)
                     : Text(
@@ -482,7 +494,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style:DocumentTypeDataStyle.customTextStyle(context)
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 100),
-                data.status == 'Notopened'
+                data.status == 'Notopen'
                     ? const SizedBox(width: 10)
                     : Container(
                   width: 10.0,
@@ -497,7 +509,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 SizedBox(width: 5),
-                data.status == 'Notopened'
+                data.status == 'Notopen'
                     ? const SizedBox(width: 10)
                     : Text(
                   data.status,
@@ -536,28 +548,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style:DocumentTypeDataStyle.customTextStyle(context)
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width / 20),
-                      data.status == 'Notopened'
+                      data.status == 'Notopen'
                           ? const Text('')
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:59978/#/onBordingWelcome";
+                         // const url = "http://localhost:53617/#/onBordingWelcome";
                          // const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                          ///
-                        //  Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
-                          if (await canLaunch(url)) {
-                           await launch(url);
-                           } else {
-                            throw 'Could not launch $url';
-                          }
+                       Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                          // if (await canLaunch(url)) {
+                          //  await launch(url);
+                          //  } else {
+                          //   throw 'Could not launch $url';
+                          // }
                         },
                         child: Text(
                           data.link!,
                           style: RegisterLinkDataStyle.customTextStyle(context),
                         ),
                       ),
-                      data.status == 'Notopened'
+                      data.status == 'Notopen'
                           ? const Text('')
                           : InkWell(onTap: (){
                             _copyToClipboard(
@@ -566,7 +577,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },child: Icon(Icons.copy,size: 15,color: ColorManager.mediumgrey,)),
                     ],
                   ),
-                  data.status == 'Notopened'
+                  data.status == 'Notopen'
                       ? Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
