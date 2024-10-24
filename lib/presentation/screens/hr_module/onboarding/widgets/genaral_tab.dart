@@ -66,6 +66,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
             child: InkWell(
                 onTap: widget.goBackButtion,
                 child:Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.arrow_back,
@@ -284,7 +286,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                       children: [
                                                         InfoData(general.ssnnbr ?? '--',),
                                                         InfoData(general.driverLicenseNum ?? '--'),
-                                                        InfoData(general.type ?? '--'),
+                                                        InfoData(general.employeeType ?? '--'),
                                                         InfoData(general.primaryPhoneNbr ?? '--'),
                                                         InfoData(_trimAddress(general.finalAddress ?? '--'),),
 
