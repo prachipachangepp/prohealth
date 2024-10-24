@@ -327,9 +327,16 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
       });
     }
     else if(htmlName == AppStringLegalDocument.directDeposit){
-      showDialog(context: context, builder: (BuildContext context){
-        return DirectDepositeSignPopup(employeeId:  widget.employeeID, htmlFormTemplateId: id,);
-      });
+        DirectDepositDocuemnt directDepositDocuemnt = await getDirectDepositDocument(context: context, employeeId: widget.employeeID, templateId: id,);
+          Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+          documentName: directDepositDocuemnt.name,
+          onPressed: () {
+
+          },
+          htmlFormData: directDepositDocuemnt.html,
+          employeeId: widget.employeeID,//widget.employeeID,
+          htmlFormTemplateId: directDepositDocuemnt.directDepositDocuemntId,)));
+
     }
     else{
 

@@ -58,13 +58,13 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
     //   dynamicHtmlData = widget.htmlFormData;
     // });
     // Register the view factory
-    ui.platformViewRegistry.registerViewFactory(  'html-viewer-$_uniqueKey', // Use unique key in viewType
+    ui.platformViewRegistry.registerViewFactory('html-viewer-$_uniqueKey', // Use unique key in viewType
            (int viewId) {        final element = html.IFrameElement()
              ..srcdoc = widget.htmlFormData
              ..style.border = 'none'
              ..style.width = '100%'
              ..style.height = '600px';
-      return element;      },    );
+      return element;      },);
   }
   void toggleBack(){
     Navigator.pop(context);
@@ -1697,11 +1697,14 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
             SizedBox(
               height: 50,
             ),
-            Container(
-                color: Colors.white,
-                height: MediaQuery.of(context).size.height,
-                child: HtmlElementView(viewType: 'html-viewer-$_uniqueKey')
-              //HtmlElementView(viewType: viewType)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal:100,),
+              child: Container(
+                  color: Colors.white,
+                  height: MediaQuery.of(context).size.height,
+                  child: HtmlElementView(viewType: 'html-viewer-$_uniqueKey')
+                //HtmlElementView(viewType: viewType)
+              ),
             ),
           ],
         ),
