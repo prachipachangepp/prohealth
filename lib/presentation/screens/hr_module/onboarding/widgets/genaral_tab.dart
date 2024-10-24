@@ -126,14 +126,14 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                 width: AppSize.s88,
                                                 height: AppSize.s20,
                                                 decoration: BoxDecoration(
-                                                    color: general.status == 'Opened'
-                                                        ? const Color(0xff51B5E6)
-                                                        : general.status == 'Partial'
-                                                        ? const Color(0xffCA8A04)
-                                                        : const Color(0xffB4DB4C),
-                                                    borderRadius: BorderRadius.only(
-                                                        topRight:
-                                                        Radius.circular(20)),),
+                                                  color: general.status == 'Opened'
+                                                      ? const Color(0xff51B5E6)
+                                                      : general.status == 'Partial'
+                                                      ? const Color(0xffCA8A04)
+                                                      : const Color(0xffB4DB4C),
+                                                  borderRadius: BorderRadius.only(
+                                                      topRight:
+                                                      Radius.circular(20)),),
                                                 child: Center(
                                                   child: Text(
                                                       general.status.toString(),

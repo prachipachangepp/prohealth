@@ -39,7 +39,7 @@ class _CustomRadioListTileState extends State<CustomRadioListTile> {
             widget.title,
             style: DocumentTypeDataStyle.customTextStyle(context),
           ),
-        //SizedBox( width: 40,)
+        SizedBox( width: 40,)
         ],
       ),
     );

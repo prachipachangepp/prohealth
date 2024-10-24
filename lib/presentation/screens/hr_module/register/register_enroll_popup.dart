@@ -740,7 +740,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                           service.servicename,
                                           style: DocumentTypeDataStyle.customTextStyle(context),
                                         ),
-                                        SizedBox(width: 10,)
+                                        SizedBox(width: 18,)
                                       ],
                                     );
                                   }).toList(),
