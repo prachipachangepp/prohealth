@@ -151,28 +151,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           InkWell(
                               onTap: widget.onBackPressed,
-
-                                // widget.backButtonCallBack(true);
-                                // Navigator.pop(context);
-                                // _pageController.animateToPage(1,
-                                //     duration: Duration(milliseconds: 500),
-                                //     curve: Curves.ease);
-
-
                               child: Row(
-
                                 children: [
                                   Icon(
                                     Icons.arrow_back,
                                     size: 15,
                                     color: ColorManager.mediumgrey,
-
-                                  ),
-
-                                  SizedBox(width: 1,),
-                                  Text(
-                                    'Back',
-                                    style: DefineWorkWeekStyle.customTextStyle(context),
                                   ),
                                 ],
                               )),
@@ -420,7 +404,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           items: displayTextMap.keys.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(displayTextMap[value]!),
+              child: Text(displayTextMap[value]!,
+                style: TextStyle(
+                fontSize: 14,
+                  fontWeight: FontWeight.w400
+              ),),
             );
           }).toList(),
         ),
@@ -508,7 +496,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     shape: BoxShape.circle,
                   ),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width / 100),
+                SizedBox(width: 5),
                 data.status == 'Notopened'
                     ? const SizedBox(width: 10)
                     : Text(
