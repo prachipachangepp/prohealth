@@ -166,13 +166,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Icons.arrow_back,
                                     size: 15,
                                     color: ColorManager.mediumgrey,
-
-                                  ),
-
-                                  SizedBox(width: 1,),
-                                  Text(
-                                    'Back',
-                                    style: DefineWorkWeekStyle.customTextStyle(context),
                                   ),
                                 ],
                               )),
@@ -361,7 +354,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final Map<String, String> displayTextMap = {
       'Sort': 'Sort',
       'Opened': 'Opened',
-      'Notopen': 'Not Open',
+      'Notopen': 'Not Opened',
       'Partial': 'Partial',
       'Completed': 'Completed',
     };
@@ -508,16 +501,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     shape: BoxShape.circle,
                   ),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width / 100),
+                SizedBox(width: 5),
                 data.status == 'Notopen'
                     ? const SizedBox(width: 10)
                     : Text(
                   data.status,
-                   style: ConstTextFieldStyles.customTextStyle(textColor:  data.status == 'Opened'
+                   style: ConstTextFieldStyles.customTextStyle(
+                            textColor:  data.status == 'Opened'
                            ? Color(0xff51B5E6) : data.status == 'Partial'
                            ? Color(0xffCA8A04) : data.status == 'Completed'
-                           ? Color(0xffB4DB4C)
-                           :ColorManager.rednew,)
+                           ? Color(0xffB4DB4C) :ColorManager.rednew,)
 
                 ),
               ],
@@ -553,16 +546,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:54526/#/onBordingWelcome";
+                         // const url = "http://localhost:53617/#/onBordingWelcome";
                          // const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                          ///
-                        //  Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
-                          if (await canLaunch(url)) {
-                           await launch(url);
-                           } else {
-                            throw 'Could not launch $url';
-                          }
+                       Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                          // if (await canLaunch(url)) {
+                          //  await launch(url);
+                          //  } else {
+                          //   throw 'Could not launch $url';
+                          // }
                         },
                         child: Text(
                           data.link!,
