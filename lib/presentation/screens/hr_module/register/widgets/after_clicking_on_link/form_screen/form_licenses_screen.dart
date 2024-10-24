@@ -723,7 +723,7 @@ class _licensesFormState extends State<licensesForm> {
                 Icons.arrow_drop_down_sharp,
                 color: Color(0xff686464),
               ),
-              decoration: InputDecoration.collapsed(hintText: 'Select'),
+              decoration: InputDecoration.collapsed(hintText: ''),
               items: dropDownList,
               onChanged: (newValue) {
                 for(var a in snapshot.data!){
