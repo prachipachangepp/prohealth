@@ -414,7 +414,7 @@ class _BankingFormState extends State<BankingForm> {
                                               60),
                                   CustomTextFieldRegister(
                                     controller: effectivecontroller,
-                                    hintText: 'dd-mm-yyyy',
+                                    hintText: 'yyyy-mm-dd',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                     suffixIcon: IconButton(

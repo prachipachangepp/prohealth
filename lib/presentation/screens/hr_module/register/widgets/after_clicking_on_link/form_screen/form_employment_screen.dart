@@ -437,7 +437,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: startDateController,
-                      hintText: 'dd-mm-yyyy',
+                      hintText: 'yyyy-mm-dd',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                       //width: MediaQuery.of(context).size.width / 5,
@@ -471,7 +471,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: endDateController,
-                      hintText: 'dd-mm-yyyy',
+                      hintText: 'yyyy-mm-dd',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
                       //width: MediaQuery.of(context).size.width / 5,

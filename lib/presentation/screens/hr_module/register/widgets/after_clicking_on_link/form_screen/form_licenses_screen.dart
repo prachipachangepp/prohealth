@@ -513,7 +513,7 @@ class _licensesFormState extends State<licensesForm> {
                             60),
                     CustomTextFieldRegister(
                       controller: controllerIssueDate,
-                      hintText: 'yyyy-MM-dd',
+                      hintText: 'yyyy-mm-dd',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
                       suffixIcon: IconButton(
@@ -568,7 +568,7 @@ class _licensesFormState extends State<licensesForm> {
                             60),
                     CustomTextFieldRegister(
                       controller: controllerExpirationDate,
-                      hintText: 'dd-mm-yyyy',
+                      hintText: 'yyyy-mm-dd',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
                       suffixIcon: IconButton(

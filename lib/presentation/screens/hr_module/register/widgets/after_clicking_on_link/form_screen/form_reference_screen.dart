@@ -339,7 +339,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               60),
                                   CustomTextFieldRegister(
                                     controller: name,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter Name',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
@@ -365,7 +365,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               60),
                                   CustomTextFieldRegister(
                                     controller: titleposition,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter Position',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
@@ -391,7 +391,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               60),
                                   CustomTextFieldRegister(
                                     controller: companyorganization,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter Organization Name',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
@@ -417,7 +417,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               60),
                                   CustomTextFieldRegisterPhone(
                                     controller: mobilenumber,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter Number',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
@@ -448,7 +448,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               60),
                                   CustomTextFieldForEmail(
                                     controller: email,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter Email',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
@@ -474,7 +474,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               60),
                                   CustomTextFieldRegister(
                                     controller: knowthisperson,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter Person Name',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
@@ -500,7 +500,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               60),
                                   CustomTextFieldRegister(
                                     controller: lengthofassociation,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter Length',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),
