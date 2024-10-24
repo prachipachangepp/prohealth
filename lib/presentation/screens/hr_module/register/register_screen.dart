@@ -361,7 +361,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final Map<String, String> displayTextMap = {
       'Sort': 'Sort',
       'Opened': 'Opened',
-      'Notopen': 'Not Open',
+      'Notopen': 'Not Opened',
       'Partial': 'Partial',
       'Completed': 'Completed',
     };
@@ -508,7 +508,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     shape: BoxShape.circle,
                   ),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width / 100),
+                SizedBox(width: 5),
                 data.status == 'Notopen'
                     ? const SizedBox(width: 10)
                     : Text(
