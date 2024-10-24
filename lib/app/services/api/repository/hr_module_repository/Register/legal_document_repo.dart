@@ -73,12 +73,8 @@ class LegalDocumentsRepo{
   static String getCovidVaccineDocument({required int templateId,required int employeeId}){
     return "$covidVaccineDocument/$templateId/generate-html/$employeeId";
   }
-  static String getDirectDepositDocument({required int templateId,required int employeeId,required String action1,
-    required String type1, required String bankNameAndAddress1,
-    required String routingOrtransit1,required String account1,required String amount1,
-    required String action2,required String type2,required String bankNameAndaddress2,required String routingOrtransit2,
-    required String account2 , required String amount2 }){
-    return "$directDepositDocument/$templateId/$employeeId/$action1/$type1/$bankNameAndAddress1/$routingOrtransit1/$account1/$amount1/$action2/$type2/$bankNameAndaddress2/$routingOrtransit2/$account2/$amount2";
+  static String getDirectDepositDocument({required int templateId,required int employeeId}){
+    return "$directDepositDocument/$templateId/$employeeId";
   }
   static String getProHealthCellPhoneStatement({required int templateId,required int employeeId}){
     return "$proHealthCellPhoneStatement/$templateId/generate-html/$employeeId";

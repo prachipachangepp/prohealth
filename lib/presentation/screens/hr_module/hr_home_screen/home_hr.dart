@@ -25,6 +25,7 @@ import 'package:prohealth/presentation/screens/hr_module/register/register_scree
 import 'package:prohealth/presentation/screens/hr_module/see_all_hr/see_all_hr_screen.dart';
 import 'package:prohealth/presentation/widgets/app_bar/app_bar.dart';
 import 'package:prohealth/presentation/widgets/widgets/const_appbar/controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 
@@ -243,7 +244,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
       print('search value ${searchSelect}');
     });
   }
-
   int employeeId = 0;
   int pgeControllerId = 0;
   String dropdownLicenseStatus = '';
@@ -302,6 +302,29 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     }
     return true; // Allow the back navigation to exit the app
   }
+
+  /// Referesh code
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _loadIndex();
+  // }
+  // Future<void> _loadIndex() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     pgeControllerId = prefs.getInt('currentIndex') ?? 0;
+  //     myController.selectButton(pgeControllerId);
+  //     _pageController.animateToPage(pgeControllerId,
+  //         duration: Duration(milliseconds: 500),
+  //         curve: Curves.ease);   // Default to 0 if not found
+  //     //  _pageController.jumpToPage(pgeControllerId); // Jump to the saved index
+  //   });
+  // }
+  //
+  // Future<void> _saveIndex(int index) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setInt('currentIndex', index);
+  // }
 
 
   @override
@@ -367,7 +390,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 _pageController.animateToPage(1,
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease);
-      
                                 pgeControllerId = 1;
                               },
                               text: 'Manage',
@@ -403,6 +425,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 _pageController.animateToPage(2,
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease);
+
                                 pgeControllerId = 2;
                               },
                               text: 'Register',
@@ -422,6 +445,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 _pageController.animateToPage(3,
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease);
+
                                 pgeControllerId = 3;
                               },
                               text: 'Onboarding',
