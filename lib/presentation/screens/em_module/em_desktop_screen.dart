@@ -68,318 +68,356 @@ class EMDesktopScreen extends StatelessWidget {
         break;
     }
   }
-
+  int pgeControllerId = 0;
+  Future<bool> _onWillPop() async {
+    if (pgeControllerId == 0) {
+      _pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
+      // return false; // Prevent the default back navigation
+    }else if(pgeControllerId == 1){
+      myController.selectButton(0);
+      _pageController.animateToPage(0,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.ease);
+      return false;
+    }else if(pgeControllerId == 6){
+      myController.selectButton(1);
+      _pageController.animateToPage(1,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.ease);
+      return false;
+    }
+    // else if(pgeControllerId == 2){
+    //   myController.selectButton(1);
+    //   _pageController.animateToPage(1,
+    //       duration: Duration(milliseconds: 500),
+    //       curve: Curves.ease);
+    //   return false;
+    // }else if(pgeControllerId == 3){
+    //   myController.selectButton(2);
+    //   _pageController.animateToPage(2,
+    //       duration: Duration(milliseconds: 500),
+    //       curve: Curves.ease);
+    //   return false;
+    // }
+    return true; // Allow the back navigation to exit the app
+  }
 
   @override
   Widget build(BuildContext context) {
     // RoutesManager routesManager = RoutesManager();
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(children: [
-        Column(
-          children: [
-            const ApplicationAppBar(headingText: "Establishment Manager"),
-            ///2nd  buttons
-            Container(
-              margin: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p20, horizontal: AppPadding.p20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Obx(
-                        () => CustomTitleButton(
-                          height: 30,
-                          width: 100,
-                          onPressed: () {
-                            myController.selectButton(0);
-                            _pageController.animateToPage(0,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Dashboard',
-                          isSelected: myController.selectedIndex.value == 0,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Obx(
-                        () => CustomTitleButton(
-                          height: 30,
-                          width: 140,
-                          onPressed: () {
-                            // uploadCompanyLogoApi(context, 5, "employ");
-                            companyByIdApi(
-                              context,
-                            );
-                            myController.selectButton(1);
-                            _pageController.animateToPage(1, duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Company Identity',
-                          isSelected: myController.selectedIndex.value == 1,
-                        ),
-                      ),
-                      SizedBox(width: 15,),
-                      Obx(
-                        () => Material(
-                          elevation: 4,
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                          child: CustomDropdownButton(
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Stack(children: [
+          Column(
+            children: [
+              const ApplicationAppBar(headingText: "Establishment Manager"),
+              ///2nd  buttons
+              Container(
+                margin: const EdgeInsets.symmetric(
+                    vertical: AppPadding.p20, horizontal: AppPadding.p20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Obx(
+                          () => CustomTitleButton(
                             height: 30,
-                            width: 170,
-                            items: [
-                              DropdownMenuItem<String>(
-                                value: 'Select a Module',
-                                child: Text(
-                                  'Select a Module',
-                                  textAlign: TextAlign.center,
-                                  style: AppbarCustomDropdownStyle.customTextStyle(context),
-                                ),
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'User Management',
-                                child: Text(
-                                  'User Management',
-                                  textAlign: TextAlign.center,
-                                  style: AppbarCustomDropdownStyle.customTextStyle(context),
-                                ),
-                                onTap: () {  },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Users',
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Text(
-                                    'Users',
-                                    textAlign: TextAlign.center,
-                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 6) {
-                                    myController.selectButton(6);
-                                    _pageController.animateToPage(
-                                      6,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Role Manager',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Role Manager',
-                                    textAlign: TextAlign.center,
-                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 7) {
-                                    myController.selectButton(7);
-                                    _pageController.animateToPage(
-                                      7,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-
-                              ///clinical
-                              DropdownMenuItem<String>(
-                                value: 'Clinical',
-                                child: Text(
-                                  'Clinical',
-                                  textAlign: TextAlign.center,
-                                  style: AppbarCustomDropdownStyle.customTextStyle(context),
-                                ),
-                                onTap: () { },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Visits',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Visits',
-                                    textAlign: TextAlign.center,
-                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 8) {
-                                    myController.selectButton(8);
-                                    _pageController.animateToPage(
-                                      8,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-
-                              ///hr
-                              DropdownMenuItem<String>(
-                                value: 'HR',
-                                child: Text(
-                                  'HR',
-                                  textAlign: TextAlign.center,
-                                  style: AppbarCustomDropdownStyle.customTextStyle(context),
-                                ),
-                                onTap: () { },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Designation Settings',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Designation Settings',
-                                    textAlign: TextAlign.center,
-                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 2) {
-                                   myController.selectButton(2);
-                                    _pageController.animateToPage(
-                                      2,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Work Schedule',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Work Schedule',
-                                    textAlign: TextAlign.center,
-                                    style:AppbarCustomDropdownSubItem.customTextStyle(context)
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 3) {
-                                    myController.selectButton(3);
-                                    _pageController.animateToPage(
-                                      3,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Employee Documents',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Employee Documents',
-                                    textAlign: TextAlign.center,
-                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 4) {
-                                    myController.selectButton(4);
-                                    _pageController.animateToPage(
-                                      4,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-
-                              ///finance
-                              DropdownMenuItem<String>(
-                                value: 'Finance',
-                                child: Text(
-                                  'Finance',
-                                  textAlign: TextAlign.center,
-                                  style: AppbarCustomDropdownStyle.customTextStyle(context),
-                                ),
-                                onTap: () {},
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Pay Rates',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Pay Rates',
-                                    textAlign: TextAlign.center,
-                                    style: AppbarCustomDropdownSubItem.customTextStyle(context)
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 5) {
-                                    myController.selectButton(5);
-                                    _pageController.animateToPage(
-                                      5,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
-                            selectedItem: myController.selectedIndex.value == 8
-                                ? 'Visits'
-                                : myController.selectedIndex.value == 7
-                                    ? 'Role Manager'
-                                    : myController.selectedIndex.value == 6
-                                        ? 'Users'
-                                        : myController.selectedIndex.value == 2
-                                            ? 'Designation Settings'
-                                            : myController.selectedIndex.value == 3
-                                                ? 'Work Schedule'
-                                                : myController.selectedIndex.value == 4
-                                                    ? 'Employee Documents'
-                                                    : myController.selectedIndex.value == 5
-                                                        ? 'Finance'
-                                                        : 'Select a Module',
-                            onChanged: (newValue) {},
+                            width: 100,
+                            onPressed: () {
+                              myController.selectButton(0);
+                              _pageController.animateToPage(0,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                              pgeControllerId = 0;
+                            },
+                            text: 'Dashboard',
+                            isSelected: myController.selectedIndex.value == 0,
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 8,
-              child: PageView(
-                controller: _pageController,
-                physics: NeverScrollableScrollPhysics(),
-                children:
-                [
-                  DashboardMainButtonScreen(),
-                  CompanyIdentityScreen(),
-                  HrScreen(),
-                  WorkSchedule(),
-                  ManageEmployDocument(),
-                  FinanceScreen(),
-                  SeeAllScreen(),
-                  CiRoleManager(),
-                  CiVisitScreen(),
-                ],
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Obx(
+                          () => CustomTitleButton(
+                            height: 30,
+                            width: 140,
+                            onPressed: () {
+                              // uploadCompanyLogoApi(context, 5, "employ");
+                              companyByIdApi(
+                                context,
+                              );
+                              myController.selectButton(1);
+                              _pageController.animateToPage(1, duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                              pgeControllerId = 1;
+                            },
+                            text: 'Company Identity',
+                            isSelected: myController.selectedIndex.value == 1,
+                          ),
+                        ),
+                        SizedBox(width: 15,),
+                        Obx(
+                          () => Material(
+                            elevation: 4,
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                            child: CustomDropdownButton(
+                              height: 30,
+                              width: 170,
+                              items: [
+                                DropdownMenuItem<String>(
+                                  value: 'Select a Module',
+                                  child: Text(
+                                    'Select a Module',
+                                    textAlign: TextAlign.center,
+                                    style: AppbarCustomDropdownStyle.customTextStyle(context),
+                                  ),
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'User Management',
+                                  child: Text(
+                                    'User Management',
+                                    textAlign: TextAlign.center,
+                                    style: AppbarCustomDropdownStyle.customTextStyle(context),
+                                  ),
+                                  onTap: () {  },
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'Users',
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: Text(
+                                      'Users',
+                                      textAlign: TextAlign.center,
+                                      style: AppbarCustomDropdownSubItem.customTextStyle(context)
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    if (myController.selectedIndex.value != 6) {
+                                      myController.selectButton(6);
+                                      _pageController.animateToPage(
+                                        6,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
+                                      pgeControllerId = 6;
+                                    }
+                                  },
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'Role Manager',
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                    child: Text(
+                                      'Role Manager',
+                                      textAlign: TextAlign.center,
+                                      style: AppbarCustomDropdownSubItem.customTextStyle(context)
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    if (myController.selectedIndex.value != 7) {
+                                      myController.selectButton(7);
+                                      _pageController.animateToPage(
+                                        7,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
+                                    }
+                                  },
+                                ),
+
+                                ///clinical
+                                DropdownMenuItem<String>(
+                                  value: 'Clinical',
+                                  child: Text(
+                                    'Clinical',
+                                    textAlign: TextAlign.center,
+                                    style: AppbarCustomDropdownStyle.customTextStyle(context),
+                                  ),
+                                  onTap: () { },
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'Visits',
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                    child: Text(
+                                      'Visits',
+                                      textAlign: TextAlign.center,
+                                      style: AppbarCustomDropdownSubItem.customTextStyle(context)
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    if (myController.selectedIndex.value != 8) {
+                                      myController.selectButton(8);
+                                      _pageController.animateToPage(
+                                        8,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
+                                    }
+                                  },
+                                ),
+
+                                ///hr
+                                DropdownMenuItem<String>(
+                                  value: 'HR',
+                                  child: Text(
+                                    'HR',
+                                    textAlign: TextAlign.center,
+                                    style: AppbarCustomDropdownStyle.customTextStyle(context),
+                                  ),
+                                  onTap: () { },
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'Designation Settings',
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                    child: Text(
+                                      'Designation Settings',
+                                      textAlign: TextAlign.center,
+                                      style: AppbarCustomDropdownSubItem.customTextStyle(context)
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    if (myController.selectedIndex.value != 2) {
+                                     myController.selectButton(2);
+                                      _pageController.animateToPage(
+                                        2,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
+                                    }
+                                  },
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'Work Schedule',
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                    child: Text(
+                                      'Work Schedule',
+                                      textAlign: TextAlign.center,
+                                      style:AppbarCustomDropdownSubItem.customTextStyle(context)
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    if (myController.selectedIndex.value != 3) {
+                                      myController.selectButton(3);
+                                      _pageController.animateToPage(
+                                        3,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
+                                    }
+                                  },
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'Employee Documents',
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                    child: Text(
+                                      'Employee Documents',
+                                      textAlign: TextAlign.center,
+                                      style: AppbarCustomDropdownSubItem.customTextStyle(context)
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    if (myController.selectedIndex.value != 4) {
+                                      myController.selectButton(4);
+                                      _pageController.animateToPage(
+                                        4,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
+                                    }
+                                  },
+                                ),
+
+                                ///finance
+                                DropdownMenuItem<String>(
+                                  value: 'Finance',
+                                  child: Text(
+                                    'Finance',
+                                    textAlign: TextAlign.center,
+                                    style: AppbarCustomDropdownStyle.customTextStyle(context),
+                                  ),
+                                  onTap: () {},
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'Pay Rates',
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                    child: Text(
+                                      'Pay Rates',
+                                      textAlign: TextAlign.center,
+                                      style: AppbarCustomDropdownSubItem.customTextStyle(context)
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    if (myController.selectedIndex.value != 5) {
+                                      myController.selectButton(5);
+                                      _pageController.animateToPage(
+                                        5,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                              selectedItem: myController.selectedIndex.value == 8
+                                  ? 'Visits'
+                                  : myController.selectedIndex.value == 7
+                                      ? 'Role Manager'
+                                      : myController.selectedIndex.value == 6
+                                          ? 'Users'
+                                          : myController.selectedIndex.value == 2
+                                              ? 'Designation Settings'
+                                              : myController.selectedIndex.value == 3
+                                                  ? 'Work Schedule'
+                                                  : myController.selectedIndex.value == 4
+                                                      ? 'Employee Documents'
+                                                      : myController.selectedIndex.value == 5
+                                                          ? 'Finance'
+                                                          : 'Select a Module',
+                              onChanged: (newValue) {},
                             ),
-            ),
-            BottomBarRow()
-          ],
-        ),
-      ]),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 8,
+                child: PageView(
+                  controller: _pageController,
+                  physics: NeverScrollableScrollPhysics(),
+                  children:
+                  [
+                    DashboardMainButtonScreen(),
+                    CompanyIdentityScreen(),
+                    HrScreen(),
+                    WorkSchedule(),
+                    ManageEmployDocument(),
+                    FinanceScreen(),
+                    SeeAllScreen(),
+                    CiRoleManager(),
+                    CiVisitScreen(),
+                  ],
+                              ),
+              ),
+              BottomBarRow()
+            ],
+          ),
+        ]),
+      ),
     );
   }
 }
