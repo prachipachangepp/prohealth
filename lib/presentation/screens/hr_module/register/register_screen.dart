@@ -164,7 +164,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 children: [
                                   Icon(
                                     Icons.arrow_back,
-                                    size: 15,
+                                    size: 20,
                                     color: ColorManager.mediumgrey,
                                   ),
                                 ],

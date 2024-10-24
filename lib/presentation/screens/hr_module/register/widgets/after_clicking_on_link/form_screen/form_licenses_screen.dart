@@ -723,12 +723,13 @@ class _licensesFormState extends State<licensesForm> {
                 Icons.arrow_drop_down_sharp,
                 color: Color(0xff686464),
               ),
-              decoration: const InputDecoration.collapsed(hintText: ''),
+              decoration: InputDecoration.collapsed(hintText: 'Select'),
               items: dropDownList,
               onChanged: (newValue) {
                 for(var a in snapshot.data!){
                   if(a.name == newValue){
                     selectedCountry = a.name;
+                    selectedCountry = dropDownList[0].value;
                     countryId = a.countryId;
                     print("country :: ${selectedCountry}");
                     //empTypeId = docType;

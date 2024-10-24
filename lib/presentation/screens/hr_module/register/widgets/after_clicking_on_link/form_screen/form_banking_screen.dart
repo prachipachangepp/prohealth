@@ -591,6 +591,7 @@ class _BankingFormState extends State<BankingForm> {
                                   //   },
                                   // ),
                                   CustomTextFieldRegister(
+                                    hintText: 'Enter Requested amount',
                                     controller: requestammount,
                                     prefixText: '\$',
                                     prefixStyle: onlyFormDataStyle.customTextStyle(context),

@@ -92,11 +92,37 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-   color: Colors.white  ,
+   color: Colors.white ,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (widget.selectedIndex == 0)
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 35),
+                child: InkWell(
+                    onTap: widget.onBackPressed,
+
+                    child:Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.arrow_back,
+                          size: 20,
+                          color: ColorManager.mediumgrey,
+
+                        ),
+
+
+                      ],
+                    )
+                ),
+              ),
+            ],
+          ),
           //if (widget.selectedIndex != 0)
             // Padding(
             //   padding: const EdgeInsets.symmetric(horizontal: 340,vertical: 2),
@@ -107,8 +133,9 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
             //       style: CompanyIdentityManageHeadings.customTextStyle(context),
             //     ),
             //   ),
-            // ),
-          SizedBox(height: 20,),
+            // )
+          if (widget.selectedIndex == 0)
+          SizedBox(height: 5,),
           if (widget.selectedIndex != 0)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 35),
@@ -128,15 +155,9 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                         children: [
                           Icon(
                             Icons.arrow_back,
-                            size: 15,
+                            size: 20,
                             color: ColorManager.mediumgrey,
 
-                          ),
-
-                          SizedBox(width: 1,),
-                          Text(
-                            'Back',
-                            style: DefineWorkWeekStyle.customTextStyle(context),
                           ),
                         ],
                       )
