@@ -277,631 +277,719 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   }
 
 
-
+  Future<bool> _onWillPop() async {
+    if (pgeControllerId == 0) {
+      _pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
+     // return false; // Prevent the default back navigation
+    }else if(pgeControllerId == 1){
+      myController.selectButton(0);
+      _pageController.animateToPage(0,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.ease);
+      return false;
+    }else if(pgeControllerId == 2){
+      myController.selectButton(1);
+      _pageController.animateToPage(1,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.ease);
+      return false;
+    }else if(pgeControllerId == 3){
+      myController.selectButton(2);
+      _pageController.animateToPage(2,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.ease);
+      return false;
+    }
+    return true; // Allow the back navigation to exit the app
+  }
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          ///log appbar
-          ApplicationAppBar(headingText: "Human Resource Manager"),
-
-          ///appbar titles
-          Container(
-            // color: Colors.pink,
-            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-            child: StatefulBuilder(
-              builder: (BuildContext context,
-                  void Function(void Function()) setState) {
-                return Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ///heading bar
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Obx(
-                          () => CustomTitleButton(
-                            height: 30,
-                            width: 100,
-                            onPressed: () {
-                              setState(() {});
-                              //companyAll(context);
-                              myController.selectButton(0);
-                              _pageController.animateToPage(0,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-                              pgeControllerId = 0;
-                            },
-                            text: 'Dashboard',
-                            isSelected: myController.selectedIndex.value == 0,
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      //     () async{
+      //   myController.selectButton(0);
+      //   _pageController.animateToPage(0,
+      //       duration: Duration(milliseconds: 500),
+      //       curve: Curves.ease);
+      //   pgeControllerId = 0;
+      //   return false;
+      // } ,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            ///log appbar
+            ApplicationAppBar(headingText: "Human Resource Manager"),
+      
+            ///appbar titles
+            Container(
+              // color: Colors.pink,
+              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              child: StatefulBuilder(
+                builder: (BuildContext context,
+                    void Function(void Function()) setState) {
+                  return Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ///heading bar
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Obx(
+                            () => CustomTitleButton(
+                              height: 30,
+                              width: 100,
+                              onPressed: () {
+                                setState(() {});
+                                //companyAll(context);
+                                myController.selectButton(0);
+                                _pageController.animateToPage(0,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease);
+                                pgeControllerId = 0;
+                              },
+                              text: 'Dashboard',
+                              isSelected: myController.selectedIndex.value == 0,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 55,
-                        ),
-                        Obx(
-                          () => CustomTitleButton(
-                            height: 30,
-                            width: 140,
-                            onPressed: () {
-                              setState(() {});
-                              myController.selectButton(1);
-                              _pageController.animateToPage(1,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-
-                              pgeControllerId = 1;
-                            },
-                            text: 'Manage',
-                            isSelected: myController.selectedIndex.value == 1,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 55,
                           ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 55,
-                        ),
-                        // Obx(
-                        //   () => CustomTitleButton(
-                        //       height: 30,
-                        //       width: 140,
-                        //       onPressed: () {
-                        //         myController.selectButton(2);
-                        //         _pageController.animateToPage(2,
-                        //             duration: Duration(milliseconds: 500),
-                        //             curve: Curves.ease);
-                        //       },
-                        //       text: 'Add Employee',
-                        //       isSelected: myController.selectedIndex.value == 2),
-                        // ),
-                        // SizedBox(
-                        //   width: MediaQuery.of(context).size.width / 55,
-                        // ),
-                        Obx(
-                          () => CustomTitleButton(
-                            height: 30,
-                            width: 140,
-                            onPressed: () {
-                              setState(() {});
-                              myController.selectButton(2);
-                              _pageController.animateToPage(2,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-                              pgeControllerId = 2;
-                            },
-                            text: 'Register',
-                            isSelected: myController.selectedIndex.value == 2,
+                          Obx(
+                            () => CustomTitleButton(
+                              height: 30,
+                              width: 140,
+                              onPressed: () {
+                                setState(() {});
+                                myController.selectButton(1);
+                                _pageController.animateToPage(1,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease);
+      
+                                pgeControllerId = 1;
+                              },
+                              text: 'Manage',
+                              isSelected: myController.selectedIndex.value == 1,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 55,
-                        ),
-                        Obx(
-                          () => CustomTitleButton(
-                            height: 30,
-                            width: 140,
-                            onPressed: () {
-                              setState(() {});
-                              myController.selectButton(3);
-                              _pageController.animateToPage(3,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-                              pgeControllerId = 3;
-                            },
-                            text: 'Onboarding',
-                            isSelected: myController.selectedIndex.value == 3,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 55,
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 20,
-                    ),
-
-                    /// search text
-                    pgeControllerId == 2 || pgeControllerId == 3
-                        ? SizedBox()
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  padding: EdgeInsets.all(5),
-                                  width: AppSize.s330,
-                                  height: 40,
-                                  child: CompositedTransformTarget(
-                                    link: _layerLink,
-                                    child: TextField(
-                                      controller: _controller,
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      style: TextStyle(fontSize: 12),
-                                      onChanged: _search,
-                                      decoration: InputDecoration(
-                                          hintText: 'Search User',
-                                          alignLabelWithHint: true,
-                                          hintStyle: TextStyle(
-                                            fontSize: FontSize.s14,
-                                            fontWeight: FontWeight.w500,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                          border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                          suffixIcon: IconButton(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            icon: Center(
-                                              child: Icon(
-                                                Icons.search,
-                                                size: 18,
-                                              ),
+                          // Obx(
+                          //   () => CustomTitleButton(
+                          //       height: 30,
+                          //       width: 140,
+                          //       onPressed: () {
+                          //         myController.selectButton(2);
+                          //         _pageController.animateToPage(2,
+                          //             duration: Duration(milliseconds: 500),
+                          //             curve: Curves.ease);
+                          //       },
+                          //       text: 'Add Employee',
+                          //       isSelected: myController.selectedIndex.value == 2),
+                          // ),
+                          // SizedBox(
+                          //   width: MediaQuery.of(context).size.width / 55,
+                          // ),
+                          Obx(
+                            () => CustomTitleButton(
+                              height: 30,
+                              width: 140,
+                              onPressed: () {
+                                setState(() {});
+                                myController.selectButton(2);
+                                _pageController.animateToPage(2,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease);
+                                pgeControllerId = 2;
+                              },
+                              text: 'Register',
+                              isSelected: myController.selectedIndex.value == 2,
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 55,
+                          ),
+                          Obx(
+                            () => CustomTitleButton(
+                              height: 30,
+                              width: 140,
+                              onPressed: () {
+                                setState(() {});
+                                myController.selectButton(3);
+                                _pageController.animateToPage(3,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease);
+                                pgeControllerId = 3;
+                              },
+                              text: 'Onboarding',
+                              isSelected: myController.selectedIndex.value == 3,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 20,
+                      ),
+      
+                      /// search text
+                      pgeControllerId == 2 || pgeControllerId == 3
+                          ? SizedBox()
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    padding: EdgeInsets.all(5),
+                                    width: AppSize.s330,
+                                    height: 40,
+                                    child: CompositedTransformTarget(
+                                      link: _layerLink,
+                                      child: TextField(
+                                        controller: _controller,
+                                        textCapitalization:
+                                            TextCapitalization.words,
+                                        style: TextStyle(fontSize: 12),
+                                        onChanged: _search,
+                                        decoration: InputDecoration(
+                                            hintText: 'Search User',
+                                            alignLabelWithHint: true,
+                                            hintStyle: TextStyle(
+                                              fontSize: FontSize.s14,
+                                              fontWeight: FontWeight.w500,
+                                              color: ColorManager.mediumgrey,
                                             ),
-                                            onPressed: () {},
-                                          ),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 5)),
-                                    ),
-                                  )),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 70,
-                              ),
-                              MediaQuery.of(context).size.width >= 1100
-                                  ? Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 5),
-                                          child: Container(
-                                            width: 37,
-                                            height: 25,
-                                            decoration: BoxDecoration(
-                                              color: ColorManager.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(9),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Color(0x40000000),
-                                                  offset: Offset(0, 4),
-                                                  blurRadius: 4,
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))),
+                                            suffixIcon: IconButton(
+                                              splashColor: Colors.transparent,
+                                              highlightColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              icon: Center(
+                                                child: Icon(
+                                                  Icons.search,
+                                                  size: 18,
                                                 ),
-                                              ],
+                                              ),
+                                              onPressed: () {},
                                             ),
-                                            child: InkWell(
-                                              onTap: () {
-                                                isReportingOfficeId = false;
-                                                isDropdownAvailability = false;
-                                                isDropdownLicenseStatus = false;
-                                                isZoneSelected = false;
-                                                showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return ProfilePatientPopUp(
-                                                      officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
-                                                        future:
-                                                            getCompanyOfficeList(
-                                                                context),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          if (snapshot
-                                                                  .connectionState ==
-                                                              ConnectionState
-                                                                  .waiting) {
-                                                            return PatientCustomDropDown(
-                                                              items: ['Office'],
-                                                              labelText: '',
-                                                              value: 'Office',
-                                                              onChanged:
-                                                                  (value) {},
-                                                            );
-                                                          }
-                                                          if (snapshot
-                                                              .hasData) {
-                                                            {
-                                                              List<
+                                            contentPadding: EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 5)),
+                                      ),
+                                    )),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 70,
+                                ),
+                                MediaQuery.of(context).size.width >= 1100
+                                    ? Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 5),
+                                            child: Container(
+                                              width: 37,
+                                              height: 25,
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(9),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Color(0x40000000),
+                                                    offset: Offset(0, 4),
+                                                    blurRadius: 4,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  isReportingOfficeId = false;
+                                                  isDropdownAvailability = false;
+                                                  isDropdownLicenseStatus = false;
+                                                  isZoneSelected = false;
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return ProfilePatientPopUp(
+                                                        officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
+                                                          future:
+                                                              getCompanyOfficeList(
+                                                                  context),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            if (snapshot
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return PatientCustomDropDown(
+                                                                items: ['Office'],
+                                                                labelText: '',
+                                                                value: 'Office',
+                                                                onChanged:
+                                                                    (value) {},
+                                                              );
+                                                            }
+                                                            if (snapshot
+                                                                .hasData) {
+                                                              {
+                                                                List<
+                                                                        DropdownMenuItem<
+                                                                            String>>
+                                                                    dropDownList =
+                                                                    [];
+                                                                for (var i
+                                                                    in snapshot
+                                                                        .data!) {
+                                                                  dropDownList.add(
                                                                       DropdownMenuItem<
-                                                                          String>>
-                                                                  dropDownList =
-                                                                  [];
-                                                              for (var i
-                                                                  in snapshot
-                                                                      .data!) {
-                                                                dropDownList.add(
-                                                                    DropdownMenuItem<
-                                                                        String>(
-                                                                  child: Text(
-                                                                    i.name,
+                                                                          String>(
+                                                                    child: Text(
+                                                                      i.name,
+                                                                      style: SearchDropdownConst
+                                                                          .customTextStyle(
+                                                                              context),
+                                                                    ),
+                                                                    value: i.name,
+                                                                  ));
+                                                                }
+                                                                // snapshot.data!
+                                                                //     .map((zone) => zone.zoneName ?? '')
+                                                                //     .toList();
+                                                                return Container(
+                                                                  height: 31,
+                                                                  width: 170,
+                                                                  // margin: EdgeInsets.symmetric(horizontal: 20),
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      vertical: 4,
+                                                                      horizontal:
+                                                                          10),
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    border: Border.all(
+                                                                        color: const Color(
+                                                                                0xff686464)
+                                                                            .withOpacity(
+                                                                                0.5),
+                                                                        width:
+                                                                            1), // Black border
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                6), // Rounded corners
+                                                                  ),
+                                                                  child:
+                                                                      DropdownButtonFormField<
+                                                                          String>(
+                                                                    focusColor: Colors
+                                                                        .transparent,
+                                                                    icon: Icon(
+                                                                      Icons
+                                                                          .arrow_drop_down_sharp,
+                                                                      color: ColorManager
+                                                                          .mediumgrey,
+                                                                    ),
+                                                                    decoration: const InputDecoration
+                                                                        .collapsed(
+                                                                        hintText:
+                                                                            ''),
+                                                                    items:
+                                                                        dropDownList,
+                                                                    onChanged:
+                                                                        (newValue) {
+                                                                      for (var a
+                                                                          in snapshot
+                                                                              .data!) {
+                                                                        if (a.name ==
+                                                                            newValue) {
+                                                                          reportingOfficeId =
+                                                                              a.name;
+                                                                          isReportingOfficeId =
+                                                                              true;
+                                                                          print(
+                                                                              'Office Name : ${reportingOfficeId}');
+                                                                          //empTypeId = docType;
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    value:
+                                                                        dropDownList[
+                                                                                0]
+                                                                            .value,
                                                                     style: SearchDropdownConst
                                                                         .customTextStyle(
                                                                             context),
                                                                   ),
-                                                                  value: i.name,
-                                                                ));
+                                                                );
+                                                              }
+                                                            } else {
+                                                              return const Offstage();
+                                                            }
+                                                          },
+                                                        ),
+                                                        avabilityWidget: Row(
+                                                          children: [
+                                                            Center(
+                                                              child:
+                                                                  PatientCustomDropDown(
+                                                                items: [
+                                                                  'Full-Time',
+                                                                  'Part-Time'
+                                                                ],
+                                                                labelText:
+                                                                    'Availability',
+                                                                value:
+                                                                    'Full-Time',
+                                                                // labelStyle: SearchDropdownConst.customTextStyle(context),
+                                                                onChanged:
+                                                                    (value) {
+                                                                  setState(() {
+                                                                    dropdownAvailability =
+                                                                        value!;
+                                                                    isDropdownAvailability =
+                                                                        true;
+                                                                    print(
+                                                                        "Availability Status :: ${dropdownAvailability}");
+                                                                  });
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        licensesWidget: Row(
+                                                          children: [
+                                                            Center(
+                                                              child:
+                                                                  PatientCustomDropDown(
+                                                                items: [
+                                                                  'Expired',
+                                                                  'About to Expire',
+                                                                  'Upto date'
+                                                                ],
+                                                                labelText:
+                                                                    'License Status',
+                                                                value: 'Expired',
+                                                                onChanged:
+                                                                    (value) {
+                                                                  setState(() {
+                                                                    dropdownLicenseStatus =
+                                                                        value!;
+                                                                    isDropdownLicenseStatus =
+                                                                        true;
+                                                                    print(
+                                                                        "License Status :: ${dropdownLicenseStatus}");
+                                                                  });
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        zoneDropDown: FutureBuilder<List<SortByZoneData>>(
+                                                          future:
+                                                          PayRateZoneDropdown(
+                                                            context,
+                                                          ),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            if (snapshot
+                                                                .connectionState ==
+                                                                ConnectionState.waiting) {
+                                                              return PatientCustomDropDown(
+                                                                items: ['Zone'],
+                                                                labelText: '',
+                                                                value: 'Zone',
+                                                                onChanged:
+                                                                    (value) {},
+                                                              );
+                                                            } else if (snapshot
+                                                                .hasData) {
+                                                              List<
+                                                                  DropdownMenuItem<
+                                                                      String>>
+                                                              dropDownList =
+                                                              [];
+                                                              int zoneId = 0;
+                                                              for (var i
+                                                              in snapshot
+                                                                  .data!) {
+                                                                dropDownList.add(
+                                                                    DropdownMenuItem<
+                                                                        String>(
+                                                                      child: Text(
+                                                                        i.zoneName,
+                                                                        style: SearchDropdownConst
+                                                                            .customTextStyle(
+                                                                            context),
+                                                                      ),
+                                                                      value:
+                                                                      i.zoneName,
+                                                                    ));
                                                               }
                                                               // snapshot.data!
                                                               //     .map((zone) => zone.zoneName ?? '')
                                                               //     .toList();
+                                                              print("Zone: ");
                                                               return Container(
                                                                 height: 31,
                                                                 width: 170,
                                                                 // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                                padding: const EdgeInsets
+                                                                padding:
+                                                                const EdgeInsets
                                                                     .symmetric(
-                                                                    vertical: 4,
+                                                                    vertical:
+                                                                    6,
                                                                     horizontal:
-                                                                        10),
+                                                                    15),
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                BoxDecoration(
                                                                   color: Colors
                                                                       .white,
                                                                   border: Border.all(
                                                                       color: const Color(
-                                                                              0xff686464)
+                                                                          0xff686464)
                                                                           .withOpacity(
-                                                                              0.5),
+                                                                          0.5),
                                                                       width:
-                                                                          1), // Black border
+                                                                      1), // Black border
                                                                   borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              6), // Rounded corners
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                      6), // Rounded corners
                                                                 ),
-                                                                child:
-                                                                    DropdownButtonFormField<
-                                                                        String>(
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  icon: Icon(
-                                                                    Icons
-                                                                        .arrow_drop_down_sharp,
-                                                                    color: ColorManager
-                                                                        .mediumgrey,
-                                                                  ),
-                                                                  decoration: const InputDecoration
-                                                                      .collapsed(
-                                                                      hintText:
-                                                                          ''),
-                                                                  items:
-                                                                      dropDownList,
-                                                                  onChanged:
-                                                                      (newValue) {
-                                                                    for (var a
-                                                                        in snapshot
-                                                                            .data!) {
-                                                                      if (a.name ==
-                                                                          newValue) {
-                                                                        reportingOfficeId =
-                                                                            a.name;
-                                                                        isReportingOfficeId =
-                                                                            true;
-                                                                        print(
-                                                                            'Office Name : ${reportingOfficeId}');
-                                                                        //empTypeId = docType;
+                                                                child: DropdownButtonFormField<
+                                                                    String>(
+                                                                    focusColor: Colors
+                                                                        .transparent,
+                                                                    icon:
+                                                                    const Icon(
+                                                                      Icons
+                                                                          .arrow_drop_down_sharp,
+                                                                      color: Color(
+                                                                          0xff686464),
+                                                                    ),
+                                                                    decoration: const InputDecoration
+                                                                        .collapsed(
+                                                                        hintText:
+                                                                        ''),
+                                                                    items:
+                                                                    dropDownList,
+                                                                    onChanged:
+                                                                        (newValue) {
+                                                                      for (var a
+                                                                      in snapshot
+                                                                          .data!) {
+                                                                        if (a.zoneName ==
+                                                                            newValue) {
+                                                                          zoneId =
+                                                                              a.zoneId;
+                                                                          selectedZoneId =
+                                                                              zoneId;
+                                                                          isZoneSelected =
+                                                                          true;
+                                                                          print(
+                                                                              "Zone id :: ${selectedZoneId}");
+                                                                          //empTypeId = docType;
+                                                                        }
                                                                       }
-                                                                    }
-                                                                  },
-                                                                  value:
-                                                                      dropDownList[
-                                                                              0]
-                                                                          .value,
-                                                                  style: SearchDropdownConst
-                                                                      .customTextStyle(
-                                                                          context),
-                                                                ),
+                                                                    },
+                                                                    value:
+                                                                    dropDownList[
+                                                                    0]
+                                                                        .value,
+                                                                    style: DropdownItemStyle
+                                                                        .customTextStyle(
+                                                                        context)),
+                                                              );
+                                                            } else {
+                                                              return CustomDropdownTextField(
+                                                                // width: MediaQuery.of(context).size.width / 5,
+                                                                headText: 'Zone',
+                                                                items: [
+                                                                  'No Data'
+                                                                ],
                                                               );
                                                             }
-                                                          } else {
-                                                            return const Offstage();
-                                                          }
-                                                        },
-                                                      ),
-                                                      avabilityWidget: Row(
-                                                        children: [
-                                                          Center(
-                                                            child:
-                                                                PatientCustomDropDown(
-                                                              items: [
-                                                                'Full-Time',
-                                                                'Part-Time'
-                                                              ],
-                                                              labelText:
-                                                                  'Availability',
-                                                              value:
-                                                                  'Full-Time',
-                                                              // labelStyle: SearchDropdownConst.customTextStyle(context),
-                                                              onChanged:
-                                                                  (value) {
-                                                                setState(() {
-                                                                  dropdownAvailability =
-                                                                      value!;
-                                                                  isDropdownAvailability =
-                                                                      true;
-                                                                  print(
-                                                                      "Availability Status :: ${dropdownAvailability}");
-                                                                });
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      licensesWidget: Row(
-                                                        children: [
-                                                          Center(
-                                                            child:
-                                                                PatientCustomDropDown(
-                                                              items: [
-                                                                'Expired',
-                                                                'About to Expire',
-                                                                'Upto date'
-                                                              ],
-                                                              labelText:
-                                                                  'License Status',
-                                                              value: 'Expired',
-                                                              onChanged:
-                                                                  (value) {
-                                                                setState(() {
-                                                                  dropdownLicenseStatus =
-                                                                      value!;
-                                                                  isDropdownLicenseStatus =
-                                                                      true;
-                                                                  print(
-                                                                      "License Status :: ${dropdownLicenseStatus}");
-                                                                });
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      zoneDropDown: FutureBuilder<List<SortByZoneData>>(
-                                                        future:
-                                                        PayRateZoneDropdown(
-                                                          context,
+                                                          },
                                                         ),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          if (snapshot
-                                                              .connectionState ==
-                                                              ConnectionState.waiting) {
-                                                            return PatientCustomDropDown(
-                                                              items: ['Zone'],
-                                                              labelText: '',
-                                                              value: 'Zone',
-                                                              onChanged:
-                                                                  (value) {},
-                                                            );
-                                                          } else if (snapshot
-                                                              .hasData) {
-                                                            List<
-                                                                DropdownMenuItem<
-                                                                    String>>
-                                                            dropDownList =
-                                                            [];
-                                                            int zoneId = 0;
-                                                            for (var i
-                                                            in snapshot
-                                                                .data!) {
-                                                              dropDownList.add(
-                                                                  DropdownMenuItem<
-                                                                      String>(
-                                                                    child: Text(
-                                                                      i.zoneName,
-                                                                      style: SearchDropdownConst
-                                                                          .customTextStyle(
-                                                                          context),
-                                                                    ),
-                                                                    value:
-                                                                    i.zoneName,
-                                                                  ));
-                                                            }
-                                                            // snapshot.data!
-                                                            //     .map((zone) => zone.zoneName ?? '')
-                                                            //     .toList();
-                                                            print("Zone: ");
-                                                            return Container(
-                                                              height: 31,
-                                                              width: 170,
-                                                              // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                              padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical:
-                                                                  6,
-                                                                  horizontal:
-                                                                  15),
-                                                              decoration:
-                                                              BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                border: Border.all(
-                                                                    color: const Color(
-                                                                        0xff686464)
-                                                                        .withOpacity(
-                                                                        0.5),
-                                                                    width:
-                                                                    1), // Black border
-                                                                borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                    6), // Rounded corners
-                                                              ),
-                                                              child: DropdownButtonFormField<
-                                                                  String>(
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  icon:
-                                                                  const Icon(
-                                                                    Icons
-                                                                        .arrow_drop_down_sharp,
-                                                                    color: Color(
-                                                                        0xff686464),
-                                                                  ),
-                                                                  decoration: const InputDecoration
-                                                                      .collapsed(
-                                                                      hintText:
-                                                                      ''),
-                                                                  items:
-                                                                  dropDownList,
-                                                                  onChanged:
-                                                                      (newValue) {
-                                                                    for (var a
-                                                                    in snapshot
-                                                                        .data!) {
-                                                                      if (a.zoneName ==
-                                                                          newValue) {
-                                                                        zoneId =
-                                                                            a.zoneId;
-                                                                        selectedZoneId =
-                                                                            zoneId;
-                                                                        isZoneSelected =
-                                                                        true;
-                                                                        print(
-                                                                            "Zone id :: ${selectedZoneId}");
-                                                                        //empTypeId = docType;
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  value:
-                                                                  dropDownList[
-                                                                  0]
-                                                                      .value,
-                                                                  style: DropdownItemStyle
-                                                                      .customTextStyle(
-                                                                      context)),
-                                                            );
-                                                          } else {
-                                                            return CustomDropdownTextField(
-                                                              // width: MediaQuery.of(context).size.width / 5,
-                                                              headText: 'Zone',
-                                                              items: [
-                                                                'No Data'
-                                                              ],
-                                                            );
-                                                          }
+                                                          onSearch: () {
+                                                          setState(() {
+                                                            _searchByFilter(
+                                                                zoneId:
+                                                                    selectedZoneId,
+                                                                isZoneSelectedBool:
+                                                                    isZoneSelected,
+                                                                isReportingOffice:
+                                                                    isReportingOfficeId,
+                                                                officeName:
+                                                                    reportingOfficeId,
+                                                                isLicensesSelected:
+                                                                    isDropdownLicenseStatus,
+                                                                licenseStatusName:
+                                                                    dropdownLicenseStatus,
+                                                                isSelectAvailability:
+                                                                    isDropdownAvailability,
+                                                                availabilityName:
+                                                                    dropdownAvailability);
+                                                          });
                                                         },
-                                                      ),
-                                                        onSearch: () {
-                                                        setState(() {
-                                                          _searchByFilter(
-                                                              zoneId:
-                                                                  selectedZoneId,
-                                                              isZoneSelectedBool:
-                                                                  isZoneSelected,
-                                                              isReportingOffice:
-                                                                  isReportingOfficeId,
-                                                              officeName:
-                                                                  reportingOfficeId,
-                                                              isLicensesSelected:
-                                                                  isDropdownLicenseStatus,
-                                                              licenseStatusName:
-                                                                  dropdownLicenseStatus,
-                                                              isSelectAvailability:
-                                                                  isDropdownAvailability,
-                                                              availabilityName:
-                                                                  dropdownAvailability);
-                                                        });
-                                                      },
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'images/menuLines.svg'),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Center(
+                                                  child: SvgPicture.asset(
+                                                      'images/menuLines.svg'),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              90,
-                                        ),
-                                        Obx(
-                                          () => Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 5),
-                                            child: DZoneButton(
-                                              isSelected: myController
-                                                      .selectedIndex.value ==
-                                                  4,
-                                              onTap: () {
-                                                myController.selectButton(4);
-                                                setState(() {
-                                                  isSelected = true;
-                                                  print(
-                                                      "IsDZone : ${isSelected}");
-                                                  _searchByFilter(
-                                                      zoneId: selectedZoneId,
-                                                      isZoneSelectedBool:
-                                                          isZoneSelected,
-                                                      isReportingOffice:
-                                                          isReportingOfficeId,
-                                                      officeName:
-                                                          reportingOfficeId,
-                                                      isLicensesSelected:
-                                                          isDropdownLicenseStatus,
-                                                      licenseStatusName:
-                                                          dropdownLicenseStatus,
-                                                      isSelectAvailability:
-                                                          isDropdownAvailability,
-                                                      availabilityName:
-                                                          dropdownAvailability);
-                                                });
-                                              },
-                                            ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                90,
                                           ),
-                                        )
-                                      ],
-                                    )
-                                  : SizedBox(width: 1),
-                            ],
-                          ),
-                  ],
-                );
-              },
+                                          Obx(
+                                            () => Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 5),
+                                              child: DZoneButton(
+                                                isSelected: myController
+                                                        .selectedIndex.value ==
+                                                    4,
+                                                onTap: () {
+                                                  myController.selectButton(4);
+                                                  setState(() {
+                                                    isSelected = true;
+                                                    print(
+                                                        "IsDZone : ${isSelected}");
+                                                    _searchByFilter(
+                                                        zoneId: selectedZoneId,
+                                                        isZoneSelectedBool:
+                                                            isZoneSelected,
+                                                        isReportingOffice:
+                                                            isReportingOfficeId,
+                                                        officeName:
+                                                            reportingOfficeId,
+                                                        isLicensesSelected:
+                                                            isDropdownLicenseStatus,
+                                                        licenseStatusName:
+                                                            dropdownLicenseStatus,
+                                                        isSelectAvailability:
+                                                            isDropdownAvailability,
+                                                        availabilityName:
+                                                            dropdownAvailability);
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    : SizedBox(width: 1),
+                              ],
+                            ),
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
-
-          ///page view
-          Expanded(
-            flex: 8,
-            child: FutureBuilder<SearchByEmployeeIdProfileData>(
-                future: getSearchByEmployeeIdProfileByText(context, employeeId),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: ColorManager.blueprime,
-                      ),
-                    );
-                  }
-                  if (employeeId == 0) {
-                    return PageView(
-                      controller: _pageController,
-                      physics: NeverScrollableScrollPhysics(),
-                      children: [
-                        DashBoardScreen(),
-                        Center(
-                            child: Text(
-                          "Select a User by Searching for One!",
-                          style: CustomTextStylesCommon.commonStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: FontSize.s14,
-                              color: ColorManager.mediumgrey),
-                        )),
-                        //AddEmployeeHomeScreen(),
-                        RegisterScreen(
-                          onRefresh: () {
-                            // myController.selectButton(2);
+      
+            ///page view
+            Expanded(
+              flex: 8,
+              child: FutureBuilder<SearchByEmployeeIdProfileData>(
+                  future: getSearchByEmployeeIdProfileByText(context, employeeId),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
+                      );
+                    }
+                    if (employeeId == 0) {
+                      return PageView(
+                        controller: _pageController,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: [
+                          DashBoardScreen(),
+                          Center(
+                              child: Text(
+                            "Select a User by Searching for One!",
+                            style: CustomTextStylesCommon.commonStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: FontSize.s14,
+                                color: ColorManager.mediumgrey),
+                          )),
+                          //AddEmployeeHomeScreen(),
+                          RegisterScreen(
+                            onRefresh: () {
+                              // myController.selectButton(2);
+                            },
+                            onBackPressed: () {
+                              if (myController.selectedIndex.value == 2) {
+                                myController.selectButton(myController.selectedIndex.value - 1);
+                                _pageController.previousPage(
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease,
+                                );
+                              }
                           },
-                          onBackPressed: () {
+                          ),
+                          NewOnboardScreen(
+                            onBackPressed: () {
+                              if (myController.selectedIndex.value == 3) {
+                                myController.selectButton(myController.selectedIndex.value - 1);
+                                _pageController.previousPage(
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease,
+                                );
+                              }
+      
+                            },
+                          ),
+                          //SeeAllHrScreen()
+                        ],
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      SearchByEmployeeIdProfileData
+                          searchByEmployeeIdProfileData = snapshot.data!;
+                      print(
+                          "Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
+                      int empID = searchByEmployeeIdProfileData.employeeId!;
+      
+                      return PageView(
+                        controller: _pageController,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: [
+                          DashBoardScreen(),
+                          ManageScreen(
+                            searchByEmployeeIdProfileData:
+                                searchByEmployeeIdProfileData,
+                            employeeId: empID,
+                            pageManageController: _pageManageController,
+                            onRefresh: () {
+                              setState(() {});
+                            },
+                          ),
+                          //AddEmployeeHomeScreen(),
+                          RegisterScreen(
+                            onRefresh: () {
+                              myController.selectButton(2);
+                              // setState(() {
+                              //
+                              //  });
+                            }, onBackPressed: () {
                             if (myController.selectedIndex.value == 2) {
                               myController.selectButton(myController.selectedIndex.value - 1);
                               _pageController.previousPage(
@@ -909,84 +997,31 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 curve: Curves.ease,
                               );
                             }
-                        },
-                        ),
-                        NewOnboardScreen(
-                          onBackPressed: () {
-                            if (myController.selectedIndex.value == 3) {
-                              myController.selectButton(myController.selectedIndex.value - 1);
-                              _pageController.previousPage(
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease,
-                              );
-                            }
-
+      
                           },
-                        ),
-                        //SeeAllHrScreen()
-                      ],
-                    );
-                  }
-                  if (snapshot.hasData) {
-                    SearchByEmployeeIdProfileData
-                        searchByEmployeeIdProfileData = snapshot.data!;
-                    print(
-                        "Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
-                    int empID = searchByEmployeeIdProfileData.employeeId!;
-
-                    return PageView(
-                      controller: _pageController,
-                      physics: NeverScrollableScrollPhysics(),
-                      children: [
-                        DashBoardScreen(),
-                        ManageScreen(
-                          searchByEmployeeIdProfileData:
-                              searchByEmployeeIdProfileData,
-                          employeeId: empID,
-                          pageManageController: _pageManageController,
-                          onRefresh: () {
-                            setState(() {});
-                          },
-                        ),
-                        //AddEmployeeHomeScreen(),
-                        RegisterScreen(
-                          onRefresh: () {
-                            myController.selectButton(2);
-                            // setState(() {
-                            //
-                            //  });
-                          }, onBackPressed: () {
-                          if (myController.selectedIndex.value == 2) {
-                            myController.selectButton(myController.selectedIndex.value - 1);
-                            _pageController.previousPage(
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease,
-                            );
-                          }
-
-                        },
-                        ),
-                        NewOnboardScreen(
-                          onBackPressed: () {
-                            if (myController.selectedIndex.value == 3) {
-                              myController.selectButton(myController.selectedIndex.value - 1);
-                              _pageController.previousPage(
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease,
-                              );
-                            }
-
-                          },
-
-                        ),
-                      ],
-                    );
-                  }
-                  return Container();
-                }),
-          ),
-          BottomBarRow(),
-        ],
+                          ),
+                          NewOnboardScreen(
+                            onBackPressed: () {
+                              if (myController.selectedIndex.value == 3) {
+                                myController.selectButton(myController.selectedIndex.value - 1);
+                                _pageController.previousPage(
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease,
+                                );
+                              }
+      
+                            },
+      
+                          ),
+                        ],
+                      );
+                    }
+                    return Container();
+                  }),
+            ),
+            BottomBarRow(),
+          ],
+        ),
       ),
     );
   }
