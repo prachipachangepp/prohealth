@@ -618,6 +618,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         ),
                         SizedBox(height: 5,),
                         Row(
+                       //   mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             CustomRadioListTile(
                               title: 'Full Time',
@@ -713,38 +714,36 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               'Service',
                               style: AllPopupHeadings.customTextStyle(context),
                             ),
-                            SizedBox(height: 2,),
+                            SizedBox(height: 5,),
                             StatefulBuilder(
                               builder: (BuildContext context, void Function(void Function()) setState) {return Container(
-                                child: Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: snap.data!.map((service) {
-                                      return Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Radio<String>(
-                                            splashRadius: 0,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,// Change to String if servicename is a String
-                                            value: service.servicename,  // Use servicename as the value
-                                            groupValue: selectedServiceName, // Group value to determine the selected button
-                                            onChanged: (String? value) {
-                                              setState(() {
-                                                selectedServiceName = value; // Update the selected value
-                                              });
-                                              print('Selected Service: >>>>>$value'); // Print selected value
-                                            },
-                                          ),
-                                          Text(
-                                            service.servicename,
-                                            style: DocumentTypeDataStyle.customTextStyle(context),
-                                          ),
-                                          SizedBox(width: 14,)
-                                        ],
-                                      );
-                                    }).toList(),
-                                  ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: snap.data!.map((service) {
+                                    return Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Radio<String>(
+                                          splashRadius: 0,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,// Change to String if servicename is a String
+                                          value: service.servicename,  // Use servicename as the value
+                                          groupValue: selectedServiceName, // Group value to determine the selected button
+                                          onChanged: (String? value) {
+                                            setState(() {
+                                              selectedServiceName = value; // Update the selected value
+                                            });
+                                            print('Selected Service: >>>>>$value'); // Print selected value
+                                          },
+                                        ),
+                                        Text(
+                                          service.servicename,
+                                          style: DocumentTypeDataStyle.customTextStyle(context),
+                                        ),
+                                        SizedBox(width: 18,)
+                                      ],
+                                    );
+                                  }).toList(),
                                 ),
                               );  },
 

@@ -92,23 +92,50 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-   color: Colors.white  ,
+      color: Colors.white ,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (widget.selectedIndex != 0)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 340,vertical: 2),
-              child: Container(
-                //color: ColorManager.red,
-                child: Text(
-                  widget.employeeName,
-                  style: CompanyIdentityManageHeadings.customTextStyle(context),
+          if (widget.selectedIndex == 0)
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 35),
+                  child: InkWell(
+                      onTap: widget.onBackPressed,
+
+                      child:Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.arrow_back,
+                            size: 20,
+                            color: ColorManager.mediumgrey,
+
+                          ),
+
+
+                        ],
+                      )
+                  ),
                 ),
-              ),
+              ],
             ),
-          SizedBox(height: 20,),
+          //if (widget.selectedIndex != 0)
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 340,vertical: 2),
+          //   child: Container(
+          //     //color: ColorManager.red,
+          //     child: Text(
+          //       widget.employeeName,
+          //       style: CompanyIdentityManageHeadings.customTextStyle(context),
+          //     ),
+          //   ),
+          // )
+          if (widget.selectedIndex == 0)
+            SizedBox(height: 5,),
           if (widget.selectedIndex != 0)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 35),
@@ -116,52 +143,47 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                      onTap: (){
-                        widget.backButtonCallBack(true);
-                      },
-                    child:Row(
-                      children: [
-                        Icon(
-                          Icons.arrow_back,
-                          size: 15,
-                          color: ColorManager.mediumgrey,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 35),
+                    child: InkWell(
+                        onTap: (){
+                          widget.backButtonCallBack(true);
+                        },
+                        child:Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.arrow_back,
+                              size: 20,
+                              color: ColorManager.mediumgrey,
 
-                        ),
-
-                        SizedBox(width: 1,),
-                        Text(
-                          'Back',
-                          style: DefineWorkWeekStyle.customTextStyle(context),
-                        ),
-                      ],
-                    )
+                            ),
+                          ],
+                        )
+                    ),
                   ),
 
 
                   Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Row(
-                      //   children: [
-                      //     if (widget.selectedIndex != 0)
-                      //       Padding(
-                      //         padding: const EdgeInsets.only(bottom: AppPadding.p10),
-                      //         child: Container(
-                      //           //color: ColorManager.red,
-                      //           child: Text(
-                      //             widget.employeeName,
-                      //             style: TextStyle(
-                      //               fontSize: FontSize.s15,
-                      //               color: ColorManager.white,
-                      //               fontWeight: FontWeight.w700,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //
-                      //   ],
-                      // ),
+                      Row(
+                        children: [
+                          if (widget.selectedIndex != 0)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: AppPadding.p10,left: 10),
+                              child: Container(
+                                //color: ColorManager.red,
+                                child: Text(
+                                  widget.employeeName,
+                                  style: CompanyIdentityManageHeadings.customTextStyle(context),
+                                ),
+                              ),
+                            ),
+
+                        ],
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -183,9 +205,9 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                     .entries
                                     .map(
                                       (entry) => InkWell(
-                                        splashColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
                                     child: Container(
                                       height: AppSize.s30,
                                       width: MediaQuery.of(context).size.width / 8.42,
@@ -199,11 +221,11 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                         entry.value,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontSize: FontSize.s14,
-                                            fontWeight: FontWeight.w600,
-                                            color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
-                                                ? ColorManager.mediumgrey
-                                                : ColorManager.white,
+                                          fontSize: FontSize.s14,
+                                          fontWeight: FontWeight.w600,
+                                          color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+                                              ? ColorManager.mediumgrey
+                                              : ColorManager.white,
                                         ),
                                       ),
                                     ),
@@ -256,7 +278,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
               ),
             ),
           ),
-         // BottomBarRow(),
+          // BottomBarRow(),
         ],
       ),
     );

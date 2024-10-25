@@ -1869,8 +1869,6 @@ class PdfGenerator {
 //     }
 //   }
 // }
-
-
 ///
 // class PdfGenerator {
 //   static Future<String> htmlToBase64Pdf(String htmlContent) async {

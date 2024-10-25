@@ -62,7 +62,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController newUserLastNameController = TextEditingController();
   TextEditingController newUserEmailController = TextEditingController();
   TextEditingController newUserPasswordController = TextEditingController();
-
   /// Enroll
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -164,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 children: [
                                   Icon(
                                     Icons.arrow_back,
-                                    size: 15,
+                                    size: 20,
                                     color: ColorManager.mediumgrey,
                                   ),
                                 ],
@@ -546,15 +545,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                         // const url = "http://localhost:53617/#/onBordingWelcome";
+                         const url = "http://localhost:63961/#/onBordingWelcome";
                          // const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                       Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
-                          // if (await canLaunch(url)) {
-                          //  await launch(url);
-                          //  } else {
-                          //   throw 'Could not launch $url';
-                          // }
+                          //  Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                          if (await canLaunch(url)) {
+                           await launch(url);
+                           } else {
+                            throw 'Could not launch $url';
+                          }
                         },
                         child: Text(
                           data.link!,

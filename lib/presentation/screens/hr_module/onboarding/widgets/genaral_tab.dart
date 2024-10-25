@@ -59,36 +59,6 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
     double containerHeight = MediaQuery.of(context).size.height * 0.2;
     return Column(
       children: [
-        Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 23,vertical: 5),
-            child: InkWell(
-                onTap: widget.goBackButtion,
-                child:Row(
-                  children: [
-                    Icon(
-                      Icons.arrow_back,
-                      size: 15,
-                      color: ColorManager.mediumgrey,
-
-                    ),
-
-                    SizedBox(width: 1,),
-                    Text(
-                      'Back',
-                      style: DefineWorkWeekStyle.customTextStyle(context),
-                    ),
-                  ],
-                )
-            ),
-          ),
-        ],
-        ),
-
-
-
-
         Expanded(
           child: StreamBuilder<List<SeeAllData>>(
             stream: generalController.stream,
@@ -156,14 +126,14 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                 width: AppSize.s88,
                                                 height: AppSize.s20,
                                                 decoration: BoxDecoration(
-                                                    color: general.status == 'Opened'
-                                                        ? const Color(0xff51B5E6)
-                                                        : general.status == 'Partial'
-                                                        ? const Color(0xffCA8A04)
-                                                        : const Color(0xffB4DB4C),
-                                                    borderRadius: BorderRadius.only(
-                                                        topRight:
-                                                        Radius.circular(20)),),
+                                                  color: general.status == 'Opened'
+                                                      ? const Color(0xff51B5E6)
+                                                      : general.status == 'Partial'
+                                                      ? const Color(0xffCA8A04)
+                                                      : const Color(0xffB4DB4C),
+                                                  borderRadius: BorderRadius.only(
+                                                      topRight:
+                                                      Radius.circular(20)),),
                                                 child: Center(
                                                   child: Text(
                                                       general.status.toString(),
@@ -284,7 +254,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                       children: [
                                                         InfoData(general.ssnnbr ?? '--',),
                                                         InfoData(general.driverLicenseNum ?? '--'),
-                                                        InfoData(general.type ?? '--'),
+                                                        InfoData(general.employeeType ?? '--'),
                                                         InfoData(general.primaryPhoneNbr ?? '--'),
                                                         InfoData(_trimAddress(general.finalAddress ?? '--'),),
 

@@ -513,7 +513,7 @@ class _licensesFormState extends State<licensesForm> {
                             60),
                     CustomTextFieldRegister(
                       controller: controllerIssueDate,
-                      hintText: 'yyyy-MM-dd',
+                      hintText: 'yyyy-mm-dd',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
                       suffixIcon: IconButton(
@@ -568,7 +568,7 @@ class _licensesFormState extends State<licensesForm> {
                             60),
                     CustomTextFieldRegister(
                       controller: controllerExpirationDate,
-                      hintText: 'dd-mm-yyyy',
+                      hintText: 'yyyy-mm-dd',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
                       suffixIcon: IconButton(
@@ -723,12 +723,13 @@ class _licensesFormState extends State<licensesForm> {
                 Icons.arrow_drop_down_sharp,
                 color: Color(0xff686464),
               ),
-              decoration: const InputDecoration.collapsed(hintText: ''),
+              decoration: InputDecoration.collapsed(hintText: ''),
               items: dropDownList,
               onChanged: (newValue) {
                 for(var a in snapshot.data!){
                   if(a.name == newValue){
                     selectedCountry = a.name;
+                    selectedCountry = dropDownList[0].value;
                     countryId = a.countryId;
                     print("country :: ${selectedCountry}");
                     //empTypeId = docType;

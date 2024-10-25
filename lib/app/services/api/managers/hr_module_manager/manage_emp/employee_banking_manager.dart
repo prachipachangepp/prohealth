@@ -79,6 +79,7 @@ Future<EmployeeBankingPrefillData> getPrefillEmployeeBancking(
 
         String effectiveFormattedDate = convertIsoToDayMonthYear(response.data['effectiveDate']);
         // String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        print(":::;${response.data}");
         itemsData = EmployeeBankingPrefillData(
           percentage: response.data['requestedPercentage']??"--",
             empBankingId: response.data['empBankingId'],

@@ -134,7 +134,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 5.0),
+          padding: const EdgeInsets.only(left: 5.0,bottom: 2),
           child: Text(widget.headText,style: AllPopupHeadings.customTextStyle(context),),
         ),
         SizedBox(
@@ -223,7 +223,7 @@ class CustomTextFieldPhone extends StatelessWidget {
           padding: const EdgeInsets.only(left: 5.0),
           child: Text(text,style: AllPopupHeadings.customTextStyle(context),),
         ),
-        SizedBox(height: 5,),
+        SizedBox(height: 2,),
         SizedBox(
           width: AppSize.s250,
           height: AppSize.s40,
