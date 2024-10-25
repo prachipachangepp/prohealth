@@ -341,13 +341,17 @@ Future<ProDocument> getPro65Document({
 Future<ReturnOfCompanyProperty> getReturnOfCompanyPropertyDocument({
   required BuildContext context, required int templateId,required int employeeId,
   required String companyProperty,
-  required String specifications, required String supervisorName}) async {
+  required String specifications,
+  // required String supervisorName
+}) async {
 //var itemList ;
   var itemsData ;
   try {
     final response = await ApiOffer(context).get(
         path: LegalDocumentsRepo
-            .getReturnOfCompanyDocument(templateId: templateId, employeeId: employeeId, companyProperty: companyProperty, specifications: specifications, supervisorName: supervisorName));
+            .getReturnOfCompanyDocument(templateId: templateId, employeeId: employeeId, companyProperty: companyProperty, specifications: specifications,
+            // supervisorName: supervisorName
+        ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print(' Return Of Company Property Fetched');
       itemsData = ReturnOfCompanyProperty(returnOfCompanyPropertyId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);

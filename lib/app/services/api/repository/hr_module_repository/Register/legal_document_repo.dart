@@ -61,8 +61,10 @@ class LegalDocumentsRepo{
     return "$pro65Document/$templateId/generate-html/$employeeId";
   }
   static String getReturnOfCompanyDocument({required int templateId,required int employeeId, required String companyProperty,
-    required String specifications, required String supervisorName}){
-    return "$returnOfCompanyDocument/$templateId/generate-html/$employeeId/$companyProperty/$specifications/$supervisorName";
+    required String specifications,
+    // required String supervisorName
+  }){
+    return "$returnOfCompanyDocument/$templateId/generate-html/$employeeId/$companyProperty/$specifications";
   }
   static String getHepBDocument({required int templateId,required int employeeId}){
     return "$hepBDocument/$templateId/generate-html/$employeeId";
