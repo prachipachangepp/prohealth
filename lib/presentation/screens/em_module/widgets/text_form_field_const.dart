@@ -66,55 +66,58 @@ class _SMTextFConstState extends State<SMTextFConst> {
   @override
   Widget build(BuildContext context) {
     String? errorText;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          widget.text,
-          style: AllPopupHeadings.customTextStyle(context)
-          //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          width: widget.width ?? 354,
-          height: 30,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-            borderRadius: BorderRadius.circular(8),
+    return Padding(
+      padding:  const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.text,
+            style: AllPopupHeadings.customTextStyle(context)
+            //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
           ),
-          child: TextFormField(
-            focusNode: widget.focusNode,
-            autofocus: true,
-            enabled: widget.enable == null ? true : false,
-            controller: widget.controller,
-            keyboardType: widget.keyboardType,
-            cursorHeight: 17,
-            cursorColor: Colors.black,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            decoration: InputDecoration(
-              suffixIcon: widget.showDatePicker
-                  ? GestureDetector(
-                onTap: () => _selectDate(context),
-                child: Icon(Icons.calendar_month_outlined),
-              )
-                  : widget.icon,
-              prefix: widget.prefixWidget,
-              prefixIcon: widget.suffixIcon,
-              prefixStyle: AllHRTableData.customTextStyle(context),
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            width: widget.width ?? 354,
+            height: 30,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.circular(8),
             ),
-            style: TableSubHeading.customTextStyle(context),
-            //validator: widget.validator,
-            onTap: widget.onChange,
-            validator: widget.validator,
-            // onTap: widget.onChange,
+            child: TextFormField(
+              focusNode: widget.focusNode,
+              autofocus: true,
+              enabled: widget.enable == null ? true : false,
+              controller: widget.controller,
+              keyboardType: widget.keyboardType,
+              cursorHeight: 17,
+              cursorColor: Colors.black,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                suffixIcon: widget.showDatePicker
+                    ? GestureDetector(
+                  onTap: () => _selectDate(context),
+                  child: Icon(Icons.calendar_month_outlined),
+                )
+                    : widget.icon,
+                prefix: widget.prefixWidget,
+                prefixIcon: widget.suffixIcon,
+                prefixStyle: AllHRTableData.customTextStyle(context),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
+              ),
+              style: TableSubHeading.customTextStyle(context),
+              //validator: widget.validator,
+              onTap: widget.onChange,
+              validator: widget.validator,
+              // onTap: widget.onChange,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -119,7 +119,7 @@ class _CustomDialogState extends State<CustomDialog> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(width: 410,
-        height: AppSize.s540,
+        height: AppSize.s550,
         //title: "Create User",
         title: widget.title,
         onClear: (){
@@ -502,7 +502,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(width: 410,
-      height: AppSize.s540,
+      height: AppSize.s550,
       //title: "Create User",
       title: widget.title,
       onClear: (){
