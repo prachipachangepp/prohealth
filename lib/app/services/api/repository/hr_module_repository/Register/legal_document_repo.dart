@@ -87,9 +87,15 @@ class LegalDocumentsRepo{
   }
 
   static String getFluVaccineDocument({required int templateId,required int employeeId,required String dateofVaccination,required String siteOfAdministration, required String vaccineType, required String dose,
-   required String reactions, required String manufacturer, required String nameOfAdministering, required String title, required String providerAddress, required String acknowledgeFacts, required String Allergis}){
-    return "$fluVaccineDocument/$templateId/generate-html/$employeeId/$vaccineType/$reactions/$dateofVaccination/$siteOfAdministration/$dose/$manufacturer/$nameOfAdministering/$title/$providerAddress/$acknowledgeFacts/$Allergis";
+   required String reactions, required String manufacturer, required String nameOfAdministering, required String title, required String providerAddress, required String acknowledgeFacts, required String Allergis, required String other}){
+    return
+      "$fluVaccineDocument/$templateId/generate-html/$employeeId/$vaccineType/$reactions/$dateofVaccination/$siteOfAdministration/$dose/$manufacturer/$nameOfAdministering/$title/$providerAddress/$acknowledgeFacts/$Allergis/$other";
   }
+
+  ////flu-vaccine-form/{templateId}/generate-html/{employeeId}/{vaccineType}/{reactions}/{dateOfvaccination}/{siteOfAdministration}/{dose}/{manufacturer}/{nameOfAdministering}/{title}/{providerAddress}/{acknowledgeFacts}/{Allergis}/{other}
+
+
+
   static String getW4Documents({required int templateId,required int employeeId, required String middleName,
     required String marriedstatus, required int step3a,required int step3b,required int step3c,required int step4a,
     required int step4b,required int step4c, required int multipleJW1,required int multipleJW12a,required int multipleJW12b,

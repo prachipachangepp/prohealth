@@ -34,6 +34,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   TextEditingController titleController = TextEditingController();
   TextEditingController acknowledgeFactsController = TextEditingController();
   TextEditingController AllergisController = TextEditingController();
+  TextEditingController OtherController = TextEditingController();
   bool loading = false;
   bool _isFormValid = true;
   String? dateOfvaccinationError;
@@ -49,6 +50,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   String? titleError;
   String? acknowledgeFactsError;
   String? AllergisError;
+  String? OtherError;
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -73,6 +75,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       titleError = _validateTextField(titleController.text, 'provider address');
       acknowledgeFactsError = _validateTextField(acknowledgeFactsController.text, 'acknowledge facts');
       AllergisError = _validateTextField(AllergisController.text, 'allergis');
+      OtherError = _validateTextField(OtherController.text, 'allergis');
     });
   }
 
@@ -229,6 +232,17 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       AllergisError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
+                  SizedBox(height: AppSize.s6),
+                  SMTextFConst(
+                    controller: OtherController,
+                    keyboardType: TextInputType.text,
+                    text: 'Other',
+                  ),
+                  if (OtherError != null)
+                    Text(
+                      OtherError!,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
                 ],
               ),
             ],
@@ -258,7 +272,9 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                 vaccineType: vaccineTypeController.text, dose: doseController.text, reactions: reactionsController.text,
                 manufacturer: manufacturerController.text, dateofVaccination: dateOfvaccinationController.text,
                 nameOfAdministering: nameOfAdministeringController.text, title: titleController.text,
-                providerAddress: address2Controller.text, acknowledgeFacts: acknowledgeFactsController.text, Allergis: AllergisController.text);
+                providerAddress: address2Controller.text,
+                acknowledgeFacts: acknowledgeFactsController.text,
+                Allergis: AllergisController.text, other: OtherController.text);
             if(fluVaccineDocument.statusCode == 200 || fluVaccineDocument.statusCode == 201){
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
