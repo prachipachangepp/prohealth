@@ -776,9 +776,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    FirstSMTextFConst(
+                                    SSNTextFConst(
                                       controller: ssNController,
-                                      keyboardType: TextInputType.text,
+                                      keyboardType: TextInputType.number,
                                       text: AppString.ssnN,
                                       // showDatePicker: true,
                                     ),

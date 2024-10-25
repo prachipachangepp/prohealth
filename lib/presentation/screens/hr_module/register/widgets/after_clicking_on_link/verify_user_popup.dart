@@ -434,7 +434,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                         padding:
                                             const EdgeInsets.only(right: 55),
                                         child: Text(
-                                          'Resend Otp',
+                                          'Resend OTP',
                                           style:TextStyle(
                                               fontSize: FontSize.s14,
                                               color: ColorManager.blueprime,

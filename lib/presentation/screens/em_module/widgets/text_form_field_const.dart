@@ -820,3 +820,117 @@ class EditTextFieldPhone extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+class SSNTextFConst extends StatefulWidget {
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final String text;
+  final Color textColor;
+  final Icon? icon;
+  final bool? readOnly;
+  final VoidCallback? onChange;
+  final bool? enable;
+  final Widget? prefixWidget;
+  final String? Function(String?)? validator;
+  final List<TextInputFormatter>? inputFormated;
+  final bool showDatePicker;
+  final Icon? suffixIcon;
+
+
+
+ SSNTextFConst({
+    Key? key,
+    this.inputFormated,
+    required this.controller,
+    required this.keyboardType,
+    required this.text,
+    this.textColor = const Color(0xff686464),
+    this.icon,
+    this.onChange,
+    this.readOnly,
+    this.enable,
+    this.validator,
+    this.prefixWidget,
+    this.showDatePicker = false, this.suffixIcon,
+  }) : super(key: key);
+
+  @override
+  State<SSNTextFConst> createState() => _SSNTextFConstState();
+}
+
+class _SSNTextFConstState extends State<SSNTextFConst> {
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(3000),
+    );
+    if (pickedDate != null) {
+      widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    String? errorText;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.text,
+            style: AllPopupHeadings.customTextStyle(context),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            width: 354,
+            height: 30,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: TextFormField(
+                autofocus: true,
+                enabled: widget.enable == null ? true : false,
+                controller: widget.controller,
+                keyboardType: widget.keyboardType,
+                cursorHeight: 17,
+                cursorColor: Colors.black,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  suffixIcon: widget.showDatePicker
+                      ? GestureDetector(
+                    onTap: () => _selectDate(context),
+                    child: Icon(Icons.calendar_month_outlined,color:ColorManager.blueprime),
+                  )
+                      : widget.suffixIcon,
+                  prefix: widget.prefixWidget,
+                  prefixStyle:ZoneDataStyle.customTextStyle(context),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(
+                      bottom: 22,
+                      left: AppPadding.p15),
+                ),
+                style: TableSubHeading.customTextStyle(context),
+                //validator: widget.validator,
+                onTap: widget.onChange,
+
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly, // Only allow digits
+                LengthLimitingTextInputFormatter(9), // Limit to 9 digits
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
