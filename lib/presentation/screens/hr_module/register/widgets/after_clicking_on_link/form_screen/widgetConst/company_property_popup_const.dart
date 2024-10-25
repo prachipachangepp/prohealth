@@ -44,14 +44,14 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
       companyError =
           _validateTextField(companyController.text, 'company property');
       specificationError = _validateTextField(specificationController.text, 'specifications');
-      supervisorError = _validateTextField(supervisorController.text, 'supervisors name');
+      //supervisorError = _validateTextField(supervisorController.text, 'supervisors name');
     });
   }
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
         width: AppSize.s400,
-        height: AppSize.s400,
+        height: AppSize.s360,
         title: 'Return of Company Property',
         body: [
           Padding(
@@ -82,16 +82,16 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
                     style: CommonErrorMsg.customTextStyle(context),
                   ),
                 SizedBox(height: AppSize.s8),
-                SMTextFConst(
-                  controller: supervisorController,
-                  keyboardType: TextInputType.text,
-                  text: 'Supervisor Name',
-                ),
-                if (supervisorError != null)
-                  Text(
-                    supervisorError!,
-                    style: CommonErrorMsg.customTextStyle(context),
-                  ),
+                // SMTextFConst(
+                //   controller: supervisorController,
+                //   keyboardType: TextInputType.text,
+                //   text: 'Supervisor Name',
+                // ),
+                // if (supervisorError != null)
+                //   Text(
+                //     supervisorError!,
+                //     style: CommonErrorMsg.customTextStyle(context),
+                //   ),
               ],
             ),
           )
@@ -115,7 +115,9 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
                   loading = true;
                 });
                 ReturnOfCompanyProperty returnOfCompanyProperty = await getReturnOfCompanyPropertyDocument(context: context,
-                    employeeId: widget.employeeId,templateId: widget.htmlFormTemplateId, companyProperty: companyController.text, specifications: specificationController.text, supervisorName: supervisorController.text);
+                    employeeId: widget.employeeId,templateId: widget.htmlFormTemplateId, companyProperty: companyController.text, specifications: specificationController.text,
+                    // supervisorName: supervisorController.text
+                );
                 if(returnOfCompanyProperty.statusCode == 200 || returnOfCompanyProperty.statusCode == 201){
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
