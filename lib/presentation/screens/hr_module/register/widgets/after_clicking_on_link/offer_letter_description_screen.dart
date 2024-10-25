@@ -273,7 +273,7 @@ class _OfferLetterDescriptionScreenState
               context,
               MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
             );
-          },title: 'Offer Letter', containerText: 'Offer Accepted Succefully',);
+          },title: 'Offer Letter', containerText: 'Offer Accepted Successfully',);
 
                         });
                       }else{
