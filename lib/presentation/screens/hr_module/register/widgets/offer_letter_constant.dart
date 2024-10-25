@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 
 
@@ -11,11 +12,12 @@ class CustomTextFieldOfferScreen extends StatefulWidget {
   //final String labelText;
   final double? height;
   final FormFieldValidator<String>? validator;
+  final String? hintText;
   final ValueChanged<String>? onChanged;
 
   CustomTextFieldOfferScreen({required this.controller,
     //required this.labelText,
-    this.height,this.validator,this.onChanged});
+    this.height,this.validator,this.onChanged, this.hintText});
 
   @override
   State<CustomTextFieldOfferScreen> createState() => _CustomTextFieldOfferScreenState();
@@ -25,33 +27,34 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,//widget.height,
+      height: 30, //widget.height,
       width: MediaQuery.of(context).size.width / 5,
       child: TextFormField(
         readOnly: true,
-        style:DocumentTypeDataStyle.customTextStyle(context) ,
+        style: DocumentTypeDataStyle.customTextStyle(context),
         onChanged: widget.onChanged,
         cursorColor: Colors.black,
         controller: widget.controller,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(left: 20,bottom: 5),
-          border: OutlineInputBorder(
+          contentPadding: const EdgeInsets.only(left: 20, bottom: 5),
+          border: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
-          //labelText: widget.labelText,
+          hintText: widget.hintText, // Add your hint text here
+          hintStyle: onlyFormDataStyle.customTextStyle(context), // Optional: customize hint text style
           labelStyle: DocumentTypeDataStyle.customTextStyle(context),
           suffixIcon: IconButton(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             hoverColor: Colors.transparent,
             splashRadius: 1,
-            icon: Icon(Icons.calendar_month, color: ColorManager.blueprime,size: 16,),
+            icon: Icon(Icons.calendar_month, color: ColorManager.blueprime, size: 16),
             onPressed: () async {
               DateTime? pickedDate = await showDatePicker(
                 context: context,
@@ -67,6 +70,7 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
         ),
       ),
     );
+
   }
 }
 
@@ -112,15 +116,15 @@ class _CustomDropdownFormFieldState extends State<CustomDropdownFormField> {
       height: widget.height,
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
+              contentPadding: const EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
 
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
           filled: true,
@@ -128,7 +132,7 @@ class _CustomDropdownFormFieldState extends State<CustomDropdownFormField> {
           hintText: widget.hintText,
           hintStyle:DocumentTypeDataStyle.customTextStyle(context),
           labelText: widget.labelText,
-          labelStyle:TextStyle(
+          labelStyle:const TextStyle(
             fontSize: 10,
             fontWeight: FontWeight.w400,
             color: Color(0xff686464),
