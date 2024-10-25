@@ -186,7 +186,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return CustomDialog(
+                            return CustomDialogSEE(
                               title: "Create User",
                               //userIdController: userIdController,
                               lastNameController: lastNameController,
@@ -771,3 +771,4 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     );
   }
 }
+

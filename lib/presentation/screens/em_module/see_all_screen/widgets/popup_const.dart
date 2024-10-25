@@ -119,7 +119,7 @@ class _CustomDialogState extends State<CustomDialog> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(width: 410,
-        height: AppSize.s540,
+        height: AppSize.s550,
         //title: "Create User",
         title: widget.title,
         onClear: (){
@@ -405,6 +405,384 @@ class _CustomDialogState extends State<CustomDialog> {
 
 
 
+class CustomDialogSEE extends StatefulWidget {
+  final String title;
+  // final String depTitle;
+  //VoidCallback onSubmit;
+  //final TextEditingController userIdController;
+  final TextEditingController lastNameController;
+  final TextEditingController emailController;
+  final TextEditingController firstNameController;
+  // final TextEditingController roleController;
+  final TextEditingController passwordController;
+  //final VoidCallback? onCancel;
+  // final TextEditingController companyIdController ;
+  //Widget child;
+
+  CustomDialogSEE({
+    // required this.child,
+    required this.title,
+   // this.onCancel,
+    // required this.depTitle,
+    // required this.onSubmit,
+    // required this.userIdController,
+    required this.lastNameController,
+    required this.emailController,
+    required this.firstNameController,
+    //required this.roleController,
+    required this.passwordController,
+    // required this.companyIdController,
+  });
+
+  @override
+  State<CustomDialogSEE> createState() => _CustomDialogSEEState();
+}
+
+class _CustomDialogSEEState extends State<CustomDialogSEE> {
+
+  @override
+  void initState() {
+    super.initState();
+    _generatePassword(); // Generate password when dialog is initialized
+  }
+
+  void _generatePassword() {
+    final random = Random();
+    final characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
+    String password = '';
+    for (int i = 0; i < 8; i++) {
+      password += characters[random.nextInt(characters.length)];
+    }
+    setState(() {
+      widget.passwordController.text = password; // Update the controller text
+    });
+  }
+
+  void _copyToClipboard() {
+    Clipboard.setData(ClipboardData(text: widget.passwordController.text)).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Copied to clipboard')),
+      );
+    });
+  }
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String? _nameDocError;
+  String? _emailDocError;
+  String? _stateDocError;
+  String? _PasswordDocError;
+  bool isLoading = false;
+
+  bool _isFormValid = true;
+  String? _validateTextField(String value, String fieldName) {
+    if (value.isEmpty) {
+      _isFormValid = false;
+      return "Please Enter $fieldName";
+    }
+    return null;
+  }
+
+  void _validateForm() {
+    setState(() {
+      _isFormValid = true;
+      _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
+      _emailDocError = _validateTextField(widget.emailController.text, 'Email');
+      _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
+      _PasswordDocError =
+          _validateTextField(widget.passwordController.text, 'Password');
+    });
+  }
+
+  var deptId = 1;
+  int? firstDeptId;
+  String? selectedDeptName;
+  int? selectedDeptId;
+
+  @override
+  Widget build(BuildContext context) {
+    return DialogueTemplate(width: 410,
+      height: AppSize.s550,
+      //title: "Create User",
+      title: widget.title,
+      onClear: (){
+        widget.firstNameController.clear();
+        widget.lastNameController.clear();
+        widget.emailController.clear();
+        selectedDeptId = AppConfig.AdministrationId;
+        Navigator.pop(context);
+      },
+      body: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              FirstSMTextFConst(
+                controller: widget.firstNameController,
+                keyboardType: TextInputType.text,
+                text: "First Name",
+              ),
+              if (_nameDocError != null) // Display error if any
+                Text(
+                  _nameDocError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
+              SizedBox(height: 5,),
+              ///
+              FirstSMTextFConst(
+                controller: widget.lastNameController,
+                keyboardType: TextInputType.text,
+                text: 'Last Name',
+              ),
+              if (_stateDocError != null) // Display error if any
+                Text(
+                  _stateDocError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
+              SizedBox(height: 10,),
+              Text(
+                  'Select Department',
+                  //  widget.depTitle,
+                  style: AllPopupHeadings.customTextStyle(context)),
+              SizedBox(height: 5,),
+              FutureBuilder<List<HRHeadBar>>(
+                future: companyHRHeadApi(context, deptId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    List<String>dropDownServiceList =[];
+                    return Container(
+                        alignment: Alignment.center,
+                        child:
+                        HRUManageDropdown(
+                          controller:
+                          TextEditingController(
+                              text: ''
+                          ),
+                          labelFontSize: 12,
+                          items:  dropDownServiceList,
+                        )
+                    );
+                  }
+                  if (snapshot.hasData &&
+                      snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        ErrorMessageString.noroleAdded,
+                        style: AllNoDataAvailable.customTextStyle(context),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+
+                    List<String> dropDownServiceList = snapshot
+                        .data!
+                        .map((dept) => dept.deptName!)
+                        .toList();
+                    String? firstDeptName =
+                    snapshot.data!.isNotEmpty
+                        ? snapshot.data![0].deptName
+                        : null;
+                    int? firstDeptId = snapshot.data!.isNotEmpty
+                        ? snapshot.data![0].deptId
+                        : null;
+
+                    if (selectedDeptName == null &&
+                        dropDownServiceList.isNotEmpty) {
+                      selectedDeptName = firstDeptName;
+                      selectedDeptId = firstDeptId;
+                    }
+
+                    return HRUManageDropdown(
+                      controller: TextEditingController(
+                          text: selectedDeptName ?? ''),
+                      hintText: "Department",
+                      labelFontSize: 12,
+                      items: dropDownServiceList,
+                      onChanged: (val) {
+                        setState(() {
+                          selectedDeptName = val;
+                          // Find the corresponding department ID from the snapshot
+                          selectedDeptId = snapshot.data!
+                              .firstWhere(
+                                  (dept) => dept.deptName == val)
+                              .deptId;
+                        });
+                      },
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
+              SizedBox(height: 14,),
+              SMTextFConst(controller: widget.emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  text: 'Email'),
+              if (_emailDocError != null) // Display error if any
+                Text(
+                  _emailDocError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
+              SizedBox(height: 14,),
+              Padding(
+                padding: const EdgeInsets.only(left: 1),
+                child: Text("Password",
+                    style: AllPopupHeadings.customTextStyle(context)),
+              ),
+              SizedBox(height: 5,),
+              CustomTextFieldWithIcon(
+                controller: widget.passwordController,
+                // suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
+                keyboardType: TextInputType.text,
+                text: "Password",
+                cursorHeight: 12,
+                // labelText: "Password",
+                hintText: "Password",
+                labelStyle: TextStyle(),
+                labelFontSize: 12,
+                errorText: 'Password is required',
+                onSuffixIconPressed: _copyToClipboard,
+              ),
+              if (_PasswordDocError != null)
+                Text(
+                  _PasswordDocError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
+            ],
+          ),
+        )
+
+      ],
+      bottomButtons:  isLoading == true
+          ? CircularProgressIndicator(
+        color: ColorManager.blueprime,
+      )
+          :
+      CustomElevatedButton(
+        height: 30,
+        width: 120,
+        text: 'Create',
+        onPressed: () async {
+          _validateForm();
+          print('$selectedDeptId');
+          print('${widget.firstNameController.text}');
+          print('${widget.lastNameController.text}');
+          print('${widget.emailController.text}');
+          print('${widget.passwordController.text}');
+          if (widget.passwordController.text.length < 6) {
+            setState(() {
+              _PasswordDocError = "Password must be longer than or equal to 6 characters";
+            });
+            return; // Stop further execution if password validation fails
+          }
+          if (_isFormValid) {
+            var response = await createUserPost(
+              context,
+              widget.firstNameController.text,
+              widget.lastNameController.text,
+              selectedDeptId!,
+              widget.emailController.text,
+              widget.passwordController.text,
+            );
+
+            if (response.success) {
+              //widget.onCancel!();
+              widget.firstNameController.clear();
+              widget.lastNameController.clear();
+              widget.emailController.clear();
+              selectedDeptId = AppConfig.AdministrationId;
+              Navigator.pop(context);
+
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddSuccessPopup(
+                    message: 'User Added Successfully',
+                  );
+                },
+              );
+            } else {
+              // Show error dialog if email is already used or other errors
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return DialogueTemplate(
+                    width: 300, // Adjust as needed
+                    height: 200,
+                    // Adjust as needed
+                    title: 'Error',
+                    body: [
+                      Text(
+                          'Email ID is Already Used',
+                          style: TextStyle(fontSize: 16)),
+                    ],
+                    bottomButtons: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('OK'),
+                    ),
+                  );
+                },
+              );
+            }
+          }
+        },
+      ),
+
+
+
+
+      ///old
+      // CustomElevatedButton(
+      //     height: 30,
+      //     width: 120,
+      //     text: 'Create',
+      //     onPressed: () async {
+      //       _validateForm();
+      //       print('$selectedDeptId');
+      //       print('${widget.firstNameController.text}');
+      //       print('${widget.lastNameController.text}');
+      //       print('${widget.emailController.text}');
+      //       print('${widget.passwordController.text}');
+      //       if (_isFormValid) {
+      //         var response = await createUserPost(
+      //           context,
+      //           widget.firstNameController.text,
+      //           widget.lastNameController.text,
+      //           selectedDeptId!,
+      //           widget.emailController.text,
+      //           widget.passwordController.text,
+      //         );
+      //         widget.onCancel!();
+      //         widget.firstNameController.clear();
+      //         widget.lastNameController.clear();
+      //         widget.emailController.clear();
+      //         selectedDeptId = AppConfig.AdministrationId;
+      //         Navigator.pop(context);
+      //         if(response.statusCode == 200 || response.statusCode == 201){
+      //           showDialog(
+      //             context: context,
+      //             builder: (BuildContext context) {
+      //               return AddSuccessPopup(
+      //                 message: 'User Added Successfully',
+      //               );
+      //             },
+      //           );
+      //         }
+      //         // }
+      //       }
+      //     }
+      //   //},
+      // ),
+    );
+  }
+}
+
+
+
 
 
 
@@ -600,7 +978,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-      height: 440,
+      height: 450,
       width: 400,
       title: widget.title,
       body: [

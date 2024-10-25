@@ -338,6 +338,14 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
         widget.payRatesController.clear();
         widget.perMilesController.clear();
         widget.fixPayRatesController.clear();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AddSuccessPopup(
+              message: 'Edit Successfully',
+            );
+          },
+        );
       });
     } else {
       setState(() {
@@ -456,6 +464,7 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
              isLoading = true;
            });
            _validateAndSubmit();
+
 
          },
        ),
