@@ -75,7 +75,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       titleError = _validateTextField(titleController.text, 'provider address');
       acknowledgeFactsError = _validateTextField(acknowledgeFactsController.text, 'acknowledge facts');
       AllergisError = _validateTextField(AllergisController.text, 'allergis');
-      OtherError = _validateTextField(OtherController.text, 'allergis');
+      OtherError = _validateTextField(OtherController.text, 'other');
     });
   }
 
