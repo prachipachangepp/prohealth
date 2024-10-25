@@ -1,11 +1,12 @@
 class OnCallDocument{
-  // final int onCallId;
-  // final String name;
+  final int onCallId;
+  final String name;
   final String html;
+
  // final String onCallData;
   OnCallDocument({
-    // required this.onCallId,
-    // required this.name,
+    required this.onCallId,
+    required this.name,
     required this.html,});
 }
 

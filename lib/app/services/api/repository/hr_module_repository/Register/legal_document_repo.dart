@@ -28,6 +28,7 @@ class LegalDocumentsRepo{
   ///users/ByCompanyId/{companyId}
   static String getOnCallDocument({required int callHtmlId,required int employeeId}){
     return "$onCallDocument/$callHtmlId/$employeeId";
+
   }
   static String getCandidateReleaseDocument({required int candidateReleaseFormhtmlId,required int employeeId,required String middleName, required String maindenSurnameAlisa,
     required String currentAddress,required String stateIssuingLicense, required String fullname}){
