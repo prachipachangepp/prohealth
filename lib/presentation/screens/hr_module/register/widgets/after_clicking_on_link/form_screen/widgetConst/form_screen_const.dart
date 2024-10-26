@@ -58,17 +58,25 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
     //   dynamicHtmlData = widget.htmlFormData;
     // });
     // Register the view factory
+    base64Converter();
     ui.platformViewRegistry.registerViewFactory('html-viewer-$_uniqueKey', // Use unique key in viewType
            (int viewId) {        final element = html.IFrameElement()
              ..srcdoc = widget.htmlFormData
              ..style.border = 'none'
              ..style.width = '100%'
              ..style.height = '600px';
-      return element;      },);
+      return element;
+      },);
   }
   void toggleBack(){
     Navigator.pop(context);
   }
+   void base64Converter() async {
+     pdfFile = await PdfGenerator.htmlToBase64Pdf(widget.htmlFormData);
+   }
+
+
+
   //
   // Future<String> _generatePdfAndConvertToBase64() async {
   //   final pdf = pw.Document(); // Create PDF page with HTML content (or any content)
@@ -172,7 +180,9 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                           onPressed: () async{
 
                           //  pdfFile = await _generatePdfAndConvertToBase64();
-                          pdfFile = await PdfGenerator.htmlToBase64Pdf(widget.htmlFormData);//.replaceAll('\\n', '').replaceAll('\\t', '').trim());
+                          // pdfFile = await PdfGenerator.htmlToBase64Pdf(widget.htmlFormData);
+                            ///
+                          //.replaceAll('\\n', '').replaceAll('\\t', '').trim());
 //                             pdfFile = await PdfGenerator.htmlToBase64Pdf("""
 //                             <!DOCTYPE html>
 // <html lang="en">
