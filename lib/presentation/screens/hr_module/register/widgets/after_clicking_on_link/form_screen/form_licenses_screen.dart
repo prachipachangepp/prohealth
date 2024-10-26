@@ -289,7 +289,8 @@ class _LicensesScreenState extends State<LicensesScreen> {
                     await perfFormLinsence(
                         context: context,
                         licenseNumber: st.licensurenumber.text,
-                        country: st.selectedCountry.toString(),
+                       // country: st.selectedCountry.toString(),
+                        country: st.controllercountry.text.toString(),
                         employeeId: widget.employeeID,
                         expDate: st.controllerExpirationDate.text,
                         issueDate: st.controllerIssueDate.text,
@@ -344,11 +345,12 @@ class _licensesFormState extends State<licensesForm> {
   TextEditingController licensurenumber = TextEditingController();
   TextEditingController controllerIssueDate = TextEditingController();
   TextEditingController controllerExpirationDate = TextEditingController();
+  TextEditingController controllercountry= TextEditingController(text: 'United States Of America');
 
-  String? selectedCountry;
+ // String selectedCountry = 'United States Of America';
   int? licenseIdIndex;
   String? licenseUrl;
-  int countryId =0;
+  int countryId =1;
 
   final StreamController<List<AEClinicalReportingOffice>> Countrystream =
       StreamController<List<AEClinicalReportingOffice>>();
@@ -468,13 +470,19 @@ class _licensesFormState extends State<licensesForm> {
                         height:
                         MediaQuery.of(context).size.height /
                             60),
-                    StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) { return  Container(
-                        height: 32,
-                        child: buildDropdownButton(context),
-                      ); },
+
+                    CustomTextFieldRegister(
+                      controller: controllercountry,
+                      height: 32,
 
                     ),
+                    // StatefulBuilder(
+                    //   builder: (BuildContext context, void Function(void Function()) setState) { return  Container(
+                    //     height: 32,
+                    //     child: buildDropdownButton(context),
+                    //   ); },
+                    //
+                    // ),
                     SizedBox(
                         height:
                         MediaQuery.of(context).size.height /
@@ -672,83 +680,84 @@ class _licensesFormState extends State<licensesForm> {
       ),
     );
   }
-  Widget buildDropdownButton(BuildContext context) {
-    return FutureBuilder<List<CountryGetData>>(
-      future: getCountry(context: context),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 7),
-            child: Container(
-              height: 31,
-              width: 250,
-              decoration: BoxDecoration(
-                  color: ColorManager.white),
-            ),
-          );
-
-        } else if (snapshot.hasError) {
-          return  CustomDropdownTextField(
-            //width: MediaQuery.of(context).size.width / 5,
-            headText: 'Country',
-            items: ['Error'],
-          );
-        } else if (snapshot.hasData) {
-          List<DropdownMenuItem<String>> dropDownList = [];
-          int degreeID = 0;
-          for(var i in snapshot.data!){
-            dropDownList.add(DropdownMenuItem<String>(
-              child: Text(i.name),
-              value: i.name,
-            ));
-          }
-          return Container(
-            height: 32,
-            // margin: EdgeInsets.symmetric(horizontal: 20),
-            padding:
-            const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                  color: const Color(0xff686464).withOpacity(0.5),
-                  width: 1), // Black border
-              borderRadius:
-              BorderRadius.circular(6), // Rounded corners
-            ),
-            child: DropdownButtonFormField<String>(
-              focusColor: Colors.transparent,
-              icon: const Icon(
-                Icons.arrow_drop_down_sharp,
-                color: Color(0xff686464),
-              ),
-              decoration: InputDecoration.collapsed(hintText: ''),
-              items: dropDownList,
-              onChanged: (newValue) {
-                for(var a in snapshot.data!){
-                  if(a.name == newValue){
-                    selectedCountry = a.name;
-                    selectedCountry = dropDownList[0].value;
-                    countryId = a.countryId;
-                    print("country :: ${selectedCountry}");
-                    //empTypeId = docType;
-                  }
-                }
-              },
-              value: dropDownList[0].value,
-              style: onlyFormDataStyle.customTextStyle(context),
-            ),
-          );
-        } else {
-          return CustomDropdownTextField(
-            // width: MediaQuery.of(context).size.width / 5,
-            headText: 'Country',
-
-            items: ['No Data'],
-          );
-        }
-      },
-    );
-  }
+  // Widget buildDropdownButton(BuildContext context) {
+  //   return FutureBuilder<List<CountryGetData>>(
+  //     future: getCountry(context: context),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState ==
+  //           ConnectionState.waiting) {
+  //         return Padding(
+  //           padding: const EdgeInsets.symmetric(
+  //               horizontal: 7),
+  //           child: Container(
+  //             height: 31,
+  //             width: 250,
+  //             decoration: BoxDecoration(
+  //                 color: ColorManager.white),
+  //           ),
+  //         );
+  //
+  //       } else if (snapshot.hasError) {
+  //         return  CustomDropdownTextField(
+  //           //width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Country',
+  //           items: ['Error'],
+  //         );
+  //       } else if (snapshot.hasData) {
+  //         List<DropdownMenuItem<String>> dropDownList = [];
+  //         int degreeID = 0;
+  //         for(var i in snapshot.data!){
+  //           dropDownList.add(DropdownMenuItem<String>(
+  //             child: Text(i.name),
+  //             value: i.name,
+  //           ));
+  //         }
+  //         return Container(
+  //           height: 32,
+  //           // margin: EdgeInsets.symmetric(horizontal: 20),
+  //           padding:
+  //           const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             border: Border.all(
+  //                 color: const Color(0xff686464).withOpacity(0.5),
+  //                 width: 1), // Black border
+  //             borderRadius:
+  //             BorderRadius.circular(6), // Rounded corners
+  //           ),
+  //           child: DropdownButtonFormField<String>(
+  //             focusColor: Colors.transparent,
+  //             icon: const Icon(
+  //               Icons.arrow_drop_down_sharp,
+  //               color: Color(0xff686464),
+  //             ),
+  //             decoration: InputDecoration.collapsed(hintText: ''),
+  //             items: dropDownList,
+  //             onChanged: (newValue) {
+  //               for(var a in snapshot.data!){
+  //                 if(a.name == newValue){
+  //                   selectedCountry = a.name;
+  //                   selectedCountry = dropDownList[0].value!;
+  //                   countryId = a.countryId;
+  //                   print("country :: ${selectedCountry}");
+  //                   print("country :: ${countryId}");
+  //                   //empTypeId = docType;
+  //                 }
+  //               }
+  //             },
+  //             value: dropDownList[0].value,
+  //             style: onlyFormDataStyle.customTextStyle(context),
+  //           ),
+  //         );
+  //       } else {
+  //         return CustomDropdownTextField(
+  //           // width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Country',
+  //
+  //           items: ['No Data'],
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 }
