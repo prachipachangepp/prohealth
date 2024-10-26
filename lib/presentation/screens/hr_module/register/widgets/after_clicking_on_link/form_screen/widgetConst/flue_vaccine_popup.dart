@@ -50,9 +50,9 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   String? nameOfAdministeringError;
   String? address2Error;
   String? titleError;
-  String? acknowledgeFactsError;
-  String? AllergisError;
-  String? OtherError;
+  // String? acknowledgeFactsError;
+  // String? AllergisError;
+   String? OtherError;
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -60,6 +60,10 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
     }
     return null;
   }
+
+  bool allergies1 = false;
+  bool allergies2 = false;
+  bool allergies3 = false;
 
   void _validateForm() {
     setState(() {
@@ -75,184 +79,208 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       nameOfAdministeringError = _validateTextField(nameOfAdministeringController.text, 'name of administering');
       address2Error = _validateTextField(address2Controller.text, 'title');
       titleError = _validateTextField(titleController.text, 'provider address');
-      acknowledgeFactsError = _validateTextField(acknowledgeFactsController.text, 'acknowledge facts');
-      AllergisError = _validateTextField(AllergisController.text, 'allergis');
-      OtherError = _validateTextField(OtherController.text, 'other');
+      // acknowledgeFactsError = _validateTextField(acknowledgeFactsController.text, 'acknowledge facts');
+      // AllergisError = _validateTextField(AllergisController.text, 'allergis');
+    // OtherError = _validateTextField(OtherController.text, 'other');
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return DialogueTemplate(
-      width: AppSize.s800,
-      height: AppSize.s650,
+    return TerminationDialogueTemplate(
+      width: AppSize.s850,
+      height: AppSize.s610,
       title: "Flu Vaccine",
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text( AppStringLegalDocument.popupMsgHead,
-                    style:  LegalDocumentPopupMessage.customTextStyle(context),),
-                  SizedBox(height: AppSize.s25),
-                  SMTextFConst(
-                    controller: siteOfAdministrationController,
-                    keyboardType: TextInputType.text,
-                    text: 'Site of Administration',
-                  ),
-                  if (siteOfAdministrationError != null)
-                    Text(
-                      siteOfAdministrationError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+          child: Column(children: [
+          Text( AppStringLegalDocument.popupMsgHead,
+          style:  LegalDocumentPopupMessage.customTextStyle(context),),
+          SizedBox(height: AppSize.s25),
+
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SMTextFConst(
+                      controller: nameOfAdministeringController,
+                      keyboardType: TextInputType.text,
+                      text: 'Name of Person Administering the Vaccine',
                     ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: vaccineTypeController,
-                    keyboardType: TextInputType.text,
-                    text: 'Vaccine Type',
-                  ),
-                  if (vaccineTypeError != null)
-                    Text(
-                      vaccineTypeError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    if (nameOfAdministeringError != null)
+                      Text(
+                        nameOfAdministeringError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                    SizedBox(height: AppSize.s6),
+                    FirstSMTextFConst(
+                      controller: dateOfvaccinationController,
+                      keyboardType: TextInputType.text,
+                      text: 'Date of Vaccination',
+                      showDatePicker: true,
                     ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: doseController,
-                    keyboardType: TextInputType.text,
-                    text: 'Dose',
-                  ),
-                  if (doseError != null)
-                    Text(
-                      doseError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    if (dateOfvaccinationError != null)
+                      Text(
+                        dateOfvaccinationError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                    SizedBox(height: AppSize.s6),
+                    SMTextFConst(
+                      controller: siteOfAdministrationController,
+                      keyboardType: TextInputType.text,
+                      text: 'Site of Administration',
                     ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: reactionsController,
-                    keyboardType: TextInputType.text,
-                    text: 'Reactions',
-                  ),
-                  if (reactionsError != null)
-                    Text(
-                      reactionsError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    if (siteOfAdministrationError != null)
+                      Text(
+                        siteOfAdministrationError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                    SizedBox(height: AppSize.s6),
+                    SMTextFConst(
+                      controller: vaccineTypeController,
+                      keyboardType: TextInputType.text,
+                      text: 'Vaccine Type',
                     ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: manufacturerController,
-                    keyboardType: TextInputType.text,
-                    text: 'Manufacturer',
-                  ),
-                  if (manufacturerError != null)
-                    Text(
-                      manufacturerError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    if (vaccineTypeError != null)
+                      Text(
+                        vaccineTypeError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                    SizedBox(height: AppSize.s6),
+                    SMTextFConst(
+                      controller: doseController,
+                      keyboardType: TextInputType.text,
+                      text: 'Dose',
                     ),
-                  SizedBox(height: AppSize.s6),
-                  FirstSMTextFConst(
-                    controller: dateOfvaccinationController,
-                    keyboardType: TextInputType.text,
-                    text: 'Date of Vaccination',
-                    showDatePicker: true,
-                  ),
-                  if (dateOfvaccinationError != null)
-                    Text(
-                      dateOfvaccinationError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    if (doseError != null)
+                      Text(
+                        doseError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                    SizedBox(height: AppSize.s6),
+                    SMTextFConst(
+                      controller: reactionsController,
+                      keyboardType: TextInputType.text,
+                      text: 'Reactions, if any',
                     ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // FirstSMTextFConst(
-                  //   controller: dateofVaccinationController,
-                  //   keyboardType: TextInputType.text,
-                  //   text: 'Date',
-                  // ),
-                  // if (dateofVaccinationError != null) // Display error if any
-                  //   Text(
-                  //     dateofVaccinationError!,
-                  //     style: CommonErrorMsg.customTextStyle(context),
-                  //   ),
-                  //
-                  // SizedBox(height: AppSize.s6),
-                  SizedBox(height: AppSize.s30),
-                  SMTextFConst(
-                    controller: nameOfAdministeringController,
-                    keyboardType: TextInputType.text,
-                    text: 'Name of Administering',
-                  ),
-                  if (nameOfAdministeringError != null)
-                    Text(
-                      nameOfAdministeringError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    if (reactionsError != null)
+                      Text(
+                        reactionsError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                    SizedBox(height: AppSize.s6),
+                    SMTextFConst(
+                      controller: manufacturerController,
+                      keyboardType: TextInputType.text,
+                      text: 'Manufacturer and Lot ',
                     ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: titleController,
-                    keyboardType: TextInputType.text,
-                    text: 'Title',
-                  ),
-                  if (titleError != null)
-                    Text(
-                      titleError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    if (manufacturerError != null)
+                      Text(
+                        manufacturerError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                    SizedBox(height: AppSize.s6),
+                    SMTextFConst(
+                      controller: titleController,
+                      keyboardType: TextInputType.text,
+                      text: 'Title',
                     ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: address2Controller,
-                    keyboardType: TextInputType.text,
-                    text: 'Provider Address',
-                  ),
-                  if (address2Error != null)
-                    Text(
-                      address2Error!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    if (titleError != null)
+                      Text(
+                        titleError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                    SizedBox(height: AppSize.s6),
+                    SMTextFConst(
+                      controller: address2Controller,
+                      keyboardType: TextInputType.text,
+                      text: 'Provider Address',
                     ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: acknowledgeFactsController,
-                    keyboardType: TextInputType.text,
-                    text: 'Acknowledge Facts',
-                  ),
-                  if (acknowledgeFactsError != null)
-                    Text(
-                      acknowledgeFactsError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    if (address2Error != null)
+                      Text(
+                        address2Error!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text( 'Acknowledge Facts', style: AllPopupHeadings.customTextStyle(context),
                     ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: AllergisController,
-                    keyboardType: TextInputType.text,
-                    text: 'Allergis',
-                  ),
-                  if (AllergisError != null)
-                    Text(
-                      AllergisError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    SizedBox(height: AppSize.s6),
+                    Text( 'Allergies', style: AllPopupHeadings.customTextStyle(context),
                     ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: OtherController,
-                    keyboardType: TextInputType.text,
-                    text: 'Other',
-                  ),
-                  if (OtherError != null)
-                    Text(
-                      OtherError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: allergies1,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              allergies1 = value ?? false;
+                            });
+                          },
+                        ),
+                        Text(
+                          'Allergy to eggs, chickens or chicken feathers',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ],
                     ),
-                ],
-              ),
-            ],
-          ),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: allergies2,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              allergies2 = value ?? false;
+                            });
+                          },
+                        ),
+                        Text(
+                          'Guillain-Barre Syndrome or persistent neurological illness',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: allergies3,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              allergies3 = value ?? false;
+                            });
+                          },
+                        ),
+                        Text(
+                          'Severe allergy to other vaccine component',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: AppSize.s6),
+                    SMTextFConst(
+                      controller: OtherController,
+                      keyboardType: TextInputType.text,
+                      text: 'Other',
+                    ),
+                    if (OtherError != null)
+                      Text(
+                        OtherError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ],)
+
         )
       ],
       bottomButtons: loading == true
