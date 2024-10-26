@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
@@ -117,6 +119,9 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text( AppStringLegalDocument.popupMsgHead,
+                    style:  LegalDocumentPopupMessage.customTextStyle(context),),
+                  SizedBox(height: AppSize.s25),
                   SMTextFConst(
                     controller: nameController,
                     keyboardType: TextInputType.text,
@@ -207,6 +212,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: AppSize.s30),
                   SMNumberTextFConst(
                       controller: multipleJW12bController, text: 'Multiple JW12b'),
                   if (multipleJW12bError != null)

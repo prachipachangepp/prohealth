@@ -3,6 +3,8 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_docu
 import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
@@ -83,7 +85,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s800,
-      height: AppSize.s610,
+      height: AppSize.s650,
       title: "Flu Vaccine",
       body: [
         Padding(
@@ -95,6 +97,9 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text( AppStringLegalDocument.popupMsgHead,
+                    style:  LegalDocumentPopupMessage.customTextStyle(context),),
+                  SizedBox(height: AppSize.s25),
                   SMTextFConst(
                     controller: siteOfAdministrationController,
                     keyboardType: TextInputType.text,
@@ -178,6 +183,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                   //   ),
                   //
                   // SizedBox(height: AppSize.s6),
+                  SizedBox(height: AppSize.s30),
                   SMTextFConst(
                     controller: nameOfAdministeringController,
                     keyboardType: TextInputType.text,
