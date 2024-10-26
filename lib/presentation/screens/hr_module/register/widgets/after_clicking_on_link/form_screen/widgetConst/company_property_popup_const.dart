@@ -5,7 +5,10 @@ import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
 import 'form_screen_const.dart';
@@ -51,7 +54,7 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
         width: AppSize.s400,
-        height: AppSize.s360,
+        height: AppSize.s383,
         title: 'Return of Company Property',
         body: [
           Padding(
@@ -59,6 +62,9 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text( AppStringLegalDocument.popupMsgHead,
+                style:  LegalDocumentPopupMessage.customTextStyle(context),),
+                SizedBox(height: AppSize.s25),
                 FirstSMTextFConst(
                   controller: companyController,
                   keyboardType: TextInputType.text,

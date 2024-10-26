@@ -340,13 +340,23 @@ class DefineWorkWeekStyle {
 }
 
 
-//hr register screen link
 class RegisterLinkDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,
       fontSize: FontSize.s13,
       color: ColorManager.blueprime,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+class LegalDocumentPopupMessage{
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w700,
+      fontSize: FontSize.s12,
+      color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,
     );
   }

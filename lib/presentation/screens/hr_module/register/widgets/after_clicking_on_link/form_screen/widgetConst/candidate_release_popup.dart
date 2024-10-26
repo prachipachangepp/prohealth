@@ -4,8 +4,11 @@ import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/dialogue_template.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
@@ -55,11 +58,53 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
     });
   }
 
+
+
+
+  List<String> _suggestions = [];
+  @override
+  void initState() {
+    super.initState();
+    addressController.addListener(_onCountyNameChanged);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _onCountyNameChanged() async {
+    if (addressController.text.isEmpty) {
+      setState(() {
+        _suggestions = [];
+      });
+      return;
+    }
+    final suggestions = await fetchSuggestions(addressController.text);
+    if (suggestions[0] == addressController.text) {
+      setState(() {
+        _suggestions.clear();
+      });
+    } else if (addressController.text.isEmpty) {
+      setState(() {
+        _suggestions = suggestions;
+      });
+    } else {
+      setState(() {
+        _suggestions = suggestions;
+      });
+    }
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-      width: AppSize.s400,
-      height: AppSize.s550,
+      width: AppSize.s420,
+      height: AppSize.s620,
       title: 'Candidate Release Form',
       body: [
         Padding(
@@ -67,6 +112,30 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text( AppStringLegalDocument.popupMsgHead,
+                style:  LegalDocumentPopupMessage.customTextStyle(context),),
+              SizedBox(height: AppSize.s20),
+              SMTextFConst(
+                controller: fullNameController,
+                keyboardType: TextInputType.text,
+                text: 'Full Name as it appear on license',
+              ),
+              if (fullNameError != null)
+                Text(
+                  fullNameError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
+              SizedBox(height: AppSize.s7),
+              SMTextFConst(
+                controller: stateLicenseController,
+                keyboardType: TextInputType.text,
+                text: 'State Issuing License',
+              ),
+              if (stateError != null)
+                Text(
+                  stateError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
               FirstSMTextFConst(
                 controller: middleNameController,
                 keyboardType: TextInputType.text,
@@ -78,7 +147,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
 
-              SizedBox(height: AppSize.s8),
+              SizedBox(height: AppSize.s7),
               SMTextFConst(
                 controller: maidenSurnameController,
                 keyboardType: TextInputType.text,
@@ -89,41 +158,68 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                   maidenError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: addressController,
-                keyboardType: TextInputType.text,
-                text: 'Current Address',
+              SizedBox(height: AppSize.s7),
+              Stack(
+                children :[Column(
+                  children: [
+                    SMTextFConst(
+                      controller: addressController,
+                      keyboardType: TextInputType.text,
+                      text: 'Current Address',
+                    ),
+                  ],
+                ),
+          ]
               ),
+              if (_suggestions.isNotEmpty)
+                Container(
+                  height: 70,
+                  width: 520,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: _suggestions.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                          _suggestions[index],
+                          style: AllPopupHeadings.customTextStyle(context),
+                        ),
+                        onTap: () {
+                          FocusScope.of(context)
+                              .unfocus(); // Dismiss the keyboard
+                          String selectedSuggestion = _suggestions[index];
+                          addressController.text = selectedSuggestion;
+
+                          setState(() {
+                            _suggestions.clear();
+                            //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+                          });
+                        },
+                      );
+                    },
+                  ),
+                ),
+
               if (addressError != null)
                 Text(
                   addressError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: fullNameController,
-                keyboardType: TextInputType.text,
-                text: 'Full Name',
-              ),
-              if (fullNameError != null)
-                Text(
-                  fullNameError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: stateLicenseController,
-                keyboardType: TextInputType.text,
-                text: 'State Issuing License',
-              ),
-              if (stateError != null)
-                Text(
-                  stateError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
+
             ],
           ),
+
         )
       ],
       bottomButtons: loading == true
