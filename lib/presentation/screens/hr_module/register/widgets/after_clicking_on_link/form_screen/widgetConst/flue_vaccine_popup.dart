@@ -45,7 +45,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   String? doseError;
   String? reactionsError;
   String? manufacturerError;
-
  // String? dateofVaccinationError;
   String? nameOfAdministeringError;
   String? address2Error;
