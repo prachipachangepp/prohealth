@@ -61,9 +61,9 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
       _isFormValid = true;
       nameError = _validateTextField(nameController.text, 'middle name');
       faxError = _validateTextField(faxNoController.text, 'fax no');
-      hiredError = _validateTextField(hiredController.text, 'hired status');
+     // hiredError = _validateTextField(hiredController.text, 'hired status');
       positionError = _validateTextField(positionController.text, 'position applying');
-      positionDesireError = _validateTextField(positionDesiredController.text, 'position desired');
+     // positionDesireError = _validateTextField(positionDesiredController.text, 'position desired');
 
       dateError = _validateTextField(dateAvailableController.text, 'date available');
       specifyError = _validateTextField(specifyWorkHrController.text, 'specify working hours');
@@ -77,6 +77,18 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
   bool Position1 = false;
   bool Position2 = false;
   bool Position3 = false;
+
+  String position1 = '';
+  String position2 = '';
+  String position3 = '';
+
+  String position = "";
+
+  Future<String> _joinPosition() async {
+    position = position1 + position2 + position3 ;
+    return position;
+  }
+
   String? emptype;
   @override
   Widget build(BuildContext context) {
@@ -89,8 +101,13 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              Text( AppStringLegalDocument.popupMsgHead,
-                style:  LegalDocumentPopupMessage.customTextStyle(context),),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text( AppStringLegalDocument.popupMsgHead,
+                    style:  LegalDocumentPopupMessage.customTextStyle(context),),
+                ],
+              ),
               SizedBox(height: AppSize.s20),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,6 +229,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   Position1 = value ?? false;
+                                  position1 = 'Full-Time';
                                 });
                               },
                             ),
@@ -228,6 +246,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   Position2 = value ?? false;
+                                  position2 =  'Part-Time';
                                 });
                               },
                             ),
@@ -244,6 +263,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   Position3 = value ?? false;
+                                  position3 =  'Temporary';
                                 });
                               },
                             ),
@@ -300,14 +320,16 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
           text: AppStringEM.submit,
           onPressed: () async {
             _validateForm(); // Validate the form on button press
+           await _joinPosition();
             if (_isFormValid) {
               setState(() {
                 loading = true;
               });
               EmploymentAppDocument employmentAppDocument = await getEmployeeApplicationDocument(context: context, employmentAppFormhtmlId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
-                  middleName: nameController.text, faxNo: faxNoController.text, ifHired: emptype.toString(), positionApplying: positionController.text,
+                  middleName: nameController.text, faxNo: faxNoController.text, ifHired: emptype.toString(), positionApplying: position,
                   positionDesired: positionDesiredController.text, dateAvailable: dateAvailableController.text, specifyWorkingHrs: specifyWorkHrController.text,
                   salary: salaryController.text, sourceReferral: sourceController.text, value: valueController.text);
+              print( employmentAppDocument);
               if(employmentAppDocument.statusCode == 200 || employmentAppDocument.statusCode == 201){
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
