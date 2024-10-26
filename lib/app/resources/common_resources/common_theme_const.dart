@@ -168,7 +168,7 @@ class SearchDropdownConst{
 class NumberTExtFieldLegalDoc {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s10,
+      fontSize: FontSize.s12,
       fontWeight: FontWeight.w500,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,

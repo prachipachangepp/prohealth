@@ -72,6 +72,30 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   bool fact6 = false;
   bool fact7 = false;
 
+  String factOne = '';
+  String factTwo = '';
+  String factThree = '';
+  String factFour = '';
+  String factFive = '';
+  String factSix = '';
+  String factSeven = '';
+  String allergie1 = '';
+  String allergie2 = '';
+  String allergie3 = '';
+
+  String allergies = "";
+  String facts = "";
+
+  Future<String> _joinAllergies() async {
+    allergies = allergie1 + allergie2 + allergie3 ;
+    return allergies;
+  }
+
+  Future<String> _joinFacts() async {
+    facts = factOne + factTwo + factThree + factFour + factFive + factSix + factSeven ;
+    return allergies;
+  }
+
   void _validateForm() {
     setState(() {
       _isFormValid = true;
@@ -88,7 +112,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       titleError = _validateTextField(titleController.text, 'provider address');
       // acknowledgeFactsError = _validateTextField(acknowledgeFactsController.text, 'acknowledge facts');
       // AllergisError = _validateTextField(AllergisController.text, 'allergis');
-    // OtherError = _validateTextField(OtherController.text, 'other');
+      OtherError = _validateTextField(OtherController.text, 'other if not mention NA');
     });
   }
 
@@ -130,6 +154,8 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
 
 
 
+
+
   @override
   Widget build(BuildContext context) {
     return TerminationDialogueTemplate(
@@ -140,8 +166,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(children: [
-          Text( AppStringLegalDocument.popupMsgHead,
-          style:  LegalDocumentPopupMessage.customTextStyle(context),),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text( AppStringLegalDocument.popupMsgHead,
+                  style:  LegalDocumentPopupMessage.customTextStyle(context),),
+              ],
+            ),
           SizedBox(height: AppSize.s25),
 
             Row(
@@ -305,9 +336,10 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(height: AppSize.s10),
                       Text( 'Acknowledge Facts', style: AllPopupHeadings.customTextStyle(context),
                       ),
-                      SizedBox(height: AppSize.s6),
+                      SizedBox(height: AppSize.s3),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
@@ -317,6 +349,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   fact1 = value ?? false;
+                                  factOne = 'Influenza is a serious respiratory disease that kills an average of 36,000 persons and hospitalizes  more than 200,000 persons in the United States each year';
                                 });
                               },
                             ),
@@ -325,13 +358,14 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               child: Container(
                                 child: Text(
                                   'Influenza is a serious respiratory disease that kills an average of 36,000 persons and hospitalizes  more than 200,000 persons in the United States each year',
-                                  style: TextStyle(fontSize: 12),
+                                  style: NumberTExtFieldLegalDoc.customTextStyle(context),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
+                      SizedBox(height: AppSize.s3),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
@@ -341,6 +375,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   fact2 = value ?? false;
+                                  factTwo = 'Influenza vaccination is recommended for all healthcare workers to protect patients from influenza  disease, its complications, and death';
                                 });
                               },
                             ),
@@ -348,13 +383,14 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               child: Container(
                                 child: Text(
                                   'Influenza vaccination is recommended for all healthcare workers to protect patients from influenza  disease, its complications, and death',
-                                  style: TextStyle(fontSize: 12),
+                                  style: NumberTExtFieldLegalDoc.customTextStyle(context),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
+                      SizedBox(height: AppSize.s3),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
@@ -364,6 +400,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   fact3= value ?? false;
+                                  factThree = 'If I contract influenza, I will shed the virus for 24-48 hours before influenza symptoms appear. My  shedding the virus can spread influenza disease to patients in this facility';
                                 });
                               },
                             ),
@@ -371,13 +408,14 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               child: Container(
                                 child: Text(
                                   'If I contract influenza, I will shed the virus for 24-48 hours before influenza symptoms appear. My  shedding the virus can spread influenza disease to patients in this facility',
-                                  style: TextStyle(fontSize: 12),
+                                  style: NumberTExtFieldLegalDoc.customTextStyle(context),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
+                      SizedBox(height: AppSize.s3),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
@@ -387,6 +425,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   fact4 = value ?? false;
+                                  factFour =  'If I become infected with influenza, even when my symptoms are mild or non-existent, I can spread  severe illness to others. I understand that I will have to use a N95 respirator or surgical mask during my  shift per facility policy';
                                 });
                               },
                             ),
@@ -394,13 +433,14 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               child: Container(
                                 child: Text(
                                   'If I become infected with influenza, even when my symptoms are mild or non-existent, I can spread  severe illness to others. I understand that I will have to use a N95 respirator or surgical mask during my  shift per facility policy',
-                                  style: TextStyle(fontSize: 12),
+                                  style: NumberTExtFieldLegalDoc.customTextStyle(context),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
+                      SizedBox(height: AppSize.s3),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
@@ -410,6 +450,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   fact5 = value ?? false;
+                                  factFive =  'I understand that the strains of virus that cause influenza infection change almost every year, which  is why a different influenza vaccine is recommended each year';
                                 });
                               },
                             ),
@@ -417,13 +458,14 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               child: Container(
                                 child: Text(
                                   'I understand that the strains of virus that cause influenza infection change almost every year, which  is why a different influenza vaccine is recommended each year',
-                                  style: TextStyle(fontSize: 12),
+                                  style: NumberTExtFieldLegalDoc.customTextStyle(context),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
+                      SizedBox(height: AppSize.s3),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
@@ -433,20 +475,22 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   fact6 = value ?? false;
+                                  factSix =  'I understand that I cannot get influenza from the influenza vaccine';
                                 });
                               },
                             ),
                             Expanded(
                               child: Container(
                                 child: Text(
-                                  ' I understand that I cannot get influenza from the influenza vaccine',
-                                  style: TextStyle(fontSize: 12),
+                                  'I understand that I cannot get influenza from the influenza vaccine',
+                                  style: NumberTExtFieldLegalDoc.customTextStyle(context),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
+                      SizedBox(height: AppSize.s3),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
@@ -456,6 +500,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   fact7 = value ?? false;
+                                  factSeven = 'The consequences of my refusing to be vaccinated could have life-threatening consequences to  my health and the health of those with whom I have contact, including my patients and other patients  in this healthcare setting my coworkers, my family, and my community';
                                 });
                               },
                             ),
@@ -463,14 +508,15 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               child: Container(
                                 child: Text(
                                   'The consequences of my refusing to be vaccinated could have life-threatening consequences to  my health and the health of those with whom I have contact, including my patients and other patients  in this healthcare setting my coworkers, my family, and my community',
-                                  style: TextStyle(fontSize: 12),
+                                  style: NumberTExtFieldLegalDoc.customTextStyle(context),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: AppSize.s6),
+                      SizedBox(height: AppSize.s4),
+                      ///allergies
                       Text( 'Allergies', style: AllPopupHeadings.customTextStyle(context),
                       ),
                       Row(
@@ -480,12 +526,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                             onChanged: (bool? value) {
                               setState(() {
                                 allergies1 = value ?? false;
+                                allergie1 = 'Allergy to eggs, chickens or chicken feathers';
                               });
                             },
                           ),
                           Text(
                             'Allergy to eggs, chickens or chicken feathers',
-                            style: TextStyle(fontSize: 12),
+                            style: NumberTExtFieldLegalDoc.customTextStyle(context),
                           ),
                         ],
                       ),
@@ -496,12 +543,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                             onChanged: (bool? value) {
                               setState(() {
                                 allergies2 = value ?? false;
+                                allergie2 = 'Guillain-Barre Syndrome or persistent neurological illness';
                               });
                             },
                           ),
                           Text(
                             'Guillain-Barre Syndrome or persistent neurological illness',
-                            style: TextStyle(fontSize: 12),
+                            style:NumberTExtFieldLegalDoc.customTextStyle(context),
                           ),
                         ],
                       ),
@@ -512,16 +560,19 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                             onChanged: (bool? value) {
                               setState(() {
                                 allergies3 = value ?? false;
+                                allergie3 =  'Severe allergy to other vaccine component';
                               });
                             },
                           ),
                           Text(
                             'Severe allergy to other vaccine component',
-                            style: TextStyle(fontSize: 12),
+                            style: NumberTExtFieldLegalDoc.customTextStyle(context),
                           ),
                         ],
                       ),
-                      SizedBox(height: AppSize.s6),
+                      SizedBox(height: AppSize.s4),
+                      Text('OR',style: AllPopupHeadings.customTextStyle(context),),
+                      SizedBox(height: AppSize.s4),
                       SMTextFConst(
                         controller: OtherController,
                         keyboardType: TextInputType.text,
@@ -553,7 +604,10 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
           width: AppSize.s105,
           height: AppSize.s30,
           text: AppStringEM.submit,
-          onPressed: () async {_validateForm(); // Validate the form on button press
+          onPressed: () async {
+            _validateForm(); // Validate the form on button press
+           await _joinAllergies();
+           await _joinFacts();
           if (_isFormValid) {
             setState(() {
               loading = true;
@@ -565,9 +619,11 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                 manufacturer: manufacturerController.text, dateofVaccination: dateOfvaccinationController.text,
                 nameOfAdministering: nameOfAdministeringController.text, title: titleController.text,
                 providerAddress: address2Controller.text,
-                acknowledgeFacts: acknowledgeFactsController.text,
-                Allergis: AllergisController.text, other: OtherController.text);
+                acknowledgeFacts: facts,
+                Allergis: allergies, other: OtherController.text);
+
             if(fluVaccineDocument.statusCode == 200 || fluVaccineDocument.statusCode == 201){
+              print(allergies);
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
                 documentName: fluVaccineDocument.name,

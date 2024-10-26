@@ -100,18 +100,31 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
     });
   }
 
-  bool allergies1 = false;
-  bool allergies2 = false;
-  bool allergies3 = false;
+  bool mStatus1 = false;
+  bool mStatus2 = false;
+  bool mStatus3 = false;
+
+  // String status1 = '';
+  // String status2 = '';
+  // String status3 = '';
+  //
+  // String status = "";
+  // String facts = "";
+  //
+  // Future<String> _joinStatus() async {
+  //   status = status1 + status2 + status3 ;
+  //   return status;
+  // }
+
 
   int _getIntValue(TextEditingController controller) {
     return int.tryParse(controller.text.trim()) ?? 0;
   }
 
   String _getMarriedStatus() {
-    if (allergies1) return "Single or Married filing separately";
-    if (allergies2) return "Married filing jointly or Qualifying surviving spouse";
-    if (allergies3) return "Head of household";
+    if (mStatus1) return "Single or Married filing separately";
+    if (mStatus2) return "Married filing jointly or Qualifying surviving spouse";
+    if (mStatus3) return "Head of household";
     return "Not specified"; // Default value if none selected
   }
 
@@ -158,10 +171,10 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       Row(
                         children: [
                           Checkbox(
-                            value: allergies1,
+                            value: mStatus1,
                             onChanged: (bool? value) {
                               setState(() {
-                                allergies1 = value ?? false;
+                                mStatus1 = value ?? false;
                               });
                             },
                           ),
@@ -174,10 +187,10 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       Row(
                         children: [
                           Checkbox(
-                            value: allergies2,
+                            value: mStatus2,
                             onChanged: (bool? value) {
                               setState(() {
-                                allergies2 = value ?? false;
+                                mStatus2 = value ?? false;
                               });
                             },
                           ),
@@ -190,10 +203,10 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       Row(
                         children: [
                           Checkbox(
-                            value: allergies3,
+                            value: mStatus3,
                             onChanged: (bool? value) {
                               setState(() {
-                                allergies3 = value ?? false;
+                                mStatus3 = value ?? false;
                               });
                             },
                           ),
@@ -380,6 +393,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
           height: AppSize.s30,
           text: AppStringEM.submit,
           onPressed: () async {_validateForm(); // Validate the form on button press
+          //await _joinStatus();
           if (_isFormValid) {
             setState(() {
               loading = true;
