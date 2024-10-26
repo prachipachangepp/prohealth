@@ -352,6 +352,17 @@ class RegisterLinkDataStyle {
   }
 }
 
+class LegalDocumentPopupMessage{
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w700,
+      fontSize: FontSize.s12,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
 
 
 // class RadioButtonHeadStyle {

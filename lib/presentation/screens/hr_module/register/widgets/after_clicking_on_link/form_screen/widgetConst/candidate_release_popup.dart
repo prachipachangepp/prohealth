@@ -4,6 +4,8 @@ import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
@@ -59,7 +61,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s550,
+      height: AppSize.s620,
       title: 'Candidate Release Form',
       body: [
         Padding(
@@ -67,6 +69,30 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text( AppStringLegalDocument.popupMsgHead,
+                style:  LegalDocumentPopupMessage.customTextStyle(context),),
+              SizedBox(height: AppSize.s20),
+              SMTextFConst(
+                controller: fullNameController,
+                keyboardType: TextInputType.text,
+                text: 'Full Name as it appear on license',
+              ),
+              if (fullNameError != null)
+                Text(
+                  fullNameError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
+              SizedBox(height: AppSize.s7),
+              SMTextFConst(
+                controller: stateLicenseController,
+                keyboardType: TextInputType.text,
+                text: 'State Issuing License',
+              ),
+              if (stateError != null)
+                Text(
+                  stateError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
               FirstSMTextFConst(
                 controller: middleNameController,
                 keyboardType: TextInputType.text,
@@ -78,7 +104,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
 
-              SizedBox(height: AppSize.s8),
+              SizedBox(height: AppSize.s7),
               SMTextFConst(
                 controller: maidenSurnameController,
                 keyboardType: TextInputType.text,
@@ -89,7 +115,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                   maidenError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: AppSize.s8),
+              SizedBox(height: AppSize.s7),
               SMTextFConst(
                 controller: addressController,
                 keyboardType: TextInputType.text,
@@ -100,28 +126,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                   addressError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: fullNameController,
-                keyboardType: TextInputType.text,
-                text: 'Full Name',
-              ),
-              if (fullNameError != null)
-                Text(
-                  fullNameError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
-              SizedBox(height: AppSize.s8),
-              SMTextFConst(
-                controller: stateLicenseController,
-                keyboardType: TextInputType.text,
-                text: 'State Issuing License',
-              ),
-              if (stateError != null)
-                Text(
-                  stateError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
+
             ],
           ),
         )

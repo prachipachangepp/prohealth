@@ -3,6 +3,8 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_docu
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
@@ -74,7 +76,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s800,
-      height: AppSize.s550,
+      height: AppSize.s580,
       title: "Employment Application",
       body: [
         Padding(
@@ -86,6 +88,9 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text( AppStringLegalDocument.popupMsgHead,
+                    style:  LegalDocumentPopupMessage.customTextStyle(context),),
+                  SizedBox(height: AppSize.s20),
                   FirstSMTextFConst(
                     controller: nameController,
                     keyboardType: TextInputType.text,
