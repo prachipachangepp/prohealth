@@ -340,7 +340,6 @@ class DefineWorkWeekStyle {
 }
 
 
-//hr register screen link
 class RegisterLinkDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
