@@ -24,7 +24,8 @@ class SignatureFormScreen extends StatefulWidget {
   final int employeeId;
   final int htmlFormTemplateId;
   const SignatureFormScreen(
-      {super.key,
+      {
+        super.key,
       required this.documentName,
       required this.onPressed,
       required this.htmlFormData,
