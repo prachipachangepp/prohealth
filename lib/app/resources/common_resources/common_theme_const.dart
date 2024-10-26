@@ -164,3 +164,14 @@ class SearchDropdownConst{
         fontSize: FontSize.s12);
   }
 }
+
+class NumberTExtFieldLegalDoc {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s10,
+      fontWeight: FontWeight.w500,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}

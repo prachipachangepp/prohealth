@@ -163,9 +163,12 @@ class _SMNumberTextFConstState extends State<SMNumberTextFConst> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.text,
-          style: AllPopupHeadings.customTextStyle(context),
+        Container(
+         width: widget.width ?? 354,
+          child: Text(
+            widget.text,
+            style: NumberTExtFieldLegalDoc.customTextStyle(context),
+          ),
         ),
         const SizedBox(height: 5),
         Container(
