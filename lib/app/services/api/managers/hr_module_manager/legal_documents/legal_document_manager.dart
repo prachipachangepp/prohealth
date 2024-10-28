@@ -588,12 +588,13 @@ Future<EmploymentAppDocument> getEmployeeApplicationDocument({ required BuildCon
 ///i9
 Future<INineDocument> getI9Document({ required BuildContext context, required int i9FormhtmlId, required int employeeId,
   required String middleName, required String otherLastName, required String aptNumber,required String alienInfo,required String citizenship,
+  required String alienDate,
 }) async {
   var itemsData ;
   try {
     final response = await ApiOffer(context).get(
         path: LegalDocumentsRepo.getINineDocument(i9FormhtmlId: i9FormhtmlId, employeeId: employeeId, middleName: middleName,
-            otherLastName: otherLastName, aptNumber: aptNumber, alienInfo: alienInfo, citizenship: citizenship));
+            otherLastName: otherLastName, aptNumber: aptNumber, alienInfo: alienInfo, citizenship: citizenship, alienDate: alienDate));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('I9 Docuemnt Fetched');
       itemsData = INineDocument(iNineDocumentId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);

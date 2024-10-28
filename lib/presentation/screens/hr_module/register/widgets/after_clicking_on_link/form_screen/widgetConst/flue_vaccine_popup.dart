@@ -576,7 +576,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       SMTextFConst(
                         controller: OtherController,
                         keyboardType: TextInputType.text,
-                        text: 'Other',
+                        text: 'Other Allergies',
                       ),
                       if (OtherError != null)
                         Text(
