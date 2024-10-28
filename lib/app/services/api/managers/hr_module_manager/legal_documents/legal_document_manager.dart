@@ -80,9 +80,9 @@ Future<OnCallDocument> getLegalOnCallDocument(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('OnCall Document Fetched');
       itemsData = OnCallDocument(
-          // onCallId: response.data['id'],
-          html: response.data,
-          // name: response.data['name']
+          onCallId: response.data['id'],
+          html: response.data['html'],
+          name: response.data['name']
       );
     } else {
       print("OnCall Document ");
@@ -507,7 +507,7 @@ Future<FluVaccineDocument> getFluVaccineDocument({
   required String dateOfVaccine,required String siteOfAdministration, required String vaccineType,
   required String dose,required String reactions, required String manufacturer, required String dateofVaccination,
   required String nameOfAdministering, required String title, required String providerAddress, required String acknowledgeFacts,
-  required String Allergis}) async {
+  required String Allergis, required String other}) async {
 //var itemList ;
   var itemsData ;
   try {
@@ -516,7 +516,7 @@ Future<FluVaccineDocument> getFluVaccineDocument({
             .getFluVaccineDocument(templateId: templateId, employeeId: employeeId,
             siteOfAdministration: siteOfAdministration, vaccineType: vaccineType, dose: dose, reactions: reactions,
             manufacturer: manufacturer, dateofVaccination: dateofVaccination, nameOfAdministering: nameOfAdministering,
-            title: title, providerAddress: providerAddress, acknowledgeFacts: acknowledgeFacts, Allergis: Allergis));
+            title: title, providerAddress: providerAddress, acknowledgeFacts: acknowledgeFacts, Allergis: Allergis, other: other));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print(' Flu Vaccine Docuemnt Fetched');
       itemsData = FluVaccineDocument(fluVaccineDocumentId: response.data['id'], name: response.data['name'], html: response.data['html'], statusCode: response.statusCode!);

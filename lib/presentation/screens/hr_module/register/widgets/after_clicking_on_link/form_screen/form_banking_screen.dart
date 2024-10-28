@@ -469,7 +469,7 @@ class _BankingFormState extends State<BankingForm> {
                                       height:
                                           MediaQuery.of(context).size.height /
                                               60),
-                                  CustomTextFieldRegister(
+                                  CustomTextFieldSSn(
                                     maxLength: 9,
                                     controller: routingnumber,
                                     hintText: 'Enter Number',

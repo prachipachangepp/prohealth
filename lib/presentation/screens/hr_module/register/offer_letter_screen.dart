@@ -183,13 +183,14 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   children: [
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(text: 'Issue Date',validationLabel: 'Issue Date', controller: issueDateController,errorText: issueDate ? "Please enter issue date":null);
+                        return _buildTextField(text: 'Issue Date',validationLabel: 'Issue Date', hintText: 'yyyy-mm-dd',
+                            controller: issueDateController,errorText: issueDate ? "Please enter issue date":null);
                       },
                     ),
                     //SizedBox(width: MediaQuery.of(context).size.width / 80),
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(text: 'Last Date',validationLabel: 'Last Date',
+                        return _buildTextField(text: 'Last Date',validationLabel: 'Last Date',  hintText: 'yyyy-mm-dd',
                             controller: lastDateController,errorText: lastDate ? "Please enter last date":null);
                       },
                     ),
@@ -200,6 +201,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       {
                             return _buildTextField(text: 'Anticipated Start Date',
                             validationLabel: 'Anticipated Start Date',
+                                hintText: 'yyyy-mm-dd',
                             controller: startDateController,
                             errorText: startDate ? "Please enter anticipated start date":null);
                       },
@@ -214,6 +216,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
                         return _buildTextField(
+                            hintText: 'yyyy-mm-dd',
                             text: 'Verbal Acceptance',
                             validationLabel: 'Verbal Acceptance',
                             controller: verbalAcceptanceController,
@@ -254,7 +257,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   filled: true,
                                   fillColor: Colors.white,
                                   hintText: 'Enter No. of Patients',
-                                  hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                                  hintStyle:  onlyFormDataStyle.customTextStyle(context),
                                   suffixIcon: DropdownButton<String>(
                                     value: selectedDropdownValue,
                                     items: ['Per day', 'Per week', 'Per month']
@@ -672,18 +675,18 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     lastDateController.clear();
                                     startDateController.clear();
                                     verbalAcceptanceController.clear();
-                                    Navigator.pop(context);
+                                Navigator.pop(context);
                                     if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          Future.delayed(const Duration(seconds: 2),(){
+                                          Future.delayed(const Duration(seconds: 3),(){
                                             if(Navigator.of(context).canPop()) {
-                                              Navigator.pop(context);
-                                              popNavigation();
+                                       Navigator.pop(context);
+                                       popNavigation();
                                             }
                                           });
-                                          return const AddSuccessPopup(message: 'Employee Enrolled Successfully',);
+                                          return  offerSuccessPopup(message: 'Employee Enrolled Successfully',);
                                         },
                                       );
                                     }
@@ -733,6 +736,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
     String? errorText,
     required String validationLabel,
     required String text,
+    required String hintText,
+
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -740,6 +745,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
         Text(text,style: DocumentTypeDataStyle.customTextStyle(context),),
         SizedBox(height: 5,),
         CustomTextFieldOfferScreen(
+          hintText: hintText,
+
           height: 36,
           controller: controller,
           onChanged: (value) {

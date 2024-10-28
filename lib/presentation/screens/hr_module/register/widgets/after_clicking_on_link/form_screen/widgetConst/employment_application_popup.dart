@@ -3,9 +3,12 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_docu
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
+import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/dialogue_template.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
@@ -58,9 +61,9 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
       _isFormValid = true;
       nameError = _validateTextField(nameController.text, 'middle name');
       faxError = _validateTextField(faxNoController.text, 'fax no');
-      hiredError = _validateTextField(hiredController.text, 'hired status');
+     // hiredError = _validateTextField(hiredController.text, 'hired status');
       positionError = _validateTextField(positionController.text, 'position applying');
-      positionDesireError = _validateTextField(positionDesiredController.text, 'position desired');
+     // positionDesireError = _validateTextField(positionDesiredController.text, 'position desired');
 
       dateError = _validateTextField(dateAvailableController.text, 'date available');
       specifyError = _validateTextField(specifyWorkHrController.text, 'specify working hours');
@@ -70,138 +73,233 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
     });
   }
 
+
+  bool Position1 = false;
+  bool Position2 = false;
+  bool Position3 = false;
+
+  String position1 = '';
+  String position2 = '';
+  String position3 = '';
+
+  String position = "";
+
+  Future<String> _joinPosition() async {
+    position = position1 + position2 + position3 ;
+    return position;
+  }
+
+  String? emptype;
   @override
   Widget build(BuildContext context) {
-    return DialogueTemplate(
+    return TerminationDialogueTemplate(
       width: AppSize.s800,
-      height: AppSize.s550,
+      height: AppSize.s700,
       title: "Employment Application",
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  FirstSMTextFConst(
-                    controller: nameController,
-                    keyboardType: TextInputType.text,
-                    text: 'Middle Name',
-                  ),
-                  if (nameError != null) // Display error if any
-                    Text(
-                      nameError!,
-                      style: CommonErrorMsg.customTextStyle(context),
-                    ),
-
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: faxNoController,
-                    keyboardType: TextInputType.text,
-                    text: 'Fax No.',
-                  ),
-                  if (faxError != null)
-                    Text(
-                      faxError!,
-                      style: CommonErrorMsg.customTextStyle(context),
-                    ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: hiredController,
-                    keyboardType: TextInputType.text,
-                    text: 'Hired',
-                  ),
-                  if (hiredError != null)
-                    Text(
-                      hiredError!,
-                      style: CommonErrorMsg.customTextStyle(context),
-                    ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: positionController,
-                    keyboardType: TextInputType.text,
-                    text: 'Position Applying',
-                  ),
-                  if (positionError != null)
-                    Text(
-                      positionError!,
-                      style: CommonErrorMsg.customTextStyle(context),
-                    ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: positionDesiredController,
-                    keyboardType: TextInputType.text,
-                    text: 'Desired Position',
-                  ),
-                  if (positionDesireError != null)
-                    Text(
-                      positionDesireError!,
-                      style: CommonErrorMsg.customTextStyle(context),
-                    ),
+                  Text( AppStringLegalDocument.popupMsgHead,
+                    style:  LegalDocumentPopupMessage.customTextStyle(context),),
                 ],
               ),
-              Column(
+              SizedBox(height: AppSize.s20),
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FirstSMTextFConst(
-                    controller: dateAvailableController,
-                    keyboardType: TextInputType.text,
-                    text: 'Available Date',
-                    showDatePicker: true,
-                  ),
-                  if (dateError != null) // Display error if any
-                    Text(
-                      dateError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    
+                        FirstSMTextFConst(
+                          controller: nameController,
+                          keyboardType: TextInputType.text,
+                          text: 'Middle Name',
+                        ),
+                        if (nameError != null) // Display error if any
+                          Text(
+                            nameError!,
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                    
+                        SizedBox(height: AppSize.s6),
+                        SMNumberTextFConst(
+                          controller: specifyWorkHrController,
+                         // keyboardType: TextInputType.text,
+                          text: 'Specify Work Hours',
+                        ),
+                        if (specifyError != null)
+                          Text(
+                            specifyError!,
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                        SizedBox(height: AppSize.s6),
+                        SMTextFConst(
+                          controller: salaryController,
+                          keyboardType: TextInputType.text,
+                          text: 'Source of Referral',
+                        ),
+                        if (salaryError != null)
+                          Text(
+                            salaryError!,
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                        SizedBox(height: AppSize.s6),
+                    
+                        SMTextFConst(
+                          controller: faxNoController,
+                          keyboardType: TextInputType.text,
+                          text: 'Fax No.',
+                        ),
+                        if (faxError != null)
+                          Text(
+                            faxError!,
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                        SizedBox(height: AppSize.s6),
+                        SMTextFConst(
+                          controller: sourceController,
+                          keyboardType: TextInputType.text,
+                          text: 'Salary Expected',
+                        ),
+                        if (sourceError != null)
+                          Text(
+                            sourceError!,
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                        SizedBox(height: AppSize.s6),
+                        FirstSMTextFConst(
+                          controller: dateAvailableController,
+                          keyboardType: TextInputType.text,
+                          text: 'Available Date',
+                          showDatePicker: true,
+                        ),
+                        if (dateError != null) // Display error if any
+                          Text(
+                            dateError!,
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                    
+                      ],
                     ),
-
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: specifyWorkHrController,
-                    keyboardType: TextInputType.text,
-                    text: 'Specify Work Hours',
                   ),
-                  if (specifyError != null)
-                    Text(
-                      specifyError!,
-                      style: CommonErrorMsg.customTextStyle(context),
+                  SizedBox(width: 20,),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    
+                        SMTextFConst(
+                          controller: positionController,
+                          keyboardType: TextInputType.text,
+                          text: 'Position Applying',
+                        ),
+                        if (positionError != null)
+                          Text(
+                            positionError!,
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                        SizedBox(height: AppSize.s6),
+                    
+                    
+                        SMTextFConst(
+                          controller: valueController,
+                          keyboardType: TextInputType.text,
+                          text: 'Value',
+                        ),
+                        if (valueError != null)
+                          Text(
+                            valueError!,
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                        SizedBox(height: AppSize.s15),
+                        Text( 'Desired Position', style: AllPopupHeadings.customTextStyle(context),
+                        ),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: Position1,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  Position1 = value ?? false;
+                                  position1 = 'Full-Time';
+                                });
+                              },
+                            ),
+                            Text(
+                              'Full-Time',
+                              style: DocumentTypeDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: Position2,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  Position2 = value ?? false;
+                                  position2 =  'Part-Time';
+                                });
+                              },
+                            ),
+                            Text(
+                              'Part-Time',
+                              style:  DocumentTypeDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: Position3,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  Position3 = value ?? false;
+                                  position3 =  'Temporary';
+                                });
+                              },
+                            ),
+                            Text(
+                              'Temporary',
+                              style:  DocumentTypeDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: AppSize.s15),
+                        Text( 'If hired can you provide proof of citizenship or legal right to work?', style: AllPopupHeadings.customTextStyle(context),
+                        ),
+                        CustomRadioListTile(
+                          title: 'Yes',
+                          value: 'Yes',
+                          groupValue: emptype,
+                          onChanged: (value) {
+                            setState(() {
+                              emptype = value;
+                            });
+                          },
+                        ),
+                        CustomRadioListTile(
+                          title: 'No',
+                          value: 'No',
+                          groupValue: emptype,
+                          onChanged: (value) {
+                            setState(() {
+                              emptype = value;
+                            });
+                          },
+                        ),
+                    
+                      ],
                     ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: sourceController,
-                    keyboardType: TextInputType.text,
-                    text: 'Salary',
                   ),
-                  if (sourceError != null)
-                    Text(
-                      sourceError!,
-                      style: CommonErrorMsg.customTextStyle(context),
-                    ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: salaryController,
-                    keyboardType: TextInputType.text,
-                    text: 'Referral',
-                  ),
-                  if (salaryError != null)
-                    Text(
-                      salaryError!,
-                      style: CommonErrorMsg.customTextStyle(context),
-                    ),
-                  SizedBox(height: AppSize.s6),
-                  SMTextFConst(
-                    controller: valueController,
-                    keyboardType: TextInputType.text,
-                    text: 'Value',
-                  ),
-                  if (valueError != null)
-                    Text(
-                      valueError!,
-                      style: CommonErrorMsg.customTextStyle(context),
-                    ),
                 ],
               ),
             ],
@@ -222,14 +320,16 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
           text: AppStringEM.submit,
           onPressed: () async {
             _validateForm(); // Validate the form on button press
+           await _joinPosition();
             if (_isFormValid) {
               setState(() {
                 loading = true;
               });
               EmploymentAppDocument employmentAppDocument = await getEmployeeApplicationDocument(context: context, employmentAppFormhtmlId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
-                  middleName: nameController.text, faxNo: faxNoController.text, ifHired: hiredController.text, positionApplying: positionController.text,
+                  middleName: nameController.text, faxNo: faxNoController.text, ifHired: emptype.toString(), positionApplying: position,
                   positionDesired: positionDesiredController.text, dateAvailable: dateAvailableController.text, specifyWorkingHrs: specifyWorkHrController.text,
                   salary: salaryController.text, sourceReferral: sourceController.text, value: valueController.text);
+              print( employmentAppDocument);
               if(employmentAppDocument.statusCode == 200 || employmentAppDocument.statusCode == 201){
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(

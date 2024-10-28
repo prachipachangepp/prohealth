@@ -785,3 +785,132 @@ class _FirstHRTextFConstState extends State<FirstHRTextFConst> {
 //     );
 //   }
 // }
+
+
+
+
+
+///ssn number
+class CustomTextFieldSSn extends StatelessWidget {
+  final TextEditingController? controller;
+  final String? labelText;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final bool obscureText;
+  final bool autofocus;
+  final bool enabled;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final ValueChanged<String>? onChanged;
+  final FormFieldValidator<String>? validator;
+  VoidCallback? onTap;
+  final FocusNode? focusNode;
+  final ValueChanged<String>? onFieldSubmitted;
+  final EdgeInsetsGeometry? padding;
+  final double? width;
+  final double? height;
+  final String? hintText;
+  final TextStyle? hintStyle;
+  final TextStyle? prefixStyle;
+  final String? prefixText;
+  final double? cursorHeight;
+  final int? maxLength;
+  final bool capitalIsSelect;
+  final bool? phoneNumberField;
+
+  CustomTextFieldSSn({
+    Key? key,
+    this.phoneNumberField = false,
+    this.capitalIsSelect = false, // Default to false
+    this.maxLength,
+    this.controller,
+    this.labelText,
+    this.keyboardType,
+    this.textInputAction,
+    this.obscureText = false,
+    this.autofocus = false,
+    this.enabled = true,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.hintText,
+    this.hintStyle,
+    this.prefixText,
+    this.prefixStyle,
+    this.onChanged,
+    this.validator,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.padding,
+    this.width,
+    this.height,
+    this.cursorHeight,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: Padding(
+        padding: const EdgeInsets.all(1.0),
+        child: TextFormField(
+          controller: controller,
+          cursorHeight: cursorHeight,
+          cursorColor: Colors.black,
+          cursorWidth: 1.5,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(
+                bottom: AppPadding.p3,
+                top: AppPadding.p4,
+                left: AppPadding.p12
+            ),
+            hintText: hintText,
+            hintStyle: hintStyle,
+            prefixText: prefixText,
+            prefixStyle: prefixStyle,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide:  BorderSide(
+                color: Color(0xFFB1B1B1),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide:  BorderSide(
+                color: Color(0xFFB1B1B1),
+              ),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide:  BorderSide(
+                color: Color(0xFFB1B1B1),
+              ),
+            ),
+            labelText: labelText,
+            labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            //contentPadding: padding,
+          ),
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          style:DocumentTypeDataStyle.customTextStyle(context),
+          obscureText: obscureText,
+          autofocus: autofocus,
+          enabled: enabled,
+          onTap: onTap,
+          onChanged: onChanged,
+          validator: validator,
+          focusNode: focusNode,
+          onFieldSubmitted: onFieldSubmitted,
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly, // Only allow digits
+            LengthLimitingTextInputFormatter(9), // Limit to 9 digits
+          ],
+
+        ),
+      ),
+    );
+  }
+}

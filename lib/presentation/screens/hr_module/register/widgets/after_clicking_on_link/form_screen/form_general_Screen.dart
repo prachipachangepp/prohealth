@@ -578,11 +578,12 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) { return CustomTextFieldRegister(
+                        builder: (BuildContext context, void Function(void Function()) setState) { return CustomTextFieldSSn(
                           controller: ssecuritynumber,
                           hintText: 'Enter Security Number',
                           obscureText: !_passwordVisible,
                           hintStyle: onlyFormDataStyle.customTextStyle(context),
+
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter some text';
@@ -607,6 +608,7 @@ class _generalFormState extends State<generalForm> {
                             },
                           ),
                           height: 32,
+                          keyboardType:  TextInputType.number,
                         ); },
 
                       ),
