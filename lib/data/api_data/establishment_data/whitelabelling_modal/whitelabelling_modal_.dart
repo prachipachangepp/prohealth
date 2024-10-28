@@ -68,16 +68,16 @@ class WLCompanyDetailModal {
     required this.headOfficeId,
   });
 
-  factory WLCompanyDetailModal.fromJson(Map<String, dynamic> json) {
-    return WLCompanyDetailModal(
-      companyId: json['company_id'],
-      name: json['Name'],
-      description: json['description'],
-      url: json['url'],
-      address: json['address'],
-      headOfficeId: json['head_office_id'],
-    );
-  }
+  // factory WLCompanyDetailModal.fromJson(Map<String, dynamic> json) {
+  //   return WLCompanyDetailModal(
+  //     companyId: json['company_id'],
+  //     name: json['Name'],
+  //     description: json['description'],
+  //     url: json['url'],
+  //     address: json['address'],
+  //     headOfficeId: json['head_office_id'],
+  //   );
+  // }
 }
 
 class WLContactDetailModal {
@@ -99,17 +99,17 @@ class WLContactDetailModal {
     required this.email,
   });
 
-  factory WLContactDetailModal.fromJson(Map<String, dynamic> json) {
-    return WLContactDetailModal(
-      companyContactId: json['company_contact_id'],
-      companyId: json['company_id'],
-      primaryPhone: json['primary_phone'],
-      secondaryPhone: json['secondary_phone'],
-      primaryFax: json['primary_fax'],
-      alternativePhone: json['alternative_phone'],
-      email: json['email'],
-    );
-  }
+  // factory WLContactDetailModal.fromJson(Map<String, dynamic> json) {
+  //   return WLContactDetailModal(
+  //     companyContactId: json['company_contact_id']??0,
+  //     companyId: json['company_id']??1,
+  //     primaryPhone: json['primary_phone']??"",
+  //     secondaryPhone: json['secondary_phone']??"",
+  //     primaryFax: json['primary_fax']??"",
+  //     alternativePhone: json['alternative_phone']??"",
+  //     email: json['email']??"",
+  //   );
+  // }
 }
 
 class WLLogoModal {
@@ -117,22 +117,25 @@ class WLLogoModal {
   int companyId;
   String url;
   String type;
+  String base;
 
   WLLogoModal({
     required this.companyLogoId,
     required this.companyId,
     required this.url,
     required this.type,
+    required this.base,
   });
 
-  factory WLLogoModal.fromJson(Map<String, dynamic> json) {
-    return WLLogoModal(
-      companyLogoId: json['company_logo_id'],
-      companyId: json['company_id'],
-      url: json['url'],
-      type: json['type'],
-    );
-  }
+  // factory WLLogoModal.fromJson(Map<String, dynamic> json) {
+  //   return WLLogoModal(
+  //     companyLogoId: json['company_logo_id'],
+  //     companyId: json['company_id'],
+  //     url: json['url'],
+  //     type: json['type'],
+  //     base: json['base']
+  //   );
+  // }
 }
 
 class WhiteLabellingCompanyDetailModal {
@@ -148,5 +151,26 @@ class WhiteLabellingCompanyDetailModal {
     required this.logos,
     required this.success,
     required this.message,
+  });
+}
+
+class CompanyContactPrefill {
+  final int companyContactID;
+  final int companyId;
+  final String primaryNo;
+  final String secondaryPhoneNo;
+  final String primaryFax;
+  final String alternativePhoneNo;
+  final String email;
+
+
+  CompanyContactPrefill({
+    required this.companyContactID,
+    required this.companyId,
+    required this.primaryNo,
+    required this.secondaryPhoneNo,
+    required this.primaryFax,
+    required this.alternativePhoneNo,
+    required this.email,
   });
 }

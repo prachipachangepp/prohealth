@@ -56,55 +56,55 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // FutureBuilder<List<NewOrgDocument>>(
-              //     future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
-              //     builder: (context,snapshot) {
-              //       if(snapshot.connectionState == ConnectionState.waiting){
-              //         return  Container(
-              //           width: 200,
-              //           height: 30,
-              //           decoration: BoxDecoration(color: ColorManager.white,
-              //               borderRadius: BorderRadius.circular(10)),
-              //         );
-              //       }
-              //       if (snapshot.data!.isEmpty) {
-              //         return Center(
-              //             child: Offstage()
-              //         );
-              //       }
-              //       if(snapshot.hasData){
-              //         List dropDown = [];
-              //         String docType = '';
-              //         List<DropdownMenuItem<String>> dropDownMenuItems = [];
-              //         for(var i in snapshot.data!){
-              //           dropDownMenuItems.add(
-              //             DropdownMenuItem<String>(
-              //               child: Text(i.docName),
-              //               value: i.docName,
-              //             ),
-              //           );
-              //         }
-              //         return CICCDropdown(
-              //             width: 200,
-              //             initialValue: dropDownMenuItems[0].value,
-              //             onChange: (val){
-              //               for(var a in snapshot.data!){
-              //                 if(a.docName == val){
-              //                   docType = a.docName;
-              //                   docName = docType;
-              //                   //docMetaId = docType;
-              //                 }
-              //               }
-              //               print(":::${docType}");
-              //               // print(":::<>${docMetaId}");
-              //             },
-              //             items:dropDownMenuItems
-              //         );
-              //       }else{
-              //         return SizedBox();
-              //       }
-              //     }
-              // ),
+              FutureBuilder<List<NewOrgDocument>>(
+                  future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+                  builder: (context,snapshot) {
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return  Container(
+                        width: 200,
+                        height: 30,
+                        decoration: BoxDecoration(color: ColorManager.white,
+                            borderRadius: BorderRadius.circular(10)),
+                      );
+                    }
+                    if (snapshot.data!.isEmpty) {
+                      return Center(
+                          child: Offstage()
+                      );
+                    }
+                    if(snapshot.hasData){
+                      List dropDown = [];
+                      String docType = '';
+                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                      for(var i in snapshot.data!){
+                        dropDownMenuItems.add(
+                          DropdownMenuItem<String>(
+                            child: Text(i.docName),
+                            value: i.docName,
+                          ),
+                        );
+                      }
+                      return CICCDropdown(
+                          width: 200,
+                          initialValue: dropDownMenuItems[0].value,
+                          onChange: (val){
+                            for(var a in snapshot.data!){
+                              if(a.docName == val){
+                                docType = a.docName;
+                                docName = docType;
+                                //docMetaId = docType;
+                              }
+                            }
+                            print(":::${docType}");
+                            // print(":::<>${docMetaId}");
+                          },
+                          items:dropDownMenuItems
+                      );
+                    }else{
+                      return SizedBox();
+                    }
+                  }
+              ),
               SizedBox(width: 10),
               ///Add button
               Container(
