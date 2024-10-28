@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -87,7 +88,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
         'png',
         'jpg',
         'jpeg',
-        'pdf'
       ], // Restrict to PNG, JPG, and JPEG
     );
 
@@ -115,7 +115,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
         'png',
         'jpg',
         'jpeg',
-        'pdf'
       ], // Restrict to PNG, JPG, and JPEG
     );
 
@@ -153,6 +152,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   }
 
   bool _isEditing = false;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -214,6 +214,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                           icon: Icons.edit_outlined,
                           text: "Edit Details",
                           onPressed: () async {
+                            CompanyContactPrefill companyContactPrefill = await getCompanyContactPrefill(context);
                             setState(() {
                               _isEditing = !_isEditing;
                             });
@@ -710,17 +711,30 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         height: 35,
                                         text: 'Submit',
                                         onPressed: () async {
-                                          await postWhitelabellingAdd(
+                                          companyContactPrefill.companyContactID == 0 ?
+                                         await postCompanyContact(
                                             context,
-                                            widget.officeId,
+                                            // widget.officeId,
                                             primNumController.text,
                                             secNumberController.text,
                                             faxController.text,
                                             faxController.text,
                                             altNumController.text,
                                             emailController.text,
-                                            nameController.text,
-                                            addressController.text,
+                                            // nameController.text,
+                                            // addressController.text,
+                                          ):
+                                           await patchWhitelabellingCompanyContact(
+                                            context,
+                                            // widget.officeId,
+                                            primNumController.text,
+                                            secNumberController.text,
+                                            faxController.text,
+                                            faxController.text,
+                                            altNumController.text,
+                                            emailController.text,
+                                            // nameController.text,
+                                            // addressController.text,
                                           );
                                           await uploadWebAndAppLogo(
                                               context: context,
@@ -769,73 +783,69 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                       child:
 
                           ///old code
-                          StreamBuilder<WhiteLabellingCompanyDetailModal>(
-                        stream:
-                            Stream.fromFuture(getWhiteLabellingData(context)),
+                          FutureBuilder<WhiteLabellingCompanyDetailModal>(
+                        future: getWhiteLabellingData(context),
                         builder: (context, snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Center(child: CircularProgressIndicator());
+                          }
                           if (snapshot.hasData) {
+                            print("Image url ${snapshot.data!.logos[0].url}");
                             var data = snapshot.data!;
-                            var appLogo = data.logos.firstWhere(
-                                (logo) => logo.type == 'app',
-                                orElse: () => WLLogoModal(
-                                    companyLogoId: 3,
-                                    companyId: 1,
-                                    url:
-                                        'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
-                                    type: ''));
-                            var webLogo = data.logos.firstWhere(
-                                (logo) => logo.type == 'web',
-                                orElse: () => WLLogoModal(
-                                    companyLogoId: 4,
-                                    companyId: 1,
-                                    url:
-                                        'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
-                                    type: ''));
-                            var mainLogo = data.logos.firstWhere(
-                                (logo) => logo.type == 'main',
-                                orElse: () => WLLogoModal(
-                                    companyLogoId: 4,
-                                    companyId: 1,
-                                    url:
-                                        'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
-                                    type: ''));
-
+                            //List<String> allLogo = snapshot.data!.logos[0].url;
+                            // var appLogo = data.logos.firstWhere(
+                            //     (logo) => logo.type == 'logo',
+                            //     orElse: () => WLLogoModal(
+                            //         companyLogoId: snapshot.data!.logos[0].companyLogoId,
+                            //         url:
+                            //         snapshot.data!.logos[0].url,
+                            //         type: snapshot.data!.logos[0].type, companyId: snapshot.data!.logos[0].companyId));
+                            // var webLogo = data.logos.firstWhere(
+                            //     (logo) => logo.type == 'web',
+                            //     orElse: () => WLLogoModal(
+                            //         companyLogoId: snapshot.data!.logos[0].companyLogoId,
+                            //         companyId: snapshot.data!.logos[0].companyId,
+                            //         url:
+                            //         snapshot.data!.logos[0].url,
+                            //         type: snapshot.data!.logos[0].type));
+                            // var mainLogo = data.logos.firstWhere(
+                            //     (logo) => logo.type == 'main',
+                            //     orElse: () => WLLogoModal(
+                            //         companyLogoId: snapshot.data!.logos[0].companyLogoId,
+                            //         companyId: snapshot.data!.logos[0].companyId,
+                            //         url:
+                            //         snapshot.data!.logos[0].url,
+                            //         type: snapshot.data!.logos[0].type));
                             return Column(
                               children: [
                                 Container(
                                   height: 100,
-                                  child: mainLogo.url.isNotEmpty
-                                      ? Image.asset(
-                                          'images/formainlogoprohealth.png',
-                                          // mainLogo.url,
-                                          fit: BoxFit.cover,
-                                          errorBuilder: (BuildContext context,
-                                              Object exception,
-                                              StackTrace? stackTrace) {
-                                            return Center(
-                                              child: Icon(Icons.error,
-                                                  color: Colors.red),
-                                            );
-                                          },
-                                        )
+                                  child: snapshot.data!.logos[0].url.isNotEmpty
+                                      ? CachedNetworkImage(
+                                    imageUrl: snapshot.data!.logos[0].url,
+                                    placeholder: (context, url) => SizedBox(
+                                        height:25,
+                                        width:25,
+                                        ),
+                                    errorWidget: (context, url, error) => Image.asset("images/forappprohealth.png"),
+                                    fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                    height: 100, // Adjust image height for proper fit// Adjust image width for proper fit
+                                  )
                                       : Container(),
                                 ),
                                 Container(
                                   height: 100,
-                                  child: webLogo.url.isNotEmpty
+                                  child: snapshot.data!.logos[0].url.isNotEmpty
                                       ?
-                                  Image.asset(
-                                    'images/forwebprohealth.png',
-                                    // mainLogo.url,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (BuildContext context,
-                                        Object exception,
-                                        StackTrace? stackTrace) {
-                                      return Center(
-                                        child: Icon(Icons.error,
-                                            color: Colors.red),
-                                      );
-                                    },
+                                  CachedNetworkImage(
+                                    imageUrl: snapshot.data!.logos[0].url,
+                                    placeholder: (context, url) => SizedBox(
+                                        height:25,
+                                        width:25,
+                                        ),
+                                    errorWidget: (context, url, error) => Image.asset("images/forappprohealth.png"),
+                                    fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                    height: 100, // Adjust image height for proper fit// Adjust image width for proper fit
                                   )
                                   // Image.network(
                                   //         "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
@@ -854,20 +864,22 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                 ),
                                 Container(
                                   height: 100,
-                                  child: appLogo.url.isNotEmpty
-                                      ? Image.asset(
-                                    'images/forappprohealth.png',
-                                    // mainLogo.url,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (BuildContext context,
-                                        Object exception,
-                                        StackTrace? stackTrace) {
-                                      return Center(
-                                        child: Icon(Icons.error,
-                                            color: Colors.red),
-                                      );
-                                    },
-                                  )
+                                  child: snapshot.data!.logos[0].url.isNotEmpty
+                                      ? CachedNetworkImage(
+                                      imageUrl: snapshot.data!.logos[0].url,
+                                      placeholder: (context, url) => SizedBox(
+                                        height:25,
+                                          width:25,
+                                          ),
+                                      errorWidget: (context, url, error) => Image.asset("images/forappprohealth.png"),
+                                      fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                      height: 100, // Adjust image height for proper fit// Adjust image width for proper fit
+                                      )
+                                  // Image.network(
+                                  //   //'images/forappprohealth.png',
+                                  //   "${snapshot.data!.logos[0].url}",
+                                  //   fit: BoxFit.cover,
+                                  // )
                                   // Image.network(
                                   //         'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
                                   //         fit: BoxFit.cover,
@@ -887,7 +899,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                           } else if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
                           } else {
-                            return Center(child: CircularProgressIndicator());
+                            return SizedBox();
                           }
                         },
                       ),

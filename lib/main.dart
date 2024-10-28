@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dat
 import 'package:provider/provider.dart';
 
 import 'app/app.dart';
+import 'presentation/screens/hr_module/hr_home_screen/referesh_provider.dart';
 import 'presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_plan_care/planer_notifier.dart';
 
 Future<void> main() async {
@@ -25,8 +26,10 @@ Future<void> main() async {
           ChangeNotifierProvider(
             create: (context) => RouteProvider(),
           ),
+          ChangeNotifierProvider(
+            create: (_) => PageIndexProvider(),
+          ),
         ],
-
 
         child: App(
           signedIn: token,

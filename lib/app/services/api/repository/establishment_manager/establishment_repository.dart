@@ -51,6 +51,7 @@ class EstablishmentManagerRepository {
   static String zonedropdown = "/zoneDropdownByCompany";
   static String addPayrates = "/payrates/add";
   static String companyOfficeGetList = "/company-office";
+  static String companyContactPatch = "/company-contact";
 
   // static String zonedropdown ="/zone/zoneDropdown";
   //static String addPayrates ="/payrates/add";
@@ -76,6 +77,7 @@ class EstablishmentManagerRepository {
   static String getCCVCPPList ="/org-office-document/ByDocumentTypeAndSubTypePageWise/";
   static String employees ="/employees/";
   static String employeType = "/employee-types/Department/";
+
 
   static String companyAll() {
     return "$company";
@@ -185,7 +187,12 @@ class EstablishmentManagerRepository {
   static String postCompanyOffice() {
     return "$companyOffice/$add";
   }
-
+  static String patchCompanyContact({required int companyId}) {
+    return "$companyContactPatch/$companyId";
+  }
+  static String postCompanyContact() {
+    return "$companyContactPatch/add";
+  }
   ///manage cc 5 screens
   static String getManageCorporateComp() {
     return "$getDocTypeManageCC";
