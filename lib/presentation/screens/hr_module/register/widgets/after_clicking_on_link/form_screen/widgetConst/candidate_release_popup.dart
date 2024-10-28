@@ -246,6 +246,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
               if(candidateRealeaseDocument.statusCode == 200 || candidateRealeaseDocument.statusCode == 201){
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                  isDisable:false,
                   documentName: candidateRealeaseDocument.name,
                   onPressed: () {
                   },

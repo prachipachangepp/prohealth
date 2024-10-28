@@ -25,6 +25,7 @@ class ManageReposotory{
   static String photoupload = "/employees/attach-photobase64";
   static String licensesupload = "/employee-licenses/attach-licensebase64";
   static String Bankcheckupload = "/employee-bankings/attach-checkbase64";
+  static String licenseFilterGet = "/employee-licenses/Dropdown/ByLicenseName";
 
 
   /// Licenses status wise
@@ -78,6 +79,10 @@ class ManageReposotory{
   static String getEmployeeLicenses({required int employeeid,required String approveOnly}){
     return "$employee_licenses/ByemployeeId/$employeeid/$approveOnly";
   }
+  static String getEmployeeLicensesFiltered({required int employeeid,required String approveOnly,required String licenseName}){
+    return "$licenseFilterGet/$employeeid/$approveOnly/$licenseName";
+  }
+
   static String getEmployeePreFillLicenses({required int licensesId,}){
     return "$employee_licenses/$licensesId";
   }

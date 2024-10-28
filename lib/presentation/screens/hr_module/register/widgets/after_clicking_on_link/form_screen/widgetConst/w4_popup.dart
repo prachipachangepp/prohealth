@@ -414,6 +414,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
             if(wfourDocument.statusCode == 200 || wfourDocument.statusCode == 201){
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                isDisable:false,
                 documentName: wfourDocument.name,
                 onPressed: () {
 

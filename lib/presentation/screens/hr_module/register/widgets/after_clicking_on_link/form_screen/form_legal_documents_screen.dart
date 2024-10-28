@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
@@ -157,6 +158,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
 
       Navigator.push(context, MaterialPageRoute(builder: (context)=>
           SignatureFormScreen(
+          isDisable:false,
         documentName: AppStringLegalDocument.onCall,
         onPressed: () {  },
         htmlFormData: oncallDoc.html,
@@ -167,6 +169,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.confidentialityAgreement){
       ConfidentialStatementDocument confidentialStatementDocument = await getLegalConfidentialStatementDocument(context: context, employeeId: widget.employeeID, ConfidentialStatementId: id);
       Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
+        isDisable:false,
         documentName: confidentialStatementDocument.name,
         onPressed: () {  },
         htmlFormData: confidentialStatementDocument.html,
@@ -176,6 +179,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.covidTestingPolicy){
       CovidTestPolicyDocument covidTestPolicyDocument = await getLegalCovidTestPolicyDocument(context: context, employeeId: widget.employeeID, covidTestId: id);
       Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
+        isDisable:false,
         documentName: covidTestPolicyDocument.name,
         onPressed: () {  },
         htmlFormData: covidTestPolicyDocument.html,
@@ -185,6 +189,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.reportOfAbuse){
       ReportingAbuseDocument reportingAbuseDocument = await getLegalReportingAbuseDocumentDocument(context: context, employeeId: widget.employeeID, reportingAbuseId: id);
       Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
+        isDisable:false,
         documentName: reportingAbuseDocument.name,
         onPressed: () {  },
         htmlFormData: reportingAbuseDocument.html,
@@ -194,6 +199,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.policyConcerning){
       PolicyConcerningDocument policyConcerningDocument = await getLegalpolicyConcerningDocument(context: context, employeeId: widget.employeeID, policyConcerningId: id);
       Navigator.push(context, MaterialPageRoute(builder: (context)=>SignatureFormScreen(
+        isDisable:false,
         documentName: policyConcerningDocument.name,
         onPressed: () {  },
         htmlFormData: policyConcerningDocument.html,
@@ -203,6 +209,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.standardOfCodeOfConduct){
       StandardConductDocument standardConductDocument = await getStandardConductDocument(context: context, employeeId: widget.employeeID, standardConductId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        isDisable:false,
         documentName: standardConductDocument.name,
         onPressed: () {  },
         htmlFormData: standardConductDocument.html,
@@ -212,6 +219,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.sexualHarassmentPolicy){
       SexualHaressmentDocument sexualHaressmentDocument = await getSexualHaressmentDocument(context: context, employeeId: widget.employeeID,templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        isDisable:false,
         documentName: sexualHaressmentDocument.name,
         onPressed: () {  },
         htmlFormData: sexualHaressmentDocument.html,
@@ -221,6 +229,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.sexualHarassmentPolicyACK){
       SexualAndUnlawfulDocument sexualAndUnlawfulDocument = await getSexualAndUnlawfulDocument(context: context, employeeId: widget.employeeID,templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        isDisable:false,
         documentName: sexualAndUnlawfulDocument.name,
         onPressed: () {  },
         htmlFormData: sexualAndUnlawfulDocument.html,
@@ -230,6 +239,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.preAuthorization){
       PreAuthPatientVisitsDocument preAuthPatientVisitsDocument = await getPreAuthPatientVisitsDocument(context: context, employeeId: widget.employeeID,templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        isDisable:false,
         documentName: preAuthPatientVisitsDocument.name,
         onPressed: () {  },
         htmlFormData: preAuthPatientVisitsDocument.html,
@@ -239,6 +249,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.prop65){
       ProDocument proDocument = await getPro65Document(context: context, employeeId: widget.employeeID,templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        isDisable:false,
         documentName: proDocument.name,
         onPressed: () {  },
         htmlFormData: proDocument.html,
@@ -248,6 +259,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.proHealthCellPhone){
       ProHealthCellPhoneStatement proHealthCellPhoneStatement = await getProHealthCellPhoneStatementDocument(context: context, employeeId: widget.employeeID,templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        isDisable:false,
         documentName: proHealthCellPhoneStatement.name,
         onPressed: () {  },
         htmlFormData: proHealthCellPhoneStatement.html,
@@ -257,6 +269,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.hepB){
       HepBDocuemnt hepBDocuemnt = await getHepBDocument(context: context, employeeId: widget.employeeID,templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        isDisable:false,
         documentName: hepBDocuemnt.name,
         onPressed: () {  },
         htmlFormData: hepBDocuemnt.html,
@@ -266,6 +279,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.tDap){
       TDapDocuemnt tDapDocuemnt = await getTDapDocument(context: context, employeeId: widget.employeeID,templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        isDisable:false,
         documentName: tDapDocuemnt.name,
         onPressed: () {  },
         htmlFormData: tDapDocuemnt.html,
@@ -275,6 +289,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.covidVaccine){
       CovidVaccineDocuemnt covidVaccineDocuemnt = await getCovidVaccineDocument(context: context, employeeId: widget.employeeID, templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        isDisable:false,
         documentName: covidVaccineDocuemnt.name,
         onPressed: () {  },
         htmlFormData: covidVaccineDocuemnt.html,
@@ -284,6 +299,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.employeeHandbook){
       ProHealthEmployeeHandbook proHealthEmployeeHandbook = await getProHealthEmployeeHandbookDocument(context: context, employeeId: widget.employeeID, templateId: id);
       Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+        isDisable:true,
         documentName: proHealthEmployeeHandbook.name,
         onPressed: () {  },
         htmlFormData: proHealthEmployeeHandbook.html,
@@ -329,6 +345,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     else if(htmlName == AppStringLegalDocument.directDeposit){
         DirectDepositDocuemnt directDepositDocuemnt = await getDirectDepositDocument(context: context, employeeId: widget.employeeID, templateId: id,);
           Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+            isDisable:false,
           documentName: directDepositDocuemnt.name,
           onPressed: () {
 
@@ -553,6 +570,11 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                                 // const SizedBox(height: AppSize.s10),
                                 /// dont delete this code
                                 DefineFormList(
+                                  isHandbook: (formStatus.htmlname == AppStringLegalDocument.employeeHandbook)?true:false,
+                                  handBookView:(formStatus.htmlname == AppStringLegalDocument.employeeHandbook)?() async{
+                            await callHtmlData(formStatus.htmlname,formStatus.formHtmlTemplatesId);
+                            print("${formStatus.htmlname} signed.");
+                            }:(){},
                                   formName: formStatus.htmlname,
                                   onSigned: formStatus.signed
                                       ? null
