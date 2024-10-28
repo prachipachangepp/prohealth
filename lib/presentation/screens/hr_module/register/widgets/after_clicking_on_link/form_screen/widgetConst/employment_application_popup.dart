@@ -130,9 +130,9 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                           ),
                     
                         SizedBox(height: AppSize.s6),
-                        SMNumberTextFConst(
+                        SMTextFConst(
                           controller: specifyWorkHrController,
-                         // keyboardType: TextInputType.text,
+                          keyboardType: TextInputType.text,
                           text: 'Specify Work Hours',
                         ),
                         if (specifyError != null)

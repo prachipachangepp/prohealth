@@ -185,6 +185,14 @@ class _EducationScreenState extends State<EducationScreen> {
                     final st = key.currentState!;
                     if (st.finalPath == null || st.finalPath!.isEmpty) {
                       print("Loading");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const VendorSelectNoti(
+                            message: 'Please Select file',
+                          );
+                        },
+                      );
                     } else {
                       try {
                         ApiDataRegister result =  await FormEducationManager().posteducationscreen(
