@@ -203,12 +203,12 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: ColorManager.fmediumgrey, width: 2),
+                                        color: ColorManager.containerBorderGrey, width: 1),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: ColorManager.fmediumgrey, width: 2),
+                                        color: ColorManager.containerBorderGrey, width: 1),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   hintText: 'MM-DD-YYYY',
@@ -217,7 +217,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                     borderSide: BorderSide(
-                                        width: 2, color: ColorManager.fmediumgrey),
+                                        width: 1, color: ColorManager.containerBorderGrey),
                                   ),
                                   contentPadding: EdgeInsets.symmetric(horizontal: 16),
                                   suffixIcon: Icon(Icons.calendar_month_outlined,
@@ -268,8 +268,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
-                    
-                    
+
                         SMTextFConst(
                           controller: valueController,
                           keyboardType: TextInputType.text,
@@ -280,9 +279,10 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             valueError!,
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
-                        SizedBox(height: AppSize.s15),
+                        SizedBox(height: AppSize.s14),
                         Text( 'Desired Position', style: AllPopupHeadings.customTextStyle(context),
                         ),
+                        SizedBox(height: AppSize.s6),
                         Row(
                           children: [
                             Checkbox(
@@ -334,7 +334,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             ),
                           ],
                         ),
-                        SizedBox(height: AppSize.s15),
+                        SizedBox(height: AppSize.s18),
                         Text( 'If hired can you provide proof of citizenship or legal right to work?', style: AllPopupHeadings.customTextStyle(context),
                         ),
                         CustomRadioListTile(
