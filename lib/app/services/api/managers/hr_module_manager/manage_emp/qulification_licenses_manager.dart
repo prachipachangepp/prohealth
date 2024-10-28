@@ -57,6 +57,57 @@ Future<List<QulificationLicensesData>> getEmployeeLicenses(
   }
 }
 
+/// employee licenses filter
+Future<List<QulificationLicensesFilteredData>> getEmployeeLicensesFilteredData(
+    BuildContext context, int employeeId, String licenseName) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('dd MMM yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+
+  List<QulificationLicensesFilteredData> itemsData = [];
+  try {
+    final response = await Api(context).get(
+        path: ManageReposotory.getEmployeeLicensesFiltered(employeeid: employeeId, approveOnly: 'no', licenseName: licenseName));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        String expFormattedDate = convertIsoToDayMonthYear(item['expDate']);
+        String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        itemsData.add(QulificationLicensesFilteredData(
+          licenseId: item['licenseId'],
+          country: item['country'],
+          employeeId: item['employeeId'],
+          expData: expFormattedDate,
+          issueDate: issueFormattedDate,
+          licenseUrl: item['licenseUrl'],
+          licenure: item['licensure'],
+          licenseNumber: item['licenseNumber'],
+          org: item['org'],
+          documentType: item['documentType'],
+          approved: item['approved'],
+          sucess: true,
+          message: response.statusMessage!,
+        ));
+        itemsData.sort((a, b) => a.licenseId.compareTo(b.licenseId));
+      }
+    } else {
+      print("Employee Licenses");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
 /// Add License
 Future<ApiData> addLicensePost(
     BuildContext context,

@@ -86,3 +86,33 @@ class SelectDocuments {
     required this.idOfDocument
   });
 }
+
+class QulificationLicensesFilteredData {
+  final int licenseId;
+  final String country;
+  final int employeeId;
+  final String expData;
+  final String issueDate;
+  final String licenseUrl;
+  final String licenure;
+  final String licenseNumber;
+  final String org;
+  final String documentType;
+  bool? approved;
+  final bool sucess;
+  final String message;
+  QulificationLicensesFilteredData(
+      {required this.licenseId,
+        required this.country,
+        required this.employeeId,
+        required this.expData,
+        required this.issueDate,
+        required this.licenseUrl,
+        required this.licenure,
+        required this.licenseNumber,
+        required this.org,
+        required this.documentType,
+        required this.approved,
+        required this.sucess,
+        required this.message});
+}

@@ -127,6 +127,7 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
                 if(returnOfCompanyProperty.statusCode == 200 || returnOfCompanyProperty.statusCode == 201){
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                    isDisable:false,
                     documentName: returnOfCompanyProperty.name,
                     onPressed: () {
 
