@@ -18,6 +18,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/hr_resources/hr_theme_manager.dart';
@@ -177,6 +178,19 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0,bottom: 20,left: 105),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text( AppStringLegalDocument.popupMsgHead,
+                        style:  LegalDocumentPopupMessage.customTextStyle(context),),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 22,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

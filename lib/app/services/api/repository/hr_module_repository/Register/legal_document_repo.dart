@@ -109,8 +109,8 @@ class LegalDocumentsRepo{
 
   ///i-9/{i9FormhtmlId}/{employeeId}/{middleName}/{otherLastName}/{aptNumber}/{alienInfo}/{citizenship}
   static String getINineDocument({required int i9FormhtmlId,required int employeeId, required String middleName,
-    required String otherLastName, required String aptNumber,required String alienInfo,required String citizenship}){
-    return "$i9Document/$i9FormhtmlId/$employeeId/$middleName/$otherLastName/$aptNumber/$alienInfo/$citizenship";
+    required String otherLastName, required String aptNumber,required String alienInfo,required String citizenship, required String alienDate}){
+    return "$i9Document/$i9FormhtmlId/$employeeId/$middleName/$otherLastName/$aptNumber/$alienInfo/$citizenship/$alienDate";
 }
 
 ///employment-application/{employmentAppFormhtmlId}/{employeeId}/{middleName}/{faxNo}/{ifHired}/{positionApplying}/{positionDesired}/

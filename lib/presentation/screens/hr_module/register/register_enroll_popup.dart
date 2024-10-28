@@ -236,7 +236,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       ),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  620,
+          height:  640,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -277,6 +277,17 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                       },
                       icon: Icon(Icons.close,color: ColorManager.white,),
                     ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 16,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text( AppStringLegalDocument.popupMsgHead,
+                      style:  LegalDocumentPopupMessage.customTextStyle(context),),
                   ],
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 
 import '../../../../../../../../app/resources/color.dart';
@@ -11,6 +12,7 @@ import '../../../../../../../../data/api_data/hr_module_data/legal_document_data
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/dialogue_template.dart';
+import '../../../../../../em_module/widgets/header_content_const.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
 import 'form_screen_const.dart';
 
@@ -42,7 +44,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
   String? hiredError;
   String? positionError;
   String? positionDesireError;
-
+  DateTime? datePicked;
   String? dateError;
   String? specifyError;
   String? salaryError;
@@ -175,18 +177,77 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
-                        FirstSMTextFConst(
-                          controller: dateAvailableController,
-                          keyboardType: TextInputType.text,
-                          text: 'Available Date',
-                          showDatePicker: true,
+                        // FirstSMTextFConst(
+                        //   controller: dateAvailableController,
+                        //   keyboardType: TextInputType.text,
+                        //   text: 'Available Date',
+                        //   showDatePicker: true,
+                        // ),
+                        // if (dateError != null) // Display error if any
+                        //   Text(
+                        //     dateError!,
+                        //     style: CommonErrorMsg.customTextStyle(context),
+                        //   ),
+                        HeaderContentConst(
+                        heading: "Available Date",
+                        content :
+                        FormField<String>(
+                          builder: (FormFieldState<String> field) {
+                            return SizedBox(
+                              width: 354,
+                              height: 30,
+                              child: TextFormField(
+                                controller: dateAvailableController,
+                                cursorColor: ColorManager.black,
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: ColorManager.containerBorderGrey, width: 1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: ColorManager.containerBorderGrey, width: 1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  hintText: 'MM-DD-YYYY',
+                                  hintStyle:
+                                  DocumentTypeDataStyle.customTextStyle(context),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1, color: ColorManager.containerBorderGrey),
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                  suffixIcon: Icon(Icons.calendar_month_outlined,
+                                      color: ColorManager.blueprime),
+                                  errorText: field.errorText,
+                                ),
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1901),
+                                    lastDate: DateTime(3101),
+                                  );
+                                  if (pickedDate != null) {
+                                    datePicked = pickedDate;
+                                    dateAvailableController.text =
+                                        DateFormat('MM-dd-yyyy').format(pickedDate);
+                                  }
+                                },
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please select a date';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            );
+                          },
                         ),
-                        if (dateError != null) // Display error if any
-                          Text(
-                            dateError!,
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
-                    
+                         ),
                       ],
                     ),
                   ),
@@ -207,8 +268,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
-                    
-                    
+
                         SMTextFConst(
                           controller: valueController,
                           keyboardType: TextInputType.text,
@@ -219,9 +279,10 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             valueError!,
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
-                        SizedBox(height: AppSize.s15),
+                        SizedBox(height: AppSize.s14),
                         Text( 'Desired Position', style: AllPopupHeadings.customTextStyle(context),
                         ),
+                        SizedBox(height: AppSize.s6),
                         Row(
                           children: [
                             Checkbox(
@@ -273,7 +334,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             ),
                           ],
                         ),
-                        SizedBox(height: AppSize.s15),
+                        SizedBox(height: AppSize.s18),
                         Text( 'If hired can you provide proof of citizenship or legal right to work?', style: AllPopupHeadings.customTextStyle(context),
                         ),
                         CustomRadioListTile(
@@ -354,4 +415,5 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
       )
       );
   }
+
 }
