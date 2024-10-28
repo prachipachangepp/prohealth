@@ -119,16 +119,19 @@ class _INineSignPopupState extends State<INineSignPopup> {
   Future<String> alienWorkDocument() async {
     if (citizentype == 'A citizen of the United States' ||
         citizentype == 'A noncitizen national of the United States') {
+      dateController = TextEditingController(text: " ");
       return ''; // Pass empty string for these two citizenship types.
     }
     else if (citizentype == 'A lawful permanent resident') {
       // Use either Alien Info or USCIS number
+      dateController = TextEditingController(text: " ");
       return alienInfoController.text.isNotEmpty
           ? alienInfoController.text
           : uscisController.text;
     }
     else if (citizentype == 'An alien authorized to work') {
       // Use one of the work-related fields
+
       if (work1Controller.text.isNotEmpty) {
         return work1Controller.text;
       } else if (work2Controller.text.isNotEmpty) {
@@ -382,10 +385,8 @@ class _INineSignPopupState extends State<INineSignPopup> {
         onPressed: () async {
           _validateForm(); // Validate the form before submission.
 
-          String alienWork = '';
-          alienWork = await alienWorkDocument(); // Await the correct value.
-          print(alienWork);
-
+          String alienWork = await alienWorkDocument(); // Await the correct value.
+          print("${alienWork}");
           if (_isFormValid) {
             setState(() {
               loading = true;
@@ -400,7 +401,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                 middleName: nameController.text,
                 otherLastName: lastNameController.text,
                 aptNumber: aptNumController.text,
-                alienInfo: alienWork, // Use the returned value.
+                alienInfo: alienWork.toString(), // Use the returned value.
                 citizenship: citizentype.toString(),
                   alienDate: dateController.text
               );
@@ -417,6 +418,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                   context,
                   MaterialPageRoute(
                     builder: (_) => SignatureFormScreen(
+                      isDisable:false,
                       documentName: iNineDocument.name,
                       onPressed: () {},
                       htmlFormData: iNineDocument.html,

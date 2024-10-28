@@ -394,6 +394,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
               if(employmentAppDocument.statusCode == 200 || employmentAppDocument.statusCode == 201){
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                  isDisable:false,
                   documentName: employmentAppDocument.name,
                   onPressed: () {
 

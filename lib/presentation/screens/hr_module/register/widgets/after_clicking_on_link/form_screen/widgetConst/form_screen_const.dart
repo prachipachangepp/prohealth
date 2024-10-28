@@ -23,6 +23,7 @@ class SignatureFormScreen extends StatefulWidget {
   final String htmlFormData;
   final int employeeId;
   final int htmlFormTemplateId;
+  final bool isDisable;
   const SignatureFormScreen(
       {
         super.key,
@@ -30,7 +31,8 @@ class SignatureFormScreen extends StatefulWidget {
       required this.onPressed,
       required this.htmlFormData,
       required this.employeeId,
-      required this.htmlFormTemplateId});
+      required this.htmlFormTemplateId,
+      required this.isDisable});
 
   @override
   State<SignatureFormScreen> createState() => _SignatureFormScreenState();
@@ -167,7 +169,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                         ),
                       ),
                       SizedBox(width: 10,),
-                      Container(
+                      widget.isDisable?SizedBox(width: 140,):Container(
                         height: 30,
                         width: 140,
                         child: isLoading ?

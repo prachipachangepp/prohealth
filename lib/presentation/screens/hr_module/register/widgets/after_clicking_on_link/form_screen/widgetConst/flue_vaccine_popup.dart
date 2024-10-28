@@ -626,6 +626,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
               print(allergies);
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                isDisable:false,
                 documentName: fluVaccineDocument.name,
                 onPressed: () {
 
