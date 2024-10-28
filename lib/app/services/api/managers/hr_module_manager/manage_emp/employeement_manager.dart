@@ -42,7 +42,7 @@ Future<List<EmployeementData>> getEmployeement(
             supMobile: item['supMobile'],
             title: item['title'],
             dateOfJoining: joiningFormattedDate,
-            endDate:item['endDate'] == null ? "" : convertIsoToDayMonthYear(item['endDate']), //endFormattedDate,
+            endDate:item['endDate'] , //endFormattedDate,
             approved: item['approved'],
             emgMobile: item['emgMobile'],
             country: item['country'],

@@ -18,9 +18,13 @@ Future<ApiDataRegister> postemploymentscreenData(
     String supMobile,
     String title,
     String dateOfJoining,
-    String endDate,
+   String? endDate,
+   // bool isChecked,
     String emgMobile,
     String country) async {
+  // // Set endDate based on isChecked
+   // String? endDate = isChecked ? null : "${dateOfJoining}T00:00:00Z"; // Use null if checked
+
   try {
     var response = await ApiOffer(context).post(
       path: ProgressBarRepository.postemploymentscreen(),
@@ -32,8 +36,10 @@ Future<ApiDataRegister> postemploymentscreenData(
         "supervisor": supervisor,
         "supMobile": supMobile,
         "title": title,
-        "dateOfJoining": "${dateOfJoining}T00:00:00Z",
-        "endDate": "${endDate}T00:00:00Z",
+        "dateOfJoining": "${dateOfJoining}T00:00:00Z" ?? '-',
+      //"endDate": "${endDate}T00:00:00Z",
+       // "endDate": "2024-10-28T06:10:04.805Z",
+        "endDate":endDate,
         "emgMobile": emgMobile,
         "country": country
       },

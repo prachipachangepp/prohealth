@@ -139,6 +139,7 @@ flutter:
     - images/
     - images/mobile_images/
     - images/tab_images/
+    - web/icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -35,7 +35,8 @@ BuildContext context, int employeeId, String approveOnly) async{
             supMobile: item['supMobile'],
             title: item['title'],
             dateOfJoin: StartDate,//item['dateOfJoining'],
-            endDate: item['endDate'] == null ? "" : convertIsoToDayMonthYear(item['endDate']),//EndDate,//item['endDate'],
+            endDate: item['endDate'] ,
+           // endDate: item['endDate'] == null ? "" : convertIsoToDayMonthYear(item['endDate']),//EndDate,//item['endDate'],
             approve: item['approved'] ?? false,
             emgMobile: item['emgMobile'] ?? '--',
             country: item['country'] ?? '--'),
@@ -48,7 +49,7 @@ BuildContext context, int employeeId, String approveOnly) async{
     return itemData;
 
   }catch (e) {
-    print("error${e}");
+    print("::::error${e}");
     return itemData;
   }
 }

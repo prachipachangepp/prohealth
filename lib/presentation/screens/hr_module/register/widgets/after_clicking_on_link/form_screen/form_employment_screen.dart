@@ -187,6 +187,15 @@ class _Employment_screenState extends State<Employment_screen> {
                     final state = key.currentState!;
                     if (state.finalPath == null || state.finalPath!.isEmpty) {
                       print("Loading");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const VendorSelectNoti(
+                            message: 'Please Select file',
+                          );
+                        },
+                      );
+
                     } else {
                       try {
                         await postemploymentscreenData(
@@ -203,8 +212,9 @@ class _Employment_screenState extends State<Employment_screen> {
                               ? "Present"
                               : state.endDateController.text,
                           "NA",
-                          "USA",
+                          "United States Of America",
                         );
+
                         await uploadEmployeeResume(
                           context: context,
                           employeementId: widget.employeeID,
@@ -310,7 +320,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
           finalPositionController.text = data.title ?? '';
           startDateController.text = data.dateOfJoining ?? '';
           endDateController.text = data.endDate ?? '';
-          isChecked = data.endDate == null;
+          //isChecked = data.endDate == null;
           employementIndex = data.employmentId ?? 0;
 
         });
