@@ -209,7 +209,6 @@ void fetchData()async{
                           setState(() {
                             getWhiteLabellingData(context);
                           });
-                          Navigator.pop(context);
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {

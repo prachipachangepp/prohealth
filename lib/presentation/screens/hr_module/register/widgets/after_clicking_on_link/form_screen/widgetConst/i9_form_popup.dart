@@ -119,12 +119,12 @@ class _INineSignPopupState extends State<INineSignPopup> {
   Future<String> alienWorkDocument() async {
     if (citizentype == 'A citizen of the United States' ||
         citizentype == 'A noncitizen national of the United States') {
-      dateController = TextEditingController(text: " ");
-      return ''; // Pass empty string for these two citizenship types.
+      // dateController = TextEditingController(text: " ");
+      return '-'; // Pass empty string for these two citizenship types.
     }
     else if (citizentype == 'A lawful permanent resident') {
       // Use either Alien Info or USCIS number
-      dateController = TextEditingController(text: " ");
+      // dateController = TextEditingController(text: " ");
       return alienInfoController.text.isNotEmpty
           ? alienInfoController.text
           : uscisController.text;
@@ -140,7 +140,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
         return work3Controller.text;
       }
     }
-    return ''; // Default empty if none match (safety fallback).
+    return '-'; // Default empty if none match (safety fallback).
   }
 
 
@@ -403,7 +403,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                 aptNumber: aptNumController.text,
                 alienInfo: alienWork.toString(), // Use the returned value.
                 citizenship: citizentype.toString(),
-                  alienDate: dateController.text
+                  alienDate: dateController.text.isEmpty ? "-":dateController.text
               );
 
               print("Middle Name: ${nameController.text}");
