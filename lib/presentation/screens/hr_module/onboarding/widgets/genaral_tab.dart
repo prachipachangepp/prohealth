@@ -36,7 +36,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
     getEmployeeSeeAll(context).then((data) {
       final filteredData = data.where((item) =>
       item.status == 'Partial' ||
-          item.status == 'Enrolled').toList();
+          item.status == 'Enrolled' ||
+          item.status == 'Completed').toList();
 
       allData = filteredData;
       generalController.add(allData);
@@ -151,6 +152,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
       'Sort': 'Sort',
       'Enrolled': 'Opened',
       'Partial': 'Partial',
+      'Completed': 'Completed',
     };
 
     return DropdownButton2<String>(
@@ -424,8 +426,11 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
       case 'Opened': // Mask "Enrolled" as "Opened"
       case 'Enrolled':
         return const Color(0xff51B5E6);
-      default:
+      case 'Partial':
         return const Color(0xffCA8A04);
+      case 'Completed':
+      default:
+        return const Color(0xffB4DB4C);
     }
   }
 
