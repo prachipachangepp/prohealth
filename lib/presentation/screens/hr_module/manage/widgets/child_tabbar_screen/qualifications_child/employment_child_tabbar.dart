@@ -105,7 +105,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     supervisorMobileNumber.text,
                                     positionTitleController.text,
                                     startDateContoller.text,
-                                    isSelected ? "Present" : endDateController.text ,
+                                    isSelected ? "Currently Working" : endDateController.text ,
                                     emergencyMobileNumber.text,
                                     countryController.text);
                                 Navigator.pop(context);
