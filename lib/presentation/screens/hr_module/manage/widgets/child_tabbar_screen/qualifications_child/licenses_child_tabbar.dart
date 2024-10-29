@@ -216,7 +216,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
         StreamBuilder<List<QulificationLicensesData>>(
             stream: streamController.stream,
             builder: (context,snapshot) {
-              getEmployeeLicenses(context,widget.employeeId).then((data) {
+              getEmployeeLicenses(context,widget.employeeId,).then((data) {
                 streamController.add(data);
               }).catchError((error) {
                 // Handle error

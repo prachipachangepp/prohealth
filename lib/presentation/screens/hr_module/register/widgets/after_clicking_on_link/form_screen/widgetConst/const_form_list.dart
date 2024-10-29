@@ -10,6 +10,8 @@ class DefineFormList extends StatelessWidget {
   final VoidCallback? onSigned;
   final VoidCallback onView;
   final bool isSigned;
+  final bool isHandbook;
+  final VoidCallback? handBookView;
 
   const DefineFormList({
     Key? key,
@@ -17,6 +19,8 @@ class DefineFormList extends StatelessWidget {
     this.onSigned,
     required this.onView,
     required this.isSigned,
+    required this.isHandbook,
+    this.handBookView,
   }) : super(key: key);
 
   @override
@@ -28,7 +32,15 @@ class DefineFormList extends StatelessWidget {
           formName,
           style: const TextStyle(fontSize: 16),
         ),
-        Row(
+        isHandbook? Row(
+          children: [
+            // Conditional rendering: If signed, show a check mark
+           ElevatedButton(
+                onPressed: handBookView, // Always show the View button
+                child: const Text('View')
+            )
+          ],
+        )  :Row(
           children: [
             // Conditional rendering: If signed, show a check mark
             isSigned ? ElevatedButton(

@@ -336,7 +336,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: AppSize.s10),
+                      SizedBox(height: AppSize.s6),
                       Text( 'Acknowledge Facts', style: AllPopupHeadings.customTextStyle(context),
                       ),
                       SizedBox(height: AppSize.s3),
@@ -515,10 +515,11 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ],
                         ),
                       ),
-                      SizedBox(height: AppSize.s4),
+                      SizedBox(height: AppSize.s8),
                       ///allergies
                       Text( 'Allergies', style: AllPopupHeadings.customTextStyle(context),
                       ),
+                      SizedBox(height: AppSize.s6),
                       Row(
                         children: [
                           Checkbox(
@@ -570,13 +571,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ),
                         ],
                       ),
-                      SizedBox(height: AppSize.s4),
-                      Text('OR',style: AllPopupHeadings.customTextStyle(context),),
-                      SizedBox(height: AppSize.s4),
+                     // SizedBox(height: AppSize.s4),
+                     // Text('OR',style: AllPopupHeadings.customTextStyle(context),),
+                      SizedBox(height: AppSize.s14),
                       SMTextFConst(
                         controller: OtherController,
                         keyboardType: TextInputType.text,
-                        text: 'Other',
+                        text: 'Other Allergies',
                       ),
                       if (OtherError != null)
                         Text(
@@ -626,6 +627,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
               print(allergies);
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                isDisable:false,
                 documentName: fluVaccineDocument.name,
                 onPressed: () {
 

@@ -63,8 +63,132 @@ Future<ApiData> postWhitelabellingAdd(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+/// Company contact get
+Future<CompanyContactPrefill> getCompanyContactPrefill(
+    BuildContext context,
+    ) async{
+  var itemData;
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var response = await Api(context).get(
+        path: EstablishmentManagerRepository.
+        patchCompanyContact(companyId: companyId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("fetched Contact details");
+      return itemData = CompanyContactPrefill(
+          companyContactID: response.data['company_contact_id']??0,
+          companyId:  response.data['company_id']??0,
+          primaryNo:  response.data['primary_phone']??"",
+          secondaryPhoneNo:  response.data['secondary_phone']??"",
+          primaryFax:  response.data['primary_fax']??"",
+          alternativePhoneNo:  response.data['alternative_phone']??"",
+          email:  response.data['email']??"");
+    } else {
+      print("Error 1");
+      return itemData;
+    }
 
+  } catch (e) {
+    print("Error $e");
+    return itemData;
 
+  }
+}
+/// post company contact
+Future<ApiData> postCompanyContact(
+    BuildContext context,
+    // String officeId,
+    String primaryNo,
+    String secondaryNo,
+    String primFax,
+    String secondaryFax,
+    String alternativeNo,
+    String email,
+    // String name,
+    // String address,
+
+    ) async{
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var response = await Api(context).post(
+        path: EstablishmentManagerRepository.
+        postCompanyContact(),
+        data: {
+          "company_id": companyId,
+          "primary_phone": primaryNo,
+          "secondary_phone": secondaryNo,
+          "primary_fax": primFax,
+          "alternative_phone": alternativeNo,
+          "email": email
+        });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Added company contact");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// patch company contact
+Future<ApiData> patchWhitelabellingCompanyContact(
+    BuildContext context,
+    // String officeId,
+    String primaryNo,
+    String secondaryNo,
+    String primFax,
+    String secondaryFax,
+    String alternativeNo,
+    String email,
+    // String name,
+    // String address,
+
+    ) async{
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var response = await Api(context).patch(
+        path: EstablishmentManagerRepository.
+        patchCompanyContact(companyId: companyId),
+        data: {
+          "company_id": companyId,
+          "primary_phone": primaryNo,
+          "secondary_phone": secondaryNo,
+          "primary_fax": primFax,
+          "alternative_phone": alternativeNo,
+          "email": email
+        });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Updated company contact");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
 /// Upload Logo
 Future<ApiData> uploadWebAndAppLogo({
   required BuildContext context,
@@ -166,79 +290,70 @@ Future<WhiteLabellingCompanyDetailModal> getWhiteLabellingData(
   var itemsData;
   try {
     final companyId = await TokenManager.getCompanyId();
-    final url = await EstablishmentManagerRepository.getWhitelabellingDetail(
-        companyId: companyId
-    );
-    print("Fetching data from URL: $url");
-
-    final response = await Api(context).get(path: url);
-
+    final response = await Api(context).get(path: EstablishmentManagerRepository.getWhitelabellingDetail(
+        companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       var responseData = response.data;
       print("Sucess");
-      WLCompanyDetailModal companyDetail =
-      WLCompanyDetailModal.fromJson(responseData['CompanyDetail']);
-      WLContactDetailModal contactDetail =
-      WLContactDetailModal.fromJson(responseData['ContactDetail']);
-      List<WLLogoModal> logos = (responseData['Logos'] as List).map((logo) =>
-          WLLogoModal.fromJson(logo)).toList();
-
-
+      // WLCompanyDetailModal companyDetail =
+      // WLCompanyDetailModal.fromJson(responseData['CompanyDetail']);
+      // WLContactDetailModal contactDetail =
+      // WLContactDetailModal.fromJson(responseData['ContactDetail']);
+      // List<WLLogoModal> logos = (responseData['Logos'] as List).map((logo) =>
+      //     WLLogoModal.fromJson(logo)).toList();
+      List<WLLogoModal> logosDetails = [];
+      if (response.data['Logos'] != null) {
+        for (var items in response.data['Logos']) {
+          logosDetails.add(
+              WLLogoModal(companyLogoId: items['company_logo_id'],
+              companyId: items['company_id'],
+              url: items['url'],
+              type: items['type'],
+              base: items['base']
+          ));
+        }
+      }
       itemsData = WhiteLabellingCompanyDetailModal(
-        companyDetail: companyDetail,
-        contactDetail: contactDetail,
-        logos: logos,
+        companyDetail: WLCompanyDetailModal(
+          companyId: response.data['CompanyDetail']['company_id'],
+          name: response.data['CompanyDetail']['Name'],
+          description: response.data['CompanyDetail']['description'],
+          url: response.data['CompanyDetail']['url'],
+          address: response.data['CompanyDetail']['address'],
+          headOfficeId: response.data['CompanyDetail']['head_office_id'],
+        ),
+        contactDetail:response.data['ContactDetail'] != null ?WLContactDetailModal(
+          companyContactId: response.data['ContactDetail']['company_contact_id']??0,
+          companyId: response.data['ContactDetail']['company_id']??companyId,
+          primaryPhone: response.data['ContactDetail']['primary_phone']??"",
+          secondaryPhone: response.data['ContactDetail']['secondary_phone']??"",
+          primaryFax: response.data['ContactDetail']['primary_fax']??"",
+          alternativePhone: response.data['ContactDetail']['alternative_phone']??"",
+          email: response.data['ContactDetail']['email']??"",
+        ) :WLContactDetailModal(
+          companyContactId: 0,
+          companyId: companyId,
+          primaryPhone: "",
+          secondaryPhone: "",
+          primaryFax: "",
+          alternativePhone: "",
+          email: "",
+        ),
+        logos: logosDetails,
         message: response.statusMessage ?? 'Success',
         success: true,
       );
+      print("Company data ${itemsData}");
+      return itemsData;
     } else {
-      itemsData = WhiteLabellingCompanyDetailModal(
-        companyDetail: WLCompanyDetailModal(
-            companyId: 1,
-            name: '',
-            description: '',
-            url: '',
-            address: '',
-            headOfficeId: ''
-        ),
-        contactDetail: WLContactDetailModal(
-            companyContactId: 0,
-            companyId: 1,
-            primaryPhone: '',
-            secondaryPhone: '',
-            primaryFax: '',
-            alternativePhone: '',
-            email: ''),
-        logos: [],
-        success: false,
-        message: response.statusMessage ?? 'Whitelabelling get Error',
-      );
+      print("Api Error company details");
     }
+    return itemsData;
   } catch (e) {
-    itemsData = WhiteLabellingCompanyDetailModal(
-      companyDetail: WLCompanyDetailModal(
-          companyId: 1,
-          name: '',
-          description: '',
-          url: '',
-          address: '',
-          headOfficeId: ''
-      ),
-      contactDetail: WLContactDetailModal(
-          companyContactId: 0,
-          companyId: 1,
-          primaryPhone: '',
-          secondaryPhone: '',
-          primaryFax: '',
-          alternativePhone: '',
-          email: ''
-      ),
-      logos: [],
-      success: false,
-      message: e.toString(),
-    );
+    print("Error ${e}");
+    return itemsData;
   }
-  return itemsData;
+
 }
 
 /// Upload Logo

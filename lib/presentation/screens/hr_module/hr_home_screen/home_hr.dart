@@ -17,6 +17,7 @@ import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_f
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/dashoboard_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/referesh_provider.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/web_manage/manage_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -25,6 +26,7 @@ import 'package:prohealth/presentation/screens/hr_module/register/register_scree
 import 'package:prohealth/presentation/screens/hr_module/see_all_hr/see_all_hr_screen.dart';
 import 'package:prohealth/presentation/widgets/app_bar/app_bar.dart';
 import 'package:prohealth/presentation/widgets/widgets/const_appbar/controller.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
@@ -304,27 +306,55 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   }
 
   /// Referesh code
+  @override
+  void initState() {
+    super.initState();
+    // _loadIndex();
+  }
   // @override
   // void initState() {
   //   super.initState();
-  //   _loadIndex();
-  // }
-  // Future<void> _loadIndex() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     pgeControllerId = prefs.getInt('currentIndex') ?? 0;
-  //     myController.selectButton(pgeControllerId);
-  //     _pageController.animateToPage(pgeControllerId,
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     final pageIndexProvider = Provider.of<PageIndexProvider>(context, listen: false);
+  //     final pgeControllerId = pageIndexProvider.currentIndex;
+  //     print('Page controller id ${pgeControllerId}');
+  //     setState(() {
+  //       _pageController.animateToPage(
+  //         pgeControllerId,
   //         duration: Duration(milliseconds: 500),
-  //         curve: Curves.ease);   // Default to 0 if not found
-  //     //  _pageController.jumpToPage(pgeControllerId); // Jump to the saved index
+  //         curve: Curves.ease,
+  //       );
+  //       myController.selectButton(pgeControllerId);
+  //     });
+  //
   //   });
   // }
-  //
-  // Future<void> _saveIndex(int index) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.setInt('currentIndex', index);
-  // }
+
+  void onPageChanged(int index) {
+    Provider.of<PageIndexProvider>(context, listen: false).setIndex(index);
+  }
+
+  Future<void> _loadIndex() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      pgeControllerId = prefs.getInt('currentIndex') ?? 0;
+      print('pageIndex ${pgeControllerId}');
+      myController.selectButton(pgeControllerId);
+      pageChanges(pgeControllerId);
+         // Default to 0 if not found
+      //  _pageController.jumpToPage(pgeControllerId); // Jump to the saved index
+    });
+  }
+  void pageChanges(int pageIndex){
+    _pageController.animateToPage(pgeControllerId,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.ease);
+  }
+
+  Future<void> _saveIndex(int index) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('currentIndex', index);
+  }
 
 
   @override
@@ -371,6 +401,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 _pageController.animateToPage(0,
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease);
+                                _saveIndex(0);
+                                onPageChanged(0);
                                 pgeControllerId = 0;
                               },
                               text: 'Dashboard',
@@ -390,6 +422,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 _pageController.animateToPage(1,
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease);
+                                _saveIndex(1);
+                                onPageChanged(1);
                                 pgeControllerId = 1;
                               },
                               text: 'Manage',
@@ -425,6 +459,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 _pageController.animateToPage(2,
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease);
+                                onPageChanged(2);
+                                _saveIndex(2);
 
                                 pgeControllerId = 2;
                               },
@@ -445,6 +481,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 _pageController.animateToPage(3,
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease);
+                                onPageChanged(3);
+                                _saveIndex(3);
 
                                 pgeControllerId = 3;
                               },

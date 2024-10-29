@@ -260,22 +260,17 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
             ),
           Expanded(
             flex: 10,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.width / 45),
-              child:
-              PageView(
-                controller: widget.managePageController,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  OnboardingGeneral(selectButton: widget.selectButton, goBackButtion: widget.onBackPressed),
-                  OnboardingQualification(employeeId: widget.employeeId,),
-                  Banking(employeeId: widget.employeeId,),
-                  HealthRecord(employeeId: widget.employeeId,),
-                  Acknowledgement(employeeId: widget.employeeId,),
-                  FormStatusScreen(employeeId: widget.employeeId,),
-                ],
-              ),
+            child: PageView(
+              controller: widget.managePageController,
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                OnboardingGeneral(selectButton: widget.selectButton, goBackButtion: widget.onBackPressed),
+                OnboardingQualification(employeeId: widget.employeeId,),
+                Banking(employeeId: widget.employeeId,),
+                HealthRecord(employeeId: widget.employeeId,),
+                Acknowledgement(employeeId: widget.employeeId,),
+                FormStatusScreen(employeeId: widget.employeeId,),
+              ],
             ),
           ),
           // BottomBarRow(),
