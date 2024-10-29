@@ -120,7 +120,7 @@ Future<ApiDataRegister> updateOnlinkGeneralPatch(
     String workPhoneNbr,
    // String regOfficId,
     String personalEmail,
-    String workEmail,
+    //String workEmail,
     String address,
     String dateOfBirth, // Ensure this is formatted correctly
     String emergencyContact,
@@ -173,7 +173,7 @@ Future<ApiDataRegister> updateOnlinkGeneralPatch(
         'workPhoneNbr': workPhoneNbr,
        // 'regOfficId': regOfficId,
         'personalEmail': personalEmail,
-        'workEmail': workEmail,
+        //'workEmail': workEmail,
         'address': address,
         'dateOfBirth': "${dateOfBirth}T00:00:00Z",
         'emergencyContact': emergencyContact,

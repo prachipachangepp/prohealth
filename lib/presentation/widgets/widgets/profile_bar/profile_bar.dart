@@ -44,7 +44,16 @@ class _ProfileBarState extends State<ProfileBar> {
     sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
     fetchData();
   }
+
   String _trimAddress(String address) {
+    const int maxLength = 15;
+    if (address.length > maxLength) {
+      return '${address.substring(0, maxLength)}...';
+    }
+    return address;
+  }
+
+  String _trimSummery(String address) {
     const int maxLength = 15;
     if (address.length > maxLength) {
       return '${address.substring(0, maxLength)}...';
@@ -493,7 +502,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                     style: ThemeManagerDark.customTextStyle(context),
                                   ),
                                   Text(
-                                  widget.searchByEmployeeIdProfileData!.summary,
+                                    _trimSummery(widget.searchByEmployeeIdProfileData!.summary),
                                     style: ThemeManagerDark.customTextStyle(context),
                                   ),
                                   // Text(""),

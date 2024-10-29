@@ -320,7 +320,7 @@ class _generalFormState extends State<generalForm> {
                             '',
                            // '',
                             personalemail.text,
-                            personalemail.text,
+                          //  personalemail.text,
                             address.text,
                             dobcontroller.text,
                             '',
@@ -578,7 +578,8 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) { return CustomTextFieldSSn(
+                        builder: (BuildContext context, void Function(void Function()) setState) {
+                          return CustomTextFieldSSn(
                           controller: ssecuritynumber,
                           hintText: 'Enter Security Number',
                           obscureText: !_passwordVisible,
