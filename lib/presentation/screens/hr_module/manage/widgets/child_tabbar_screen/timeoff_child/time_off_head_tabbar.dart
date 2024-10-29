@@ -81,7 +81,15 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
             ));
           }
           if (snapshot.hasData) {
-            return Container();
+            return Center(
+              child: Text(
+                AppStringHRNoData.timeOffNoData,
+                style: CustomTextStylesCommon.commonStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: FontSize.s14,
+                    color: ColorManager.mediumgrey),
+              ),
+            );
             //   Container(
             //
             //   height: MediaQuery.of(context).size.height / 1,

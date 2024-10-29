@@ -381,6 +381,7 @@ class AppStringLegalDocument {
 
 
   static const String popupMsgHead = "Kindly fill these following fields.";
+  static const String ZonesMsgHead = "Kindly add county,zone and zipcodes.";
 
 
 }

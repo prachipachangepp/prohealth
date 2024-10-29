@@ -6,10 +6,12 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/manage_doc_uplode_const.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -102,16 +104,8 @@ class _CICCLicenseState extends State<CICCLicense> {
             child: StreamBuilder<List<MCorporateComplianceModal>>(
                 stream: lisenceController.stream,
                 builder: (context, snapshot) {
-                  getListMCorporateCompliancefetch(
-                          context,
-                          AppConfig.corporateAndCompliance,
-                      widget.officeId,
-                          AppConfig.subDocId1Licenses,
-                          1,
-                          20)
-                      .then((data) {
-                    lisenceController.add(data);
-                  }).catchError((error) {});
+                  getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId1Licenses, 1, 20)
+                      .then((data) {lisenceController.add(data);}).catchError((error) {});
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
@@ -123,11 +117,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                     return Center(
                       child: Text(
                         ErrorMessageString.noLicenses,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey,
-                        ),
+                        style: AllNoDataAvailable.customTextStyle(context)
                       ),
                     );
                   }
@@ -135,11 +125,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                     int totalItems = snapshot.data!.length;
                     int totalPages = (totalItems / itemsPerPage).ceil();
                     List<MCorporateComplianceModal> paginatedData = snapshot
-                        .data!
-                        .skip((currentPage - 1) * itemsPerPage)
-                        .take(itemsPerPage)
-                        .toList();
-
+                        .data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
                     return Column(
                       children: [
                         Expanded(
@@ -150,32 +136,20 @@ class _CICCLicenseState extends State<CICCLicense> {
                                 var cclicenses = snapshot.data![index];
                                 var fileUrl = cclicenses.docurl;
                                 final fileExtension = fileUrl.split('/').last;
-
-                                int serialNumber = index +
-                                    1 +
-                                    (currentPage - 1) * itemsPerPage;
-                                String formattedSerialNumber =
-                                    serialNumber.toString().padLeft(2, '0');
-                                MCorporateComplianceModal manageCCLicence =
-                                    paginatedData[index];
-
+                                MCorporateComplianceModal manageCCLicence = paginatedData[index];
 
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // SizedBox(height: 5),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 5),
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: ColorManager.white,
-                                            borderRadius:
-                                                BorderRadius.circular(4),
+                                            borderRadius: BorderRadius.circular(4),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: ColorManager.black
-                                                    .withOpacity(0.25),
+                                                color: ColorManager.black.withOpacity(0.25),
                                                 spreadRadius: 0,
                                                 blurRadius: 4,
                                                 offset: Offset(0, 2),
@@ -187,46 +161,23 @@ class _CICCLicenseState extends State<CICCLicense> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 15),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
-                                                    // InkWell(
-                                                    //   onTap: () {},
-                                                    //   child: Image.asset(
-                                                    //     'images/eye.png',
-                                                    //     height: AppSize.s15,
-                                                    //     width: AppSize.s22,
-                                                    //   ),
-                                                    // ),
-                                                    //IconButton(onPressed: (){},
-                                                    // icon: Icon(Icons.remove_red_eye_outlined,
-                                                    // size:20,color: ColorManager.blueprime,)),
                                                     SizedBox(width: AppSize.s10),
                                                     Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Text(
-                                                          // "ID : ${manageCCLicence.idOfDoc.toString()}",
                                                           "ID : ${manageCCLicence.idOfDocument}",
-                                                          textAlign:
-                                                              TextAlign.center,
+                                                          textAlign: TextAlign.center,
                                                           style:  TableSubHeading.customTextStyle(context),
                                                         ),
                                                         Text(
-                                                          // manageCCLicence.docname.toString(),
-                                                          manageCCLicence
-                                                              .docName
-                                                              .toString(),
-                                                          textAlign:
-                                                              TextAlign.center,
+                                                          manageCCLicence.docName.toString(),
+                                                          textAlign: TextAlign.center,
                                                           style:  TableSubHeading.customTextStyle(context),
                                                         ),
                                                       ],
@@ -266,23 +217,15 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     IconButton(
                                                       onPressed: () {
                                                         print("FileExtension:${fileExtension}");
-                                                        // DowloadFile()
-                                                        //     .downloadPdfFromBase64(
-                                                        //     fileExtension,
-                                                        //     "DME.pdf");
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(
-                                                        Icons
-                                                            .print_outlined,
+                                                        Icons.print_outlined,
                                                         size:IconSize.I18,color: IconColorManager.bluebottom,
                                                       ),
-                                                      splashColor:
-                                                      Colors.transparent,
-                                                      highlightColor:
-                                                      Colors.transparent,
-                                                      hoverColor:
-                                                      Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
                                                     ///download saloni
                                                     PdfDownloadButton(apiUrl: manageCCLicence.docurl,
@@ -290,84 +233,51 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     IconButton(
                                                       onPressed: () {
                                                         String?
-                                                            selectedExpiryType =
-                                                            expiryType;
+                                                            selectedExpiryType = expiryType;
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) {
                                                             return FutureBuilder<
                                                                 MCorporateCompliancePreFillModal>(
-                                                              future: getPrefillNewOrgOfficeDocument(
-                                                                  context,
-                                                                  manageCCLicence
-                                                                      .orgOfficeDocumentId),
+                                                              future: getPrefillNewOrgOfficeDocument(context, manageCCLicence.orgOfficeDocumentId),
                                                               builder: (context,
                                                                   snapshotPrefill) {
-                                                                if (snapshotPrefill
-                                                                        .connectionState ==
-                                                                    ConnectionState
-                                                                        .waiting) {
+                                                                if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                                   return Center(
-                                                                    child:
-                                                                        CircularProgressIndicator(
-                                                                      color: ColorManager
-                                                                          .blueprime,
+                                                                    child: CircularProgressIndicator(
+                                                                      color: ColorManager.blueprime,
                                                                     ),
                                                                   );
                                                                 }
 
-                                                                var calender =
-                                                                    snapshotPrefill
-                                                                        .data!
-                                                                        .expiry_date;
-                                                                calenderController =
-                                                                    TextEditingController(
-                                                                  text: snapshotPrefill
-                                                                      .data!
-                                                                      .expiry_date,
+                                                                var calender = snapshotPrefill.data!.expiry_date;
+                                                                calenderController = TextEditingController(
+                                                                  text: snapshotPrefill.data!.expiry_date,
                                                                 );
 
-                                                                // fileName = snapshotPrefill.data!.url;
-
                                                                 return StatefulBuilder(
-                                                                  builder: (BuildContext
-                                                                          context,
+                                                                  builder: (BuildContext context,
                                                                       void Function(
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
-                                                                      title:
-                                                                          EditPopupString.editLicenses,
-                                                                      loadingDuration:
-                                                                          _isLoading,
-                                                                      officeId:
-                                                                          widget
-                                                                              .officeId,
-                                                                      docTypeMetaIdCC:
-                                                                          widget
-                                                                              .docId,
-                                                                      selectedSubDocId:
-                                                                          widget
-                                                                              .subDocId,
-                                                                      //orgDocId: manageCCADR.orgOfficeDocumentId,
+                                                                      title: EditPopupString.editLicenses,
+                                                                      loadingDuration: _isLoading,
+                                                                      officeId: widget.officeId,
+                                                                      docTypeMetaIdCC: widget.docId,
+                                                                      selectedSubDocId: widget.subDocId,
                                                                       orgDocId: snapshotPrefill
-                                                                          .data!
-                                                                          .orgOfficeDocumentId,
+                                                                          .data!.orgOfficeDocumentId,
                                                                       orgDocumentSetupid: snapshotPrefill
-                                                                          .data!
-                                                                          .documentSetupId,
+                                                                          .data!.documentSetupId,
                                                                       docName: snapshotPrefill
-                                                                          .data!
-                                                                          .docName,
+                                                                          .data!.docName,
                                                                       selectedExpiryType: snapshotPrefill
-                                                                          .data!
-                                                                          .expType,
+                                                                          .data!.expType,
                                                                       expiryDate: snapshotPrefill
-                                                                          .data!
-                                                                          .expiry_date,
+                                                                          .data!.expiry_date,
                                                                       url: snapshotPrefill
-                                                                          .data!
-                                                                          .url,
+                                                                          .data!.url,
                                                                     );
                                                                   },
                                                                 );
@@ -378,34 +288,26 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       },
                                                       icon:  Icon(Icons.edit_outlined,
                                                         size:IconSize.I18,color: IconColorManager.bluebottom,),
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
                                                     IconButton(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,
                                                               builder: (context) =>
                                                                   StatefulBuilder(
-                                                                    builder: (BuildContext
-                                                                            context,
+                                                                    builder: (BuildContext context,
                                                                         void Function(void Function())
                                                                             setState) {
                                                                       return DeletePopup(
                                                                           title:
                                                                           DeletePopupString.deleteLicenses,
-                                                                          loadingDuration:
-                                                                              _isLoading,
+                                                                          loadingDuration: _isLoading,
                                                                           onCancel:
                                                                               () {
                                                                             Navigator.pop(context);
@@ -420,7 +322,6 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                                 context: context,
                                                                                 orgDocId: manageCCLicence.orgOfficeDocumentId,
                                                                               );
-                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
                                                                                 await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId1Licenses, 1, 20).then((data) {
                                                                                   lisenceController.add(data);
