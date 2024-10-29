@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc
 
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -130,11 +131,7 @@ class _CICCADRState extends State<CICCADR> {
                     return Center(
                       child: Text(
                         ErrorMessageString.noADR,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey,
-                        ),
+                        style: AllNoDataAvailable.customTextStyle(context)
                       ),
                     );
                   }

@@ -169,69 +169,6 @@ class PoliciesProcedureList extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            //   children: [
-                            //     Expanded(
-                            //       flex: 2,
-                            //       child: Center(
-                            //         child: Text(
-                            //           formattedSerialNumber,
-                            //           style: DocumentTypeDataStyle.customTextStyle(context),
-                            //           textAlign: TextAlign.start,
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     Expanded(
-                            //       flex: 2,
-                            //       child: Center(
-                            //         child: Text(
-                            //           policiesdata.idOfDocument,
-                            //           style: DocumentTypeDataStyle.customTextStyle(context),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     Expanded(
-                            //       child: Center(
-                            //         child: Text(
-                            //           policiesdata.docName.toString(),
-                            //           style: DocumentTypeDataStyle.customTextStyle(context),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     Expanded(
-                            //       child: Center(
-                            //         child: Text(
-                            //           policiesdata.expiryReminder.toString(),
-                            //           style: DocumentTypeDataStyle.customTextStyle(context),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     Expanded(
-                            //       child: Row(
-                            //         mainAxisAlignment: MainAxisAlignment.center,
-                            //         children: [
-                            //           IconButton(
-                            //             onPressed: () => onEdit(policiesdata),
-                            //             icon: Icon(
-                            //               Icons.edit_outlined,
-                            //               size: IconSize.I18,
-                            //               color: IconColorManager.bluebottom,
-                            //             ),
-                            //           ),
-                            //           IconButton(
-                            //             onPressed: () => onDelete(policiesdata),
-                            //             icon: Icon(
-                            //               Icons.delete_outline,
-                            //               size: IconSize.I18,
-                            //               color: IconColorManager.red,
-                            //             ),
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
                           ),
                         ],
                       );

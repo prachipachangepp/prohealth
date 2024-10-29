@@ -235,10 +235,15 @@ class _CiOrgDocumentState extends State<CiZone> {
                     return const SizedBox();
                   },
                 )
+                    : _selectedIndex == 0
+                    ?  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text( AppStringLegalDocument.ZonesMsgHead,
+                      style:  LegalDocumentPopupMessage.customTextStyle(context),),
+                  ],)
                     : const SizedBox(width: 354),
               ),
-
-
 
               ///tabbar
               Expanded(
@@ -387,8 +392,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                             )
               : _selectedIndex == 1
               ? Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: CustomIconButtonConst(
+                padding: const EdgeInsets.only(right: 10),
+                child: CustomIconButtonConst(
                 width: 79,
                 icon: Icons.add,
                 text: AppStringEM.add,

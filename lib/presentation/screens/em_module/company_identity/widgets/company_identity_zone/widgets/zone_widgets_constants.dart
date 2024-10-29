@@ -117,13 +117,10 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-
       title: widget.title,
           width: AppSize.s407,
           height: AppSize.s267,
-
             body: [
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(
@@ -340,7 +337,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s440,
+      height: AppSize.s450,
       title: widget.title,
       body: [
         Padding(

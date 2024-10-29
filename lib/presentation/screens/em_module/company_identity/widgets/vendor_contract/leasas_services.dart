@@ -14,6 +14,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
 import '../../../../../../app/constants/app_config.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
@@ -134,11 +135,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                     return Center(
                       child: Text(
                         ErrorMessageString.noLeases,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey,
-                        ),
+                        style: AllNoDataAvailable.customTextStyle(context)
                       ),
                     );
                   }

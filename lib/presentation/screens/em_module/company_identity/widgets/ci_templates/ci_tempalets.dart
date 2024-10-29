@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 
@@ -35,11 +36,7 @@ class _CiTempaletsState extends State<CiTempalets> {
             padding: const EdgeInsets.symmetric(vertical: 120),
             child: Text(
               "No Templates available!",
-              style:  TextStyle(
-              fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: ColorManager.mediumgrey
-            ),),
+              style:  AllNoDataAvailable.customTextStyle(context),),
           )),
         ],
       ),

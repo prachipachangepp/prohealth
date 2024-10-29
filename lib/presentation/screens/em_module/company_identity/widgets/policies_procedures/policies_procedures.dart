@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
@@ -167,11 +168,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                       return Center(
                         child: Text(
                           ErrorMessageString.noPolicyProcedure,
-                          style: CustomTextStylesCommon.commonStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: FontSize.s14,
-                            color: ColorManager.mediumgrey,
-                          ),
+                          style: AllNoDataAvailable.customTextStyle(context),
                         ),
                       );
                     }
