@@ -67,7 +67,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
   Widget build(BuildContext context) {
     String? errorText;
     return Padding(
-      padding:  const EdgeInsets.symmetric(vertical: 6),
+      padding:  const EdgeInsets.symmetric(vertical: 4),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -271,48 +271,51 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          widget.text,
-          style: AllPopupHeadings.customTextStyle(context),
-        ),
-        SizedBox(height: 5),
-        Container(
-          width: 354,
-          height: 30,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-            borderRadius: BorderRadius.circular(8),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.text,
+            style: AllPopupHeadings.customTextStyle(context),
           ),
-          child: TextFormField(
-            autofocus: true,
-            enabled: widget.enable ?? true,
-            controller: _controller,
-            keyboardType: widget.keyboardType,
-            cursorHeight: 17,
-            cursorColor: Colors.black,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            decoration: InputDecoration(
-              suffixIcon: widget.icon,
-              prefix: widget.prefixWidget,
-              prefixStyle: AllHRTableData.customTextStyle(context),
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom: 22, left: 15),
+          SizedBox(height: 5),
+          Container(
+            width: 354,
+            height: 30,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.circular(8),
             ),
-            style: TableSubHeading.customTextStyle(context),
-            // style: TextStyle(
-            //   fontWeight: FontWeight.w500,
-            //   fontSize: 12,
-            //   color: Color(0xff686464),
-            // ),
-            onTap: widget.onChange,
-            validator: widget.validator,
+            child: TextFormField(
+              autofocus: true,
+              enabled: widget.enable ?? true,
+              controller: _controller,
+              keyboardType: widget.keyboardType,
+              cursorHeight: 17,
+              cursorColor: Colors.black,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                suffixIcon: widget.icon,
+                prefix: widget.prefixWidget,
+                prefixStyle: AllHRTableData.customTextStyle(context),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(bottom: 22, left: 15),
+              ),
+              style: TableSubHeading.customTextStyle(context),
+              // style: TextStyle(
+              //   fontWeight: FontWeight.w500,
+              //   fontSize: 12,
+              //   color: Color(0xff686464),
+              // ),
+              onTap: widget.onChange,
+              validator: widget.validator,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -352,46 +355,49 @@ class SMTextFConstPhone extends StatefulWidget {
 class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          widget.text,
-          style: AllPopupHeadings.customTextStyle(context),
-        ),
-        SizedBox(height: 5),
-        Container(
-          width: 354,
-          height: 30,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-            borderRadius: BorderRadius.circular(8),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.text,
+            style: AllPopupHeadings.customTextStyle(context),
           ),
-          child: TextFormField(
-            autofocus: true,
-            enabled: widget.enable ?? true,
-            controller: widget.controller,
-            keyboardType: widget.keyboardType,
-            cursorHeight: 17,
-            cursorColor: Colors.black,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            inputFormatters: [
-              PhoneNumberInputFormatter(),
-            ],
-            decoration: InputDecoration(
-              suffixIcon: widget.icon,
-              prefix: widget.prefixWidget,
-              prefixStyle: AllHRTableData.customTextStyle(context),
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom: 22, left: 15),
+          SizedBox(height: 5),
+          Container(
+            width: 354,
+            height: 30,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.circular(8),
             ),
-            style: TableSubHeading.customTextStyle(context),
-            validator: widget.validator,
-            onTap: widget.onChange,
+            child: TextFormField(
+              autofocus: true,
+              enabled: widget.enable ?? true,
+              controller: widget.controller,
+              keyboardType: widget.keyboardType,
+              cursorHeight: 17,
+              cursorColor: Colors.black,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              inputFormatters: [
+                PhoneNumberInputFormatter(),
+              ],
+              decoration: InputDecoration(
+                suffixIcon: widget.icon,
+                prefix: widget.prefixWidget,
+                prefixStyle: AllHRTableData.customTextStyle(context),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(bottom: 22, left: 15),
+              ),
+              style: TableSubHeading.customTextStyle(context),
+              validator: widget.validator,
+              onTap: widget.onChange,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -496,7 +502,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
   Widget build(BuildContext context) {
     String? errorText;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -884,7 +890,7 @@ class _SSNTextFConstState extends State<SSNTextFConst> {
   Widget build(BuildContext context) {
     String? errorText;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

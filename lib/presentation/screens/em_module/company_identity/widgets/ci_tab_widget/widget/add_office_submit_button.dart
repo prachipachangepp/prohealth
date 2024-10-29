@@ -177,7 +177,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s800,
-      height: AppSize.s620,
+      height: AppSize.s650,
       title: 'Add New Office',
       body: [
         Column(
@@ -199,12 +199,9 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           text: AppStringEM.name,
                         ),
                         if (_nameDocError != null) // Display error if any
-                          Padding(
-                            padding: const EdgeInsets.only(top: 0),
-                            child: Text(
-                              _nameDocError!,
-                              style: CommonErrorMsg.customTextStyle(context),
-                            ),
+                          Text(
+                            _nameDocError!,
+                            style: CommonErrorMsg.customTextStyle(context),
                           ),
                         const SizedBox(height: AppSize.s9),
                         DemailSMTextFConst(
@@ -213,12 +210,9 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           text: AppString.email,
                         ),
                         if (_emailDocError != null) // Display error if any
-                          Padding(
-                            padding: const EdgeInsets.only(top: 0),
-                            child: Text(
-                              _emailDocError!,
-                              style: CommonErrorMsg.customTextStyle(context),
-                            ),
+                          Text(
+                            _emailDocError!,
+                            style: CommonErrorMsg.customTextStyle(context),
                           ),
                         const SizedBox(height: AppSize.s9),
                         FirstSMTextFConst(
@@ -227,12 +221,9 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           text: 'Country',
                         ),
                         if (_countryDocError != null) // Display error if any
-                          Padding(
-                            padding: const EdgeInsets.only(top: 0),
-                            child: Text(
-                              _countryDocError!,
-                              style:CommonErrorMsg.customTextStyle(context),
-                            ),
+                          Text(
+                            _countryDocError!,
+                            style:CommonErrorMsg.customTextStyle(context),
                           ),
                         const SizedBox(height: AppSize.s9),
                         SMTextFConstPhone(
@@ -241,12 +232,9 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           text: 'Secondary Phone',
                         ),
                         if (_sphoneDocError != null) // Display error if any
-                          Padding(
-                            padding: const EdgeInsets.only(top: 0),
-                            child: Text(
-                              _sphoneDocError!,
-                              style: CommonErrorMsg.customTextStyle(context),
-                            ),
+                          Text(
+                            _sphoneDocError!,
+                            style: CommonErrorMsg.customTextStyle(context),
                           ),
                         const SizedBox(height: AppSize.s14),
                         Text(
@@ -312,21 +300,18 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(height: AppSize.s7),
+
                         SMTextFConst(
                           controller: widget.addressController,
                           keyboardType: TextInputType.streetAddress,
                           text: AppString.officeaddress,
                         ),
                         if (_addressDocError != null) // Display error if any
-                          Padding(
-                            padding: const EdgeInsets.only(top: 0),
-                            child: Text(
-                              _addressDocError!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: FontSize.s10,
-                              ),
+                          Text(
+                            _addressDocError!,
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: FontSize.s10,
                             ),
                           ),
                         // widget.checkBoxHeadOffice,
@@ -337,12 +322,9 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           text: 'State',
                         ),
                         if (_stateDocError != null) // Display error if any
-                          Padding(
-                            padding: const EdgeInsets.only(top: 0.5),
-                            child: Text(
-                              _stateDocError!,
-                              style: CommonErrorMsg.customTextStyle(context),
-                            ),
+                          Text(
+                            _stateDocError!,
+                            style: CommonErrorMsg.customTextStyle(context),
                           ),
                         const SizedBox(height: AppSize.s9),
                         SMTextFConstPhone(
@@ -351,28 +333,22 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           text: 'Primary Phone',
                         ),
                         if (_pPhoneDocError != null) // Display error if any
-                          Padding(
-                            padding: const EdgeInsets.only(top: 0.5),
-                            child: Text(
-                              _pPhoneDocError!,
-                              style:CommonErrorMsg.customTextStyle(context),
-                            ),
+                          Text(
+                            _pPhoneDocError!,
+                            style:CommonErrorMsg.customTextStyle(context),
                           ),
-                        const SizedBox(height: AppSize.s14),
+                        const SizedBox(height: AppSize.s10),
                         SMTextFConstPhone(
                           controller: widget.OptionalController,
                           keyboardType: TextInputType.number,
                           text: 'Alternative Phone',
                         ),
                         if (_aphoneDocError != null) // Display error if any
-                          Padding(
-                            padding: const EdgeInsets.only(top: 1),
-                            child: Text(
-                              _aphoneDocError!,
-                              style:CommonErrorMsg.customTextStyle(context),
-                            ),
+                          Text(
+                            _aphoneDocError!,
+                            style:CommonErrorMsg.customTextStyle(context),
                           ),
-                        const SizedBox(height: AppSize.s12),
+                        const SizedBox(height: AppSize.s10),
                         Row(
                           children: [
                             TextButton(
@@ -408,11 +384,11 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                   ]),
               if (_suggestions.isNotEmpty)
                 Positioned(
-                  top: 53,
-                  right: 51,
+                  top: 55,
+                  right: 20,
                   child: Container(
                     height: 100,
-                    width: 320,
+                    width: 354,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
