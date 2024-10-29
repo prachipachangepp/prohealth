@@ -84,11 +84,15 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
   String position2 = '';
   String position3 = '';
 
-  String position = "Full-Time";
+  String position = "";
 
-  Future<String> _joinPosition() async {
-    position = position1 + position2 + position3 ;
-    return position;
+  void _updatePosition() {
+    // Construct position based on selected checkboxes
+    List<String> selectedPositions = [];
+    if (Position1) selectedPositions.add('Full-Time');
+    if (Position2) selectedPositions.add('Part-Time');
+    if (Position3) selectedPositions.add('Temporary');
+    position = selectedPositions.join(', ');
   }
 
   String? emptype;
@@ -119,19 +123,18 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                    
                         FirstSMTextFConst(
                           controller: nameController,
                           keyboardType: TextInputType.text,
                           text: 'Middle Name',
                         ),
-                        if (nameError != null) // Display error if any
+                        if (nameError != null)
                           Text(
                             nameError!,
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
-                    
                         SizedBox(height: AppSize.s6),
+
                         SMTextFConst(
                           controller: specifyWorkHrController,
                           keyboardType: TextInputType.text,
@@ -143,6 +146,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
+
                         SMTextFConst(
                           controller: salaryController,
                           keyboardType: TextInputType.text,
@@ -154,7 +158,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
-                    
+
                         SMTextFConst(
                           controller: faxNoController,
                           keyboardType: TextInputType.text,
@@ -166,6 +170,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
+
                         SMTextFConst(
                           controller: sourceController,
                           keyboardType: TextInputType.text,
@@ -177,77 +182,72 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
-                        // FirstSMTextFConst(
-                        //   controller: dateAvailableController,
-                        //   keyboardType: TextInputType.text,
-                        //   text: 'Available Date',
-                        //   showDatePicker: true,
-                        // ),
-                        // if (dateError != null) // Display error if any
-                        //   Text(
-                        //     dateError!,
-                        //     style: CommonErrorMsg.customTextStyle(context),
-                        //   ),
+
                         HeaderContentConst(
-                        heading: "Available Date",
-                        content :
-                        FormField<String>(
-                          builder: (FormFieldState<String> field) {
-                            return SizedBox(
-                              width: 354,
-                              height: 30,
-                              child: TextFormField(
-                                controller: dateAvailableController,
-                                cursorColor: ColorManager.black,
-                                style: DocumentTypeDataStyle.customTextStyle(context),
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey, width: 1),
-                                    borderRadius: BorderRadius.circular(8),
+                          heading: "Available Date",
+                          content: FormField<String>(
+                            builder: (FormFieldState<String> field) {
+                              return SizedBox(
+                                width: 354,
+                                height: 30,
+                                child: TextFormField(
+                                  controller: dateAvailableController,
+                                  cursorColor: ColorManager.black,
+                                  style: DocumentTypeDataStyle.customTextStyle(context),
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ColorManager.containerBorderGrey,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ColorManager.containerBorderGrey,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    hintText: 'MM-DD-YYYY',
+                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: ColorManager.containerBorderGrey,
+                                      ),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                    suffixIcon: Icon(
+                                      Icons.calendar_month_outlined,
+                                      color: ColorManager.blueprime,
+                                    ),
+                                    errorText: field.errorText,
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey, width: 1),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  hintText: 'MM-DD-YYYY',
-                                  hintStyle:
-                                  DocumentTypeDataStyle.customTextStyle(context),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1, color: ColorManager.containerBorderGrey),
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                                  suffixIcon: Icon(Icons.calendar_month_outlined,
-                                      color: ColorManager.blueprime),
-                                  errorText: field.errorText,
+                                  onTap: () async {
+                                    DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1901),
+                                      lastDate: DateTime(3101),
+                                    );
+                                    if (pickedDate != null) {
+                                      datePicked = pickedDate;
+                                      dateAvailableController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                    }
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please select a date';
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                onTap: () async {
-                                  DateTime? pickedDate = await showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(1901),
-                                    lastDate: DateTime(3101),
-                                  );
-                                  if (pickedDate != null) {
-                                    datePicked = pickedDate;
-                                    dateAvailableController.text =
-                                        DateFormat('MM-dd-yyyy').format(pickedDate);
-                                  }
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please select a date';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                         ),
                       ],
                     ),
                   ),
@@ -256,7 +256,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                    
+
                         SMTextFConst(
                           controller: positionController,
                           keyboardType: TextInputType.text,
@@ -290,7 +290,8 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   Position1 = value ?? false;
-                                  position1 = 'Full-Time';
+                                 // position1 = 'Full-Time';
+                                  _updatePosition();
                                 });
                               },
                             ),
@@ -307,7 +308,8 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   Position2 = value ?? false;
-                                  position2 =  'Part-Time';
+                                  //position2 =  'Part-Time';
+                                  _updatePosition();
                                 });
                               },
                             ),
@@ -324,7 +326,8 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   Position3 = value ?? false;
-                                  position3 =  'Temporary';
+                                 // position3 =  'Temporary';
+                                  _updatePosition();
                                 });
                               },
                             ),
@@ -381,7 +384,8 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
           text: AppStringEM.submit,
           onPressed: () async {
             _validateForm(); // Validate the form on button press
-           await _joinPosition();
+          // await _joinPosition();
+            _updatePosition();
             if (_isFormValid) {
               setState(() {
                 loading = true;
