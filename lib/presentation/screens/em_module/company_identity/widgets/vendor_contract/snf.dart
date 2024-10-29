@@ -219,7 +219,7 @@ class _CiSnfState extends State<CiSnf> {
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
-                                                          snfData.docName
+                                                          snfData.fileName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
@@ -332,6 +332,9 @@ class _CiSnfState extends State<CiSnf> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
+                                                                      fileName: snapshotPrefill
+                                                                          .data!
+                                                                          .fileName,
                                                                       url: snapshotPrefill
                                                                           .data!
                                                                           .url,

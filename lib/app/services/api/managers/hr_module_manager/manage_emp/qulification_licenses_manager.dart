@@ -83,6 +83,7 @@ Future<List<QulificationLicensesFilteredData>> getEmployeeLicensesFilteredData(
         String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
         itemsData.add(QulificationLicensesFilteredData(
           licenseId: item['licenseId'],
+          status:item['status'],
           country: item['country'],
           employeeId: item['employeeId'],
           expData: expFormattedDate,

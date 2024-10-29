@@ -26,7 +26,7 @@ class VCScreenPopupEditConst extends StatefulWidget {
   final String selectedExpiryType;
   final int orgDocumentSetupid;
   final String? expiryDate;
-
+  final String fileName;
   final int docTypeMetaIdCC;
   final int selectedSubDocId;
 
@@ -35,6 +35,7 @@ class VCScreenPopupEditConst extends StatefulWidget {
   VCScreenPopupEditConst({
     super.key,
     required this.title,
+    required this.fileName,
     this.height,
     this.loadingDuration,
     this.uploadField,
@@ -62,6 +63,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
   bool fileIsPicked = false;
   DateTime? datePicked;
   bool loading = false;
+
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
@@ -88,7 +90,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
       showExpiryDateField = true;
       datePicked = dateTime;
       expiryDateController = TextEditingController(
-          text: DateFormat('MM-dd-yyyy').format(dateTime!));
+          text: DateFormat('MM-dd-yyyy').format(dateTime));
     }
     fileName = widget.docName;
     // TODO: implement initState
@@ -273,6 +275,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                     expiryDate: expiryDate,
                     docCreatedat: DateTime.now().toIso8601String() + "Z",
                     url: widget.url,
+                    fileName: fileIsPicked ?fileName: widget.fileName,
                     officeid: widget.officeId,
                   );
 
@@ -282,6 +285,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                       await uploadDocumentsoffice(
                           context: context,
                           documentFile: filePath,
+                          fileName: fileName,
                           orgOfficeDocumentId: response.orgOfficeDocumentId!);
                     }
                     setState(() {

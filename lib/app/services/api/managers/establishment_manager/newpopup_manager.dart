@@ -412,6 +412,7 @@ Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
       for (var item in response.data) {
         itemsList.add(
           MCorporateComplianceModal(
+            fileName: item['file_name']??"",
             orgOfficeDocumentId: item['orgOfficeDocumentId'] ?? 0,
             orgDocumentSetupid: item['orgDocumentSetupid'] ?? 0,
             idOfDocument: item['idOfDocument'] ?? '',
@@ -444,6 +445,7 @@ Future<ApiData> addOrgDocPPPost({
   required String idOfDocument,
   required String? expiryDate,
   required String docCreated,
+  required String fileName,
   required String url,
   required String officeId,
 }) async {
@@ -457,6 +459,7 @@ Future<ApiData> addOrgDocPPPost({
       "company_id": companyId,
       "url": url,
       "office_id": officeId,
+      "file_name": fileName,
       //expiryDate?.isNotEmpty == true ? "${expiryDate}" : '',
     };
 
@@ -500,6 +503,7 @@ Future<ApiData> addOrgDocPPPost({
 Future<ApiData> uploadDocumentsoffice({
   required BuildContext context,
   required dynamic documentFile,
+  required String fileName,
   required int orgOfficeDocumentId,
 }) async {
   try {
@@ -509,7 +513,7 @@ Future<ApiData> uploadDocumentsoffice({
     var response = await Api(context).post(
       path: EstablishmentManagerRepository.uploadedocOffice(
           orgOfficeDocumentId: orgOfficeDocumentId),
-      data: {'base64': documents},
+      data: {'base64String': documents,'file_name':fileName},
     );
     print("Response ${response.toString()}");
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -541,6 +545,7 @@ Future<ApiData> updateOrgDoc({
   required String idOfDocument,
   required String? expiryDate,
   required String docCreatedat,
+  required String fileName,
   required String url,
   required String officeid,
 }) async {
@@ -557,6 +562,7 @@ Future<ApiData> updateOrgDoc({
       "company_id": companyId,
       "url": url,
       "office_id": officeid,
+      "file_name":fileName,
     };
     print('patch Manage CCVCPP Doc $data');
 
@@ -601,6 +607,7 @@ Future<MCorporateCompliancePreFillModal> getPrefillNewOrgOfficeDocument(
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Document type Response:::::${itemsList}");
       itemsList = MCorporateCompliancePreFillModal(
+        fileName: response.data['file_name'],
         documentSetupId: response.data['orgDocumentSetupid'],
         idOfDocument: response.data['idOfDocument'] ?? "",
         expiry_date: response.data['expiry_date'] ?? "",

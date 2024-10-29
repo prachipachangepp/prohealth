@@ -222,7 +222,7 @@ class _CiMdState extends State<CiMd> {
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
-                                                          mdData.docName
+                                                          mdData.fileName
                                                               .toString()
                                                               .capitalizeFirst!,
                                                           textAlign:
@@ -336,6 +336,9 @@ class _CiMdState extends State<CiMd> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
+                                                                      fileName: snapshotPrefill
+                                                                          .data!
+                                                                          .fileName,
                                                                       url: snapshotPrefill
                                                                           .data!
                                                                           .url,

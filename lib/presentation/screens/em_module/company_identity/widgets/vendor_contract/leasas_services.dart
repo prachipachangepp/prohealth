@@ -225,7 +225,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
-                                                          leasesData.docName
+                                                          leasesData.fileName
                                                               .toString()
                                                               .capitalizeFirst!,
                                                           textAlign:
@@ -340,6 +340,9 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
+                                                                      fileName: snapshotPrefill
+                                                                          .data!
+                                                                          .fileName,
                                                                       url: snapshotPrefill
                                                                           .data!
                                                                           .url,

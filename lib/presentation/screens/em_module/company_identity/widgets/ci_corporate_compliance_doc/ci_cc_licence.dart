@@ -223,7 +223,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         Text(
                                                           // manageCCLicence.docname.toString(),
                                                           manageCCLicence
-                                                              .docName
+                                                              .fileName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
@@ -336,6 +336,9 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
+                                                                      fileName: snapshotPrefill
+                                                                          .data!
+                                                                          .fileName,
                                                                       title:
                                                                           EditPopupString.editLicenses,
                                                                       loadingDuration:

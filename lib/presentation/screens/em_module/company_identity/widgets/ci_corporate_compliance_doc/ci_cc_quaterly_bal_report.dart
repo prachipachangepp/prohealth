@@ -207,7 +207,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
-                                                          balReport.docName
+                                                          balReport.fileName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
@@ -323,6 +323,9 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
+                                                                      fileName: snapshotPrefill
+                                                                          .data!
+                                                                          .fileName,
                                                                       url: snapshotPrefill
                                                                           .data!
                                                                           .url,

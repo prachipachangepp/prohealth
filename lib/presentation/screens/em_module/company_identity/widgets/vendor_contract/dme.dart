@@ -226,7 +226,7 @@ class _CiDmeState extends State<CiDme> {
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
-                                                          dmeData.docName
+                                                          dmeData.fileName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
@@ -350,6 +350,9 @@ class _CiDmeState extends State<CiDme> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
+                                                                      fileName: snapshotPrefill
+                                                                          .data!
+                                                                          .fileName,
                                                                       url: snapshotPrefill
                                                                           .data!
                                                                           .url,

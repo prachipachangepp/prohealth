@@ -285,6 +285,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
               docCreated: DateTime.now().toIso8601String() + "Z",
               url: "url",
               officeId: widget.officeId,
+              fileName: fileName,
             );
             expiryDateController.clear();
             if (response.statusCode == 200 ||
@@ -293,6 +294,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 context: context,
                 documentFile: filePath,
                 orgOfficeDocumentId: response.orgOfficeDocumentId!,
+                fileName: fileName,
               );
 
             }
