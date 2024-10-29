@@ -303,7 +303,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: AppSize.s15),
+                      SizedBox(height: AppSize.s13),
                       SMNumberTextFConst(
                           controller: multipleJW12bController,
                           text: 'Multiple JW2b- Add the annual wages of the two highest paying jobs from line 2a together and use the total  as the wages in the “Higher Paying Job” row and use the annual wages for your third job in the  “Lower Paying Job” column to find the amount from the appropriate table on page 4 and enter  this amount on line 2b'),
@@ -320,7 +320,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           multipleJW12cError!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s10),
+                      SizedBox(height: AppSize.s8),
                       SMNumberTextFConst(
                           controller: multipleJW13Controller, text: 'Multiple JW3- Enter the number of pay periods per year for the highest paying job. For example, if that job pays  weekly, enter 52; if it pays every other week, enter 26; if it pays monthly, enter 12, etc'),
                       if (multipleJW13Error != null)
@@ -345,7 +345,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           dw1Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s10),
+                      SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           controller: dw2Controller, text: 'Deductions Worksheet 2- Enter: • \$27,700 if you’re married filing jointly or a qualifying surviving spouse • \$20,000 if you’re head of household • \$13,850 if you’re single or married filing separately'),
                       if (dw2Error != null)
@@ -353,7 +353,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           dw2Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s10),
+                      SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           controller: dw3Controller, text: 'Deductions Worksheet 3- If line 1 is greater than line 2, subtract line 2 from line 1 and enter the result here. If line 2 is greater  than line 1, enter “-0-”'),
                       if (dw3Error != null)
@@ -361,7 +361,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           dw3Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s10),
+                      SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           controller: dw4Controller, text: 'Deductions Worksheet 4- Enter an estimate of your student loan interest, deductible IRA contributions, and certain other  adjustments (from Part II of Schedule 1 (Form 1040)). See Pub. 505 for more information'),
                       if (dw4Error != null)
@@ -369,7 +369,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           dw4Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s10),
+                      SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           controller: dw5Controller, text: 'Deductions Worksheet 5- Add lines 3 and 4. Enter the result here and in Step 4(b) of Form W-4'),
                       if (dw5Error != null)

@@ -84,7 +84,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
   String position2 = '';
   String position3 = '';
 
-  String position = "";
+  String position = "Full-Time";
 
   Future<String> _joinPosition() async {
     position = position1 + position2 + position3 ;
@@ -387,8 +387,8 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                 loading = true;
               });
               EmploymentAppDocument employmentAppDocument = await getEmployeeApplicationDocument(context: context, employmentAppFormhtmlId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
-                  middleName: nameController.text, faxNo: faxNoController.text, ifHired: emptype.toString(), positionApplying: position,
-                  positionDesired: positionDesiredController.text, dateAvailable: dateAvailableController.text, specifyWorkingHrs: specifyWorkHrController.text,
+                  middleName: nameController.text, faxNo: faxNoController.text, ifHired: emptype.toString(), positionApplying: positionController.text,
+                  positionDesired: position, dateAvailable: dateAvailableController.text, specifyWorkingHrs: specifyWorkHrController.text,
                   salary: salaryController.text, sourceReferral: sourceController.text, value: valueController.text);
               print( employmentAppDocument);
               if(employmentAppDocument.statusCode == 200 || employmentAppDocument.statusCode == 201){
