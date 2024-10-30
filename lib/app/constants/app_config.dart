@@ -73,6 +73,7 @@ class AppConfig {
 //   static const String local = "";
 //   static const String prod = "";
 //   static const String endpoint = dev;
+//static const String dash = '-';
 //
 //   /// Document types
 //   static const int corporateAndCompliance = 8;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/widgets/add_new_popup.dart';
 
 import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
@@ -34,6 +35,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
   TextEditingController stateLicenseController = TextEditingController();
   bool loading = false;
   bool _isFormValid = true;
+  bool _isSubmitted = false;
   String? middleError;
   String? maidenError;
   String? addressError;
@@ -50,12 +52,12 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      middleError =
-          _validateTextField(middleNameController.text, 'middle name');
-     // maidenError = _validateTextField(maidenSurnameController.text, 'mainden surname');
-     // addressError = _validateTextField(addressController.text, 'address');
+      middleError = _validateTextField(middleNameController.text, 'middle name');
       fullNameError = _validateTextField(fullNameController.text, 'full name');
       stateError = _validateTextField(stateLicenseController.text, 'state name');
+      if (middleError != null || fullNameError != null || stateError != null) {
+        _isFormValid = false;
+      }
     });
   }
 
@@ -67,6 +69,28 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
   void initState() {
     super.initState();
     addressController.addListener(_onCountyNameChanged);
+    middleNameController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          middleError = _validateTextField(middleNameController.text, 'middle name');
+        });
+      }
+    });
+
+    fullNameController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          fullNameError = _validateTextField(fullNameController.text, 'full name');
+        });
+      }
+    });
+    stateLicenseController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          stateError = _validateTextField(stateLicenseController.text, 'state name');
+        });
+      }
+    });
   }
 
   @override
@@ -154,11 +178,6 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                 keyboardType: TextInputType.text,
                 text: 'Mainden Surname Alisa',
               ),
-              // if (maidenError != null)
-              //   Text(
-              //     maidenError!,
-              //     style: CommonErrorMsg.customTextStyle(context),
-              //   ),
               SizedBox(height: AppSize.s7),
               Stack(
                 children :[Column(
@@ -211,13 +230,6 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                     },
                   ),
                 ),
-              //
-              // if (addressError != null)
-              //   Text(
-              //     addressError!,
-              //     style: CommonErrorMsg.customTextStyle(context),
-              //   ),
-
             ],
           ),
 
@@ -236,11 +248,18 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
           height: AppSize.s30,
           text: AppStringEM.submit,
           onPressed: () async {
-            _validateForm(); // Validate the form on button press
-            if (_isFormValid) {
+            setState(() {
+              _isSubmitted = true; // Mark form as submitted
+              loading = true; // Start loading
+            });
+            _validateForm();
+            if (!_isFormValid) {
               setState(() {
-                loading = true;
+                loading = false;
               });
+              return;
+            }
+            try{
               CandidateRealeaseDocument candidateRealeaseDocument = await getCandidateRealeaseDocument(context: context, employeeId: widget.employeeId,
                   candidateReleaseFormhtmlId: widget.htmlFormTemplateId, middleName: middleNameController.text,
                   maindenSurnameAlisa: maidenSurnameController.text.isEmpty ? AppConfig.dash : maidenSurnameController.text,
@@ -258,12 +277,12 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                   htmlFormTemplateId: candidateRealeaseDocument.candidateRealeaseId,)
                 ));
               }
-            };
-            //finally {
+            }
+            finally {
             setState(() {
               loading = false;
             });
-            // }
+            }
           }
       ),);
   }
