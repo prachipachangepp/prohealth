@@ -47,7 +47,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
   TextEditingController dw5Controller = TextEditingController();
   bool loading = false;
   bool _isFormValid = true;
-
+  bool _isSubmitted = false;
   String? nameError;
   String? statusError;
   String? step3aError;
@@ -67,7 +67,6 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
   String? dw3Error;
   String? dw4Error;
   String? dw5Error;
-  bool _isSubmitted = false;
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -89,7 +88,6 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
       // step4cError = _validateTextField(step4cController.text, 'step 4c');
       multipleJW1Error = _validateTextField(multipleJW1Controller.text, 'multiple jw1');
       multipleJW12aError = _validateTextField(multipleJW12aController.text, 'multiple jw12a');
-
       multipleJW12bError = _validateTextField(multipleJW12bController.text, 'multiple jw12b');
       multipleJW12cError = _validateTextField(multipleJW12cController.text, 'multiple jw12c');
       multipleJW13Error = _validateTextField(multipleJW13Controller.text, 'multiple jw13');
@@ -99,7 +97,13 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
       dw3Error = _validateTextField(dw3Controller.text, 'deduction worksheet 3');
       dw4Error = _validateTextField(dw4Controller.text, 'deduction worksheet 4');
       dw5Error = _validateTextField(dw5Controller.text, 'deduction worksheet 5');
-
+      if (nameError != null || step3aError != null || step3bError != null ||
+          step3cError != null || multipleJW1Error != null || multipleJW12aError != null || multipleJW12bError != null || multipleJW12cError != null ||
+          multipleJW13Error != null || multipleJW14Error != null || dw1Error != null ||
+          dw2Error != null || dw3Error != null || dw4Error != null || dw5Error != null
+      ) {
+        _isFormValid = false;
+      }
     });
   }
 
@@ -130,7 +134,130 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
   //   if (mStatus3) return "Head of household";
   //   return "Not specified"; // Default value if none selected
   // }
+  @override
+  void initState() {
+    super.initState();
 
+    nameController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          nameError = _validateTextField(nameController.text, 'name');
+        });
+      }
+    });
+
+    step3aController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          step3aError = _validateTextField(step3aController.text, 'step3a');
+        });
+      }
+    });
+
+    step3bController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          step3bError = _validateTextField(step3bController.text, 'step3b');
+        });
+      }
+    });
+
+    step3cController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          step3cError = _validateTextField(step3cController.text, 'step3c');
+        });
+      }
+    });
+
+    multipleJW1Controller.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          multipleJW1Error = _validateTextField(multipleJW1Controller.text, 'multipleJW1');
+        });
+      }
+    });
+
+    multipleJW12aController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          multipleJW12aError = _validateTextField(multipleJW12aController.text, 'multipleJW12a');
+        });
+      }
+    });
+
+    multipleJW12bController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          multipleJW12bError = _validateTextField(multipleJW12bController.text, 'multipleJW12b');
+        });
+      }
+    });
+    multipleJW12cController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          multipleJW12cError = _validateTextField(multipleJW12cController.text, 'multipleJW12c');
+        });
+      }
+    });
+
+    multipleJW13Controller.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          multipleJW13Error = _validateTextField(multipleJW13Controller.text, 'multipleJW13');
+        });
+      }
+    });
+
+    multipleJW14Controller.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          multipleJW14Error = _validateTextField(multipleJW14Controller.text, 'multipleJW14');
+        });
+      }
+    });
+
+    dw1Controller.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          dw1Error = _validateTextField(dw1Controller.text, 'deduction worksheet 1');
+        });
+      }
+    });
+
+    dw2Controller.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          dw2Error = _validateTextField(dw2Controller.text, 'deduction worksheet 2');
+        });
+      }
+    });
+
+    dw3Controller.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          dw3Error = _validateTextField(dw3Controller.text, 'deduction worksheet 3');
+        });
+      }
+    });
+
+    dw4Controller.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          dw4Error = _validateTextField(dw4Controller.text, 'deduction worksheet 4');
+        });
+      }
+    });
+
+    dw5Controller.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          dw5Error = _validateTextField(dw5Controller.text, 'deduction worksheet 5');
+        });
+      }
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return TerminationDialogueTemplate(
@@ -406,12 +533,20 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
           width: AppSize.s105,
           height: AppSize.s30,
           text: AppStringEM.submit,
-          onPressed: () async {_validateForm(); // Validate the form on button press
-          await _joinStatus();
-          if (_isFormValid) {
+          onPressed: () async {
             setState(() {
-              loading = true;
+              _isSubmitted = true; // Mark form as submitted
+              loading = true; // Start loading
             });
+            _validateForm(); // Validate the form on button press
+          await _joinStatus();
+            if (!_isFormValid) {
+              setState(() {
+                loading = false;
+              });
+              return;
+            }
+            try{
             WFourDocument wfourDocument = await getW4Document(context: context, templateId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
                 middleName: nameController.text,
                 marriedstatus: status.isEmpty ? AppConfig.dash : status, step3a: int.parse(step3aController.text),
@@ -438,13 +573,13 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                 htmlFormTemplateId: wfourDocument.wFourDocumentId,)));
             }
 
-          };
-          //finally {
+          }
+          finally {
           setState(() {
             loading = false;
             // Navigator.pop(context);
           });
-            // }
+           }
           }
       ),);
   }
