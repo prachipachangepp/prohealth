@@ -40,6 +40,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
   TextEditingController valueController = TextEditingController();
   bool loading = false;
   bool _isFormValid = true;
+  bool _isSubmitted = false;
   String? nameError;
   String? faxError;
   String? hiredError;
@@ -64,31 +65,21 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
       _isFormValid = true;
       nameError = _validateTextField(nameController.text, 'middle name');
       faxError = _validateTextField(faxNoController.text, 'fax no');
-     // hiredError = _validateTextField(hiredController.text, 'hired status');
       positionError = _validateTextField(positionController.text, 'position applying');
-     // positionDesireError = _validateTextField(positionDesiredController.text, 'position desired');
-
       dateError = _validateTextField(dateAvailableController.text, 'date available');
-     // specifyError = _validateTextField(specifyWorkHrController.text, 'specify working hours');
       salaryError = _validateTextField(salaryController.text, 'salary');
-     // sourceError = _validateTextField(sourceController.text, 'referral source');
-     // valueError = _validateTextField(valueController.text, 'value');
+      if (nameError != null || faxError != null || positionError != null ||
+          dateError != null || salaryError != null ) {
+        _isFormValid = false;
+      }
     });
   }
-
-
   bool Position1 = false;
   bool Position2 = false;
   bool Position3 = false;
-
-  // String position1 = '';
-  // String position2 = '';
-  // String position3 = '';
-
   String position = "";
 
   void _updatePosition() {
-    // Construct position based on selected checkboxes
     List<String> selectedPositions = [];
     if (Position1) selectedPositions.add('Full-Time');
     if (Position2) selectedPositions.add('Part-Time');
@@ -97,6 +88,50 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
   }
 
   String? emptype;
+  @override
+  void initState() {
+    super.initState();
+
+    nameController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          nameError = _validateTextField(nameController.text, 'name');
+        });
+      }
+    });
+
+    faxNoController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          faxError = _validateTextField(faxNoController.text, 'fax no');
+        });
+      }
+    });
+    positionController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          positionError = _validateTextField(positionController.text, 'position');
+        });
+      }
+    });
+
+    dateAvailableController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          dateError = _validateTextField(dateAvailableController.text, 'date');
+        });
+      }
+    });
+    salaryController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          salaryError = _validateTextField(salaryController.text, 'salery');
+        });
+      }
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return TerminationDialogueTemplate(
@@ -177,9 +212,9 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                           keyboardType: TextInputType.text,
                           text: 'Salary Expected',
                         ),
-                        if (sourceError != null)
+                        if (salaryError != null)
                           Text(
-                            sourceError!,
+                            salaryError!,
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
@@ -249,6 +284,11 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             },
                           ),
                         ),
+                        if (dateError != null)
+                          Text(
+                            dateError!,
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
                       ],
                     ),
                   ),
@@ -387,13 +427,20 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
           height: AppSize.s30,
           text: AppStringEM.submit,
           onPressed: () async {
-            _validateForm(); // Validate the form on button press
+            setState(() {
+              _isSubmitted = true;
+              loading = true;
+            });
+            _validateForm();
           // await _joinPosition();
             _updatePosition();
-            if (_isFormValid) {
+            if (!_isFormValid) {
               setState(() {
-                loading = true;
+                loading = false;
               });
+              return;
+            }
+            try{
               EmploymentAppDocument employmentAppDocument = await getEmployeeApplicationDocument(context: context, employmentAppFormhtmlId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
                   middleName: nameController.text, faxNo: faxNoController.text,
                   ifHired: emptype.toString().isEmpty ? AppConfig.dash : emptype.toString(), positionApplying: positionController.text,
@@ -416,15 +463,12 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                   employeeId: widget.employeeId,//widget.employeeID,
                   htmlFormTemplateId: employmentAppDocument.EmpAppDocumentId,)));
               }
-
-
-            };
-           // finally {
+            } finally {
             setState(() {
               loading = false;
               // Navigator.pop(context);
             });
-            // }
+           }
           }
       )
       );
