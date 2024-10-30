@@ -139,7 +139,8 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                     Expanded(
                       child: Text(
                         'Instructions: This section is designed to capture and document your health and immunization records as part of your onboarding process. Please enter the required information accurately.',
-                        style:  DefineWorkWeekStyle.customTextStyle(context),
+                        textAlign: TextAlign.center,
+                        style:ZoneDataStyle.customTextStyle(context),
                       ),
                     ),
                   ],
@@ -155,7 +156,8 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                     Expanded(
                       child: Text(
                         'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
-                        style:  DefineWorkWeekStyle.customTextStyle(context),
+                        textAlign: TextAlign.center,
+                        style:ZoneDataStyle.customTextStyle(context),
                       ),
                     ),
                   ],

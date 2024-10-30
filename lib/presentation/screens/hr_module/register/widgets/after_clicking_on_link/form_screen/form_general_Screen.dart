@@ -243,7 +243,8 @@ class _generalFormState extends State<generalForm> {
                   ),
                   child: Text(
                     'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
-                    style:DefineWorkWeekStyle.customTextStyle(context),
+                    textAlign: TextAlign.center,
+                    style:ZoneDataStyle.customTextStyle(context),
                   ),
                 ),
               ],

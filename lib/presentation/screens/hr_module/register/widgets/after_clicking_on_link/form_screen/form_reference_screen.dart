@@ -97,7 +97,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                   Expanded(
                     child: Text(
                       'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications.\nFor each reference, Kindly include the following information:',
-                      style: DefineWorkWeekStyle.customTextStyle(context),
+                      textAlign: TextAlign.center,
+                      style:ZoneDataStyle.customTextStyle(context),
                     ),
                   ),
                 ],

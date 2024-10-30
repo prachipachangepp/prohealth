@@ -200,7 +200,8 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
             child: Center(
               child: Text(
                 'Please sign the list of documents required for the recruitment process',
-                style: DefineWorkWeekStyle.customTextStyle(context),
+                textAlign: TextAlign.center,
+                style:ZoneDataStyle.customTextStyle(context),
               ),
             ),
           ),

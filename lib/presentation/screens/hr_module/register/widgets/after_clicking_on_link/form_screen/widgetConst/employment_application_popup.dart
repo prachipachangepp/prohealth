@@ -148,7 +148,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         SizedBox(height: AppSize.s6),
 
                         SMTextFConst(
-                          controller: salaryController,
+                          controller: sourceController,
                           keyboardType: TextInputType.text,
                           text: 'Source of Referral',
                         ),
@@ -172,7 +172,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         SizedBox(height: AppSize.s6),
 
                         SMTextFConst(
-                          controller: sourceController,
+                          controller: salaryController,
                           keyboardType: TextInputType.text,
                           text: 'Salary Expected',
                         ),
@@ -395,6 +395,8 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                   positionDesired: position, dateAvailable: dateAvailableController.text, specifyWorkingHrs: specifyWorkHrController.text,
                   salary: salaryController.text, sourceReferral: sourceController.text, value: valueController.text);
               print( employmentAppDocument);
+              print("Source :::::: ${sourceController.text}");
+              print("salery :::::: ${salaryController.text}");
               if(employmentAppDocument.statusCode == 200 || employmentAppDocument.statusCode == 201){
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(

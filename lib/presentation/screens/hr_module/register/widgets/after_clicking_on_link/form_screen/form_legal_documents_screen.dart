@@ -388,7 +388,8 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                 child: Center(
                   child: Text(
                     'Please add information about your legal documents',
-                    style: DefineWorkWeekStyle.customTextStyle(context),
+                    textAlign: TextAlign.center,
+                    style:ZoneDataStyle.customTextStyle(context),
                   ),
                 ),
               ),
