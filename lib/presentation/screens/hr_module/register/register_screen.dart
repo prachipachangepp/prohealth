@@ -545,8 +545,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                         const url = "http://localhost:51659/#/onBordingWelcome";
-                         //  const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                         // const url = "http://localhost:51659/#/onBordingWelcome";
+                          const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
                           if (await canLaunch(url)) {
@@ -649,24 +649,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 });
 
                                 try {
-                                  // var response =  await onboardingUserPatch(context,data.employeeId);
-                                  // if(response.statusCode == 200 || response.statusCode == 201){
-                                  //   ScaffoldMessenger.of(context).showSnackBar(
-                                  //       SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
-                                  //   );
-                                  //   fetchData();
-                                  //   Navigator.pop(context);
-                                  // }else{
-                                  //   ScaffoldMessenger.of(context).showSnackBar(
-                                  //       SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
-                                  //   );
-                                  //   Navigator.pop(context);
-                                  // }
+                                  var response = await changeStatusUserPatch(context,data.employeeId);
+                                  fetchData();
+                                  Navigator.pop(context);
+
                                 } catch (e) {
                                   print("Error during Onboarding: $e");
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Onboarding failed: $e')),
-                                  );
+                                  // ScaffoldMessenger.of(context).showSnackBar(
+                                  //   SnackBar(content: Text('Onboarding failed: $e')),
+                                  // );
                                 } finally {
                                   setState(() {
                                     _isLoading = false;

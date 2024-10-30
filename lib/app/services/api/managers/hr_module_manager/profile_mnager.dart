@@ -304,6 +304,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
             ? response.data['profileScorePercentage'].toDouble()
             : 0.0,
         active: response.data['active']??false,
+        color: response.data['color']??"#FFFFFF",
       );
 
       print("search data by Text ${itemsData.toString()}");
@@ -404,6 +405,7 @@ Future<ApiData> patchEmployeeEdit({
   required String race,
   required String rating,
   required String signatureURL,
+  required String colorCode,
 }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -457,6 +459,7 @@ Future<ApiData> patchEmployeeEdit({
       'race' : race,
       'rating' : rating,
       'signatureURL' : signatureURL,
+      "color": colorCode,
     };
 
     print("Data payload being sent to API: $data");

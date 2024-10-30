@@ -160,10 +160,12 @@ class SearchByEmployeeIdProfileData{
   final String expertise;
   final double profileScorePercentage;
   final bool active;
+  final String color;
 
   SearchByEmployeeIdProfileData({
     required this.active,
     this.employeeId,
+    required this.color,
     required this.code,
     required this.userId,
     required this.firstName,

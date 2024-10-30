@@ -9,6 +9,7 @@ class AllRegisterRepository{
   static String addCoverage = "/addCoverage";
   static String filter = "/Filter";
   static String onboarbingUser = "/employees/onboard";
+  static String changeStatus = "/employees/changeStatusFromPartialToComplete";
 
   ///employee-enroll/Filter/{companyId}/{filter}
   static String getEmpEnrollFilter({required int compId,required String filter}){
@@ -53,5 +54,9 @@ class AllRegisterRepository{
   /// employee_onboarding patch
   static String patchOnboardingEmployee({required int employeeId}){
     return "$onboarbingUser/$employeeId";
+  }
+
+  static String patchChangeStatusEmployee({required int employeeId}){
+    return "$changeStatus/$employeeId";
   }
 }

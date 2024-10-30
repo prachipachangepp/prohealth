@@ -39,9 +39,11 @@ class _ProfileBarState extends State<ProfileBar> {
   @override
   void initState() {
     super.initState();
+    hexColor = widget.searchByEmployeeIdProfileData?.color.replaceAll("#", "");
+
     //_calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth);
     if (widget.searchByEmployeeIdProfileData?.dateOfBirth != null) {
-      dobTimestamp = _calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth!);
+      dobTimestamp = _calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth);
       setState(() {});  // Ensure the UI rebuilds with the new data
     }
     _calculateHireDateTimeStamp(widget.searchByEmployeeIdProfileData!.dateofHire);
@@ -65,7 +67,7 @@ class _ProfileBarState extends State<ProfileBar> {
     return address;
   }
 
-
+  var hexColor;
   String? sSNNBR;
   int expiredCount = 0;
   int upToDateCount = 0;
@@ -79,6 +81,11 @@ class _ProfileBarState extends State<ProfileBar> {
       return base64Decode;
     }
   }
+
+  // void colorConvert(String colorCode){
+  //
+  //   return hexColor
+  // }
 
   String? dobTimestamp;
   String _calculateAge(String birthDate) {
@@ -204,7 +211,12 @@ class _ProfileBarState extends State<ProfileBar> {
       return input;
     }
   }
-
+  bool _isDarkColor(Color color) {
+    double perceivedBrightness =
+        color.red * 0.299 + color.green * 0.587 + color.blue * 0.114;
+    return perceivedBrightness <
+        128;
+  }
   @override
   Widget build(BuildContext context) {
     int currentPage = 1;
@@ -377,11 +389,15 @@ class _ProfileBarState extends State<ProfileBar> {
                                 Container(
                                  // height: MediaQuery.of(context).size.height / 41,
                                   width: MediaQuery.of(context).size.width / 10,
-                                  decoration: BoxDecoration(color: ColorManager.faintOrange.withOpacity(0.9)),
+                                  decoration: BoxDecoration(color: Color(int.parse("0xFF$hexColor"))),
                                    child: Center(
                                      child: Text(
                                            widget.searchByEmployeeIdProfileData!.employeeType.capitalizeFirst!,
-                                       style: ThemeManagerWhite.customTextStyle(context),
+                                       style: TextStyle(
+                                         fontSize: 12,
+                                         color: _isDarkColor(Color(int.parse('0xFF$hexColor')))?ColorManager.white:ColorManager.black,
+                                         fontWeight: FontWeight.w600,
+                                       ),
                                      ),
                                    ),
                                 ),
