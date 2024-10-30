@@ -86,16 +86,17 @@ class _LicensesScreenState extends State<LicensesScreen> {
       documentName: documentName,
       licensedId: result.licenses!,
     );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AddSuccessPopup(
-          message: 'Licenses data saved',
-        );
-      },
-    );
+
 
     if (result.success) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AddSuccessPopup(
+            message: 'Licenses Document Saved',
+          );
+        },
+      );
     } else {
       showDialog(
         context: context,
@@ -606,7 +607,7 @@ class _licensesFormState extends State<licensesForm> {
                         },
                       ),
                     ),
-                    SizedBox(height: 160)
+                    SizedBox(height: 170)
                   ],
                 ),
               ),

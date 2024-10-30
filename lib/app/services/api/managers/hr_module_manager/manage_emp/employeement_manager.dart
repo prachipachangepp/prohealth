@@ -211,7 +211,7 @@ Future<ApiData> uploadEmployeeResume({
     );
     print("Response ${response.toString()}");
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print(" Employee Resume uploded");
+      print(" Employee Resume Uploaded");
       // orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,

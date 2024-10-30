@@ -184,24 +184,25 @@ class _EducationScreenState extends State<EducationScreen> {
                 style:  BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-                  setState(() {
-                    isLoading = true;
-                  });
+
                   // Loop through each form and extract data to post
                   for (var key in educationFormKeys) {
                     final st = key.currentState!;
                     if (st.finalPath == null || st.finalPath!.isEmpty) {
                       print("Loading");
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const VendorSelectNoti(
-                            message: 'Please Select File',
-                          );
-                        },
-                      );
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) {
+                      //     return const VendorSelectNoti(
+                      //       message: 'Please Select File',
+                      //     );
+                      //   },
+                      // );
                     } else {
                       try {
+                        setState(() {
+                          isLoading = true;
+                        });
                         ApiDataRegister result =  await FormEducationManager().posteducationscreen(
                             context,
                             st.widget.employeeID,
@@ -220,14 +221,17 @@ class _EducationScreenState extends State<EducationScreen> {
                             st.finalPath,
                             st.fileName!
                         );
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSuccessPopup(
-                              message: 'Education Data Saved',
-                            );
-                          },
-                        );
+                        if(result.success){
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(
+                                message: 'Education Data Saved',
+                              );
+                            },
+                          );
+                        }
+
 
                       } catch (e) {
                         showDialog(

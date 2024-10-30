@@ -5,6 +5,7 @@ import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/progress_form_data/form_education_data.dart';
+import '../../../../../../presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
@@ -43,13 +44,14 @@ class FormEducationManager {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = response.data;
         var educationId = data['employeeId'];
+
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(content: Text("Education data saved"),backgroundColor: Colors.green,),
         // );
 
         print("education Added");
 
-        // orgDocumentGet(context);
+       // orgDocumentGet(context);
         return ApiDataRegister(
             statusCode: response.statusCode!,
             success: true,
@@ -245,6 +247,10 @@ Future<List<EduactionDegree>> getDegreeDropDown(
     return itemsList;
   }
 }
+
+
+
+
 Future<ApiDataRegister> uploadEducationDocument(
     BuildContext context,
     int educationId,
@@ -261,7 +267,7 @@ Future<ApiDataRegister> uploadEducationDocument(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Education Document Uploaded");
-      // orgDocumentGet(context);
+     // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,
           success: true,
