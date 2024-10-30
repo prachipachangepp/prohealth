@@ -545,8 +545,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                         // const url = "http://localhost:60678/#/onBordingWelcome";
-                          const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                         const url = "http://localhost:64583/#/onBordingWelcome";
+                         //  const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
                           if (await canLaunch(url)) {
@@ -627,59 +627,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   )
                       : const SizedBox(width: 10),
-                  data.status == 'Partial'
-                      ? Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [Container(
-                      width: AppSize.s100,
-                      margin: const EdgeInsets.only(right: AppMargin.m30),
-                      child: CustomIconButton(
-                        text: 'Activate',
-                        onPressed: () async{
-                          showDialog(context: context, builder: (BuildContext context){
-                            return ConfirmationPopup(
-                              loadingDuration: _isLoading,
-                              onCancel: () {
-                                Navigator.pop(context);
-                              },
-                              onConfirm: () async {
-                                setState(() {
-                                  _isLoading = true;
-                                });
-
-                                try {
-                                  // var response =  await onboardingUserPatch(context,data.employeeId);
-                                  // if(response.statusCode == 200 || response.statusCode == 201){
-                                  //   ScaffoldMessenger.of(context).showSnackBar(
-                                  //       SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
-                                  //   );
-                                  //   fetchData();
-                                  //   Navigator.pop(context);
-                                  // }else{
-                                  //   ScaffoldMessenger.of(context).showSnackBar(
-                                  //       SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
-                                  //   );
-                                  //   Navigator.pop(context);
-                                  // }
-                                } catch (e) {
-                                  print("Error during Onboarding: $e");
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Onboarding failed: $e')),
-                                  );
-                                } finally {
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
-                                }
-                              },
-                              title: 'Confirm Activation',
-                              containerText: 'Do you really want to complete?',
-                            );
-                          });
-                        },),
-                    )],
-                  ) : const SizedBox(width: 10),
                   data.status == 'Completed'
                       ? Row(
                     mainAxisAlignment: MainAxisAlignment.end,

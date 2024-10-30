@@ -296,7 +296,7 @@ class _SignaturePageState extends State<SignaturePage> {
     final paint = Paint()
       ..color = Colors.black
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 5.0;
+      ..strokeWidth = 6;
 
     for (int i = 0; i < _points.length - 1; i++) {
       if (_points[i] != null && _points[i + 1] != null) {
@@ -341,6 +341,7 @@ class _SignaturePageState extends State<SignaturePage> {
                           ? Image.memory(
                         _selectedImageBytes!,
                         fit: BoxFit.contain,
+                        filterQuality: FilterQuality.high,
                       )
                           : CustomPaint(
                         painter: PopupSignaturePainter(
@@ -451,7 +452,7 @@ class SignaturePainter extends CustomPainter {
     Paint paint = Paint()
       ..color = Colors.black
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 5.0;
+      ..strokeWidth = 6;
 
     for (int i = 0; i < points.length - 1; i++) {
       if (points[i] != null && points[i + 1] != null) {
