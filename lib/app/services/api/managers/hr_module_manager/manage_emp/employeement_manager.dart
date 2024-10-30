@@ -46,6 +46,7 @@ Future<List<EmployeementData>> getEmployeement(
             approved: item['approved'],
             emgMobile: item['emgMobile'],
             country: item['country'],
+            documentUrl:item['documentUrl']??"--",
             sucess: true, message: response.statusMessage!));
         itemsData.sort((a, b) => a.employmentId.compareTo(b.employmentId));
       }
@@ -81,10 +82,12 @@ Future<ApiData> addEmployeement(BuildContext context,
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employeement Added");
       // orgDocumentGet(context);
+      var employeeResponse = response.data['employmentId'];
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,
+          employeementId: employeeResponse!);
     } else {
       print("Error 1");
       return ApiData(

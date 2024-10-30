@@ -8,6 +8,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
 import 'package:prohealth/app/services/api/managers/post_html_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employeement_data.dart';
@@ -18,6 +19,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_employeement_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../icon_button_constant.dart';
@@ -109,7 +111,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     emergencyMobileNumber.text,
                                     countryController.text);
                                 Navigator.pop(context);
-                                if(response.statusCode == 200 || response.statusCode == 201){
+                                var approveResponse = await approveOnboardQualifyEmploymentPatch(context, response.employeementId!);
+                                if(approveResponse.statusCode == 200 || approveResponse.statusCode == 201){
                                    showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -186,8 +189,10 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                     ? totalItems
                     : (currentPage * itemsPerPage),
               );
+
               return WrapWidget(
                   children:List.generate(snapshot.data!.length, (index){
+                   var fileUrl = snapshot.data![index].documentUrl;
                     return CardDetails(
                         childWidget: DetailsFormate(
                       row1Child1: [
@@ -310,101 +315,110 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                           style: ThemeManagerDarkFont.customTextStyle(context),
                         ),
                       ],
-                      button: Align(
-                          alignment: Alignment.centerRight,
-                          child: snapshot.data![index].approved == null ? Text('Not Approved',style:TextStyle(
-                            fontSize: 12,
-                            color: ColorManager.mediumgrey,
-                            fontWeight: FontWeight.w600,
-                          )): BorderIconButton(iconData: Icons.edit_outlined, buttonText: 'Edit', onPressed: (){
-                            setState(() {
-                              showDialog(context: context, builder: (BuildContext context){
-                                return FutureBuilder<EmployeementPrefillData>(
-                                    future: getPrefillEmployeement(context,snapshot.data![index].employmentId),
-                                    builder: (context,snapshotPrefill) {
-                                      if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            color: ColorManager.blueprime,
-                                          ),
-                                        );
-                                      }
-                                      var positionTitle = snapshotPrefill.data!.title;
-                                      positionTitleController = TextEditingController(text: snapshotPrefill.data!.title);
-
-                                      var leavingReason = snapshotPrefill.data!.reason;
-                                      leavingResonController = TextEditingController(text: snapshotPrefill.data!.reason);
-
-                                      var startDate = snapshotPrefill.data!.dateOfJoining;
-                                      startDateContoller = TextEditingController(text: snapshotPrefill.data?.dateOfJoining);
-
-                                      var endDate = snapshotPrefill.data!.endDate;
-                                      endDateController = TextEditingController(text: snapshotPrefill.data?.endDate);
-
-
-                                      var supervisorName = snapshotPrefill.data!.supervisor;
-                                      lastSupervisorNameController = TextEditingController(text: snapshotPrefill.data!.supervisor);
-
-                                      var supervisorMob = snapshotPrefill.data!.supMobile;
-                                      supervisorMobileNumber = TextEditingController(text: snapshotPrefill.data!.supMobile);
-
-                                      var cityName = snapshotPrefill.data!.city;
-                                      cityNameController = TextEditingController(text: snapshotPrefill.data!.city);
-
-                                      var employeer = snapshotPrefill.data!.employer;
-                                      employeerController = TextEditingController(text: snapshotPrefill.data!.employer);
-
-                                      var emgMobile = snapshotPrefill.data!.emgMobile;
-                                      emergencyMobileNumber = TextEditingController(text: snapshotPrefill.data!.emgMobile);
-                                      var country = snapshotPrefill.data!.country;
-                                      countryController =TextEditingController(text: snapshotPrefill.data!.country);
-                                      return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
-                                        endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
-                                        supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
-                                        employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
-                                        countryController: countryController,
-                                        onpressedSave: ()async{
-                                          var response = await updateEmployeementPatch(context,
-                                              snapshot.data![index].employmentId,
-                                              widget.employeeId,
-                                              employeer == employeerController.text ? employeer.toString() : employeerController.text,
-                                              cityName == cityNameController.text ? cityName.toString() : cityNameController.text,
-                                              leavingReason == leavingResonController.text ? leavingReason.toString() : leavingResonController.text,
-                                              supervisorName == lastSupervisorNameController.text ? supervisorName.toString() : lastSupervisorNameController.text,
-                                              supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
-                                              positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
-                                              startDate == startDateContoller.text ? startDate  : startDateContoller.text,
-                                              endDate == endDateController.text ? endDate : endDateController.text,
-                                              emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
-                                              country== countryController.text ?country.toString():countryController.text
-                                            // 'USA'
-                                          );
-                                          Navigator.pop(context);
-                                          if(response.statusCode == 200 || response.statusCode == 201){
-                                             showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AddSuccessPopup(
-                                                  message: 'Employement Edited Successfully',
-                                                );
-                                              },
+                      button: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          fileUrl == "--" ?SizedBox() :BorderIconButton(iconData: Icons.remove_red_eye_outlined, buttonText: 'View', onPressed: () {
+                             downloadFile(fileUrl);
+                          },),
+                          SizedBox(width: 10,),
+                          Align(
+                              alignment: Alignment.centerRight,
+                              child: snapshot.data![index].approved == null ? Text('',style:TextStyle(
+                                fontSize: 12,
+                                color: ColorManager.mediumgrey,
+                                fontWeight: FontWeight.w600,
+                              )): BorderIconButton(iconData: Icons.edit_outlined, buttonText: 'Edit', onPressed: (){
+                                setState(() {
+                                  showDialog(context: context, builder: (BuildContext context){
+                                    return FutureBuilder<EmployeementPrefillData>(
+                                        future: getPrefillEmployeement(context,snapshot.data![index].employmentId),
+                                        builder: (context,snapshotPrefill) {
+                                          if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                color: ColorManager.blueprime,
+                                              ),
                                             );
                                           }
-                                        }, checkBoxTile:  Container(
-                                            width: 300,
-                                            child: CheckboxTile(title: 'Currently work here',
-                                              initialValue: false,onChanged: (value){
-                                            },)), tite: 'Edit Employment',
-                                        onpressedClose: ()
-                                         {
-                                          Navigator.pop(context);
-                                          },);
-                                    }
+                                          var positionTitle = snapshotPrefill.data!.title;
+                                          positionTitleController = TextEditingController(text: snapshotPrefill.data!.title);
+
+                                          var leavingReason = snapshotPrefill.data!.reason;
+                                          leavingResonController = TextEditingController(text: snapshotPrefill.data!.reason);
+
+                                          var startDate = snapshotPrefill.data!.dateOfJoining;
+                                          startDateContoller = TextEditingController(text: snapshotPrefill.data?.dateOfJoining);
+
+                                          var endDate = snapshotPrefill.data!.endDate;
+                                          endDateController = TextEditingController(text: snapshotPrefill.data?.endDate);
+
+
+                                          var supervisorName = snapshotPrefill.data!.supervisor;
+                                          lastSupervisorNameController = TextEditingController(text: snapshotPrefill.data!.supervisor);
+
+                                          var supervisorMob = snapshotPrefill.data!.supMobile;
+                                          supervisorMobileNumber = TextEditingController(text: snapshotPrefill.data!.supMobile);
+
+                                          var cityName = snapshotPrefill.data!.city;
+                                          cityNameController = TextEditingController(text: snapshotPrefill.data!.city);
+
+                                          var employeer = snapshotPrefill.data!.employer;
+                                          employeerController = TextEditingController(text: snapshotPrefill.data!.employer);
+
+                                          var emgMobile = snapshotPrefill.data!.emgMobile;
+                                          emergencyMobileNumber = TextEditingController(text: snapshotPrefill.data!.emgMobile);
+                                          var country = snapshotPrefill.data!.country;
+                                          countryController =TextEditingController(text: snapshotPrefill.data!.country);
+                                          return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
+                                            endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
+                                            supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
+                                            employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
+                                            countryController: countryController,
+                                            onpressedSave: ()async{
+                                              var response = await updateEmployeementPatch(context,
+                                                  snapshot.data![index].employmentId,
+                                                  widget.employeeId,
+                                                  employeer == employeerController.text ? employeer.toString() : employeerController.text,
+                                                  cityName == cityNameController.text ? cityName.toString() : cityNameController.text,
+                                                  leavingReason == leavingResonController.text ? leavingReason.toString() : leavingResonController.text,
+                                                  supervisorName == lastSupervisorNameController.text ? supervisorName.toString() : lastSupervisorNameController.text,
+                                                  supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
+                                                  positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
+                                                  startDate == startDateContoller.text ? startDate  : startDateContoller.text,
+                                                  endDate == endDateController.text ? endDate : endDateController.text,
+                                                  emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
+                                                  country== countryController.text ?country.toString():countryController.text
+                                                // 'USA'
+                                              );
+                                              Navigator.pop(context);
+                                              if(response.statusCode == 200 || response.statusCode == 201){
+                                                 showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return AddSuccessPopup(
+                                                      message: 'Employement Edited Successfully',
+                                                    );
+                                                  },
+                                                );
+                                              }
+                                            }, checkBoxTile:  Container(
+                                                width: 300,
+                                                child: CheckboxTile(title: 'Currently work here',
+                                                  initialValue: false,onChanged: (value){
+                                                },)), tite: 'Edit Employment',
+                                            onpressedClose: ()
+                                             {
+                                              Navigator.pop(context);
+                                              },);
+                                        }
+                                    );
+                                  });
+                                }
                                 );
-                              });
-                            }
-                            );
-                          },)
+                              },)
+                          ),
+                        ],
                       ),
                     title: 'Employment #${index + 1}',)
 

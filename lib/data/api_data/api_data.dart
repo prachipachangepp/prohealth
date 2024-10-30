@@ -12,7 +12,12 @@ class ApiData {
   final int? rDignosisId;
   final int? orgOfficeDocumentId;
   final int? employeeEnrollId;
-
+  final int? employeementId;
+  final int? referenceId;
+  final int? licenseId;
+  final int? educationId;
+  final int? documentId;
+  final int? banckingId;
   ApiData(
       {this.officeId,
         this.employeeEnrollId,
@@ -26,7 +31,13 @@ class ApiData {
       this.patientId,
       this.miscNoteId,
       this.rDignosisId,
-      this.orgOfficeDocumentId});
+      this.orgOfficeDocumentId,
+      this.employeementId,
+      this.referenceId,
+      this.licenseId,
+      this.educationId,
+      this.documentId,
+      this.banckingId});
 }
 
 class ApiDataFilter {

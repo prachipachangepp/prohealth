@@ -540,11 +540,12 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                       percentage: '--',
                                       type: selectedtype.toString()
                                   );
+                                  var responseBank = await approveBankPatch(context,response.banckingId!);
                                   await uploadBanckingDocument(
                                       context, widget.banckId, pickedFile);
                                   Navigator.pop(context);
-                                  if (response.statusCode == 200 ||
-                                      response.statusCode == 201) {
+                                  if (responseBank.statusCode == 200 ||
+                                      responseBank.statusCode == 201) {
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -554,8 +555,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                       },
                                     );
                                   }
-
-
                                   setState(() {
                                     isLoading = false;
                                   });

@@ -184,10 +184,13 @@ Future<ApiData> addNewEmployeeBanking(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Banking Added");
+      var bankRes = response.data;
+      int bankId = bankRes['empBankingId'];
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,
+         banckingId: bankId);
 
     } else {
       print("Error 1");

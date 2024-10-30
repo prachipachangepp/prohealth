@@ -40,10 +40,12 @@ Future<ApiData> uploadDocuments({
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Documents uploded");
       // orgDocumentGet(context);
+      var uploadResponse = response.data;
+      int documentId = uploadResponse['employeeDocumentId'];
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,documentId:documentId );
     } else {
       print("Error 1");
       return ApiData(

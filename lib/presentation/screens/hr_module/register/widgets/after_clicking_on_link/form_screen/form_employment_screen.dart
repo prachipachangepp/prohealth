@@ -70,12 +70,19 @@ class _Employment_screenState extends State<Employment_screen> {
   Future<void> _loadEmploymentData() async {
     try {
       List<EmploymentDataForm> prefilledData = await getEmployeeHistoryForm(context,widget.employeeID);
-      setState(() {
-        employmentFormKeys = List.generate(
-          prefilledData.length,
-              (index) => GlobalKey<_EmploymentFormState>(),
-        );
-      });
+      if(prefilledData.isEmpty){
+        setState((){
+          addEmploymentForm();
+        });
+      }else{
+        setState(() {
+          employmentFormKeys = List.generate(
+            prefilledData.length,
+                (index) => GlobalKey<_EmploymentFormState>(),
+          );
+        });
+      }
+
     } catch (e) {
       print('Error loading employment data: $e');
     }
@@ -363,7 +370,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 20),
-                StatefulBuilder(
+              isChecked?StatefulBuilder(
                   builder: (BuildContext context, void Function(void Function()) setState) { return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -387,7 +394,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     ],
                   ); },
 
-                ),
+                ):SizedBox()
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),

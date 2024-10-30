@@ -13,9 +13,11 @@ class EmployeementData {
   final String endDate;
   final String emgMobile;
   final String country;
+  final String documentUrl;
   bool? approved;
   EmployeementData({required this.emgMobile, required this.country,required this.sucess, required this.message,
       this.approved,
+    required this.documentUrl,
       required this.employmentId,
       required this.employeeId,
       required this.employer,

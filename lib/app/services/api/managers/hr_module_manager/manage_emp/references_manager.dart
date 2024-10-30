@@ -55,11 +55,14 @@ Future<ApiData> addReferencePost(BuildContext context,String association,String 
     },);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("reference Added");
+      var referenceRes = response.data;
+      int referenceId = referenceRes['referenceId'];
       // orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,
+          referenceId: referenceId);
     } else {
       print("Error 1");
       return ApiData(
