@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
@@ -104,29 +105,29 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
   bool mStatus2 = false;
   bool mStatus3 = false;
 
-  // String status1 = '';
-  // String status2 = '';
-  // String status3 = '';
-  //
-  // String status = "";
+  String status1 = '';
+  String status2 = '';
+  String status3 = '';
+
+  String status = "";
   // String facts = "";
   //
-  // Future<String> _joinStatus() async {
-  //   status = status1 + status2 + status3 ;
-  //   return status;
-  // }
+  Future<String> _joinStatus() async {
+    status = status1 + status2 + status3 ;
+    return status;
+  }
 
 
   int _getIntValue(TextEditingController controller) {
     return int.tryParse(controller.text.trim()) ?? 0;
   }
 
-  String _getMarriedStatus() {
-    if (mStatus1) return "Single or Married filing separately";
-    if (mStatus2) return "Married filing jointly or Qualifying surviving spouse";
-    if (mStatus3) return "Head of household";
-    return "Not specified"; // Default value if none selected
-  }
+  // String _getMarriedStatus() {
+  //   if (mStatus1) return "Single or Married filing separately";
+  //   if (mStatus2) return "Married filing jointly or Qualifying surviving spouse";
+  //   if (mStatus3) return "Head of household";
+  //   return "Not specified"; // Default value if none selected
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -176,6 +177,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                             onChanged: (bool? value) {
                               setState(() {
                                 mStatus1 = value ?? false;
+                                status1 =  'Single or Married filing separately';
                               });
                             },
                           ),
@@ -193,6 +195,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                             onChanged: (bool? value) {
                               setState(() {
                                 mStatus2 = value ?? false;
+                                status2 =  'Married filing jointly or Qualifying surviving spouse';
                               });
                             },
                           ),
@@ -210,6 +213,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                             onChanged: (bool? value) {
                               setState(() {
                                 mStatus3 = value ?? false;
+                                status3 =  'Head of household';
                               });
                             },
                           ),
@@ -401,14 +405,14 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
           height: AppSize.s30,
           text: AppStringEM.submit,
           onPressed: () async {_validateForm(); // Validate the form on button press
-          //await _joinStatus();
+          await _joinStatus();
           if (_isFormValid) {
             setState(() {
               loading = true;
             });
             WFourDocument wfourDocument = await getW4Document(context: context, templateId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
                 middleName: nameController.text,
-                marriedstatus: _getMarriedStatus(), step3a: int.parse(step3aController.text),
+                marriedstatus: status.isEmpty ? AppConfig.dash : status, step3a: int.parse(step3aController.text),
                 step3b: int.parse(step3bController.text), step3c: int.parse(step3cController.text),
                 step4a: _getIntValue(step4aController), // No validation, pass 0 if empty
                 step4b: _getIntValue(step4bController), // No validation, pass 0 if empty

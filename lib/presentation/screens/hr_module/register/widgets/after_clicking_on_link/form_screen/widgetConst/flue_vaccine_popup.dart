@@ -31,13 +31,9 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   TextEditingController doseController = TextEditingController();
   TextEditingController reactionsController = TextEditingController();
   TextEditingController manufacturerController = TextEditingController();
-
- // TextEditingController dateofVaccinationController = TextEditingController();
   TextEditingController nameOfAdministeringController = TextEditingController();
   TextEditingController address2Controller = TextEditingController();
   TextEditingController titleController = TextEditingController();
-  TextEditingController acknowledgeFactsController = TextEditingController();
-  TextEditingController AllergisController = TextEditingController();
   TextEditingController OtherController = TextEditingController();
   bool loading = false;
   bool _isFormValid = true;
@@ -47,13 +43,9 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   String? doseError;
   String? reactionsError;
   String? manufacturerError;
- // String? dateofVaccinationError;
   String? nameOfAdministeringError;
   String? address2Error;
   String? titleError;
-  // String? acknowledgeFactsError;
-  // String? AllergisError;
-  // String? OtherError;
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -83,7 +75,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   String allergie1 = '';
   String allergie2 = '';
   String allergie3 = '';
-
   String allergies = "";
   String facts = "";
 
@@ -104,17 +95,11 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       siteOfAdministrationError = _validateTextField(siteOfAdministrationController.text, 'site of administration');
       vaccineTypeError = _validateTextField(vaccineTypeController.text, 'vaccine type');
       doseError = _validateTextField(doseController.text, 'dose');
-     // reactionsError = _validateTextField(reactionsController.text, 'reactions');
       manufacturerError = _validateTextField(manufacturerController.text, 'manufacturer');
-
-    //dateofVaccinationError = _validateTextField(dateofVaccinationController.text, 'date of Vaccination');
       nameOfAdministeringError = _validateTextField(nameOfAdministeringController.text, 'name of administering');
       address2Error = _validateTextField(address2Controller.text, 'title');
       titleError = _validateTextField(titleController.text, 'provider address');
-      // acknowledgeFactsError = _validateTextField(acknowledgeFactsController.text, 'acknowledge facts');
-      // AllergisError = _validateTextField(AllergisController.text, 'allergis');
-    //  OtherError = _validateTextField(OtherController.text, 'other if not mention NA');
-    });
+     });
   }
 
 
@@ -123,6 +108,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   void initState() {
     super.initState();
     address2Controller.addListener(_onCountyNameChanged);
+
   }
 
   @override
@@ -152,10 +138,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       });
     }
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -245,11 +227,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         keyboardType: TextInputType.text,
                         text: 'Reactions, if any',
                       ),
-                      // if (reactionsError != null)
-                      //   Text(
-                      //     reactionsError!,
-                      //     style: CommonErrorMsg.customTextStyle(context),
-                      //   ),
                       SizedBox(height: AppSize.s6),
                       SMTextFConst(
                         controller: manufacturerController,
@@ -317,7 +294,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
 
                                   setState(() {
                                     _suggestions.clear();
-                                    //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
                                   });
                                 },
                               );
@@ -329,7 +305,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           address2Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                  
                     ],
                   ),
                 ),
@@ -355,7 +330,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                                 });
                               },
                             ),
-
                             Expanded(
                               child: Container(
                                 child: Text(
@@ -582,26 +556,17 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ),
                         ],
                       ),
-                     // SizedBox(height: AppSize.s4),
-                     // Text('OR',style: AllPopupHeadings.customTextStyle(context),),
-                     // SizedBox(height: AppSize.s2),
                       SMTextFConst(
                         controller: OtherController,
                         keyboardType: TextInputType.text,
                         text: 'Other Allergies',
                       ),
-                      // if (OtherError != null)
-                      //   Text(
-                      //     OtherError!,
-                      //     style: CommonErrorMsg.customTextStyle(context),
-                      //   ),
                     ],
                   ),
                 ),
               ],
             ),
           ],)
-
         )
       ],
       bottomButtons: loading == true
