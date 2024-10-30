@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 
+import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
@@ -51,8 +52,8 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
       _isFormValid = true;
       middleError =
           _validateTextField(middleNameController.text, 'middle name');
-      maidenError = _validateTextField(maidenSurnameController.text, 'mainden surname');
-      addressError = _validateTextField(addressController.text, 'address');
+     // maidenError = _validateTextField(maidenSurnameController.text, 'mainden surname');
+     // addressError = _validateTextField(addressController.text, 'address');
       fullNameError = _validateTextField(fullNameController.text, 'full name');
       stateError = _validateTextField(stateLicenseController.text, 'state name');
     });
@@ -153,11 +154,11 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                 keyboardType: TextInputType.text,
                 text: 'Mainden Surname Alisa',
               ),
-              if (maidenError != null)
-                Text(
-                  maidenError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
+              // if (maidenError != null)
+              //   Text(
+              //     maidenError!,
+              //     style: CommonErrorMsg.customTextStyle(context),
+              //   ),
               SizedBox(height: AppSize.s7),
               Stack(
                 children :[Column(
@@ -193,7 +194,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                       return ListTile(
                         title: Text(
                           _suggestions[index],
-                          style: AllPopupHeadings.customTextStyle(context),
+                          style: TableSubHeading.customTextStyle(context),
                         ),
                         onTap: () {
                           FocusScope.of(context)
@@ -210,12 +211,12 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                     },
                   ),
                 ),
-
-              if (addressError != null)
-                Text(
-                  addressError!,
-                  style: CommonErrorMsg.customTextStyle(context),
-                ),
+              //
+              // if (addressError != null)
+              //   Text(
+              //     addressError!,
+              //     style: CommonErrorMsg.customTextStyle(context),
+              //   ),
 
             ],
           ),
@@ -241,7 +242,9 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                 loading = true;
               });
               CandidateRealeaseDocument candidateRealeaseDocument = await getCandidateRealeaseDocument(context: context, employeeId: widget.employeeId,
-                  candidateReleaseFormhtmlId: widget.htmlFormTemplateId, middleName: middleNameController.text, maindenSurnameAlisa: maidenSurnameController.text, currentAddress: addressController.text,
+                  candidateReleaseFormhtmlId: widget.htmlFormTemplateId, middleName: middleNameController.text,
+                  maindenSurnameAlisa: maidenSurnameController.text.isEmpty ? AppConfig.dash : maidenSurnameController.text,
+                  currentAddress: addressController.text.isEmpty ? AppConfig.dash : addressController.text,
                   stateIssuingLicense: stateLicenseController.text, fullName: fullNameController.text);
               if(candidateRealeaseDocument.statusCode == 200 || candidateRealeaseDocument.statusCode == 201){
                 Navigator.pop(context);

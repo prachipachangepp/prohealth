@@ -613,10 +613,6 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     return Offstage();
                   }),
               const SizedBox(height: AppSize.s10),
-
-
-
-              ///
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,
               //   children: [
@@ -722,16 +718,35 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
             ],
           ),
         )),
-            CustomButton(
+            isLoading
+                ? SizedBox(
+              height: 25,
+              width: 25,
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
+            )
+                : CustomButton(
               width: 117,
               height: 30,
-              text: isLoading ? 'Wait..' : 'Save',
+              text: 'Save',
               style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async{
                 if (finalPath == null || finalPath.isEmpty) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddSuccessPopup(
+                        message: 'Please Select File',
+                      );
+                    },
+                  );
                   print('Loading');
                 } else {
+                  setState(() {
+                    isLoading = true;
+                  });
                   try {
                     ApiDataRegister result = await legalDocumentAdd(context: context,
                         employeeId: widget.employeeID,
@@ -742,6 +757,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         employeeLegalDocumentId: result.legalDocumentId!,
                         documentFile: finalPath
                     );
+
                     if(response.statusCode == 201 || response.statusCode == 200){
                       showDialog(
                         context: context,
@@ -774,20 +790,17 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     );
                   }
                 }
+                setState(() {
+                  isLoading = false;
+                });
               },
-              child: isLoading
-                  ? SizedBox(
-                height: AppSize.s25,
-                width: AppSize.s25,
-                child: CircularProgressIndicator(color: Colors.white),
-              )
-                  : Text(
+              child: Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
-      ])
-      ),
+      ])),
+
     );
   }
 }

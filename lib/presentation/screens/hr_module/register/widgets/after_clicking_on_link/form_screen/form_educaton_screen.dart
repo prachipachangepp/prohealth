@@ -190,7 +190,7 @@ class _EducationScreenState extends State<EducationScreen> {
                         context: context,
                         builder: (BuildContext context) {
                           return const VendorSelectNoti(
-                            message: 'Please Select file',
+                            message: 'Please Select File',
                           );
                         },
                       );

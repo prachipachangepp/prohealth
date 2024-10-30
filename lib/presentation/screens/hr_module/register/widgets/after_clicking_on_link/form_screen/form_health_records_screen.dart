@@ -375,7 +375,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AddSuccessPopup(
-                          message: 'No File Selected',
+                          message: 'Please Select File',
                         );
                       },
                     );

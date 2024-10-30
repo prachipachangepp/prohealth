@@ -171,6 +171,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            activeColor: ColorManager.bluebottom,
                             value: mStatus1,
                             onChanged: (bool? value) {
                               setState(() {
@@ -187,6 +188,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            activeColor: ColorManager.bluebottom,
                             value: mStatus2,
                             onChanged: (bool? value) {
                               setState(() {
@@ -203,6 +205,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            activeColor: ColorManager.bluebottom,
                             value: mStatus3,
                             onChanged: (bool? value) {
                               setState(() {

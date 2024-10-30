@@ -5,13 +5,13 @@ class AppConfig {
   static const String demo = "https://demoapp.symmetry.care";
   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
   static const String deployment = "https://prohealth.symmetry.care";
-  static const String version = "Version 1.0.9 (12) demo";
+  static const String version = "Version 1.0.9 (13) demo";
 
   ///
   static const String local = "";
   static const String prod = "";
   static const String endpoint = demo;
-  // static const String endpoint = demo;
+  static const String dash = '-';
 
   /// Document types
   static const int corporateAndCompliance = 1;
