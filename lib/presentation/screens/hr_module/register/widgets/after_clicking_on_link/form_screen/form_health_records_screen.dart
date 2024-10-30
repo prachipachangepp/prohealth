@@ -167,103 +167,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 150, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                isLoading
-                    ? SizedBox(
-                  height: 25,
-                  width: 25,
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                )
-                    :CustomButton(
-                  width: 117,
-                  height: 30,
-                  text:'Save',
-                  style:BlueButtonTextConst.customTextStyle(context),
-                  borderRadius: 12,
-                  onPressed: () async {
 
-                    if (finalPaths == null || finalPaths.isEmpty) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddSuccessPopup(
-                            message: 'No File Selected',
-                          );
-                        },
-                      );
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //   const SnackBar(
-                      //     content: Text(
-                      //         'No file selected. Please select a file to upload.'),
-                      //     backgroundColor: Colors.red,
-                      //   ),
-                      // );
-                    } else {
-                      try {
-
-                        // Loop through each form and extract data to post
-
-                        setState(() {
-                          isLoading = true; // Start loading
-                        });
-                        for (int i = 0; i < finalPaths.length; i++) {
-                          if (finalPaths[i] != null) {
-                            var response =  await uploadDocuments(
-                              context: context,
-                              employeeDocumentMetaId: AppConfig.empdocumentTypeMetaDataId,
-                              employeeDocumentTypeSetupId: docSetupId[i],
-                              employeeId: widget.employeeID,
-                              documentFile: finalPaths[i]!,
-                              documentName: _fileNames[i],
-                            );
-                            print("Document Uploaded response ${response}");
-                          }
-
-                        }
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSuccessPopup(
-                              message: 'Document Uploaded Successfully',
-                            );
-                          },
-                        );
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //     content: Text('Document uploaded successfully!'),
-                        //     backgroundColor: Colors.green,
-                        //   ),
-                        // );
-                      } catch (e) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSuccessPopup(
-                              message: 'Failed To Upload Document',
-                            );
-                          },
-                        );
-                      }
-                    }
-                    setState(() {
-                      isLoading = false; // End loading
-                    });
-                  },
-                  child: Text(
-                    'Save',
-                    style: BlueButtonTextConst.customTextStyle(context),
-                  ),
-                ),
-              ],
-            ),
-          ),
 
           SingleChildScrollView(
             child: Container(
@@ -445,6 +349,100 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 },
               ),
             ),
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              isLoading
+                  ? SizedBox(
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(
+                  color: ColorManager.blueprime,
+                ),
+              )
+                  :CustomButton(
+                width: 117,
+                height: 30,
+                text:'Save',
+                style:BlueButtonTextConst.customTextStyle(context),
+                borderRadius: 12,
+                onPressed: () async {
+
+                  if (finalPaths == null || finalPaths.isEmpty) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'No File Selected',
+                        );
+                      },
+                    );
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   const SnackBar(
+                    //     content: Text(
+                    //         'No file selected. Please select a file to upload.'),
+                    //     backgroundColor: Colors.red,
+                    //   ),
+                    // );
+                  } else {
+                    try {
+
+                      // Loop through each form and extract data to post
+
+                      setState(() {
+                        isLoading = true; // Start loading
+                      });
+                      for (int i = 0; i < finalPaths.length; i++) {
+                        if (finalPaths[i] != null) {
+                          var response =  await uploadDocuments(
+                            context: context,
+                            employeeDocumentMetaId: AppConfig.empdocumentTypeMetaDataId,
+                            employeeDocumentTypeSetupId: docSetupId[i],
+                            employeeId: widget.employeeID,
+                            documentFile: finalPaths[i]!,
+                            documentName: _fileNames[i],
+                          );
+                          print("Document Uploaded response ${response}");
+                        }
+
+                      }
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Document Uploaded Successfully',
+                          );
+                        },
+                      );
+                      // ScaffoldMessenger.of(context).showSnackBar(
+                      //   SnackBar(
+                      //     content: Text('Document uploaded successfully!'),
+                      //     backgroundColor: Colors.green,
+                      //   ),
+                      // );
+                    } catch (e) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Failed To Upload Document',
+                          );
+                        },
+                      );
+                    }
+                  }
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
+                },
+                child: Text(
+                  'Save',
+                  style: BlueButtonTextConst.customTextStyle(context),
+                ),
+              ),
+            ],
           ),
 
         ],
