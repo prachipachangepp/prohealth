@@ -88,10 +88,13 @@ Future<ApiData> addEmployeeEducation(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Education added");
       // orgDocumentGet(context);
+      var educationResponse = response.data;
+      int educationId = educationResponse['educationId'];
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,
+          educationId:educationId);
     } else {
       print("Error 1");
       return ApiData(

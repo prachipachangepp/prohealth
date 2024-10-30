@@ -123,6 +123,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   String? selectedOfficeId;
   String? selectedGenderId;
   bool _isLoading = false;
+  String? selectedEmployeeColor;
 
 
   @override
@@ -546,7 +547,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           }
                                           if (snapshot.hasData && snapshot.data!.isEmpty) {
                                             return HRUManageDropdown(
-
                                               controller: TextEditingController(text: ''),
                                               labelText: 'Select Employee Type',
                                               labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
@@ -584,7 +584,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 selectedEmployeeTypeId = employeeTypeList
                                                     .firstWhere((employeeType) => employeeType.employeeType == val)
                                                     .employeeTypeId;
-
+                                                selectedEmployeeColor = employeeTypeList
+                                                    .firstWhere((employeeType) => employeeType.employeeType == val)
+                                                    .color;
+                                                print('Selected Employee Type Color: $selectedEmployeeColor');
                                                 print('Selected Employee Type ID: $selectedEmployeeTypeId');
                                               },
                                             );

@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/education_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -89,8 +90,9 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                   stateController.text,
                                   countryNameController.text,
                                   calenderController.text);
+                              var educationResponse = await approveOnboardQualifyEducationPatch(context, response.educationId!);
                               Navigator.pop(context);
-                              if(response.statusCode == 200 || response.statusCode == 201){
+                              if(educationResponse.statusCode == 200 || educationResponse.statusCode == 201){
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -235,7 +237,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                     ],
                     button: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [snapshot.data![index].approved == null ? Text('Not Approved',style: TextStyle(
+                      children: [snapshot.data![index].approved == null ? Text('',style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width/120,
                         color: ColorManager.mediumgrey,
                         fontWeight: FontWeight.w600,

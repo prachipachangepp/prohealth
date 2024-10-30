@@ -352,7 +352,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 20),
-                StatefulBuilder(
+              isChecked?StatefulBuilder(
                   builder: (BuildContext context, void Function(void Function()) setState) { return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -376,7 +376,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     ],
                   ); },
 
-                ),
+                ):SizedBox()
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),

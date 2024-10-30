@@ -583,6 +583,7 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
@@ -1188,7 +1189,8 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                   documentFile: filePath,
                   expiryDate: expiryDate,
                 );
-                if (response.statusCode == 200 || response.statusCode == 201) {
+                var result = await singleBatchApproveOnboardAckHealthPatch(context, response.documentId!);
+                if (result.statusCode == 200 || result.statusCode == 201) {
                   Navigator.pop(context);
                   showDialog(
                     context: context,

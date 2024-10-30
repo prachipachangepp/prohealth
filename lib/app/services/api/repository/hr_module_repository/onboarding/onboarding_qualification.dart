@@ -95,6 +95,11 @@ class OnboardingQualificationRepo {
   static String batchApproveAckHealthRecord() {
     return "$employee_doc$batchApprove";
   }
+
+  static String singlebatchApproveAckHealthRecord({required int empDocumentId}) {
+    return "/employee-documents/approve/$empDocumentId";
+  }
+
   ///employee-documents/BatchReject
   static String batchRejectAckHealthRecord() {
     return "$employee_doc$batchreject";

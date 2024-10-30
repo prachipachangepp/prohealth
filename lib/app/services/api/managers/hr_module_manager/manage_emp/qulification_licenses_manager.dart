@@ -139,10 +139,13 @@ Future<ApiData> addLicensePost(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("License Added");
       // orgDocumentGet(context);
+      var licenseRes = response.data;
+      int licenseId = licenseRes['licenseId'];
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,
+          licenseId: licenseId);
     } else {
       print("Error 1");
       return ApiData(

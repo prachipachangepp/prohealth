@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/references_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
@@ -86,8 +87,9 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                   nameController.text,
                                   knowPersonController.text,
                                   titlePositionController.text);
+                              var referenceResponse = await approveOnboardQualifyReferencePatch(context, response.referenceId!);
                               Navigator.pop(context);
-                              if(response.statusCode == 200 || response.statusCode == 201){
+                              if(referenceResponse.statusCode == 200 || referenceResponse.statusCode == 201){
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -200,7 +202,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                     button: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [snapshot.data![index].approve == null ?
-                      Text('Not Approved',
+                      Text('',
                           style:TextStyle(
                         fontSize: MediaQuery.of(context).size.width/120,
                         color: ColorManager.mediumgrey,
