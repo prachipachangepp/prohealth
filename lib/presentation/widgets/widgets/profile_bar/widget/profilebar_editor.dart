@@ -178,6 +178,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   bool pickedFilePath = false;
   dynamic finalPath;
   String fileName = '';
+  int selectedEmployeeTypeId =0;
   @override
   Widget build(BuildContext context) {
 
@@ -393,8 +394,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                  firstName: nameController.text,
                                                  lastName: profileData.lastName,
                                                  departmentId: profileData.departmentId,
-                                                 employeeTypeId:
-                                                 profileData.employeeTypeId,
+                                                 employeeTypeId:selectedEmployeeTypeId,
                                                  expertise: profileData.speciality,
                                                  cityId: profileData.cityId,
                                                  countryId: profileData.countryId,
@@ -567,9 +567,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 ? dropDownEmployeeTypes[0]
                                                 : null;
 
-                                            int? selectedEmployeeTypeId = employeeTypeList.isNotEmpty
+                                            selectedEmployeeTypeId = (employeeTypeList.isNotEmpty
                                                 ? employeeTypeList[0].employeeTypeId
-                                                : null;
+                                                : null)!;
 
                                             return HRUManageDropdown(
                                               controller: TextEditingController(text: selectedEmployeeType ?? ''),

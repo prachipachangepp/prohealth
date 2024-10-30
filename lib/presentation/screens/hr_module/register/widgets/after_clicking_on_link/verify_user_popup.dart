@@ -382,6 +382,10 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                             onFieldSubmitted: (value) {
                               FocusScope.of(context).requestFocus(submitButtonFocusNode);
                             },
+                            inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly, // Only allow digits
+                            LengthLimitingTextInputFormatter(6),
+                            ],
                           ),
                         ],
                       ),

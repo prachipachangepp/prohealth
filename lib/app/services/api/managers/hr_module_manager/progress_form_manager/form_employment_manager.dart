@@ -98,7 +98,7 @@ Future<List<EmploymentDataForm>> getEmployeeHistoryForm(
       for (var item in response.data) {
         // String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);
         String issueFormattedDate = convertIsoToDayMonthYear(item['dateOfJoining']);
-        String endDateFormattedDate = convertIsoToDayMonthYear(item['endDate']);
+        //String endDateFormattedDate = convertIsoToDayMonthYear(item['endDate']);
         itemsData.add(EmploymentDataForm(
             employmentId: item['employmentId']??"--",
             employeeId: item['employeeId']??"--",
@@ -109,7 +109,7 @@ Future<List<EmploymentDataForm>> getEmployeeHistoryForm(
             supMobile: item['supMobile']??"--",
             title: item['title']??"--",
             dateOfJoining: issueFormattedDate??"--",
-            endDate: endDateFormattedDate??"--",
+            endDate: item['endDate']??"--",
             emgMobile: item['emgMobile']??"--",
             country: item['country']??"--",
         ));

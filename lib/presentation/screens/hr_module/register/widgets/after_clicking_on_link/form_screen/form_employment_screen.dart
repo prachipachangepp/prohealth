@@ -210,7 +210,7 @@ class _Employment_screenState extends State<Employment_screen> {
                           state.finalPositionController.text,
                           state.startDateController.text,
                           state.isChecked
-                              ? "Present"
+                              ? "Currently Working"
                               : state.endDateController.text,
                           "NA",
                           "United States Of America",
@@ -320,8 +320,8 @@ class _EmploymentFormState extends State<EmploymentForm> {
           supervisorMobileNumberController.text = data.supMobile ?? '';
           finalPositionController.text = data.title ?? '';
           startDateController.text = data.dateOfJoining ?? '';
-          endDateController.text = data.endDate ?? '';
-          //isChecked = data.endDate == null;
+          endDateController.text = data.endDate;
+        // isChecked = data.endDate == true;
           employementIndex = data.employmentId ?? 0;
 
         });
