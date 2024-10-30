@@ -39,7 +39,11 @@ class _ProfileBarState extends State<ProfileBar> {
   @override
   void initState() {
     super.initState();
-    _calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth);
+    //_calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth);
+    if (widget.searchByEmployeeIdProfileData?.dateOfBirth != null) {
+      dobTimestamp = _calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth!);
+      setState(() {});  // Ensure the UI rebuilds with the new data
+    }
     _calculateHireDateTimeStamp(widget.searchByEmployeeIdProfileData!.dateofHire);
     sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
     fetchData();
@@ -80,32 +84,65 @@ class _ProfileBarState extends State<ProfileBar> {
   String _calculateAge(String birthDate) {
     DateTime convertedDate = DateTime.parse(birthDate);
     DateTime today = DateTime.now();
+
     int years = today.year - convertedDate.year;
     int months = today.month - convertedDate.month;
     int days = today.day - convertedDate.day;
 
+    // Adjust if the day difference is negative
     if (days < 0) {
       months--;
-      days += DateTime(today.year, today.month, 0)
-          .day;
+      int prevMonthLastDay = DateTime(today.year, today.month, 0).day;
+      days += prevMonthLastDay;
     }
+
+    // Adjust if the month difference is negative
     if (months < 0) {
       years--;
       months += 12;
     }
 
-    if (years > 0) {
-      dobTimestamp = "${years.toString()} year";
-    } else if (months > 0) {
-      dobTimestamp = "${months.toString()} months";
-    } else {
-      dobTimestamp = "${days.toString()} days";
-    }
-    //dobTimestamp = days.toString();
-    print('Timestamp date ${dobTimestamp}');
+    // Construct the formatted string
+    String result = '';
+    if (years > 0) result += "$years y${years > 1 ? 's' : ''}, ";
+    if (months > 0) result += "$months m${months > 1 ? 's' : ''}, ";
+    result += "$days d${days > 1 ? 's' : ''}";
+    print("dobTimestamp: $dobTimestamp");
 
-    return "$dobTimestamp years";
+    print('Calculated Age: $result');
+    dobTimestamp = result;
+    return dobTimestamp!;
   }
+
+  // String _calculateAge(String birthDate) {
+  //   DateTime convertedDate = DateTime.parse(birthDate);
+  //   DateTime today = DateTime.now();
+  //   int years = today.year - convertedDate.year;
+  //   int months = today.month - convertedDate.month;
+  //   int days = today.day - convertedDate.day;
+  //
+  //   if (days < 0) {
+  //     months--;
+  //     days += DateTime(today.year, today.month, 0)
+  //         .day;
+  //   }
+  //   if (months < 0) {
+  //     years--;
+  //     months += 12;
+  //   }
+  //
+  //   if (years > 0) {
+  //     dobTimestamp = "${years.toString()} year";
+  //   } else if (months > 0) {
+  //     dobTimestamp = "${months.toString()} months";
+  //   } else {
+  //     dobTimestamp = "${days.toString()} days";
+  //   }
+  //   //dobTimestamp = days.toString();
+  //   print('Timestamp date ${dobTimestamp}');
+  //
+  //   return "$dobTimestamp years";
+  // }
   String? totalDateStamp;
   String _calculateHireDateTimeStamp(String hireDate) {
     DateTime convertedDate = DateTime.parse(hireDate);
@@ -173,8 +210,9 @@ class _ProfileBarState extends State<ProfileBar> {
     int currentPage = 1;
     int itemsPerPage = 30;
     return Container(
+      color: ColorManager.whitebluecolor.withOpacity(0.25),
       width: double.maxFinite,
-        margin: EdgeInsets.only(right: 10),
+      //  margin: EdgeInsets.only(right: 10),
         child: Row(
           children: [
             Material(
@@ -204,16 +242,16 @@ class _ProfileBarState extends State<ProfileBar> {
             ),
             Material(
               elevation: 4,
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
+              // borderRadius: BorderRadius.only(
+              //     bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
               child: Container(
                 height: MediaQuery.of(context).size.height / 4,
                // width:  double.maxFinite,
-                width: MediaQuery.of(context).size.width/1.07,
+                width: MediaQuery.of(context).size.width/1.049,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(8),
-                      topRight: Radius.circular(8)),
+                  // borderRadius: BorderRadius.only(
+                  //     bottomRight: Radius.circular(8),
+                  //     topRight: Radius.circular(8)),
                   color: ColorManager.whitebluecolor.withOpacity(0.25),
                 ),
                 child: Padding(
@@ -403,9 +441,10 @@ class _ProfileBarState extends State<ProfileBar> {
                               children: [
                                 ///text john scott
                                 Text(
-                                  "${widget.searchByEmployeeIdProfileData!.dateOfBirth} (${dobTimestamp})",
+                                  "${widget.searchByEmployeeIdProfileData!.dateOfBirth} (${dobTimestamp ?? 'N/A'})",
                                   style: ThemeManagerDark.customTextStyle(context),
                                 ),
+
                                 Text(
                                   widget.searchByEmployeeIdProfileData!.gender,
                                   style: ThemeManagerDark.customTextStyle(context),

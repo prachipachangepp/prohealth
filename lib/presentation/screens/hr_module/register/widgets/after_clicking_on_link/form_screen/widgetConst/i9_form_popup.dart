@@ -127,18 +127,18 @@ class _INineSignPopupState extends State<INineSignPopup> {
       // Use either Alien Info or USCIS number
       // dateController = TextEditingController(text: " ");
       return alienInfoController.text.isNotEmpty
-          ? alienInfoController.text
-          : uscisController.text;
+          ? alienInfoController.text.isEmpty ? AppConfig.dash : alienInfoController.text
+          : uscisController.text.isEmpty ? AppConfig.dash : uscisController.text;
     }
     else if (citizentype == 'An alien authorized to work') {
       // Use one of the work-related fields
 
       if (work1Controller.text.isNotEmpty) {
-        return work1Controller.text;
+        return work1Controller.text.isEmpty ? AppConfig.dash : work1Controller.text;
       } else if (work2Controller.text.isNotEmpty) {
-        return work2Controller.text;
+        return work2Controller.text.isEmpty ? AppConfig.dash : work2Controller.text;
       } else {
-        return work3Controller.text;
+        return work3Controller.text.isEmpty ? AppConfig.dash : work3Controller.text;
       }
     }
     return '-'; // Default empty if none match (safety fallback).
@@ -406,7 +406,6 @@ class _INineSignPopupState extends State<INineSignPopup> {
                 citizenship: citizentype.toString(),
                   alienDate: dateController.text.isEmpty ? AppConfig.dash :dateController.text
               );
-
               print("Middle Name: ${nameController.text}");
               print("Last Name: ${lastNameController.text}");
               print("APT Number: ${aptNumController.text}");

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
+import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
@@ -52,7 +53,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   String? titleError;
   // String? acknowledgeFactsError;
   // String? AllergisError;
-   String? OtherError;
+  // String? OtherError;
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -103,7 +104,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       siteOfAdministrationError = _validateTextField(siteOfAdministrationController.text, 'site of administration');
       vaccineTypeError = _validateTextField(vaccineTypeController.text, 'vaccine type');
       doseError = _validateTextField(doseController.text, 'dose');
-      reactionsError = _validateTextField(reactionsController.text, 'reactions');
+     // reactionsError = _validateTextField(reactionsController.text, 'reactions');
       manufacturerError = _validateTextField(manufacturerController.text, 'manufacturer');
 
     //dateofVaccinationError = _validateTextField(dateofVaccinationController.text, 'date of Vaccination');
@@ -112,7 +113,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       titleError = _validateTextField(titleController.text, 'provider address');
       // acknowledgeFactsError = _validateTextField(acknowledgeFactsController.text, 'acknowledge facts');
       // AllergisError = _validateTextField(AllergisController.text, 'allergis');
-      OtherError = _validateTextField(OtherController.text, 'other if not mention NA');
+    //  OtherError = _validateTextField(OtherController.text, 'other if not mention NA');
     });
   }
 
@@ -244,11 +245,11 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         keyboardType: TextInputType.text,
                         text: 'Reactions, if any',
                       ),
-                      if (reactionsError != null)
-                        Text(
-                          reactionsError!,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                      // if (reactionsError != null)
+                      //   Text(
+                      //     reactionsError!,
+                      //     style: CommonErrorMsg.customTextStyle(context),
+                      //   ),
                       SizedBox(height: AppSize.s6),
                       SMTextFConst(
                         controller: manufacturerController,
@@ -589,11 +590,11 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         keyboardType: TextInputType.text,
                         text: 'Other Allergies',
                       ),
-                      if (OtherError != null)
-                        Text(
-                          OtherError!,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                      // if (OtherError != null)
+                      //   Text(
+                      //     OtherError!,
+                      //     style: CommonErrorMsg.customTextStyle(context),
+                      //   ),
                     ],
                   ),
                 ),
@@ -626,12 +627,12 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
 
             FluVaccineDocument fluVaccineDocument = await getFluVaccineDocument(context: context, templateId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
                 dateOfVaccine: dateOfvaccinationController.text, siteOfAdministration: siteOfAdministrationController.text,
-                vaccineType: vaccineTypeController.text, dose: doseController.text, reactions: reactionsController.text,
+                vaccineType: vaccineTypeController.text, dose: doseController.text, reactions: reactionsController.text.isEmpty ? AppConfig.dash : reactionsController.text,
                 manufacturer: manufacturerController.text, dateofVaccination: dateOfvaccinationController.text,
                 nameOfAdministering: nameOfAdministeringController.text, title: titleController.text,
                 providerAddress: address2Controller.text,
-                acknowledgeFacts: facts,
-                Allergis: allergies, other: OtherController.text);
+                acknowledgeFacts: facts.isEmpty ? AppConfig.dash : facts,
+                Allergis: allergies.isEmpty ? AppConfig.dash : allergies, other: OtherController.text.isEmpty ? AppConfig.dash : OtherController.text);
 
             if(fluVaccineDocument.statusCode == 200 || fluVaccineDocument.statusCode == 201){
               print(allergies);

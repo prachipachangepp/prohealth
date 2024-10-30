@@ -47,7 +47,6 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
       companyError =
           _validateTextField(companyController.text, 'company property');
       specificationError = _validateTextField(specificationController.text, 'specifications');
-      //supervisorError = _validateTextField(supervisorController.text, 'supervisors name');
     });
   }
   @override
@@ -87,17 +86,6 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
                     specificationError!,
                     style: CommonErrorMsg.customTextStyle(context),
                   ),
-                SizedBox(height: AppSize.s8),
-                // SMTextFConst(
-                //   controller: supervisorController,
-                //   keyboardType: TextInputType.text,
-                //   text: 'Supervisor Name',
-                // ),
-                // if (supervisorError != null)
-                //   Text(
-                //     supervisorError!,
-                //     style: CommonErrorMsg.customTextStyle(context),
-                //   ),
               ],
             ),
           )

@@ -99,7 +99,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
           ? widget.height ?? AppSize.s530
       : widget.docTypeId == AppConfig.policiesAndProcedure
        ? widget.height ??AppSize.s540
-      :widget.height ??AppSize.s598 ,
+      :widget.height ??AppSize.s610,
       body: [
        Padding(
          padding: const EdgeInsets.symmetric(

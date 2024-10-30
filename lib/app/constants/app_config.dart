@@ -11,8 +11,7 @@ class AppConfig {
   static const String local = "";
   static const String prod = "";
   static const String endpoint = demo;
-  static const String dash = "-";
-  // static const String endpoint = demo;
+  static const String dash = '-';
 
   /// Document types
   static const int corporateAndCompliance = 1;
@@ -74,8 +73,7 @@ class AppConfig {
 //   static const String local = "";
 //   static const String prod = "";
 //   static const String endpoint = dev;
-//   static const String dash = "-";
-
+//
 //   /// Document types
 //   static const int corporateAndCompliance = 8;
 //   static const int vendorContracts = 9;

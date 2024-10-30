@@ -309,7 +309,7 @@ class AppString {
 class AppStringMobile {
   ///login screen
   static const String poweredBy = 'Powered by';
-  static const String ssn = 'Social Security No.';
+  static const String ssn = 'Social Security Number';
   static const String  zone = 'Zone';
   static const String  age = 'Age';
   static const String  gender = 'Gender';
