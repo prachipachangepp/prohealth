@@ -339,12 +339,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       SizedBox(height: AppSize.s6),
                       Text( 'Acknowledge Facts', style: AllPopupHeadings.customTextStyle(context),
                       ),
-                      SizedBox(height: AppSize.s3),
+                      SizedBox(height: AppSize.s2),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: fact1,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -365,12 +366,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ],
                         ),
                       ),
-                      SizedBox(height: AppSize.s3),
+                      SizedBox(height: AppSize.s2),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: fact2,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -390,12 +392,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ],
                         ),
                       ),
-                      SizedBox(height: AppSize.s3),
+                      SizedBox(height: AppSize.s2),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: fact3,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -415,12 +418,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ],
                         ),
                       ),
-                      SizedBox(height: AppSize.s3),
+                      SizedBox(height: AppSize.s2),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: fact4,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -440,12 +444,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ],
                         ),
                       ),
-                      SizedBox(height: AppSize.s3),
+                      SizedBox(height: AppSize.s2),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: fact5,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -465,12 +470,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ],
                         ),
                       ),
-                      SizedBox(height: AppSize.s3),
+                      SizedBox(height: AppSize.s2),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: fact6,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -490,12 +496,13 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ],
                         ),
                       ),
-                      SizedBox(height: AppSize.s3),
+                      SizedBox(height: AppSize.s2),
                       Padding(
                         padding: const EdgeInsets.all(1),
                         child: Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: fact7,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -515,14 +522,15 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ],
                         ),
                       ),
-                      SizedBox(height: AppSize.s8),
+                      SizedBox(height: AppSize.s4),
                       ///allergies
                       Text( 'Allergies', style: AllPopupHeadings.customTextStyle(context),
                       ),
-                      SizedBox(height: AppSize.s6),
+                      SizedBox(height: AppSize.s1),
                       Row(
                         children: [
                           Checkbox(
+                            activeColor: ColorManager.bluebottom,
                             value: allergies1,
                             onChanged: (bool? value) {
                               setState(() {
@@ -540,6 +548,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            activeColor: ColorManager.bluebottom,
                             value: allergies2,
                             onChanged: (bool? value) {
                               setState(() {
@@ -557,6 +566,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            activeColor: ColorManager.bluebottom,
                             value: allergies3,
                             onChanged: (bool? value) {
                               setState(() {
@@ -573,7 +583,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       ),
                      // SizedBox(height: AppSize.s4),
                      // Text('OR',style: AllPopupHeadings.customTextStyle(context),),
-                      SizedBox(height: AppSize.s14),
+                     // SizedBox(height: AppSize.s2),
                       SMTextFConst(
                         controller: OtherController,
                         keyboardType: TextInputType.text,

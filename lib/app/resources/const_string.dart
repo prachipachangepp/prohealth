@@ -316,7 +316,7 @@ class AppStringMobile {
   static const String  perEmail = 'Personal Email';
   static const String  worEmail = 'Work Email';
   static const String  service = 'Service';
-  static const String  worNo = 'Work No';
+  static const String  worNo = 'Work Number';
   static const String  repOff = 'Reporting Office';
   static const String  summry = 'Summary';
 }

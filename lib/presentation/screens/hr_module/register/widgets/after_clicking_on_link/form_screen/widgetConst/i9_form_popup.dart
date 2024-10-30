@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 
+import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
@@ -403,7 +404,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                 aptNumber: aptNumController.text,
                 alienInfo: alienWork.toString(), // Use the returned value.
                 citizenship: citizentype.toString(),
-                  alienDate: dateController.text.isEmpty ? "-":dateController.text
+                  alienDate: dateController.text.isEmpty ? AppConfig.dash :dateController.text
               );
 
               print("Middle Name: ${nameController.text}");
