@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 
+import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
@@ -68,10 +69,10 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
      // positionDesireError = _validateTextField(positionDesiredController.text, 'position desired');
 
       dateError = _validateTextField(dateAvailableController.text, 'date available');
-      specifyError = _validateTextField(specifyWorkHrController.text, 'specify working hours');
+     // specifyError = _validateTextField(specifyWorkHrController.text, 'specify working hours');
       salaryError = _validateTextField(salaryController.text, 'salary');
-      sourceError = _validateTextField(sourceController.text, 'referral source');
-      valueError = _validateTextField(valueController.text, 'value');
+     // sourceError = _validateTextField(sourceController.text, 'referral source');
+     // valueError = _validateTextField(valueController.text, 'value');
     });
   }
 
@@ -80,9 +81,9 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
   bool Position2 = false;
   bool Position3 = false;
 
-  String position1 = '';
-  String position2 = '';
-  String position3 = '';
+  // String position1 = '';
+  // String position2 = '';
+  // String position3 = '';
 
   String position = "";
 
@@ -140,11 +141,11 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                           keyboardType: TextInputType.text,
                           text: 'Specify Work Hours',
                         ),
-                        if (specifyError != null)
-                          Text(
-                            specifyError!,
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                        // if (specifyError != null)
+                        //   Text(
+                        //     specifyError!,
+                        //     style: CommonErrorMsg.customTextStyle(context),
+                        //   ),
                         SizedBox(height: AppSize.s6),
 
                         SMTextFConst(
@@ -152,11 +153,11 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                           keyboardType: TextInputType.text,
                           text: 'Source of Referral',
                         ),
-                        if (salaryError != null)
-                          Text(
-                            salaryError!,
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                        // if (salaryError != null)
+                        //   Text(
+                        //     salaryError!,
+                        //     style: CommonErrorMsg.customTextStyle(context),
+                        //   ),
                         SizedBox(height: AppSize.s6),
 
                         SMTextFConst(
@@ -274,11 +275,11 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                           keyboardType: TextInputType.text,
                           text: 'Value',
                         ),
-                        if (valueError != null)
-                          Text(
-                            valueError!,
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                        // if (valueError != null)
+                        //   Text(
+                        //     valueError!,
+                        //     style: CommonErrorMsg.customTextStyle(context),
+                        //   ),
                         SizedBox(height: AppSize.s14),
                         Text( 'Desired Position', style: AllPopupHeadings.customTextStyle(context),
                         ),
@@ -286,6 +287,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: Position1,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -304,6 +306,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: Position2,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -322,6 +325,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         Row(
                           children: [
                             Checkbox(
+                              activeColor : ColorManager.bluebottom,
                               value: Position3,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -391,9 +395,12 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                 loading = true;
               });
               EmploymentAppDocument employmentAppDocument = await getEmployeeApplicationDocument(context: context, employmentAppFormhtmlId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
-                  middleName: nameController.text, faxNo: faxNoController.text, ifHired: emptype.toString(), positionApplying: positionController.text,
-                  positionDesired: position, dateAvailable: dateAvailableController.text, specifyWorkingHrs: specifyWorkHrController.text,
-                  salary: salaryController.text, sourceReferral: sourceController.text, value: valueController.text);
+                  middleName: nameController.text, faxNo: faxNoController.text,
+                  ifHired: emptype.toString().isEmpty ? AppConfig.dash : emptype.toString(), positionApplying: positionController.text,
+                  positionDesired: position.isEmpty ? AppConfig.dash : position, dateAvailable: dateAvailableController.text,
+                  specifyWorkingHrs: specifyWorkHrController.text.isEmpty ? AppConfig.dash : specifyWorkHrController.text,
+                  salary: salaryController.text, sourceReferral: sourceController.text.isEmpty ? AppConfig.dash : sourceController.text,
+                  value: valueController.text.isEmpty ? AppConfig.dash : valueController.text);
               print( employmentAppDocument);
               print("Source :::::: ${sourceController.text}");
               print("salery :::::: ${salaryController.text}");
