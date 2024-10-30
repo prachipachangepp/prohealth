@@ -491,77 +491,13 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 30),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     'List Of Documents',
                     style: HeadingFormStyle.customTextStyle(context),
                   ),
-                  CustomButton(
-                    width: 117,
-                    height: 30,
-                    text: isLoading ? 'Wait..' : 'Save',
-                    style: BlueButtonTextConst.customTextStyle(context),
-                    borderRadius: 12,
-                    onPressed: () async{
-                      if (finalPath == null || finalPath.isEmpty) {
-                        print('Loading');
-                      } else {
-                        try {
-                          ApiDataRegister result = await legalDocumentAdd(context: context,
-                              employeeId: widget.employeeID,
-                              documentName: fileName,
-                              docUrl: '',
-                              officeId: '');
-                          var response = await uploadLegalDocumentBase64(context: context,
-                              employeeLegalDocumentId: result.legalDocumentId!,
-                              documentFile: finalPath
-                          );
 
-                          if(response.statusCode == 201 || response.statusCode == 200){
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const AddSuccessPopup(
-                                  message: 'Document Uploaded Successfully',
-                                );
-                              },
-                            );
-                          }else{
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const AddSuccessPopup(
-                                  message: 'Failed To Upload Document',
-                                );
-                              },
-                            );
-                            print('Document upload Error');
-                          }
-
-                        } catch (e) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const AddSuccessPopup(
-                                message: 'Failed To Upload Document',
-                              );
-                            },
-                          );
-                        }
-                      }
-                    },
-                    child: isLoading
-                        ? SizedBox(
-                            height: AppSize.s25,
-                            width: AppSize.s25,
-                            child: CircularProgressIndicator(color: Colors.white),
-                          )
-                        : Text(
-                            'Save',
-                            style: BlueButtonTextConst.customTextStyle(context),
-                          ),
-                  ),
                 ],
               ),
               const SizedBox(height: 50),
@@ -677,112 +613,194 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     return Offstage();
                   }),
               const SizedBox(height: AppSize.s10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  isSelected == false ?const Text(''): CustomButton(
-                    width: 117,
-                    height: 30,
-                    text: 'Save',
-                    style: BlueButtonTextConst.customTextStyle(context),
-                    borderRadius: 12,
-                    onPressed: () async {
-                      if (finalPath == null || finalPath.isEmpty) {
-                        print('Loading');
-                      } else {
-                        try {
-                          ApiDataRegister result = await legalDocumentAdd(context: context,
-                              employeeId: widget.employeeID,
-                              documentName: fileName,
-                              docUrl: '',
-                              officeId: '');
-                          var response = await uploadLegalDocumentBase64(context: context,
-                              employeeLegalDocumentId: result.legalDocumentId!,
-                              documentFile: finalPath
-                          );
-
-                          if(response.statusCode == 201 || response.statusCode == 200){
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const AddSuccessPopup(
-                                  message: 'Document Uploaded Successfully',
-                                );
-                              },
-                            );
-                          }else{
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const AddSuccessPopup(
-                                  message: 'Failed To Upload Document',
-                                );
-                              },
-                            );
-                            print('Document upload Error');
-                          }
-
-                        } catch (e) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const AddSuccessPopup(
-                                message: 'Failed To Upload Document',
-                              );
-                            },
-                          );
-                        }
-                      }
-                    },
-                    // onPressed: () async {
-                    //
-                    //   try {
-                    //     // File filePath = File(finalPath!);
-                    //     await uploadDocuments(
-                    //         context: context,
-                    //         employeeDocumentMetaId: 10,
-                    //         employeeDocumentTypeSetupId: 48,
-                    //         employeeId: 2,
-                    //         documentFile: finalPath,
-                    //         documentName: 'Legal Document ID'
-                    //     );
-                    //
-                    //
-                    //     ScaffoldMessenger.of(context).showSnackBar(
-                    //       SnackBar(
-                    //         content: Text('Document uploaded successfully!'),
-                    //         backgroundColor: Colors.green,
-                    //       ),
-                    //     );
-                    //   } catch (e) {
-                    //
-                    //     ScaffoldMessenger.of(context).showSnackBar(
-                    //       SnackBar(
-                    //         content: Text('Failed to upload document: $e'),
-                    //         backgroundColor: Colors.red,
-                    //       ),
-                    //     );
-                    //   }
-                    // },
-
-                    // onPressed: () async{
-                    //   try{
-                    //     //File filePath = File(finalPath!);
-                    //     await uploadDocuments(context: context, employeeDocumentMetaId: 10, employeeDocumentTypeSetupId: 48,
-                    //     employeeId: 2, //documentName: widget.AcknowledgementnameController.text,
-                    //     documentFile: finalPath, documentName: 'Legal Document ID');
-                    //   }catch(e){
-                    //     print(e);
-                    //   }
-                    //
-                    // },
-                  ),
-                ],
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     isSelected == false ?const Text(''): CustomButton(
+              //       width: 117,
+              //       height: 30,
+              //       text: 'Save',
+              //       style: BlueButtonTextConst.customTextStyle(context),
+              //       borderRadius: 12,
+              //       onPressed: () async {
+              //         if (finalPath == null || finalPath.isEmpty) {
+              //           print('Loading');
+              //         } else {
+              //           try {
+              //             ApiDataRegister result = await legalDocumentAdd(context: context,
+              //                 employeeId: widget.employeeID,
+              //                 documentName: fileName,
+              //                 docUrl: '',
+              //                 officeId: '');
+              //             var response = await uploadLegalDocumentBase64(context: context,
+              //                 employeeLegalDocumentId: result.legalDocumentId!,
+              //                 documentFile: finalPath
+              //             );
+              //
+              //             if(response.statusCode == 201 || response.statusCode == 200){
+              //               showDialog(
+              //                 context: context,
+              //                 builder: (BuildContext context) {
+              //                   return const AddSuccessPopup(
+              //                     message: 'Document Uploaded Successfully',
+              //                   );
+              //                 },
+              //               );
+              //             }else{
+              //               showDialog(
+              //                 context: context,
+              //                 builder: (BuildContext context) {
+              //                   return const AddSuccessPopup(
+              //                     message: 'Failed To Upload Document',
+              //                   );
+              //                 },
+              //               );
+              //               print('Document upload Error');
+              //             }
+              //
+              //           } catch (e) {
+              //             showDialog(
+              //               context: context,
+              //               builder: (BuildContext context) {
+              //                 return const AddSuccessPopup(
+              //                   message: 'Failed To Upload Document',
+              //                 );
+              //               },
+              //             );
+              //           }
+              //         }
+              //       },
+              //       // onPressed: () async {
+              //       //
+              //       //   try {
+              //       //     // File filePath = File(finalPath!);
+              //       //     await uploadDocuments(
+              //       //         context: context,
+              //       //         employeeDocumentMetaId: 10,
+              //       //         employeeDocumentTypeSetupId: 48,
+              //       //         employeeId: 2,
+              //       //         documentFile: finalPath,
+              //       //         documentName: 'Legal Document ID'
+              //       //     );
+              //       //
+              //       //
+              //       //     ScaffoldMessenger.of(context).showSnackBar(
+              //       //       SnackBar(
+              //       //         content: Text('Document uploaded successfully!'),
+              //       //         backgroundColor: Colors.green,
+              //       //       ),
+              //       //     );
+              //       //   } catch (e) {
+              //       //
+              //       //     ScaffoldMessenger.of(context).showSnackBar(
+              //       //       SnackBar(
+              //       //         content: Text('Failed to upload document: $e'),
+              //       //         backgroundColor: Colors.red,
+              //       //       ),
+              //       //     );
+              //       //   }
+              //       // },
+              //
+              //       // onPressed: () async{
+              //       //   try{
+              //       //     //File filePath = File(finalPath!);
+              //       //     await uploadDocuments(context: context, employeeDocumentMetaId: 10, employeeDocumentTypeSetupId: 48,
+              //       //     employeeId: 2, //documentName: widget.AcknowledgementnameController.text,
+              //       //     documentFile: finalPath, documentName: 'Legal Document ID');
+              //       //   }catch(e){
+              //       //     print(e);
+              //       //   }
+              //       //
+              //       // },
+              //     ),
+              //   ],
+              // )
             ],
           ),
-        ))
+        )),
+            isLoading
+                ? SizedBox(
+              height: 25,
+              width: 25,
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
+            )
+                : CustomButton(
+              width: 117,
+              height: 30,
+              text: 'Save',
+              style: BlueButtonTextConst.customTextStyle(context),
+              borderRadius: 12,
+              onPressed: () async{
+                if (finalPath == null || finalPath.isEmpty) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddSuccessPopup(
+                        message: 'Please Select File',
+                      );
+                    },
+                  );
+                  print('Loading');
+                } else {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  try {
+                    ApiDataRegister result = await legalDocumentAdd(context: context,
+                        employeeId: widget.employeeID,
+                        documentName: fileName,
+                        docUrl: '',
+                        officeId: '');
+                    var response = await uploadLegalDocumentBase64(context: context,
+                        employeeLegalDocumentId: result.legalDocumentId!,
+                        documentFile: finalPath
+                    );
+
+                    if(response.statusCode == 201 || response.statusCode == 200){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const AddSuccessPopup(
+                            message: 'Document Uploaded Successfully',
+                          );
+                        },
+                      );
+                    }else{
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const AddSuccessPopup(
+                            message: 'Failed To Upload Document',
+                          );
+                        },
+                      );
+                      print('Document upload Error');
+                    }
+
+                  } catch (e) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const AddSuccessPopup(
+                          message: 'Failed To Upload Document',
+                        );
+                      },
+                    );
+                  }
+                }
+                setState(() {
+                  isLoading = false;
+                });
+              },
+              child: Text(
+                'Save',
+                style: BlueButtonTextConst.customTextStyle(context),
+              ),
+            ),
       ])),
+
     );
   }
 }

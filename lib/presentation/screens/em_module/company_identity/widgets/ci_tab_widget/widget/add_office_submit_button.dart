@@ -16,6 +16,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../widgets/dialogue_template.dart';
 import '../../company_identity_zone/widgets/location_screen.dart';
 import '../../whitelabelling/success_popup.dart';
@@ -295,7 +296,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         )
                       ],
                     ),
-                    // SizedBox(width: 10),
+                    const SizedBox(width: 20),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -385,10 +386,10 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
               if (_suggestions.isNotEmpty)
                 Positioned(
                   top: 55,
-                  right: 20,
+                 right: 60,
                   child: Container(
                     height: 100,
-                    width: 354,
+                    width: 300,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
@@ -407,7 +408,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         return ListTile(
                           title: Text(
                             _suggestions[index],
-                            style: AllPopupHeadings.customTextStyle(context),
+                            style: TableSubHeading.customTextStyle(context),
                           ),
                           onTap: () {
                             FocusScope.of(context)
