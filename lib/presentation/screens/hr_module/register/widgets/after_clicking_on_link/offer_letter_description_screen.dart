@@ -161,7 +161,7 @@ class _OfferLetterDescriptionScreenState
                     height: 90, // Set height to avoid zero height
                     // color: Colors.yellow,
                     child: signatureBytes != null
-                        ? Image.memory(signatureBytes!)
+                        ? Image.memory(signatureBytes!,filterQuality: FilterQuality.high,)
                         : Center(child: Text('')),
                   ),
 

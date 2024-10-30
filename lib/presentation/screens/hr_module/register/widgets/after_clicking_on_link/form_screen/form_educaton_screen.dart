@@ -72,12 +72,18 @@ class _EducationScreenState extends State<EducationScreen> {
   Future<void> _loadEducationData() async {
     try {
       List<EducationDataForm> prefilledData = await getEmployeeEducationForm(context, widget.employeeID);
-      setState(() {
-        educationFormKeys = List.generate(
-          prefilledData.length,
-              (index) => GlobalKey<_EducationFormState>(),
-        );
-      });
+      if(prefilledData.isEmpty){
+        addEducationForm();
+      }
+      else{
+        setState(() {
+          educationFormKeys = List.generate(
+            prefilledData.length,
+                (index) => GlobalKey<_EducationFormState>(),
+          );
+        });
+      }
+
     } catch (e) {
       print('Error loading Education data: $e');
     }

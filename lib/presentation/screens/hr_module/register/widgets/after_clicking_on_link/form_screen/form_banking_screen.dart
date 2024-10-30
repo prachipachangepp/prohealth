@@ -56,12 +56,19 @@ class _BankingScreenState extends State<BankingScreen> {
   Future<void> _loadBankingData() async {
     try {
       List<BankingDataForm> prefilledData = await getBankingForm(context, widget.employeeID);
-      setState(() {
-        bankingFormKeys = List.generate(
-          prefilledData.length,
-              (index) => GlobalKey<_BankingFormState>(),
-        );
-      });
+      if(prefilledData.isEmpty){
+        addBankingForm();
+      }
+      else{
+        setState(() {
+          bankingFormKeys = List.generate(
+            prefilledData.length,
+                (index) => GlobalKey<_BankingFormState>(),
+          );
+        });
+
+      }
+
     } catch (e) {
       print('Error loading Banking data: $e');
     }
