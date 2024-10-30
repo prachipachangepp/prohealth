@@ -70,12 +70,19 @@ class _Employment_screenState extends State<Employment_screen> {
   Future<void> _loadEmploymentData() async {
     try {
       List<EmploymentDataForm> prefilledData = await getEmployeeHistoryForm(context,widget.employeeID);
-      setState(() {
-        employmentFormKeys = List.generate(
-          prefilledData.length,
-              (index) => GlobalKey<_EmploymentFormState>(),
-        );
-      });
+      if(prefilledData.isEmpty){
+        setState((){
+          addEmploymentForm();
+        });
+      }else{
+        setState(() {
+          employmentFormKeys = List.generate(
+            prefilledData.length,
+                (index) => GlobalKey<_EmploymentFormState>(),
+          );
+        });
+      }
+
     } catch (e) {
       print('Error loading employment data: $e');
     }
