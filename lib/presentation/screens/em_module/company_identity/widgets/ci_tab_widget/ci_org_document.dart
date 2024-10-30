@@ -166,6 +166,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               _selectButton(0);
                             },
                             child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 2),
                               height: 30,
                               width: 380,
                               decoration: BoxDecoration(

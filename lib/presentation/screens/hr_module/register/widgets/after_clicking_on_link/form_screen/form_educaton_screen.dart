@@ -114,7 +114,8 @@ class _EducationScreenState extends State<EducationScreen> {
             ),
             child: Text(
               'Your personal details will be required to proceed through the recruitment process.',
-              style: DefineWorkWeekStyle.customTextStyle(context),
+              textAlign: TextAlign.center,
+              style:ZoneDataStyle.customTextStyle(context),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -185,6 +186,14 @@ class _EducationScreenState extends State<EducationScreen> {
                     final st = key.currentState!;
                     if (st.finalPath == null || st.finalPath!.isEmpty) {
                       print("Loading");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const VendorSelectNoti(
+                            message: 'Please Select File',
+                          );
+                        },
+                      );
                     } else {
                       try {
                         ApiDataRegister result =  await FormEducationManager().posteducationscreen(

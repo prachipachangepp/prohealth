@@ -114,7 +114,8 @@ class _Employment_screenState extends State<Employment_screen> {
             ),
             child: Text(
               'Your personal details will be required to proceed through the recruitment process.',
-              style: DefineWorkWeekStyle.customTextStyle(context),
+              textAlign: TextAlign.center,
+              style:ZoneDataStyle.customTextStyle(context),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -187,6 +188,15 @@ class _Employment_screenState extends State<Employment_screen> {
                     final state = key.currentState!;
                     if (state.finalPath == null || state.finalPath!.isEmpty) {
                       print("Loading");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const VendorSelectNoti(
+                            message: 'Please Select file',
+                          );
+                        },
+                      );
+
                     } else {
                       try {
                         await postemploymentscreenData(
@@ -200,11 +210,12 @@ class _Employment_screenState extends State<Employment_screen> {
                           state.finalPositionController.text,
                           state.startDateController.text,
                           state.isChecked
-                              ? "Present"
+                              ? "Currently Working"
                               : state.endDateController.text,
                           "NA",
-                          "USA",
+                          "United States Of America",
                         );
+
                         await uploadEmployeeResume(
                           context: context,
                           employeementId: widget.employeeID,
@@ -309,8 +320,8 @@ class _EmploymentFormState extends State<EmploymentForm> {
           supervisorMobileNumberController.text = data.supMobile ?? '';
           finalPositionController.text = data.title ?? '';
           startDateController.text = data.dateOfJoining ?? '';
-          endDateController.text = data.endDate ?? '';
-          isChecked = data.endDate == null;
+          endDateController.text = data.endDate;
+        // isChecked = data.endDate == true;
           employementIndex = data.employmentId ?? 0;
 
         });

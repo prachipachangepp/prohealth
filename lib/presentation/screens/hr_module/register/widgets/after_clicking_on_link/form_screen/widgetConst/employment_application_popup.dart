@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 
+import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
@@ -68,10 +69,10 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
      // positionDesireError = _validateTextField(positionDesiredController.text, 'position desired');
 
       dateError = _validateTextField(dateAvailableController.text, 'date available');
-      specifyError = _validateTextField(specifyWorkHrController.text, 'specify working hours');
+     // specifyError = _validateTextField(specifyWorkHrController.text, 'specify working hours');
       salaryError = _validateTextField(salaryController.text, 'salary');
-      sourceError = _validateTextField(sourceController.text, 'referral source');
-      valueError = _validateTextField(valueController.text, 'value');
+     // sourceError = _validateTextField(sourceController.text, 'referral source');
+     // valueError = _validateTextField(valueController.text, 'value');
     });
   }
 
@@ -80,15 +81,19 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
   bool Position2 = false;
   bool Position3 = false;
 
-  String position1 = '';
-  String position2 = '';
-  String position3 = '';
+  // String position1 = '';
+  // String position2 = '';
+  // String position3 = '';
 
   String position = "";
 
-  Future<String> _joinPosition() async {
-    position = position1 + position2 + position3 ;
-    return position;
+  void _updatePosition() {
+    // Construct position based on selected checkboxes
+    List<String> selectedPositions = [];
+    if (Position1) selectedPositions.add('Full-Time');
+    if (Position2) selectedPositions.add('Part-Time');
+    if (Position3) selectedPositions.add('Temporary');
+    position = selectedPositions.join(', ');
   }
 
   String? emptype;
@@ -119,42 +124,42 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                    
                         FirstSMTextFConst(
                           controller: nameController,
                           keyboardType: TextInputType.text,
                           text: 'Middle Name',
                         ),
-                        if (nameError != null) // Display error if any
+                        if (nameError != null)
                           Text(
                             nameError!,
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
-                    
                         SizedBox(height: AppSize.s6),
+
                         SMTextFConst(
                           controller: specifyWorkHrController,
                           keyboardType: TextInputType.text,
                           text: 'Specify Work Hours',
                         ),
-                        if (specifyError != null)
-                          Text(
-                            specifyError!,
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                        // if (specifyError != null)
+                        //   Text(
+                        //     specifyError!,
+                        //     style: CommonErrorMsg.customTextStyle(context),
+                        //   ),
                         SizedBox(height: AppSize.s6),
+
                         SMTextFConst(
-                          controller: salaryController,
+                          controller: sourceController,
                           keyboardType: TextInputType.text,
                           text: 'Source of Referral',
                         ),
-                        if (salaryError != null)
-                          Text(
-                            salaryError!,
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                        // if (salaryError != null)
+                        //   Text(
+                        //     salaryError!,
+                        //     style: CommonErrorMsg.customTextStyle(context),
+                        //   ),
                         SizedBox(height: AppSize.s6),
-                    
+
                         SMTextFConst(
                           controller: faxNoController,
                           keyboardType: TextInputType.text,
@@ -166,8 +171,9 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
+
                         SMTextFConst(
-                          controller: sourceController,
+                          controller: salaryController,
                           keyboardType: TextInputType.text,
                           text: 'Salary Expected',
                         ),
@@ -177,77 +183,72 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
-                        // FirstSMTextFConst(
-                        //   controller: dateAvailableController,
-                        //   keyboardType: TextInputType.text,
-                        //   text: 'Available Date',
-                        //   showDatePicker: true,
-                        // ),
-                        // if (dateError != null) // Display error if any
-                        //   Text(
-                        //     dateError!,
-                        //     style: CommonErrorMsg.customTextStyle(context),
-                        //   ),
+
                         HeaderContentConst(
-                        heading: "Available Date",
-                        content :
-                        FormField<String>(
-                          builder: (FormFieldState<String> field) {
-                            return SizedBox(
-                              width: 354,
-                              height: 30,
-                              child: TextFormField(
-                                controller: dateAvailableController,
-                                cursorColor: ColorManager.black,
-                                style: DocumentTypeDataStyle.customTextStyle(context),
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ColorManager.fmediumgrey, width: 2),
-                                    borderRadius: BorderRadius.circular(8),
+                          heading: "Available Date",
+                          content: FormField<String>(
+                            builder: (FormFieldState<String> field) {
+                              return SizedBox(
+                                width: 354,
+                                height: 30,
+                                child: TextFormField(
+                                  controller: dateAvailableController,
+                                  cursorColor: ColorManager.black,
+                                  style: DocumentTypeDataStyle.customTextStyle(context),
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ColorManager.containerBorderGrey,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: ColorManager.containerBorderGrey,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    hintText: 'MM-DD-YYYY',
+                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: ColorManager.containerBorderGrey,
+                                      ),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                    suffixIcon: Icon(
+                                      Icons.calendar_month_outlined,
+                                      color: ColorManager.blueprime,
+                                    ),
+                                    errorText: field.errorText,
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: ColorManager.fmediumgrey, width: 2),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  hintText: 'MM-DD-YYYY',
-                                  hintStyle:
-                                  DocumentTypeDataStyle.customTextStyle(context),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 2, color: ColorManager.fmediumgrey),
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                                  suffixIcon: Icon(Icons.calendar_month_outlined,
-                                      color: ColorManager.blueprime),
-                                  errorText: field.errorText,
+                                  onTap: () async {
+                                    DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1901),
+                                      lastDate: DateTime(3101),
+                                    );
+                                    if (pickedDate != null) {
+                                      datePicked = pickedDate;
+                                      dateAvailableController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                    }
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please select a date';
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                onTap: () async {
-                                  DateTime? pickedDate = await showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(1901),
-                                    lastDate: DateTime(3101),
-                                  );
-                                  if (pickedDate != null) {
-                                    datePicked = pickedDate;
-                                    dateAvailableController.text =
-                                        DateFormat('MM-dd-yyyy').format(pickedDate);
-                                  }
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please select a date';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                         ),
                       ],
                     ),
                   ),
@@ -256,7 +257,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                    
+
                         SMTextFConst(
                           controller: positionController,
                           keyboardType: TextInputType.text,
@@ -268,29 +269,31 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             style: CommonErrorMsg.customTextStyle(context),
                           ),
                         SizedBox(height: AppSize.s6),
-                    
-                    
+
                         SMTextFConst(
                           controller: valueController,
                           keyboardType: TextInputType.text,
                           text: 'Value',
                         ),
-                        if (valueError != null)
-                          Text(
-                            valueError!,
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
-                        SizedBox(height: AppSize.s15),
+                        // if (valueError != null)
+                        //   Text(
+                        //     valueError!,
+                        //     style: CommonErrorMsg.customTextStyle(context),
+                        //   ),
+                        SizedBox(height: AppSize.s14),
                         Text( 'Desired Position', style: AllPopupHeadings.customTextStyle(context),
                         ),
+                        SizedBox(height: AppSize.s6),
                         Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: Position1,
                               onChanged: (bool? value) {
                                 setState(() {
                                   Position1 = value ?? false;
-                                  position1 = 'Full-Time';
+                                 // position1 = 'Full-Time';
+                                  _updatePosition();
                                 });
                               },
                             ),
@@ -303,11 +306,13 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         Row(
                           children: [
                             Checkbox(
+                              activeColor: ColorManager.bluebottom,
                               value: Position2,
                               onChanged: (bool? value) {
                                 setState(() {
                                   Position2 = value ?? false;
-                                  position2 =  'Part-Time';
+                                  //position2 =  'Part-Time';
+                                  _updatePosition();
                                 });
                               },
                             ),
@@ -320,11 +325,13 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         Row(
                           children: [
                             Checkbox(
+                              activeColor : ColorManager.bluebottom,
                               value: Position3,
                               onChanged: (bool? value) {
                                 setState(() {
                                   Position3 = value ?? false;
-                                  position3 =  'Temporary';
+                                 // position3 =  'Temporary';
+                                  _updatePosition();
                                 });
                               },
                             ),
@@ -334,7 +341,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             ),
                           ],
                         ),
-                        SizedBox(height: AppSize.s15),
+                        SizedBox(height: AppSize.s18),
                         Text( 'If hired can you provide proof of citizenship or legal right to work?', style: AllPopupHeadings.customTextStyle(context),
                         ),
                         CustomRadioListTile(
@@ -381,16 +388,22 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
           text: AppStringEM.submit,
           onPressed: () async {
             _validateForm(); // Validate the form on button press
-           await _joinPosition();
+          // await _joinPosition();
+            _updatePosition();
             if (_isFormValid) {
               setState(() {
                 loading = true;
               });
               EmploymentAppDocument employmentAppDocument = await getEmployeeApplicationDocument(context: context, employmentAppFormhtmlId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
-                  middleName: nameController.text, faxNo: faxNoController.text, ifHired: emptype.toString(), positionApplying: position,
-                  positionDesired: positionDesiredController.text, dateAvailable: dateAvailableController.text, specifyWorkingHrs: specifyWorkHrController.text,
-                  salary: salaryController.text, sourceReferral: sourceController.text, value: valueController.text);
+                  middleName: nameController.text, faxNo: faxNoController.text,
+                  ifHired: emptype.toString().isEmpty ? AppConfig.dash : emptype.toString(), positionApplying: positionController.text,
+                  positionDesired: position.isEmpty ? AppConfig.dash : position, dateAvailable: dateAvailableController.text,
+                  specifyWorkingHrs: specifyWorkHrController.text.isEmpty ? AppConfig.dash : specifyWorkHrController.text,
+                  salary: salaryController.text, sourceReferral: sourceController.text.isEmpty ? AppConfig.dash : sourceController.text,
+                  value: valueController.text.isEmpty ? AppConfig.dash : valueController.text);
               print( employmentAppDocument);
+              print("Source :::::: ${sourceController.text}");
+              print("salery :::::: ${salaryController.text}");
               if(employmentAppDocument.statusCode == 200 || employmentAppDocument.statusCode == 201){
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(

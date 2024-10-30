@@ -171,6 +171,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            activeColor: ColorManager.bluebottom,
                             value: mStatus1,
                             onChanged: (bool? value) {
                               setState(() {
@@ -187,6 +188,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            activeColor: ColorManager.bluebottom,
                             value: mStatus2,
                             onChanged: (bool? value) {
                               setState(() {
@@ -203,6 +205,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       Row(
                         children: [
                           Checkbox(
+                            activeColor: ColorManager.bluebottom,
                             value: mStatus3,
                             onChanged: (bool? value) {
                               setState(() {
@@ -217,6 +220,9 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                         ],
                       ),
                       SizedBox(height: AppSize.s9),
+                      Text('Please enter further value in number only',
+                        style: AllNoDataAvailable.customTextStyle(context),),
+                      SizedBox(height: AppSize.s5),
                       Text('Step 3: Claim  Dependent  and Other  Credits',
                       style: AllPopupHeadings.customTextStyle(context),),
                       SizedBox(height: AppSize.s9),
@@ -300,15 +306,16 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: AppSize.s15),
+                      SizedBox(height: AppSize.s13),
                       SMNumberTextFConst(
-                          controller: multipleJW12bController, text: 'Multiple JW2b- Add the annual wages of the two highest paying jobs from line 2a together and use the total  as the wages in the “Higher Paying Job” row and use the annual wages for your third job in the  “Lower Paying Job” column to find the amount from the appropriate table on page 4 and enter  this amount on line 2b'),
+                          controller: multipleJW12bController,
+                          text: 'Multiple JW2b- Add the annual wages of the two highest paying jobs from line 2a together and use the total  as the wages in the “Higher Paying Job” row and use the annual wages for your third job in the  “Lower Paying Job” column to find the amount from the appropriate table on page 4 and enter  this amount on line 2b'),
                       if (multipleJW12bError != null)
                         Text(
                           multipleJW12bError!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                       SizedBox(height: AppSize.s9),
+                       SizedBox(height: AppSize.s10),
                       SMNumberTextFConst(
                           controller: multipleJW12cController, text: 'Multiple JW2c- Add the amounts from lines 2a and 2b and enter the result on line 2c'),
                       if (multipleJW12cError != null)
@@ -316,7 +323,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           multipleJW12cError!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s9),
+                      SizedBox(height: AppSize.s8),
                       SMNumberTextFConst(
                           controller: multipleJW13Controller, text: 'Multiple JW3- Enter the number of pay periods per year for the highest paying job. For example, if that job pays  weekly, enter 52; if it pays every other week, enter 26; if it pays monthly, enter 12, etc'),
                       if (multipleJW13Error != null)
@@ -324,7 +331,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           multipleJW13Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s9),
+                      SizedBox(height: AppSize.s10),
                       SMNumberTextFConst(
                           controller: multipleJW14Controller, text: 'Multiple JW4- Divide the annual amount on line 1 or line 2c by the number of pay periods on line 3. Enter this  amount here and in Step 4(c) of Form W-4 for the highest paying job (along with any other  additional amount you want withheld)'),
                       if (multipleJW14Error != null)
@@ -332,7 +339,8 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           multipleJW14Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s9),
+                      SizedBox(height: AppSize.s10),
+
                       SMNumberTextFConst(
                           controller: dw1Controller, text: 'Deductions Worksheet 1- Enter an estimate of your 2023 itemized deductions (from Schedule A (Form 1040)). Such  deductions may include qualifying home mortgage interest, charitable contributions, state and  local taxes (up to \$10,000), and medical expenses in excess of 7.5% of your income'),
                       if (dw1Error != null)
@@ -340,7 +348,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           dw1Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s9),
+                      SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           controller: dw2Controller, text: 'Deductions Worksheet 2- Enter: • \$27,700 if you’re married filing jointly or a qualifying surviving spouse • \$20,000 if you’re head of household • \$13,850 if you’re single or married filing separately'),
                       if (dw2Error != null)
@@ -348,7 +356,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           dw2Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s9),
+                      SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           controller: dw3Controller, text: 'Deductions Worksheet 3- If line 1 is greater than line 2, subtract line 2 from line 1 and enter the result here. If line 2 is greater  than line 1, enter “-0-”'),
                       if (dw3Error != null)
@@ -356,7 +364,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           dw3Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s9),
+                      SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           controller: dw4Controller, text: 'Deductions Worksheet 4- Enter an estimate of your student loan interest, deductible IRA contributions, and certain other  adjustments (from Part II of Schedule 1 (Form 1040)). See Pub. 505 for more information'),
                       if (dw4Error != null)
@@ -364,7 +372,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           dw4Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                      SizedBox(height: AppSize.s9),
+                      SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           controller: dw5Controller, text: 'Deductions Worksheet 5- Add lines 3 and 4. Enter the result here and in Step 4(b) of Form W-4'),
                       if (dw5Error != null)

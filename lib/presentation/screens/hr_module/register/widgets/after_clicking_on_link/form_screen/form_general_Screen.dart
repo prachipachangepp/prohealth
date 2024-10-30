@@ -226,12 +226,8 @@ class _generalFormState extends State<generalForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
-                  children: [
-                    SizedBox(width: 30,)
-                  ],
-                ),
-                SizedBox(width: 30,),
+
+
             Column(
               children: [
                 Container(
@@ -243,166 +239,13 @@ class _generalFormState extends State<generalForm> {
                   ),
                   child: Text(
                     'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
-                    style:DefineWorkWeekStyle.customTextStyle(context),
+                    textAlign: TextAlign.center,
+                    style:ZoneDataStyle.customTextStyle(context),
                   ),
                 ),
               ],
             ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 40),
-                  child: Column(
-                    children: [
-                      isLoading
-                          ? SizedBox(
-                        height: 25,
-                        width: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ),
-                      )
-                          :CustomButton(
-                        width: 117,
-                        height: 30,
-                        text: 'Save',
-                        style: BlueButtonTextConst.customTextStyle(context),
-                        borderRadius: 12,
-                        onPressed: () async {
 
-
-                          // Get the company and user IDs
-                          setState(() {
-                            isLoading = true; // Start loading
-                          });
-                          final companyId = await TokenManager.getCompanyId();
-                          final userId = await TokenManager.getUserID();
-
-                          print("Company ID: $companyId");
-                          print("User ID: $userId");
-
-                          // Print the data being sent
-                          print("Sending data:");
-                          print("Employee ID: ${widget.employeeID}");
-                          print("Code: EMP-C10-U48");
-                          print("User ID: $userId");
-                          print("First Name: ${firstname.text}");
-                          print("Last Name: ${lastname.text}");
-                          print("Speciality: ${spalicity.text}");
-                          print("File: ${filePath}");
-                          print("SSN: ${ssecuritynumber.text}");
-                          print("Phone Number: ${phonenumber.text}");
-                          print("Personal Email: ${personalemail.text}");
-                          print("Address: ${address.text}");
-                          print("Date of Birth: ${dobcontroller.text}");
-                          print("Gender: ${gendertype.toString()}");
-                          print("Driver License Number: ${driverlicensenumb.text}");
-                          print("Position: position");
-                          print("Clinician: ${_selectedClinician.toString()}");
-                          print("Race: ${racetype.toString()}");
-
-                          // Call the update function
-                          var response = await updateOnlinkGeneralPatch(
-                            context,
-                            generalId!,
-                            '',
-                            userId,
-                            firstname.text,
-                            lastname.text,
-                            1,
-                         // 1,
-                            spalicity.text,
-                           // 1,
-                            1,
-                            1,
-                           // 1,
-                            ssecuritynumber.text,
-                          //  '',
-                            phonenumber.text,
-                            '',
-                           // '',
-                            personalemail.text,
-                            personalemail.text,
-                            address.text,
-                            dobcontroller.text,
-                            '',
-                            'covreage',
-                            //'employment',
-                            gendertype.toString(),
-                            'Partial',
-                           // 'service',
-                            'imgurl',
-                            'resumeurl',
-                            companyId,
-                            'Active',
-                            driverlicensenumb.text,
-                            "0000-00-00",//'2024-01-01',
-                            "0000-00-00",//'2024-01-01',
-                           // '',// '2024-01-01',
-                            'rehirable',
-                            'position',
-                            address.text,
-                            _selectedClinician.toString(),
-                            'reason',
-                            1,
-                            "0000-00-00",//'2024-01-01',
-                            1,
-                            1,
-                            'methods',
-                            'materials',
-                            racetype.toString(),
-                            'rating',
-                            signatureUrl!,
-                          );
-                          var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: generalId!);
-                          print("Response Status Code: ${response.statusCode}");
-                          print("Response Body: ${response.data}");
-
-                          if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
-                            // );
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'User Data Updated',
-                                );
-                              },
-                            );
-                            _initializeFormWithPrefilledData();
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'Failed To Update User Data',
-                                );
-                              },
-                            );
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   SnackBar(content: Text("Failed to update user data")),
-                            // );
-                          }
-                          setState(() {
-                            isLoading = false; // End loading
-                          });
-                          // Clear fields after saving
-                          firstname.clear();
-                          lastname.clear();
-                          ssecuritynumber.clear();
-                          phonenumber.clear();
-                          personalemail.clear();
-                          driverlicensenumb.clear();
-                          address.clear();
-                          dobcontroller.clear();
-                        },
-                        child: Text(
-                          'Save',
-                          style: BlueButtonTextConst.customTextStyle(context),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 // SizedBox(width: 1,),
 
 
@@ -578,7 +421,8 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) { return CustomTextFieldSSn(
+                        builder: (BuildContext context, void Function(void Function()) setState) {
+                          return CustomTextFieldSSn(
                           controller: ssecuritynumber,
                           hintText: 'Enter Security Number',
                           obscureText: !_passwordVisible,
@@ -829,7 +673,7 @@ class _generalFormState extends State<generalForm> {
                               return ListTile(
                                 title: Text(
                                   _suggestions[index],
-                                  style: AllPopupHeadings.customTextStyle(context),
+                                  style: onlyFormDataStyle.customTextStyle(context),
                                 ),
                                 onTap: () {
                                   FocusScope.of(context)
@@ -1171,141 +1015,152 @@ class _generalFormState extends State<generalForm> {
                 ),
               ],
             ),),
-          // SizedBox(height: MediaQuery.of(context).size.height / 20),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     CustomButton(
-          //       width: 117,
-          //       height: 30,
-          //       text: 'Save',
-          //       style: BlueButtonTextConst.customTextStyle(context),
-          //       borderRadius: 12,
-          //       onPressed: () async {
-          //         // Get the company and user IDs
-          //         final companyId = await TokenManager.getCompanyId();
-          //         final userId = await TokenManager.getUserID();
-          //
-          //         print("Company ID: $companyId");
-          //         print("User ID: $userId");
-          //
-          //         // Print the data being sent
-          //         print("Sending data:");
-          //         print("Employee ID: ${widget.employeeID}");
-          //         print("Code: EMP-C10-U48");
-          //         print("User ID: $userId");
-          //         print("First Name: ${firstname.text}");
-          //         print("Last Name: ${lastname.text}");
-          //         print("Speciality: ${_selectedSpeciality.toString()}");
-          //         print("File: ${filePath}");
-          //         print("SSN: ${ssecuritynumber.text}");
-          //         print("Phone Number: ${phonenumber.text}");
-          //         print("Personal Email: ${personalemail.text}");
-          //         print("Address: ${address.text}");
-          //         print("Date of Birth: ${dobcontroller.text}");
-          //         print("Gender: ${gendertype.toString()}");
-          //         print("Driver License Number: ${driverlicensenumb.text}");
-          //         print("Position: position");
-          //         print("Clinician: ${_selectedClinician.toString()}");
-          //         print("Race: ${racetype.toString()}");
-          //
-          //         // Call the update function
-          //         var response = await updateOnlinkGeneralPatch(
-          //           context,
-          //           generalId!,
-          //           '',
-          //           userId,
-          //           firstname.text,
-          //           lastname.text,
-          //           1,
-          //           1,
-          //           _selectedSpeciality.toString(),
-          //           1,
-          //           1,
-          //           1,
-          //           1,
-          //           ssecuritynumber.text,
-          //           phonenumber.text,
-          //           '1234',
-          //           '1234',
-          //           'Robert Tech Services',
-          //           personalemail.text,
-          //           personalemail.text,
-          //           address.text,
-          //           dobcontroller.text,
-          //           '1234',
-          //           'covreage',
-          //           'employment',
-          //           gendertype.toString(),
-          //           'Partial',
-          //           'service',
-          //           'imgurl',
-          //           'resumeurl',
-          //           companyId,
-          //           'Active',
-          //           driverlicensenumb.text,
-          //           dobcontroller.text,//'2024-01-01',
-          //           dobcontroller.text,//'2024-01-01',
-          //           dobcontroller.text,// '2024-01-01',
-          //           'rehirable',
-          //           'position',
-          //           address.text,
-          //           _selectedClinician.toString(),
-          //           'reason',
-          //           1,
-          //           dobcontroller.text,//'2024-01-01',
-          //           1,
-          //           1,
-          //           'methods',
-          //           'materials',
-          //           racetype.toString(),
-          //           'rating',
-          //           signatureUrl!,
-          //         );
-          //         var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: generalId!);
-          //         print("Response Status Code: ${response.statusCode}");
-          //         print("Response Body: ${response.data}");
-          //
-          //         if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
-          //           // ScaffoldMessenger.of(context).showSnackBar(
-          //           //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
-          //           // );
-          //           showDialog(
-          //             context: context,
-          //             builder: (BuildContext context) {
-          //               return AddSuccessPopup(
-          //                 message: 'User Data Updated',
-          //               );
-          //             },
-          //           );
-          //           _initializeFormWithPrefilledData();
-          //         } else {
-          //           showDialog(
-          //             context: context,
-          //             builder: (BuildContext context) {
-          //               return AddSuccessPopup(
-          //                 message: 'Failed To Update User Data',
-          //               );
-          //             },
-          //           );
-          //           // ScaffoldMessenger.of(context).showSnackBar(
-          //           //   SnackBar(content: Text("Failed to update user data")),
-          //           // );
-          //         }
-          //
-          //         // Clear fields after saving
-          //         firstname.clear();
-          //         lastname.clear();
-          //         ssecuritynumber.clear();
-          //         phonenumber.clear();
-          //         personalemail.clear();
-          //         driverlicensenumb.clear();
-          //         address.clear();
-          //         dobcontroller.clear();
-          //       },
-          //     ),
-          //   ],
-          // ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButton(
+                width: 117,
+                height: 30,
+                text: 'Save',
+                style: BlueButtonTextConst.customTextStyle(context),
+                borderRadius: 12,
+                onPressed: () async {
+
+
+                  // Get the company and user IDs
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
+                  final companyId = await TokenManager.getCompanyId();
+                  final userId = await TokenManager.getUserID();
+
+                  print("Company ID: $companyId");
+                  print("User ID: $userId");
+
+                  // Print the data being sent
+                  print("Sending data:");
+                  print("Employee ID: ${widget.employeeID}");
+                  print("Code: EMP-C10-U48");
+                  print("User ID: $userId");
+                  print("First Name: ${firstname.text}");
+                  print("Last Name: ${lastname.text}");
+                  print("Speciality: ${spalicity.text}");
+                  print("File: ${filePath}");
+                  print("SSN: ${ssecuritynumber.text}");
+                  print("Phone Number: ${phonenumber.text}");
+                  print("Personal Email: ${personalemail.text}");
+                  print("Address: ${address.text}");
+                  print("Date of Birth: ${dobcontroller.text}");
+                  print("Gender: ${gendertype.toString()}");
+                  print("Driver License Number: ${driverlicensenumb.text}");
+                  print("Position: position");
+                  print("Clinician: ${_selectedClinician.toString()}");
+                  print("Race: ${racetype.toString()}");
+
+                  // Call the update function
+                  var response = await updateOnlinkGeneralPatch(
+                    context,
+                    generalId!,
+                    '',
+                    userId,
+                    firstname.text,
+                    lastname.text,
+                    1,
+                    // 1,
+                    spalicity.text,
+                    // 1,
+                    1,
+                    1,
+                    // 1,
+                    ssecuritynumber.text,
+                    //  '',
+                    phonenumber.text,
+                    '',
+                    // '',
+                    personalemail.text,
+                    //  personalemail.text,
+                    address.text,
+                    dobcontroller.text,
+                    '',
+                    'covreage',
+                    //'employment',
+                    gendertype.toString(),
+                    'Partial',
+                    // 'service',
+                    'imgurl',
+                    'resumeurl',
+                    companyId,
+                    'Active',
+                    driverlicensenumb.text,
+                    "0000-00-00",//'2024-01-01',
+                    "0000-00-00",//'2024-01-01',
+                    // '',// '2024-01-01',
+                    'rehirable',
+                    'position',
+                    address.text,
+                    _selectedClinician.toString(),
+                    'reason',
+                    1,
+                    "0000-00-00",//'2024-01-01',
+                    1,
+                    1,
+                    'methods',
+                    'materials',
+                    racetype.toString(),
+                    'rating',
+                    signatureUrl!,
+                  );
+                  var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: generalId!);
+                  print("Response Status Code: ${response.statusCode}");
+                  print("Response Body: ${response.data}");
+
+                  if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
+                    // );
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'User Data Updated',
+                        );
+                      },
+                    );
+                    _initializeFormWithPrefilledData();
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'Failed To Update User Data',
+                        );
+                      },
+                    );
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(content: Text("Failed to update user data")),
+                    // );
+                  }
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
+                  // Clear fields after saving
+                  firstname.clear();
+                  lastname.clear();
+                  ssecuritynumber.clear();
+                  phonenumber.clear();
+                  personalemail.clear();
+                  driverlicensenumb.clear();
+                  address.clear();
+                  dobcontroller.clear();
+                },
+                child: Text(
+                  'Save',
+                  style: BlueButtonTextConst.customTextStyle(context),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

@@ -153,7 +153,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 100),
                     child: Text(
-                      AppStringHRNoData.healthNoData,
+                      AppStringHRNoData.ackNoData,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s14,

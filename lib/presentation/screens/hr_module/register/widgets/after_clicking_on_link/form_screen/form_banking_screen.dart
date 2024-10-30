@@ -152,7 +152,8 @@ class _BankingScreenState extends State<BankingScreen> {
           ),
           child: Text(
             'Your personal details will be required to proceed through the recruitment process.',
-            style:  DefineWorkWeekStyle.customTextStyle(context),
+            textAlign: TextAlign.center,
+            style:ZoneDataStyle.customTextStyle(context),
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),

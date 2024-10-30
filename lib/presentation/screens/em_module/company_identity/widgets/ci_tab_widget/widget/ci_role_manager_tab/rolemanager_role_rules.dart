@@ -12,7 +12,7 @@ class RoleManagerRoleRules extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 10,
+          height: 100,
         ),
         Center(
           child: Text(

@@ -42,7 +42,7 @@ Future<List<EmployeementData>> getEmployeement(
             supMobile: item['supMobile'],
             title: item['title'],
             dateOfJoining: joiningFormattedDate,
-            endDate:item['endDate'] == null ? "" : convertIsoToDayMonthYear(item['endDate']), //endFormattedDate,
+            endDate:item['endDate'] , //endFormattedDate,
             approved: item['approved'],
             emgMobile: item['emgMobile'],
             country: item['country'],
@@ -75,7 +75,7 @@ Future<ApiData> addEmployeement(BuildContext context,
       "supMobile": supMobile,
       "title": title,
       "dateOfJoining": "${dateOfJoining}T00:00:00Z",
-      "endDate": endDate == null ? null :"${endDate}T00:00:00Z",
+      "endDate": endDate,
       "emgMobile": emgMobile,
       "country": country
     },);

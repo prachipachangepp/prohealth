@@ -173,7 +173,12 @@ class EMDesktopScreen extends StatelessWidget {
                                   child: Text(
                                     'Select a Module',
                                     textAlign: TextAlign.center,
-                                    style: AppbarCustomDropdownStyle.customTextStyle(context),
+                                    style: TextStyle(
+                                      fontSize: FontSize.s18,
+                                      fontWeight: FontWeight.w700,
+                                      color: ColorManager.textPrimaryColor,
+                                      decoration: TextDecoration.none,
+                                    ),
                                   ),
                                 ),
                                 DropdownMenuItem<String>(

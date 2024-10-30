@@ -224,6 +224,7 @@ Future<List<CompanyIdentityModel>> companyOfficeListGet(
         ));
       }
       // print("ResponseList:::::${itemsList}");
+      itemsList.sort((a, b) => b.isHeadOffice ? 1 : (a.isHeadOffice ? -1 : 0));
     } else {
       print('Api Error');
       //return itemsList;

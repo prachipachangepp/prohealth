@@ -175,7 +175,8 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   Expanded(
                     child: Text(
                       'Please fill all the current and relevant licensure / certification below. If you are applying for a clinical or attorney position which is lists licensure in the requirements, your information will be required to proceed through the requirements process.',
-                      style: DefineWorkWeekStyle.customTextStyle(context),
+                      textAlign: TextAlign.center,
+                      style:ZoneDataStyle.customTextStyle(context),
                     ),
                   ),
                 ],
@@ -184,14 +185,11 @@ class _LicensesScreenState extends State<LicensesScreen> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '• ',
-                    style: DefineWorkWeekStyle.customTextStyle(context),
-                  ),
                   Expanded(
                     child: Text(
-                      'Please note, MSW and Chaplains do not need a License. Rather , they need academic credentials.',
-                      style: DefineWorkWeekStyle.customTextStyle(context),
+                      '• Please note, MSW and Chaplains do not need a License. Rather , they need academic credentials.',
+                      textAlign: TextAlign.center,
+                      style:ZoneDataStyle.customTextStyle(context),
                     ),
                   ),
                 ],
@@ -200,14 +198,11 @@ class _LicensesScreenState extends State<LicensesScreen> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '• ',
-                    style:DefineWorkWeekStyle.customTextStyle(context),
-                  ),
                   Expanded(
                     child: Text(
-                      'Clinical Staff MUST fill this section out. ',
-                      style:DefineWorkWeekStyle.customTextStyle(context),
+                      '• Clinical Staff MUST fill this section out. ',
+                      textAlign: TextAlign.center,
+                      style:ZoneDataStyle.customTextStyle(context),
                     ),
                   ),
                 ],
