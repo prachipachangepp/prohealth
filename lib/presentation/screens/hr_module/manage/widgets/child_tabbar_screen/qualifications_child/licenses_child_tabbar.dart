@@ -33,7 +33,7 @@ class LicensesChildTabbar extends StatefulWidget {
 }
 
 class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
-  final StreamController<List<QulificationLicensesData>> streamController = StreamController<List<QulificationLicensesData>>();
+  final StreamController<List<QulificationLicensesFilteredData>> streamController = StreamController<List<QulificationLicensesFilteredData>>();
   TextEditingController livensureController = TextEditingController();
   TextEditingController issueDateController = TextEditingController();
   TextEditingController expiryDateController = TextEditingController();
@@ -56,55 +56,55 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // FutureBuilder<List<NewOrgDocument>>(
-              //     future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
-              //     builder: (context,snapshot) {
-              //       if(snapshot.connectionState == ConnectionState.waiting){
-              //         return  Container(
-              //           width: 200,
-              //           height: 30,
-              //           decoration: BoxDecoration(color: ColorManager.white,
-              //               borderRadius: BorderRadius.circular(10)),
-              //         );
-              //       }
-              //       if (snapshot.data!.isEmpty) {
-              //         return Center(
-              //             child: Offstage()
-              //         );
-              //       }
-              //       if(snapshot.hasData){
-              //         List dropDown = [];
-              //         String docType = '';
-              //         List<DropdownMenuItem<String>> dropDownMenuItems = [];
-              //         for(var i in snapshot.data!){
-              //           dropDownMenuItems.add(
-              //             DropdownMenuItem<String>(
-              //               child: Text(i.docName),
-              //               value: i.docName,
-              //             ),
-              //           );
-              //         }
-              //         return CICCDropdown(
-              //             width: 200,
-              //             initialValue: dropDownMenuItems[0].value,
-              //             onChange: (val){
-              //               for(var a in snapshot.data!){
-              //                 if(a.docName == val){
-              //                   docType = a.docName;
-              //                   docName = docType;
-              //                   //docMetaId = docType;
-              //                 }
-              //               }
-              //               print(":::${docType}");
-              //               // print(":::<>${docMetaId}");
-              //             },
-              //             items:dropDownMenuItems
-              //         );
-              //       }else{
-              //         return SizedBox();
-              //       }
-              //     }
-              // ),
+              FutureBuilder<List<NewOrgDocument>>(
+                  future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+                  builder: (context,snapshot) {
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return  Container(
+                        width: 200,
+                        height: 30,
+                        decoration: BoxDecoration(color: ColorManager.white,
+                            borderRadius: BorderRadius.circular(10)),
+                      );
+                    }
+                    if (snapshot.data!.isEmpty) {
+                      return Center(
+                          child: Offstage()
+                      );
+                    }
+                    if(snapshot.hasData){
+                      List dropDown = [];
+                      String docType = '';
+                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                      for(var i in snapshot.data!){
+                        dropDownMenuItems.add(
+                          DropdownMenuItem<String>(
+                            child: Text(i.docName),
+                            value: i.docName,
+                          ),
+                        );
+                      }
+                      return CICCDropdown(
+                          width: 200,
+                          initialValue: dropDownMenuItems[0].value,
+                          onChange: (val){
+                            for(var a in snapshot.data!){
+                              if(a.docName == val){
+                                docType = a.docName;
+                                docName = docType;
+                                //docMetaId = docType;
+                              }
+                            }
+                            print(":::${docType}");
+                            // print(":::<>${docMetaId}");
+                          },
+                          items:dropDownMenuItems
+                      );
+                    }else{
+                      return SizedBox();
+                    }
+                  }
+              ),
               SizedBox(width: 10),
               ///Add button
               Container(
@@ -213,10 +213,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
         // SizedBox(
         //   height: 1,
         // ),
-        StreamBuilder<List<QulificationLicensesData>>(
+        StreamBuilder<List<QulificationLicensesFilteredData>>(
             stream: streamController.stream,
             builder: (context,snapshot) {
-              getEmployeeLicenses(context,widget.employeeId,).then((data) {
+              getEmployeeLicensesFilteredData(context,widget.employeeId,docName).then((data) {
                 streamController.add(data);
               }).catchError((error) {
                 // Handle error

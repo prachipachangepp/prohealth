@@ -98,11 +98,14 @@ class QulificationLicensesFilteredData {
   final String licenseNumber;
   final String org;
   final String documentType;
+  final String status;
   bool? approved;
   final bool sucess;
   final String message;
   QulificationLicensesFilteredData(
-      {required this.licenseId,
+      {
+        required this.licenseId,
+        required this.status,
         required this.country,
         required this.employeeId,
         required this.expData,

@@ -208,7 +208,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                         ),
                                                         Text(
                                                           MedicalCostReport
-                                                              .docName
+                                                              .fileName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
@@ -703,6 +703,9 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
+                                                                      fileName: snapshotPrefill
+                                                                          .data!
+                                                                          .fileName,
                                                                       url: snapshotPrefill
                                                                           .data!
                                                                           .url,

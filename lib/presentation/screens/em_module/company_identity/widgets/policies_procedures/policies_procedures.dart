@@ -272,7 +272,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         height: AppSize.s5,
                                                       ),
                                                       Text(
-                                                        policiesdata.docName.toString(),
+                                                        policiesdata.fileName.toString(),
                                                         textAlign:
                                                             TextAlign.center,
                                                         style:  DocumentTypeDataStyle.customTextStyle(context),
@@ -403,6 +403,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                         void Function(void Function())
                                                                             setState) {
                                                                       return VCScreenPopupEditConst(
+                                                                        fileName: snapshotPrefill
+                                                                            .data!
+                                                                            .fileName,
                                                                         url: snapshotPrefill.data!.url,
                                                                         expiryDate: snapshotPrefill.data!.expiry_date,
                                                                         title: EditPopupString.editPolicy,

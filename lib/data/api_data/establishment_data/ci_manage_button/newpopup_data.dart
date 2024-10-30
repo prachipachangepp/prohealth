@@ -59,9 +59,11 @@ class MCorporateComplianceModal {
   final int companyId;
   final String officeId;
   final String? docName;
+  final String fileName;
   final List<dynamic> docHistory; // Add this field
 
   MCorporateComplianceModal({
+    required this.fileName,
     required this.orgOfficeDocumentId,
     required this.orgDocumentSetupid,
     required this.idOfDocument,
@@ -88,12 +90,14 @@ class MCorporateCompliancePreFillModal {
   final String expType;
   final String docName;
   final int docSubTypeId;
+  final String fileName;
   final int docTypeId;
   final int orgOfficeDocumentId;
 
   MCorporateCompliancePreFillModal(
       {required this.orgOfficeDocumentId,
       required this.documentSetupId,
+        required this.fileName,
       required this.threshould,
       required this.expType,
       required this.docName,

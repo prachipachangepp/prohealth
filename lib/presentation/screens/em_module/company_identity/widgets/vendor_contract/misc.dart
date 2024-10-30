@@ -220,7 +220,7 @@ class _CiMiscState extends State<CiMisc> {
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
-                                                          miscData.docName
+                                                          miscData.fileName
                                                               .toString()
                                                               .capitalizeFirst!,
                                                           textAlign:
@@ -332,6 +332,9 @@ class _CiMiscState extends State<CiMisc> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
+                                                                      fileName: snapshotPrefill
+                                                                          .data!
+                                                                          .fileName,
                                                                       url: snapshotPrefill
                                                                           .data!
                                                                           .url,

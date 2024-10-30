@@ -218,7 +218,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
-                                                          CapReports.docName
+                                                          CapReports.fileName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
@@ -333,6 +333,9 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
+                                                                      fileName: snapshotPrefill
+                                                                          .data!
+                                                                          .fileName,
                                                                       url: snapshotPrefill
                                                                           .data!
                                                                           .url,

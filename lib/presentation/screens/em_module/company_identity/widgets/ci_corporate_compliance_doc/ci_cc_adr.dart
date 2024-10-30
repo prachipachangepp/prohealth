@@ -218,7 +218,7 @@ class _CICCADRState extends State<CICCADR> {
                                                         ),
                                                         Text(
                                                           manageCCADR
-                                                              .docName
+                                                              .fileName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
@@ -331,6 +331,9 @@ class _CICCADRState extends State<CICCADR> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
+                                                                      fileName: snapshotPrefill
+                                                                          .data!
+                                                                          .fileName,
                                                                       title:
                                                                           EditPopupString.editAdr,
                                                                       loadingDuration:

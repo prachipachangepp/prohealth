@@ -503,7 +503,54 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     text: isLoading ? 'Wait..' : 'Save',
                     style: BlueButtonTextConst.customTextStyle(context),
                     borderRadius: 12,
-                    onPressed: () {},
+                    onPressed: () async{
+                      if (finalPath == null || finalPath.isEmpty) {
+                        print('Loading');
+                      } else {
+                        try {
+                          ApiDataRegister result = await legalDocumentAdd(context: context,
+                              employeeId: widget.employeeID,
+                              documentName: fileName,
+                              docUrl: '',
+                              officeId: '');
+                          var response = await uploadLegalDocumentBase64(context: context,
+                              employeeLegalDocumentId: result.legalDocumentId!,
+                              documentFile: finalPath
+                          );
+
+                          if(response.statusCode == 201 || response.statusCode == 200){
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const AddSuccessPopup(
+                                  message: 'Document Uploaded Successfully',
+                                );
+                              },
+                            );
+                          }else{
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const AddSuccessPopup(
+                                  message: 'Failed To Upload Document',
+                                );
+                              },
+                            );
+                            print('Document upload Error');
+                          }
+
+                        } catch (e) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const AddSuccessPopup(
+                                message: 'Failed To Upload Document',
+                              );
+                            },
+                          );
+                        }
+                      }
+                    },
                     child: isLoading
                         ? SizedBox(
                             height: AppSize.s25,
