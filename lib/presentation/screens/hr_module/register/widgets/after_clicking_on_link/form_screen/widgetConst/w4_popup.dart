@@ -67,6 +67,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
   String? dw3Error;
   String? dw4Error;
   String? dw5Error;
+  bool _isSubmitted = false;
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -98,6 +99,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
       dw3Error = _validateTextField(dw3Controller.text, 'deduction worksheet 3');
       dw4Error = _validateTextField(dw4Controller.text, 'deduction worksheet 4');
       dw5Error = _validateTextField(dw5Controller.text, 'deduction worksheet 5');
+
     });
   }
 
