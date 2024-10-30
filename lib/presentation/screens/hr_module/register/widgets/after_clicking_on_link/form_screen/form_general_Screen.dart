@@ -673,7 +673,7 @@ class _generalFormState extends State<generalForm> {
                               return ListTile(
                                 title: Text(
                                   _suggestions[index],
-                                  style: AllPopupHeadings.customTextStyle(context),
+                                  style: onlyFormDataStyle.customTextStyle(context),
                                 ),
                                 onTap: () {
                                   FocusScope.of(context)

@@ -306,7 +306,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                               return ListTile(
                                 title: Text(
                                   _suggestions[index],
-                                  style: AllPopupHeadings.customTextStyle(context),
+                                  style: TableSubHeading.customTextStyle(context),
                                 ),
                                 onTap: () {
                                   FocusScope.of(context)
