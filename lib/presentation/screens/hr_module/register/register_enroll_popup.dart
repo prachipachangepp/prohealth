@@ -234,6 +234,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12)
       ),
+
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
           height:  640,
