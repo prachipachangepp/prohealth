@@ -455,26 +455,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
           vertical: MediaQuery.of(context).size.height / 120,
         ),
         child: Column(
-
+         mainAxisAlignment: MainAxisAlignment.center,
           children: [
            Row(
              mainAxisAlignment: MainAxisAlignment.spaceBetween,
              children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.start,
-                 crossAxisAlignment: CrossAxisAlignment.end,
-                 children: [
-                   Text(
-                     data.firstName.capitalizeFirst!,
-                     style:  DefineWorkWeekStyle.customTextStyle(context),
-                   ),
-                   SizedBox(width: 4,),
-                   Text(
-                     data.lastName.capitalizeFirst!,
-                     style:  DefineWorkWeekStyle.customTextStyle(context),
-                   ),
+               Padding(
+                 padding: const EdgeInsets.only(left: 10),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   crossAxisAlignment: CrossAxisAlignment.end,
+                   children: [
+                     Text(
+                       data.firstName.capitalizeFirst!,
+                       style:  DefineWorkWeekStyle.customTextStyle(context),
+                     ),
+                     SizedBox(width: 4,),
+                     Text(
+                       data.lastName.capitalizeFirst!,
+                       style:  DefineWorkWeekStyle.customTextStyle(context),
+                     ),
 
-                 ],
+                   ],
+                 ),
                ),
                Row(
                  mainAxisAlignment: MainAxisAlignment.end,
