@@ -150,16 +150,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           InkWell(
                               onTap: widget.onBackPressed,
-
                                 // widget.backButtonCallBack(true);
                                 // Navigator.pop(context);
                                 // _pageController.animateToPage(1,
                                 //     duration: Duration(milliseconds: 500),
                                 //     curve: Curves.ease);
-
-
                               child: Row(
-
                                 children: [
                                   Icon(
                                     Icons.arrow_back,
@@ -168,8 +164,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ],
                               )),
-                        ],
-                      ),
+                           ],
+                        ),
                     ),
                   )
                 ],
