@@ -580,7 +580,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       Container(
                         width: AppSize.s110,
-                        margin: const EdgeInsets.only(right: AppMargin.m30),
+                        margin: const EdgeInsets.only(right: AppMargin.m5),
                         child:CustomIconButton(
                           text: AppString.enroll,
                           onPressed: () async{
@@ -682,7 +682,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [Container(
                       width: AppSize.s100,
-                      margin: const EdgeInsets.only(right: AppMargin.m30),
+                      margin: const EdgeInsets.only(right: AppMargin.m5),
                       child: CustomIconButton(
                         text: 'Onboard',
                         onPressed: () async{
