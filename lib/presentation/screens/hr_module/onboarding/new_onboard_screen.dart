@@ -165,80 +165,83 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                   ),
 
 
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          if (widget.selectedIndex != 0)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: AppPadding.p10,left: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            if (widget.selectedIndex != 0)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: AppPadding.p10,left: 10),
+                                child: Container(
+                                  //color: ColorManager.red,
+                                  child: Text(
+                                    widget.employeeName,
+                                    style: CompanyIdentityManageHeadings.customTextStyle(context),
+                                  ),
+                                ),
+                              ),
+
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+
+                            Material(
+                              elevation: 4,
+                              borderRadius: BorderRadius.circular(20),
                               child: Container(
-                                //color: ColorManager.red,
-                                child: Text(
-                                  widget.employeeName,
-                                  style: CompanyIdentityManageHeadings.customTextStyle(context),
+                                height: AppSize.s28,
+                                width: MediaQuery.of(context).size.width / 1.68,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: ColorManager.blueprime,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: _categories
+                                      .asMap()
+                                      .entries
+                                      .map(
+                                        (entry) => InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      child: Container(
+                                        height: AppSize.s30,
+                                        width: MediaQuery.of(context).size.width / 8.42,
+                                        padding: EdgeInsets.symmetric(vertical: 3),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+                                              ? Colors.white : null,
+                                        ),
+                                        child: Text(
+                                          entry.value,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: FontSize.s14,
+                                            fontWeight: FontWeight.w600,
+                                            color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+                                                ? ColorManager.mediumgrey
+                                                : ColorManager.white,
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName),  //onTap: () => widget.selectButton(entry.key),
+                                    ),
+                                  )
+                                      .toList(),
                                 ),
                               ),
                             ),
-
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-
-                          Material(
-                            elevation: 4,
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              height: AppSize.s28,
-                              width: MediaQuery.of(context).size.width / 1.68,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: ColorManager.blueprime,
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: _categories
-                                    .asMap()
-                                    .entries
-                                    .map(
-                                      (entry) => InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    child: Container(
-                                      height: AppSize.s30,
-                                      width: MediaQuery.of(context).size.width / 8.42,
-                                      padding: EdgeInsets.symmetric(vertical: 3),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
-                                            ? Colors.white : null,
-                                      ),
-                                      child: Text(
-                                        entry.value,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeight.w600,
-                                          color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
-                                              ? ColorManager.mediumgrey
-                                              : ColorManager.white,
-                                        ),
-                                      ),
-                                    ),
-                                    onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName),  //onTap: () => widget.selectButton(entry.key),
-                                  ),
-                                )
-                                    .toList(),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   if (widget.selectedIndex != 0)
                     Padding(
