@@ -42,7 +42,7 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    double containerWidth = MediaQuery.of(context).size.width * 0.9;
+    double containerWidth = MediaQuery.of(context).size.width * 0.59;
 
     return Column(
       children: [
@@ -79,111 +79,115 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                            FormModel formStatus = snapshot.data![index];
                             return Column(
                               children: [
-                                Material(
-                                  color: ColorManager.white,
-                                  elevation: 4,
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    width: containerWidth,
-                                    height: AppSize.s88,
-                                    decoration: BoxDecoration(
-                                      color: ColorManager.white,
-                                      borderRadius: BorderRadius.circular(20),
-                                      // border: Border.all(
-                                      //   width: AppSize.s1,
-                                      //   color: ColorManager.white,
-                                      // ),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            ///status
-                                            Container(
-                                                width: AppSize.s88,
-                                                height: AppSize.s20,
-                                                decoration: BoxDecoration(
-                                                  color:
-                                                  formStatus.signed == false
-                                                      ?  ColorManager.redSign
-                                                      : ColorManager.greenF,
-                                                  borderRadius: BorderRadius.only(
-                                                      topRight:
-                                                      Radius.circular(20)),),
-                                                child: Center(
-                                                  child: Text(
-                                                   formStatus.signed == true ? 'Signed' : 'Unsigned',
-                                                      textAlign: TextAlign.center,
-                                                      style: CustomTextStylesCommon.commonStyle(
-                                                          color: ColorManager.white,
-                                                          fontSize: FontSize.s12,
-                                                          fontWeight: FontWeight.w600)),
-                                                )),
-                                          ],
-                                        ),
-                                        SizedBox(height: AppSize.s5),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p40),
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 60.0),
+                                  child: Material(
+                                    color: ColorManager.white,
+                                    elevation: 4,
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Container(
+                                      width: containerWidth,
+                                      height: AppSize.s88,
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        // border: Border.all(
+                                        //   width: AppSize.s1,
+                                        //   color: ColorManager.white,
+                                        // ),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            crossAxisAlignment: CrossAxisAlignment.end,
                                             children: [
+                                              ///status
                                               Container(
-                                                  width: 62,
-                                                  height: 45,
+                                                  width: AppSize.s88,
+                                                  height: AppSize.s20,
                                                   decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(4),
-                                                    border: Border.all(
-                                                        width: 2,
-                                                        color: ColorManager.faintGrey),
-                                                  ),
-                                                  child: Image.asset('images/Vector.png')),
-                                              SizedBox(width: AppSize.s30),
-                                              Expanded(
-                                                child: Text(
-                                                formStatus.htmlname,
-                                                  style: AknowledgementStyleConst.customTextStyle(context),
-                                                ),
-                                              ),
-                                              formStatus.signed == true ?
-                                              Container(
-                                                height: 32,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(color: const Color(0xff1696C8)),
-                                                  borderRadius: BorderRadius.circular(8),
-                                                ),
-                                                padding: EdgeInsets.only(bottom: 5,left: 10),
-                                                child:
-                                                Row(
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(top: 6.0),
-                                                      child: Text('Download',style: TextStyle(
-                                                        fontWeight: FontWeight.w700,
-                                                        fontSize: FontSize.s12,
-                                                        color: Color(0xff1696C8),
-                                                      ),),
-                                                    ),
-                                                    PdfDownloadButton(apiUrl: formStatus.url, documentName: formStatus.htmlname,),
-                                                  ],
-                                                ),
-                                                // IconButtonWidget(
-                                                //   width: AppSize.s110,
-                                                //   iconData1: Icons.save_alt_outlined,
-                                                //   buttonText: 'Download',
-                                                //   onPressed: (){
-                                                //     downloadFile(formStatus.url);
-                                                //   },
-                                                // ),
-                                              ) : SizedBox(width: AppSize.s110,),
+                                                    color:
+                                                    formStatus.signed == false
+                                                        ?  ColorManager.redSign
+                                                        : ColorManager.greenF,
+                                                    borderRadius: BorderRadius.only(
+                                                        topRight:
+                                                        Radius.circular(20)),),
+                                                  child: Center(
+                                                    child: Text(
+                                                     formStatus.signed == true ? 'Signed' : 'Unsigned',
+                                                        textAlign: TextAlign.center,
+                                                        style: CustomTextStylesCommon.commonStyle(
+                                                            color: ColorManager.white,
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeight.w600)),
+                                                  )),
                                             ],
                                           ),
-                                        )
-                                      ],
+                                          SizedBox(height: AppSize.s5),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p40),
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Container(
+                                                    width: 62,
+                                                    height: 45,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(4),
+                                                      border: Border.all(
+                                                          width: 2,
+                                                          color: ColorManager.faintGrey),
+                                                    ),
+                                                    child: Image.asset('images/Vector.png')),
+                                                SizedBox(width: AppSize.s30),
+                                                Expanded(
+                                                  child: Text(
+                                                  formStatus.htmlname,
+                                                    style: AknowledgementStyleConst.customTextStyle(context),
+                                                  ),
+                                                ),
+                                                formStatus.signed == true ?
+                                                // Container(
+                                                //   height: 32,
+                                                //   decoration: BoxDecoration(
+                                                //     border: Border.all(color: const Color(0xff1696C8)),
+                                                //     borderRadius: BorderRadius.circular(8),
+                                                //   ),
+                                                //   padding: EdgeInsets.only(bottom: 5,left: 10),
+                                                //   child:
+                                                  // Row(
+                                                  //   children: [
+                                                  //     Padding(
+                                                  //       padding: const EdgeInsets.only(top: 6.0),
+                                                  //       child: Text('Download',style: TextStyle(
+                                                  //         fontWeight: FontWeight.w700,
+                                                  //         fontSize: FontSize.s12,
+                                                  //         color: Color(0xff1696C8),
+                                                  //       ),),
+                                                  //     ),
+                                                      PdfDownloadButton(apiUrl: formStatus.url, documentName: formStatus.htmlname,)
+                                                  //   ],
+                                                  // ),
+                                                  // IconButtonWidget(
+                                                  //   width: AppSize.s110,
+                                                  //   iconData1: Icons.save_alt_outlined,
+                                                  //   buttonText: 'Download',
+                                                  //   onPressed: (){
+                                                  //     downloadFile(formStatus.url);
+                                                  //   },
+                                                  // ),
+                                              //  )
+                                              : SizedBox(width: AppSize.s110,),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -196,7 +200,7 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                     ),
                     SizedBox(height: AppSize.s5),
                   ],
-                );
+                                   );
              }
               return Offstage();
             },
