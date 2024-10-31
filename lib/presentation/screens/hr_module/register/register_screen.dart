@@ -150,12 +150,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           InkWell(
                               onTap: widget.onBackPressed,
+
                                 // widget.backButtonCallBack(true);
                                 // Navigator.pop(context);
                                 // _pageController.animateToPage(1,
                                 //     duration: Duration(milliseconds: 500),
                                 //     curve: Curves.ease);
+
+
                               child: Row(
+
                                 children: [
                                   Icon(
                                     Icons.arrow_back,
@@ -164,8 +168,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ],
                               )),
-                           ],
-                        ),
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -541,7 +545,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                         // const url = "http://localhost:51234/#/onBordingWelcome";
+                         // const url = "http://localhost:51659/#/onBordingWelcome";
                           const url = "${AppConfig.deployment}/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
@@ -623,6 +627,50 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   )
                       : const SizedBox(width: 10),
+                  data.status == 'Partial'
+                      ? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [Container(
+                      width: AppSize.s100,
+                      margin: const EdgeInsets.only(right: AppMargin.m30),
+                      child: CustomIconButton(
+                        text: 'Activate',
+                        onPressed: () async{
+                          showDialog(context: context, builder: (BuildContext context){
+                            return ConfirmationPopup(
+                              loadingDuration: _isLoading,
+                              onCancel: () {
+                                Navigator.pop(context);
+                              },
+                              onConfirm: () async {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+
+                                try {
+                                  var response = await changeStatusUserPatch(context,data.employeeId);
+                                  fetchData();
+                                  Navigator.pop(context);
+
+                                } catch (e) {
+                                  print("Error during Onboarding: $e");
+                                  // ScaffoldMessenger.of(context).showSnackBar(
+                                  //   SnackBar(content: Text('Onboarding failed: $e')),
+                                  // );
+                                } finally {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                }
+                              },
+                              title: 'Confirm Activation',
+                              containerText: 'Do you really want to complete?',
+                            );
+                          });
+                        },),
+                    )],
+                  ) : const SizedBox(width: 10),
                   data.status == 'Completed'
                       ? Row(
                     mainAxisAlignment: MainAxisAlignment.end,

@@ -88,6 +88,7 @@ class ThemeManagerWhite {
   }
 }
 
+
 class ThemeManagerBlack {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = 12;

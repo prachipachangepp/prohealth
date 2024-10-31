@@ -440,6 +440,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                  race: profileData.race,
                                                  rating: profileData.rating,
                                                  signatureURL: profileData.signatureURL,
+                                                 colorCode: selectedEmployeeColor!
                                                );
                                                if(response.statusCode == 200 || response.statusCode == 201){
                                                  // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
