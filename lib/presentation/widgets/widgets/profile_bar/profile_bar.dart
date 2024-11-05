@@ -88,6 +88,7 @@ class _ProfileBarState extends State<ProfileBar> {
   // }
 
   String? dobTimestamp;
+
   String _calculateAge(String birthDate) {
     DateTime convertedDate = DateTime.parse(birthDate);
     DateTime today = DateTime.now();
@@ -111,9 +112,10 @@ class _ProfileBarState extends State<ProfileBar> {
 
     // Construct the formatted string
     String result = '';
-    if (years > 0) result += "$years y${years > 1 ? 's' : ''}, ";
-    if (months > 0) result += "$months m${months > 1 ? 's' : ''}, ";
-    result += "$days d${days > 1 ? 's' : ''}";
+    if (years > 0) result += "$years yr, ";
+    result += "$months m, ";
+    result += "$days d";
+
     print("dobTimestamp: $dobTimestamp");
 
     print('Calculated Age: $result');
@@ -121,35 +123,6 @@ class _ProfileBarState extends State<ProfileBar> {
     return dobTimestamp!;
   }
 
-  // String _calculateAge(String birthDate) {
-  //   DateTime convertedDate = DateTime.parse(birthDate);
-  //   DateTime today = DateTime.now();
-  //   int years = today.year - convertedDate.year;
-  //   int months = today.month - convertedDate.month;
-  //   int days = today.day - convertedDate.day;
-  //
-  //   if (days < 0) {
-  //     months--;
-  //     days += DateTime(today.year, today.month, 0)
-  //         .day;
-  //   }
-  //   if (months < 0) {
-  //     years--;
-  //     months += 12;
-  //   }
-  //
-  //   if (years > 0) {
-  //     dobTimestamp = "${years.toString()} year";
-  //   } else if (months > 0) {
-  //     dobTimestamp = "${months.toString()} months";
-  //   } else {
-  //     dobTimestamp = "${days.toString()} days";
-  //   }
-  //   //dobTimestamp = days.toString();
-  //   print('Timestamp date ${dobTimestamp}');
-  //
-  //   return "$dobTimestamp years";
-  // }
   String? totalDateStamp;
   String _calculateHireDateTimeStamp(String hireDate) {
     DateTime convertedDate = DateTime.parse(hireDate);
@@ -169,11 +142,11 @@ class _ProfileBarState extends State<ProfileBar> {
     }
 
     if (years > 0) {
-      totalDateStamp = "${years.toString()} year";
+      totalDateStamp = "${years.toString()} yr";
     } else if (months > 0) {
-      totalDateStamp = "${months.toString()} months";
+      totalDateStamp = "${months.toString()} m";
     } else {
-      totalDateStamp = "${days.toString()} days";
+      totalDateStamp = "${days.toString()} d";
     }
     //dobTimestamp = days.toString();
     print('Timestamp Hiredate ${totalDateStamp}');

@@ -104,7 +104,7 @@ class LegalDocumentsRepo{
     required int step4b,required int step4c, required int multipleJW1,required int multipleJW12a,required int multipleJW12b,
     required int multipleJW12c,required int multipleJW13,required int multipleJW14,required int deductionsWorksheet1,required int deductionsWorksheet2,
     required int deductionsWorksheet3,required int deductionsWorksheet4,required int deductionsWorksheet5,}){
-    return "$w4Document/$templateId/$employeeId/$middleName/$marriedstatus/$step3a/$step3b/$step3c/$step4a/$step4b/$step4c/$multipleJW1/$multipleJW12a/$multipleJW12b/$multipleJW12c/$multipleJW13/$multipleJW14/$deductionsWorksheet1/$deductionsWorksheet2/$deductionsWorksheet3/$deductionsWorksheet4/$deductionsWorksheet5";
+    return "$w4Document/$templateId/$employeeId/$marriedstatus/$step3a/$middleName/$step3b/$step3c/$step4a/$step4b/$step4c/$multipleJW1/$multipleJW12a/$multipleJW12b/$multipleJW12c/$multipleJW13/$multipleJW14/$deductionsWorksheet1/$deductionsWorksheet2/$deductionsWorksheet3/$deductionsWorksheet4/$deductionsWorksheet5";
   }
 
   ///i-9/{i9FormhtmlId}/{employeeId}/{middleName}/{otherLastName}/{aptNumber}/{alienInfo}/{citizenship}

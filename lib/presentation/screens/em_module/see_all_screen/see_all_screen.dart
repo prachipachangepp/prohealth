@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/popup_const.dart';
@@ -60,6 +61,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   bool _isLoading = false;
   bool _showErrorMessage = false;
   bool isButtonEnabled = false;
+  String? userLogin;
+
+  Future<void> isUserLoggedIn() async {
+    userLogin = await TokenManager.getEmailIdRegister();
+  }
+
 
   void handleSubmit() async {
     try {
@@ -103,6 +110,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     roleController.addListener(_checkFields);
     emailController.addListener(_checkFields);
     companyIdController.addListener(_checkFields);
+    isUserLoggedIn();
   }
 
   void _checkFields() {
@@ -445,6 +453,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           Expanded(
                                             flex: 1,
                                             child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
                                                 /// Edit button
                                                 InkWell(
@@ -633,7 +643,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 SizedBox(width: AppSize.s10),
 
                                                 /// Delete button
-                                                InkWell(
+                                                if (userLogin != user.email)
+                                                  InkWell(
                                                   onTap: ()  {
                                                     showDialog(
                                                       context: context,
