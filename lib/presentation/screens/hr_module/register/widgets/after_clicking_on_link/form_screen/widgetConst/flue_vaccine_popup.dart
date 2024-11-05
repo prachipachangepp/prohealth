@@ -31,29 +31,22 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   TextEditingController doseController = TextEditingController();
   TextEditingController reactionsController = TextEditingController();
   TextEditingController manufacturerController = TextEditingController();
-
- // TextEditingController dateofVaccinationController = TextEditingController();
   TextEditingController nameOfAdministeringController = TextEditingController();
   TextEditingController address2Controller = TextEditingController();
   TextEditingController titleController = TextEditingController();
-  TextEditingController acknowledgeFactsController = TextEditingController();
-  TextEditingController AllergisController = TextEditingController();
   TextEditingController OtherController = TextEditingController();
   bool loading = false;
   bool _isFormValid = true;
+  bool _isSubmitted = false;
   String? dateOfvaccinationError;
   String? siteOfAdministrationError;
   String? vaccineTypeError;
   String? doseError;
   String? reactionsError;
   String? manufacturerError;
- // String? dateofVaccinationError;
   String? nameOfAdministeringError;
   String? address2Error;
   String? titleError;
-  // String? acknowledgeFactsError;
-  // String? AllergisError;
-  // String? OtherError;
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -83,7 +76,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   String allergie1 = '';
   String allergie2 = '';
   String allergie3 = '';
-
   String allergies = "";
   String facts = "";
 
@@ -104,25 +96,85 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       siteOfAdministrationError = _validateTextField(siteOfAdministrationController.text, 'site of administration');
       vaccineTypeError = _validateTextField(vaccineTypeController.text, 'vaccine type');
       doseError = _validateTextField(doseController.text, 'dose');
-     // reactionsError = _validateTextField(reactionsController.text, 'reactions');
       manufacturerError = _validateTextField(manufacturerController.text, 'manufacturer');
-
-    //dateofVaccinationError = _validateTextField(dateofVaccinationController.text, 'date of Vaccination');
       nameOfAdministeringError = _validateTextField(nameOfAdministeringController.text, 'name of administering');
-      address2Error = _validateTextField(address2Controller.text, 'title');
-      titleError = _validateTextField(titleController.text, 'provider address');
-      // acknowledgeFactsError = _validateTextField(acknowledgeFactsController.text, 'acknowledge facts');
-      // AllergisError = _validateTextField(AllergisController.text, 'allergis');
-    //  OtherError = _validateTextField(OtherController.text, 'other if not mention NA');
-    });
+      titleError = _validateTextField(titleController.text, 'title');
+      address2Error = _validateTextField(address2Controller.text, 'provider address');
+      if (dateOfvaccinationError != null || siteOfAdministrationError != null || vaccineTypeError != null ||
+      doseError != null || manufacturerError != null || nameOfAdministeringError != null || address2Error != null || titleError != null ) {
+        _isFormValid = false;
+      }
+     });
   }
-
 
   List<String> _suggestions = [];
   @override
   void initState() {
     super.initState();
     address2Controller.addListener(_onCountyNameChanged);
+
+    dateOfvaccinationController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          dateOfvaccinationError = _validateTextField(dateOfvaccinationController.text, 'date of vaccine');
+        });
+      }
+    });
+
+    siteOfAdministrationController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          siteOfAdministrationError = _validateTextField(siteOfAdministrationController.text, 'site of administration');
+        });
+      }
+    });
+
+    vaccineTypeController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          vaccineTypeError = _validateTextField(vaccineTypeController.text, 'vaccine type');
+        });
+      }
+    });
+
+    doseController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          doseError = _validateTextField(doseController.text, 'dose');
+        });
+      }
+    });
+
+    manufacturerController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          manufacturerError = _validateTextField(manufacturerController.text, 'manufacturer name');
+        });
+      }
+    });
+
+    nameOfAdministeringController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          nameOfAdministeringError = _validateTextField(nameOfAdministeringController.text, 'name of administeringController');
+        });
+      }
+    });
+
+    titleController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          titleError = _validateTextField(titleController.text, 'title');
+        });
+      }
+    });
+    address2Controller.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          address2Error = _validateTextField(address2Controller.text, 'address');
+        });
+      }
+    });
   }
 
   @override
@@ -152,10 +204,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       });
     }
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -245,11 +293,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         keyboardType: TextInputType.text,
                         text: 'Reactions, if any',
                       ),
-                      // if (reactionsError != null)
-                      //   Text(
-                      //     reactionsError!,
-                      //     style: CommonErrorMsg.customTextStyle(context),
-                      //   ),
                       SizedBox(height: AppSize.s6),
                       SMTextFConst(
                         controller: manufacturerController,
@@ -317,7 +360,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
 
                                   setState(() {
                                     _suggestions.clear();
-                                    //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
                                   });
                                 },
                               );
@@ -329,7 +371,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           address2Error!,
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
-                  
                     ],
                   ),
                 ),
@@ -355,7 +396,6 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                                 });
                               },
                             ),
-
                             Expanded(
                               child: Container(
                                 child: Text(
@@ -582,26 +622,17 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           ),
                         ],
                       ),
-                     // SizedBox(height: AppSize.s4),
-                     // Text('OR',style: AllPopupHeadings.customTextStyle(context),),
-                     // SizedBox(height: AppSize.s2),
                       SMTextFConst(
                         controller: OtherController,
                         keyboardType: TextInputType.text,
                         text: 'Other Allergies',
                       ),
-                      // if (OtherError != null)
-                      //   Text(
-                      //     OtherError!,
-                      //     style: CommonErrorMsg.customTextStyle(context),
-                      //   ),
                     ],
                   ),
                 ),
               ],
             ),
           ],)
-
         )
       ],
       bottomButtons: loading == true
@@ -617,45 +648,51 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
           height: AppSize.s30,
           text: AppStringEM.submit,
           onPressed: () async {
-            _validateForm(); // Validate the form on button press
+            setState(() {
+            _isSubmitted = true; // Mark form as submitted
+            loading = true; // Start loading
+          });
+          _validateForm();
            await _joinAllergies();
            await _joinFacts();
-          if (_isFormValid) {
-            setState(() {
-              loading = true;
-            });
+            if (!_isFormValid) {
+              setState(() {
+                loading = false;
+              });
+              return;
+            }
+            try{
+              FluVaccineDocument fluVaccineDocument = await getFluVaccineDocument(context: context, templateId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
+                  dateOfVaccine: dateOfvaccinationController.text, siteOfAdministration: siteOfAdministrationController.text,
+                  vaccineType: vaccineTypeController.text, dose: doseController.text, reactions: reactionsController.text.isEmpty ? AppConfig.dash : reactionsController.text,
+                  manufacturer: manufacturerController.text, dateofVaccination: dateOfvaccinationController.text,
+                  nameOfAdministering: nameOfAdministeringController.text, title: titleController.text,
+                  providerAddress: address2Controller.text,
+                  acknowledgeFacts: facts.isEmpty ? AppConfig.dash : facts,
+                  Allergis: allergies.isEmpty ? AppConfig.dash : allergies, other: OtherController.text.isEmpty ? AppConfig.dash : OtherController.text);
 
-            FluVaccineDocument fluVaccineDocument = await getFluVaccineDocument(context: context, templateId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
-                dateOfVaccine: dateOfvaccinationController.text, siteOfAdministration: siteOfAdministrationController.text,
-                vaccineType: vaccineTypeController.text, dose: doseController.text, reactions: reactionsController.text.isEmpty ? AppConfig.dash : reactionsController.text,
-                manufacturer: manufacturerController.text, dateofVaccination: dateOfvaccinationController.text,
-                nameOfAdministering: nameOfAdministeringController.text, title: titleController.text,
-                providerAddress: address2Controller.text,
-                acknowledgeFacts: facts.isEmpty ? AppConfig.dash : facts,
-                Allergis: allergies.isEmpty ? AppConfig.dash : allergies, other: OtherController.text.isEmpty ? AppConfig.dash : OtherController.text);
+              if(fluVaccineDocument.statusCode == 200 || fluVaccineDocument.statusCode == 201){
+                print(allergies);
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
+                  isDisable:false,
+                  documentName: fluVaccineDocument.name,
+                  onPressed: () {
 
-            if(fluVaccineDocument.statusCode == 200 || fluVaccineDocument.statusCode == 201){
-              print(allergies);
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (_)=>SignatureFormScreen(
-                isDisable:false,
-                documentName: fluVaccineDocument.name,
-                onPressed: () {
+                  },
+                  htmlFormData: fluVaccineDocument.html,
+                  employeeId: widget.employeeId,//widget.employeeID,
+                  htmlFormTemplateId: fluVaccineDocument.fluVaccineDocumentId,)));
+              }
 
-                },
-                htmlFormData: fluVaccineDocument.html,
-                employeeId: widget.employeeId,//widget.employeeID,
-                htmlFormTemplateId: fluVaccineDocument.fluVaccineDocumentId,)));
             }
 
-
-          };
-          //finally {
+          finally {
           setState(() {
             loading = false;
             // Navigator.pop(context);
           });
-            // }
+            }
           }
       ),);
   }

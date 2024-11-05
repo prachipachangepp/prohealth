@@ -455,66 +455,73 @@ class _RegisterScreenState extends State<RegisterScreen> {
           vertical: MediaQuery.of(context).size.height / 120,
         ),
         child: Column(
+         mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width / 130),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  
-                  Text(
-                    data.firstName.capitalizeFirst!,
-                    style:  DefineWorkWeekStyle.customTextStyle(context),
-                  ),
-                  SizedBox(width: 4,),
-                  Text(
-                    data.lastName.capitalizeFirst!,
-                    style:  DefineWorkWeekStyle.customTextStyle(context),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                data.status == 'Notopen'
-                    ? Text('Not Opened',
-                  style: DocumentTypeDataStyle.customTextStyle(context),)
-                    : Text(
-                  'Status',
-                    style:DocumentTypeDataStyle.customTextStyle(context)
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width / 100),
-                data.status == 'Notopen'
-                    ? const SizedBox(width: 10)
-                    : Container(
-                  width: 10.0,
-                  height: 15.0,
-                  decoration: BoxDecoration(
-                    color: data.status == 'Opened'
-                        ? const Color(0xff51B5E6)
-                        : data.status == 'Partial'
-                        ? const Color(0xffCA8A04)
-                        : const Color(0xffB4DB4C),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                SizedBox(width: 5),
-                data.status == 'Notopen'
-                    ? const SizedBox(width: 10)
-                    : Text(
-                  data.status,
-                   style: ConstTextFieldStyles.customTextStyle(
-                            textColor:  data.status == 'Opened'
-                           ? Color(0xff51B5E6) : data.status == 'Partial'
-                           ? Color(0xffCA8A04) : data.status == 'Completed'
-                           ? Color(0xffB4DB4C) :ColorManager.rednew,)
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+               Padding(
+                 padding: const EdgeInsets.only(left: 10),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   crossAxisAlignment: CrossAxisAlignment.end,
+                   children: [
+                     Text(
+                       data.firstName.capitalizeFirst!,
+                       style:  DefineWorkWeekStyle.customTextStyle(context),
+                     ),
+                     SizedBox(width: 4,),
+                     Text(
+                       data.lastName.capitalizeFirst!,
+                       style:  DefineWorkWeekStyle.customTextStyle(context),
+                     ),
 
-                ),
-              ],
-            ),
+                   ],
+                 ),
+               ),
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.end,
+                 crossAxisAlignment: CrossAxisAlignment.end,
+                 children: [
+                   data.status == 'Notopen'
+                       ? Text('Not Opened',
+                     style: DocumentTypeDataStyle.customTextStyle(context),)
+                       : Text(
+                       'Status',
+                       style:DocumentTypeDataStyle.customTextStyle(context)
+                   ),
+                   SizedBox(width: MediaQuery.of(context).size.width / 100),
+                   data.status == 'Notopen'
+                       ? const SizedBox(width: 10)
+                       : Container(
+                     width: 10.0,
+                     height: 15.0,
+                     decoration: BoxDecoration(
+                       color: data.status == 'Opened'
+                           ? const Color(0xff51B5E6)
+                           : data.status == 'Partial'
+                           ? const Color(0xffCA8A04)
+                           : const Color(0xffB4DB4C),
+                       shape: BoxShape.circle,
+                     ),
+                   ),
+                   SizedBox(width: 5),
+                   data.status == 'Notopen'
+                       ? const SizedBox(width: 10)
+                       : Text(
+                       data.status,
+                       style: ConstTextFieldStyles.customTextStyle(
+                         textColor:  data.status == 'Opened'
+                             ? Color(0xff51B5E6) : data.status == 'Partial'
+                             ? Color(0xffCA8A04) : data.status == 'Completed'
+                             ? Color(0xffB4DB4C) :ColorManager.rednew,)
+
+                   ),
+                 ],
+               ),
+             ],
+           ),
+
             Padding(
               padding: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width / 130,
@@ -576,7 +583,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       Container(
                         width: AppSize.s110,
-                       // margin: const EdgeInsets.only(right: AppMargin.m30),
+                        margin: const EdgeInsets.only(right: AppMargin.m5),
                         child:CustomIconButton(
                           text: AppString.enroll,
                           onPressed: () async{
@@ -634,7 +641,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [Container(
                       width: AppSize.s100,
-                      //margin: const EdgeInsets.only(right: AppMargin.m30),
+                      margin: const EdgeInsets.only(right: AppMargin.m5),
                       child: CustomIconButton(
                         text: 'Activate',
                         onPressed: () async{
@@ -678,7 +685,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [Container(
                       width: AppSize.s100,
-                      //margin: const EdgeInsets.only(right: AppMargin.m30),
+                      margin: const EdgeInsets.only(right: AppMargin.m5),
                       child: CustomIconButton(
                         text: 'Onboard',
                         onPressed: () async{
@@ -818,3 +825,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
 //     );
 //   }).toList();
 // }
+
+

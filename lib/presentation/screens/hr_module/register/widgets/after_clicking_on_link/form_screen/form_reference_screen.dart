@@ -29,7 +29,7 @@ class ReferencesScreen extends StatefulWidget {
 
 class _ReferencesScreenState extends State<ReferencesScreen> {
   List<GlobalKey<_ReferencesFormState>> referenceFormKeys = [];
-  bool isVisible = false;
+ bool isVisible = false;
   TextEditingController name = TextEditingController();
   TextEditingController titleposition = TextEditingController();
   TextEditingController companyorganization = TextEditingController();
@@ -45,17 +45,25 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
   @override
   void initState() {
     super.initState();
+  // referenceFormKeys.add(GlobalKey<_ReferencesFormState>());
+   // addReferenseForm();
     _loadEducationData();
   }
   Future<void> _loadEducationData() async {
     try {
       List<ReferenceDataForm> prefilledData = await getEmployeeReferenceForm(context, widget.employeeID);
-      setState(() {
-        referenceFormKeys = List.generate(
-          prefilledData.length,
-              (index) => GlobalKey<_ReferencesFormState>(),
-        );
-      });
+      if(prefilledData.isEmpty){
+        addReferenseForm();
+      }
+      else{
+        setState(() {
+          referenceFormKeys = List.generate(
+            prefilledData.length,
+                (index) => GlobalKey<_ReferencesFormState>(),
+          );
+        });
+      }
+
     } catch (e) {
       print('Error loading Education data: $e');
     }
@@ -115,7 +123,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
               key: key,
               index: index + 1,
               onRemove: () => removeReferenseForm(key),
-              employeeID: widget.employeeID, isVisible: isVisible,
+              employeeID: widget.employeeID,
+              isVisible: isVisible,
             );
           }).toList(),
         ),
@@ -215,7 +224,9 @@ class ReferencesForm extends StatefulWidget {
       {Key? key,
       required this.onRemove,
       required this.index,
-      required this.employeeID, required this.isVisible})
+      required this.employeeID,
+        required this.isVisible
+      })
       : super(key: key);
 
   @override
@@ -234,6 +245,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
   void initState() {
     super.initState();
     _initializeFormWithPrefilledData();
+
   }
   Future<void> _initializeFormWithPrefilledData() async {
     try {
@@ -252,6 +264,10 @@ class _ReferencesFormState extends State<ReferencesForm> {
 
         });
       }
+      else{
+
+      }
+
     } catch (e) {
       print('Failed to load prefilled data: $e');
     }

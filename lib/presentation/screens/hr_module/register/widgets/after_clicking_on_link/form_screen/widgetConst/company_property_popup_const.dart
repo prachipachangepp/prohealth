@@ -8,11 +8,9 @@ import '../../../../../../../../app/resources/common_resources/common_theme_cons
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
 import 'form_screen_const.dart';
-
 
 class CompanyPropertySignPopup extends StatefulWidget {
   final int employeeId;
@@ -27,12 +25,12 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
 
    TextEditingController companyController = TextEditingController();
    TextEditingController specificationController = TextEditingController();
-   TextEditingController supervisorController = TextEditingController();
   bool loading = false;
   bool _isFormValid = true;
+   bool _isSubmitted = false;
   String? companyError;
   String? specificationError;
-  String? supervisorError;
+
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -44,11 +42,33 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      companyError =
-          _validateTextField(companyController.text, 'company property');
+      companyError = _validateTextField(companyController.text, 'company property');
       specificationError = _validateTextField(specificationController.text, 'specifications');
+      if (companyError != null || specificationError != null) {
+        _isFormValid = false;
+      }
     });
   }
+   @override
+   void initState() {
+     super.initState();
+
+     companyController.addListener(() {
+       if (_isSubmitted) {
+         setState(() {
+           companyError = _validateTextField(companyController.text, 'company property');
+         });
+       }
+     });
+
+     specificationController.addListener(() {
+       if (_isSubmitted) {
+         setState(() {
+           specificationError = _validateTextField(specificationController.text, 'specifications');
+         });
+       }
+     });
+   }
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
@@ -103,14 +123,22 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
             height: AppSize.s30,
             text: AppStringEM.submit,
             onPressed: () async {
-              _validateForm(); // Validate the form on button press
-              if (_isFormValid) {
+              setState(() {
+                _isSubmitted = true; // Mark form as submitted
+                loading = true; // Start loading
+              });
+
+              _validateForm();
+              if (!_isFormValid) {
                 setState(() {
-                  loading = true;
+                  loading = false;
                 });
+                return;
+              }
+              try{
                 ReturnOfCompanyProperty returnOfCompanyProperty = await getReturnOfCompanyPropertyDocument(context: context,
-                    employeeId: widget.employeeId,templateId: widget.htmlFormTemplateId, companyProperty: companyController.text, specifications: specificationController.text,
-                    // supervisorName: supervisorController.text
+                  employeeId: widget.employeeId,templateId: widget.htmlFormTemplateId, companyProperty: companyController.text, specifications: specificationController.text,
+                  // supervisorName: supervisorController.text
                 );
                 if(returnOfCompanyProperty.statusCode == 200 || returnOfCompanyProperty.statusCode == 201){
                   Navigator.pop(context);
@@ -125,14 +153,13 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
                     htmlFormTemplateId: returnOfCompanyProperty.returnOfCompanyPropertyId,)
                   ));
                 }
-                };
-              //finally {
+              }
+              finally {
                   setState(() {
                     loading = false;
                   });
-               // }
+               }
               }
             ),);
   }
 }
-

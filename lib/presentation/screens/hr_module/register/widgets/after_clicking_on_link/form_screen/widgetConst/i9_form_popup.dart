@@ -39,6 +39,8 @@ class _INineSignPopupState extends State<INineSignPopup> {
 
   bool loading = false;
   bool _isFormValid = true;
+  bool _isSubmitted = false;
+
   String? citizenshipError;
   String? nameError;
   String? lastNameError;
@@ -61,10 +63,12 @@ class _INineSignPopupState extends State<INineSignPopup> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-     // citizenshipError = _validateTextField(uscisController.text, 'citizenship');
       nameError = _validateTextField(nameController.text, 'name');
       lastNameError = _validateTextField(lastNameController.text, 'last name');
       aptNumError = _validateTextField(aptNumController.text, 'apt number');
+      if (nameError != null || lastNameError != null || aptNumError != null) {
+        _isFormValid = false;
+      }
       // if (citizentype == 'A lawful permanent resident' &&
       //     alienInfoController.text.isEmpty &&
       //     uscisController.text.isEmpty) {
@@ -143,7 +147,32 @@ class _INineSignPopupState extends State<INineSignPopup> {
     }
     return '-'; // Default empty if none match (safety fallback).
   }
+  @override
+  void initState() {
+    super.initState();
+    nameController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          nameError = _validateTextField(nameController.text, 'name');
+        });
+      }
+    });
 
+    lastNameController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          lastNameError = _validateTextField(lastNameController.text, 'last name');
+        });
+      }
+    });
+    aptNumController.addListener(() {
+      if (_isSubmitted) {
+        setState(() {
+          aptNumError = _validateTextField(aptNumController.text, 'apt number');
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -384,16 +413,20 @@ class _INineSignPopupState extends State<INineSignPopup> {
         height: AppSize.s30,
         text: AppStringEM.submit,
         onPressed: () async {
+          setState(() {
+            _isSubmitted = true; // Mark form as submitted
+            loading = true; // Start loading
+          });
           _validateForm(); // Validate the form before submission.
-
           String alienWork = await alienWorkDocument(); // Await the correct value.
           print("${alienWork}");
-          if (_isFormValid) {
-            setState(() {
-              loading = true;
-            });
-
-            try {
+          if (!_isFormValid) {
+          setState(() {
+          loading = false;
+          });
+          return;
+          }
+          try{
               // Call the API with correct parameters.
               INineDocument iNineDocument = await getI9Document(
                 context: context,
@@ -428,15 +461,13 @@ class _INineSignPopupState extends State<INineSignPopup> {
                   ),
                 );
               }
-            } catch (e) {
-              print("Error: $e");
             } finally {
               setState(() {
                 loading = false;
               });
             }
           }
-        },
+       // },
       )
       ,);
   }
