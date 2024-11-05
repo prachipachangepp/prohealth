@@ -33,8 +33,8 @@ class _CardDetailsState extends State<CardDetails> {
        // height: MediaQuery.of(context).size.height/3.6,
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width / 95,
-            vertical: MediaQuery.of(context).size.height / 160,
+            horizontal: AppPadding.p10,
+            vertical: AppPadding.p10,
           ),
           child: widget.childWidget
         ),
