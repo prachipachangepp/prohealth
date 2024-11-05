@@ -406,7 +406,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                   children: [
                                     Text(
                                       'Employment Type :',
-                                      style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                      style: ThemeManagerDark.customTextStyle(context),
                                     ),
                                     SizedBox(
                                       width: 10,
@@ -414,18 +414,18 @@ class _ProfileBarState extends State<ProfileBar> {
                                     Text(
                                       widget.searchByEmployeeIdProfileData!.employment[0].toUpperCase() +
                                           widget.searchByEmployeeIdProfileData!.employment.substring(1),
-                                      style: ThemeManagerDark.customTextStyle(context),
+                                      style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                     ),
                                   ],
                                 ),
 
                                 Text(
                                   widget.searchByEmployeeIdProfileData!.zone,
-                                  style: ThemeManagerDark.customTextStyle(context),
+                                  style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
                                 Text(
                                   AppString.address,
-                                  style: ThemeManagerBlack.customTextStyle(context),
+                                  style: ThemeManagerDark.customTextStyle(context),
                                 ),
 
                                 Text(_trimAddress(widget.searchByEmployeeIdProfileData!.finalAddress),
@@ -458,16 +458,16 @@ class _ProfileBarState extends State<ProfileBar> {
                                 ///text john scott
                                 Text(
                                   "${widget.searchByEmployeeIdProfileData!.dateOfBirth} (${dobTimestamp ?? 'N/A'})",
-                                  style: ThemeManagerDark.customTextStyle(context),
+                                  style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
 
                                 Text(
                                   widget.searchByEmployeeIdProfileData!.gender,
-                                  style: ThemeManagerDark.customTextStyle(context),
+                                  style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
                                 Text(
                                   sSNNBR!,
-                                  style: ThemeManagerDark.customTextStyle(context),
+                                  style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
 
                                 ///phone, comment
@@ -494,7 +494,7 @@ class _ProfileBarState extends State<ProfileBar> {
                       Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 4),
+                            padding:  EdgeInsets.only(top: 4),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -544,19 +544,19 @@ class _ProfileBarState extends State<ProfileBar> {
 
                                 Text(
                                   widget.searchByEmployeeIdProfileData!.expertise,
-                                  style: ThemeManagerDark.customTextStyle(context),
+                                  style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
                                 Text(
                                   widget.searchByEmployeeIdProfileData!.service,
-                                  style: ThemeManagerDark.customTextStyle(context),
+                                  style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
                                 Text(
                                   widget.searchByEmployeeIdProfileData!.regOfficId,
-                                  style: ThemeManagerDark.customTextStyle(context),
+                                  style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
                                 Text(
                                   _trimSummery(widget.searchByEmployeeIdProfileData!.summary),
-                                  style: ThemeManagerDark.customTextStyle(context),
+                                  style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
                                 // Text(""),
                               ],
@@ -581,11 +581,11 @@ class _ProfileBarState extends State<ProfileBar> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(AppString.hideDate,
-                                          style: ProfileBarTextBoldStyle.customEditTextStyle()
+                                          style: ThemeManagerDark.customTextStyle(context)
                                       ),
                                       SizedBox(height: 10,),
                                       Text('PTA :',
-                                          style: ProfileBarTextBoldStyle.customEditTextStyle()),
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                     ],
                                   ),
                                   SizedBox(width: MediaQuery.of(context).size.width/50,),
@@ -594,9 +594,9 @@ class _ProfileBarState extends State<ProfileBar> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text("${widget.searchByEmployeeIdProfileData!.dateofHire} (${totalDateStamp})",
-                                          style: ThemeManagerDark.customTextStyle(context)),
+                                          style: ProfileBarTextBoldStyle.customEditTextStyle(),),
                                       SizedBox(height: 10,),
-                                      Text('1.2', style: ThemeManagerDark.customTextStyle(context)),
+                                      Text('1.2', style: ProfileBarTextBoldStyle.customEditTextStyle(),),
                                     ],
                                   )
                                 ]),

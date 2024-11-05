@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/widgets/widgets/profile_bar/profile_bar.dart';
-
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
-import 'package:prohealth/app/resources//theme_manager.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/font_manager.dart';
 ///saloni
@@ -20,6 +16,16 @@ class ProfileBarTextBoldStyle{
     );
   }
 }
+class ThemeManagerDarkProfile {
+  static TextStyle customTextStyle() {
+    double fontSize = 12;
+    return TextStyle(
+      fontSize: fontSize,
+      color: ColorManager.black,
+      fontWeight: FontWeight.w600,
+    );
+  }
+}
 class MyConstants {
   static List<Widget> personalInfoTexts(BuildContext context) {
 
@@ -27,32 +33,32 @@ class MyConstants {
     return [
       Text(
         AppString.age,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
       //SizedBox(height: 1,),
       Text(
         AppString.gender,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
      // SizedBox(height: 1,),
       Text(
         AppString.ssn,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
     //  SizedBox(height: 1,),
       Text(
         AppString.phone,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
     //  SizedBox(height: 1,),
       Text(
         AppString.personalno,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
      // SizedBox(height: 1,),
       Text(
         AppString.workno,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
     ];
   }
@@ -65,32 +71,32 @@ class MyConstantsColumn {
 
       Text(
           AppString.personalEmail,
-      style: ProfileBarTextBoldStyle.customEditTextStyle()
+      style: ThemeManagerDarkProfile.customTextStyle()
     ),
 
       Text(
         AppString.workemail,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
 
       Text(
         AppString.speciality,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
 
       Text(
         AppString.service,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
 
       Text(
         AppString.reportingOffice,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
 
       Text(
         AppString.summary,
-          style: ProfileBarTextBoldStyle.customEditTextStyle()
+          style: ThemeManagerDarkProfile.customTextStyle()
       ),
 
       // Text(

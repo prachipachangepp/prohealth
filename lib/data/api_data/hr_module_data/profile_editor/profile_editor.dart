@@ -59,6 +59,7 @@ class ProfileEditorModal {
   final String country;
   final String county;
   final String zone;
+  final String color;
   final double profileScorePercentage;
   final String success;
   final String message;
@@ -120,6 +121,7 @@ class ProfileEditorModal {
       required this.country,
       required this.county,
       required this.zone,
+    required this.color,
       required this.profileScorePercentage,
       required this.success,
       required this.message});
