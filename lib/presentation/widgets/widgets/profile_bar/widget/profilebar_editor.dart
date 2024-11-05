@@ -1055,12 +1055,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       return Container(
                                                         width: MediaQuery.of(context).size.width / 1,
                                                         child: Wrap(
-                                                          spacing: 2.0,
+                                                          spacing: 3.0,
                                                           children: List.generate((snapshot.data!.coverageDetails.length), (index) {
                                                             // int firstItemIndex = index * 2;
                                                             // int secondItemIndex = firstItemIndex + 1;
                                                             return Padding(
-                                                              padding: const EdgeInsets.symmetric(horizontal: 45.0,vertical: 5),
+                                                              padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 5),
                                                               child: CoverageRowWidget(
                                                                   countyName: snapshot.data!.coverageDetails[index].countyName,
                                                                   zoneName: snapshot.data!.coverageDetails[index].zoneName,

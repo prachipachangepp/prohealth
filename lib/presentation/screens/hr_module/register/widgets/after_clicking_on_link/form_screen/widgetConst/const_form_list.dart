@@ -45,9 +45,9 @@ class DefineFormList extends StatelessWidget {
           color: ColorManager.mediumgrey)),
     )
         :  isHandbook ? Padding(
-          padding: const EdgeInsets.only(right: 15.0),
+          padding: const EdgeInsets.only(right: 1.0),
           child: InkWell(
-            onTap: onView,
+            onTap: handBookView,
             child: Container(
                 height: 30,
                 width: 90,
@@ -100,11 +100,14 @@ class DefineFormList extends StatelessWidget {
                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('View',style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: FontSize.s12,
-                      color: Color(0xff1696C8),
-                    ),),
+                    Padding(
+                      padding: const EdgeInsets.only(left:3),
+                      child: Text('View',style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: FontSize.s12,
+                        color: Color(0xff1696C8),
+                      ),),
+                    ),
                     SizedBox(width: 10,),
                     Center(
                       child: const Icon(
