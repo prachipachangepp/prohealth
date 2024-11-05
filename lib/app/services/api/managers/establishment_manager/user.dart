@@ -15,7 +15,7 @@ Future<List<UserModal>> getUser(
   try {
     final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.userGetByCompanyId(
+        path: EstablishmentManagerRepository.userGetAllByCompanyId(
             companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("user data");

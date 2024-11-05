@@ -146,7 +146,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                   ),
                   Row(
                     children: [
-                      Container(
+                      widget.isDisable?SizedBox(width: 140,):Container(
                         height: 30,
                         width: 140,
                         child:  CustomButtonTransparent(

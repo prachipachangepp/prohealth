@@ -442,6 +442,9 @@ class EstablishmentManagerRepository {
   static String userGetByCompanyId({required int companyId}) {
     return "$user/ByCompanyId/$companyId";
   }
+  static String userGetAllByCompanyId({required int companyId}) {
+    return "$user/all/ByCompanyId/$companyId";
+  }
 
   static String userPrefillGet({required int userId}) {
     return "$user/$userId";
