@@ -44,8 +44,7 @@ class DefineFormList extends StatelessWidget {
           fontWeight: FontWeight.w700,
           color: ColorManager.mediumgrey)),
     )
-        :  isHandbook
-        ? Padding(
+        :  isHandbook ? Padding(
           padding: const EdgeInsets.only(right: 15.0),
           child: InkWell(
             onTap: onView,
