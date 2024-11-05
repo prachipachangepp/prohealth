@@ -144,7 +144,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                             color: ColorManager.fmediumgrey, width: 1),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      hintText: 'MM-DD-YYYY',
+                      hintText: 'yyyy-mm-dd',
                       hintStyle:
                       DocumentTypeDataStyle.customTextStyle(context),
                       border: OutlineInputBorder(

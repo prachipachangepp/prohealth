@@ -171,6 +171,7 @@ class _Employment_screenState extends State<Employment_screen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               isLoading
                   ? SizedBox(
                 height: 25,
@@ -182,73 +183,64 @@ class _Employment_screenState extends State<Employment_screen> {
                   :CustomButton(
                 width: 117,
                 height: 30,
-                text:'Save', // Show empty text when loading
+                text: 'Save', // Show empty text when loading
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-
                   setState(() {
                     isLoading = true; // Start loading
                   });
 
                   for (var key in employmentFormKeys) {
                     final state = key.currentState!;
-                    if (state.finalPath == null || state.finalPath!.isEmpty) {
-                      print("Loading");
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const VendorSelectNoti(
-                            message: 'Please Select file',
-                          );
-                        },
+
+                    try {
+                      // Post employment screen data
+                      await postemploymentscreenData(
+                        context,
+                        state.widget.employeeID,
+                        state.employerController.text,
+                        state.cityController.text,
+                        state.reasonForLeavingController.text,
+                        state.supervisorNameController.text,
+                        state.supervisorMobileNumberController.text,
+                        state.finalPositionController.text,
+                        state.startDateController.text,
+                        state.isChecked ? "Currently Working" : state.endDateController.text,
+                        "NA",
+                        "United States Of America",
                       );
 
-                    } else {
-                      try {
-                        await postemploymentscreenData(
-                          context,
-                          state.widget.employeeID,
-                          state.employerController.text,
-                          state.cityController.text,
-                          state.reasonForLeavingController.text,
-                          state.supervisorNameController.text,
-                          state.supervisorMobileNumberController.text,
-                          state.finalPositionController.text,
-                          state.startDateController.text,
-                          state.isChecked
-                              ? "Currently Working"
-                              : state.endDateController.text,
-                          "NA",
-                          "United States Of America",
-                        );
-
+                      // Check if the file name is not null before uploading the resume
+                      if (state.fileName != null) {
                         await uploadEmployeeResume(
                           context: context,
                           employeementId: widget.employeeID,
                           documentFile: state.finalPath!,
-                          documentName: state.fileName ?? '',
+                          documentName: state.fileName!,
                         );
-
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSuccessPopup(
-                              message: 'Employment Data Saved',
-                            );
-                          },
-                        );
-                      } catch (e) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSuccessPopup(
-                              message: 'Failed To Update Employment Data',
-                            );
-                          },
-                        );
-                        print(e);
                       }
+
+                      // Show success message after saving the data
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Employment Data Saved',
+                          );
+                        },
+                      );
+                    } catch (e) {
+                      // Show failure message in case of an error
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Failed To Update Employment Data',
+                          );
+                        },
+                      );
+                      print(e);
                     }
                   }
 
@@ -256,11 +248,110 @@ class _Employment_screenState extends State<Employment_screen> {
                     isLoading = false; // End loading
                   });
                 },
-                child:Text(
+                child: Text(
                   'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
+
+
+
+
+
+
+
+              ///file upload logic old
+//
+//               isLoading
+//                   ? SizedBox(
+//                 height: 25,
+//                 width: 25,
+//                 child: CircularProgressIndicator(
+//                   color: ColorManager.blueprime,
+//                 ),
+//               )
+//                   :CustomButton(
+//                 width: 117,
+//                 height: 30,
+//                 text:'Save', // Show empty text when loading
+//                 style: BlueButtonTextConst.customTextStyle(context),
+//                 borderRadius: 12,
+//                 onPressed: () async {
+//
+//                   setState(() {
+//                     isLoading = true; // Start loading
+//                   });
+//
+//                   for (var key in employmentFormKeys) {
+//                     final state = key.currentState!;
+//                     if (state.finalPath == null || state.finalPath!.isEmpty) {
+//                       print("Loading");
+//                       showDialog(
+//                         context: context,
+//                         builder: (BuildContext context) {
+//                           return const VendorSelectNoti(
+//                             message: 'Please Select file',
+//                           );
+//                         },
+//                       );
+//
+//                     } else {
+//                       try {
+//                         await postemploymentscreenData(
+//                           context,
+//                           state.widget.employeeID,
+//                           state.employerController.text,
+//                           state.cityController.text,
+//                           state.reasonForLeavingController.text,
+//                           state.supervisorNameController.text,
+//                           state.supervisorMobileNumberController.text,
+//                           state.finalPositionController.text,
+//                           state.startDateController.text,
+//                           state.isChecked
+//                               ? "Currently Working"
+//                               : state.endDateController.text,
+//                           "NA",
+//                           "United States Of America",
+//                         );
+//
+//                         await uploadEmployeeResume(
+//                           context: context,
+//                           employeementId: widget.employeeID,
+//                           documentFile: state.finalPath!,
+//                           documentName: state.fileName ?? '',
+//                         );
+//
+//                         showDialog(
+//                           context: context,
+//                           builder: (BuildContext context) {
+//                             return AddSuccessPopup(
+//                               message: 'Employment Data Saved',
+//                             );
+//                           },
+//                         );
+//                       } catch (e) {
+//                         showDialog(
+//                           context: context,
+//                           builder: (BuildContext context) {
+//                             return AddSuccessPopup(
+//                               message: 'Failed To Update Employment Data',
+//                             );
+//                           },
+//                         );
+//                         print(e);
+//                       }
+//                     }
+//                   }
+//
+//                   setState(() {
+//                     isLoading = false; // End loading
+//                   });
+//                 },
+//                 child:Text(
+//                   'Save',
+//                   style: BlueButtonTextConst.customTextStyle(context),
+//                 ),
+//               ),
 
 
             ],

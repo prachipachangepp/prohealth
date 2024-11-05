@@ -125,13 +125,13 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                           controller: widget.positionTitleController,
                           labelText: "Final Position Title",
                           errorKey: 'positionTitle',
-                          errorMessage: 'Please enter title'),
+                          errorMessage: 'Please enter title', hintText: 'Enter Position Title'),
                       _buildTextField(
                           capitalIsSelect: true,
                           controller: widget.leavingResonController,
                           labelText: "Reason For Leaving",
                           errorKey: 'leavingReason',
-                          errorMessage: 'Please enter leaving reason'),
+                          errorMessage: 'Please enter leaving reason', hintText: 'Enter Reason For Leaving'),
                       _buildTextField(
                         capitalIsSelect: false,
                         controller: widget.startDateContoller,
@@ -141,7 +141,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                         suffixIcon: Icon(Icons.calendar_month_outlined,
                             color: ColorManager.blueprime),
                         onTap: () => _selectDate(
-                            widget.startDateContoller, _selectedStartDate),
+                            widget.startDateContoller, _selectedStartDate), hintText:'yyyy-mm-dd',
                       ),
                     ],
                   ),
@@ -157,21 +157,21 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                         suffixIcon: Icon(Icons.calendar_month_outlined,
                             color: ColorManager.blueprime),
                         onTap: () => _selectDate(
-                            widget.endDateController, _selectedEndDate),
+                            widget.endDateController, _selectedEndDate), hintText: 'yyyy-mm-dd',
                       ),
                       _buildTextField(
                           capitalIsSelect: true,
                           controller: widget.lastSupervisorNameController,
                           labelText: "Last Supervisor's Name",
                           errorKey: 'lastSupervisorName',
-                          errorMessage: 'Please enter supervisor name'),
+                          errorMessage: 'Please enter supervisor name', hintText:"Enter Last Supervisor's Name"),
                       _buildTextField(
                           capitalIsSelect: false,
                           controller: widget.supervisorMobileNumber,
                           labelText: "Supervisor's Mobile Number",
                           errorKey: 'supervisorMobileNumber',
                           errorMessage:
-                              'Please enter supervisor mobile number'),
+                              'Please enter supervisor mobile number', hintText: "Enter Supervisor's Mobile Number"),
                     ],
                   ),
                   Padding(
@@ -197,19 +197,19 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                           controller: widget.cityNameController,
                           labelText: AppString.city,
                           errorKey: 'cityName',
-                          errorMessage: 'Please enter city name'),
+                          errorMessage: 'Please enter city name', hintText: 'Enter City Name'),
                       _buildTextField(
                           capitalIsSelect: true,
                           controller: widget.employeerController,
                           labelText: "Employer",
                           errorKey: 'employer',
-                          errorMessage: 'Please enter employer'),
+                          errorMessage: 'Please enter employer', hintText: 'Enter Employer'),
                       _buildTextField(
                           capitalIsSelect: false,
                           controller: widget.emergencyMobileNumber,
                           labelText: "Emergency Mobile Number",
                           errorKey: 'emergencyMobileNumber',
-                          errorMessage: 'Please enter mobile number.'),
+                          errorMessage: 'Please enter mobile number.', hintText: 'Enter Emergency Mobile Number'),
                     ],
                   ),
                   SizedBox(height: AppSize.s20),
@@ -222,7 +222,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                           controller: widget.countryController,
                           labelText: "Country Name",
                           errorKey: 'countryname',
-                          errorMessage: 'Please enter Country'),
+                          errorMessage: 'Please enter Country', hintText: 'Enter Country Name'),
                       SizedBox(
                         width: 240,
                       ),
@@ -275,6 +275,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     // required String labelText,
     String? errorKey,
     required String labelText,
+    required String  hintText,
     Widget? suffixIcon,
     required bool capitalIsSelect,
     VoidCallback? onTap,
@@ -304,6 +305,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               keyboardType: TextInputType
                   .phone, // Ensure it's phone input for number fields
               padding: const EdgeInsets.only(bottom: AppPadding.p5, left: 10),
+              hintText: hintText,
               suffixIcon: suffixIcon,
               onTap: onTap,
               onChanged: (value) {

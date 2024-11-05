@@ -245,7 +245,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    hintText: 'MM-DD-YYYY',
+                                    hintText: 'yyyy-mm-dd',
                                     hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8),

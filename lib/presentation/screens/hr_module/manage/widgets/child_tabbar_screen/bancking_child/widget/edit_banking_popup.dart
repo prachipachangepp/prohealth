@@ -280,7 +280,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   SizedBox(
                                     height: 4,
                                   ),
-                                  CustomTextFieldRegister(
+                                  CustomTextFieldSSn(
                                     width: 240,
                                     maxLength: 9,
                                     controller: routingnumber,
@@ -365,7 +365,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                 CustomTextFieldRegister(
                                   width: 240,
                                   controller: effectivecontroller,
-                                  hintText: 'dd-mm-yyyy',
+                                  hintText: 'yyyy-mm-dd',
                                   hintStyle: onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                   suffixIcon: IconButton(

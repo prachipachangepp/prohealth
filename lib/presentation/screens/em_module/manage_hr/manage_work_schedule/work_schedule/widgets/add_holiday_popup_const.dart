@@ -105,7 +105,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                             BorderSide(color: ColorManager.fmediumgrey, width: 1),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      hintText: 'mm-dd-yyyy',
+                      hintText: 'yyyy-mm-dd',
                       hintStyle:DocumentTypeDataStyle.customTextStyle(context),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
