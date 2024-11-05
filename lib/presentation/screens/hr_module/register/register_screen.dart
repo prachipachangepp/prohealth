@@ -462,6 +462,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                  
                   Text(
                     data.firstName.capitalizeFirst!,
                     style:  DefineWorkWeekStyle.customTextStyle(context),
@@ -575,7 +576,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       Container(
                         width: AppSize.s110,
-                        margin: const EdgeInsets.only(right: AppMargin.m30),
+                       // margin: const EdgeInsets.only(right: AppMargin.m30),
                         child:CustomIconButton(
                           text: AppString.enroll,
                           onPressed: () async{
@@ -633,7 +634,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [Container(
                       width: AppSize.s100,
-                      margin: const EdgeInsets.only(right: AppMargin.m30),
+                      //margin: const EdgeInsets.only(right: AppMargin.m30),
                       child: CustomIconButton(
                         text: 'Activate',
                         onPressed: () async{
@@ -677,7 +678,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [Container(
                       width: AppSize.s100,
-                      margin: const EdgeInsets.only(right: AppMargin.m30),
+                      //margin: const EdgeInsets.only(right: AppMargin.m30),
                       child: CustomIconButton(
                         text: 'Onboard',
                         onPressed: () async{
