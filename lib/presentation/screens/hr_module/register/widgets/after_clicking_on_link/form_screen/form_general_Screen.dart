@@ -33,10 +33,13 @@ import '../../../taxtfield_constant.dart';
 class generalForm extends StatefulWidget {
   final int employeeID;
   //final int userId;
+  final Function onSave;
+  //final Function onBack;
   generalForm({
     super.key,
     required this.context,
-    required this.employeeID,
+    required this.employeeID, required this.onSave,
+    //required this.onBack,
   });
 
   final BuildContext context;
@@ -1051,6 +1054,31 @@ class _generalFormState extends State<generalForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
+    //           Container(
+    //             width: 117,
+    //             height: 30,
+    //             child: ElevatedButton(
+    //               onPressed: (){
+    // widget.onBack();
+    // },
+    //               style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+    //                 elevation: 5,
+    //                 shape: RoundedRectangleBorder(
+    //                   borderRadius: BorderRadius.circular(12),
+    //                   side: BorderSide(
+    //                     color: ColorManager.bluebottom,
+    //                     width: 1,
+    //                   ),
+    //                 ),),
+    //               child: Text('Previous',
+    //                 style: TransparentButtonTextConst.customTextStyle(context),
+    //               ),),
+    //           ),
+    //           const SizedBox(
+    //             width: 30,
+    //           ),
+
               CustomButton(
                 width: 117,
                 height: 30,
@@ -1160,7 +1188,7 @@ class _generalFormState extends State<generalForm> {
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
         // );
-        showDialog(
+    showDialog(
           context: context,
           builder: (BuildContext context) {
             return AddSuccessPopup(
@@ -1170,7 +1198,7 @@ class _generalFormState extends State<generalForm> {
         );
         _initializeFormWithPrefilledData();
       } else {
-        showDialog(
+        await showDialog(
           context: context,
           builder: (BuildContext context) {
             return AddSuccessPopup(
@@ -1195,6 +1223,7 @@ class _generalFormState extends State<generalForm> {
     driverlicensenumb.clear();
     address.clear();
     dobcontroller.clear();
+    widget.onSave();
     },
 
                 child: Text(

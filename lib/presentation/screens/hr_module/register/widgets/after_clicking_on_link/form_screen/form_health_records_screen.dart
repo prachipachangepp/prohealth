@@ -23,11 +23,13 @@ import '../../../../manage/widgets/custom_icon_button_constant.dart';
 
 class HealthRecordsScreen extends StatefulWidget {
   final int employeeID;
+  final Function onSave;
+  final Function onBack;
 
   const HealthRecordsScreen({
     super.key,
     required this.context,
-    required this.employeeID,
+    required this.employeeID, required this.onSave, required this.onBack,
   });
 
   final BuildContext context;
@@ -354,6 +356,31 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                //color: Colors.white,
+                width: 117,
+                height: 30,
+                child: ElevatedButton(
+                  onPressed: (){
+                    widget.onBack();
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(
+                        color: ColorManager.bluebottom,
+                        width: 1,
+                      ),
+                    ),),
+                  child: Text('Previous',
+                    style: TransparentButtonTextConst.customTextStyle(context),
+                  ),),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+
               isLoading
                   ? SizedBox(
                 height: 25,
@@ -371,7 +398,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 onPressed: () async {
 
                   if (finalPaths == null || finalPaths.isEmpty) {
-                    showDialog(
+                    await showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AddSuccessPopup(
@@ -408,7 +435,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         }
 
                       }
-                      showDialog(
+                      await showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AddSuccessPopup(
@@ -423,7 +450,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                       //   ),
                       // );
                     } catch (e) {
-                      showDialog(
+                      await showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AddSuccessPopup(
@@ -436,6 +463,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                   setState(() {
                     isLoading = false; // End loading
                   });
+                  widget.onSave();
                 },
                 child: Text(
                   'Save',

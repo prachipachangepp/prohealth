@@ -44,19 +44,21 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class Employment_screen extends StatefulWidget {
+class EmploymentScreen extends StatefulWidget {
   final int employeeID;
   final BuildContext context;
-  const Employment_screen({
+  final Function onSave;
+  final Function onBack;
+  const EmploymentScreen({
     super.key,
-    required this.employeeID, required this.context,
+    required this.employeeID, required this.context, required this.onSave, required this.onBack,
   });
 
   @override
-  State<Employment_screen> createState() => _Employment_screenState();
+  State<EmploymentScreen> createState() => _EmploymentScreenState();
 }
 
-class _Employment_screenState extends State<Employment_screen> {
+class _EmploymentScreenState extends State<EmploymentScreen> {
   List<GlobalKey<_EmploymentFormState>> employmentFormKeys = [];
   bool isVisible = false;
   bool isLoading = false;
@@ -172,6 +174,31 @@ class _Employment_screenState extends State<Employment_screen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
 
+              Container(
+                //color: Colors.white,
+                width: 117,
+                height: 30,
+                child: ElevatedButton(
+                  onPressed: (){
+                    widget.onBack();
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(
+                        color: ColorManager.bluebottom,
+                        width: 1,
+                      ),
+                    ),),
+                  child: Text('Previous',
+                    style: TransparentButtonTextConst.customTextStyle(context),
+                  ),),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+
               isLoading
                   ? SizedBox(
                 height: 25,
@@ -223,7 +250,7 @@ class _Employment_screenState extends State<Employment_screen> {
 
 
                       // Show success message after saving the data
-                      showDialog(
+                      await  showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AddSuccessPopup(
@@ -233,7 +260,7 @@ class _Employment_screenState extends State<Employment_screen> {
                       );
                     } catch (e) {
                       // Show failure message in case of an error
-                      showDialog(
+                      await  showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AddSuccessPopup(
@@ -248,6 +275,7 @@ class _Employment_screenState extends State<Employment_screen> {
                   setState(() {
                     isLoading = false; // End loading
                   });
+                  widget.onSave();
                 },
                 child: Text(
                   'Save',

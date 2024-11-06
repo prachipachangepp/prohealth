@@ -25,11 +25,13 @@ import '../../../taxtfield_constant.dart';
 
 class BankingScreen extends StatefulWidget {
   final int employeeID;
+  final Function onSave;
+  final Function onBack;
 
   const BankingScreen({
     super.key,
     required this.context,
-    required this.employeeID,
+    required this.employeeID, required this.onSave, required this.onBack,
   });
 
   final BuildContext context;
@@ -120,7 +122,7 @@ class _BankingScreenState extends State<BankingScreen> {
               empBankingId: result.banckingId!,
               documentFile: documentFile,
               documentName: documentName);
-          showDialog(
+          await showDialog(
             context: context,
             builder: (BuildContext context) {
               return AddSuccessPopup(
@@ -129,7 +131,7 @@ class _BankingScreenState extends State<BankingScreen> {
             },
           );
         } catch (e) {
-          showDialog(
+           showDialog(
             context: context,
             builder: (BuildContext context) {
               return AddSuccessPopup(
@@ -204,6 +206,31 @@ class _BankingScreenState extends State<BankingScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              //color: Colors.white,
+              width: 117,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: (){
+                  widget.onBack();
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: ColorManager.bluebottom,
+                      width: 1,
+                    ),
+                  ),),
+                child: Text('Previous',
+                  style: TransparentButtonTextConst.customTextStyle(context),
+                ),),
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+
             isLoading
                 ? SizedBox(
               height: 25,
@@ -249,6 +276,7 @@ class _BankingScreenState extends State<BankingScreen> {
                 setState(() {
                   isLoading = false; // End loading
                 });
+                widget.onSave();
               },
               // accountnumber.clear();
 
