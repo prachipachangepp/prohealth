@@ -318,7 +318,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                       children: [
                                         const SizedBox(height: 5),
                                         Container(
-                                          padding: const EdgeInsets.only(bottom: 5,top: 0),
+                                          padding: const EdgeInsets.only(bottom: 0,top: 0),
                                           margin: const EdgeInsets.symmetric(horizontal: 50),
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -332,10 +332,11 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                               ),
                                             ],
                                           ),
-                                          height: 90,
+                                          height: 121,
                                           child: Stack(
                                               children: [
-                                                snapshot.data![index].isHeadOffice?Positioned(
+                                                snapshot.data![index].isHeadOffice
+                                                    ?Positioned(
                                                   right:0,
                                                   top:0,
                                                   child: Container(
@@ -347,7 +348,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                           child:Text('Head Office',
                                                             style:TableHeading.customTextStyle(context),))
                                                   ),
-                                                ):Offstage(),
+                                                )
+                                                    :Offstage(),
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -359,34 +361,75 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                           :
                                                       StatefulBuilder(
                                                         builder: (BuildContext context, void Function(void Function()) setState) {
-                                                          return InkWell(
-                                                            onTap: () async{
-                                                              String googleMapsUrl =
-                                                                  'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
-                                                              if (await canLaunchUrlString(googleMapsUrl)) {
-                                                                await launchUrlString(googleMapsUrl);
-                                                              } else {
-                                                                print('Could not open the map.');
-                                                              }
-                                                            },
-                                                            child: SizedBox(
-                                                              height: 100,
-                                                              width: 150,
-                                                              child: GoogleMap(
-                                                                initialCameraPosition: CameraPosition(
-                                                                  target: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
-                                                                  zoom: 15.0,
+                                                          return Column(
+                                                            children: [
+                                                              // InkWell(
+                                                              //   onTap: () async{
+                                                              //     String googleMapsUrl =
+                                                              //         'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
+                                                              //     if (await canLaunchUrlString(googleMapsUrl)) {
+                                                              //       await launchUrlString(googleMapsUrl);
+                                                              //     } else {
+                                                              //       print('Could not open the map.');
+                                                              //     }
+                                                              //   },
+                                                              //   child:
+                                                                SizedBox(
+                                                                  height: 80,
+                                                                  width: 150,
+                                                                  child: GoogleMap(
+                                                                    initialCameraPosition: CameraPosition(
+                                                                      target: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
+                                                                      zoom: 15.0,
+                                                                    ),
+                                                                    markers: {
+                                                                      Marker(
+                                                                        markerId: MarkerId(''),
+                                                                        position: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
+                                                                      )
+                                                                    }, // Optional: Disable if not needed// Optional: Disable if not needed
+                                                                    zoomControlsEnabled: false,
+                                                                    mapToolbarEnabled: false,
+                                                                    //myLocationButtonEnabled: false,
+                                                                    // onMapCreated: (GoogleMapController controller) {
+                                                                    //   controller.setMapStyle('''[
+                                                                    //       {
+                                                                    //         "featureType": "poi",
+                                                                    //         "stylers": [{"visibility": "off"}]
+                                                                    //       },
+                                                                    //       {
+                                                                    //         "featureType": "transit",
+                                                                    //         "elementType": "labels.icon",
+                                                                    //         "stylers": [{"visibility": "off"}]
+                                                                    //       }
+                                                                    //     ]''');
+                                                                    // },
+                                                                  ),
                                                                 ),
-                                                                markers: {
-                                                                  Marker(
-                                                                    markerId: MarkerId(''),
-                                                                    position: LatLng(double.parse(snapshot.data![index].lat), double.parse(snapshot.data![index].long)),
-                                                                  )
-                                                                }, // Optional: Disable if not needed// Optional: Disable if not needed
-                                                                zoomControlsEnabled: false,
-                                                                mapToolbarEnabled: false,
-                                                              ),
-                                                            ),
+                                                             // ),
+                                                              SizedBox(height: 4,),
+                                                              InkWell(
+                                                                onTap: () async{
+                                                                  String googleMapsUrl =
+                                                                      'https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].lat}, ${snapshot.data![index].long}';
+                                                                  if (await canLaunchUrlString(googleMapsUrl)) {
+                                                                    await launchUrlString(googleMapsUrl);
+                                                                  } else {
+                                                                    print('Could not open the map.');
+                                                                  }
+                                                                },
+                                                                child: Text(
+                                                                   "View Map",
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w600,
+                                                                      fontSize: FontSize.s12,
+                                                                      color: ColorManager.bluebottom,
+                                                                      decoration: TextDecoration.none,
+                                                                    )
+                                                                ),
+                                                              )
+                                                            ],
                                                           );
                                                         },
                                                       ),

@@ -244,20 +244,26 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                     ),
                   ),
                   if (widget.selectedIndex != 0)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: AppPadding.p5),
-                      child: Container(
-                        //color: ColorManager.red,
-                        child: Text(
-                          widget.employeeName,
-                          style: TextStyle(
-                            fontSize: FontSize.s15,
-                            color: ColorManager.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
+                  Icon(
+                    Icons.arrow_back,
+                    size: 20,
+                    color: ColorManager.white,
+
+                  )
+                  //   Padding(
+                  //     padding: const EdgeInsets.only(bottom: AppPadding.p5),
+                  //     child: Container(
+                  //       //color: ColorManager.red,
+                  //       child: Text(
+                  //         widget.employeeName,
+                  //         style: TextStyle(
+                  //           fontSize: FontSize.s15,
+                  //           color: ColorManager.white,
+                  //           fontWeight: FontWeight.w700,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
                 ],
               ),
             ),

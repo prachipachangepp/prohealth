@@ -91,9 +91,9 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                 // Page 1
                 // CiVisitScreen(),
                 // Page 2
-                CiOrgDocument
-                  (officeId: widget.officeId ?? 'Office 01',
-                  companyId: widget.companyId,),
+                CiOrgDocument()
+                  // (officeId: widget.officeId ?? 'Office 01',
+                  // companyId: widget.companyId,),
                 // Page 3
                 // CiRoleManager()
               ],

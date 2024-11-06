@@ -22,6 +22,7 @@ import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/widgets/login_screen/widgets/child_container_constant_login.dart';
 import '../../hr_module/manage/widgets/bottom_row.dart';
+import '../../referal_resource_module/referal_resource_desktop.dart';
 import '../../scheduler_model/widgets/responsive_screen_sm.dart';
 
 class HomeScreenWeb extends StatefulWidget {
@@ -235,8 +236,8 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                         'Select a Module',
                                         textAlign: TextAlign.center,
                                         style: CustomTextStylesCommon.commonStyle(
-                                          fontSize: FontSize.s18,
-                                          fontWeight: FontWeight.w600,
+                                          fontSize: FontSize.s20,
+                                          fontWeight: FontWeight.w700,
                                           color: ColorManager.darkgrey,
                                         ),
                                       ),
@@ -302,7 +303,8 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                                 child: const ResponsiveContainer(
                                                   'Establishment Manager',
                                                   AssetImage("images/e_m.png"),
-                                                )),
+                                                )
+                                            ),
                                             SizedBox(
                                               width: MediaQuery.of(context)
                                                   .size

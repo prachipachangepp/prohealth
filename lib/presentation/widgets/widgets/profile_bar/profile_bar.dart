@@ -46,7 +46,9 @@ class _ProfileBarState extends State<ProfileBar> {
       dobTimestamp = _calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth);
       setState(() {});  // Ensure the UI rebuilds with the new data
     }
-    _calculateHireDateTimeStamp(widget.searchByEmployeeIdProfileData!.dateofHire);
+    if (widget.searchByEmployeeIdProfileData?.dateofHire != null) {
+      totalDateStamp = _calculateHireDateTimeStamp(widget.searchByEmployeeIdProfileData!.dateofHire);
+    }
     sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
     fetchData();
   }
@@ -97,27 +99,22 @@ class _ProfileBarState extends State<ProfileBar> {
     int months = today.month - convertedDate.month;
     int days = today.day - convertedDate.day;
 
-    // Adjust if the day difference is negative
     if (days < 0) {
       months--;
       int prevMonthLastDay = DateTime(today.year, today.month, 0).day;
       days += prevMonthLastDay;
     }
 
-    // Adjust if the month difference is negative
     if (months < 0) {
       years--;
       months += 12;
     }
 
-    // Construct the formatted string
     String result = '';
     if (years > 0) result += "$years yr, ";
     result += "$months m, ";
     result += "$days d";
-
     print("dobTimestamp: $dobTimestamp");
-
     print('Calculated Age: $result');
     dobTimestamp = result;
     return dobTimestamp!;
@@ -133,25 +130,23 @@ class _ProfileBarState extends State<ProfileBar> {
 
     if (days < 0) {
       months--;
-      days += DateTime(today.year, today.month, 0)
-          .day;
+      int prevMonthLastDay = DateTime(today.year, today.month, 0).day;
+      days += prevMonthLastDay;
     }
     if (months < 0) {
       years--;
       months += 12;
     }
 
-    if (years > 0) {
-      totalDateStamp = "${years.toString()} yr";
-    } else if (months > 0) {
-      totalDateStamp = "${months.toString()} m";
-    } else {
-      totalDateStamp = "${days.toString()} d";
-    }
-    //dobTimestamp = days.toString();
-    print('Timestamp Hiredate ${totalDateStamp}');
+    String result = '';
+    if (years > 0) result += "$years yr, ";
+    result += "$months m, ";
+    result += "$days d";
 
-    return "$totalDateStamp years";
+    print('Timestamp Hiredate: $result');
+    return result;
+
+    //return "$totalDateStamp years";
   }
 
   Future<void> fetchData() async {
@@ -566,7 +561,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text("${widget.searchByEmployeeIdProfileData!.dateofHire} (${totalDateStamp})",
+                                      Text("${widget.searchByEmployeeIdProfileData!.dateofHire} (${totalDateStamp ?? ''})",
                                           style: ProfileBarTextBoldStyle.customEditTextStyle(),),
                                       SizedBox(height: 10,),
                                       Text('1.2', style: ProfileBarTextBoldStyle.customEditTextStyle(),),
