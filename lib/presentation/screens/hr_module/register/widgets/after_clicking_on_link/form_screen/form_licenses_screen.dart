@@ -31,10 +31,12 @@ import '../../../taxtfield_constant.dart';
 
 class LicensesScreen extends StatefulWidget {
   final int employeeID;
+  final Function onSave;
+  final Function onBack;
   const LicensesScreen({
     super.key,
     required this.context,
-    required this.employeeID,
+    required this.employeeID, required this.onSave, required this.onBack,
   });
 
   final BuildContext context;
@@ -89,7 +91,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
 
 
     if (result.success) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (BuildContext context) {
           return AddSuccessPopup(
@@ -98,7 +100,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
         },
       );
     } else {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (BuildContext context) {
           return AddSuccessPopup(
@@ -264,6 +266,31 @@ class _LicensesScreenState extends State<LicensesScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
+            Container(
+              //color: Colors.white,
+              width: 117,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: (){
+                  widget.onBack();
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: ColorManager.bluebottom,
+                      width: 1,
+                    ),
+                  ),),
+                child: Text('Previous',
+                  style: TransparentButtonTextConst.customTextStyle(context),
+                ),),
+            ),
+            const SizedBox(
+              width: 30,
+            ),
             isLoading
                 ? SizedBox(
               height: 25,
@@ -312,6 +339,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   isLoading = false; // End loading
                 });
                 //licensure.clear();
+                widget.onSave();
               },
               child: Text(
                 'Save',

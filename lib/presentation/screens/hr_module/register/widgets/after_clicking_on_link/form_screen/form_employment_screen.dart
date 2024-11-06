@@ -44,19 +44,21 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class Employment_screen extends StatefulWidget {
+class EmploymentScreen extends StatefulWidget {
   final int employeeID;
   final BuildContext context;
-  const Employment_screen({
+  final Function onSave;
+  final Function onBack;
+  const EmploymentScreen({
     super.key,
-    required this.employeeID, required this.context,
+    required this.employeeID, required this.context, required this.onSave, required this.onBack,
   });
 
   @override
-  State<Employment_screen> createState() => _Employment_screenState();
+  State<EmploymentScreen> createState() => _EmploymentScreenState();
 }
 
-class _Employment_screenState extends State<Employment_screen> {
+class _EmploymentScreenState extends State<EmploymentScreen> {
   List<GlobalKey<_EmploymentFormState>> employmentFormKeys = [];
   bool isVisible = false;
   bool isLoading = false;
@@ -171,6 +173,32 @@ class _Employment_screenState extends State<Employment_screen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
+              Container(
+                //color: Colors.white,
+                width: 117,
+                height: 30,
+                child: ElevatedButton(
+                  onPressed: (){
+                    widget.onBack();
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(
+                        color: ColorManager.bluebottom,
+                        width: 1,
+                      ),
+                    ),),
+                  child: Text('Previous',
+                    style: TransparentButtonTextConst.customTextStyle(context),
+                  ),),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+
               isLoading
                   ? SizedBox(
                 height: 25,
@@ -182,86 +210,178 @@ class _Employment_screenState extends State<Employment_screen> {
                   :CustomButton(
                 width: 117,
                 height: 30,
-                text:'Save', // Show empty text when loading
+                text: 'Save', // Show empty text when loading
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-
                   setState(() {
                     isLoading = true; // Start loading
                   });
 
                   for (var key in employmentFormKeys) {
                     final state = key.currentState!;
-                    if (state.finalPath == null || state.finalPath!.isEmpty) {
-                      print("Loading");
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const VendorSelectNoti(
-                            message: 'Please Select file',
-                          );
-                        },
+
+                    try {
+                      // Post employment screen data
+                      var response = await postemploymentscreenData(
+                        context,
+                        state.widget.employeeID,
+                        state.employerController.text,
+                        state.cityController.text,
+                        state.reasonForLeavingController.text,
+                        state.supervisorNameController.text,
+                        state.supervisorMobileNumberController.text,
+                        state.finalPositionController.text,
+                        state.startDateController.text,
+                        state.isChecked ? "Currently Working" : state.endDateController.text,
+                        "NA",
+                        "United States Of America",
                       );
 
-                    } else {
-                      try {
-                       var response = await postemploymentscreenData(
-                          context,
-                          state.widget.employeeID,
-                          state.employerController.text,
-                          state.cityController.text,
-                          state.reasonForLeavingController.text,
-                          state.supervisorNameController.text,
-                          state.supervisorMobileNumberController.text,
-                          state.finalPositionController.text,
-                          state.startDateController.text,
-                          state.isChecked
-                              ? "Currently Working"
-                              : state.endDateController.text,
-                          "NA",
-                          "United States Of America",
-                        );
 
-
+                      // Check if the file name is not null before uploading the resume
+                      if (state.fileName != null) {
                         await uploadEmployeeResume(
                           context: context,
                           employeementId: response.employeeMentId!,
                           documentFile: state.finalPath!,
-                          documentName: state.fileName ?? '',
+                          documentName: state.fileName!,
                         );
-
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSuccessPopup(
-                              message: 'Employment Data Saved',
-                            );
-                          },
-                        );
-                      } catch (e) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSuccessPopup(
-                              message: 'Failed To Update Employment Data',
-                            );
-                          },
-                        );
-                        print(e);
                       }
+
+
+                      // Show success message after saving the data
+                      await  showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Employment Data Saved',
+                          );
+                        },
+                      );
+                    } catch (e) {
+                      // Show failure message in case of an error
+                      await  showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Failed To Update Employment Data',
+                          );
+                        },
+                      );
+                      print(e);
                     }
                   }
 
                   setState(() {
                     isLoading = false; // End loading
                   });
+                  widget.onSave();
                 },
-                child:Text(
+                child: Text(
                   'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
+
+
+
+
+
+
+
+              ///file upload logic old
+//
+//               isLoading
+//                   ? SizedBox(
+//                 height: 25,
+//                 width: 25,
+//                 child: CircularProgressIndicator(
+//                   color: ColorManager.blueprime,
+//                 ),
+//               )
+//                   :CustomButton(
+//                 width: 117,
+//                 height: 30,
+//                 text:'Save', // Show empty text when loading
+//                 style: BlueButtonTextConst.customTextStyle(context),
+//                 borderRadius: 12,
+//                 onPressed: () async {
+//
+//                   setState(() {
+//                     isLoading = true; // Start loading
+//                   });
+//
+//                   for (var key in employmentFormKeys) {
+//                     final state = key.currentState!;
+//                     if (state.finalPath == null || state.finalPath!.isEmpty) {
+//                       print("Loading");
+//                       showDialog(
+//                         context: context,
+//                         builder: (BuildContext context) {
+//                           return const VendorSelectNoti(
+//                             message: 'Please Select file',
+//                           );
+//                         },
+//                       );
+//
+//                     } else {
+//                       try {
+//                         await postemploymentscreenData(
+//                           context,
+//                           state.widget.employeeID,
+//                           state.employerController.text,
+//                           state.cityController.text,
+//                           state.reasonForLeavingController.text,
+//                           state.supervisorNameController.text,
+//                           state.supervisorMobileNumberController.text,
+//                           state.finalPositionController.text,
+//                           state.startDateController.text,
+//                           state.isChecked
+//                               ? "Currently Working"
+//                               : state.endDateController.text,
+//                           "NA",
+//                           "United States Of America",
+//                         );
+//
+//                         await uploadEmployeeResume(
+//                           context: context,
+//                           employeementId: widget.employeeID,
+//                           documentFile: state.finalPath!,
+//                           documentName: state.fileName ?? '',
+//                         );
+//
+//                         showDialog(
+//                           context: context,
+//                           builder: (BuildContext context) {
+//                             return AddSuccessPopup(
+//                               message: 'Employment Data Saved',
+//                             );
+//                           },
+//                         );
+//                       } catch (e) {
+//                         showDialog(
+//                           context: context,
+//                           builder: (BuildContext context) {
+//                             return AddSuccessPopup(
+//                               message: 'Failed To Update Employment Data',
+//                             );
+//                           },
+//                         );
+//                         print(e);
+//                       }
+//                     }
+//                   }
+//
+//                   setState(() {
+//                     isLoading = false; // End loading
+//                   });
+//                 },
+//                 child:Text(
+//                   'Save',
+//                   style: BlueButtonTextConst.customTextStyle(context),
+//                 ),
+//               ),
 
 
             ],

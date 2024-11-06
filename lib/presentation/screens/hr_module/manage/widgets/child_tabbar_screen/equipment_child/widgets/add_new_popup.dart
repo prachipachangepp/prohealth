@@ -219,7 +219,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                       decoration: InputDecoration(
                         focusColor: ColorManager.mediumgrey,
                         hoverColor: ColorManager.mediumgrey,
-                        hintText: 'dd-mm-yyyy',
+                        hintText: 'yyyy-mm-dd',
                         hintStyle:
                             DocumentTypeDataStyle.customTextStyle(context),
                         border: OutlineInputBorder(

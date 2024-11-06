@@ -321,7 +321,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                                   color: ColorManager.fmediumgrey, width: 2),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            hintText: 'MM-DD-YYYY',
+                            hintText: 'yyyy-mm-dd',
                             hintStyle:
                             DocumentTypeDataStyle.customTextStyle(context),
                             border: OutlineInputBorder(

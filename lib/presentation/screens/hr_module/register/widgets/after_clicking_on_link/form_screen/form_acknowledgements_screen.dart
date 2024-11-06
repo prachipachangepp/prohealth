@@ -24,10 +24,12 @@ import '../../../../manage/widgets/custom_icon_button_constant.dart';
 
 class AcknowledgementsScreen extends StatefulWidget {
   final int employeeID;
+  final Function onSave;
+  final Function onBack;
   const AcknowledgementsScreen({
     super.key,
     required this.context,
-    required this.employeeID,
+    required this.employeeID, required this.onSave, required this.onBack,
   });
 
   final BuildContext context;
@@ -385,6 +387,31 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
+              Container(
+                //color: Colors.white,
+                width: 117,
+                height: 30,
+                child: ElevatedButton(
+                  onPressed: (){
+                    widget.onBack();
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(
+                        color: ColorManager.bluebottom,
+                        width: 1,
+                      ),
+                    ),),
+                  child: Text('Previous',
+                    style: TransparentButtonTextConst.customTextStyle(context),
+                  ),),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
               isLoading
                   ? SizedBox(
                 height: 25,
@@ -404,7 +431,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
 
                   if (finalPaths == null || finalPaths.isEmpty) {
                     // if (finalPath == null || finalPath.isEmpty) {
-                    showDialog(
+                    await  showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AddSuccessPopup(
@@ -467,7 +494,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                       //     documentFile: finalPath,
                       //     documentName: 'Legal Document ID');
 
-                      showDialog(
+                      await  showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AddSuccessPopup(
@@ -477,7 +504,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                       );
                     } catch (e) {
 
-                      showDialog(
+                      await  showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AddSuccessPopup(
@@ -492,7 +519,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                   setState(() {
                     isLoading = false; // End loading
                   });
-
+                  widget.onSave();
 
                 },
                 child:  Text(

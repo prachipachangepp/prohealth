@@ -39,10 +39,12 @@ import '../form_nine_screen.dart';
 
 class LegalDocumentsScreen extends StatefulWidget {
   final int employeeID;
+  final Function onSave;
+  final Function onBack;
   const LegalDocumentsScreen({
     super.key,
     required this.context,
-    required this.employeeID,
+    required this.employeeID, required this.onSave, required this.onBack,
   });
 
   final BuildContext context;
@@ -719,87 +721,118 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
             ],
           ),
         )),
-            isLoading
-                ? SizedBox(
-              height: 25,
-              width: 25,
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime,
-              ),
-            )
-                : CustomButton(
-              width: 117,
-              height: 30,
-              text: 'Save',
-              style: BlueButtonTextConst.customTextStyle(context),
-              borderRadius: 12,
-              onPressed: () async{
-                if (finalPath == null || finalPath.isEmpty) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddSuccessPopup(
-                        message: 'Please Select File',
-                      );
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  //color: Colors.white,
+                  width: 117,
+                  height: 30,
+                  child: ElevatedButton(
+                    onPressed: (){
+                      widget.onBack();
                     },
-                  );
-                  print('Loading');
-                } else {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  try {
-                    ApiDataRegister result = await legalDocumentAdd(context: context,
-                        employeeId: widget.employeeID,
-                        documentName: fileName,
-                        docUrl: '',
-                        officeId: '');
-                    var response = await uploadLegalDocumentBase64(context: context,
-                        employeeLegalDocumentId: result.legalDocumentId!,
-                        documentFile: finalPath
-                    );
-
-                    if(response.statusCode == 201 || response.statusCode == 200){
-                      showDialog(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(
+                          color: ColorManager.bluebottom,
+                          width: 1,
+                        ),
+                      ),),
+                    child: Text('Previous',
+                      style: TransparentButtonTextConst.customTextStyle(context),
+                    ),),
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                isLoading
+                    ? SizedBox(
+                  height: 25,
+                  width: 25,
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                )
+                    : CustomButton(
+                  width: 117,
+                  height: 30,
+                  text: 'Save',
+                  style: BlueButtonTextConst.customTextStyle(context),
+                  borderRadius: 12,
+                  onPressed: () async{
+                    if (finalPath == null || finalPath.isEmpty) {
+                    await showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return const AddSuccessPopup(
-                            message: 'Document Uploaded Successfully',
+                          return AddSuccessPopup(
+                            message: 'Please Select File',
                           );
                         },
                       );
-                    }else{
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const AddSuccessPopup(
-                            message: 'Failed To Upload Document',
-                          );
-                        },
-                      );
-                      print('Document upload Error');
-                    }
-
-                  } catch (e) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const AddSuccessPopup(
-                          message: 'Failed To Upload Document',
+                      print('Loading');
+                    } else {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      try {
+                        ApiDataRegister result = await legalDocumentAdd(context: context,
+                            employeeId: widget.employeeID,
+                            documentName: fileName,
+                            docUrl: '',
+                            officeId: '');
+                        var response = await uploadLegalDocumentBase64(context: context,
+                            employeeLegalDocumentId: result.legalDocumentId!,
+                            documentFile: finalPath
                         );
-                      },
-                    );
-                  }
-                }
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              child: Text(
-                'Save',
-                style: BlueButtonTextConst.customTextStyle(context),
-              ),
+
+                        if(response.statusCode == 201 || response.statusCode == 200){
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const AddSuccessPopup(
+                                message: 'Document Uploaded Successfully',
+                              );
+                            },
+                          );
+                        }else{
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const AddSuccessPopup(
+                                message: 'Failed To Upload Document',
+                              );
+                            },
+                          );
+                          print('Document upload Error');
+                        }
+
+                      } catch (e) {
+                        await  showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const AddSuccessPopup(
+                              message: 'Failed To Upload Document',
+                            );
+                          },
+                        );
+                      }
+                    }
+                    setState(() {
+                      isLoading = false;
+                    });
+                    widget.onSave();
+                  },
+                  child: Text(
+                    'Save',
+                    style: BlueButtonTextConst.customTextStyle(context),
+                  ),
+                ),
+              ],
             ),
+
       ])),
 
     );

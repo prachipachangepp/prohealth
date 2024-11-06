@@ -191,7 +191,8 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
 
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                       const SizedBox(height: 10,),
-                      Text('LinkedIn',
+                      Text(snapshot.data![index].references,
+                        //'LinkedIn',
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                       const SizedBox(height: 10,),
                       Text(snapshot.data![index].association,

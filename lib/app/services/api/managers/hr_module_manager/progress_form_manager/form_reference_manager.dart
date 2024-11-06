@@ -37,7 +37,7 @@ Future<ApiDataRegister> postreferencescreenData(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("reference Added");
-      showDialog(
+      await showDialog(
         context: context,
         builder: (BuildContext context) {
           return AddSuccessPopup(

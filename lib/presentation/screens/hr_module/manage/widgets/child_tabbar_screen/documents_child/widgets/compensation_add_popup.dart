@@ -702,7 +702,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
               children: [
                 Text(
                   widget.docName,
-                  style: ConstTextFieldRegister.customTextStyle(context),
+                  style: DocumentTypeDataStyle.customTextStyle(context),
                 ),
                 Icon(
                   Icons.arrow_drop_down,
@@ -788,7 +788,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                             color: ColorManager.fmediumgrey, width: 1),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      hintText: 'MM-DD-YYYY',
+                      hintText: 'yyyy-mm-dd',
                       hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
@@ -1071,7 +1071,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                           borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        hintText: 'MM-DD-YYYY',
+                        hintText: 'yyyy-mm-dd',
                         hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6),

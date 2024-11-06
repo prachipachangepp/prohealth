@@ -720,12 +720,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            FirstSMTextFConst(
+                                            // FirstSMTextFConst(
+                                            //   controller: addressController,
+                                            //   keyboardType: TextInputType.text,
+                                            //   text: AppString.addresss,
+                                            //
+                                            // ),
+                                            AddressInput(
                                               controller: addressController,
-                                              keyboardType: TextInputType.text,
-                                              text: AppString.addresss,
-
+                                              onSuggestionSelected: (selectedSuggestion) {
+                                                // Handle the selected suggestion here
+                                                print("Selected suggestion: $selectedSuggestion");
+                                              },
                                             ),
+
+
 
                                             FirstSMTextFConst(
                                               controller: ageController,
@@ -1432,6 +1441,106 @@ class ProfileEditCancelButton extends StatelessWidget {
           ),
           child:
           Text(text!, textAlign: TextAlign.center, style: mergedTextStyle)),
+    );
+  }
+}
+
+
+
+
+class AddressInput extends StatefulWidget {
+  final TextEditingController controller;
+  final Function(String)? onSuggestionSelected; // Callback to notify parent
+
+  AddressInput({required this.controller, this.onSuggestionSelected});
+
+  @override
+  _AddressInputState createState() => _AddressInputState();
+}
+
+class _AddressInputState extends State<AddressInput> {
+  List<String> _suggestions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onCountyNameChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onCountyNameChanged);
+    super.dispose();
+  }
+
+  void _onCountyNameChanged() async {
+    final query = widget.controller.text;
+    if (query.isEmpty) {
+      setState(() {
+        _suggestions.clear();
+      });
+      return;
+    }
+
+    final suggestions = await fetchSuggestions(query);
+    setState(() {
+      _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        FirstSMTextFConst(
+          controller: widget.controller,
+          keyboardType: TextInputType.text,
+          text: AppString.addresss,
+
+        ),
+        if (_suggestions.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top:50),
+            child: Container(
+              height: 80,
+              width: 354,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: _suggestions.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      _suggestions[index],
+                      style: AllPopupHeadings.customTextStyle(context),
+                    ),
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      widget.controller.text = _suggestions[index];
+                      setState(() {
+                        _suggestions.clear();
+                      });
+                      // Call the callback with the selected suggestion
+                      if (widget.onSuggestionSelected != null) {
+                        widget.onSuggestionSelected!(_suggestions[index]);
+                      }
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

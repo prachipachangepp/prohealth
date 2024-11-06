@@ -7,6 +7,7 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../manage/widgets/bottom_row.dart';
+import '../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../manage/widgets/top_row.dart';
 import '../../taxtfield_constant.dart';
 import '../dropdown_const.dart';
@@ -161,32 +162,33 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               //   ),
                               //   icon: const Icon(Icons.arrow_back,  size: 16,),
                               // )
-                              Container(
-                                width: 20,
-                                height: 20,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color:ColorManager.blueprime,
-                                  shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(
-                                    color: ColorManager.fmediumgrey.withOpacity(0.2),
-                                    // width: 0.79,
-                                  ),
-                                ),
-                                child: Center(
-                                  child: IconButton(
-                                    splashColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    padding: EdgeInsets.only(bottom: 1.5),
-                                    icon: Icon(Icons.chevron_left),
-                                    onPressed:  details.onStepCancel,
-                                    color: Colors.white,
-                                    iconSize: 20,
-                                  ),
-                                ),
-                              ),
+                              SizedBox(),
+                              // Container(
+                              //   width: 20,
+                              //   height: 20,
+                              //   alignment: Alignment.center,
+                              //   decoration: BoxDecoration(
+                              //     color:ColorManager.blueprime,
+                              //     shape: BoxShape.rectangle,
+                              //     borderRadius: BorderRadius.circular(4),
+                              //     border: Border.all(
+                              //       color: ColorManager.fmediumgrey.withOpacity(0.2),
+                              //       // width: 0.79,
+                              //     ),
+                              //   ),
+                              //   child: Center(
+                              //     child: IconButton(
+                              //       splashColor: Colors.transparent,
+                              //       hoverColor: Colors.transparent,
+                              //       highlightColor: Colors.transparent,
+                              //       padding: EdgeInsets.only(bottom: 1.5),
+                              //       icon: Icon(Icons.chevron_left),
+                              //       onPressed:  details.onStepCancel,
+                              //       color: Colors.white,
+                              //       iconSize: 20,
+                              //     ),
+                              //   ),
+                              // ),
                               // InkWell(
                               //   splashColor: Colors.transparent,
                               //   highlightColor: Colors.transparent,
@@ -200,37 +202,35 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               //   onTap: details.onStepCancel,
                               // )
                             ],
-                            const SizedBox(
-                              width: 60,
-                            ),
-                            Container(
-                              width: 20,
-                              height: 20,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color:ColorManager.blueprime,
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                  color: ColorManager.fmediumgrey.withOpacity(0.2),
-                                  // width: 0.79,
-                                ),
-                              ),
-                              child: Center(
-                                child: IconButton(
-                                  splashColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  padding: EdgeInsets.only(bottom: 1.5),
-                                  icon: Icon(Icons.chevron_right),
-                                  onPressed:()async{
-                                    isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
-                                  },
-                                  color: Colors.white,
-                                  iconSize: 20,
-                                ),
-                              ),
-                            ),
+SizedBox(),
+                            // Container(
+                            //   width: 20,
+                            //   height: 20,
+                            //   alignment: Alignment.center,
+                            //   decoration: BoxDecoration(
+                            //     color:ColorManager.blueprime,
+                            //     shape: BoxShape.rectangle,
+                            //     borderRadius: BorderRadius.circular(4),
+                            //     border: Border.all(
+                            //       color: ColorManager.fmediumgrey.withOpacity(0.2),
+                            //       // width: 0.79,
+                            //     ),
+                            //   ),
+                            //   child: Center(
+                            //     child: IconButton(
+                            //       splashColor: Colors.transparent,
+                            //       hoverColor: Colors.transparent,
+                            //       highlightColor: Colors.transparent,
+                            //       padding: EdgeInsets.only(bottom: 1.5),
+                            //       icon: Icon(Icons.chevron_right),
+                            //       onPressed:()async{
+                            //         isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
+                            //       },
+                            //       color: Colors.white,
+                            //       iconSize: 20,
+                            //     ),
+                            //   ),
+                            // ),
                             // InkWell(
                             //     splashColor: Colors.transparent,
                             //     highlightColor: Colors.transparent,
@@ -283,6 +283,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
   }
 
   List<Step> steps() => [
+    ///
     Step(
       state: _currentStep <= 0 ? StepState.editing : StepState.complete,
       isActive: _currentStep >= 0,
@@ -296,8 +297,21 @@ class _MultiStepFormState extends State<MultiStepForm> {
           style: formNameText.customTextStyle(context),
         ),
       ),
-      content: generalForm(context: context, employeeID: widget.employeeID, ),
+      content: generalForm(context: context, employeeID: widget.employeeID, onSave:(){
+        // details.onStepContinue!();
+        setState(() {
+          _currentStep = _currentStep +1 ;
+        });
+      },
+
+      //   onBack: (){
+      //   setState(() {
+      //     _currentStep = _currentStep -1;
+      //   });
+      // },
+      ),
     ),
+  ////////////////////////////
     Step(
       state: _currentStep <= 1 ? StepState.editing : StepState.complete,
       isActive: _currentStep >= 1,
@@ -311,8 +325,20 @@ class _MultiStepFormState extends State<MultiStepForm> {
           style:  formNameText.customTextStyle(context),
         ),
       ),
-      content: Employment_screen(context: context, employeeID: widget.employeeID,),
+      content: EmploymentScreen(context: context, employeeID: widget.employeeID,
+        onSave: (){
+          setState(() {
+             _currentStep = _currentStep +1 ;
+         });
+        },
+        onBack:(){
+         setState(() {
+           _currentStep = _currentStep -1;
+       });
+        },
+      ),
     ),
+    /////////////////
     Step(
       state: _currentStep <= 2 ? StepState.editing : StepState.complete,
       isActive: _currentStep >= 2,
@@ -326,8 +352,20 @@ class _MultiStepFormState extends State<MultiStepForm> {
           style:  formNameText.customTextStyle(context),
         ),
       ),
-      content: EducationScreen(context: context, employeeID: widget.employeeID),
+      content: EducationScreen(context: context, employeeID: widget.employeeID,
+        onSave: (){
+          setState(() {
+            _currentStep = _currentStep +1 ;
+          });
+        },
+        onBack:(){
+          setState(() {
+            _currentStep = _currentStep -1;
+          });
+        },
+      ),
     ),
+    //////////////////
     Step(
       state: _currentStep <= 3 ? StepState.editing : StepState.complete,
       isActive: _currentStep >= 3,
@@ -341,8 +379,20 @@ class _MultiStepFormState extends State<MultiStepForm> {
           style:  formNameText.customTextStyle(context),
         ),
       ),
-      content: ReferencesScreen(context: context, employeeID: widget.employeeID),
+      content: ReferencesScreen(context: context, employeeID: widget.employeeID,
+        onSave: (){
+          setState(() {
+            _currentStep = _currentStep +1 ;
+          });
+        },
+        onBack:(){
+          setState(() {
+            _currentStep = _currentStep -1;
+          });
+        },
+      ),
     ),
+   ///////////////////
     Step(
       state: _currentStep <= 4 ? StepState.editing : StepState.complete,
       isActive: _currentStep >= 4,
@@ -356,8 +406,20 @@ class _MultiStepFormState extends State<MultiStepForm> {
           style: formNameText.customTextStyle(context),
         ),
       ),
-      content: LicensesScreen(context: context, employeeID: widget.employeeID),
+      content: LicensesScreen(context: context, employeeID: widget.employeeID,
+        onSave: (){
+          setState(() {
+            _currentStep = _currentStep +1 ;
+          });
+        },
+        onBack:(){
+          setState(() {
+            _currentStep = _currentStep -1;
+          });
+        },
+      ),
     ),
+    /////////////
     Step(
       state: _currentStep <= 5 ? StepState.editing : StepState.complete,
       isActive: _currentStep >= 5,
@@ -371,7 +433,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
           style:  formNameText.customTextStyle(context),
         ),
       ),
-      content: BankingScreen(context: context, employeeID: widget.employeeID),
+      content: BankingScreen(context: context, employeeID: widget.employeeID,
+        onSave: (){
+          setState(() {
+            _currentStep = _currentStep +1 ;
+          });
+        },
+        onBack:(){
+          setState(() {
+            _currentStep = _currentStep -1;
+          });
+        },
+      ),
     ),
     Step(
       state: _currentStep <= 6 ? StepState.editing : StepState.complete,
@@ -386,7 +459,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
           style: formNameText.customTextStyle(context),
         ),
       ),
-      content: HealthRecordsScreen(context: context, employeeID: widget.employeeID,),
+      content: HealthRecordsScreen(context: context, employeeID: widget.employeeID,
+        onSave: (){
+          setState(() {
+            _currentStep = _currentStep +1 ;
+          });
+        },
+        onBack:(){
+          setState(() {
+            _currentStep = _currentStep -1;
+          });
+        },
+      ),
     ),
     Step(
       state: _currentStep <= 7 ? StepState.editing : StepState.complete,
@@ -401,7 +485,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
           style: formNameText.customTextStyle(context),
         ),
       ),
-      content: AcknowledgementsScreen(context: context, employeeID: widget.employeeID,),
+      content: AcknowledgementsScreen(context: context, employeeID: widget.employeeID,
+        onSave: (){
+          setState(() {
+            _currentStep = _currentStep +1 ;
+          });
+        },
+        onBack:(){
+          setState(() {
+            _currentStep = _currentStep -1;
+          });
+        },
+      ),
     ),
     Step(
       state: _currentStep <= 8 ? StepState.editing : StepState.complete,
@@ -416,7 +511,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
           style:  formNameText.customTextStyle(context),
         ),
       ),
-      content: LegalDocumentsScreen(context: context, employeeID: widget.employeeID,),
+      content: LegalDocumentsScreen(context: context, employeeID: widget.employeeID,
+        onSave: (){
+          setState(() {
+            Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou()));
+          });
+        },
+        onBack:(){
+          setState(() {
+            _currentStep = _currentStep -1;
+          });
+        },
+      ),
     ),
   ];
 }

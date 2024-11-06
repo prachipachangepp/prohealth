@@ -144,7 +144,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                             color: ColorManager.fmediumgrey, width: 1),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      hintText: 'MM-DD-YYYY',
+                      hintText: 'yyyy-mm-dd',
                       hintStyle:
                       DocumentTypeDataStyle.customTextStyle(context),
                       border: OutlineInputBorder(
@@ -167,7 +167,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                       if (pickedDate != null) {
                         datePicked = pickedDate;
                         expiryDateController.text =
-                            DateFormat('MM-dd-yyyy').format(pickedDate);
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
                       }
                     },
                     validator: (value) {

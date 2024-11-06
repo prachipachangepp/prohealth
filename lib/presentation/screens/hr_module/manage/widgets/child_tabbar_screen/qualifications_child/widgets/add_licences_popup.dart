@@ -171,19 +171,19 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   capitalIsSelect: true,
                   controller: widget.LivensureController,
                   labelText: "Licensure / certification",
-                  errorKey: 'Livensure',
+                  errorKey: 'Livensure', hintText: 'Enter certification',
                 ),
                 _buildDateField(
                   controller: widget.issueDateController,
                   labelText: "Issue Date",
                   errorKey: 'issueDate',
-                  initialDate: _selectedIssueDate,
+                  initialDate: _selectedIssueDate, hintText: 'yyyy-mm-dd',
                 ),
                 _buildDateField(
                   controller: widget.expiryDateController,
                   labelText: "Expiry Date",
                   errorKey: 'expiryDate',
-                  initialDate: _selectedExpDate,
+                  initialDate: _selectedExpDate, hintText: 'yyyy-mm-dd',
                 ),
               ],
             ),
@@ -195,19 +195,19 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   capitalIsSelect:true,
                   controller: widget.issuingOrganizationController,
                   labelText: "Issuing Organization",
-                  errorKey: 'issuingOrganization',
+                  errorKey: 'issuingOrganization', hintText: 'Enter Issuing Organization',
                 ),
                 _buildTextField(
                   capitalIsSelect: true,
                   controller: widget.countryController,
                   labelText: "Country",
-                  errorKey: 'country',
+                  errorKey: 'country', hintText: 'Enter Country',
                 ),
                 _buildTextField(
                   capitalIsSelect:false,
                   controller: widget.numberIDController,
                   labelText: "Number/ID",
-                  errorKey: 'numberID',
+                  errorKey: 'numberID', hintText: 'Enter Number',
                 ),
               ],
             ),
@@ -268,6 +268,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
   Widget _buildTextField({
     required TextEditingController controller,
     required String labelText,
+    required String hintText,
     required String errorKey,
     required bool capitalIsSelect,
   }) {
@@ -281,7 +282,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
-
+hintText:hintText ,
           keyboardType: TextInputType.text,
           padding: const EdgeInsets.only(
               bottom: AppPadding.p5, left: AppPadding.p20),
@@ -309,6 +310,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
   Widget _buildDateField({
     required TextEditingController controller,
     required String labelText,
+    required String hintText,
     required String errorKey,
     required DateTime initialDate,
   }) {
@@ -321,6 +323,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
+          hintText:hintText,
 
           keyboardType: TextInputType.text,
           suffixIcon: Icon(

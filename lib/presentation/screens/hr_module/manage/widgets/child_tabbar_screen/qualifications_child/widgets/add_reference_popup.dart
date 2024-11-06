@@ -121,7 +121,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                   controller: widget.nameController,
                   labelText: "Name",
                   errorKey: 'name',
-                  capitalIsSelect: true,
+                  capitalIsSelect: true, hintText: 'Enter Name',
                 ),
                 _buildTextField(
                   controller: widget.emailController,
@@ -132,13 +132,13 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                       ? 'Please enter a valid email'
                       : null,
                   capitalIsSelect: false,
-                  phoneNumberField: false,
+                  phoneNumberField: false, hintText: 'Enter Email',
                 ),
                 _buildTextField(
                   controller: widget.titlePositionController,
                   labelText: "Title/Position",
                   errorKey: 'titlePosition',
-                  capitalIsSelect: true,
+                  capitalIsSelect: true, hintText: 'Enter Title',
                 ),
               ],
             ),
@@ -150,19 +150,19 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                   controller: widget.knowPersonController,
                   labelText: "How do you know this person?",
                   errorKey: 'knowPerson',
-                  capitalIsSelect: true,
+                  capitalIsSelect: true, hintText: 'Enter Text',
                 ),
                 _buildTextField(
                   controller: widget.companyNameController,
                   labelText: "Company",
                   errorKey: 'companyName',
-                  capitalIsSelect: true,
+                  capitalIsSelect: true, hintText: 'Enter Company',
                 ),
                 _buildTextField(
                   controller: widget.associationLengthController,
                   labelText: "Length of Association",
                   errorKey: 'associationLength',
-                  capitalIsSelect: true,
+                  capitalIsSelect: true, hintText: 'Enter Length of Association',
                 ),
               ],
             ),
@@ -176,7 +176,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                    errorKey: 'mobileNumber',
                   keyboardType: TextInputType.number,
                   capitalIsSelect: false,
-                  phoneNumberField:true,
+                  phoneNumberField:true, hintText: 'Enter Mobile Number',
                 ),
 
                 SizedBox(
@@ -224,6 +224,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
   Widget _buildTextField({
     required TextEditingController controller,
     required String labelText,
+    required String hintText,
     required String errorKey,
     TextInputType? keyboardType,
     String? Function(String)? validator,
@@ -240,6 +241,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
+          hintText: hintText,
 
           keyboardType: keyboardType ?? TextInputType.text,
           padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),

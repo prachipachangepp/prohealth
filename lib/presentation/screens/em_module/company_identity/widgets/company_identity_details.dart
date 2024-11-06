@@ -579,7 +579,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                   ),
 
                   Container(
-                    height: AppSize.s350,
+                    height: AppSize.s367,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
@@ -847,7 +847,7 @@ class _AddressInputState extends State<AddressInput> {
           Padding(
             padding: const EdgeInsets.only(top:50),
             child: Container(
-              height: 100,
+              height: 60,
               width: 320,
               decoration: BoxDecoration(
                 color: Colors.white,

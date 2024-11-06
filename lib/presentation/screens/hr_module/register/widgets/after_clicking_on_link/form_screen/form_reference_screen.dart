@@ -15,10 +15,12 @@ import '../../../taxtfield_constant.dart';
 
 class ReferencesScreen extends StatefulWidget {
   final int employeeID;
+  final Function onSave;
+  final Function onBack;
   const ReferencesScreen({
     super.key,
     required this.context,
-    required this.employeeID,
+    required this.employeeID, required this.onSave, required this.onBack,
   });
 
   final BuildContext context;
@@ -156,6 +158,31 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              //color: Colors.white,
+              width: 117,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: (){
+                  widget.onBack();
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: ColorManager.bluebottom,
+                      width: 1,
+                    ),
+                  ),),
+                child: Text('Previous',
+                  style: TransparentButtonTextConst.customTextStyle(context),
+                ),),
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+
             isLoading
                 ? SizedBox(
               height: 25,
@@ -195,6 +222,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                 setState(() {
                   isLoading = false; // End loading
                 });
+                widget.onSave();
                 lengthofassociation.clear();
                 companyorganization.clear();
                 email.clear();
@@ -491,7 +519,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               60),
                                   CustomTextFieldRegister(
                                     controller: knowthisperson,
-                                    hintText: 'Enter Person Name',
+                                    hintText: 'Enter Text',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),

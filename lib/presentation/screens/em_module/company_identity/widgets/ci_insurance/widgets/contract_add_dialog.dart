@@ -267,7 +267,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                  color: ColorManager.fmediumgrey, width: 1),
                              borderRadius: BorderRadius.circular(6),
                            ),
-                           hintText: 'MM-DD-YYYY',
+                           hintText: 'yyyy-mm-dd',
                            hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
                            border: OutlineInputBorder(
                              borderRadius: BorderRadius.circular(6),
@@ -290,7 +290,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                            if (pickedDate != null) {
                              datePicked = pickedDate;
                              expiryDateController.text =
-                                 DateFormat('MM-dd-yyyy').format(pickedDate);
+                                 DateFormat('yyyy-MM-dd').format(pickedDate);
                            }
                          },
                          validator: (value) {
