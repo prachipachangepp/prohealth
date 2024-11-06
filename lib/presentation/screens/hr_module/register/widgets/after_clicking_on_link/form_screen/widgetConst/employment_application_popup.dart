@@ -245,7 +245,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    hintText: 'yyyy-mm-dd',
+                                    //hintText: 'yyyy-mm-dd',
                                     hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8),
@@ -270,7 +270,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                                     );
                                     if (pickedDate != null) {
                                       datePicked = pickedDate;
-                                      dateAvailableController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                      dateAvailableController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                                     }
                                   },
                                   validator: (value) {

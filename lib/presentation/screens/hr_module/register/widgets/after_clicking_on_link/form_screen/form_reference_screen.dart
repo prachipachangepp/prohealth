@@ -491,7 +491,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                               60),
                                   CustomTextFieldRegister(
                                     controller: knowthisperson,
-                                    hintText: 'Enter Person Name',
+                                    hintText: 'Enter Text',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
                                   ),

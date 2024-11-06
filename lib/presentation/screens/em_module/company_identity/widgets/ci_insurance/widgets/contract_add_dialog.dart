@@ -290,7 +290,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                            if (pickedDate != null) {
                              datePicked = pickedDate;
                              expiryDateController.text =
-                                 DateFormat('MM-dd-yyyy').format(pickedDate);
+                                 DateFormat('yyyy-MM-dd').format(pickedDate);
                            }
                          },
                          validator: (value) {
