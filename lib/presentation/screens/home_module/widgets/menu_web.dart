@@ -22,7 +22,6 @@ import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/widgets/login_screen/widgets/child_container_constant_login.dart';
 import '../../hr_module/manage/widgets/bottom_row.dart';
-import '../../referal_resource_module/referal_resource_desktop.dart';
 import '../../scheduler_model/widgets/responsive_screen_sm.dart';
 
 class HomeScreenWeb extends StatefulWidget {
