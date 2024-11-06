@@ -155,8 +155,10 @@ class ApiDataRegister {
   final int? banckingId;
   final int? educationId;
   final int? legalDocumentId;
+  final int? employeeMentId;
 
   ApiDataRegister({
+    this.employeeMentId,
     this.educationId,
     this.legalDocumentId,
     this.banckingId,

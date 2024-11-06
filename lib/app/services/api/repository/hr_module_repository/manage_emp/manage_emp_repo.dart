@@ -21,7 +21,7 @@ class ManageReposotory{
   static String employeeTimeOff = "/employee-time-off";
 
   static String licenseStatus = "/employee-licenses/LicenseDetailByemployeeId";
-  static String resumeupload = "/employees/attach-resumebase64";
+  static String resumeupload = "/employee-employment-histories/attach-documentbase64";
   static String photoupload = "/employees/attach-photobase64";
   static String licensesupload = "/employee-licenses/attach-licensebase64";
   static String Bankcheckupload = "/employee-bankings/attach-checkbase64";
@@ -48,8 +48,8 @@ class ManageReposotory{
     return "$employement/$employeementId";
   }
 
-  static String updateEmployeementresume({required int employeementId}){
-    return "$resumeupload/$employeementId";
+  static String updateEmployeementresume({required int employeementId, required String documentName}){
+    return "$resumeupload/$employeementId/$documentName";
   }
 
 

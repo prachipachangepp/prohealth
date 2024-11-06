@@ -814,7 +814,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             SSNTextFConst(
                                               controller: ssNController,
                                               keyboardType: TextInputType.number,
-                                              text: AppString.ssn,
+                                              text: AppString.ssnProfile,
                                               // showDatePicker: true,
                                             ),
 

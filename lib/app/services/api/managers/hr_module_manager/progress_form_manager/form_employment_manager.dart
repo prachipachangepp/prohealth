@@ -46,6 +46,8 @@ Future<ApiDataRegister> postemploymentscreenData(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("employment Added");
+      var responseEmp = response.data;
+      var employeeMentid = responseEmp['employmentId'];
       // ScaffoldMessenger.of(context).showSnackBar(
       //   SnackBar(content: Text("Employment data saved"),
       //     backgroundColor: Colors.green,),
@@ -54,7 +56,8 @@ Future<ApiDataRegister> postemploymentscreenData(
       return ApiDataRegister(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,
+          employeeMentId:employeeMentid);
     } else {
       print("Error 1");
       print("::::::::::::: no data added");

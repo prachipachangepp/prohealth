@@ -199,31 +199,49 @@ class _ProfileBarState extends State<ProfileBar> {
       width: double.maxFinite,
       //  margin: EdgeInsets.only(right: 10),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Material(
               elevation: 4,
-              child: Container(
-                  height: MediaQuery.of(context).size.height / 4,
-                  width: AppSize.s70,
-                  decoration: BoxDecoration(
-                    color: ColorManager.greenF,
-                  ),
-                  child: FutureBuilder<ProfilePercentage>(
-                      future: getPercentage(context,
-                          widget.searchByEmployeeIdProfileData!.employeeId!),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return SizedBox();
-                        }
-                        return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Profile\n${snapshot.data!.percentage}%",
-                                style: ThemeManagerWhite.customTextStyle(context),
-                              ),
-                            ]);
-                      })),
+              child: FutureBuilder<ProfilePercentage>(
+                  future: getPercentage(context,
+                      widget.searchByEmployeeIdProfileData!.employeeId!),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return SizedBox(width: AppSize.s70);
+                    }
+                    if(snapshot.hasData){
+                      double percentage = double.parse(snapshot.data!.percentage);
+                      double maxHeight = 187; // Maximum height in pixels for 100%
+                      double containerHeight = (percentage / 100) * maxHeight;
+                      Color containerColor;
+                      if (percentage <= 30) {
+                        containerColor = Colors.red;
+                      } else if (percentage <= 60) {
+                        containerColor = Colors.yellow;
+                      } else {
+                        containerColor = ColorManager.greenF;
+                      }
+                      return Container(
+                          height: containerHeight,
+                          width: AppSize.s70,
+                          decoration: BoxDecoration(
+                            color: containerColor,
+                          ),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Profile\n${snapshot.data!.percentage}%",
+                                  style: ThemeManagerWhite.customTextStyle(context),
+                                ),
+                              ]),
+                      );
+                    }
+                    else{
+                      return SizedBox();
+                    }
+                  })
             ),
             Material(
               elevation: 4,

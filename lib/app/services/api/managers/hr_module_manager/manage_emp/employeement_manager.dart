@@ -207,7 +207,7 @@ Future<ApiData> uploadEmployeeResume({
     String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
     print("File :::${documents}" );
     var response = await Api(context).post(
-      path:ManageReposotory.updateEmployeementresume(employeementId: employeementId),
+      path:ManageReposotory.updateEmployeementresume(employeementId: employeementId,documentName:documentName),
       data: {
         'base64':documents
       },

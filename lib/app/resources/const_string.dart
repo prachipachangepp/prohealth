@@ -38,6 +38,7 @@ class AppString {
   static const String reasonTimeOff = "Reason";
   static const String gender = "Gender :";
   static const String ssn = "Social Security No :";
+  static const String ssnProfile = "Social Security No";
   static const String personalno = "Personal No :";
   static const String workno = "Work No :";
   static const String personalEmail = "Personal Email :";

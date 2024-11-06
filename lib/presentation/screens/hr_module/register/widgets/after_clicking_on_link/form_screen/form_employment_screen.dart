@@ -206,7 +206,7 @@ class _Employment_screenState extends State<Employment_screen> {
 
                     } else {
                       try {
-                        await postemploymentscreenData(
+                       var response = await postemploymentscreenData(
                           context,
                           state.widget.employeeID,
                           state.employerController.text,
@@ -223,9 +223,10 @@ class _Employment_screenState extends State<Employment_screen> {
                           "United States Of America",
                         );
 
+
                         await uploadEmployeeResume(
                           context: context,
-                          employeementId: widget.employeeID,
+                          employeementId: response.employeeMentId!,
                           documentFile: state.finalPath!,
                           documentName: state.fileName ?? '',
                         );
