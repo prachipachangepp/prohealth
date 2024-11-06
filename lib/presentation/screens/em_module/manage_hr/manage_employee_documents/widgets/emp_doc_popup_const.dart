@@ -755,6 +755,14 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                     _isLoading = false;
                   });
                   Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddSuccessPopup(
+                        message: 'Edited Successfully',
+                      );
+                    },
+                  );
                 }
               }
             },

@@ -6,6 +6,8 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/company_identity.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/manage_work_schedule.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
@@ -17,6 +19,7 @@ import '../../widgets/widgets/const_appbar/controller.dart';
 import '../hr_module/manage/widgets/bottom_row.dart';
 import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'company_identity/company_identity_screen.dart';
+import 'company_identity/widgets/ci_tab_widget/ci_org_document.dart';
 import 'company_identity/widgets/ci_tab_widget/ci_role_manager.dart';
 import 'company_identity/widgets/ci_tab_widget/ci_visit.dart';
 import 'manage_hr/hr_screen.dart';
@@ -101,7 +104,7 @@ class EMDesktopScreen extends StatelessWidget {
     // }
     return true; // Allow the back navigation to exit the app
   }
-
+  //final int companyId = await TokenManager.getCompanyId();
   @override
   Widget build(BuildContext context) {
     // RoutesManager routesManager = RoutesManager();
@@ -371,6 +374,38 @@ class EMDesktopScreen extends StatelessWidget {
                                     }
                                   },
                                 ),
+
+                                ///org doc
+                                ///finance
+                                DropdownMenuItem<String>(
+                                  value: 'Org Document',
+                                  child: Text(
+                                    'Org Document',
+                                    textAlign: TextAlign.center,
+                                    style: AppbarCustomDropdownStyle.customTextStyle(context),
+                                  ),
+                                  onTap: () {},
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'Document Defination',
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                    child: Text(
+                                        'Document Defination',
+                                        textAlign: TextAlign.center,
+                                        style: AppbarCustomDropdownSubItem.customTextStyle(context)
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    if (myController.selectedIndex.value != 9) {
+                                      myController.selectButton(9);
+                                      _pageController.animateToPage(9,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
+                                    }
+                                  },
+                                ),
                               ],
                               selectedItem: myController.selectedIndex.value == 8
                                   ? 'Visits'
@@ -386,7 +421,9 @@ class EMDesktopScreen extends StatelessWidget {
                                                       ? 'Employee Documents'
                                                       : myController.selectedIndex.value == 5
                                                           ? 'Finance'
-                                                          : 'Select a Module',
+                                                            : myController.selectedIndex.value == 9
+                                                            ? 'Org Document'
+                                                               : 'Select a Module',
                               onChanged: (newValue) {},
                             ),
                           ),
@@ -407,7 +444,8 @@ class EMDesktopScreen extends StatelessWidget {
                   children:
                   [
                     DashboardMainButtonScreen(),
-                    CompanyIdentityScreen(),
+                    CompanyIdentity(),
+                    //CompanyIdentityScreen(),
                     HrScreen(),
                     WorkSchedule(),
                     ManageEmployDocument(),
@@ -415,6 +453,13 @@ class EMDesktopScreen extends StatelessWidget {
                     SeeAllScreen(),
                     CiRoleManager(),
                     CiVisitScreen(),
+                    CiOrgDocument
+                      (
+                      //officeId:
+                    //widget.officeId ??
+                        //'Office 01',
+                      //companyId: companyId,
+                    ),
                   ],
                               ),
               ),

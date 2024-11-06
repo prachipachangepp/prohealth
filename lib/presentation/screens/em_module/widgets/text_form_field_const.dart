@@ -131,6 +131,7 @@ class SMNumberTextFConst extends StatefulWidget {
   final bool? readOnly;
   final VoidCallback? onChange;
   final bool? enable;
+  final bool? isAsteric;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
   final FocusNode? focusNode;
@@ -146,9 +147,11 @@ class SMNumberTextFConst extends StatefulWidget {
     this.onChange,
     this.readOnly,
     this.enable,
+    this.isAsteric,
     this.validator,
     this.prefixWidget,
     this.width,
+
     this.suffixIcon,
   }) : super(key: key);
 
@@ -164,10 +167,24 @@ class _SMNumberTextFConstState extends State<SMNumberTextFConst> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-         width: widget.width ?? 354,
-          child: Text(
-            widget.text,
-            style: NumberTExtFieldLegalDoc.customTextStyle(context),
+          width: widget.width ?? 354,
+          child: RichText(
+            text: TextSpan(
+              text: widget.text,
+              style: NumberTExtFieldLegalDoc.customTextStyle(context), // Apply the main text style here
+              children: [
+                widget.isAsteric! ?
+                TextSpan(
+                  text: ' *',
+                  style: NumberTExtFieldLegalDoc.customTextStyle(context).copyWith(
+                    color: Colors.red, // Set the asterisk color to red
+                  ),
+                ) :
+            TextSpan(
+            text: ' ',
+            )
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 5),

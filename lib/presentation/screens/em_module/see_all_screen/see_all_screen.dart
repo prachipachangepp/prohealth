@@ -63,8 +63,10 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   bool isButtonEnabled = false;
   String? userLogin;
 
-  Future<void> isUserLoggedIn() async {
-    userLogin = await TokenManager.getEmailIdRegister();
+  Future<String> isUserLoggedIn() async {
+    userLogin = await TokenManager.getEmail();
+    print('???????????????????????????????? see all $userLogin');
+    return userLogin!;
   }
 
 
@@ -99,6 +101,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   @override
   void initState() {
     super.initState();
+    isUserLoggedIn();
     getUser(context).then((data) {
       _companyUsersList.add(data);
     }).catchError((error) {
@@ -110,7 +113,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     roleController.addListener(_checkFields);
     emailController.addListener(_checkFields);
     companyIdController.addListener(_checkFields);
-    isUserLoggedIn();
   }
 
   void _checkFields() {
@@ -305,9 +307,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               child: StreamBuilder<List<UserModal>>(
                 stream: _companyUsersList.stream,
                 builder: (BuildContext context, snapshot) {
-    getUser(context).then((data) {
-        _companyUsersList.add(data);
-      }).catchError((error) {});
+                  getUser(context).then((data) {
+                      _companyUsersList.add(data);
+                    }).catchError((error) {});
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
@@ -453,8 +455,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           Expanded(
                                             flex: 1,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 /// Edit button
                                                 InkWell(
@@ -643,7 +645,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 SizedBox(width: AppSize.s10),
 
                                                 /// Delete button
-                                                if (userLogin != user.email)
+                                                if (userLogin != user.email )
                                                   InkWell(
                                                   onTap: ()  {
                                                     showDialog(
@@ -733,7 +735,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       ),
                                                     ),
                                                   ),
-                                                ),
+                                                )
                                               ],
                                             ),
                                           ),

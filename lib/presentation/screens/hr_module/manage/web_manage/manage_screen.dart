@@ -131,72 +131,75 @@ class _ManageScreenState extends State<ManageScreen> {
                                         length: 4,
                                         child: Column(
                                           children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(24),
-                                                color: Color(0xFF50B5E5),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    // color: Colors.black.withOpacity(0.2),
-                                                    color: Colors.black
-                                                        .withOpacity(0.25),
-                                                    spreadRadius: 1,
-                                                    blurRadius: 4,
-                                                    offset: Offset(0, 3),
-                                                  ),
-                                                ],
-                                              ),
-                                              height: 30,
-                                              width: 720.0,
-                                              child: TabBar(
-                                                isScrollable: false,
-                                                tabs: [
-                                                  Tab(
-                                                    text:
-                                                        AppStringHr.employment,
-                                                  ),
-                                                  Tab(
-                                                      text: AppStringHr
-                                                          .education),
-                                                  Tab(
-                                                      text: AppStringHr
-                                                          .referance),
-                                                  Tab(
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 322.0,right:305,top: 5),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(24),
+                                                  color: Color(0xFF50B5E5),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      // color: Colors.black.withOpacity(0.2),
+                                                      color: Colors.black
+                                                          .withOpacity(0.25),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 4,
+                                                      offset: Offset(0, 3),
+                                                    ),
+                                                  ],
+                                                ),
+                                                height: 30,
+                                               // width: 720.0,
+                                                child: TabBar(
+                                                  isScrollable: false,
+                                                  tabs: [
+                                                    Tab(
                                                       text:
-                                                          AppStringHr.license),
-                                                ],
-                                                dividerColor:
-                                                    Colors.transparent,
-                                                indicator: BoxDecoration(
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        // color: Colors.black.withOpacity(0.2),
-                                                        color: Colors.black
-                                                            .withOpacity(0.2),
-                                                        spreadRadius: 1,
-                                                        blurRadius: 5,
-                                                        offset: Offset(0, 3),
-                                                      ),
-                                                    ],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50), // Creates border
-                                                    color: Colors.white),
-                                                indicatorSize:
-                                                    TabBarIndicatorSize.tab,
-                                                indicatorColor: Colors.white,
-                                                labelColor: Color(0xFF686464),
-                                                unselectedLabelStyle: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
+                                                          AppStringHr.employment,
+                                                    ),
+                                                    Tab(
+                                                        text: AppStringHr
+                                                            .education),
+                                                    Tab(
+                                                        text: AppStringHr
+                                                            .referance),
+                                                    Tab(
+                                                        text:
+                                                            AppStringHr.license),
+                                                  ],
+                                                  dividerColor:
+                                                      Colors.transparent,
+                                                  indicator: BoxDecoration(
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          // color: Colors.black.withOpacity(0.2),
+                                                          color: Colors.black
+                                                              .withOpacity(0.2),
+                                                          spreadRadius: 1,
+                                                          blurRadius: 5,
+                                                          offset: Offset(0, 3),
+                                                        ),
+                                                      ],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50), // Creates border
+                                                      color: Colors.white),
+                                                  indicatorSize:
+                                                      TabBarIndicatorSize.tab,
+                                                  indicatorColor: Colors.white,
+                                                  labelColor: Color(0xFF686464),
+                                                  unselectedLabelStyle: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                  labelStyle: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                  unselectedLabelColor:
+                                                      Colors.white,
                                                 ),
-                                                labelStyle: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                                unselectedLabelColor:
-                                                    Colors.white,
                                               ),
                                             ),
                                             SizedBox(height: 5),
@@ -255,60 +258,62 @@ class _ManageScreenState extends State<ManageScreen> {
 
                                     /// Documents Tab Views
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 5),
+                                      padding: const EdgeInsets.symmetric(vertical: 5,),
                                       child: DefaultTabController(
                                         length: 5,
                                         child: Column(
                                           children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(24),
-                                                color: Color(0xFF50B5E5),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    // color: Colors.black.withOpacity(0.2),
-                                                    color: Colors.black.withOpacity(0.25),
-                                                    spreadRadius: 1,
-                                                    blurRadius: 4,
-                                                    offset: Offset(0, 3),
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 322.0,right:305,top: 5),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(24),
+                                                  color: Color(0xFF50B5E5),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      // color: Colors.black.withOpacity(0.2),
+                                                      color: Colors.black.withOpacity(0.25),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 4,
+                                                      offset: Offset(0, 3),
+                                                    ),
+                                                  ],
+                                                ),
+                                                height: 30,
+                                               // width: 820.0,
+                                                child: TabBar(
+                                                  isScrollable: false,
+                                                  tabs: [
+                                                    Tab(
+                                                        text: AppStringHr.acknowledgement),
+                                                    Tab(
+                                                        text: AppStringHr.compensation),
+                                                    Tab(
+                                                        text: AppStringHr.addVaccination),
+                                                    Tab(text: AppStringHr.others),
+                                                    Tab(text: AppStringHr.formStatus),
+                                                  ],
+                                                  dividerColor: Colors.transparent,
+                                                  //padding: EdgeInsets.only(top: 2),
+                                                  indicator: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(50), // Creates border
+                                                      color: Colors.white),
+                                                  indicatorSize: TabBarIndicatorSize.tab,
+                                                  indicatorColor: Colors.white,
+                                                  labelColor: Color(0xFF686464),
+                                                  unselectedLabelStyle: TextStyle(
+                                                    fontSize: AppSize.s14,
+                                                    fontWeight: FontWeight.w600,
                                                   ),
-                                                ],
-                                              ),
-                                              height: 30,
-                                              width: 650.0,
-                                              child: TabBar(
-                                                isScrollable: false,
-                                                tabs: [
-                                                  Tab(
-                                                      text: AppStringHr.acknowledgement),
-                                                  Tab(
-                                                      text: AppStringHr.compensation),
-                                                  Tab(
-                                                      text: AppStringHr.addVaccination),
-                                                  Tab(text: AppStringHr.others),
-                                                  Tab(text: AppStringHr.formStatus),
-                                                ],
-                                                dividerColor: Colors.transparent,
-                                                indicator: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(50), // Creates border
-                                                    color: Colors.white),
-                                                indicatorSize: TabBarIndicatorSize.tab,
-                                                indicatorColor: Colors.white,
-                                                labelColor: Color(0xFF686464),
-                                                unselectedLabelStyle: TextStyle(
-                                                  fontSize: AppSize.s14,
-                                                  fontWeight: FontWeight.w600,
+                                                  labelStyle: TextStyle(
+                                                    fontSize: AppSize.s14,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                  unselectedLabelColor: Colors.white,
                                                 ),
-                                                labelStyle: TextStyle(
-                                                  fontSize: AppSize.s14,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                                unselectedLabelColor: Colors.white,
                                               ),
                                             ),
-                                            SizedBox(
-                                              height:
-                                                  265.0, // Adjust height as needed
+                                            Expanded(
                                               child: TabBarView(
                                                 physics:
                                                     NeverScrollableScrollPhysics(),
@@ -357,7 +362,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          height: 265,
+                                                          height: MediaQuery.of(context).size.height,
                                                           padding: EdgeInsets.only(top: AppPadding.p15),
                                                           child: FormStatusScreen(
                                                               employeeId: widget

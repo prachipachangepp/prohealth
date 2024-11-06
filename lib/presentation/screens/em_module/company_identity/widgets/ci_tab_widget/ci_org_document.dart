@@ -17,9 +17,11 @@ import '../../../../../../app/resources/establishment_resources/establish_theme_
 import '../../company_identity_screen.dart';
 
 class CiOrgDocument extends StatefulWidget {
-  final String officeId;
-  final int? companyId;
-  const CiOrgDocument({super.key, required this.officeId, this.companyId});
+ // final String officeId;
+  //final int? companyId;
+  const CiOrgDocument({super.key,
+  //  required this.officeId, this.companyId
+  });
 
   @override
   State<CiOrgDocument> createState() => _CiOrgDocumentState();
@@ -149,7 +151,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 elevation: 4,
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 child: Container(
-                  width: 750,
+                  width: 840,
                   height: 30,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
