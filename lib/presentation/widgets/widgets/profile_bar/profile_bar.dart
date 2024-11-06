@@ -109,11 +109,11 @@ class _ProfileBarState extends State<ProfileBar> {
       years--;
       months += 12;
     }
-
-    String result = '';
-    if (years > 0) result += "$years yr, ";
-    result += "$months m, ";
-    result += "$days d";
+    String result = "$years yr, $months m, $days d";
+    // String result = '';
+    // if (years > 0) result += "$years yr, ";
+    // result += "$months m, ";
+    // result += "$days d";
     print("dobTimestamp: $dobTimestamp");
     print('Calculated Age: $result');
     dobTimestamp = result;
@@ -137,11 +137,11 @@ class _ProfileBarState extends State<ProfileBar> {
       years--;
       months += 12;
     }
-
-    String result = '';
-    if (years > 0) result += "$years yr, ";
-    result += "$months m, ";
-    result += "$days d";
+    String result = "$years yr, $months m, $days d";
+    // String result = '';
+    // if (years > 0) result += "$years yr, ";
+    // result += "$months m, ";
+    // result += "$days d";
 
     print('Timestamp Hiredate: $result');
     return result;
@@ -324,7 +324,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Annual skills ${snapshot.data!.percentage}%",
+                                          "Annual Skills 0%",
                                           style:
                                           ProfileBarTextBoldStyle.customEditTextStyle(),
                                         ),
