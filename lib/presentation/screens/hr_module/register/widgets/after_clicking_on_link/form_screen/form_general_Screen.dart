@@ -1188,7 +1188,7 @@ class _generalFormState extends State<generalForm> {
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
         // );
-    showDialog(
+   await showDialog(
           context: context,
           builder: (BuildContext context) {
             return AddSuccessPopup(
