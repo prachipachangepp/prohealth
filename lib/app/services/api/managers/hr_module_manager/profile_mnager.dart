@@ -583,6 +583,7 @@ Future<ProfileEditorModal> getEmployeePrefill(
         country: response.data['country'] ?? '',
         county: response.data['county'] ?? '',
         zone: response.data['zones'] ?? '',
+        color: response.data['color']??"#FFFFFF",
         summary: response.data['summary'] ?? "",
         profileScorePercentage: response.data['profileScorePercentage'] ?? 0,
         message: response.statusMessage!,

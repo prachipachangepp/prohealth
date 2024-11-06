@@ -45,6 +45,7 @@ class ThemeManagerDark {
     );
   }
 }
+
 class ThemeManagerAddressPB {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(

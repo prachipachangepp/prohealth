@@ -3,7 +3,6 @@ import 'package:prohealth/app/resources/value_manager.dart';
 
 class WrapWidget extends StatefulWidget {
   final List<Widget> children;
-
   WrapWidget({super.key, required this.children});
 
   @override

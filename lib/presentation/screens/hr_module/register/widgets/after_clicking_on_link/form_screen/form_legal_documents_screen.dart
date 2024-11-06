@@ -554,6 +554,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                                 // const SizedBox(height: AppSize.s10),
                                 /// dont delete this code
                                 DefineFormList(
+                                  isReturnCompany: (formStatus.htmlname == AppStringLegalDocument.returnOfcompanyProperty)?true:false,
                                   isHandbook: (formStatus.htmlname == AppStringLegalDocument.employeeHandbook)?true:false,
                                   handBookView:(formStatus.htmlname == AppStringLegalDocument.employeeHandbook)?() async{
                             await callHtmlData(formStatus.htmlname,formStatus.formHtmlTemplatesId);

@@ -235,7 +235,7 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                         'Select a Module',
                                         textAlign: TextAlign.center,
                                         style: CustomTextStylesCommon.commonStyle(
-                                          fontSize: FontSize.s14,
+                                          fontSize: FontSize.s18,
                                           fontWeight: FontWeight.w600,
                                           color: ColorManager.darkgrey,
                                         ),

@@ -534,7 +534,7 @@ Future<FluVaccineDocument> getFluVaccineDocument({
 /// W 4 document
 Future<WFourDocument> getW4Document({
   required BuildContext context, required int templateId,required int employeeId, required String middleName,
-  required String marriedstatus, required int step3a,required int step3b,required int step3c,required int step4a,
+  required String marriedStatus, required int step3a,required int step3b,required int step3c,required int step4a,
   required int step4b,required int step4c, required int multipleJW1,required int multipleJW12a,required int multipleJW12b,
   required int multipleJW12c,required int multipleJW13,required int multipleJW14,required int deductionsWorksheet1,required int deductionsWorksheet2,
   required int deductionsWorksheet3,required int deductionsWorksheet4,required int deductionsWorksheet5,}) async {
@@ -543,7 +543,7 @@ Future<WFourDocument> getW4Document({
   try {
     final response = await ApiOffer(context).get(
         path: LegalDocumentsRepo
-            .getW4Documents(templateId: templateId, employeeId: employeeId, middleName: middleName, marriedstatus: marriedstatus, step3a: step3a, step3b: step3b,
+            .getW4Documents(templateId: templateId, employeeId: employeeId, middleName: middleName, marriedstatus: marriedStatus, step3a: step3a, step3b: step3b,
             step3c: step3c, step4a: step4a, step4b: step4b, step4c: step4c, multipleJW1: multipleJW1, multipleJW12a: multipleJW12a, multipleJW12b: multipleJW12b,
           multipleJW12c: multipleJW12c, multipleJW13: multipleJW13, multipleJW14: multipleJW14, deductionsWorksheet1: deductionsWorksheet1, deductionsWorksheet2: deductionsWorksheet2,
           deductionsWorksheet3: deductionsWorksheet3, deductionsWorksheet4: deductionsWorksheet4, deductionsWorksheet5: deductionsWorksheet5,

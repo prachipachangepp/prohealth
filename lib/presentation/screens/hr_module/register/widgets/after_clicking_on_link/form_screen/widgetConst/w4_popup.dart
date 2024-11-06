@@ -549,7 +549,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
             try{
             WFourDocument wfourDocument = await getW4Document(context: context, templateId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
                 middleName: nameController.text,
-                marriedstatus: status.isEmpty ? AppConfig.dash : status, step3a: int.parse(step3aController.text),
+                marriedStatus: status.isEmpty ? AppConfig.dash : status, step3a: int.parse(step3aController.text),
                 step3b: int.parse(step3bController.text), step3c: int.parse(step3cController.text),
                 step4a: _getIntValue(step4aController), // No validation, pass 0 if empty
                 step4b: _getIntValue(step4bController), // No validation, pass 0 if empty

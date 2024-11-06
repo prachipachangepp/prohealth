@@ -5,12 +5,16 @@ import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 
+import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/font_manager.dart';
+
 class DefineFormList extends StatelessWidget {
   final String formName;
   final VoidCallback? onSigned;
   final VoidCallback onView;
   final bool isSigned;
   final bool isHandbook;
+  final bool isReturnCompany;
   final VoidCallback? handBookView;
 
   const DefineFormList({
@@ -20,7 +24,7 @@ class DefineFormList extends StatelessWidget {
     required this.onView,
     required this.isSigned,
     required this.isHandbook,
-    this.handBookView,
+    this.handBookView, required this.isReturnCompany,
   }) : super(key: key);
 
   @override
@@ -32,26 +36,93 @@ class DefineFormList extends StatelessWidget {
           formName,
           style: const TextStyle(fontSize: 16),
         ),
-        isHandbook? Row(
+    isReturnCompany
+        ? Padding(
+      padding: const EdgeInsets.only(right: 40.0),
+      child: Text('NA',style: TextStyle(
+          fontSize: FontSize.s12,
+          fontWeight: FontWeight.w700,
+          color: ColorManager.mediumgrey)),
+    )
+        :  isHandbook ? Padding(
+          padding: const EdgeInsets.only(right: 1.0),
+          child: InkWell(
+            onTap: handBookView,
+            child: Container(
+                height: 30,
+                width: 90,
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xff1696C8)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.only(bottom: 5,left: 15,right: 10),
+                child:
+                Padding(
+                  padding: const EdgeInsets.only(top: 6.0),
+                  child: Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('View',style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: FontSize.s12,
+                          color: Color(0xff1696C8),
+                        ),),
+                        SizedBox(width: 10,),
+                        Center(
+                          child: const Icon(
+                            Icons.remove_red_eye_outlined,
+                            color: Color(0xff1696C8),
+                            size: 20,
+                          ),
+                        ),]),
+                )),
+          ),
+        )
+        : Row(
           children: [
             // Conditional rendering: If signed, show a check mark
-           ElevatedButton(
-                onPressed: handBookView, // Always show the View button
-                child: const Text('View')
-            )
-          ],
-        )  :Row(
-          children: [
-            // Conditional rendering: If signed, show a check mark
-            isSigned ? ElevatedButton(
-                onPressed: onView, // Always show the View button
-                child: const Text('View')
+            isSigned ?
+            InkWell(
+              onTap: onView,
+              child: Container(
+                height: 30,
+                width: 90,
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xff1696C8)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.only(bottom: 5,left: 10,right: 10),
+                child:
+              Padding(
+                padding: const EdgeInsets.only(top: 6.0),
+                child: Row(
+                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left:3),
+                      child: Text('View',style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: FontSize.s12,
+                        color: Color(0xff1696C8),
+                      ),),
+                    ),
+                    SizedBox(width: 10,),
+                    Center(
+                      child: const Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: Color(0xff1696C8),
+                        size: 20,
+                      ),
+                    ),]),
+              )),
             )
                 : SizedBox(width: 50,),
             const SizedBox(width: 10),
             isSigned
                 ? Container(
-              width: 60,
+              width: 90,
                   child: Center(
                     child: const Icon(
                                   Icons.check,
@@ -60,10 +131,13 @@ class DefineFormList extends StatelessWidget {
                                 ),
                   ),
                 )
-                : ElevatedButton(
-              onPressed: onSigned, // Button only shown if not signed
-              child: const Text('Sign'),
-            ),
+                : Container(
+              width: 90,
+                  child: ElevatedButton(
+                                onPressed: onSigned, // Button only shown if not signed
+                                child: const Text('Sign'),
+                              ),
+                ),
 
 
           ],

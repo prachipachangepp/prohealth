@@ -740,6 +740,7 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
           isDense: true, // Makes the dropdown more compact
           icon: Icon(Icons.arrow_drop_down,color: ColorManager.mediumgrey,size: IconSize.I18,),
           // Default dropdown icon
+          style: TableSubHeading.customTextStyle(context),
           iconSize: 15, // Icon size
           value: widget.controller.text.isEmpty ? null : widget.controller.text,
           items: widget.items.map((item) {
@@ -747,10 +748,7 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style: TextStyle(
-                    color: widget.textColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: FontSize.s12),
+                style: TableSubHeading.customTextStyle(context),
               ),
             );
           }).toList(),
@@ -765,7 +763,7 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
           decoration: InputDecoration(
             border: InputBorder.none,
             contentPadding: EdgeInsets.only(bottom: 20),
-            hintStyle:  DocumentTypeDataStyle.customTextStyle(context),)
+            hintStyle:  TableSubHeading.customTextStyle(context),)
       ),
     );
   }

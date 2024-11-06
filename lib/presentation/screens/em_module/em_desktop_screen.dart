@@ -174,7 +174,7 @@ class EMDesktopScreen extends StatelessWidget {
                                     'Select a Module',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      fontSize: FontSize.s18,
+                                      fontSize: FontSize.s14,
                                       fontWeight: FontWeight.w700,
                                       color: ColorManager.textPrimaryColor,
                                       decoration: TextDecoration.none,

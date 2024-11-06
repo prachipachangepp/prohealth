@@ -144,9 +144,11 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                       style: FormHeading.customTextStyle(context),
                     ),
                   ),
-                  Row(
+                  widget.isDisable
+                      ? SizedBox(width: 140,)
+                      : Row(
                     children: [
-                      Container(
+                      widget.isDisable?SizedBox(width: 140,):Container(
                         height: 30,
                         width: 140,
                         child:  CustomButtonTransparent(
@@ -169,7 +171,7 @@ class _SignatureFormScreenState extends State<SignatureFormScreen> {
                         ),
                       ),
                       SizedBox(width: 10,),
-                      widget.isDisable?SizedBox(width: 140,):Container(
+                      Container(
                         height: 30,
                         width: 140,
                         child: isLoading ?

@@ -5,8 +5,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/gender_api.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/gender_data.dart';
@@ -147,6 +149,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     reportingOfficeController = TextEditingController();
     summaryController = TextEditingController();
     selectedCounty = 'Select County';
+    // addressController.addListener(_onCountyNameChanged);
   }
 
   @override
@@ -180,972 +183,1056 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   dynamic finalPath;
   String fileName = '';
   int selectedEmployeeTypeId =0;
+  List<String> _suggestions = [];
+  void _onCountyNameChanged() async {
+    if (addressController.text.isEmpty) {
+      setState(() {
+        _suggestions = [];
+      });
+      return;
+    }
+    final suggestions = await fetchSuggestions(addressController.text);
+    if (suggestions[0] == addressController.text) {
+      setState(() {
+        _suggestions.clear();
+      });
+    } else if (addressController.text.isEmpty) {
+      setState(() {
+        _suggestions = suggestions;
+      });
+    } else {
+      setState(() {
+        _suggestions = suggestions;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
 
     // print("Edit Mode Cancel :::::::::::::::::::::::############");
     return FutureBuilder<ProfileEditorModal>(
-      future: getEmployeePrefill(context, widget.employeeId),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (snapshot.hasError) {
-          return const Center(
-            child: Text('Error fetching profile data'),
-          );
-        }
+          future: getEmployeePrefill(context, widget.employeeId),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text('Error fetching profile data'),
+              );
+            }
 
-        if (snapshot.hasData) {
-          // Populate controllers with the fetched data
-          var profileData = snapshot.data!;
-          nameController.text = profileData.firstName ?? '';
-          deptController.text = profileData.department ?? '';
-          empTypeController.text = profileData.employeType ?? '';
-          addressController.text = profileData.finalAddress ?? '';
-          ageController.text = profileData.dateOfBirth ?? '';
-          genderController.text = profileData.gender ?? '';
-          ssNController.text = profileData.SSNNbr ?? '';
-          workPhoneController.text = profileData.workPhoneNbr ?? '';
-          phoneNController.text = profileData.primaryPhoneNbr ?? '';
-          personalEmailController.text = profileData.personalEmail ?? '';
-          workEmailController.text = profileData.workEmail ?? '';
-          zoneController.text = profileData.zone ?? '';
-          countyController.text = profileData.county ?? '';
-          serviceController.text = profileData.service ?? '';
-          reportingOfficeController.text = profileData.regOfficId ?? '';
-          summaryController.text = profileData.summary ?? '';
-          print('Profile image ${profileData.imgurl}');
-          String countyName = "";
-          String zoneName = "";
-          return Column(
-            children: [
-              Expanded(
-                child: Container(
-
-                  padding: const EdgeInsets.all(5),
-                  margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(20.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.blue.withOpacity(0.5),
-                        offset: const Offset(0, -4),
-                        // blurRadius: 8.0,
-                        spreadRadius: 1.0,
-                      ),
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        offset: const Offset(0, 4),
-                        spreadRadius: 1.0,
-                      ),
-                    ],
-                  ),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
+            if (snapshot.hasData) {
+              // Populate controllers with the fetched data
+              var profileData = snapshot.data!;
+              nameController.text = profileData.firstName ?? '';
+              deptController.text = profileData.department ?? '';
+              empTypeController.text = profileData.employeType ?? '';
+              addressController.text = profileData.finalAddress ?? '';
+              ageController.text = profileData.dateOfBirth ?? '';
+              genderController.text = profileData.gender ?? '';
+              ssNController.text = profileData.SSNNbr ?? '';
+              workPhoneController.text = profileData.workPhoneNbr ?? '';
+              phoneNController.text = profileData.primaryPhoneNbr ?? '';
+              personalEmailController.text = profileData.personalEmail ?? '';
+              workEmailController.text = profileData.workEmail ?? '';
+              zoneController.text = profileData.zone ?? '';
+              countyController.text = profileData.county ?? '';
+              serviceController.text = profileData.service ?? '';
+              reportingOfficeController.text = profileData.regOfficId ?? '';
+              summaryController.text = profileData.summary ?? '';
+              selectedEmployeeColor = profileData.color;
+              print('Profile image ${profileData.imgurl}');
+              String countyName = "";
+              String zoneName = "";
+              return Column(
+                children: [
+                  Expanded(
                     child: Container(
-                      // height: 750,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 23,top:10),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 10),
-                                        child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [StatefulBuilder(
-                                          builder: (BuildContext context, void Function(void Function()) setState) {
-                                            return Padding(
-                                              padding: const EdgeInsets.only(right:20),
-                                              child: Row(
-                                                children: [
-                                                  // Show the picked image or the network image
-                                                  pickedFilePath
-                                                      ? Container(
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black.withOpacity(0.2),
-                                                          spreadRadius: 2,
-                                                          blurRadius: 5,
-                                                          offset: const Offset(0, 3), // Shadow position
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    child: CircleAvatar(
-                                                      radius: 20, // Adjust the size of the avatar
-                                                      //backgroundColor: ColorManager.faintGrey,
-                                                      child: ClipOval(
-                                                        child: Image.memory(
-                                                          finalPath!, // Display the selected image from gallery
-                                                          fit: BoxFit.cover, // Ensure the image fills the avatar
-                                                          width: double.infinity, // Ensures the image fills the avatar width
-                                                          height: double.infinity, // Ensures the image fills the avatar height
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )
-                                                      : profileData.imgurl == null
-                                                      ? const Text('') // Display nothing if no image is available
-                                                      : Container(
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black.withOpacity(0.2),
-                                                          spreadRadius: 2,
-                                                          blurRadius: 5,
-                                                          offset: const Offset(0, 3), // Shadow position
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    child: CircleAvatar(
-                                                      radius: 20, // Adjust the size of the avatar
-                                                      backgroundColor: ColorManager.faintGrey,
-                                                      child: ClipOval(
-                                                        child: CachedNetworkImage(
-                                                          imageUrl: profileData.imgurl,
-                                                          fit: BoxFit.cover, // Ensures the image fills the avatar
-                                                          width: double.infinity, // Ensures the image fills the avatar width
-                                                          height: double.infinity, // Ensures the image fills the avatar height
-                                                          placeholder: (context, url) =>
-                                                          const CircularProgressIndicator(),
-                                                          errorWidget: (context, url, error) =>
-                                                              CircleAvatar(child: Image.asset("images/profilepic.png",fit:BoxFit.cover),),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 10),
-                                                  // Custom icon button for uploading files
-                                                  CustomIconButton(
-                                                    icon: Icons.upload_outlined,
-                                                    text: AppString.photo,
-                                                    onPressed: () async {
-                                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                                        allowMultiple: true,
-                                                        type: FileType.custom, // Custom type to specify allowed extensions
-                                                        allowedExtensions: [
-                                                          'png',
-                                                          'jpg',
-                                                          'jpeg',
-                                                        ],
-                                                      );
-                                                      if (result != null) {
-                                                        print("Result::: ${result}");
 
-                                                        try {
-                                                          print('File picked: ${fileName}');
-                                                          setState(() {
-                                                            pickedFilePath = true;
-                                                            fileName = result.files.first.name;
-                                                            finalPath = result.files.first.bytes; // Store the picked file bytes
-                                                          });
-                                                        } catch (e) {
-                                                          print(e);
+                      padding: const EdgeInsets.all(5),
+                      margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(20.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.blue.withOpacity(0.5),
+                            offset: const Offset(0, -4),
+                            // blurRadius: 8.0,
+                            spreadRadius: 1.0,
+                          ),
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            offset: const Offset(0, 4),
+                            spreadRadius: 1.0,
+                          ),
+                        ],
+                      ),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Container(
+                          // height: 750,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Stack(
+                                  children: [Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 23,top:10),
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(left:18),
+                                              child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  children: [StatefulBuilder(
+                                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                                      return Padding(
+                                                        padding: const EdgeInsets.only(right:20),
+                                                        child: Row(
+                                                          children: [
+                                                            // Show the picked image or the network image
+                                                            pickedFilePath
+                                                                ? Container(
+                                                              decoration: BoxDecoration(
+                                                                shape: BoxShape.circle,
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                    color: Colors.black.withOpacity(0.2),
+                                                                    spreadRadius: 2,
+                                                                    blurRadius: 5,
+                                                                    offset: const Offset(0, 3), // Shadow position
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child: CircleAvatar(
+                                                                radius: 20, // Adjust the size of the avatar
+                                                                //backgroundColor: ColorManager.faintGrey,
+                                                                child: ClipOval(
+                                                                  child: Image.memory(
+                                                                    finalPath!, // Display the selected image from gallery
+                                                                    fit: BoxFit.cover, // Ensure the image fills the avatar
+                                                                    width: double.infinity, // Ensures the image fills the avatar width
+                                                                    height: double.infinity, // Ensures the image fills the avatar height
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            )
+                                                                : profileData.imgurl == null
+                                                                ? const Text('') // Display nothing if no image is available
+                                                                : Container(
+                                                              decoration: BoxDecoration(
+                                                                shape: BoxShape.circle,
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                    color: Colors.black.withOpacity(0.2),
+                                                                    spreadRadius: 2,
+                                                                    blurRadius: 5,
+                                                                    offset: const Offset(0, 3), // Shadow position
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child: CircleAvatar(
+                                                                radius: 20, // Adjust the size of the avatar
+                                                                backgroundColor: ColorManager.faintGrey,
+                                                                child: ClipOval(
+                                                                  child: CachedNetworkImage(
+                                                                    imageUrl: profileData.imgurl,
+                                                                    fit: BoxFit.cover, // Ensures the image fills the avatar
+                                                                    width: double.infinity, // Ensures the image fills the avatar width
+                                                                    height: double.infinity, // Ensures the image fills the avatar height
+                                                                    placeholder: (context, url) =>
+                                                                    const CircularProgressIndicator(),
+                                                                    errorWidget: (context, url, error) =>
+                                                                        CircleAvatar(child: Image.asset("images/profilepic.png",fit:BoxFit.cover),),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            const SizedBox(width: 10),
+                                                            // Custom icon button for uploading files
+                                                            CustomIconButton(
+                                                              icon: Icons.upload_outlined,
+                                                              text: AppString.photo,
+                                                              onPressed: () async {
+                                                                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                                                  allowMultiple: true,
+                                                                  type: FileType.custom, // Custom type to specify allowed extensions
+                                                                  allowedExtensions: [
+                                                                    'png',
+                                                                    'jpg',
+                                                                    'jpeg',
+                                                                  ],
+                                                                );
+                                                                if (result != null) {
+                                                                  print("Result::: ${result}");
+
+                                                                  try {
+                                                                    print('File picked: ${fileName}');
+                                                                    setState(() {
+                                                                      pickedFilePath = true;
+                                                                      fileName = result.files.first.name;
+                                                                      finalPath = result.files.first.bytes; // Store the picked file bytes
+                                                                    });
+                                                                  } catch (e) {
+                                                                    print(e);
+                                                                  }
+                                                                }
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),]
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                ProfileEditCancelButton(
+                                                  height: AppSize.s30,
+                                                  width: AppSize.s100,
+                                                  text: AppString.cancel,
+                                                  onPressed: () {
+                                                    print("Edit Mode Cancel :::::::::::::::::::::::############");
+                                                    widget.onCancel();
+                                                  },
+                                                ),
+                                                SizedBox(width: 10,),
+                                                CustomButton(
+                                                  height: AppSize.s30,
+                                                  width: AppSize.s100,
+                                                  onPressed: () async {
+                                                    try {
+                                                      var response = await patchEmployeeEdit(
+                                                          context: context,
+                                                          employeeId: widget.employeeId,
+                                                          code: profileData.code,
+                                                          userId: profileData.userId,
+                                                          firstName: nameController.text,
+                                                          lastName: profileData.lastName,
+                                                          departmentId: profileData.departmentId,
+                                                          employeeTypeId:selectedEmployeeTypeId,
+                                                          expertise: profileData.speciality,
+                                                          cityId: profileData.cityId,
+                                                          countryId: profileData.countryId,
+                                                          countyId: profileData.countyId,
+                                                          zoneId: profileData.zoneId,
+                                                          SSNNbr: ssNController.text,
+                                                          primaryPhoneNbr: phoneNController.text,
+                                                          secondryPhoneNbr: profileData.secondryPhoneNbr,
+                                                          workPhoneNbr: workPhoneController.text,
+                                                          regOfficId: selectedOfficeId ?? profileData.regOfficId,
+                                                          personalEmail: personalEmailController.text,
+                                                          workEmail: workEmailController.text,
+                                                          address: addressController.text,
+                                                          dateOfBirth: profileData.dateOfBirth == ageController.text ? profileData.dateOfBirth.toString() : ageController.text,
+                                                          emergencyContact:
+                                                          profileData.emergencyContact,
+                                                          covreage: profileData.covreage,
+                                                          employment: profileData.employment,
+                                                          gender: selectedGenderId ?? genderController.text,
+                                                          status: profileData.status,
+                                                          service: selectedServiceId ?? serviceController.text,
+                                                          summary: summaryController.text,
+                                                          imgurl: profileData.imgurl,
+                                                          resumeurl: profileData.resumeurl,
+                                                          // companyId: 1,
+                                                          onboardingStatus: profileData.onboardingStatus,
+                                                          driverLicenceNbr: profileData.driverLicenceNbr,
+                                                          dateofTermination: profileData.dateofTermination,
+                                                          dateofResignation: profileData.dateofResignation,
+                                                          dateofHire: profileData.dateofHire,
+                                                          rehirable: profileData.rehirable,
+                                                          position: profileData.position,
+                                                          finalAddress: addressController.text,
+                                                          type: profileData.type,
+                                                          reason: profileData.reason,
+                                                          finalPayCheck: profileData.finalPayCheck,
+                                                          checkDate: profileData.checkDate,
+                                                          grossPay: profileData.grossPay,
+                                                          netPay: profileData.netPay,
+                                                          methods: profileData.methods,
+                                                          materials: profileData.materials,
+                                                          race: profileData.race,
+                                                          rating: profileData.rating,
+                                                          signatureURL: profileData.signatureURL,
+                                                          colorCode: selectedEmployeeColor!
+                                                      );
+                                                      if(response.statusCode == 200 || response.statusCode == 201){
+                                                        // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) {
+                                                            return const AddSuccessPopup(
+                                                              message: 'Employee updated successfully',
+                                                            );
+                                                          },
+                                                        );
+                                                        ///
+                                                        //   if (patchCoverage.success) {
+                                                        //     print("Coverage added successfully");
+                                                        //   } else {
+                                                        //     print("Failed To Add Coverage........");
+                                                        //   }
+                                                        if(pickedFilePath){
+                                                          var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
+                                                        }else{
+                                                          print('Document Error');
                                                         }
                                                       }
-                                                    },
+                                                      widget.onCancel();
+                                                      nameController.clear();
+                                                      deptController.clear();
+                                                      empTypeController.clear();
+                                                      addressController.clear();
+                                                      ageController.clear();
+                                                      ssNController.clear();
+                                                      phoneNController.clear();
+                                                      workPhoneController.clear();
+                                                      personalEmailController.clear();
+                                                      workEmailController.clear();
+                                                      countyController.clear();
+                                                      serviceController.clear();
+                                                      zoneController.clear();
+                                                      summaryController.clear();
+                                                    } catch (e) {
+                                                      print(e);
+                                                    }
+                                                  },
+                                                  text: 'Save',
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 25,),
+                                      ///upload file
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 18),
+                                            child: Text(
+                                              AppString.editProfile,
+                                              style: EditProfile.customEditTextStyle(),
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10,),
+
+                                      /// row 1
+                                      Padding(
+                                        padding: const EdgeInsets.only(left:18,right:23),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            FirstSMTextFConst(
+                                              controller: nameController,
+                                              keyboardType: TextInputType.text,
+                                              text: AppString.name,
+
+                                            ),
+
+
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    'Select Employee Type',
+                                                    //  widget.depTitle,
+                                                    style: AllPopupHeadings.customTextStyle(context)),
+                                                SizedBox(height: 5,),
+                                                FutureBuilder<List<EmployeeTypeModal>>(
+                                                  future: EmployeeTypeGet(context, deptId),
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                                      return Container(
+                                                        alignment: Alignment.center,
+                                                        child: HRUManageDropdown(
+                                                          controller: TextEditingController(text: ''),
+                                                          labelText: 'Select Employee Type',
+                                                          labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                            color: Color(0xff575757),
+                                                            fontWeight: FontWeight.w500,),
+                                                          labelFontSize: 12,
+                                                          items: [], // Empty while loading
+                                                        ),
+                                                      );
+                                                    }
+                                                    if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                                      return HRUManageDropdown(
+                                                        controller: TextEditingController(text: ''),
+                                                        labelText: 'Select Employee Type',
+                                                        labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                          color: ColorManager.mediumgrey,
+                                                          fontWeight: FontWeight.w500,),
+                                                        labelFontSize: 12,
+                                                        items: [],
+                                                      );
+                                                    }
+
+                                                    if (snapshot.hasData) {
+                                                      List<EmployeeTypeModal> employeeTypeList = snapshot.data!;
+                                                      List<String> dropDownEmployeeTypes = employeeTypeList
+                                                          .map((employeeType) => employeeType.employeeType)
+                                                          .toList();
+
+                                                      String? selectedEmployeeType = dropDownEmployeeTypes.isNotEmpty
+                                                          ? dropDownEmployeeTypes[0]
+                                                          : null;
+
+                                                      selectedEmployeeTypeId = (employeeTypeList.isNotEmpty
+                                                          ? employeeTypeList[0].employeeTypeId
+                                                          : null)!;
+
+                                                      return HRUManageDropdown(
+                                                        controller: TextEditingController(text: selectedEmployeeType ?? ''),
+                                                        labelText: "Select Employee Type",
+                                                        labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                          color: ColorManager.mediumgrey,
+                                                          fontWeight: FontWeight.w500,),
+                                                        labelFontSize: 12,
+                                                        items: dropDownEmployeeTypes,
+                                                        onChanged: (val) {
+                                                          selectedEmployeeType = val;
+                                                          selectedEmployeeTypeId = employeeTypeList
+                                                              .firstWhere((employeeType) => employeeType.employeeType == val)
+                                                              .employeeTypeId;
+                                                          selectedEmployeeColor = employeeTypeList
+                                                              .firstWhere((employeeType) => employeeType.employeeType == val)
+                                                              .color;
+                                                          print('Selected Employee Type Color: $selectedEmployeeColor');
+                                                          print('Selected Employee Type ID: $selectedEmployeeTypeId');
+                                                        },
+                                                      );
+                                                    }
+                                                    return const SizedBox();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    'Select Department',
+                                                    //  widget.depTitle,
+                                                    style: AllPopupHeadings.customTextStyle(context)),
+                                                SizedBox(height: 5,),
+                                                FutureBuilder<List<HRHeadBar>>(
+                                                  future: companyHRHeadApi(context, deptId),
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot.connectionState ==
+                                                        ConnectionState.waiting) {
+                                                      List<String>dropDownServiceList =[];
+                                                      return Container(
+                                                          alignment: Alignment.center,
+                                                          child:
+                                                          HRUManageDropdown(
+                                                            controller: TextEditingController(
+                                                                text: ''),
+                                                            labelText: 'Select Department',
+                                                            labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                              color: Color(0xff575757),
+                                                              fontWeight: FontWeight.w500,),
+                                                            labelFontSize: 12,
+                                                            items:  dropDownServiceList,
+
+                                                          )
+                                                      );
+                                                    }
+                                                    if (snapshot.hasData &&
+                                                        snapshot.data!.isEmpty) {
+                                                      return Center(
+                                                        child: Text(
+                                                          ErrorMessageString.noroleAdded,
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: FontSize.s14,
+                                                            color: ColorManager.mediumgrey,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    if (snapshot.hasData) {
+                                                      // Extract dropdown items from snapshot
+                                                      List<String> dropDownServiceList = snapshot
+                                                          .data!
+                                                          .map((dept) => dept.deptName!)
+                                                          .toList();
+                                                      String? firstDeptName =
+                                                      snapshot.data!.isNotEmpty
+                                                          ? snapshot.data![0].deptName
+                                                          : null;
+                                                      int? firstDeptId = snapshot.data!.isNotEmpty
+                                                          ? snapshot.data![0].deptId
+                                                          : null;
+
+                                                      if (selectedDeptName == null &&
+                                                          dropDownServiceList.isNotEmpty) {
+                                                        selectedDeptName = firstDeptName;
+                                                        selectedDeptId = firstDeptId;
+                                                      }
+
+                                                      return HRUManageDropdown(
+                                                        controller: TextEditingController(
+                                                            text: profileData.department),
+                                                        labelText: "Select Department",
+                                                        labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                          color: const Color(0xff575757),
+                                                          fontWeight: FontWeight.w500,),
+                                                        labelFontSize: 12,
+                                                        items: dropDownServiceList,
+                                                        onChanged: (val) {
+                                                          // setState(() {
+                                                          selectedDeptName = val;
+                                                          selectedDeptId = snapshot.data!
+                                                              .firstWhere(
+                                                                  (dept) => dept.deptName == val)
+                                                              .deptId;
+                                                          // });
+                                                        },
+                                                      );
+                                                    }
+                                                    return const SizedBox();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      ///row 2
+                                      Padding(
+                                        padding: const EdgeInsets.only(left:18,right: 23),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            FirstSMTextFConst(
+                                              controller: addressController,
+                                              keyboardType: TextInputType.text,
+                                              text: AppString.addresss,
+
+                                            ),
+
+                                            FirstSMTextFConst(
+                                              controller: ageController,
+                                              keyboardType: TextInputType.text,
+                                              text: 'DOB',
+                                              showDatePicker: true,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    'Gender',
+                                                    //  widget.depTitle,
+                                                    style: AllPopupHeadings.customTextStyle(context)),
+                                                const SizedBox(height: 5,),
+                                                FutureBuilder<List<GenderData>>(
+                                                  future: getGenderDropdown(context),
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot.connectionState ==
+                                                        ConnectionState.waiting) {
+                                                      return HRUManageDropdown(
+                                                        hintText: "Gender",
+                                                        // width: 320,
+                                                        // height: 40,
+                                                        controller: TextEditingController(text: ''),
+                                                        items: ['item 1', 'item 2'],
+                                                        // labelText: 'Reporting Office',
+                                                        labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                          color: const Color(0xff575757),
+                                                          fontWeight: FontWeight.w400,),
+                                                        // GoogleFonts.firaSans(
+                                                        //   fontSize: 12,
+                                                        //   color: Color(0xff575757),
+                                                        //   fontWeight: FontWeight.w400,
+                                                        // ),
+                                                        labelFontSize: 12,
+                                                      );
+                                                    }
+                                                    if (snapshot.hasData) {
+                                                      List<String> dropDownList = [];
+                                                      for (var i in snapshot.data!) {
+                                                        dropDownList.add(i.gender);
+                                                      }
+                                                      return HRUManageDropdown(
+                                                        hintText: "Gender",
+                                                        labelStyle: const TextStyle(
+                                                          fontSize: 12,
+                                                          color: Color(0xff575757),
+                                                          fontWeight: FontWeight.w400,
+                                                        ),
+                                                        labelFontSize: 12,
+                                                        items: dropDownList,
+                                                        onChanged: (newValue) {
+                                                          for (var a in snapshot.data!) {
+                                                            if (a.gender == newValue) {
+                                                              selectedGenderId = a.gender;
+                                                              print('Gender Name : ${genderId}');
+                                                              // int docType = a.employeeTypesId;
+                                                              // Do something with docType
+                                                            }
+                                                          }
+                                                        },  controller: TextEditingController(text: profileData.gender),
+                                                      );
+                                                    } else {
+                                                      return const Offstage();
+                                                    }
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            // FirstSMTextFConst(
+                                            //   controller: genderController,
+                                            //   keyboardType: TextInputType.text,
+                                            //   text: 'Gender',
+                                            //   // showDatePicker: true,
+                                            // ),
+                                          ],
+                                        ),
+                                      ),
+                                      ///row 3
+                                      Padding(
+                                        padding: const EdgeInsets.only(left:18,right: 23),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SSNTextFConst(
+                                              controller: ssNController,
+                                              keyboardType: TextInputType.number,
+                                              text: AppString.ssn,
+                                              // showDatePicker: true,
+                                            ),
+
+                                            SMTextFConstPhone(
+                                              controller: phoneNController,
+                                              keyboardType: TextInputType.phone,
+                                              text: AppString.phone_number,
+
+                                              // showDatePicker: true,
+                                            ),
+                                            SMTextFConstPhone(
+                                              controller: workPhoneController,
+                                              keyboardType: TextInputType.text,
+                                              text:  AppStringMobile.worNo,
+
+                                              // showDatePicker: true,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      /// row 4
+                                      Padding(
+                                        padding: const EdgeInsets.only(left:18,right:23),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SMTextFConst(
+                                              controller: personalEmailController,
+                                              keyboardType: TextInputType.text,
+                                              text: AppStringMobile.perEmail,
+                                              // showDatePicker: true,
+                                            ),
+
+                                            SMTextFConst(
+                                              controller: workEmailController,
+                                              keyboardType: TextInputType.text,
+                                              text: AppStringMobile.worEmail,
+                                              // showDatePicker: true,
+                                            ),
+                                            FirstSMTextFConst(
+                                              controller: summaryController,
+                                              keyboardType: TextInputType.text,
+                                              text: AppStringMobile.summry,
+                                              // showDatePicker: true,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      ///row 5
+                                      Padding(
+                                        padding: const EdgeInsets.only(left:18,right:23),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    'Select Service',
+                                                    //  widget.depTitle,
+                                                    style: AllPopupHeadings.customTextStyle(context)),
+                                                SizedBox(height: 5,),
+                                                FutureBuilder<List<ServicesMetaData>>(
+                                                  future: getServicesMetaData(context),
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                                      // Show loading indicator or dummy dropdown
+                                                      return HRUManageDropdown(
+                                                        hintText: 'Select Service',
+                                                        controller: TextEditingController(text: ''),
+                                                        // labelText: 'Select Service',
+                                                        labelStyle: TextStyle(fontSize: 14),
+                                                        items: [], labelFontSize: 12,
+                                                      );
+                                                    }
+
+                                                    if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                                      List<String> serviceNames = snapshot.data!
+                                                          .map((service) => service.serviceName)
+                                                          .toList();
+
+                                                      return HRUManageDropdown(
+                                                        controller: TextEditingController(text:profileData.service),
+                                                        // labelText: 'Select Service',
+                                                        hintText: 'Select Service',
+                                                        items: serviceNames,
+                                                        onChanged: (val) {
+                                                          // Handle selected service
+                                                          var selectedService = snapshot.data!
+                                                              .firstWhere((service) => service.serviceName == val);
+                                                          selectedServiceId = selectedService.serviceName;
+                                                          print('Selected Service ID: ${selectedService.serviceId}');
+                                                        }, labelStyle:  const TextStyle(fontSize: 14),labelFontSize: 12 ,
+                                                      );
+                                                    }
+
+                                                    return const Text('No services available');
+                                                  }, ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    'Reporting Office',
+                                                    //  widget.depTitle,
+                                                    style: AllPopupHeadings.customTextStyle(context)),
+                                                const SizedBox(height: 5,),
+                                                FutureBuilder<List<CompanyOfficeListData>>(
+                                                  future: getCompanyOfficeList(context),
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot.connectionState ==
+                                                        ConnectionState.waiting) {
+                                                      return HRUManageDropdown(
+
+                                                        hintText: "Reporting Office",
+                                                        // width: 320,
+                                                        // height: 40,
+                                                        controller: TextEditingController(text:""),
+                                                        items: ['item 1', 'item 2'],
+                                                        // labelText: 'Reporting Office',
+                                                        labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                          color: const Color(0xff575757),
+                                                          fontWeight: FontWeight.w400,),
+                                                        // GoogleFonts.firaSans(
+                                                        //   fontSize: 12,
+                                                        //   color: Color(0xff575757),
+                                                        //   fontWeight: FontWeight.w400,
+                                                        // ),
+                                                        labelFontSize: 12,
+                                                      );
+                                                    }
+                                                    if (snapshot.hasData) {
+                                                      List<String> dropDownList = [];
+                                                      for (var i in snapshot.data!) {
+                                                        dropDownList.add(i.name);
+                                                      }
+                                                      return HRUManageDropdown(
+                                                        hintText: "Reporting Office",
+                                                        labelStyle: const TextStyle(
+                                                          fontSize: 12,
+                                                          color: Color(0xff575757),
+                                                          fontWeight: FontWeight.w400,
+                                                        ),
+                                                        labelFontSize: 12,
+                                                        items: dropDownList,
+                                                        onChanged: (newValue) {
+                                                          for (var a in snapshot.data!) {
+                                                            if (a.name == newValue) {
+                                                              selectedOfficeId = a.name;
+                                                              print('Office Name : ${reportingOfficeId}');
+                                                              // int docType = a.employeeTypesId;
+                                                              // Do something with docType
+                                                            }
+                                                          }
+                                                        },  controller: TextEditingController(text:profileData.regOfficId),
+                                                      );
+                                                    } else {
+                                                      return const Offstage();
+                                                    }
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  //color: Colors.red,
+                                                  width:354,
+                                                  height:30,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 15,),
+                                      ///coverage head
+                                      StatefulBuilder(
+                                        builder: (BuildContext context, void Function(void Function()) setState) {
+                                          return  Column(
+                                            children: [
+                                              Row(
+                                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 10.0, left: 18,bottom: 5),
+                                                    child: Container(
+                                                      height: 20,
+                                                      width:354,
+                                                      //color: ColorManager.red,
+                                                      child: Text(
+                                                          "Coverage",
+                                                          style: AllPopupHeadings.customTextStyle(context)
+                                                      ),
+                                                      // color: Colors.green,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                            );
-                                          },
-                                                                              ),]
-                                        ),
+                                              ///Coverage
+                                              ///
+                                              FutureBuilder <EmployeeModel>(
+                                                  future: getCoverageList(context: context, employeeId: widget.employeeId,
+                                                      employeeEnrollId:profileData.employeeEnrollId ),
+                                                  builder: (context ,snapshot){
+                                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                                      return const Center(
+                                                        child: CircularProgressIndicator(),
+                                                      );
+                                                    }
+                                                    if (snapshot.hasError) {
+                                                      return const Center(
+                                                        child: Text('Error fetching profile data'),
+                                                      );
+                                                    }
+                                                    if (snapshot.hasError) {
+                                                      return Center(
+                                                          child: Padding(
+                                                            padding:const EdgeInsets.symmetric(vertical: 100),
+                                                            child: Text(
+                                                              "No available coverage!",
+                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                  fontWeight: FontWeightManager.medium,
+                                                                  fontSize: FontSize.s14,
+                                                                  color: ColorManager.mediumgrey),
+                                                            ),
+                                                          ));
+                                                    }
+
+
+                                                    if (snapshot.hasData){
+                                                      return Container(
+                                                        width: MediaQuery.of(context).size.width / 1,
+                                                        child: Wrap(
+                                                          spacing: 3.0,
+                                                          children: List.generate((snapshot.data!.coverageDetails.length), (index) {
+                                                            // int firstItemIndex = index * 2;
+                                                            // int secondItemIndex = firstItemIndex + 1;
+                                                            return Padding(
+                                                              padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 5),
+                                                              child: CoverageRowWidget(
+                                                                  countyName: snapshot.data!.coverageDetails[index].countyName,
+                                                                  zoneName: snapshot.data!.coverageDetails[index].zoneName,
+                                                                  onDelete: () {
+                                                                    showDialog(
+                                                                      context: context,
+                                                                      builder: (context) => DeletePopup(
+                                                                          title: DeletePopupString.deleteCoverage,
+                                                                          loadingDuration: _isLoading,
+                                                                          onCancel: () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          onDelete: () async {
+                                                                            setState(() {
+                                                                              _isLoading = true;
+                                                                            });
+                                                                            try {
+                                                                              await deleteCoverageEditor(context, snapshot.data!.coverageDetails[index].employeeEnrollCoverageId);
+                                                                              setState(() {
+                                                                                getCoverageList(context: context, employeeId: widget.employeeId,
+                                                                                    employeeEnrollId:profileData.employeeEnrollId );
+
+                                                                              });
+                                                                            } finally {
+                                                                              setState(() {
+                                                                                _isLoading = false;
+                                                                                Navigator.pop(context);
+                                                                              });
+                                                                            }
+                                                                          }),
+                                                                    );
+                                                                  },
+                                                                  onEdit: () {
+                                                                    showDialog(
+                                                                      context: context,
+                                                                      builder: (BuildContext context) {
+                                                                        return ProfileBarEditPopup(employeeId: profileData.employeeId,
+                                                                          employeeEnrollId: profileData.employeeEnrollId,
+                                                                          employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId,
+                                                                          onRefresh: () {
+                                                                            setState((){
+                                                                              getCoverageList(context: context, employeeId: widget.employeeId,
+                                                                                  employeeEnrollId:profileData.employeeEnrollId );
+                                                                            });
+                                                                          },);
+                                                                      },
+                                                                    );
+                                                                  }
+                                                              ),
+
+                                                            );
+                                                          }),
+                                                        ),
+                                                      );
+                                                    }
+                                                    else{
+                                                      return const SizedBox();
+                                                    }
+                                                  }),
+                                              const SizedBox(height: 20,),
+                                              ///add coverage
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: (){showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext context)=> ProfileBarAddPopup(employeeId: widget.employeeId,employeeEnrollId: profileData.employeeEnrollId,
+                                                          onRefresh: () {
+                                                            setState((){
+                                                              getCoverageList(context: context, employeeId: widget.employeeId,
+                                                                  employeeEnrollId:profileData.employeeEnrollId );
+                                                            });
+                                                          },));} ,
+
+                                                    child: Container(
+                                                        height: 40,
+                                                        width: 200,
+                                                        //color: Colors.red,
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(14),
+                                                        ),
+                                                        child: Center(
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons.add_circle,
+                                                                size: 26,
+                                                                color: ColorManager.bluebottom,
+                                                              ),
+                                                              const SizedBox(width: 3,),
+                                                              Text(
+                                                                'Add Coverage',
+                                                                style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                                                                  fontWeight: FontWeight.w700,
+                                                                  color: ColorManager.bluebottom,),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       ),
-                                     Row(
-                                       children: [
-                                         ProfileEditCancelButton(
-                                           height: AppSize.s30,
-                                           width: AppSize.s100,
-                                           text: AppString.cancel,
-                                           onPressed: () {
-                                             print("Edit Mode Cancel :::::::::::::::::::::::############");
-                                             widget.onCancel();
-                                           },
-                                         ),
-                                         SizedBox(width: 10,),
-                                         CustomButton(
-                                           height: AppSize.s30,
-                                           width: AppSize.s100,
-                                           onPressed: () async {
-                                             try {
-                                               var response = await patchEmployeeEdit(
-                                                 context: context,
-                                                 employeeId: widget.employeeId,
-                                                 code: profileData.code,
-                                                 userId: profileData.userId,
-                                                 firstName: nameController.text,
-                                                 lastName: profileData.lastName,
-                                                 departmentId: profileData.departmentId,
-                                                 employeeTypeId:selectedEmployeeTypeId,
-                                                 expertise: profileData.speciality,
-                                                 cityId: profileData.cityId,
-                                                 countryId: profileData.countryId,
-                                                 countyId: profileData.countyId,
-                                                 zoneId: profileData.zoneId,
-                                                 SSNNbr: ssNController.text,
-                                                 primaryPhoneNbr: phoneNController.text,
-                                                 secondryPhoneNbr: profileData.secondryPhoneNbr,
-                                                 workPhoneNbr: workPhoneController.text,
-                                                 regOfficId: selectedOfficeId ?? profileData.regOfficId,
-                                                 personalEmail: personalEmailController.text,
-                                                 workEmail: workEmailController.text,
-                                                 address: addressController.text,
-                                                 dateOfBirth: profileData.dateOfBirth == ageController.text ? profileData.dateOfBirth.toString() : ageController.text,
-                                                 emergencyContact:
-                                                 profileData.emergencyContact,
-                                                 covreage: profileData.covreage,
-                                                 employment: profileData.employment,
-                                                 gender: selectedGenderId ?? genderController.text,
-                                                 status: profileData.status,
-                                                 service: selectedServiceId ?? serviceController.text,
-                                                 summary: summaryController.text,
-                                                 imgurl: profileData.imgurl,
-                                                 resumeurl: profileData.resumeurl,
-                                                 // companyId: 1,
-                                                 onboardingStatus: profileData.onboardingStatus,
-                                                 driverLicenceNbr: profileData.driverLicenceNbr,
-                                                 dateofTermination: profileData.dateofTermination,
-                                                 dateofResignation: profileData.dateofResignation,
-                                                 dateofHire: profileData.dateofHire,
-                                                 rehirable: profileData.rehirable,
-                                                 position: profileData.position,
-                                                 finalAddress: addressController.text,
-                                                 type: profileData.type,
-                                                 reason: profileData.reason,
-                                                 finalPayCheck: profileData.finalPayCheck,
-                                                 checkDate: profileData.checkDate,
-                                                 grossPay: profileData.grossPay,
-                                                 netPay: profileData.netPay,
-                                                 methods: profileData.methods,
-                                                 materials: profileData.materials,
-                                                 race: profileData.race,
-                                                 rating: profileData.rating,
-                                                 signatureURL: profileData.signatureURL,
-                                                 colorCode: selectedEmployeeColor!
-                                               );
-                                               if(response.statusCode == 200 || response.statusCode == 201){
-                                                 // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
-                                                 showDialog(
-                                                   context: context,
-                                                   builder: (BuildContext context) {
-                                                     return const AddSuccessPopup(
-                                                       message: 'Employee updated successfully',
-                                                     );
-                                                   },
-                                                 );
-                                                 ///
-                                                 //   if (patchCoverage.success) {
-                                                 //     print("Coverage added successfully");
-                                                 //   } else {
-                                                 //     print("Failed To Add Coverage........");
-                                                 //   }
-                                                 if(pickedFilePath){
-                                                   var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
-                                                 }else{
-                                                   print('Document Error');
-                                                 }
-                                               }
-                                               widget.onCancel();
-                                               nameController.clear();
-                                               deptController.clear();
-                                               empTypeController.clear();
-                                               addressController.clear();
-                                               ageController.clear();
-                                               ssNController.clear();
-                                               phoneNController.clear();
-                                               workPhoneController.clear();
-                                               personalEmailController.clear();
-                                               workEmailController.clear();
-                                               countyController.clear();
-                                               serviceController.clear();
-                                               zoneController.clear();
-                                               summaryController.clear();
-                                             } catch (e) {
-                                               print(e);
-                                             }
-                                           },
-                                           text: 'Save',
-                                         ),
-                                       ],
-                                     )
-                                  ],
-                                ),
+                                    ],
+                                  ),
+                                    // if (_suggestions.isNotEmpty)
+                                    //   Positioned(
+                                    //     top: 55,
+                                    //     right: 60,
+                                    //     child: Container(
+                                    //       height: 100,
+                                    //       width: 300,
+                                    //       decoration: BoxDecoration(
+                                    //         color: Colors.white,
+                                    //         borderRadius: BorderRadius.circular(8),
+                                    //         boxShadow: [
+                                    //           BoxShadow(
+                                    //             color: Colors.black26,
+                                    //             blurRadius: 4,
+                                    //             offset: Offset(0, 2),
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //       child: ListView.builder(
+                                    //         shrinkWrap: true,
+                                    //         itemCount: _suggestions.length,
+                                    //         itemBuilder: (context, index) {
+                                    //           return ListTile(
+                                    //             title: Text(
+                                    //               _suggestions[index],
+                                    //               style: TableSubHeading.customTextStyle(context),
+                                    //             ),
+                                    //             onTap: () {
+                                    //               FocusScope.of(context)
+                                    //                   .unfocus(); // Dismiss the keyboard
+                                    //               String selectedSuggestion = _suggestions[index];
+                                    //               addressController.text = selectedSuggestion;
+                                    //
+                                    //               setState(() {
+                                    //                 _suggestions.clear();
+                                    //                 //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+                                    //               });
+                                    //             },
+                                    //           );
+                                    //         },
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                  ]
                               ),
                               const SizedBox(height: 20,),
-                              ///upload file
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 18),
-                                      child: Text(
-                                        AppString.editProfile,
-                                        style: EditProfile.customEditTextStyle(),
-                                      ),
-                                    ),
-
-                                  ],
-                                ),
-                              ),
-
-                              /// row 1
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  FirstSMTextFConst(
-                                    controller: nameController,
-                                    keyboardType: TextInputType.text,
-                                    text: AppString.name,
-
-                                  ),
-
-
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          'Select Employee Type',
-                                          //  widget.depTitle,
-                                          style: AllPopupHeadings.customTextStyle(context)),
-                                      SizedBox(height: 5,),
-                                      FutureBuilder<List<EmployeeTypeModal>>(
-                                        future: EmployeeTypeGet(context, deptId),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState == ConnectionState.waiting) {
-                                            return Container(
-                                              alignment: Alignment.center,
-                                              child: HRUManageDropdown(
-                                                controller: TextEditingController(text: ''),
-                                                labelText: 'Select Employee Type',
-                                                labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                  color: Color(0xff575757),
-                                                  fontWeight: FontWeight.w500,),
-                                                labelFontSize: 12,
-                                                items: [], // Empty while loading
-                                              ),
-                                            );
-                                          }
-                                          if (snapshot.hasData && snapshot.data!.isEmpty) {
-                                            return HRUManageDropdown(
-                                              controller: TextEditingController(text: ''),
-                                              labelText: 'Select Employee Type',
-                                              labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                color: ColorManager.mediumgrey,
-                                                fontWeight: FontWeight.w500,),
-                                              labelFontSize: 12,
-                                              items: [],
-                                            );
-                                          }
-
-                                          if (snapshot.hasData) {
-                                            List<EmployeeTypeModal> employeeTypeList = snapshot.data!;
-                                            List<String> dropDownEmployeeTypes = employeeTypeList
-                                                .map((employeeType) => employeeType.employeeType)
-                                                .toList();
-
-                                            String? selectedEmployeeType = dropDownEmployeeTypes.isNotEmpty
-                                                ? dropDownEmployeeTypes[0]
-                                                : null;
-
-                                            selectedEmployeeTypeId = (employeeTypeList.isNotEmpty
-                                                ? employeeTypeList[0].employeeTypeId
-                                                : null)!;
-
-                                            return HRUManageDropdown(
-                                              controller: TextEditingController(text: selectedEmployeeType ?? ''),
-                                              labelText: "Select Employee Type",
-                                              labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                color: ColorManager.mediumgrey,
-                                                fontWeight: FontWeight.w500,),
-                                              labelFontSize: 12,
-                                              items: dropDownEmployeeTypes,
-                                              onChanged: (val) {
-                                                selectedEmployeeType = val;
-                                                selectedEmployeeTypeId = employeeTypeList
-                                                    .firstWhere((employeeType) => employeeType.employeeType == val)
-                                                    .employeeTypeId;
-                                                selectedEmployeeColor = employeeTypeList
-                                                    .firstWhere((employeeType) => employeeType.employeeType == val)
-                                                    .color;
-                                                print('Selected Employee Type Color: $selectedEmployeeColor');
-                                                print('Selected Employee Type ID: $selectedEmployeeTypeId');
-                                              },
-                                            );
-                                          }
-                                          return const SizedBox();
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          'Select Department',
-                                          //  widget.depTitle,
-                                          style: AllPopupHeadings.customTextStyle(context)),
-                                      SizedBox(height: 5,),
-                                      FutureBuilder<List<HRHeadBar>>(
-                                        future: companyHRHeadApi(context, deptId),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            List<String>dropDownServiceList =[];
-                                            return Container(
-                                                alignment: Alignment.center,
-                                                child:
-                                                HRUManageDropdown(
-                                                  controller: TextEditingController(
-                                                      text: ''),
-                                                  labelText: 'Select Department',
-                                                  labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                    color: Color(0xff575757),
-                                                    fontWeight: FontWeight.w500,),
-                                                  labelFontSize: 12,
-                                                  items:  dropDownServiceList,
-
-                                                )
-                                            );
-                                          }
-                                          if (snapshot.hasData &&
-                                              snapshot.data!.isEmpty) {
-                                            return Center(
-                                              child: Text(
-                                                ErrorMessageString.noroleAdded,
-                                                style: CustomTextStylesCommon.commonStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: FontSize.s14,
-                                                  color: ColorManager.mediumgrey,
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          if (snapshot.hasData) {
-                                            // Extract dropdown items from snapshot
-                                            List<String> dropDownServiceList = snapshot
-                                                .data!
-                                                .map((dept) => dept.deptName!)
-                                                .toList();
-                                            String? firstDeptName =
-                                            snapshot.data!.isNotEmpty
-                                                ? snapshot.data![0].deptName
-                                                : null;
-                                            int? firstDeptId = snapshot.data!.isNotEmpty
-                                                ? snapshot.data![0].deptId
-                                                : null;
-
-                                            if (selectedDeptName == null &&
-                                                dropDownServiceList.isNotEmpty) {
-                                              selectedDeptName = firstDeptName;
-                                              selectedDeptId = firstDeptId;
-                                            }
-
-                                              return HRUManageDropdown(
-                                                controller: TextEditingController(
-                                                    text: profileData.department),
-                                                labelText: "Select Department",
-                                                labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                  color: const Color(0xff575757),
-                                                  fontWeight: FontWeight.w500,),
-                                                labelFontSize: 12,
-                                                items: dropDownServiceList,
-                                                onChanged: (val) {
-                                                  // setState(() {
-                                                  selectedDeptName = val;
-                                                  selectedDeptId = snapshot.data!
-                                                      .firstWhere(
-                                                          (dept) => dept.deptName == val)
-                                                      .deptId;
-                                                  // });
-                                                },
-                                              );
-                                            }
-                                            return const SizedBox();
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                ///row 2
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    FirstSMTextFConst(
-                                      controller: addressController,
-                                      keyboardType: TextInputType.text,
-                                      text: AppString.addresss,
-
-                                  ),
-
-                                  FirstSMTextFConst(
-                                    controller: ageController,
-                                    keyboardType: TextInputType.text,
-                                    text: 'DOB',
-                                    showDatePicker: true,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          'Gender',
-                                          //  widget.depTitle,
-                                          style: AllPopupHeadings.customTextStyle(context)),
-                                      const SizedBox(height: 5,),
-                                      FutureBuilder<List<GenderData>>(
-                                        future: getGenderDropdown(context),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return HRUManageDropdown(
-                                                hintText: "Gender",
-                                                // width: 320,
-                                                // height: 40,
-                                                controller: TextEditingController(text: ''),
-                                                items: ['item 1', 'item 2'],
-                                                // labelText: 'Reporting Office',
-                                                labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                  color: const Color(0xff575757),
-                                                  fontWeight: FontWeight.w400,),
-                                                // GoogleFonts.firaSans(
-                                                //   fontSize: 12,
-                                                //   color: Color(0xff575757),
-                                                //   fontWeight: FontWeight.w400,
-                                                // ),
-                                                labelFontSize: 12,
-                                              );
-                                            }
-                                            if (snapshot.hasData) {
-                                              List<String> dropDownList = [];
-                                              for (var i in snapshot.data!) {
-                                                dropDownList.add(i.gender);
-                                              }
-                                              return HRUManageDropdown(
-                                                hintText: "Gender",
-                                                labelStyle: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color(0xff575757),
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                                labelFontSize: 12,
-                                                items: dropDownList,
-                                                onChanged: (newValue) {
-                                                  for (var a in snapshot.data!) {
-                                                    if (a.gender == newValue) {
-                                                      selectedGenderId = a.gender;
-                                                      print('Gender Name : ${genderId}');
-                                                      // int docType = a.employeeTypesId;
-                                                      // Do something with docType
-                                                    }
-                                                  }
-                                                },  controller: TextEditingController(text: profileData.gender),
-                                              );
-                                            } else {
-                                              return const Offstage();
-                                            }
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                    // FirstSMTextFConst(
-                                    //   controller: genderController,
-                                    //   keyboardType: TextInputType.text,
-                                    //   text: 'Gender',
-                                    //   // showDatePicker: true,
-                                    // ),
-                                  ],
-                                ),
-                                ///row 3
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    SSNTextFConst(
-                                      controller: ssNController,
-                                      keyboardType: TextInputType.number,
-                                      text: AppString.ssn,
-                                      // showDatePicker: true,
-                                    ),
-
-                                    SMTextFConstPhone(
-                                      controller: phoneNController,
-                                      keyboardType: TextInputType.phone,
-                                      text: AppString.phone_number,
-
-                                      // showDatePicker: true,
-                                    ),
-                                    SMTextFConstPhone(
-                                      controller: workPhoneController,
-                                      keyboardType: TextInputType.text,
-                                      text:  AppStringMobile.worNo,
-
-                                      // showDatePicker: true,
-                                    ),
-                                  ],
-                                ),
-
-                                /// row 4
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    SMTextFConst(
-                                      controller: personalEmailController,
-                                      keyboardType: TextInputType.text,
-                                      text: AppStringMobile.perEmail,
-                                      // showDatePicker: true,
-                                    ),
-
-                                  SMTextFConst(
-                                    controller: workEmailController,
-                                    keyboardType: TextInputType.text,
-                                    text: AppStringMobile.worEmail,
-                                    // showDatePicker: true,
-                                  ),
-                                  FirstSMTextFConst(
-                                    controller: summaryController,
-                                    keyboardType: TextInputType.text,
-                                    text: AppStringMobile.summry,
-                                    // showDatePicker: true,
-                                  ),
-                                ],
-                              ),
-                              ///row 5
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          'Select Service',
-                                          //  widget.depTitle,
-                                          style: AllPopupHeadings.customTextStyle(context)),
-                                      SizedBox(height: 5,),
-                                      FutureBuilder<List<ServicesMetaData>>(
-                                        future: getServicesMetaData(context),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState == ConnectionState.waiting) {
-                                            // Show loading indicator or dummy dropdown
-                                            return HRUManageDropdown(
-                                              hintText: 'Select Service',
-                                              controller: TextEditingController(text: ''),
-                                              // labelText: 'Select Service',
-                                              labelStyle: TextStyle(fontSize: 14),
-                                              items: [], labelFontSize: 12,
-                                            );
-                                          }
-
-                                            if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                              List<String> serviceNames = snapshot.data!
-                                                  .map((service) => service.serviceName)
-                                                  .toList();
-
-                                            return HRUManageDropdown(
-                                              controller: TextEditingController(text:profileData.service),
-                                              // labelText: 'Select Service',
-                                              hintText: 'Select Service',
-                                              items: serviceNames,
-                                              onChanged: (val) {
-                                                // Handle selected service
-                                                var selectedService = snapshot.data!
-                                                    .firstWhere((service) => service.serviceName == val);
-                                                selectedServiceId = selectedService.serviceName;
-                                                print('Selected Service ID: ${selectedService.serviceId}');
-                                              }, labelStyle:  const TextStyle(fontSize: 14),labelFontSize: 12 ,
-                                            );
-                                          }
-
-                                          return const Text('No services available');
-                                        }, ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          'Reporting Office',
-                                          //  widget.depTitle,
-                                          style: AllPopupHeadings.customTextStyle(context)),
-                                      const SizedBox(height: 5,),
-                                      FutureBuilder<List<CompanyOfficeListData>>(
-                                        future: getCompanyOfficeList(context),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return HRUManageDropdown(
-
-                                              hintText: "Reporting Office",
-                                              // width: 320,
-                                              // height: 40,
-                                              controller: TextEditingController(text:""),
-                                              items: ['item 1', 'item 2'],
-                                              // labelText: 'Reporting Office',
-                                              labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                color: const Color(0xff575757),
-                                                fontWeight: FontWeight.w400,),
-                                              // GoogleFonts.firaSans(
-                                              //   fontSize: 12,
-                                              //   color: Color(0xff575757),
-                                              //   fontWeight: FontWeight.w400,
-                                              // ),
-                                              labelFontSize: 12,
-                                            );
-                                          }
-                                          if (snapshot.hasData) {
-                                            List<String> dropDownList = [];
-                                            for (var i in snapshot.data!) {
-                                              dropDownList.add(i.name);
-                                            }
-                                            return HRUManageDropdown(
-                                              hintText: "Reporting Office",
-                                              labelStyle: const TextStyle(
-                                                fontSize: 12,
-                                                color: Color(0xff575757),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                              labelFontSize: 12,
-                                              items: dropDownList,
-                                              onChanged: (newValue) {
-                                                for (var a in snapshot.data!) {
-                                                  if (a.name == newValue) {
-                                                    selectedOfficeId = a.name;
-                                                    print('Office Name : ${reportingOfficeId}');
-                                                    // int docType = a.employeeTypesId;
-                                                    // Do something with docType
-                                                  }
-                                                }
-                                              },  controller: TextEditingController(text:profileData.regOfficId),
-                                            );
-                                          } else {
-                                            return const Offstage();
-                                          }
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        //color: Colors.red,
-                                        width:354,
-                                        height:30,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              ///coverage head
-                              StatefulBuilder(
-                                builder: (BuildContext context, void Function(void Function()) setState) {
-                                  return  Column(
-                                    children: [
-                                      Row(
-                                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 10.0, left: 45,bottom: 5),
-                                            child: Container(
-                                              height: 20,
-                                              width:354,
-                                              //color: ColorManager.red,
-                                              child: Text(
-                                                  "Coverage",
-                                                  style: AllPopupHeadings.customTextStyle(context)
-                                              ),
-                                              // color: Colors.green,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      ///Coverage
-                                      ///
-                                      FutureBuilder <EmployeeModel>(
-                                          future: getCoverageList(context: context, employeeId: widget.employeeId,
-                                              employeeEnrollId:profileData.employeeEnrollId ),
-                                          builder: (context ,snapshot){
-                                            if (snapshot.connectionState == ConnectionState.waiting) {
-                                              return const Center(
-                                                child: CircularProgressIndicator(),
-                                              );
-                                            }
-                                            if (snapshot.hasError) {
-                                              return const Center(
-                                                child: Text('Error fetching profile data'),
-                                              );
-                                            }
-                                            if (snapshot.hasError) {
-                                              return Center(
-                                                  child: Padding(
-                                                    padding:const EdgeInsets.symmetric(vertical: 100),
-                                                    child: Text(
-                                                      "No available coverage!",
-                                                      style: CustomTextStylesCommon.commonStyle(
-                                                          fontWeight: FontWeightManager.medium,
-                                                          fontSize: FontSize.s14,
-                                                          color: ColorManager.mediumgrey),
-                                                    ),
-                                                  ));
-                                            }
-
-
-                                            if (snapshot.hasData){
-                                              return Container(
-                                                width: MediaQuery.of(context).size.width / 1,
-                                                child: Wrap(
-                                                  spacing: 2.0,
-                                                  children: List.generate((snapshot.data!.coverageDetails.length), (index) {
-                                                    // int firstItemIndex = index * 2;
-                                                    // int secondItemIndex = firstItemIndex + 1;
-                                                    return Padding(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 45.0,vertical: 5),
-                                                      child: CoverageRowWidget(
-                                                              countyName: snapshot.data!.coverageDetails[index].countyName,
-                                                              zoneName: snapshot.data!.coverageDetails[index].zoneName,
-                                                              onDelete: () {
-                                                                showDialog(
-                                                                    context: context,
-                                                                    builder: (context) => DeletePopup(
-                                                                            title: DeletePopupString.deleteCoverage,
-                                                                            loadingDuration: _isLoading,
-                                                                            onCancel: () {
-                                                                              Navigator.pop(context);
-                                                                            },
-                                                                            onDelete: () async {
-                                                                              setState(() {
-                                                                                _isLoading = true;
-                                                                              });
-                                                                              try {
-                                                                                await deleteCoverageEditor(context, snapshot.data!.coverageDetails[index].employeeEnrollCoverageId);
-                                                                                setState(() {
-                                                                                  getCoverageList(context: context, employeeId: widget.employeeId,
-                                                                                      employeeEnrollId:profileData.employeeEnrollId );
-
-                                                                                });
-                                                                              } finally {
-                                                                                setState(() {
-                                                                                  _isLoading = false;
-                                                                                  Navigator.pop(context);
-                                                                                });
-                                                                              }
-                                                                            }),
-                                                                     );
-                                                              },
-                                                              onEdit: () {
-                                                                showDialog(
-                                                                  context: context,
-                                                                  builder: (BuildContext context) {
-                                                                    return ProfileBarEditPopup(employeeId: profileData.employeeId,
-                                                                        employeeEnrollId: profileData.employeeEnrollId,
-                                                                        employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId,
-                                                                        onRefresh: () {
-                                                                      setState((){
-                                                                      getCoverageList(context: context, employeeId: widget.employeeId,
-                                                                      employeeEnrollId:profileData.employeeEnrollId );
-                                                                      });
-                                                                      },);
-                                                                  },
-                                                                );
-                                                              }
-                                                          ),
-
-                                                    );
-                                                  }),
-                                                ),
-                                              );
-                                            }
-                                            else{
-                                              return const SizedBox();
-                                            }
-                                          }),
-                                      const SizedBox(height: 20,),
-                                      ///add coverage
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          InkWell(
-                                            onTap: (){showDialog(
-                                                context: context,
-                                                builder: (BuildContext context)=> ProfileBarAddPopup(employeeId: widget.employeeId,employeeEnrollId: profileData.employeeEnrollId,
-                                                  onRefresh: () {
-                                                    setState((){
-                                                      getCoverageList(context: context, employeeId: widget.employeeId,
-                                                          employeeEnrollId:profileData.employeeEnrollId );
-                                                    });
-                                                },));} ,
-
-                                            child: Container(
-                                                height: 40,
-                                                width: 200,
-                                                //color: Colors.red,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(14),
-                                                ),
-                                                child: Center(
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.add_circle,
-                                                        size: 26,
-                                                        color: ColorManager.bluebottom,
-                                                      ),
-                                                      const SizedBox(width: 3,),
-                                                      Text(
-                                                        'Add Coverage',
-                                                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: ColorManager.bluebottom,),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-
-
                             ],
                           ),
-                          const SizedBox(height: 20,),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ],
-          );
-        }
-        return const Center(
-          child: Text('No data available'),
+                ],
+              );
+
+            }
+            return const Center(
+              child: Text('No data available'),
+            );
+          },
         );
-      },
-    );
+
   }
 }
 
@@ -1190,7 +1277,7 @@ class CoverageRowWidget extends StatelessWidget {
                   style: AllPopupHeadings.customTextStyle(context),
                 ),
               )),
-          SizedBox(width: 5,),
+          SizedBox(width: 1,),
           Expanded(
               flex: 3,
               child: Row(
@@ -1202,14 +1289,14 @@ class CoverageRowWidget extends StatelessWidget {
               style: EditTextFontStyle.customEditTextStyle(),
             ),
           ],)),
-
+          SizedBox(width: 5,),
           Expanded(
               flex: 2,
               child: Text(
                 "Zone :",
                 style: AllPopupHeadings.customTextStyle(context),
               )),
-          SizedBox(width: 5,),
+          SizedBox(width: 1,),
           Expanded(
               flex: 3,
               child: Row(
