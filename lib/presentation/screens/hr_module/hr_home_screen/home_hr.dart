@@ -78,83 +78,89 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           ),
           Positioned(
             width: 330,
-            height: 400,
+            // height: 400,
             child: CompositedTransformFollower(
               link: _layerLink,
               showWhenUnlinked: true,
               offset: Offset(0.0, 40),
               child: Material(
                 elevation: 4.0,
-                child: SingleChildScrollView(
-                  child: _searchResults.isEmpty
-                      ? Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 150),
-                            child: Text(
-                              'No User Found!',
-                              style:
-                                  AllNoDataAvailable.customTextStyle(context),
-                            ),
+                child: _searchResults.isEmpty
+                    ? Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 150),
+                          child: Text(
+                            'No User Found!',
+                            style:
+                                AllNoDataAvailable.customTextStyle(context),
                           ),
-                        )
-                      : Column(
-                          children: [
-                            ..._searchResults.map((result) => ListTile(
-                                  title: Text(
-                                    result,
-                                    style: TextStyle(
-                                      fontSize: FontSize.s14,
-                                      fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.mediumgrey,
-                                    ),
-                                  ),
-                                  onTap: data.isEmpty
-                                      ? () {
-                                          _controller.text = result;
-                                          int id = 0;
-                                          for (var e in data1) {
-                                            if (result ==
-                                                e.firstName +
-                                                    " " +
-                                                    e.lastName) {
-                                              id = e.employeeId;
-                                            }
-                                          }
-                                          _removeOverlay();
-                                          setState(() {
-                                            employeeId = id;
-                                            getSearchByEmployeeIdProfileByText(
-                                                context, employeeId);
-                                            myController.selectButton(1);
-                                            _pageController =
-                                                PageController(initialPage: 1);
-                                          });
-                                        }
-                                      : () {
-                                          _controller.text = result;
-                                          int id = 0;
-                                          for (var e in data) {
-                                            if (result ==
-                                                e.firstName +
-                                                    " " +
-                                                    e.lastName) {
-                                              id = e.employeeId;
-                                            }
-                                          }
-                                          _removeOverlay();
-                                          setState(() {
-                                            employeeId = id;
-                                            getSearchByEmployeeIdProfileByText(
-                                                context, employeeId);
-                                            myController.selectButton(1);
-                                            _pageController =
-                                                PageController(initialPage: 1);
-                                          });
-                                        },
-                                )),
-                          ],
                         ),
-                ),
+                      )
+                    : ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: _searchResults.length > 10 ? 400.0 : double.infinity,
+                  ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                            children: [
+                              ..._searchResults.map((result) => ListTile(
+                                    title: Text(
+                                      result,
+                                      style: TextStyle(
+                                        fontSize: FontSize.s14,
+                                        fontWeight: FontWeightManager.regular,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                    ),
+                                    onTap: data.isEmpty
+                                        ? () {
+                                            _controller.text = result;
+                                            int id = 0;
+                                            for (var e in data1) {
+                                              if (result ==
+                                                  e.firstName +
+                                                      " " +
+                                                      e.lastName) {
+                                                id = e.employeeId;
+                                              }
+                                            }
+                                            _removeOverlay();
+                                            setState(() {
+                                              employeeId = id;
+                                              getSearchByEmployeeIdProfileByText(
+                                                  context, employeeId);
+                                              myController.selectButton(1);
+                                              _pageController =
+                                                  PageController(initialPage: 1);
+                                            });
+                                          }
+                                        : () {
+                                            _controller.text = result;
+                                            int id = 0;
+                                            for (var e in data) {
+                                              if (result ==
+                                                  e.firstName +
+                                                      " " +
+                                                      e.lastName) {
+                                                id = e.employeeId;
+                                              }
+                                            }
+                                            _removeOverlay();
+                                            setState(() {
+                                              employeeId = id;
+                                              getSearchByEmployeeIdProfileByText(
+                                                  context, employeeId);
+                                              myController.selectButton(1);
+                                              _pageController =
+                                                  PageController(initialPage: 1);
+                                            });
+                                          },
+                                  )),
+                            ],
+                          ),
+                      ),
+                    ),
+                
               ),
             ),
           ),

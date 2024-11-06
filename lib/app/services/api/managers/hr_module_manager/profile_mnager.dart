@@ -578,7 +578,7 @@ Future<ProfileEditorModal> getEmployeePrefill(
         companyId: response.data['companyId'] ?? 0,
         rating: response.data['rating'] ?? '',
         city: response.data['city'] ?? '',
-        employeType: response.data['employeType'] ?? '',
+        employeType: response.data['employeeType'] ?? '',
         department: response.data['department'] ?? '',
         country: response.data['country'] ?? '',
         county: response.data['county'] ?? '',

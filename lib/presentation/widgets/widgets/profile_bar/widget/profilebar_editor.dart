@@ -592,16 +592,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           .map((employeeType) => employeeType.employeeType)
                                                           .toList();
 
-                                                      String? selectedEmployeeType = dropDownEmployeeTypes.isNotEmpty
-                                                          ? dropDownEmployeeTypes[0]
-                                                          : null;
+                                                      String? selectedEmployeeType = profileData.employeType;
+                                                      print('Employee type ${profileData.employeType}');
 
-                                                      selectedEmployeeTypeId = (employeeTypeList.isNotEmpty
-                                                          ? employeeTypeList[0].employeeTypeId
-                                                          : null)!;
+                                                      selectedEmployeeTypeId = profileData.employeeTypeId;
 
                                                       return HRUManageDropdown(
-                                                        controller: TextEditingController(text: selectedEmployeeType ?? ''),
+                                                        controller: TextEditingController(text: profileData.employeType),
                                                         labelText: "Select Employee Type",
                                                         labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                                           color: ColorManager.mediumgrey,
