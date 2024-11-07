@@ -303,6 +303,9 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
         profileScorePercentage: response.data['profileScorePercentage'] != null
             ? response.data['profileScorePercentage'].toDouble()
             : 0.0,
+        anualSkill: response.data['AnnualSkills'] != null
+            ? response.data['AnnualSkills'].toDouble()
+            : 0.0,
         active: response.data['active']??false,
         color: response.data['color']??"#FFFFFF",
       );

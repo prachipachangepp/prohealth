@@ -535,106 +535,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                               // lastNameController: lastNameController,
                                                               // emailController: emailController,
                                                               // firstNameController: firstNameController,
-
-
                                                               // passwordController: passwordController,
                                                               ///Role
                                                               deptName: 'Select Department',
                                                               userId: user.userId,
                                                               firstname: user.firstName,
                                                               lastname: user.lastName,
-                                                              email:user.email,
-                                                              child: FutureBuilder<
-                                                                  List<
-                                                                      HRHeadBar>>(
-                                                                future:
-                                                                companyHRHeadApi(
-                                                                    context,
-                                                                    deptId),
-                                                                builder: (context,
-                                                                    snapshot) {
-                                                                  if (snapshot
-                                                                      .connectionState ==
-                                                                      ConnectionState
-                                                                          .waiting) {
-                                                                    List<String>dropDownServiceList =[];
-                                                                    return Container(
-                                                                        alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                        child:
-                                                                        HRManageDropdown(
-                                                                          height: 38,
-                                                                          width: 350,
-                                                                          controller: TextEditingController(
-                                                                              text: ''),
-                                                                          // labelText: 'Select Department',
-                                                                          // labelStyle: MobileMenuText.MenuTextConst(context),
-                                                                          labelFontSize: 12,
-                                                                          items:  dropDownServiceList,
-                                                                          // hintText: 'Department',
-
-                                                                        )
-                                                                    );
-                                                                  }
-                                                                  if (snapshot
-                                                                      .hasData &&
-                                                                      snapshot
-                                                                          .data!
-                                                                          .isEmpty) {
-                                                                    return Center(
-                                                                      child:
-                                                                      Text(
-                                                                        ErrorMessageString
-                                                                            .noroleAdded,
-                                                                        style: AllNoDataAvailable.customTextStyle(context),
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                  if (snapshot
-                                                                      .hasData) {
-                                                                    List<String>dropDownServiceList = snapshot.data!.map((dept) => dept.deptName).toList();
-                                                                    String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName ?? "" : " ";
-                                                                    int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId ?? 0 : 0;
-
-                                                                    if (selectedDeptName ==
-                                                                        null &&
-                                                                        dropDownServiceList
-                                                                            .isNotEmpty) {
-                                                                      selectedDeptName =
-                                                                          firstDeptName;
-                                                                      selectedDeptId =
-                                                                          firstDeptId;
-                                                                    }
-                                                                    return HRManageDropdown(
-                                                                      height: 38,
-                                                                      width: 350,
-                                                                      controller:
-                                                                      TextEditingController(
-                                                                          text: selectedDeptName ?? ''),
-                                                                      // labelText:
-                                                                      // "Select Department",
-                                                                      // labelStyle: MobileMenuText.MenuTextConst(context),
-                                                                      labelFontSize: 12,
-                                                                      items: dropDownServiceList,
-                                                                      onChanged: (val) {
-                                                                        for (var a in snapshot.data!) {
-                                                                          if (a.deptName == val) {
-                                                                            selectedDeptName = val;
-                                                                            selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
-                                                                          }
-                                                                        }
-                                                                        setState(
-                                                                                () {
-                                                                              print(
-                                                                                  "deptID :::::::${selectedDeptId}");
-                                                                            });
-                                                                      },
-                                                                    );
-                                                                  }
-                                                                  return const SizedBox();
-                                                                },
-                                                              ),
+                                                              email:user.email, departmentId: snapshotPrefill.data!.deptId, department: snapshotPrefill.data!.department,
                                                             );
                                                           },
                                                         );
