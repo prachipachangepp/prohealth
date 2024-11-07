@@ -198,12 +198,12 @@ class _ProfileBarState extends State<ProfileBar> {
   void _showOverlay(BuildContext context, Offset position) {
     _overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        right:600,
+        right:300,
         top: position.dy + 20, // Adjust to position below the text
         child: Material(
           color: Colors.transparent,
           child: Container(
-            width: 150,
+            width: 250,
             padding: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color: Colors.white,

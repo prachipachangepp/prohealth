@@ -607,7 +607,7 @@ class _generalFormState extends State<generalForm> {
                       ),
                       SizedBox(
                           height:
-                          MediaQuery.of(context).size.height / 30),
+                          MediaQuery.of(context).size.height / 29),
                       Text(
                         'DOB',
                         style: AllPopupHeadings.customTextStyle(context),
