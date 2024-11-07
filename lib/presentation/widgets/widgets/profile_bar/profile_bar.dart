@@ -68,7 +68,7 @@ class _ProfileBarState extends State<ProfileBar> {
     }
     return address;
   }
-
+  bool _isHovered = false;
   var hexColor;
   String? sSNNBR;
   int expiredCount = 0;
@@ -194,6 +194,40 @@ class _ProfileBarState extends State<ProfileBar> {
     return perceivedBrightness <
         128;
   }
+  OverlayEntry? _overlayEntry;
+  void _showOverlay(BuildContext context, Offset position) {
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        right:600,
+        top: position.dy + 20, // Adjust to position below the text
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: 150,
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              boxShadow: [
+                BoxShadow(color: Colors.black26, blurRadius: 4, spreadRadius: 2),
+              ],
+            ),
+            child: Text(
+              widget.searchByEmployeeIdProfileData!.summary,
+              style: ProfileBarTextBoldStyle.customEditTextStyle(),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context)?.insert(_overlayEntry!);
+  }
+
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
   @override
   Widget build(BuildContext context) {
     int currentPage = 1;
@@ -216,7 +250,7 @@ class _ProfileBarState extends State<ProfileBar> {
                     }
                     if(snapshot.hasData){
                       double percentage = double.parse(snapshot.data!.percentage);
-                      double maxHeight = 187; // Maximum height in pixels for 100%
+                      double maxHeight = MediaQuery.of(context).size.height / 4; // Maximum height in pixels for 100%
                       double containerHeight = (percentage / 100) * maxHeight;
                       Color containerColor;
                       if (percentage <= 30) {
@@ -320,25 +354,16 @@ class _ProfileBarState extends State<ProfileBar> {
                               style: ThemeManagerBlack.customTextStyle(context),
                             ),
                            // SizedBox(height: 15,),
-                            FutureBuilder<ProfilePercentage>(
-                                future: getPercentage(
-                                    context,
-                                    widget.searchByEmployeeIdProfileData!.employeeId!),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return SizedBox();
-                                  }
-                                  return Column(
+                            Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Annual Skills 0%",
+                                          "Annual Skills ${widget.searchByEmployeeIdProfileData!.anualSkill}%",
                                           style:
                                           ProfileBarTextBoldStyle.customEditTextStyle(),
                                         ),
-                                      ]);
-                                })
+                                      ]),
+
                           ],
                         ),
                       ),
@@ -549,9 +574,15 @@ class _ProfileBarState extends State<ProfileBar> {
                                   widget.searchByEmployeeIdProfileData!.regOfficId,
                                   style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
-                                Text(
-                                  _trimSummery(widget.searchByEmployeeIdProfileData!.summary),
-                                  style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                MouseRegion(
+                                  onEnter: (event) => _showOverlay(context, event.position),
+                                  onExit: (_) => _removeOverlay(),
+
+
+                                  child: Text(
+                                    _trimSummery(widget.searchByEmployeeIdProfileData!.summary),
+                                    style: ProfileBarTextBoldStyle.customEditTextStyle(),
+                                  ),
                                 ),
                                 // Text(""),
                               ],

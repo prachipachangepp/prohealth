@@ -468,7 +468,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       border: Border.all(color: ColorManager.bluebottom),
                                                     ),
                                                     child: Center(
-                                                      child: Text("Edit",
+                                                      child: Text(
+                                                        "Edit",
                                                         style: TextStyle(fontSize: FontSize.s14),
                                                       ),
                                                     ),
@@ -476,86 +477,71 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                   onTap: () {
                                                     showDialog(
                                                       context: context,
-                                                      builder: (BuildContext context) {
-                                                        return FutureBuilder<UserModalPrefill>(
-                                                          future: getUserPrefill(context, user.userId),
-                                                          builder: (context, snapshotPrefill) {
-                                                            if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                      builder: (BuildContext
+                                                      context) {
+                                                        return FutureBuilder<
+                                                            UserModalPrefill>(
+                                                          future:
+                                                          getUserPrefill(
+                                                              context,
+                                                              user.userId),
+                                                          builder: (context,
+                                                              snapshotPrefill) {
+                                                            if (snapshotPrefill
+                                                                .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
                                                               return Center(
                                                                 child: CircularProgressIndicator(
                                                                     color: ColorManager
                                                                         .blueprime),
                                                               );
                                                             }
-                                                            firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName ?? " ");
-                                                            lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName ?? "");
-                                                            emailController = TextEditingController(text: snapshotPrefill.data!.email ?? " ");
-                                                            companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString() ?? "0");
+                                                            // userIdController =
+                                                            //     TextEditingController(
+                                                            //         text: snapshotPrefill
+                                                            //                 .data!
+                                                            //                 .userId
+                                                            //                 .toString() ??
+                                                            //             "0");
+                                                            firstNameController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .firstName ??
+                                                                        " ");
+                                                            lastNameController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .lastName ??
+                                                                        "");
+                                                            emailController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .email ??
+                                                                        " ");
+                                                            companyIdController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .companyId
+                                                                        .toString() ??
+                                                                        "0");
                                                             return EditUserPopUp(
                                                               title:
                                                               "Edit User ",
+                                                              // lastNameController: lastNameController,
+                                                              // emailController: emailController,
+                                                              // firstNameController: firstNameController,
+                                                              // passwordController: passwordController,
                                                               ///Role
                                                               deptName: 'Select Department',
                                                               userId: user.userId,
                                                               firstname: user.firstName,
                                                               lastname: user.lastName,
-                                                              email:user.email,
-                                                              child: FutureBuilder<
-                                                                  List<HRHeadBar>>(
-                                                                future: companyHRHeadApi(context, deptId),
-                                                                builder: (context, snapshot) {
-                                                                  if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                    List<String>dropDownServiceList =[];
-                                                                    return Container(alignment: Alignment.center,
-                                                                        child: HRManageDropdown(
-                                                                          height: 38,
-                                                                          width: 350,
-                                                                          controller: TextEditingController(text: ''),
-                                                                          labelFontSize: 12,
-                                                                          items:  dropDownServiceList,
-                                                                        )
-                                                                    );
-                                                                  }
-                                                                  if (snapshot.hasData && snapshot.data!.isEmpty) {
-                                                                    return Center(
-                                                                      child: Text(ErrorMessageString.noroleAdded,
-                                                                        style: AllNoDataAvailable.customTextStyle(context),
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                  if (snapshot.hasData) {
-                                                                    List<String>dropDownServiceList = snapshot.data!.map((dept) => dept.deptName).toList();
-                                                                    String? firstDeptName = snapshot.data!.isNotEmpty ? snapshot.data![0].deptName ?? "" : " ";
-                                                                    int? firstDeptId = snapshot.data!.isNotEmpty ? snapshot.data![0].deptId ?? 0 : 0;
-
-                                                                    if (selectedDeptName == null &&
-                                                                        dropDownServiceList.isNotEmpty) {
-                                                                      selectedDeptName = firstDeptName;
-                                                                      selectedDeptId = firstDeptId;
-                                                                    }
-                                                                    return HRManageDropdown(
-                                                                      height: 38,
-                                                                      width: 350,
-                                                                      controller:
-                                                                      TextEditingController(text: selectedDeptName ?? ''),
-                                                                      labelFontSize: 12,
-                                                                      items: dropDownServiceList,
-                                                                      onChanged: (val) {
-                                                                        for (var a in snapshot.data!) {
-                                                                          if (a.deptName == val) {
-                                                                            selectedDeptName = val;
-                                                                            selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
-                                                                          }
-                                                                        }
-                                                                        setState(() {
-                                                                              print("deptID :::::::${selectedDeptId}");
-                                                                            });
-                                                                      },
-                                                                    );
-                                                                  }
-                                                                  return const SizedBox();
-                                                                },
-                                                              ),
+                                                              email:user.email, departmentId: snapshotPrefill.data!.deptId, department: snapshotPrefill.data!.department,
                                                             );
                                                           },
                                                         );

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/routes_manager.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/login_module/login/login_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -91,7 +92,14 @@ class _App extends State<App> {
   void _reloadPage() {
     html.window.location.reload();
   }
-
+Future<void> setToken() async{
+   TokenManager.setAccessToken(
+      token: "yergtvskdvhvsavasgdguiasgdu",
+      username: "",
+      companyId: 1,
+      userID: 1,
+      email: "");
+}
   @override
   Widget build(BuildContext context) {
     // bool isChrome = html.window.navigator.userAgent.contains("chrome");
@@ -150,6 +158,7 @@ class _App extends State<App> {
             }
 
           case '/onBordingWelcome':
+            // widget.signedIn?(){}:setToken();
             return MaterialPageRoute(
               builder: (context) => SplashScreen(
                 onFinish: () => Navigator.of(context)
