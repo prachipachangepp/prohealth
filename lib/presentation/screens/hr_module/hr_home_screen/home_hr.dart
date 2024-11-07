@@ -72,8 +72,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           GestureDetector(
             onTap: _removeOverlay,
             child: Container(
-              color:
-                  Colors.transparent, // Make this transparent so it's invisible
+              color: Colors.transparent, // Make this transparent so it's invisible
             ),
           ),
           Positioned(

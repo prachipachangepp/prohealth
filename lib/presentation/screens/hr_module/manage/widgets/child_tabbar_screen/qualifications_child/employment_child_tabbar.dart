@@ -267,7 +267,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                         const SizedBox(
                           height: 10,
                         ),
-                        Text('SuperVisor\'s Phone No. :',
+                        Text('Supervisor\'s Phone No. :',
                             style: ThemeManagerDark.customTextStyle(context)),
                         const SizedBox(
                           height: 10,

@@ -160,13 +160,13 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                           flex: flexVal,
                                           child: Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 40.0),
+                                                left: 114.0),
                                             child: Text(
                                               employeedoc.idOfDocument,
                                               // snapshot.data![index].name.toString(),
                                               style: DocumentTypeDataStyle
                                                   .customTextStyle(context),
-                                              textAlign: TextAlign.center,
+                                              textAlign: TextAlign.start,
                                             ),
                                           ),
                                         ),

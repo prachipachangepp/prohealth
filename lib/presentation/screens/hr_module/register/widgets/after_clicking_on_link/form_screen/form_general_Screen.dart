@@ -93,7 +93,7 @@ class _generalFormState extends State<generalForm> {
   void initState() {
     super.initState();
     _initializeFormWithPrefilledData();
-    address.addListener(_onCountyNameChanged);
+   // address.addListener(_onCountyNameChanged);
   }
 
 
@@ -607,7 +607,7 @@ class _generalFormState extends State<generalForm> {
                       ),
                       SizedBox(
                           height:
-                          MediaQuery.of(context).size.height / 30),
+                          MediaQuery.of(context).size.height / 29),
                       Text(
                         'DOB',
                         style: AllPopupHeadings.customTextStyle(context),
@@ -643,89 +643,109 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
-                      Stack(
-                        children :[
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Address',
-                                    style:AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height / 60),
-                              CustomTextFieldRegister(
-                                controller: address,
-                                hintText: 'Enter Address',
-                                hintStyle: onlyFormDataStyle.customTextStyle(context),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
-                                  }
-                                  return null;
-                                },
-                                height: 32,
-                              ),
-                              if (_addressDocError != null) // Display error if any
-                                Row(
-                                  children: [
-                                    Text(
-                                      _addressDocError!,
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: FontSize.s10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                            ],
-                          ),
-                        ]
+                      AddressInput(
+                        controller: address,
+                        onSuggestionSelected: (selectedSuggestion) {
+                          // Handle the selected suggestion here
+                          print("Selected suggestion: $selectedSuggestion");
+                        },
                       ),
-                      if (_suggestions.isNotEmpty)
-                        Container(
-                          height: 100,
-                          width: 320,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
+                      if (_addressDocError != null) // Display error if any
+                        Row(
+                          children: [
+                            Text(
+                              _addressDocError!,
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: FontSize.s10,
                               ),
-                            ],
-                          ),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: _suggestions.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(
-                                  _suggestions[index],
-                                  style: onlyFormDataStyle.customTextStyle(context),
-                                ),
-                                onTap: () {
-                                  FocusScope.of(context)
-                                      .unfocus(); // Dismiss the keyboard
-                                  String selectedSuggestion = _suggestions[index];
-                                  address.text = selectedSuggestion;
-
-                                  setState(() {
-                                    _suggestions.clear();
-                                    //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
-                                  });
-                                },
-                              );
-                            },
-                          ),
+                            ),
+                          ],
                         ),
+                      // Stack(
+                      //   children :[
+                      //     Column(
+                      //       children: [
+                      //         Row(
+                      //           children: [
+                      //             Text(
+                      //               'Address',
+                      //               style:AllPopupHeadings.customTextStyle(context),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //         SizedBox(
+                      //             height:
+                      //             MediaQuery.of(context).size.height / 60),
+                      //         CustomTextFieldRegister(
+                      //           controller: address,
+                      //           hintText: 'Enter Address',
+                      //           hintStyle: onlyFormDataStyle.customTextStyle(context),
+                      //           validator: (value) {
+                      //             if (value == null || value.isEmpty) {
+                      //               return 'Please enter some text';
+                      //             }
+                      //             return null;
+                      //           },
+                      //           height: 32,
+                      //         ),
+                      //         if (_addressDocError != null) // Display error if any
+                      //           Row(
+                      //             children: [
+                      //               Text(
+                      //                 _addressDocError!,
+                      //                 style: TextStyle(
+                      //                   color: Colors.red,
+                      //                   fontSize: FontSize.s10,
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //       ],
+                      //     ),
+                      //   ]
+                      // ),
+                      // if (_suggestions.isNotEmpty)
+                      //   Container(
+                      //     height: 100,
+                      //     width: 320,
+                      //     decoration: BoxDecoration(
+                      //       color: Colors.white,
+                      //       borderRadius: BorderRadius.circular(8),
+                      //       boxShadow: [
+                      //         BoxShadow(
+                      //           color: Colors.black26,
+                      //           blurRadius: 4,
+                      //           offset: Offset(0, 2),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //     child: ListView.builder(
+                      //       shrinkWrap: true,
+                      //       itemCount: _suggestions.length,
+                      //       itemBuilder: (context, index) {
+                      //         return ListTile(
+                      //           title: Text(
+                      //             _suggestions[index],
+                      //             style: onlyFormDataStyle.customTextStyle(context),
+                      //           ),
+                      //           onTap: () {
+                      //             FocusScope.of(context)
+                      //                 .unfocus(); // Dismiss the keyboard
+                      //             String selectedSuggestion = _suggestions[index];
+                      //             address.text = selectedSuggestion;
+                      //
+                      //             setState(() {
+                      //               _suggestions.clear();
+                      //               //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+                      //             });
+                      //           },
+                      //         );
+                      //       },
+                      //     ),
+                      //   ),
 
+                      ///
                       // SizedBox(
                       //     height:
                       //     MediaQuery.of(context).size.height / 30),
@@ -1239,6 +1259,150 @@ class _generalFormState extends State<generalForm> {
   }
 }
 
+class AddressInput extends StatefulWidget {
+  final TextEditingController controller;
+  final Function(String)? onSuggestionSelected; // Callback to notify parent
+
+  AddressInput({required this.controller, this.onSuggestionSelected});
+
+  @override
+  _AddressInputState createState() => _AddressInputState();
+}
+
+class _AddressInputState extends State<AddressInput> {
+  List<String> _suggestions = [];
+  OverlayEntry? _overlayEntry;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onCountyNameChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onCountyNameChanged);
+    _removeOverlay();
+    super.dispose();
+  }
+
+  void _onCountyNameChanged() async {
+    final query = widget.controller.text;
+    if (query.isEmpty) {
+      _suggestions.clear();
+      _removeOverlay();
+      return;
+    }
+
+    final suggestions = await fetchSuggestions(query);
+    setState(() {
+      _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
+    });
+    _showOverlay();
+  }
+
+  void _showOverlay() {
+    _removeOverlay();
+
+    if (_suggestions.isEmpty) return;
+
+    final overlay = Overlay.of(context);
+    final renderBox = context.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero);
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        left: position.dx,
+        top: position.dy + renderBox.size.height,
+        width: 354,
+        child: Material(
+          elevation: 4.0,
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: _suggestions.length > 5 ? 80.0 : double.infinity,
+              ),
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                itemCount: _suggestions.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      _suggestions[index],
+                      style: TableSubHeading.customTextStyle(context),
+                    ),
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      widget.controller.text = _suggestions[index];
+                      _suggestions.clear();
+                      _removeOverlay();
+
+                      // Call the callback with the selected suggestion
+                      if (widget.onSuggestionSelected != null) {
+                        widget.onSuggestionSelected!(_suggestions[index]);
+                      }
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    overlay.insert(_overlayEntry!);
+  }
+
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return   Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              'Address',
+              style:AllPopupHeadings.customTextStyle(context),
+            ),
+          ],
+        ),
+        SizedBox(
+            height:
+            MediaQuery.of(context).size.height / 60),
+        CustomTextFieldRegister(
+          controller: widget.controller,
+          hintText: 'Enter Address',
+          hintStyle: onlyFormDataStyle.customTextStyle(context),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+            return null;
+          },
+          height: 32,
+        ),
+      ],
+    );
+  }
+}
 
 
 

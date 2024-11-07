@@ -75,19 +75,22 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                 child: Text(
               AppStringHRNoData.timeOffNoData,
               style: CustomTextStylesCommon.commonStyle(
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   fontSize: FontSize.s14,
                   color: ColorManager.mediumgrey),
             ));
           }
           if (snapshot.hasData) {
             return Center(
-              child: Text(
-                AppStringHRNoData.timeOffNoData,
-                style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: FontSize.s14,
-                    color: ColorManager.mediumgrey),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Text(
+                  AppStringHRNoData.timeOffNoData,
+                  style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: FontSize.s14,
+                      color: ColorManager.mediumgrey),
+                ),
               ),
             );
             //   Container(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 import '../../../../../../../../app/constants/app_config.dart';
@@ -11,6 +12,7 @@ import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/dialogue_template.dart';
+import '../../../../../../em_module/widgets/header_content_const.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
 import 'form_screen_const.dart';
 
@@ -181,6 +183,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   void dispose() {
     super.dispose();
   }
+  DateTime? datePicked;
 
   void _onCountyNameChanged() async {
     if (address2Controller.text.isEmpty) {
@@ -243,11 +246,70 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       SizedBox(height: AppSize.s6),
-                      FirstSMTextFConst(
-                        controller: dateOfvaccinationController,
-                        keyboardType: TextInputType.text,
-                        text: 'Date of Vaccination',
-                        showDatePicker: true,
+                      HeaderContentConst(
+                        heading: 'Date of Vaccination',
+                        content: FormField<String>(
+                          builder: (FormFieldState<String> field) {
+                            return SizedBox(
+                              width: 354,
+                              height: 30,
+                              child: TextFormField(
+                                controller: dateOfvaccinationController,
+                                cursorColor: ColorManager.black,
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  //hintText: 'yyyy-mm-dd',
+                                  hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: ColorManager.containerBorderGrey,
+                                    ),
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month_outlined,
+                                    color: ColorManager.blueprime,
+                                  ),
+                                  errorText: field.errorText,
+                                ),
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1901),
+                                    lastDate: DateTime(3101),
+                                  );
+                                  if (pickedDate != null) {
+                                    datePicked = pickedDate;
+                                    dateOfvaccinationController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                  }
+                                },
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please select a date';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       ),
                       if (dateOfvaccinationError != null)
                         Text(

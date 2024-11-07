@@ -1261,7 +1261,7 @@ class CoverageRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      width: 510,
+      width: MediaQuery.of(context).size.width/2.6,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
@@ -1460,6 +1460,7 @@ class AddressInput extends StatefulWidget {
 
 class _AddressInputState extends State<AddressInput> {
   List<String> _suggestions = [];
+  OverlayEntry? _overlayEntry;
 
   @override
   void initState() {
@@ -1470,15 +1471,15 @@ class _AddressInputState extends State<AddressInput> {
   @override
   void dispose() {
     widget.controller.removeListener(_onCountyNameChanged);
+    _removeOverlay();
     super.dispose();
   }
 
   void _onCountyNameChanged() async {
     final query = widget.controller.text;
     if (query.isEmpty) {
-      setState(() {
-        _suggestions.clear();
-      });
+      _suggestions.clear();
+      _removeOverlay();
       return;
     }
 
@@ -1486,50 +1487,58 @@ class _AddressInputState extends State<AddressInput> {
     setState(() {
       _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
     });
+    _showOverlay();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        FirstSMTextFConst(
-          controller: widget.controller,
-          keyboardType: TextInputType.text,
-          text: AppString.addresss,
+  void _showOverlay() {
+    _removeOverlay();
 
-        ),
-        if (_suggestions.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(top:50),
-            child: Container(
-              height: 80,
-              width: 354,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 4,
-                    offset: Offset(0, 2),
-                  ),
-                ],
+    if (_suggestions.isEmpty) return;
+
+    final overlay = Overlay.of(context);
+    final renderBox = context.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero);
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        left: position.dx,
+        top: position.dy + renderBox.size.height,
+        width: 354,
+        child: Material(
+          elevation: 4.0,
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: _suggestions.length > 5 ? 80.0 : double.infinity,
               ),
               child: ListView.builder(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 itemCount: _suggestions.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Text(
                       _suggestions[index],
-                      style: AllPopupHeadings.customTextStyle(context),
+                      style: TableSubHeading.customTextStyle(context),
                     ),
                     onTap: () {
                       FocusScope.of(context).unfocus();
                       widget.controller.text = _suggestions[index];
-                      setState(() {
-                        _suggestions.clear();
-                      });
+                      _suggestions.clear();
+                      _removeOverlay();
+
                       // Call the callback with the selected suggestion
                       if (widget.onSuggestionSelected != null) {
                         widget.onSuggestionSelected!(_suggestions[index]);
@@ -1540,7 +1549,25 @@ class _AddressInputState extends State<AddressInput> {
               ),
             ),
           ),
-      ],
+        ),
+      ),
+    );
+
+    overlay.insert(_overlayEntry!);
+  }
+
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FirstSMTextFConst(
+      controller: widget.controller,
+      keyboardType: TextInputType.text,
+      text: AppString.addresss,
     );
   }
 }
+
