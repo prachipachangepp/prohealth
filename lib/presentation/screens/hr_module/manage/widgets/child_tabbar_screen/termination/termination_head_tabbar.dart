@@ -94,7 +94,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                       ):Offstage(),
                       Center(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 100),
+                            padding: const EdgeInsets.symmetric(vertical: 150),
                             child: Text(
                                                 AppStringHRNoData.terminationNoData,
                                                 style: CustomTextStylesCommon.commonStyle(

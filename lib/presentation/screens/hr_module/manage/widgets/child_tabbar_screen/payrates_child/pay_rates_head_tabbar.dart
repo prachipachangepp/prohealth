@@ -67,7 +67,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
             if (snapshot.data!.isEmpty) {
               return Center(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 120),
+                  padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Text(
                     AppStringHRNoData.payRatesNoData,
                     style: CustomTextStylesCommon.commonStyle(
