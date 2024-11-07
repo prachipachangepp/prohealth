@@ -194,6 +194,42 @@ class _ProfileBarState extends State<ProfileBar> {
     return perceivedBrightness <
         128;
   }
+  /// Using for Address field
+  OverlayEntry? _overlayEntryAddress;
+  void _showOverlayAddress(BuildContext context, Offset position) {
+    _overlayEntryAddress = OverlayEntry(
+      builder: (context) => Positioned(
+        left:300,
+        top: position.dy + 15, // Adjust to position below the text
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: 250,
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              boxShadow: [
+                BoxShadow(color: Colors.black26, blurRadius: 4, spreadRadius: 2),
+              ],
+            ),
+            child: Text(
+              widget.searchByEmployeeIdProfileData!.finalAddress,
+              style: ThemeManagerAddressPB.customTextStyle(context),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context)?.insert(_overlayEntryAddress!);
+  }
+  void _removeOverlayAddress() {
+    _overlayEntryAddress?.remove();
+    _overlayEntryAddress = null;
+  }
+
+  /// Using for summary field
   OverlayEntry? _overlayEntry;
   void _showOverlay(BuildContext context, Offset position) {
     _overlayEntry = OverlayEntry(
@@ -223,7 +259,6 @@ class _ProfileBarState extends State<ProfileBar> {
 
     Overlay.of(context)?.insert(_overlayEntry!);
   }
-
   void _removeOverlay() {
     _overlayEntry?.remove();
     _overlayEntry = null;
@@ -448,9 +483,13 @@ class _ProfileBarState extends State<ProfileBar> {
                                   style: ThemeManagerDark.customTextStyle(context),
                                 ),
 
-                                Text(_trimAddress(widget.searchByEmployeeIdProfileData!.finalAddress),
-                                    textAlign: TextAlign.start,
-                                    style: ThemeManagerAddressPB.customTextStyle(context)),
+                                MouseRegion(
+                                  onEnter: (event) => _showOverlayAddress(context, event.position),
+                                  onExit: (_) => _removeOverlayAddress(),
+                                  child: Text(_trimAddress(widget.searchByEmployeeIdProfileData!.finalAddress),
+                                      textAlign: TextAlign.start,
+                                      style: ThemeManagerAddressPB.customTextStyle(context)),
+                                ),
                               ],
                             ),
                           ),

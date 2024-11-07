@@ -148,7 +148,8 @@ Future<void> setToken() async{
                       Navigator.of(context).pushReplacementNamed(route),
                 ),
               );
-            } else if (widget.signedIn == false) {
+            }
+            else if (widget.signedIn == false) {
               return MaterialPageRoute(
                 builder: (context) => SplashScreen(
                   onFinish: () => Navigator.of(context)
