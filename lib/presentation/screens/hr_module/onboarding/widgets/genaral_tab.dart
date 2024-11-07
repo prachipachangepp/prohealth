@@ -40,6 +40,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
           item.status == 'Completed').toList();
 
       allData = filteredData;
+
       generalController.add(allData);
     }).catchError((error) {
       print('Error fetching data: $error');
@@ -52,6 +53,39 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
     }
     return address;
   }
+
+  // OverlayEntry? _overlayEntryAddress;
+  // void _showOverlayAddress(BuildContext context, Offset position) {
+  //   _overlayEntryAddress = OverlayEntry(
+  //     builder: (context) => Positioned(
+  //       left:300,
+  //       top: position.dy + 15, // Adjust to position below the text
+  //       child: Material(
+  //         color: Colors.transparent,
+  //         child: Container(
+  //           width: 250,
+  //           padding: EdgeInsets.all(8.0),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             borderRadius: BorderRadius.circular(8.0),
+  //             boxShadow: [
+  //               BoxShadow(color: Colors.black26, blurRadius: 4, spreadRadius: 2),
+  //             ],
+  //           ),
+  //           child: Text(
+  //             allData.,
+  //             style: ThemeManagerAddressPB.customTextStyle(context),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  //   Overlay.of(context)?.insert(_overlayEntryAddress!);
+  // }
+  // void _removeOverlayAddress() {
+  //   _overlayEntryAddress?.remove();
+  //   _overlayEntryAddress = null;
+  // }
 
 
   int currentPage = 1;
@@ -338,7 +372,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                               InfoData(general.driverLicenseNum ?? '--'),
                               InfoData(general.employeeType ?? '--'),
                               InfoData(general.primaryPhoneNbr ?? '--'),
-                              InfoData(_trimAddress(general.finalAddress ?? '--'),),
+                              MouseRegion(
+                                  child: InfoData(_trimAddress(general.finalAddress ?? '--'),)),
 
                             ],
                           ),

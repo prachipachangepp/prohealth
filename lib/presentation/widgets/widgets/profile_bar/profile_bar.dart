@@ -212,7 +212,6 @@ class _ProfileBarState extends State<ProfileBar> {
         ),
       ),
     );
-
     Overlay.of(context)?.insert(_overlayEntryAddress!);
   }
   void _removeOverlayAddress() {

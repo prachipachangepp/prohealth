@@ -537,7 +537,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                       checkUrl: '--',
                                       effectiveDate: effectivecontroller.text,
                                       routingNumber: routingnumber.text,
-                                      percentage: '--',
+                                      percentage: '',
                                       type: selectedtype.toString()
                                   );
                                   var responseBank = await approveBankPatch(context,response.banckingId!);

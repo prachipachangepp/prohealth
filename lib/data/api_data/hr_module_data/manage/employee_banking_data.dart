@@ -7,12 +7,14 @@ class EmployeeBankingData {
   final String checkUrl;
   final String effectiveDate;
   final String routinNumber;
+  final String requestedPercentage;
   final String type;
    bool? approve;
   // final bool sucess;
   // final String message;
 
   EmployeeBankingData({
+    required this.requestedPercentage,
     required this.empBankingId,
     required this.employeeId,
     required this.accountNumber,

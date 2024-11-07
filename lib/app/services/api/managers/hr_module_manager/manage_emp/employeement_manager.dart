@@ -118,7 +118,7 @@ Future<ApiData> updateEmployeementPatch(BuildContext context,
       "supMobile": supMobile,
       "title": title,
       "dateOfJoining": "${dateOfJoining}T00:00:00Z",
-      "endDate": "${endDate}T00:00:00Z",
+      "endDate": endDate == "Currently Working"? endDate :"${endDate}T00:00:00Z",
       "emgMobile": emgMobile,
       "country": country
     },);
@@ -165,7 +165,7 @@ Future<EmployeementPrefillData> getPrefillEmployeement(
     if (response.statusCode == 200 || response.statusCode == 201) {
         String joiningFormattedDate =
         convertIsoToDayMonthYear(response.data['dateOfJoining']);
-        String endFormattedDate = convertIsoToDayMonthYear(response.data['endDate']);
+        // String endFormattedDate = convertIsoToDayMonthYear(response.data['endDate']);
         itemsData = EmployeementPrefillData(
             employmentId: response.data['employmentId'],
             employeeId: response.data['employeeId'],
@@ -176,7 +176,7 @@ Future<EmployeementPrefillData> getPrefillEmployeement(
             supMobile: response.data['supMobile'],
             title: response.data['title'],
             dateOfJoining: joiningFormattedDate,
-            endDate: endFormattedDate,
+            endDate: response.data['endDate'] == "Currently Working"? response.data['endDate']:convertIsoToDayMonthYear(response.data['endDate']),
             approved: response.data['approved'],
             sucess: true,
             message: response.statusMessage!,

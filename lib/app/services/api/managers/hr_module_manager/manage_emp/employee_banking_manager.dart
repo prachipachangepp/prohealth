@@ -41,7 +41,8 @@ Future<List<EmployeeBankingData>> getEmployeeBanking(
             effectiveDate: effectiveFormattedDate,
             routinNumber: item['routingNumber'],
             type: item['type'],
-            approve: item['approved'] ?? false,
+            approve: item['approved'] ?? false, requestedPercentage: item['requestedPercentage']??"0",
+
             ));
         itemsData.sort((a, b) => a.empBankingId.compareTo(b.empBankingId));
       }
@@ -81,7 +82,7 @@ Future<EmployeeBankingPrefillData> getPrefillEmployeeBancking(
         // String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
         print(":::;${response.data}");
         itemsData = EmployeeBankingPrefillData(
-          percentage: response.data['requestedPercentage']??"--",
+          percentage: response.data['requestedPercentage']??"0",
             empBankingId: response.data['empBankingId'],
             employeeId: response.data['employeeId'],
             accountNumber: response.data['accountNumber'],
@@ -179,7 +180,7 @@ Future<ApiData> addNewEmployeeBanking(
         "effectiveDate":"${effectiveDate}T00:00:00Z",
         "routingNumber": routingNumber,
         "type": type,
-        "requestedPercentage": percentage
+        "requestedPercentage": percentage,
       }
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

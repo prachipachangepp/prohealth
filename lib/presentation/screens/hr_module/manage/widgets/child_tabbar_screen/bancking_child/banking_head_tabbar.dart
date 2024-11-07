@@ -234,7 +234,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                         snapshot.data![index].accountNumber,
                                     effectiveDate:
                                         snapshot.data![index].effectiveDate,
-                                    requestPercentage: '30%',
+                                    requestPercentage: snapshot.data![index].requestedPercentage,
                                     bankName: snapshot.data![index].bankName,
                                     routinNo:
                                         snapshot.data![index].routinNumber,
@@ -327,7 +327,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                       routingNumber == routingNumberController.text
                                                           ? routingNumber.toString()
                                                           : routingNumberController.text,
-                                                      "NA",
+                                                            snapshotPrefill.data!.percentage,
                                                    // snapshotPrefill.data!.type.toString()
                                                           selectedType = gropvalue
 
