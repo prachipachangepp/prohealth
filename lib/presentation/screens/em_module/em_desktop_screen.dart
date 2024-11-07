@@ -407,6 +407,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   },
                                 ),
                               ],
+
                               selectedItem: myController.selectedIndex.value == 8
                                   ? 'Visits'
                                   : myController.selectedIndex.value == 7
