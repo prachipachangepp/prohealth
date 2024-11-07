@@ -531,15 +531,21 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
           text: AppString.name_of_the_document,
         ),
         if (_nameDocError != null) // Display error if any
-          Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Text(
-              _nameDocError!,
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: FontSize.s10,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 4.0, left: 12),
+                child: Text(
+                  _nameDocError!,
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: FontSize.s10,
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
 
         /// Type of the Document

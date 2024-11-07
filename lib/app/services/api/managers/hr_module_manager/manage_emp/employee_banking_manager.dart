@@ -38,6 +38,7 @@ Future<List<EmployeeBankingData>> getEmployeeBanking(
             bankName: item['bankName'],
             amountRequested: item['amountRequested'],
             checkUrl: item['checkUrl'],
+          percentage: item['requestedPercentage'] ?? "0",
             effectiveDate: effectiveFormattedDate,
             routinNumber: item['routingNumber'],
             type: item['type'],
