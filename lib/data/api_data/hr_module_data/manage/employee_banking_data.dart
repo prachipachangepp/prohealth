@@ -5,6 +5,7 @@ class EmployeeBankingData {
   final String bankName;
   final int amountRequested;
   final String checkUrl;
+  final String percentage;
   final String effectiveDate;
   final String routinNumber;
   final String type;
@@ -19,6 +20,7 @@ class EmployeeBankingData {
     required this.bankName,
     required this.amountRequested,
     required this.checkUrl,
+    required this.percentage,
     required this.effectiveDate,
     required this.routinNumber,
     required this.type,
