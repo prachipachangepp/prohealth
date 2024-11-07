@@ -558,7 +558,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(
                       bottom: 22,
-                      left: AppPadding.p15),
+                      left: AppPadding.p15, right: AppPadding.p10),
                 ),
                 style: TableSubHeading.customTextStyle(context),
                 //validator: widget.validator,

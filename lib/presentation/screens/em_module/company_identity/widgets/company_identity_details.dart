@@ -867,7 +867,7 @@ class _AddressInputState extends State<AddressInput> {
                   return ListTile(
                     title: Text(
                       _suggestions[index],
-                      style: AllPopupHeadings.customTextStyle(context),
+                      style: TableSubHeading.customTextStyle(context),
                     ),
                     onTap: () {
                       FocusScope.of(context).unfocus();

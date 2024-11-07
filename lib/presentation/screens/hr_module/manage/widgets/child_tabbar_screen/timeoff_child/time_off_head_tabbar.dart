@@ -75,7 +75,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                 child: Text(
               AppStringHRNoData.timeOffNoData,
               style: CustomTextStylesCommon.commonStyle(
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   fontSize: FontSize.s14,
                   color: ColorManager.mediumgrey),
             ));
@@ -85,7 +85,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
               child: Text(
                 AppStringHRNoData.timeOffNoData,
                 style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                     fontSize: FontSize.s14,
                     color: ColorManager.mediumgrey),
               ),

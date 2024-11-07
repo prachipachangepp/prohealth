@@ -109,11 +109,16 @@ class _ProfileBarState extends State<ProfileBar> {
       years--;
       months += 12;
     }
-    String result = "$years yr, $months m, $days d";
-    // String result = '';
-    // if (years > 0) result += "$years yr, ";
-    // result += "$months m, ";
-    // result += "$days d";
+    String result = '';
+    if (years > 0)
+    { result += "$years yr";}
+    if(months > 0) {
+      if(result.isNotEmpty) result += ", ";
+    result += "$months m, "; }
+    if(days > 0 || result.isEmpty){
+      if (result.isNotEmpty) result += ",";
+    result += "$days d";}
+
     print("dobTimestamp: $dobTimestamp");
     print('Calculated Age: $result');
     dobTimestamp = result;
@@ -128,25 +133,29 @@ class _ProfileBarState extends State<ProfileBar> {
     int months = today.month - convertedDate.month;
     int days = today.day - convertedDate.day;
 
+
     if (days < 0) {
       months--;
       int prevMonthLastDay = DateTime(today.year, today.month, 0).day;
       days += prevMonthLastDay;
     }
+
     if (months < 0) {
       years--;
       months += 12;
     }
-    String result = "$years yr, $months m, $days d";
-    // String result = '';
-    // if (years > 0) result += "$years yr, ";
-    // result += "$months m, ";
-    // result += "$days d";
+    String result = '';
+    if (years > 0)
+    { result += "$years yr";}
+    if(months > 0) {
+      if(result.isNotEmpty) result += ", ";
+      result += "$months m, "; }
+    if(days > 0 || result.isEmpty){
+      if (result.isNotEmpty) result += ",";
+      result += "$days d";}
 
     print('Timestamp Hiredate: $result');
     return result;
-
-    //return "$totalDateStamp years";
   }
 
   Future<void> fetchData() async {
