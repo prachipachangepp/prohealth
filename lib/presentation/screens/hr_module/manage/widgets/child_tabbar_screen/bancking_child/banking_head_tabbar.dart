@@ -752,6 +752,7 @@ class BankingContainerConst extends StatelessWidget {
                 ),
               ],
             ),
+
             ///void check button
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
