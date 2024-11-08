@@ -15,6 +15,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 
@@ -59,6 +60,14 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   text: AppStringHr.add,
                   icon: Icons.add,
                   onPressed: () {
+                    collegeUniversityController.clear();
+                    phoneController.clear();
+                    calenderController.clear();
+                    cityController.clear();
+                    degreeController.clear();
+                    stateController.clear();
+                    majorSubjectController.clear();
+                    countryNameController.clear();
                     showDialog(
                         context: context,
                         builder: (context) {
@@ -70,10 +79,8 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                             cityController: cityController,
                             degreeController: degreeController,
                             stateController: stateController,
-                            majorSubjectController:
-                            majorSubjectController,
-                            countryNameController:
-                            countryNameController,
+                            majorSubjectController: majorSubjectController,
+                            countryNameController: countryNameController,
                             onpressedClose: () {
 
                             },
@@ -171,10 +178,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                     padding:const EdgeInsets.symmetric(vertical: 100),
                     child: Text(
                       AppStringHRNoData.educationNoData,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey),
+                      style: AllNoDataAvailable.customTextStyle(context),
                     ),
                   ));
             }

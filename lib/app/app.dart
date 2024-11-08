@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../presentation/screens/home_module/home_screen.dart';
 import '../presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
+import 'constants/app_config.dart';
 
 class App extends StatefulWidget {
   final bool signedIn;
@@ -130,10 +131,16 @@ class _App extends State<App> {
               : LoginScreen.routeName,
       routes: RoutesManager().getRoutes(token: widget.signedIn),
       onGenerateRoute: (settings) {
+        var url = html.window.location.href;
+        if (url == "${AppConfig.deployment}/#/onBordingWelcome"){
+          //  if (url == "http://localhost:53323/#/onBordingWelcome") {
+          Provider.of<RouteProvider>(context, listen: false)
+              .setRoute('/onBordingWelcome');
+        }
         final routeProvider =
-            Provider.of<RouteProvider>(context, listen: false);
-        final route = routeProvider.currentRoute;
+        Provider.of<RouteProvider>(context, listen: false);
 
+        final route = routeProvider.currentRoute;
         print("current Route :" + route.toString());
 
         switch (route) {

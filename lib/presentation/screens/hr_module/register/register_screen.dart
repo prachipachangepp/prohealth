@@ -10,6 +10,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/register_m
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/register_enroll_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -249,13 +250,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Center(
                     child: Text(
                       "No user available!",
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey),
-                      // AppString.dataNotFound,
-                      //style:DocumentTypeDataStyle.customTextStyle(context),
-                    ),
+                      style: AllNoDataAvailable.customTextStyle(context),  ),
                   ),
                 );
               }
@@ -278,74 +273,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-  // Widget buildDropdownButton(BuildContext context) {
-  //   final Map<String, String> displayTextMap = {
-  //     'Sort': 'Sort',
-  //     'Opened': 'Opened',
-  //     'Notopen': 'Not Open',
-  //     'Partial': 'Partial',
-  //     'Completed': 'Completed',
-  //   };
-  //
-  //   return Column(
-  //     children: [
-  //       Container(
-  //         height: 31,
-  //         width: 130,
-  //         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-  //         decoration: BoxDecoration(
-  //           color: Colors.white,
-  //           border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-  //           borderRadius: BorderRadius.circular(12.0),
-  //           boxShadow: [
-  //             BoxShadow(
-  //               color: const Color(0xff000000).withOpacity(0.25),
-  //               blurRadius: 2,
-  //               offset: const Offset(0, 2),
-  //             ),
-  //           ],
-  //         ),
-  //         child: DropdownButton<String>(
-  //           value: _selectedValue,
-  //           onChanged: (String? newValue) {
-  //             setState(() {
-  //               _selectedValue = newValue!;
-  //               filterData();
-  //             });
-  //           },
-  //           style: TransparentButtonTextConst.customTextStyle(context),
-  //           icon: const Icon(
-  //             Icons.arrow_drop_down,
-  //             color: Color(0xff50B5E5),
-  //           ),
-  //           iconSize: 20,
-  //           focusColor: Colors.transparent,
-  //           underline: const SizedBox(),
-  //           selectedItemBuilder: (BuildContext context) {
-  //             return displayTextMap.keys.map<Widget>((String value) {
-  //               return Container(
-  //                 alignment: Alignment.center,
-  //                 child: Text(
-  //                   displayTextMap[value]!,
-  //                   style: TransparentButtonTextConst.customTextStyle(context),
-  //                 ),
-  //               );
-  //             }).toList();
-  //           },
-  //           items: displayTextMap.keys.map<DropdownMenuItem<String>>((String value) {
-  //             return DropdownMenuItem<String>(
-  //               value: value,
-  //               child: Container(
-  //                 alignment: Alignment.center,
-  //                 child: Text(displayTextMap[value]!),
-  //               ),
-  //             );
-  //           }).toList(),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget buildDropdownButton(BuildContext context) {
     final Map<String, String> displayTextMap = {
@@ -558,11 +485,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                               onPressed: () async {
                                 //html.window.open('/onBordingWelcome',"_blank");
-                                // const url = "http://localhost:58306/#/onBordingWelcome";
-                                const url =
-                                    "${AppConfig.deployment}/#/onBordingWelcome";
+                              // const url = "http://localhost:58306/#/onBordingWelcome";
+                              const url = "${AppConfig.deployment}/#/onBordingWelcome";
                                 //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                                // Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                               //  Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
                                 if (await canLaunch(url)) {
                                   await launch(url);
                                 } else {
@@ -781,7 +707,73 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             )
                           ],
                         )
-                      : const SizedBox(width: 10)
+                      : const SizedBox(width: 10),
+                  data.status == 'Opened'
+                      ? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        color: Colors.red,
+                        height: AppSize.s30,
+                        // margin:
+                        // const EdgeInsets.only(right: AppMargin.m5),
+                        // child: CustomIconButton(
+                        //   text: 'Onboard',
+                        //   onPressed: () async {
+                        //     showDialog(
+                        //         context: context,
+                        //         builder: (BuildContext context) {
+                        //           return ConfirmationPopup(
+                        //             loadingDuration: _isLoading,
+                        //             onCancel: () {
+                        //               Navigator.pop(context);
+                        //             },
+                        //             onConfirm: () async {
+                        //               setState(() {
+                        //                 _isLoading = true;
+                        //               });
+                        //
+                        //               try {
+                        //                 var response =
+                        //                 await onboardingUserPatch(
+                        //                     context, data.employeeId);
+                        //                 if (response.statusCode == 200 ||
+                        //                     response.statusCode == 201) {
+                        //                   // ScaffoldMessenger.of(context).showSnackBar(
+                        //                   //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+                        //                   // );
+                        //                   fetchData();
+                        //                   Navigator.pop(context);
+                        //                 } else {
+                        //                   // ScaffoldMessenger.of(context).showSnackBar(
+                        //                   //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+                        //                   // );
+                        //                   Navigator.pop(context);
+                        //                 }
+                        //               } catch (e) {
+                        //                 print(
+                        //                     "Error during Onboarding: $e");
+                        //                 // ScaffoldMessenger.of(context).showSnackBar(
+                        //                 //   SnackBar(content: Text('Onboarding failed: $e')),
+                        //                 // );
+                        //               } finally {
+                        //                 setState(() {
+                        //                   _isLoading = false;
+                        //                 });
+                        //               }
+                        //             },
+                        //             title: 'Confirm Onboarding',
+                        //             containerText:
+                        //             'Do you really want to onboard?',
+                        //           );
+                        //         });
+                        //   },
+                        // ),
+                      )
+                    ],
+                  )
+                      : const SizedBox(width: 10),
                 ],
               ),
             ),

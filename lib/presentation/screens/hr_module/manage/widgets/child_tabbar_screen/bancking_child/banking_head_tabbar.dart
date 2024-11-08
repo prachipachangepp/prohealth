@@ -15,6 +15,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_but
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../const_wrap_widget.dart';
 
@@ -194,10 +195,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                     padding: const EdgeInsets.symmetric(vertical: 100),
                     child: Text(
                       AppStringHRNoData.bankingNoData,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey),
+                      style: AllNoDataAvailable.customTextStyle(context),
                     ),
                   ));
                 }
@@ -849,7 +847,6 @@ class BankingContainerConst extends StatelessWidget {
                 ),
               ],
             ),
-
             ///void check button
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

@@ -22,6 +22,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 
@@ -71,6 +72,16 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                   text: AppStringHr.add,
                   icon: Icons.add,
                   onPressed: () {
+                    positionTitleController.clear();
+                    leavingResonController.clear();
+                    startDateContoller.clear();
+                    endDateController.clear();
+                    lastSupervisorNameController.clear();
+                    supervisorMobileNumber.clear();
+                    cityNameController.clear();
+                    employeerController.clear();
+                    emergencyMobileNumber.clear();
+                    countryController.clear();
                     showDialog(
                       barrierDismissible: false,
                       context: context,
@@ -80,20 +91,15 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                           builder: (BuildContext context,
                               void Function(void Function()) setState) {
                             return AddEmployeementPopup(
-                              positionTitleController:
-                              positionTitleController,
-                              leavingResonController:
-                              leavingResonController,
+                              positionTitleController: positionTitleController,
+                              leavingResonController: leavingResonController,
                               startDateContoller: startDateContoller,
                               endDateController: endDateController,
-                              lastSupervisorNameController:
-                              lastSupervisorNameController,
-                              supervisorMobileNumber:
-                              supervisorMobileNumber,
+                              lastSupervisorNameController: lastSupervisorNameController,
+                              supervisorMobileNumber: supervisorMobileNumber,
                               cityNameController: cityNameController,
                               employeerController: employeerController,
-                              emergencyMobileNumber:
-                              emergencyMobileNumber,
+                              emergencyMobileNumber: emergencyMobileNumber,
                               countryController: countryController,
 
                               onpressedSave: () async {
@@ -174,10 +180,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                     padding: const EdgeInsets.symmetric(vertical: 100),
                     child: Text(
                       AppStringHRNoData.employeeNoData,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey),
+                      style: AllNoDataAvailable.customTextStyle(context),
                     ),
                   ));
             }

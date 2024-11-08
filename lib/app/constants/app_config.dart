@@ -12,6 +12,7 @@ class AppConfig {
   static const String prod = "";
   static const String endpoint = demo;
   static const String dash = '-';
+  static const int templateId = 2;
 
   /// Document types
   static const int corporateAndCompliance = 1;
@@ -74,7 +75,8 @@ class AppConfig {
 //   static const String local = "";
 //   static const String prod = "";
 //   static const String endpoint = dev;
-// static const String dash = '-';
+//   static const String dash = '-
+//   static const int templateId = 3;
 //
 //   /// Document types
 //   static const int corporateAndCompliance = 8;

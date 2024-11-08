@@ -11,6 +11,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/custome_dialog.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
@@ -124,7 +125,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                     return Center(
                         child: Text(
                      ErrorMessageString.noVendor,
-                      style:DocumentTypeDataStyle.customTextStyle(context),)
+                      style:AllNoDataAvailable.customTextStyle(context),)
                         );
                   }
                   if (snapshot.hasData) {

@@ -289,14 +289,10 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                           return Center(child: CircularProgressIndicator(color: Colors.blue));
                         }
                         if (snapshot.data!.isEmpty) {
-                          return const Center(
+                          return Center(
                             child: Text(
                               ErrorMessageString.noOffice,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey,
-                              ),
+                              style: AllNoDataAvailable.customTextStyle(context),
                             ),
                           );
                         }

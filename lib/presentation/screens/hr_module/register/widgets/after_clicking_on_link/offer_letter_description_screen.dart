@@ -9,6 +9,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/signature_screen.dart';
+import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
@@ -111,7 +112,7 @@ class _OfferLetterDescriptionScreenState
            // OfferLetterWidget(employeeId: widget.employeeId),
 
             FutureBuilder<OfferLetterData>(
-              future:GetOfferLetter(context, widget.employeeId, 1 ),
+              future:GetOfferLetter(context, widget.employeeId, AppConfig.templateId),
               builder: (context, snapshot) {
                 if(snapshot.connectionState == ConnectionState.waiting){
                   return Container(width: 1032,

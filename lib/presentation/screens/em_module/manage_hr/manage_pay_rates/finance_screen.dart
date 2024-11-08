@@ -411,11 +411,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       child: Text(
                         ErrorMessageString.noPayRates,
                         //AppString.dataNotFound,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey,
-                        ),
+                        style: AllNoDataAvailable.customTextStyle(context),
                       ),
                     );
                   }

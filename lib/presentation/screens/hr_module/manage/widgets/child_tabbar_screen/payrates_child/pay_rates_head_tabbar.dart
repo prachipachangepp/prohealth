@@ -11,6 +11,7 @@ import 'package:prohealth/data/api_data/hr_module_data/manage/payrates_data.dart
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class PayRatesHeadTabbar extends StatefulWidget {
@@ -70,10 +71,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                   padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Text(
                     AppStringHRNoData.payRatesNoData,
-                    style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: FontSize.s14,
-                        color: ColorManager.mediumgrey),
+                    style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 ),
               );

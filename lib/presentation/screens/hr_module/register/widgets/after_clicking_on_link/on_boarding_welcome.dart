@@ -6,6 +6,7 @@ import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/verify_user_popup.dart';
 
+import '../../../../../../app/constants/app_config.dart';
 import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/top_row.dart';
 
@@ -67,21 +68,21 @@ class OnBoardingWelcome extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Welcome to Prohealth Onboarding Wizard',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
-                          color: const Color(0xff686464),
+                          color: Color(0xff686464),
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Text(
+                      const Text(
                         'Please go through each section and fill valid information',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: const Color(0xff686464),
+                          color: Color(0xff686464),
                         ),
                       ),
                       const SizedBox(height: 30),
@@ -93,7 +94,7 @@ class OnBoardingWelcome extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return VerifyUserpopup();
+                                return const VerifyUserpopup();
                               },
                             );
                           },
@@ -105,7 +106,7 @@ class OnBoardingWelcome extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Start',
                             style: TextStyle(
                                 fontSize: 17,
@@ -204,7 +205,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               flex: 1,
               child: FittedBox(
                 fit: BoxFit.scaleDown,
@@ -218,7 +219,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               flex: 3,
               child: FittedBox(
                 fit: BoxFit.scaleDown,
@@ -228,17 +229,17 @@ class OnBoardingCongratulation extends StatelessWidget {
                     Text(
                       'You are a part of ProHealth family',
                       style: TextStyle(
-                        color: const Color(0xFF686464),
+                        color: Color(0xFF686464),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 20.0),
+                    SizedBox(height: 20.0),
                     Text(
                       'Please fill the information and provide necessary documents for the upcoming sections',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: const Color(0xFF686464),
+                        color: Color(0xFF686464),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -256,7 +257,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       OfferLetterData offerLetterData =
-                          await GetOfferLetter(context, employeeId, 1);
+                          await GetOfferLetter(context, employeeId, AppConfig.templateId);
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
@@ -287,7 +288,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Continue',
                       style: TextStyle(
                         fontSize: 17,
@@ -313,42 +314,42 @@ class OnBoardingCongratulation extends StatelessWidget {
                       height: 24.0,
                       width: 24.0,
                     ),
-                    Text(
+                    const Text(
                       'For any assistance please call:',
                       style: TextStyle(
-                        color: const Color(0xFF686464),
+                        color: Color(0xFF686464),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
+                    const Text(
                       '(4088) 555-1234',
                       style: TextStyle(
-                        color: const Color(0xFF50B5E5),
+                        color: Color(0xFF50B5E5),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline,
-                        decorationColor: const Color(0xFF50B5E5),
+                        decorationColor: Color(0xFF50B5E5),
                       ),
                     ),
-                    Text(
+                    const Text(
                       'or email:',
                       style: TextStyle(
-                        color: const Color(0xFF686464),
+                        color: Color(0xFF686464),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.none,
-                        decorationColor: const Color(0xFF686464),
+                        decorationColor: Color(0xFF686464),
                       ),
                     ),
-                    Text(
+                    const Text(
                       'support@symmetry.com',
                       style: TextStyle(
-                        color: const Color(0xFF50B5E5),
+                        color: Color(0xFF50B5E5),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline,
-                        decorationColor: const Color(0xFF50B5E5),
+                        decorationColor: Color(0xFF50B5E5),
                       ),
                     ),
                   ],
