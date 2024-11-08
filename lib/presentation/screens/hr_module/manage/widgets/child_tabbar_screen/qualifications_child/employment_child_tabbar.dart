@@ -22,6 +22,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 
@@ -178,12 +179,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                     padding: const EdgeInsets.symmetric(vertical: 100),
                     child: Text(
                       AppStringHRNoData.employeeNoData,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey),
-                    ),
-                  ));
+                      style:AllNoDataAvailable.customTextStyle(context)
+                  )));
             }
             if(snapshot.hasData){
               int totalItems = snapshot.data!.length;
