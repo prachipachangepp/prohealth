@@ -118,7 +118,8 @@ Future<ApiData> updateEmployeementPatch(BuildContext context,
       "supMobile": supMobile,
       "title": title,
       "dateOfJoining": "${dateOfJoining}T00:00:00Z",
-      "endDate": endDate == "Currently Working"? endDate :"${endDate}T00:00:00Z",
+     // "endDate": endDate == "Currently Working"? endDate :"${endDate}T00:00:00Z",
+      "endDate": endDate,
       "emgMobile": emgMobile,
       "country": country
     },);

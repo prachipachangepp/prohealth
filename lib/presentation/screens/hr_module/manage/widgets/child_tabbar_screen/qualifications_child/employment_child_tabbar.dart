@@ -54,6 +54,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
     super.initState();
   }
   bool isSelected = false;
+  bool isESelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -389,7 +390,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                   supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
                                                   positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
                                                   startDate == startDateContoller.text ? startDate  : startDateContoller.text,
-                                                  endDate == endDateController.text ? endDate : endDateController.text,
+                                                  //endDate == endDateController.text ? endDate : endDateController.text,
+                                                  isESelected ? "Currently Working" : endDateController.text,
                                                   emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
                                                   country== countryController.text ?country.toString():countryController.text
                                                 // 'USA'
@@ -407,9 +409,19 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                               }
                                             }, checkBoxTile:  Container(
                                                 width: 300,
-                                                child: CheckboxTile(title: 'Currently work here',
-                                                  initialValue: false,onChanged: (value){
-                                                },)), tite: 'Edit Employment',
+                                                child: CheckboxTile(
+                                                  title: 'Currently work here',
+                                                  initialValue: isESelected,
+                                                  onChanged: (value){
+                                                    setState((){
+                                                      isESelected = !isESelected;
+                                                      if(isESelected){
+                                                        endDateController.clear();
+                                                      }
+                                                    });
+
+                                                },)),
+                                            tite: 'Edit Employment',
                                             onpressedClose: ()
                                              {
                                               Navigator.pop(context);
