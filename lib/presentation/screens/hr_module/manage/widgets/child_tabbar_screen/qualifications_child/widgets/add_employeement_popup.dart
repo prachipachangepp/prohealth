@@ -164,14 +164,14 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                           controller: widget.lastSupervisorNameController,
                           labelText: "Last Supervisor's Name",
                           errorKey: 'lastSupervisorName',
-                          errorMessage: 'Please enter supervisor name', hintText:"Enter Last Supervisor's Name"),
+                          errorMessage: 'Please enter supervisor name', hintText:"Enter Supervisor's Name"),
                       _buildTextField(
                           capitalIsSelect: false,
                           controller: widget.supervisorMobileNumber,
                           labelText: "Supervisor's Mobile Number",
                           errorKey: 'supervisorMobileNumber',
                           errorMessage:
-                              'Please enter supervisor mobile number', hintText: "Enter Supervisor's Mobile Number"),
+                              'Please enter supervisor mobile number', hintText: "Enter Mobile Number"),
                     ],
                   ),
                   Padding(
@@ -209,7 +209,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                           controller: widget.emergencyMobileNumber,
                           labelText: "Emergency Mobile Number",
                           errorKey: 'emergencyMobileNumber',
-                          errorMessage: 'Please enter mobile number.', hintText: 'Enter Emergency Mobile Number'),
+                          errorMessage: 'Please enter mobile number.', hintText: 'Enter Mobile Number'),
                     ],
                   ),
                   SizedBox(height: AppSize.s20),
