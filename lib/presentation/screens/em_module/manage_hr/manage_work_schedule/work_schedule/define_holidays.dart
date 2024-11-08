@@ -12,6 +12,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../data/api_data/establishment_data/work_schedule/work_week_data.dart';
@@ -183,7 +184,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                   return Center(
                     child: Text(
                     ErrorMessageString.noHoliday,
-                      style: DocumentTypeDataStyle.customTextStyle(context)
+                      style: AllNoDataAvailable.customTextStyle(context),
                     ),
                   );
                 }

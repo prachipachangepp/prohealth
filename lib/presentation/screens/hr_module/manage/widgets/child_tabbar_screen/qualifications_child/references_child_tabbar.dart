@@ -15,6 +15,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_ca
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../icon_button_constant.dart';
 
 ///done by saloni
@@ -61,6 +62,14 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                   text: AppStringHr.add,
                   icon: Icons.add,
                   onPressed: () {
+                    nameController.clear();
+                    emailController.clear();
+                    titlePositionController.clear();
+                    knowPersonController.clear();
+                    companyNameController.clear();
+                    associationLengthController.clear();
+                    referredBController.clear();
+                    mobileNumberController.clear();
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -70,8 +79,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                             titlePositionController: titlePositionController,
                             knowPersonController: knowPersonController,
                             companyNameController: companyNameController,
-                            associationLengthController:
-                                associationLengthController,
+                            associationLengthController: associationLengthController,
                             mobileNumberController: mobileNumberController,
                             referredBy: referredBController,
                             onpressedClose: () {},
@@ -137,10 +145,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                   padding: const EdgeInsets.symmetric(vertical: 100),
                   child: Text(
                     AppStringHRNoData.referenceNoData,
-                    style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s14,
-                        color: ColorManager.mediumgrey),
+                    style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 ));
               }
@@ -166,7 +171,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Text('Mobile Number :',
+                          Text('Email :',
                               style: ThemeManagerDark.customTextStyle(context)),
                         ],
                         row1Child2: [
@@ -195,13 +200,13 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                             height: 10,
                           ),
                           Text(
-                            snapshot.data![index].mobNumber,
+                            snapshot.data![index].email,
                             style:
                                 ThemeManagerDarkFont.customTextStyle(context),
                           ),
                         ],
                         row2Child1: [
-                          Text('Email :',
+                          Text('Mobile Number :',
                               style: ThemeManagerDark.customTextStyle(context)),
                           const SizedBox(
                             height: 10,
@@ -225,7 +230,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                         ],
                         row2Child2: [
                           Text(
-                            snapshot.data![index].email,
+                            snapshot.data![index].mobNumber,
                             style:
                                 ThemeManagerDarkFont.customTextStyle(context),
                           ),

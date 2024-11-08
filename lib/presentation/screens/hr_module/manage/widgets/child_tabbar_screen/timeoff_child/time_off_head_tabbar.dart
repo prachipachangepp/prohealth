@@ -17,6 +17,8 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_widgets/approve_reject_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+
 class TimeOffHeadTabbar extends StatefulWidget {
   const TimeOffHeadTabbar({super.key});
 
@@ -74,10 +76,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
             return Center(
                 child: Text(
               AppStringHRNoData.timeOffNoData,
-              style: CustomTextStylesCommon.commonStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: FontSize.s14,
-                  color: ColorManager.mediumgrey),
+              style: AllNoDataAvailable.customTextStyle(context),
             ));
           }
           if (snapshot.hasData) {
@@ -86,10 +85,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                 padding: const EdgeInsets.only(bottom: 20.0),
                 child: Text(
                   AppStringHRNoData.timeOffNoData,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: FontSize.s14,
-                      color: ColorManager.mediumgrey),
+                  style: AllNoDataAvailable.customTextStyle(context),
                 ),
               ),
             );

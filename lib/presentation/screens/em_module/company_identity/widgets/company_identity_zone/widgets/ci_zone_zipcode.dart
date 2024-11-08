@@ -16,6 +16,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
@@ -148,11 +149,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                 return Center(
                   child: Text(
                     ErrorMessageString.noZipcode,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight:FontWeight.w500,
-                      fontSize: FontSize.s14,
-                      color: ColorManager.mediumgrey,
-                    ),
+                    style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 );
               }

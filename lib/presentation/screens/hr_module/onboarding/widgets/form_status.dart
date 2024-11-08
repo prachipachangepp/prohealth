@@ -66,10 +66,7 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                   );
                 }
                 if (snapshot.hasData) {
-                  // int totalItems = snapshot.data!.length;
-                  // int totalPages = (totalItems / itemsPerPage).ceil();
-                  // List<FormModel> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
-                   return Column(
+                  return Column(
                     children: [
                       Expanded(
                         child: ListView.builder(

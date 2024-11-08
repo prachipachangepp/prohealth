@@ -27,6 +27,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 
 class CompensationChildTabbar extends StatefulWidget {
@@ -129,11 +130,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                     padding: const EdgeInsets.symmetric(vertical: 100),
                     child: Text(
                       AppStringHRNoData.compensationNoData,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s14,
-                        color: ColorManager.mediumgrey,
-                      ),
+                      style: AllNoDataAvailable.customTextStyle(context),
                     ),
                   ),
                 );

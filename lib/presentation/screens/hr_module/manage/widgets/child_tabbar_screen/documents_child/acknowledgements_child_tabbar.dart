@@ -29,6 +29,7 @@ import 'dart:html' as html;
 import 'package:flutter/material.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/services/token/token_manager.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import '../../../../onboarding/download_doc_const.dart';
@@ -154,11 +155,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                     padding: const EdgeInsets.symmetric(vertical: 100),
                     child: Text(
                       AppStringHRNoData.ackNoData,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s14,
-                        color: ColorManager.mediumgrey,
-                      ),
+                      style: AllNoDataAvailable.customTextStyle(context),
                     ),
                   ),
                 );

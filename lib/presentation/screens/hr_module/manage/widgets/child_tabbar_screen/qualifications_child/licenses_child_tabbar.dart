@@ -21,6 +21,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_but
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../data/api_data/hr_module_data/manage/qualification_licenses.dart';
 import '../../custom_icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
@@ -115,6 +116,12 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                     text: AppStringHr.add,
                     icon: Icons.add,
                     onPressed: () {
+                      livensureController.clear();
+                      issueDateController.clear();
+                      expiryDateController.clear();
+                      issuingOrganizationController.clear();
+                      countryController.clear();
+                      numberIDController.clear();
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -241,10 +248,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                       padding: const EdgeInsets.symmetric(vertical: 100),
                       child: Text(
                         AppStringHRNoData.licenseNoData,
-                        style: CustomTextStylesCommon.commonStyle(
-                            fontWeight: FontWeightManager.medium,
-                            fontSize: FontSize.s14,
-                            color: ColorManager.mediumgrey),
+                        style: AllNoDataAvailable.customTextStyle(context),
                       ),
                     ));
               }

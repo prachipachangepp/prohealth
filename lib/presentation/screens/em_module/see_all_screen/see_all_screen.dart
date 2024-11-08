@@ -321,11 +321,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                     return Center(
                       child: Text(
                         ErrorMessageString.noUser, // "No Data!",
-                        style: TextStyle(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey,
-                        ),
+                        style: AllNoDataAvailable.customTextStyle(context),
                       ),
                     );
                   }

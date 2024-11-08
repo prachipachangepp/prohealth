@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
@@ -51,7 +52,7 @@ class PoliciesProcedureList extends StatelessWidget {
             return Center(
               child: Text(
                 emptyMessage,
-                style: DocumentTypeDataStyle.customTextStyle(context),
+                style: AllNoDataAvailable.customTextStyle(context),
               ),
             );
           }

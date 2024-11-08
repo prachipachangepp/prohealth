@@ -76,7 +76,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
               return Center(
                   child: Text(
                ErrorMessageString.noWorkWeek,
-                style: DefineWorkWeekStyle.customTextStyle(context)));
+                style: AllNoDataAvailable.customTextStyle(context),));
             }
             if (snapshot.hasData) {
               return SingleChildScrollView(

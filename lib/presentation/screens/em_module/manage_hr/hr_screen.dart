@@ -16,6 +16,7 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_e
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/const_appbar/controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
@@ -560,7 +561,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     return Center(
                       child: Text(
                               ErrorMessageString.noEmpType,
-                              style: DocumentTypeDataStyle.customTextStyle(context)
+                              style: AllNoDataAvailable.customTextStyle(context),
                             )
                     );
                   }

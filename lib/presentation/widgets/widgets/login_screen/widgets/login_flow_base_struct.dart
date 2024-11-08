@@ -128,14 +128,14 @@ class LoginBaseConstant extends StatelessWidget {
                                 SizedBox(height: 20),
 
                                 ///bottom text
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 35),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Container(
-                                        //color: ColorManager.red,
-                                        alignment: Alignment.centerLeft,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(right: 35),
+                                       //color: ColorManager.red,
+                                        alignment: Alignment.centerRight,
                                         child: InkWell(
                                           onTap: onTap,
                                           child: Text(
@@ -145,8 +145,8 @@ class LoginBaseConstant extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
