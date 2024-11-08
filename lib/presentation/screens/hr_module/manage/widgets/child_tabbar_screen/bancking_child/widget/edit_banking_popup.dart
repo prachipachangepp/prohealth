@@ -537,12 +537,12 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                       checkUrl: '--',
                                       effectiveDate: effectivecontroller.text,
                                       routingNumber: routingnumber.text,
-                                      percentage: '--',
+                                      percentage: '',
                                       type: selectedtype.toString()
                                   );
                                   var responseBank = await approveBankPatch(context,response.banckingId!);
                                   await uploadBanckingDocument(
-                                      context, widget.banckId, pickedFile);
+                                      context, response.banckingId!, pickedFile);
                                   Navigator.pop(context);
                                   if (responseBank.statusCode == 200 ||
                                       responseBank.statusCode == 201) {
