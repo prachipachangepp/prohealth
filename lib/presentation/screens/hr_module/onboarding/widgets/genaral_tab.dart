@@ -54,7 +54,35 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
     return address;
   }
 
-  // OverlayEntry? _overlayEntryAddress;
+  OverlayEntry? _overlayEntryAddress;
+  void _showOverlayAddress(BuildContext context, Offset position, String address) {
+    _overlayEntryAddress = OverlayEntry(
+      builder: (context) => Positioned(
+        left: 300,
+        top: position.dy + 15, // Adjust to position below the text
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: 250,
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              boxShadow: [
+                BoxShadow(color: Colors.black26, blurRadius: 4, spreadRadius: 2),
+              ],
+            ),
+            child: Text(
+              address, // Display the actual address here
+              style: ThemeManagerAddressPB.customTextStyle(context),
+            ),
+          ),
+        ),
+      ),
+    );
+    Overlay.of(context)?.insert(_overlayEntryAddress!);
+  }
+
   // void _showOverlayAddress(BuildContext context, Offset position) {
   //   _overlayEntryAddress = OverlayEntry(
   //     builder: (context) => Positioned(
@@ -73,7 +101,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
   //             ],
   //           ),
   //           child: Text(
-  //             allData.,
+  //             "new",
   //             style: ThemeManagerAddressPB.customTextStyle(context),
   //           ),
   //         ),
@@ -82,11 +110,10 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
   //   );
   //   Overlay.of(context)?.insert(_overlayEntryAddress!);
   // }
-  // void _removeOverlayAddress() {
-  //   _overlayEntryAddress?.remove();
-  //   _overlayEntryAddress = null;
-  // }
-
+  void _removeOverlayAddress() {
+    _overlayEntryAddress?.remove();
+    _overlayEntryAddress = null;
+  }
 
   int currentPage = 1;
   final int itemsPerPage = 10;
@@ -124,7 +151,6 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                   ),
                 );
               }
-
               // Paginate the data.
               int totalItems = snapshot.data!.length;
               int totalPages = (totalItems / itemsPerPage).ceil();
@@ -373,7 +399,17 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                               InfoData(general.employeeType ?? '--'),
                               InfoData(general.primaryPhoneNbr ?? '--'),
                               MouseRegion(
-                                  child: InfoData(_trimAddress(general.finalAddress ?? '--'),)),
+                                onEnter: (event) => _showOverlayAddress(
+                                    context, event.position, general.finalAddress ?? '--'),
+                                onExit: (_) => _removeOverlayAddress(),
+                                child: InfoData(_trimAddress(general.finalAddress ?? '--')),
+                              ),
+
+                              // MouseRegion(
+                              //     onEnter: (event) => _showOverlayAddress(
+                              //         context, event.position),
+                              //     onExit: (_) => _removeOverlayAddress(),
+                              //     child: InfoData(_trimAddress(general.finalAddress ?? '--'),)),
 
                             ],
                           ),
