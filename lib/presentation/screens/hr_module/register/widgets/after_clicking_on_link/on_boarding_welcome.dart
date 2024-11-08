@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/offer_letter_manager.dart';
-import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/offer_letter_html_data/offer_letter_html.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
@@ -18,12 +17,6 @@ class OnBoardingWelcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TokenManager.setAccessToken(
-        token: "svsodasihdsbd",
-        username: "ABC",
-        companyId: 1,
-        userID: -1,
-        email: '');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const PreferredSize(
