@@ -315,21 +315,27 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 });
                 for (var key in licenseFormKeys) {
                   try{
+
                     final st = key.currentState!;
-                    await perfFormLinsence(
-                        context: context,
-                        licenseNumber: st.licensurenumber.text,
-                       country: st.selectedCountry.toString(),
-                       // country: st.controllercountry.text.toString(),
-                        employeeId: widget.employeeID,
-                        expDate: st.controllerExpirationDate.text,
-                        issueDate: st.controllerIssueDate.text,
-                        licenseUrl: 'NA',
-                        licensure: st.licensure.text,
-                        org: st.org.text,
-                        documentType: 'NA',
-                        documentFile: st.finalPath,
-                        documentName: st.fileName);
+                    if(st.isPrefill ==false){
+
+                      await perfFormLinsence(
+                          context: context,
+                          licenseNumber: st.licensurenumber.text,
+                          country: st.selectedCountry.toString(),
+                          // country: st.controllercountry.text.toString(),
+                          employeeId: widget.employeeID,
+                          expDate: st.controllerExpirationDate.text,
+                          issueDate: st.controllerIssueDate.text,
+                          licenseUrl: 'NA',
+                          licensure: st.licensure.text,
+                          org: st.org.text,
+                          documentType: 'NA',
+                          documentFile: st.finalPath,
+                          documentName: st.fileName);
+                    }
+
+
                   }catch(e){
                    print(e);
                   }
@@ -370,6 +376,7 @@ class licensesForm extends StatefulWidget {
 }
 
 class _licensesFormState extends State<licensesForm> {
+  bool isPrefill= true;
   TextEditingController firstName = TextEditingController();
   TextEditingController licensure = TextEditingController();
   TextEditingController org = TextEditingController();
@@ -470,7 +477,11 @@ class _licensesFormState extends State<licensesForm> {
                       controller: licensure,
                       hintText: 'Enter Licensure / Certification',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
+                      height: 32,onChanged: (value){
+                      if(value.isNotEmpty){
+                        isPrefill= false;
+                      }
+                    },
                     ),
                     SizedBox(
                         height:
@@ -489,6 +500,11 @@ class _licensesFormState extends State<licensesForm> {
                       hintText: 'Enter Organization Name',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                     SizedBox(
                         height:
@@ -532,6 +548,11 @@ class _licensesFormState extends State<licensesForm> {
                       hintText: 'Enter Number',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -556,6 +577,11 @@ class _licensesFormState extends State<licensesForm> {
                       hintText: 'yyyy-mm-dd',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                       suffixIcon: IconButton(
                         icon: Icon(
                           Icons.calendar_month_outlined,
@@ -611,6 +637,11 @@ class _licensesFormState extends State<licensesForm> {
                       hintText: 'yyyy-mm-dd',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                       suffixIcon: IconButton(
                         icon: Icon(
                           Icons.calendar_month_outlined,
@@ -766,6 +797,7 @@ class _licensesFormState extends State<licensesForm> {
               decoration: InputDecoration.collapsed(hintText: ''),
               items: dropDownList,
               onChanged: (newValue) {
+                isPrefill =false;
                 for(var a in snapshot.data!){
                   if(a.name == newValue){
                     selectedCountry = a.name;

@@ -449,6 +449,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                       //     backgroundColor: Colors.green,
                       //   ),
                       // );
+                      await  widget.onSave();
                     } catch (e) {
                       await showDialog(
                         context: context,
@@ -463,7 +464,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                   setState(() {
                     isLoading = false; // End loading
                   });
-                  widget.onSave();
+
                 },
                 child: Text(
                   'Save',

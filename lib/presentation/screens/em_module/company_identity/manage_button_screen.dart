@@ -96,7 +96,7 @@ class _ManageWidgetState extends State<ManageWidget> {
           //     :
           Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 130, vertical: AppPadding.p20),
+                      horizontal: 140, vertical: AppPadding.p20),
                   child: Row(
                     children: [
                       Text(
