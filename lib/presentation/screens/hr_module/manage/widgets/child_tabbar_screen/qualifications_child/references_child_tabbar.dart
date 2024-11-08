@@ -46,6 +46,14 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
     super.initState();
   }
 
+  String _trimAddress(String address) {
+    const int maxLength = 22;
+    if (address.length > maxLength) {
+      return '${address.substring(0, maxLength)}...';
+    }
+    return address;
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -166,7 +174,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Text('Company/ Organization :',
+                          Text('Mobile Number :',
                               style: ThemeManagerDark.customTextStyle(context)),
                           const SizedBox(
                             height: 10,
@@ -192,7 +200,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                             height: 10,
                           ),
                           Text(
-                            snapshot.data![index].company,
+                            snapshot.data![index].mobNumber,
                             style:
                                 ThemeManagerDarkFont.customTextStyle(context),
                           ),
@@ -206,7 +214,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                           ),
                         ],
                         row2Child1: [
-                          Text('Mobile Number :',
+                          Text('Company/ Organization :',
                               style: ThemeManagerDark.customTextStyle(context)),
                           const SizedBox(
                             height: 10,
@@ -229,16 +237,15 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                           //     style: ThemeManager.customTextStyle(context)),
                         ],
                         row2Child2: [
-                          Text(
-                            snapshot.data![index].mobNumber,
+                          Text(_trimAddress(snapshot.data![index].company),
                             style:
                                 ThemeManagerDarkFont.customTextStyle(context),
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            snapshot.data![index].references,
+                          Text(_trimAddress(
+                            snapshot.data![index].references),
                             //'LinkedIn',
                             style:
                                 ThemeManagerDarkFont.customTextStyle(context),

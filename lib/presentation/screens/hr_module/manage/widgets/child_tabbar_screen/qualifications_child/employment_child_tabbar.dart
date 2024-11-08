@@ -55,7 +55,13 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
     super.initState();
   }
   bool isSelected = false;
-
+   String _trimAddress(String address) {
+     const int maxLength = 22;
+     if (address.length > maxLength) {
+       return '${address.substring(0, maxLength)}...';
+     }
+     return address;
+   }
   @override
   Widget build(BuildContext context) {
     //print("Employee id in EmployeeMent screen :: ${employeeId}");
@@ -285,15 +291,15 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                       ],
                       row2Child2: [
                         SizedBox(height: 5,),
-                        Text(
-                          snapshot.data![index].reason,
+                        Text(_trimAddress(
+                          snapshot.data![index].reason),
                           style: ThemeManagerDarkFont.customTextStyle(context),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          snapshot.data![index].supervisor,
+                        Text( _trimAddress(
+                          snapshot.data![index].supervisor),
                           style: ThemeManagerDarkFont.customTextStyle(context),
                         ),
                         const SizedBox(

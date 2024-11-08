@@ -49,6 +49,14 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
     // TODO: implement initState
     super.initState();
   }
+
+  String _trimAddress(String address) {
+    const int maxLength = 35;
+    if (address.length > maxLength) {
+      return '${address.substring(0, maxLength)}...';
+    }
+    return address;
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -408,7 +416,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           Text(snapshot.data![index].licenure,
                             style: ThemeManagerDarkFont.customTextStyle(context),),
                           const SizedBox(height: 10,),
-                          Text(snapshot.data![index].org,
+                          Text(_trimAddress(snapshot.data![index].org),
                             style: ThemeManagerDarkFont.customTextStyle(context),),
                           const SizedBox(height: 10,),
                           Text(snapshot.data![index].country,

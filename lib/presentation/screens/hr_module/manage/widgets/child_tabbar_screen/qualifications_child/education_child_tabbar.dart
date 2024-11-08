@@ -45,6 +45,15 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
 
     super.initState();
   }
+
+  String _trimAddress(String address) {
+    const int maxLength = 22;
+    if (address.length > maxLength) {
+      return '${address.substring(0, maxLength)}...';
+    }
+    return address;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -204,13 +213,13 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                       Text(snapshot.data![index].degree,
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                       const SizedBox(height: AppSize.s10,),
-                      Text(snapshot.data![index].graduate,
+                      Text(_trimAddress(snapshot.data![index].graduate),
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                       const SizedBox(height: AppSize.s10,),
-                      Text(snapshot.data![index].college,
+                      Text(_trimAddress(snapshot.data![index].college),
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                       const SizedBox(height: AppSize.s10),
-                      Text(snapshot.data![index].major,
+                      Text(_trimAddress(snapshot.data![index].major),
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                     ],
                     row2Child1: [
