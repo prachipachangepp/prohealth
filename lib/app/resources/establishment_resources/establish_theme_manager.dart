@@ -296,7 +296,7 @@ class PopupCompStyle{
 class CompanyIdentityManageHeadings {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s15,
+      fontSize: FontSize.s20,
       color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w700,
     );

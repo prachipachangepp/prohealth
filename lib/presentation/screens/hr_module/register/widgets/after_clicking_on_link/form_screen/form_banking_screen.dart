@@ -45,7 +45,7 @@ class _BankingScreenState extends State<BankingScreen> {
   bool isVisible = false;
   var validateAccounts;
 
-  var errorMessage;
+
 
  bool isLoading = false;
 
@@ -114,7 +114,7 @@ class _BankingScreenState extends State<BankingScreen> {
               routingNumber,
               type,
               requestedPercentage);
-          print('BanckingId :: ${result.banckingId!}');
+
 
           await uploadcheck(
               context: context,
@@ -122,6 +122,7 @@ class _BankingScreenState extends State<BankingScreen> {
               empBankingId: result.banckingId!,
               documentFile: documentFile,
               documentName: documentName);
+          print('BanckingId :::::: ${result.banckingId!}');
           await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -135,7 +136,7 @@ class _BankingScreenState extends State<BankingScreen> {
             context: context,
             builder: (BuildContext context) {
               return AddSuccessPopup(
-                message: 'Failed To Update Banking Data',
+                message: 'Failed To Save Banking Data',
               );
             },
           );
@@ -242,58 +243,86 @@ class _BankingScreenState extends State<BankingScreen> {
                 : CustomButton(
               width: 117,
               height: 30,
-              text:  'Save',
+              text: 'Save',
               style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
-
-                // Loop through ea
+                // Start loading state
                 setState(() {
-                  isLoading = true; // Start loading
+                  isLoading = true;
                 });
+
+                // Loop through bankingFormKeys
                 for (var key in bankingFormKeys) {
-                  try{
+                  try {
                     final st = key.currentState!;
-                    await perfFormBanckingData(
+                    if (st.isPrefill) {
+                      // Print values before calling perfFormBanckingData
+                      print(':::::::Saving Banking Data:::::::::::::');
+                      print('Employee ID: ${widget.employeeID}');
+                      print('Account Number: ${st.accountnumber.text}');
+                      print('Bank Name: ${st.bankname.text}');
+                      print('Amount Requested: ${int.parse(st.requestammount.text)}');
+                      print('Effective Date: ${st.effectivecontroller.text}');
+                      print('Routing Number: ${st.routingnumber.text}');
+                      print('Type: ${st.selectedtype.toString()}');
+                      print('Requested Percentage: '); // If you have this value, print it
+                      print('Document File: ${st.finalPath}');
+                      print('Document Name:>>>> ${st.fileName}');
+
+                      // Call the function
+                      await perfFormBanckingData(
+                        context: context,
+                        employeeId: widget.employeeID,
+                        accountNumber: st.accountnumber.text,
+                        bankName: st.bankname.text,
+                        amountRequested: int.parse(st.requestammount.text),
+                        checkUrl: "",
+                        effectiveDate: st.effectivecontroller.text,
+                        routingNumber: st.routingnumber.text,
+                        type: st.selectedtype.toString(),
+                        requestedPercentage: "", // If you have this value, pass it
+                        documentFile: st.finalPath ?? '--',
+                        documentName: st.fileName ?? '--',
+                      );
+                    }
+                  } catch (e) {
+                    // Show dialog on error
+                    showDialog(
                       context: context,
-                      employeeId: widget.employeeID,
-                      accountNumber: st.accountnumber.text,
-                      bankName: st.bankname.text,
-                      amountRequested: int.parse(st.requestammount.text),
-                      checkUrl: "",
-                      effectiveDate: st.effectivecontroller.text,
-                      routingNumber: st.routingnumber.text,
-                      type: st.selectedtype.toString(),
-                      requestedPercentage: "",
-                      documentFile: st.finalPath,
-                      documentName: st.fileName,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'Failed To Save Banking Data',
+                        );
+                      },
                     );
-                  }catch(e){
-                    print(e);
+                    print('Error: $e');
                   }
-
                 }
-                setState(() {
-                  isLoading = false; // End loading
-                });
-                widget.onSave();
-              },
-              // accountnumber.clear();
 
+                // End loading state
+                setState(() {
+                  isLoading = false;
+                });
+
+                // Call the onSave function
+                await widget.onSave();
+              },
               child: Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
 
-            if (errorMessage != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Text(
-                  errorMessage!,
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
+
+            // if (errorMessage != null)
+            //   Padding(
+            //     padding: const EdgeInsets.only(top: 16.0),
+            //     child: Text(
+            //       errorMessage!,
+            //       style: TextStyle(color: Colors.red),
+            //     ),
+            //   ),
           ],
         ),
       ],
@@ -333,6 +362,7 @@ class _BankingFormState extends State<BankingForm> {
     verifyaccountnumber.dispose();
     super.dispose();
   }
+  bool isPrefill= true;
 
   TextEditingController effectivecontroller = TextEditingController();
   TextEditingController requestammount = TextEditingController();
@@ -374,20 +404,7 @@ class _BankingFormState extends State<BankingForm> {
       print('Failed to load prefilled data: $e');
     }
   }
-  Future<void> _handleFileUpload() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['pdf']
-    );
 
-    if (result != null) {
-      final file = result.files.first;
-      setState(() {
-        fileName = file.name;
-        finalPath = file.bytes;
-      });
-    }
-  }
 
   bool _documentUploaded = true;
   var fileName;
@@ -453,6 +470,11 @@ class _BankingFormState extends State<BankingForm> {
                                     hintText: 'yyyy-mm-dd',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                     suffixIcon: IconButton(
                                       icon: Icon(
                                         Icons.calendar_month_outlined,
@@ -492,6 +514,11 @@ class _BankingFormState extends State<BankingForm> {
                                     hintText: 'Enter Bank Name',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   SizedBox(
                                       height:
@@ -511,6 +538,11 @@ class _BankingFormState extends State<BankingForm> {
                                     hintText: 'Enter Number',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   SizedBox(
                                       height:
@@ -536,6 +568,7 @@ class _BankingFormState extends State<BankingForm> {
                                             onChanged: (value) {
                                               setState(() {
                                                 selectedtype = value;
+                                                isPrefill= false;
                                               });
                                             },
                                           )),
@@ -547,6 +580,7 @@ class _BankingFormState extends State<BankingForm> {
                                           onChanged: (value) {
                                             setState(() {
                                               selectedtype = value;
+                                              isPrefill= false;
                                             });
                                           },
                                         ),
@@ -575,6 +609,11 @@ class _BankingFormState extends State<BankingForm> {
                                     hintText: 'Enter AC Number',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   SizedBox(
                                       height:
@@ -594,6 +633,11 @@ class _BankingFormState extends State<BankingForm> {
                                     hintText: 'Enter AC Number',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   if (errorMessage != null)
                                     Padding(
@@ -632,6 +676,11 @@ class _BankingFormState extends State<BankingForm> {
                                     prefixText: '\$',
                                     prefixStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                     keyboardType: TextInputType.number,
                                   ),
                                 ],
@@ -655,7 +704,20 @@ class _BankingFormState extends State<BankingForm> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 ElevatedButton.icon(
-                                    onPressed: _handleFileUpload,
+                                    onPressed: ()async{
+                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                          type: FileType.custom,
+                                          allowedExtensions: ['pdf']
+                                      );
+
+                                      if (result != null) {
+                                        final file = result.files.first;
+                                        setState(() {
+                                          fileName = file.name;
+                                          finalPath = file.bytes;
+                                        });
+                                      }
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Color(0xff50B5E5),
                                       shape: RoundedRectangleBorder(

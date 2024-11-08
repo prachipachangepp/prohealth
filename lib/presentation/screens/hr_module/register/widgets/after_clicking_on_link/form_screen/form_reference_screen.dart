@@ -205,24 +205,32 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                 setState(() {
                   isLoading = true; // Start loading
                 });
+
                 for (var key in referenceFormKeys) {
                   final st = key.currentState!;
-                  await postreferencescreenData(
-                      context,
-                      st.lengthofassociation.text,
-                      "__",
-                      st.companyorganization.text,
-                      st.email.text,
-                      st.widget.employeeID,
-                      st.mobilenumber.text,
-                      st.name.text,
-                      st.knowthisperson.text,
-                      st.titleposition.text);
-                }
-                setState(() {
-                  isLoading = false; // End loading
-                });
-                widget.onSave();
+
+                  if(st.isPrefill ==false){
+
+    await postreferencescreenData(
+    context,
+    st.lengthofassociation.text,
+    "__",
+    st.companyorganization.text,
+    st.email.text,
+    st.widget.employeeID,
+    st.mobilenumber.text,
+    st.name.text,
+    st.knowthisperson.text,
+    st.titleposition.text);
+    }
+    setState(() {
+    isLoading = false; // End loading
+    });
+
+                  }
+
+                await  widget.onSave();
+
                 lengthofassociation.clear();
                 companyorganization.clear();
                 email.clear();
@@ -262,6 +270,7 @@ class ReferencesForm extends StatefulWidget {
 }
 
 class _ReferencesFormState extends State<ReferencesForm> {
+  bool isPrefill= true;
   TextEditingController name = TextEditingController();
   TextEditingController titleposition = TextEditingController();
   TextEditingController companyorganization = TextEditingController();
@@ -387,6 +396,11 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintText: 'Enter Name',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   if (_nameError != null) // Display error if any
                                     Padding(
@@ -413,6 +427,11 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintText: 'Enter Position',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   if (_positionError != null) // Display error if any
                                     Padding(
@@ -439,6 +458,11 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintText: 'Enter Organization Name',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   if (_OrganizationError != null) // Display error if any
                                     Padding(
@@ -465,6 +489,11 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintText: 'Enter Number',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   if (_pPhoneDocError != null) // Display error if any
                                     Padding(
@@ -496,6 +525,11 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintText: 'Enter Email',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   if (_emailDocError != null) // Display error if any
                                     Padding(
@@ -522,6 +556,11 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintText: 'Enter Text',
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   if (_KnowthisError != null) // Display error if any
                                     Padding(
@@ -548,6 +587,11 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                     hintText: 'Enter Length',
                                     hintStyle: onlyFormDataStyle.customTextStyle(context),
                                     height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
                                   ),
                                   if (_lengthError != null) // Display error if any
                                     Padding(

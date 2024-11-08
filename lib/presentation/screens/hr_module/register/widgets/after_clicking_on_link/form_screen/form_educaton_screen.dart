@@ -93,7 +93,7 @@ class _EducationScreenState extends State<EducationScreen> {
 
   void addEducationForm() {
     setState(() {
-      educationFormKeys.add(GlobalKey<_EducationFormState>());
+      educationFormKeys.add(GlobalKey<_EducationFormState>( ));
     });
   }
 
@@ -214,6 +214,7 @@ class _EducationScreenState extends State<EducationScreen> {
 
                   // Loop through each form and extract data to post
                   for (var key in educationFormKeys) {
+
                     final st = key.currentState!;
                     if (st.finalPath == null || st.finalPath!.isEmpty) {
                       print("Loading");
@@ -230,34 +231,37 @@ class _EducationScreenState extends State<EducationScreen> {
                         setState(() {
                           isLoading = true;
                         });
-                        ApiDataRegister result =  await FormEducationManager().posteducationscreen(
-                            context,
-                            st.widget.employeeID,
-                            st.graduatetype.toString(),
-                            st.selectedDegree.toString(),
-                            st.majorsubject.text,
-                            st.city.text,
-                            st.collegeuniversity.text,
-                            st.phone.text,
-                            st.state.text,
-                            "USA",
-                            "2024-08-09");
-                        await uploadEducationDocument(
-                            context,
-                            result.educationId!,
-                            st.finalPath,
-                            st.fileName!
-                        );
-                        if(result.success){
-                          await showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AddSuccessPopup(
-                                message: 'Education Data Saved',
-                              );
-                            },
+                        if(st.isPrefill ==false){
+                          ApiDataRegister result =  await FormEducationManager().posteducationscreen(
+                              context,
+                              st.widget.employeeID,
+                              st.graduatetype.toString(),
+                              st.selectedDegree.toString(),
+                              st.majorsubject.text,
+                              st.city.text,
+                              st.collegeuniversity.text,
+                              st.phone.text,
+                              st.state.text,
+                              "USA",
+                              "2024-08-09");
+                          await uploadEducationDocument(
+                              context,
+                              result.educationId!,
+                              st.finalPath,
+                              st.fileName!
                           );
+                          if(result.success){
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddSuccessPopup(
+                                  message: 'Education Data Saved',
+                                );
+                              },
+                            );
+                          }
                         }
+
 
 
                       } catch (e) {
@@ -265,7 +269,7 @@ class _EducationScreenState extends State<EducationScreen> {
                           context: context,
                           builder: (BuildContext context) {
                             return AddSuccessPopup(
-                              message: 'Failed To Update Education Data',
+                              message: 'Failed To Save Education Data',
                             );
                           },
                         );
@@ -299,11 +303,12 @@ class EducationForm extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
+
   const EducationForm(
       {Key? key,
         required this.onRemove,
         required this.index,
-        required this.employeeID, required this.isVisible})
+        required this.employeeID, required this.isVisible, })
       : super(key: key);
 
   @override
@@ -311,6 +316,7 @@ class EducationForm extends StatefulWidget {
 }
 
 class _EducationFormState extends State<EducationForm> {
+   bool isPrefill= true;
   TextEditingController collegeuniversity = TextEditingController();
   TextEditingController majorsubject = TextEditingController();
   TextEditingController phone = TextEditingController();
@@ -429,6 +435,7 @@ class _EducationFormState extends State<EducationForm> {
                                   onChanged: (value) {
                                     setState(() {
                                       graduatetype = value;
+                                      isPrefill =false;
                                     });
                                   },
                                 )),
@@ -440,6 +447,7 @@ class _EducationFormState extends State<EducationForm> {
                                 onChanged: (value) {
                                   setState(() {
                                     graduatetype = value;
+                                    isPrefill =false;
                                   });
                                 },
                               ),
@@ -472,6 +480,11 @@ class _EducationFormState extends State<EducationForm> {
                       hintText: 'Enter Subject',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                      if(value.isNotEmpty){
+                        isPrefill= false;
+                      }
+                      },
                     ),
                   ],
                 ),
@@ -491,6 +504,11 @@ class _EducationFormState extends State<EducationForm> {
                       hintText: 'Enter Phone Number',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 30),
                     Text(
@@ -503,6 +521,11 @@ class _EducationFormState extends State<EducationForm> {
                       hintText: 'Enter City',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 45),
                     Text(
@@ -515,6 +538,11 @@ class _EducationFormState extends State<EducationForm> {
                       hintText: 'Enter State',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -641,6 +669,7 @@ class _EducationFormState extends State<EducationForm> {
                   BorderRadius.circular(6), // Rounded corners
                 ),
                 child: DropdownButtonFormField<String>(
+
                     focusColor: Colors.transparent,
                     icon: const Icon(
                       Icons.arrow_drop_down_sharp,
@@ -649,6 +678,7 @@ class _EducationFormState extends State<EducationForm> {
                     decoration: const InputDecoration.collapsed(hintText: ''),
                     items: dropDownList,
                     onChanged: (newValue) {
+                      isPrefill =false;
                       for(var a in snapshot.data!){
                         if(a.degree == newValue){
                           selectedDegree = a.degree;

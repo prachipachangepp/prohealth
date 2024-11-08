@@ -60,6 +60,7 @@ class EmploymentScreen extends StatefulWidget {
 
 class _EmploymentScreenState extends State<EmploymentScreen> {
   List<GlobalKey<_EmploymentFormState>> employmentFormKeys = [];
+  List<EmploymentDataForm> prefilledData = []; // To store prefilled data
   bool isVisible = false;
   bool isLoading = false;
 
@@ -71,20 +72,23 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
 
   Future<void> _loadEmploymentData() async {
     try {
-      List<EmploymentDataForm> prefilledData = await getEmployeeHistoryForm(context,widget.employeeID);
-      if(prefilledData.isEmpty){
-        setState((){
+      // Fetch prefilled data (if any) from the server or database
+      List<EmploymentDataForm> data = await getEmployeeHistoryForm(context, widget.employeeID);
+
+      if (data.isEmpty) {
+        // If no data exists, allow user to add a new form
+        setState(() {
           addEmploymentForm();
         });
-      }else{
+      } else {
         setState(() {
+          prefilledData = data; // Store the prefilled data
           employmentFormKeys = List.generate(
             prefilledData.length,
                 (index) => GlobalKey<_EmploymentFormState>(),
           );
         });
       }
-
     } catch (e) {
       print('Error loading employment data: $e');
     }
@@ -101,6 +105,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
       employmentFormKeys.remove(key);
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -218,54 +223,59 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                     isLoading = true; // Start loading
                   });
 
+
                   for (var key in employmentFormKeys) {
                     final state = key.currentState!;
 
                     try {
-                      // Post employment screen data
-                      var response = await postemploymentscreenData(
-                        context,
-                        state.widget.employeeID,
-                        state.employerController.text,
-                        state.cityController.text,
-                        state.reasonForLeavingController.text,
-                        state.supervisorNameController.text,
-                        state.supervisorMobileNumberController.text,
-                        state.finalPositionController.text,
-                        state.startDateController.text,
-                        state.isChecked ? "Currently Working" : state.endDateController.text,
-                        "NA",
-                        "United States Of America",
-                      );
+
+                      if(state.isPrefill ==false){
+                        // Post employment screen data
+                        var response = await postemploymentscreenData(
+                          context,
+                          state.widget.employeeID,
+                          state.employerController.text,
+                          state.cityController.text,
+                          state.reasonForLeavingController.text,
+                          state.supervisorNameController.text,
+                          state.supervisorMobileNumberController.text,
+                          state.finalPositionController.text,
+                          state.startDateController.text,
+                          state.isChecked ? "Currently Working" : state.endDateController.text,
+                          "NA",
+                          "United States Of America",
+                        );
 
 
-                      // Check if the file name is not null before uploading the resume
-                      if (state.fileName != null) {
-                        await uploadEmployeeResume(
+                        // Check if the file name is not null before uploading the resume
+                        if (state.fileName != null) {
+                          await uploadEmployeeResume(
+                            context: context,
+                            employeementId: response.employeeMentId!,
+                            documentFile: state.finalPath!,
+                            documentName: state.fileName!,
+                          );
+                        }
+
+
+                        // Show success message after saving the data
+                        await  showDialog(
                           context: context,
-                          employeementId: response.employeeMentId!,
-                          documentFile: state.finalPath!,
-                          documentName: state.fileName!,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Employment Data Saved',
+                            );
+                          },
                         );
                       }
 
-
-                      // Show success message after saving the data
-                      await  showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddSuccessPopup(
-                            message: 'Employment Data Saved',
-                          );
-                        },
-                      );
                     } catch (e) {
                       // Show failure message in case of an error
                       await  showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AddSuccessPopup(
-                            message: 'Failed To Update Employment Data',
+                            message: 'Failed To Save Employment Data',
                           );
                         },
                       );
@@ -413,6 +423,8 @@ class EmploymentForm extends StatefulWidget {
 }
 
 class _EmploymentFormState extends State<EmploymentForm> {
+
+  bool isPrefill= true;
   TextEditingController employerController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController reasonForLeavingController = TextEditingController();
@@ -553,6 +565,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintText: 'Enter Title',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
@@ -566,6 +583,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintText: 'Enter Text',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                       // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
@@ -579,6 +601,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintText: 'yyyy-mm-dd',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                       //width: MediaQuery.of(context).size.width / 5,
                       suffixIcon: IconButton(
                         hoverColor: Colors.transparent,
@@ -613,6 +640,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintText: 'yyyy-mm-dd',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                       //width: MediaQuery.of(context).size.width / 5,
                       suffixIcon: IconButton(
                         hoverColor: Colors.transparent,
@@ -647,6 +679,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                               isChecked = value!;
                               if (isChecked) {
                                 endDateController.clear();
+                                isPrefill =false;
                               }
                             });
                           },
@@ -677,6 +710,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintText: 'Enter Leaving Reason',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
@@ -690,6 +728,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintText: 'Enter Supervisor’s Name',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                       //width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
@@ -703,6 +746,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintText: 'Enter Mobile Number',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
@@ -716,6 +764,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       hintText: 'Enter City',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32.0,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                   ],

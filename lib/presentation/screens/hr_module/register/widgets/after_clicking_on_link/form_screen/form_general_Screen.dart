@@ -1217,6 +1217,7 @@ class _generalFormState extends State<generalForm> {
           },
         );
         _initializeFormWithPrefilledData();
+        widget.onSave();
       } else {
         await showDialog(
           context: context,
@@ -1233,6 +1234,7 @@ class _generalFormState extends State<generalForm> {
       setState(() {
         isLoading = false; // End loading
       });
+
     }
     // Clear fields after saving
     firstname.clear();
@@ -1243,7 +1245,7 @@ class _generalFormState extends State<generalForm> {
     driverlicensenumb.clear();
     address.clear();
     dobcontroller.clear();
-    widget.onSave();
+
     },
 
                 child: Text(

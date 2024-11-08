@@ -455,6 +455,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                       setState(() {
                         isLoading = true; // Start loading
                       });
+
                       for (int i = 0; i < finalPaths.length; i++) {
                         if (finalPaths[i] != null) {
                           await uploadDocuments(
@@ -502,6 +503,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                           );
                         },
                       );
+                      await  widget.onSave();
                     } catch (e) {
 
                       await  showDialog(
@@ -519,7 +521,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                   setState(() {
                     isLoading = false; // End loading
                   });
-                  widget.onSave();
+
 
                 },
                 child:  Text(
