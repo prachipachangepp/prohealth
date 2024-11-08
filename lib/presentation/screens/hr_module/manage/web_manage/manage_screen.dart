@@ -9,7 +9,6 @@ import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profil
 
 import '../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../widgets/widgets/profile_bar/profile_bar.dart';
-import '../widgets/bottom_row.dart';
 import '../widgets/child_tabbar_screen/bancking_child/banking_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/acknowledgements_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/add_vaccination_child_tabbar.dart';
@@ -132,7 +131,10 @@ class _ManageScreenState extends State<ManageScreen> {
                                         child: Column(
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(left: 322.0,right:305,top: 5),
+                                              padding: const EdgeInsets.only(
+                                                  left: 322.0,
+                                                  right: 305,
+                                                  top: 5),
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
@@ -150,13 +152,13 @@ class _ManageScreenState extends State<ManageScreen> {
                                                   ],
                                                 ),
                                                 height: 30,
-                                               // width: 720.0,
+                                                // width: 720.0,
                                                 child: TabBar(
                                                   isScrollable: false,
                                                   tabs: [
                                                     Tab(
-                                                      text:
-                                                          AppStringHr.employment,
+                                                      text: AppStringHr
+                                                          .employment,
                                                     ),
                                                     Tab(
                                                         text: AppStringHr
@@ -165,8 +167,8 @@ class _ManageScreenState extends State<ManageScreen> {
                                                         text: AppStringHr
                                                             .referance),
                                                     Tab(
-                                                        text:
-                                                            AppStringHr.license),
+                                                        text: AppStringHr
+                                                            .license),
                                                   ],
                                                   dividerColor:
                                                       Colors.transparent,
@@ -189,7 +191,8 @@ class _ManageScreenState extends State<ManageScreen> {
                                                       TabBarIndicatorSize.tab,
                                                   indicatorColor: Colors.white,
                                                   labelColor: Color(0xFF686464),
-                                                  unselectedLabelStyle: TextStyle(
+                                                  unselectedLabelStyle:
+                                                      TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w600,
                                                   ),
@@ -258,21 +261,28 @@ class _ManageScreenState extends State<ManageScreen> {
 
                                     /// Documents Tab Views
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 5,),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 5,
+                                      ),
                                       child: DefaultTabController(
                                         length: 5,
                                         child: Column(
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(left: 322.0,right:305,top: 5),
+                                              padding: const EdgeInsets.only(
+                                                  left: 322.0,
+                                                  right: 305,
+                                                  top: 5),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(24),
+                                                  borderRadius:
+                                                      BorderRadius.circular(24),
                                                   color: Color(0xFF50B5E5),
                                                   boxShadow: [
                                                     BoxShadow(
                                                       // color: Colors.black.withOpacity(0.2),
-                                                      color: Colors.black.withOpacity(0.25),
+                                                      color: Colors.black
+                                                          .withOpacity(0.25),
                                                       spreadRadius: 1,
                                                       blurRadius: 4,
                                                       offset: Offset(0, 3),
@@ -280,28 +290,40 @@ class _ManageScreenState extends State<ManageScreen> {
                                                   ],
                                                 ),
                                                 height: 30,
-                                               // width: 820.0,
+                                                // width: 820.0,
                                                 child: TabBar(
                                                   isScrollable: false,
                                                   tabs: [
                                                     Tab(
-                                                        text: AppStringHr.acknowledgement),
+                                                        text: AppStringHr
+                                                            .acknowledgement),
                                                     Tab(
-                                                        text: AppStringHr.compensation),
+                                                        text: AppStringHr
+                                                            .compensation),
                                                     Tab(
-                                                        text: AppStringHr.addVaccination),
-                                                    Tab(text: AppStringHr.others),
-                                                    Tab(text: AppStringHr.formStatus),
+                                                        text: AppStringHr
+                                                            .addVaccination),
+                                                    Tab(
+                                                        text:
+                                                            AppStringHr.others),
+                                                    Tab(
+                                                        text: AppStringHr
+                                                            .formStatus),
                                                   ],
-                                                  dividerColor: Colors.transparent,
+                                                  dividerColor:
+                                                      Colors.transparent,
                                                   //padding: EdgeInsets.only(top: 2),
                                                   indicator: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(50), // Creates border
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50), // Creates border
                                                       color: Colors.white),
-                                                  indicatorSize: TabBarIndicatorSize.tab,
+                                                  indicatorSize:
+                                                      TabBarIndicatorSize.tab,
                                                   indicatorColor: Colors.white,
                                                   labelColor: Color(0xFF686464),
-                                                  unselectedLabelStyle: TextStyle(
+                                                  unselectedLabelStyle:
+                                                      TextStyle(
                                                     fontSize: AppSize.s14,
                                                     fontWeight: FontWeight.w600,
                                                   ),
@@ -309,7 +331,8 @@ class _ManageScreenState extends State<ManageScreen> {
                                                     fontSize: AppSize.s14,
                                                     fontWeight: FontWeight.w600,
                                                   ),
-                                                  unselectedLabelColor: Colors.white,
+                                                  unselectedLabelColor:
+                                                      Colors.white,
                                                 ),
                                               ),
                                             ),
@@ -362,8 +385,15 @@ class _ManageScreenState extends State<ManageScreen> {
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          height: MediaQuery.of(context).size.height,
-                                                          padding: EdgeInsets.only(top: AppPadding.p15),
+                                                          height: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .height,
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top:
+                                                                      AppPadding
+                                                                          .p15),
                                                           child: FormStatusScreen(
                                                               employeeId: widget
                                                                   .searchByEmployeeIdProfileData!

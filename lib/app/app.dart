@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:html' as html;
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
@@ -12,9 +11,6 @@ import 'package:provider/provider.dart';
 
 import '../presentation/screens/home_module/home_screen.dart';
 import '../presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
-
-
-
 
 class App extends StatefulWidget {
   final bool signedIn;
@@ -42,7 +38,6 @@ class _App extends State<App> {
     _initializeVersion();
     _timer = Timer.periodic(Duration(minutes: 1), (timer) => _checkForUpdate());
   }
-
 
   @override
   void dispose() {
@@ -92,14 +87,16 @@ class _App extends State<App> {
   void _reloadPage() {
     html.window.location.reload();
   }
-Future<void> setToken() async{
-   TokenManager.setAccessToken(
-      token: "yergtvskdvhvsavasgdguiasgdu",
-      username: "",
-      companyId: 1,
-      userID: 1,
-      email: "");
-}
+
+  Future<void> setToken() async {
+    TokenManager.setAccessToken(
+        token: "yergtvskdvhvsavasgdguiasgdu",
+        username: "",
+        companyId: 1,
+        userID: 1,
+        email: "");
+  }
+
   @override
   Widget build(BuildContext context) {
     // bool isChrome = html.window.navigator.userAgent.contains("chrome");
@@ -148,8 +145,7 @@ Future<void> setToken() async{
                       Navigator.of(context).pushReplacementNamed(route),
                 ),
               );
-            }
-            else if (widget.signedIn == false) {
+            } else if (widget.signedIn == false) {
               return MaterialPageRoute(
                 builder: (context) => SplashScreen(
                   onFinish: () => Navigator.of(context)

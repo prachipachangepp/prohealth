@@ -13,9 +13,10 @@ import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widge
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_reference_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../icon_button_constant.dart';
-import '../../row_container_widget_const.dart';
+
 ///done by saloni
 class ReferencesChildTabbar extends StatefulWidget {
   final int employeeId;
@@ -26,7 +27,8 @@ class ReferencesChildTabbar extends StatefulWidget {
 }
 
 class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
-  final StreamController<List<ReferenceData>> referenceStreamController = StreamController<List<ReferenceData>>();
+  final StreamController<List<ReferenceData>> referenceStreamController =
+      StreamController<List<ReferenceData>>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController titlePositionController = TextEditingController();
@@ -40,9 +42,9 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
   void initState() {
     // TODO: implement initState
 
-
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -65,14 +67,12 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                           return AddReferencePopup(
                             nameController: nameController,
                             emailController: emailController,
-                            titlePositionController:
-                            titlePositionController,
+                            titlePositionController: titlePositionController,
                             knowPersonController: knowPersonController,
                             companyNameController: companyNameController,
                             associationLengthController:
-                            associationLengthController,
-                            mobileNumberController:
-                            mobileNumberController,
+                                associationLengthController,
+                            mobileNumberController: mobileNumberController,
                             referredBy: referredBController,
                             onpressedClose: () {},
                             onpressedSave: () async {
@@ -87,9 +87,12 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                   nameController.text,
                                   knowPersonController.text,
                                   titlePositionController.text);
-                              var referenceResponse = await approveOnboardQualifyReferencePatch(context, response.referenceId!);
+                              var referenceResponse =
+                                  await approveOnboardQualifyReferencePatch(
+                                      context, response.referenceId!);
                               Navigator.pop(context);
-                              if(referenceResponse.statusCode == 200 || referenceResponse.statusCode == 201){
+                              if (referenceResponse.statusCode == 200 ||
+                                  referenceResponse.statusCode == 201) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -111,196 +114,380 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
           height: 1,
         ),
         StreamBuilder<List<ReferenceData>>(
-          stream: referenceStreamController.stream,
-          builder: (context,snapshot) {
-            getReferences(context,widget.employeeId).then((data) {
-              referenceStreamController.add(data);
-            }).catchError((error) {
-              // Handle error
-            });
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Padding(
-                  padding:const EdgeInsets.symmetric(vertical: 100),
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                ),
-              );
-            }
-            if (snapshot.data!.isEmpty) {
-              return Center(
+            stream: referenceStreamController.stream,
+            builder: (context, snapshot) {
+              getReferences(context, widget.employeeId).then((data) {
+                referenceStreamController.add(data);
+              }).catchError((error) {
+                // Handle error
+              });
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 100),
-                    child: Text(
-                      AppStringHRNoData.referenceNoData,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey),
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
                     ),
-                  ));
-            }
-            if(snapshot.hasData){
-              return WrapWidget(
-                  children: List.generate(snapshot.data!.length, (index){
-                return CardDetails(childWidget: DetailsFormate(
-                  title:'References #${index + 1}',
-                    row1Child1: [
-                      Text('Name :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: 10,),
-                      Text('Title/ Position :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: 10,),
-                      Text('Company/ Organization :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: 10,),
-                      Text('Mobile Number :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                    ],
-                    row1Child2: [
-                      Text(snapshot.data![index].name,
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: 10,),
-                      Text(snapshot.data![index].title,
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: 10,),
-                      Text(snapshot.data![index].company,
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: 10,),
-                      Text(snapshot.data![index].mobNumber,
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                    ],
-                    row2Child1: [
-                      Text('Email :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: 10,),
-                      Text('How do you know this person ? :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: 10,),
-                      Text('Length of Association :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: 10,),
-                      SizedBox(height: 30, width: 90,)
-                      // Text('Referred By',
-                      //     style: ThemeManager.customTextStyle(context)),
-                    ],
-                    row2Child2: [
-                      Text(snapshot.data![index].email,
+                  ),
+                );
+              }
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                    child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 100),
+                  child: Text(
+                    AppStringHRNoData.referenceNoData,
+                    style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s14,
+                        color: ColorManager.mediumgrey),
+                  ),
+                ));
+              }
+              if (snapshot.hasData) {
+                return WrapWidget(
+                    children: List.generate(snapshot.data!.length, (index) {
+                  return CardDetails(
+                    childWidget: DetailsFormate(
+                        title: 'References #${index + 1}',
+                        row1Child1: [
+                          Text('Name :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text('Title/ Position :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text('Company/ Organization :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text('Mobile Number :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                        ],
+                        row1Child2: [
+                          Text(
+                            snapshot.data![index].name,
+                            style:
+                                ThemeManagerDarkFont.customTextStyle(context),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            snapshot.data![index].title,
+                            style:
+                                ThemeManagerDarkFont.customTextStyle(context),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            snapshot.data![index].company,
+                            style:
+                                ThemeManagerDarkFont.customTextStyle(context),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            snapshot.data![index].mobNumber,
+                            style:
+                                ThemeManagerDarkFont.customTextStyle(context),
+                          ),
+                        ],
+                        row2Child1: [
+                          Text('Email :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text('How do you know this person ? :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text('Length of Association :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            height: 30,
+                            width: 90,
+                          )
+                          // Text('Referred By',
+                          //     style: ThemeManager.customTextStyle(context)),
+                        ],
+                        row2Child2: [
+                          Text(
+                            snapshot.data![index].email,
+                            style:
+                                ThemeManagerDarkFont.customTextStyle(context),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            snapshot.data![index].references,
+                            //'LinkedIn',
+                            style:
+                                ThemeManagerDarkFont.customTextStyle(context),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            snapshot.data![index].association,
+                            style:
+                                ThemeManagerDarkFont.customTextStyle(context),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            height: 30,
+                            width: 90,
+                          )
+                        ],
+                        button: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            snapshot.data![index].approve == null
+                                ? Text('',
+                                    style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              120,
+                                      color: ColorManager.mediumgrey,
+                                      fontWeight: FontWeight.w600,
+                                    ))
+                                : BorderIconButton(
+                                    iconData: Icons.edit_outlined,
+                                    buttonText: 'Edit',
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return FutureBuilder<
+                                                    ReferencePrefillData>(
+                                                future: getPrefillReferences(
+                                                    context,
+                                                    snapshot.data![index]
+                                                        .referenceId),
+                                                builder:
+                                                    (context, snapshotPrefill) {
+                                                  if (snapshotPrefill
+                                                          .connectionState ==
+                                                      ConnectionState.waiting) {
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: ColorManager
+                                                            .blueprime,
+                                                      ),
+                                                    );
+                                                  }
+                                                  var name = snapshotPrefill
+                                                      .data!.name;
+                                                  nameController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.name);
 
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: 10,),
-                      Text(snapshot.data![index].references,
-                        //'LinkedIn',
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: 10,),
-                      Text(snapshot.data![index].association,
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: 10,),
-                      SizedBox(height: 30, width: 90,)
-                    ],
-                    button: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [snapshot.data![index].approve == null ?
-                      Text('',
-                          style:TextStyle(
-                        fontSize: MediaQuery.of(context).size.width/120,
-                        color: ColorManager.mediumgrey,
-                        fontWeight: FontWeight.w600,
-                      )):
-                      BorderIconButton(iconData: Icons.edit_outlined,
-                          buttonText: 'Edit', onPressed: (){
-                            showDialog(context: context, builder: (BuildContext context){
-                              return FutureBuilder<ReferencePrefillData>(
-                                  future: getPrefillReferences(context,snapshot.data![index].referenceId),
-                                  builder: (context,snapshotPrefill) {
-                                    if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                      return Center(
-                                        child: CircularProgressIndicator(color: ColorManager.blueprime,),
-                                      );
-                                    }
-                                    var name = snapshotPrefill.data!.name;
-                                    nameController = TextEditingController(text: snapshotPrefill.data!.name);
+                                                  var comment = snapshotPrefill
+                                                      .data!.comment;
 
-                                    var comment = snapshotPrefill.data!.comment;
+                                                  var email = snapshotPrefill
+                                                      .data!.email;
+                                                  emailController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.email);
 
-                                    var email = snapshotPrefill.data!.email;
-                                    emailController = TextEditingController(text: snapshotPrefill.data!.email);
+                                                  var title = snapshotPrefill
+                                                      .data!.title;
+                                                  titlePositionController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.title);
 
-                                    var title = snapshotPrefill.data!.title;
-                                    titlePositionController = TextEditingController(text: snapshotPrefill.data!.title);
+                                                  var knowPerson = "LinkedIn";
+                                                  knowPersonController =
+                                                      TextEditingController(
+                                                          text: "LinkedIn");
 
-                                    var knowPerson = "LinkedIn";
-                                    knowPersonController = TextEditingController(text:"LinkedIn");
+                                                  var companyName =
+                                                      snapshotPrefill
+                                                          .data!.company;
+                                                  companyNameController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.company);
 
-                                    var companyName = snapshotPrefill.data!.company;
-                                    companyNameController = TextEditingController(text: snapshotPrefill.data!.company);
+                                                  var association =
+                                                      snapshotPrefill
+                                                          .data!.association;
+                                                  associationLengthController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!
+                                                              .association);
+                                                  var referredby =
+                                                      snapshotPrefill
+                                                          .data!.references;
+                                                  referredBController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!
+                                                              .references);
 
-                                    var association = snapshotPrefill.data!.association;
-                                    associationLengthController = TextEditingController(text: snapshotPrefill.data!.association);
-                                    var referredby = snapshotPrefill.data!.references;
-                                    referredBController =TextEditingController(
-                                        text: snapshotPrefill.data!.references
-                                    );
-
-                                    var references = snapshotPrefill.data!.references;
-                                    var mobileNumber = snapshotPrefill.data!.mobNumber;
-                                    mobileNumberController = TextEditingController(text: snapshotPrefill.data!.mobNumber);
-                                    return StatefulBuilder(
-                                      builder: (BuildContext context, void Function(void Function()) setState) {
-                                        return AddReferencePopup(nameController: nameController, emailController: emailController, titlePositionController: titlePositionController, knowPersonController: knowPersonController, companyNameController: companyNameController,
-                                          associationLengthController: associationLengthController, mobileNumberController: mobileNumberController, referredBy: referredBController,
-                                          onpressedClose: (){
-                                            Navigator.pop(context);
-                                          }, onpressedSave: () async{
-                                            var response = await updateReferencePatch(context,
-                                              snapshot.data![index].referenceId,
-                                              association == associationLengthController.text ? association.toString() : associationLengthController.text,
-                                              comment.toString(),
-                                              companyName == companyNameController.text ? companyName.toString() : companyNameController.text,
-                                              email == emailController.text ? email.toString() : emailController.text,
-                                              widget.employeeId,
-                                              mobileNumber == mobileNumberController.text ? mobileNumber.toString() : mobileNumberController.text,
-                                              name == nameController.text ? name.toString() : nameController.text,
-                                              //references.toString(),
-                                              referredby== referredBController.text? referredby.toString():referredBController.text,
-                                              title == titlePositionController.text ? title.toString() : titlePositionController.text,
-                                            );
-                                            Navigator.pop(context);
-                                            if(response.statusCode == 200 || response.statusCode == 201){
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return AddSuccessPopup(
-                                                    message: 'Reference Edit Successfully',
+                                                  var references =
+                                                      snapshotPrefill
+                                                          .data!.references;
+                                                  var mobileNumber =
+                                                      snapshotPrefill
+                                                          .data!.mobNumber;
+                                                  mobileNumberController =
+                                                      TextEditingController(
+                                                          text: snapshotPrefill
+                                                              .data!.mobNumber);
+                                                  return StatefulBuilder(
+                                                    builder: (BuildContext
+                                                            context,
+                                                        void Function(
+                                                                void Function())
+                                                            setState) {
+                                                      return AddReferencePopup(
+                                                        nameController:
+                                                            nameController,
+                                                        emailController:
+                                                            emailController,
+                                                        titlePositionController:
+                                                            titlePositionController,
+                                                        knowPersonController:
+                                                            knowPersonController,
+                                                        companyNameController:
+                                                            companyNameController,
+                                                        associationLengthController:
+                                                            associationLengthController,
+                                                        mobileNumberController:
+                                                            mobileNumberController,
+                                                        referredBy:
+                                                            referredBController,
+                                                        onpressedClose: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        onpressedSave:
+                                                            () async {
+                                                          var response =
+                                                              await updateReferencePatch(
+                                                            context,
+                                                            snapshot
+                                                                .data![index]
+                                                                .referenceId,
+                                                            association ==
+                                                                    associationLengthController
+                                                                        .text
+                                                                ? association
+                                                                    .toString()
+                                                                : associationLengthController
+                                                                    .text,
+                                                            comment.toString(),
+                                                            companyName ==
+                                                                    companyNameController
+                                                                        .text
+                                                                ? companyName
+                                                                    .toString()
+                                                                : companyNameController
+                                                                    .text,
+                                                            email ==
+                                                                    emailController
+                                                                        .text
+                                                                ? email
+                                                                    .toString()
+                                                                : emailController
+                                                                    .text,
+                                                            widget.employeeId,
+                                                            mobileNumber ==
+                                                                    mobileNumberController
+                                                                        .text
+                                                                ? mobileNumber
+                                                                    .toString()
+                                                                : mobileNumberController
+                                                                    .text,
+                                                            name ==
+                                                                    nameController
+                                                                        .text
+                                                                ? name
+                                                                    .toString()
+                                                                : nameController
+                                                                    .text,
+                                                            //references.toString(),
+                                                            referredby ==
+                                                                    referredBController
+                                                                        .text
+                                                                ? referredby
+                                                                    .toString()
+                                                                : referredBController
+                                                                    .text,
+                                                            title ==
+                                                                    titlePositionController
+                                                                        .text
+                                                                ? title
+                                                                    .toString()
+                                                                : titlePositionController
+                                                                    .text,
+                                                          );
+                                                          Navigator.pop(
+                                                              context);
+                                                          if (response.statusCode ==
+                                                                  200 ||
+                                                              response.statusCode ==
+                                                                  201) {
+                                                            showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
+                                                                return AddSuccessPopup(
+                                                                  message:
+                                                                      'Reference Edit Successfully',
+                                                                );
+                                                              },
+                                                            );
+                                                          }
+                                                          getReferences(
+                                                                  context, 5)
+                                                              .then((data) {
+                                                            referenceStreamController
+                                                                .add(data);
+                                                          }).catchError(
+                                                                  (error) {
+                                                            // Handle error
+                                                          });
+                                                        },
+                                                        title: 'Edit Reference',
+                                                      );
+                                                    },
                                                   );
-                                                },
-                                              );
-                                            }
-                                            getReferences(context,5).then((data) {
-                                              referenceStreamController.add(data);
-                                            }).catchError((error) {
-                                              // Handle error
-                                            });
-                                          }, title: 'Edit Reference',);
-                                      },
-                                    );
-                                  }
-                              );
-                            });
-                          })
-                      ],
-                    )),);
-              }));
-            }else{
-              return const SizedBox();
-            }
-
-          }
-        ),
+                                                });
+                                          });
+                                    })
+                          ],
+                        )),
+                  );
+                }));
+              } else {
+                return const SizedBox();
+              }
+            }),
       ],
     );
-
   }
 }

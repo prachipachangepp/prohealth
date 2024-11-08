@@ -1,28 +1,29 @@
-import 'dart:ui';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/offer_letter_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/offer_letter_html_data/offer_letter_html.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/register_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/verify_user_popup.dart';
+
 import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/top_row.dart';
 
 class OnBoardingWelcome extends StatelessWidget {
-
   static const String routeName = "/onBordingWelcome";
-  const OnBoardingWelcome({Key? key, }) : super(key: key);
-
+  const OnBoardingWelcome({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TokenManager.setAccessToken(token: "svsodasihdsbd", username: "ABC", companyId: 1);
+    TokenManager.setAccessToken(
+        token: "svsodasihdsbd",
+        username: "ABC",
+        companyId: 1,
+        userID: -1,
+        email: '');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const PreferredSize(
@@ -61,7 +62,7 @@ class OnBoardingWelcome extends StatelessWidget {
                       Image.asset(
                         'images/doctors.png',
                         width: MediaQuery.of(context).size.width / 3,
-                        height: MediaQuery.of(context).size.height / 1.7,
+                        height: MediaQuery.of(context).size.height / 1.9,
                       ),
                     ],
                   ),
@@ -133,7 +134,6 @@ class OnBoardingWelcome extends StatelessWidget {
   }
 }
 
-
 class CustomTextField extends StatelessWidget {
   final String labelText;
   final Widget? labelWidget;
@@ -165,7 +165,8 @@ class CustomTextField extends StatelessWidget {
         filled: true,
         fillColor: Colors.white,
         labelStyle: const TextStyle(color: Colors.grey),
-        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       ),
     );
   }
@@ -173,7 +174,10 @@ class CustomTextField extends StatelessWidget {
 
 class OnBoardingCongratulation extends StatelessWidget {
   final int employeeId;
-  const OnBoardingCongratulation({super.key, required this.employeeId,  });
+  const OnBoardingCongratulation({
+    super.key,
+    required this.employeeId,
+  });
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
@@ -214,7 +218,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                 child: Text(
                   'Congratulations!',
                   style: TextStyle(
-                    color:  Color(0xFF686464),
+                    color: Color(0xFF686464),
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
                   ),
@@ -257,24 +261,30 @@ class OnBoardingCongratulation extends StatelessWidget {
                   width: 140,
                   height: 35,
                   child: ElevatedButton(
-                    onPressed: () async{
-                      OfferLetterData offerLetterData = await GetOfferLetter(context, employeeId, 1 );
+                    onPressed: () async {
+                      OfferLetterData offerLetterData =
+                          await GetOfferLetter(context, employeeId, 1);
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
                       // );
-                      if(offerLetterData.statusCode == 409){
+                      if (offerLetterData.statusCode == 409) {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
-                        );
-                      }else if(offerLetterData.statusCode == 200 || offerLetterData.statusCode == 201){
-                      Navigator.push(
-                          context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                   OfferLetterDescriptionScreen(employeeId: employeeId)));
-                      }else{
+                              builder: (context) => MultiStepForm(
+                                    employeeID: employeeId,
+                                  )),
+                        );
+                      } else if (offerLetterData.statusCode == 200 ||
+                          offerLetterData.statusCode == 201) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    OfferLetterDescriptionScreen(
+                                        employeeId: employeeId)));
+                      } else {
                         print("Something went wrong!");
                       }
                     },
