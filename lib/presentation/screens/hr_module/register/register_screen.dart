@@ -67,9 +67,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController roleController = TextEditingController();
   TextEditingController companyIdController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final StreamController<List<UserModal>> _companyUsersList =
-      StreamController<List<UserModal>>();
 
+  final StreamController<List<UserModal>> _companyUsersList = StreamController<List<UserModal>>();
   String _selectedValue = 'Sort';
   List<RegisterDataCompID> allData = [];
 
@@ -485,8 +484,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                               onPressed: () async {
                                 //html.window.open('/onBordingWelcome',"_blank");
-                                //const url = "http://localhost:58306/#/onBordingWelcome";
-                                const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                                const url = "http://localhost:53967/#/onBordingWelcome";
+                                // const url = "${AppConfig.deployment}/#/onBordingWelcome";
                                 //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                               //  Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
                                 if (await canLaunch(url)) {
