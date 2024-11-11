@@ -230,6 +230,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                   }
 
                 await  widget.onSave();
+                _loadEducationData();
 
                 lengthofassociation.clear();
                 companyorganization.clear();
@@ -239,6 +240,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                 knowthisperson.clear();
                 titleposition.clear();
               },
+
               child: Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),

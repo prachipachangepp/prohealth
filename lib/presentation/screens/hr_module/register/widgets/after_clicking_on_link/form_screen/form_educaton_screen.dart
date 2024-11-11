@@ -280,6 +280,7 @@ class _EducationScreenState extends State<EducationScreen> {
                     isLoading = false;
                   });
                   widget.onSave();
+                  _loadEducationData();
                 },
                 child: Text(
                   'Save',

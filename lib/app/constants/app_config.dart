@@ -77,7 +77,7 @@ class AppConfig {
 //   static const String local = "";
 //   static const String prod = "";
 //   static const String endpoint = dev;
-//   static const String dash = '-
+//   static const String dash = '-';
 //   static const int templateId = 3;
 //
 //   /// Document types

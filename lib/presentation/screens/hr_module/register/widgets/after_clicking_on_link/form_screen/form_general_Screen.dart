@@ -648,7 +648,9 @@ class _generalFormState extends State<generalForm> {
                         onSuggestionSelected: (selectedSuggestion) {
                           // Handle the selected suggestion here
                           print("Selected suggestion: $selectedSuggestion");
-                        },
+                        }, onChanged: (String ) {
+
+                      },
                       ),
                       if (_addressDocError != null) // Display error if any
                         Row(
@@ -1106,8 +1108,20 @@ class _generalFormState extends State<generalForm> {
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-    _validateForm();
-    if(_isFormValid) {
+
+                  String addressText = address.text;
+                  if (addressText.isEmpty) {
+                    setState(() {
+                      _addressDocError = 'Address cannot be empty';
+                    });
+                  }else {
+                    setState(() {
+                      _addressDocError = null; // Clear any previous error
+                    });
+                    // Proceed with form submission or other logic
+                    print("Address is valid: $addressText");
+                  }
+
       // Get the company and user IDs
       setState(() {
         isLoading = true; // Start loading
@@ -1235,16 +1249,15 @@ class _generalFormState extends State<generalForm> {
         isLoading = false; // End loading
       });
 
-    }
     // Clear fields after saving
-    firstname.clear();
-    lastname.clear();
-    ssecuritynumber.clear();
-    phonenumber.clear();
-    personalemail.clear();
-    driverlicensenumb.clear();
-    address.clear();
-    dobcontroller.clear();
+    // firstname.clear();
+    // lastname.clear();
+    // ssecuritynumber.clear();
+    // phonenumber.clear();
+    // personalemail.clear();
+    // driverlicensenumb.clear();
+    // address.clear();
+    // dobcontroller.clear();
 
     },
 
@@ -1263,9 +1276,10 @@ class _generalFormState extends State<generalForm> {
 
 class AddressInput extends StatefulWidget {
   final TextEditingController controller;
-  final Function(String)? onSuggestionSelected; // Callback to notify parent
+  final Function(String)? onSuggestionSelected;
+  final Function(String) onChanged;// Callback to notify parent
 
-  AddressInput({required this.controller, this.onSuggestionSelected});
+  AddressInput({required this.controller, this.onSuggestionSelected, required this.onChanged});
 
   @override
   _AddressInputState createState() => _AddressInputState();
@@ -1400,7 +1414,9 @@ class _AddressInputState extends State<AddressInput> {
             return null;
           },
           height: 32,
+          onChanged: widget.onChanged,
         ),
+
       ],
     );
   }

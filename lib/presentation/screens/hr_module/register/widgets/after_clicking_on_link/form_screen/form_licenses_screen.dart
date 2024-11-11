@@ -346,6 +346,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 });
                 //licensure.clear();
                 widget.onSave();
+                _loadLicensesData();
               },
               child: Text(
                 'Save',

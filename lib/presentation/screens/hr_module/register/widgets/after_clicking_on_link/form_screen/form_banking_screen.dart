@@ -123,20 +123,32 @@ class _BankingScreenState extends State<BankingScreen> {
               documentFile: documentFile,
               documentName: documentName);
           print('BanckingId :::::: ${result.banckingId!}');
+          if(result.success){
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AddSuccessPopup(
+                  message: 'Banking Data Saved',
+                );
+              },
+            );
+            await widget.onSave();
+          } else{
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AddSuccessPopup(
+                  message: 'Failed To Save Banking Data',
+                );
+              },
+            );
+          }
+        } catch (e) {
           await showDialog(
             context: context,
             builder: (BuildContext context) {
               return AddSuccessPopup(
-                message: 'Banking Data Saved',
-              );
-            },
-          );
-        } catch (e) {
-           showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AddSuccessPopup(
-                message: 'Failed To Save Banking Data',
+                message: 'Failed To Save Banking Dataccc',
               );
             },
           );
@@ -256,7 +268,7 @@ class _BankingScreenState extends State<BankingScreen> {
                 for (var key in bankingFormKeys) {
                   try {
                     final st = key.currentState!;
-                    if (st.isPrefill) {
+                    if (st.isPrefill ==false) {
                       // Print values before calling perfFormBanckingData
                       print(':::::::Saving Banking Data:::::::::::::');
                       print('Employee ID: ${widget.employeeID}');
@@ -281,21 +293,13 @@ class _BankingScreenState extends State<BankingScreen> {
                         effectiveDate: st.effectivecontroller.text,
                         routingNumber: st.routingnumber.text,
                         type: st.selectedtype.toString(),
-                        requestedPercentage: "", // If you have this value, pass it
-                        documentFile: st.finalPath ?? '--',
-                        documentName: st.fileName ?? '--',
+                        requestedPercentage: '', // If you have this value, pass it
+                        documentFile: st.finalPath ,
+                        documentName: st.fileName ,
                       );
                     }
                   } catch (e) {
-                    // Show dialog on error
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'Failed To Save Banking Data',
-                        );
-                      },
-                    );
+
                     print('Error: $e');
                   }
                 }
@@ -305,8 +309,7 @@ class _BankingScreenState extends State<BankingScreen> {
                   isLoading = false;
                 });
 
-                // Call the onSave function
-                await widget.onSave();
+
               },
               child: Text(
                 'Save',

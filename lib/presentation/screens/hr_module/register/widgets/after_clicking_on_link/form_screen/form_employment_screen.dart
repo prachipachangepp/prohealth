@@ -287,6 +287,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                     isLoading = false; // End loading
                   });
                   widget.onSave();
+                  _loadEmploymentData();
                 },
                 child: Text(
                   'Save',
