@@ -275,6 +275,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         //   context,
                         //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
                         // );
+
                       },
                       icon: Icon(Icons.close,color: ColorManager.white,),
                     ),
