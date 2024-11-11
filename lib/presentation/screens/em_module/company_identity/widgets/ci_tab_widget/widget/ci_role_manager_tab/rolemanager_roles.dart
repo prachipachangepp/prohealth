@@ -7,8 +7,6 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/role_manager_clinician.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/role_manager_sales.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/rolemanager_role_rules.dart';
-
-import '../../../../../../../../app/dummy.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../company_identity_screen.dart';
