@@ -1243,7 +1243,7 @@ class _generalFormState extends State<generalForm> {
         await showDialog(
           context: context,
           builder: (BuildContext context) {
-            return AddSuccessPopup(
+            return AddFailePopup(
               message: 'Failed To Update User Data',
             );
           },

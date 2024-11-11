@@ -405,90 +405,95 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     ),
                   ),
                   const SizedBox(width: 40),
-                  ElevatedButton.icon(
-                    onPressed: () async {
-                      // FilePickerResult? result = await FilePicker.platform.pickFiles(
-                      //   allowMultiple: false,
-                      // );
-                      FilePickerResult? result = await FilePicker.platform
-                          .pickFiles(
-                              type: FileType.custom, allowedExtensions: ['pdf']);
-                      if (result != null) {
-                        print("Result::: ${result}");
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                          //   allowMultiple: false,
+                          // );
+                          FilePickerResult? result = await FilePicker.platform
+                              .pickFiles(
+                                  type: FileType.custom, allowedExtensions: ['pdf']);
+                          if (result != null) {
+                            print("Result::: ${result}");
 
-                        try {
-                          Uint8List? bytes = result.files.first.bytes;
-                          XFile xlfile = XFile(result.xFiles.first.path);
-                          xfileToFile = File(xlfile.path);
+                            try {
+                              Uint8List? bytes = result.files.first.bytes;
+                              XFile xlfile = XFile(result.xFiles.first.path);
+                              xfileToFile = File(xlfile.path);
 
-                          print("::::XFile To File ${xfileToFile.toString()}");
-                          XFile xFile = await convertBytesToXFile(
-                              bytes!, result.xFiles.first.name);
-                          _fileNames
-                              .addAll(result.files.map((file) => file.name!));
-                          print('File picked: ${_fileNames}');
-                          //print(String.fromCharCodes(file));
-                          finalPath = result.files.first.bytes;
-                          fileName = result.files.first.name;
-                          setState(() {
-                            _fileNames;
-                            _documentUploaded = true;
-                          });
-                        } catch (e) {
-                          print(e);
-                        }
-                      }
-                    },
-                    // onPressed: () async {
-                    //   FilePickerResult? result =
-                    //   await FilePicker.platform.pickFiles(
-                    //     allowMultiple: false,
-                    //   );
-                    //   if (result != null) {
-                    //     PlatformFile file = result.files.first;
-                    //     print('File picked: ${file.name}');
-                    //   } else {
-                    //     // User canceled the picker
-                    //   }
-                    // },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff50B5E5),
-                      // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    icon: const Icon(Icons.file_upload_outlined,
-                        color: Colors.white),
-                    label: Text(
-                      'Upload Document',
-                      style: BlueButtonTextConst.customTextStyle(context),
-                    ),
-                  ),
-                  _loading
-                      ? SizedBox(
-                          width: 25,
-                          height: 25,
-                          child: CircularProgressIndicator(
-                            color: ColorManager.blueprime, // Loader color
-                            // Loader size
+                              print("::::XFile To File ${xfileToFile.toString()}");
+                              XFile xFile = await convertBytesToXFile(
+                                  bytes!, result.xFiles.first.name);
+                              _fileNames
+                                  .addAll(result.files.map((file) => file.name!));
+                              print('File picked: ${_fileNames}');
+                              //print(String.fromCharCodes(file));
+                              finalPath = result.files.first.bytes;
+                              fileName = result.files.first.name;
+                              setState(() {
+                                _fileNames;
+                                _documentUploaded = true;
+                              });
+                            } catch (e) {
+                              print(e);
+                            }
+                          }
+                        },
+                        // onPressed: () async {
+                        //   FilePickerResult? result =
+                        //   await FilePicker.platform.pickFiles(
+                        //     allowMultiple: false,
+                        //   );
+                        //   if (result != null) {
+                        //     PlatformFile file = result.files.first;
+                        //     print('File picked: ${file.name}');
+                        //   } else {
+                        //     // User canceled the picker
+                        //   }
+                        // },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff50B5E5),
+                          // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                        )
-                      : _fileNames.isNotEmpty
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: _fileNames
-                                  .map((fileName) => Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'File picked: $fileName',
-                                          style: onlyFormDataStyle
-                                              .customTextStyle(context),
-                                        ),
-                                      ))
-                                  .toList(),
+                        ),
+                        icon: const Icon(Icons.file_upload_outlined,
+                            color: Colors.white),
+                        label: Text(
+                          'Upload Document',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        ),
+                      ),
+                      _loading
+                          ? SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: CircularProgressIndicator(
+                                color: ColorManager.blueprime, // Loader color
+                                // Loader size
+                              ),
                             )
-                          : const SizedBox(), // Display file names if picked
+                          : _fileNames.isNotEmpty
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: _fileNames
+                                      .map((fileName) => Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'File picked: $fileName',
+                                              style: onlyFormDataStyle
+                                                  .customTextStyle(context),
+                                            ),
+                                          ))
+                                      .toList(),
+                                )
+                              : const SizedBox(),
+                    ],
+                  ), // Display file names if picked
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 30),
@@ -801,7 +806,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                           await showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return const AddSuccessPopup(
+                              return const AddFailePopup(
                                 message: 'Failed To Upload Document',
                               );
                             },
@@ -813,7 +818,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         await  showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return const AddSuccessPopup(
+                            return const AddFailePopup(
                               message: 'Failed To Upload Document',
                             );
                           },

@@ -454,7 +454,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                       await showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AddSuccessPopup(
+                          return AddFailePopup(
                             message: 'Failed To Upload Document',
                           );
                         },

@@ -137,7 +137,7 @@ class _BankingScreenState extends State<BankingScreen> {
             await showDialog(
               context: context,
               builder: (BuildContext context) {
-                return AddSuccessPopup(
+                return AddFailePopup(
                   message: 'Failed To Save Banking Data',
                 );
               },
@@ -147,7 +147,7 @@ class _BankingScreenState extends State<BankingScreen> {
           await showDialog(
             context: context,
             builder: (BuildContext context) {
-              return AddSuccessPopup(
+              return AddFailePopup(
                 message: 'Failed To Save Banking Dataccc',
               );
             },

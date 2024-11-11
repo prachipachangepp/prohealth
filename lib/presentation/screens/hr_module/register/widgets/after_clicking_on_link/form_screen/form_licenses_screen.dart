@@ -106,7 +106,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AddSuccessPopup(
+          return AddFailePopup(
             message: 'Failed to update user data',
           );
         },
