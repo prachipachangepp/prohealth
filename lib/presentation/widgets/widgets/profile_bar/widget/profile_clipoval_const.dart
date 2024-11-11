@@ -8,12 +8,12 @@ import '../../../../../../app/resources/value_manager.dart';
 
 
 class ProfileBarClipConst extends StatelessWidget {
-  final String text;
+   String? text;
   final String textOval;
   final Color containerColor;
   final VoidCallback? onTap;
 
-  const ProfileBarClipConst({
+   ProfileBarClipConst({
     Key? key,
     required this.text,
     required this.containerColor,
@@ -30,7 +30,7 @@ class ProfileBarClipConst extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            text,
+            text!,
             style: ProfileBarLastColText.profileTextStyle(context),
           ),
           SizedBox(width: 20),
