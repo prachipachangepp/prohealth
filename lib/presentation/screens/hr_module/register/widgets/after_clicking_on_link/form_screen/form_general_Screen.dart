@@ -168,13 +168,6 @@ class _generalFormState extends State<generalForm> {
     }
   }
 
-
-
-
-
-
-
-
   List<String> _suggestions = [];
   // @override
   // void initState() {
