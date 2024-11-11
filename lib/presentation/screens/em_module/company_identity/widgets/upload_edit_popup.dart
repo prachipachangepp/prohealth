@@ -93,7 +93,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
       expiryDateController = TextEditingController(
           text: DateFormat('yyyy-MM-dd').format(dateTime));
     }
-    fileName = widget.docName;
+    fileName = widget.fileName;
     // TODO: implement initState
     super.initState();
   }
@@ -272,7 +272,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                     expiryDate: expiryDate,
                     docCreatedat: DateTime.now().toIso8601String() + "Z",
                     url: widget.url,
-                    fileName: fileIsPicked ?fileName: widget.fileName,
+                    fileName: fileIsPicked ? fileName: widget.fileName,
                     officeid: widget.officeId,
                   );
 

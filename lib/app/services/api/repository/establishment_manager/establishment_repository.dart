@@ -300,7 +300,7 @@ class EstablishmentManagerRepository {
 
   static String workWeekShiftScheduleGet(
       {required int companyId,required String weekDay}) {
-    return "$workWeekShiftSchedule/$weekDay/$companyId";
+    return "$workWeekShiftSchedule/findByWeekDay/$weekDay/$companyId";
   }
 
   static String addWorkWeekShiftPost() {
@@ -317,7 +317,7 @@ class EstablishmentManagerRepository {
   }
 
   static String getShiftPrefillBatches({required int shiftBatchId}) {
-    return "$workWeekShiftSchedule/batch/$shiftBatchId";
+    return "$workWeekShiftSchedule/getbatchBy/$shiftBatchId";
   }
 
   static String getShiftBatches(
