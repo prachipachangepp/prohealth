@@ -22,7 +22,6 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
   final PageController _tabPageController = PageController();
 
   int _selectedIndex = 0;
-
   void _selectButton(int index) {
     setState(() {
       _selectedIndex = index;
