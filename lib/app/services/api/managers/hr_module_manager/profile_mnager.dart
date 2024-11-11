@@ -409,6 +409,7 @@ Future<ApiData> patchEmployeeEdit({
   required String rating,
   required String signatureURL,
   required String colorCode,
+  required String departmentName
 }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -418,6 +419,7 @@ Future<ApiData> patchEmployeeEdit({
       'firstName' : firstName,
       'lastName' : lastName,
       'departmentId' : departmentId,
+      'department':departmentName,
       'employeeTypeId' : employeeTypeId,
       'expertise' : expertise,
       'cityId' : cityId,

@@ -142,6 +142,9 @@ class EstablishmentManagerRepository {
   static String companyOfficeServiceGetByCompanyId({required int companyId}) {
     return "$companyOfficeService/${companyId}";
   }
+  static String companyOfficeServiceGetByCompanyIdPreFill({required int companyId,required int officeServiceId}) {
+    return "$companyOfficeService/${officeServiceId}/${companyId}";
+  }
   static String companyServiceMetaDataGet() {
     return "$companServiceMetaData";
   }

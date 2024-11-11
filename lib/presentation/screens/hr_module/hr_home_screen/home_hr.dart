@@ -575,10 +575,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                               ),
                                               child: InkWell(
                                                 onTap: () {
-                                                  isReportingOfficeId = false;
-                                                  isDropdownAvailability = false;
-                                                  isDropdownLicenseStatus = false;
-                                                  isZoneSelected = false;
+                                                  // isReportingOfficeId = false;
+                                                  // isDropdownAvailability = false;
+                                                  // isDropdownLicenseStatus = false;
+                                                  // isZoneSelected = false;
                                                   showDialog(
                                                     context: context,
                                                     builder:

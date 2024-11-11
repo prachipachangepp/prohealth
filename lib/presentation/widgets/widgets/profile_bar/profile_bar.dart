@@ -28,6 +28,7 @@ class ProfileBar extends StatefulWidget {
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
   final VoidCallback onEditPressed;
 
+
   @override
   State<ProfileBar> createState() => _ProfileBarState();
 }
@@ -335,7 +336,11 @@ class _ProfileBarState extends State<ProfileBar> {
                               children: [
                                 Text(
                                   "Profile\n${snapshot.data!.percentage}%",
-                                  style: ThemeManagerWhite.customTextStyle(
+                                  style: percentage <= 10 ? TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ):ThemeManagerWhite.customTextStyle(
                                       context),
                                 ),
                               ]),
@@ -794,6 +799,14 @@ class _ProfileBarState extends State<ProfileBar> {
                                   ConnectionState.waiting) {
                                 return SizedBox(height: 1, width: 1);
                               }
+                              // Map<String, List<LicensesData>> data = snapshot.data!;
+                              // WidgetsBinding.instance.addPostFrameCallback((_) {
+                              //   // Update the count after the current build phase
+                              //   expiredCount = data['Expired']!.length;
+                              //   upToDateCount = data['About to Expire']!.length;
+                              //   aboutToCount = data['Upto date']!.length;
+                              //   //print("EEE ${expiredCount}");
+                              // });
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 5.0),
                                 child: Column(

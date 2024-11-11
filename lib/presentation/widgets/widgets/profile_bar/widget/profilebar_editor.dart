@@ -244,6 +244,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               reportingOfficeController.text = profileData.regOfficId ?? '';
               summaryController.text = profileData.summary ?? '';
               selectedEmployeeColor = profileData.color;
+              selectedDeptName = profileData.department;
+              selectedDeptId = profileData.departmentId;
               print('Profile image ${profileData.imgurl}');
               String countyName = "";
               String zoneName = "";
@@ -422,7 +424,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           userId: profileData.userId,
                                                           firstName: nameController.text,
                                                           lastName: profileData.lastName,
-                                                          departmentId: profileData.departmentId,
+                                                          departmentId: selectedDeptId!,
                                                           employeeTypeId:selectedEmployeeTypeId,
                                                           expertise: profileData.speciality,
                                                           cityId: profileData.cityId,
@@ -468,7 +470,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           race: profileData.race,
                                                           rating: profileData.rating,
                                                           signatureURL: profileData.signatureURL,
-                                                          colorCode: selectedEmployeeColor!
+                                                          colorCode: selectedEmployeeColor!,
+                                                        departmentName: selectedDeptName!
                                                       );
                                                       if(response.statusCode == 200 || response.statusCode == 201){
                                                         // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
@@ -667,6 +670,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       );
                                                     }
                                                     if (snapshot.hasData) {
+
                                                       // Extract dropdown items from snapshot
                                                       List<String> dropDownServiceList = snapshot
                                                           .data!
@@ -682,8 +686,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                                       if (selectedDeptName == null &&
                                                           dropDownServiceList.isNotEmpty) {
-                                                        selectedDeptName = firstDeptName;
-                                                        selectedDeptId = firstDeptId;
+                                                        // selectedDeptName = firstDeptName;
+                                                        // selectedDeptId = firstDeptId;
                                                       }
 
                                                       return HRUManageDropdown(
