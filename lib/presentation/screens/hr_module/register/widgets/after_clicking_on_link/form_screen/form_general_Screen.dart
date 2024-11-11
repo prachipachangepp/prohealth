@@ -93,7 +93,7 @@ class _generalFormState extends State<generalForm> {
   void initState() {
     super.initState();
     _initializeFormWithPrefilledData();
-    // address.addListener(_onCountyNameChanged);
+   // address.addListener(_onCountyNameChanged);
   }
 
 
@@ -107,7 +107,7 @@ class _generalFormState extends State<generalForm> {
       var data = onlinkGeneralData; // Assuming index matches the data list
       setState(() {
         print("Inside function");
-        dobcontroller.text = data.dateOfBirth ?? '';
+       dobcontroller.text = data.dateOfBirth ?? '';
         firstname.text = data.firstName ?? '';
         lastname.text = data.lastName ?? '';
         ssecuritynumber.text = data.SSNNbr ?? '';
@@ -224,7 +224,7 @@ class _generalFormState extends State<generalForm> {
       _isFormValid = true;
       _addressDocError =
           _validateTextField(address.text, 'Address');
-    }
+      }
     );
   }
 
@@ -248,31 +248,31 @@ class _generalFormState extends State<generalForm> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
+              children: [
 
 
-              Column(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE6F7FF),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
-                      textAlign: TextAlign.center,
-                      style:ZoneDataStyle.customTextStyle(context),
-                    ),
+            Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE6F7FF),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                ],
-              ),
+                  child: Text(
+                    'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
+                    textAlign: TextAlign.center,
+                    style:ZoneDataStyle.customTextStyle(context),
+                  ),
+                ),
+              ],
+            ),
 
-              // SizedBox(width: 1,),
+                // SizedBox(width: 1,),
 
 
-            ],
+          ],
           ),
           const SizedBox(
             height: AppSize.s13,
@@ -298,93 +298,93 @@ class _generalFormState extends State<generalForm> {
                           MediaQuery.of(context).size.height / 60),
                       StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
                         return  Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xff50B5E5),
-                                  foregroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff50B5E5),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
-                                onPressed: () async {
-                                  // FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                  //   allowMultiple: false,
-                                  // );
-                                  FilePickerResult? result =
-                                  await FilePicker.platform.pickFiles(
-                                      type: FileType.custom,
-                                      allowedExtensions: ['svg','jpeg','jpg','png']
-                                  );
-
-                                  if (result != null) {
-                                    print("Result::: ${result}");
-
-                                    try {
-                                      Uint8List? bytes = result.files.first.bytes;
-                                      XFile xlfile =
-                                      XFile(result.xFiles.first.path);
-                                      xfileToFile = File(xlfile.path);
-
-                                      print(
-                                          "::::XFile To File ${xfileToFile.toString()}");
-                                      XFile xFile = await convertBytesToXFile(
-                                          bytes!, result.xFiles.first.name);
-                                      // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-                                      // html.File file = webFile.file;
-                                      //  print("XFILE ${xFile.path}");
-                                      //  //filePath = xfileToFile as XFile?;
-                                      //  print("L::::::${filePath}");
-                                      // _fileNames.addAll(
-                                      //     result.files.map((file) => file.name!));
-                                      print('File picked: ${fileName}');
-                                      //print(String.fromCharCodes(file));
-                                      fileName = result.files.first.name;
-                                      finalPath = result.files.first.bytes;
-                                      setState(() {
-                                        _fileNames;
-                                        _documentUploaded = true;
-                                      });
-                                    } catch (e) {
-                                      print(e);
-                                    }
-                                  }
-                                }, //_pickFiles,
-
-                                label: Text(
-                                  "Choose File",
-                                  style:BlueButtonTextConst.customTextStyle(context),
-                                ),
-                                icon: const Icon(Icons.file_upload_outlined),
                               ),
-                              _loading
-                                  ? SizedBox(
-                                width: 25,
-                                height: 25,
-                                child: CircularProgressIndicator(
-                                  color: ColorManager
-                                      .blueprime, // Loader color
-                                  // Loader size
-                                ),
-                              )
-                                  : fileName != null
-                                  ? Padding(
-                                padding:
-                                const EdgeInsets.all(8.0),
-                                child: Text(
-                                    'File picked: $fileName',
-                                    style: onlyFormDataStyle.customTextStyle(context)
-                                ),
-                              )
-                                  :  SizedBox(height: 40,width: 10,),
-                            ],
-                          ),
+                              onPressed: () async {
+                                // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                //   allowMultiple: false,
+                                // );
+                                FilePickerResult? result =
+                                await FilePicker.platform.pickFiles(
+                                    type: FileType.custom,
+                                    allowedExtensions: ['svg','jpeg','jpg','png']
+                                );
 
-                        );
+                                if (result != null) {
+                                  print("Result::: ${result}");
 
-                      },
+                                  try {
+                                    Uint8List? bytes = result.files.first.bytes;
+                                    XFile xlfile =
+                                    XFile(result.xFiles.first.path);
+                                    xfileToFile = File(xlfile.path);
+
+                                    print(
+                                        "::::XFile To File ${xfileToFile.toString()}");
+                                    XFile xFile = await convertBytesToXFile(
+                                        bytes!, result.xFiles.first.name);
+                                    // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
+                                    // html.File file = webFile.file;
+                                    //  print("XFILE ${xFile.path}");
+                                    //  //filePath = xfileToFile as XFile?;
+                                    //  print("L::::::${filePath}");
+                                    // _fileNames.addAll(
+                                    //     result.files.map((file) => file.name!));
+                                    print('File picked: ${fileName}');
+                                    //print(String.fromCharCodes(file));
+                                    fileName = result.files.first.name;
+                                    finalPath = result.files.first.bytes;
+                                    setState(() {
+                                      _fileNames;
+                                      _documentUploaded = true;
+                                    });
+                                  } catch (e) {
+                                    print(e);
+                                  }
+                                }
+                              }, //_pickFiles,
+
+                              label: Text(
+                                "Choose File",
+                                style:BlueButtonTextConst.customTextStyle(context),
+                              ),
+                              icon: const Icon(Icons.file_upload_outlined),
+                            ),
+                            _loading
+                                ? SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: CircularProgressIndicator(
+                                color: ColorManager
+                                    .blueprime, // Loader color
+                                // Loader size
+                              ),
+                            )
+                                : fileName != null
+                                ? Padding(
+                              padding:
+                              const EdgeInsets.all(8.0),
+                              child: Text(
+                                  'File picked: $fileName',
+                                  style: onlyFormDataStyle.customTextStyle(context)
+                              ),
+                            )
+                                :  SizedBox(height: 40,width: 10,),
+                          ],
+                        ),
+
+                      );
+
+                        },
 
                       ),
                       // Display file names if picked
@@ -446,37 +446,37 @@ class _generalFormState extends State<generalForm> {
                       StatefulBuilder(
                         builder: (BuildContext context, void Function(void Function()) setState) {
                           return CustomTextFieldSSn(
-                            controller: ssecuritynumber,
-                            hintText: 'Enter Security Number',
-                            obscureText: !_passwordVisible,
-                            hintStyle: onlyFormDataStyle.customTextStyle(context),
+                          controller: ssecuritynumber,
+                          hintText: 'Enter Security Number',
+                          obscureText: !_passwordVisible,
+                          hintStyle: onlyFormDataStyle.customTextStyle(context),
 
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                color: const Color(0xff50B5E5),
-                                size: 16,
-                                // Based on passwordVisible state choose the icon
-                                _passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                //color: Theme.of(context).primaryColorDark,
-                              ),
-                              onPressed: () {
-                                // Update the state i.e. toogle the state of passwordVisible variable
-                                setState(() {
-                                  _passwordVisible = !_passwordVisible;
-                                });
-                              },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              color: const Color(0xff50B5E5),
+                              size: 16,
+                              // Based on passwordVisible state choose the icon
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              //color: Theme.of(context).primaryColorDark,
                             ),
-                            height: 32,
-                            keyboardType:  TextInputType.number,
-                          ); },
+                            onPressed: () {
+                              // Update the state i.e. toogle the state of passwordVisible variable
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            },
+                          ),
+                          height: 32,
+                          keyboardType:  TextInputType.number,
+                        ); },
 
                       ),
                       SizedBox(
@@ -555,7 +555,7 @@ class _generalFormState extends State<generalForm> {
                     crossAxisAlignment: CrossAxisAlignment.start,
 
                     children: [
-                      // SizedBox(height: 10,),
+                    // SizedBox(height: 10,),
                       Text(
                         "Gender",
                         style: AllPopupHeadings.customTextStyle(context),
@@ -847,7 +847,7 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
-                        controller: spalicity,
+                   controller: spalicity,
                         hintText: 'Enter Speciality',
                         hintStyle:  onlyFormDataStyle.customTextStyle(context),
                         validator: (value) {
@@ -860,84 +860,84 @@ class _generalFormState extends State<generalForm> {
                       ),
 
 
-                      //   FutureBuilder<List<AEClinicalDiscipline>>(
-                      //   future:
-                      //   HrAddEmplyClinicalDisciplinApi(context, 1),
-                      //   builder: (context, snapshot) {
-                      //     if (snapshot.connectionState ==
-                      //         ConnectionState.waiting) {
-                      //       return Padding(
-                      //         padding: const EdgeInsets.symmetric(
-                      //             horizontal: 7),
-                      //         child: Container(
-                      //           width: AppSize.s250,
-                      //           height: AppSize.s32,
-                      //           decoration: BoxDecoration(
-                      //               color: ColorManager.white),
-                      //         ),
-                      //       );
-                      //
-                      //     }
-                      //     if (snapshot.hasData) {
-                      //       List<String> dropDownList = [];
-                      //
-                      //       for (var i in snapshot.data!) {
-                      //         dropDownList.add(i.empType!);
-                      //       }
-                      //       return StatefulBuilder(
-                      //         builder: (BuildContext context, void Function(void Function()) setState) {
-                      //           return SizedBox(
-                      //             height: 32,
-                      //             child: DropdownButtonFormField<String>(
-                      //               decoration: InputDecoration(
-                      //                 // hintText: 'Select Clinician',
-                      //                 hintStyle: onlyFormDataStyle.customTextStyle(context),
-                      //                 border: OutlineInputBorder(
-                      //                   borderRadius:
-                      //                   BorderRadius.circular(4.0),
-                      //                   borderSide: const BorderSide(
-                      //                       color: Colors.grey),
-                      //                 ),
-                      //                 contentPadding:
-                      //                 const EdgeInsets.symmetric(
-                      //                   //   //  vertical: 5,
-                      //                     horizontal: 12),
-                      //               ),
-                      //               // value: selectedCountry,
-                      //               icon: Icon(Icons.arrow_drop_down,
-                      //                   color: Color(0xff9B9B9B)),
-                      //               iconSize: 24,
-                      //               elevation: 16,
-                      //               style: onlyFormDataStyle.customTextStyle(context),
-                      //
-                      //               onChanged: (newValue) {
-                      //                 for (var a in snapshot.data!) {
-                      //                   if (a.empType == newValue) {
-                      //                     _selectedSpeciality = a.empType!;
-                      //                     //country = a
-                      //                     // int? docType = a.companyOfficeID;
-                      //                   }
-                      //                 }
-                      //               },
-                      //               items: dropDownList.map((String value) {
-                      //                 return DropdownMenuItem<String>(
-                      //                   value: value,
-                      //                   child: Text(
-                      //                     value,
-                      //                     style: onlyFormDataStyle.customTextStyle(context),
-                      //                   ),
-                      //                 );
-                      //               }).toList(),
-                      //             ),
-                      //           );
-                      //         },
-                      //
-                      //       );
-                      //     } else {
-                      //       return const Offstage();
-                      //     }
-                      //   },
-                      // ),
+                        //   FutureBuilder<List<AEClinicalDiscipline>>(
+                        //   future:
+                        //   HrAddEmplyClinicalDisciplinApi(context, 1),
+                        //   builder: (context, snapshot) {
+                        //     if (snapshot.connectionState ==
+                        //         ConnectionState.waiting) {
+                        //       return Padding(
+                        //         padding: const EdgeInsets.symmetric(
+                        //             horizontal: 7),
+                        //         child: Container(
+                        //           width: AppSize.s250,
+                        //           height: AppSize.s32,
+                        //           decoration: BoxDecoration(
+                        //               color: ColorManager.white),
+                        //         ),
+                        //       );
+                        //
+                        //     }
+                        //     if (snapshot.hasData) {
+                        //       List<String> dropDownList = [];
+                        //
+                        //       for (var i in snapshot.data!) {
+                        //         dropDownList.add(i.empType!);
+                        //       }
+                        //       return StatefulBuilder(
+                        //         builder: (BuildContext context, void Function(void Function()) setState) {
+                        //           return SizedBox(
+                        //             height: 32,
+                        //             child: DropdownButtonFormField<String>(
+                        //               decoration: InputDecoration(
+                        //                 // hintText: 'Select Clinician',
+                        //                 hintStyle: onlyFormDataStyle.customTextStyle(context),
+                        //                 border: OutlineInputBorder(
+                        //                   borderRadius:
+                        //                   BorderRadius.circular(4.0),
+                        //                   borderSide: const BorderSide(
+                        //                       color: Colors.grey),
+                        //                 ),
+                        //                 contentPadding:
+                        //                 const EdgeInsets.symmetric(
+                        //                   //   //  vertical: 5,
+                        //                     horizontal: 12),
+                        //               ),
+                        //               // value: selectedCountry,
+                        //               icon: Icon(Icons.arrow_drop_down,
+                        //                   color: Color(0xff9B9B9B)),
+                        //               iconSize: 24,
+                        //               elevation: 16,
+                        //               style: onlyFormDataStyle.customTextStyle(context),
+                        //
+                        //               onChanged: (newValue) {
+                        //                 for (var a in snapshot.data!) {
+                        //                   if (a.empType == newValue) {
+                        //                     _selectedSpeciality = a.empType!;
+                        //                     //country = a
+                        //                     // int? docType = a.companyOfficeID;
+                        //                   }
+                        //                 }
+                        //               },
+                        //               items: dropDownList.map((String value) {
+                        //                 return DropdownMenuItem<String>(
+                        //                   value: value,
+                        //                   child: Text(
+                        //                     value,
+                        //                     style: onlyFormDataStyle.customTextStyle(context),
+                        //                   ),
+                        //                 );
+                        //               }).toList(),
+                        //             ),
+                        //           );
+                        //         },
+                        //
+                        //       );
+                        //     } else {
+                        //       return const Offstage();
+                        //     }
+                        //   },
+                        // ),
 
                       SizedBox(
                           height:
@@ -1077,31 +1077,38 @@ class _generalFormState extends State<generalForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
 
-              //           Container(
-              //             width: 117,
-              //             height: 30,
-              //             child: ElevatedButton(
-              //               onPressed: (){
-              // widget.onBack();
-              // },
-              //               style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
-              //                 elevation: 5,
-              //                 shape: RoundedRectangleBorder(
-              //                   borderRadius: BorderRadius.circular(12),
-              //                   side: BorderSide(
-              //                     color: ColorManager.bluebottom,
-              //                     width: 1,
-              //                   ),
-              //                 ),),
-              //               child: Text('Previous',
-              //                 style: TransparentButtonTextConst.customTextStyle(context),
-              //               ),),
-              //           ),
-              //           const SizedBox(
-              //             width: 30,
-              //           ),
+    //           Container(
+    //             width: 117,
+    //             height: 30,
+    //             child: ElevatedButton(
+    //               onPressed: (){
+    // widget.onBack();
+    // },
+    //               style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+    //                 elevation: 5,
+    //                 shape: RoundedRectangleBorder(
+    //                   borderRadius: BorderRadius.circular(12),
+    //                   side: BorderSide(
+    //                     color: ColorManager.bluebottom,
+    //                     width: 1,
+    //                   ),
+    //                 ),),
+    //               child: Text('Previous',
+    //                 style: TransparentButtonTextConst.customTextStyle(context),
+    //               ),),
+    //           ),
+    //           const SizedBox(
+    //             width: 30,
+    //           ),
 
-              CustomButton(
+              isLoading
+                  ? SizedBox(
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(
+                  color: ColorManager.blueprime,
+                ),
+              )  :CustomButton(
                 width: 117,
                 height: 30,
                 text: 'Save',
@@ -1122,144 +1129,144 @@ class _generalFormState extends State<generalForm> {
                     print("Address is valid: $addressText");
                   }
 
-                  // Get the company and user IDs
-                  setState(() {
-                    isLoading = true; // Start loading
-                  });
+      // Get the company and user IDs
+      setState(() {
+        isLoading = true; // Start loading
+      });
 
 
-                  final companyId = await TokenManager.getCompanyId();
-                  final userId = await TokenManager.getUserID();
+      final companyId = await TokenManager.getCompanyId();
+      final userId = await TokenManager.getUserID();
 
-                  print("Company ID: $companyId");
-                  print("User ID: $userId");
+      print("Company ID: $companyId");
+      print("User ID: $userId");
 
-                  // Print the data being sent
-                  print("Sending data:");
-                  print("Employee ID: ${widget.employeeID}");
-                  print("Code: EMP-C10-U48");
-                  print("User ID: $userId");
-                  print("First Name: ${firstname.text}");
-                  print("Last Name: ${lastname.text}");
-                  print("Speciality: ${spalicity.text}");
-                  print("File: ${filePath}");
-                  print("SSN: ${ssecuritynumber.text}");
-                  print("Phone Number: ${phonenumber.text}");
-                  print("Personal Email: ${personalemail.text}");
-                  print("Address: ${address.text}");
-                  print("Date of Birth: ${dobcontroller.text}");
-                  print("Gender: ${gendertype.toString()}");
-                  print("Driver License Number: ${driverlicensenumb.text}");
-                  print("Position: position");
-                  print("Clinician: ${_selectedClinician.toString()}");
-                  print("Race: ${racetype.toString()}");
+      // Print the data being sent
+      print("Sending data:");
+      print("Employee ID: ${widget.employeeID}");
+      print("Code: EMP-C10-U48");
+      print("User ID: $userId");
+      print("First Name: ${firstname.text}");
+      print("Last Name: ${lastname.text}");
+      print("Speciality: ${spalicity.text}");
+      print("File: ${filePath}");
+      print("SSN: ${ssecuritynumber.text}");
+      print("Phone Number: ${phonenumber.text}");
+      print("Personal Email: ${personalemail.text}");
+      print("Address: ${address.text}");
+      print("Date of Birth: ${dobcontroller.text}");
+      print("Gender: ${gendertype.toString()}");
+      print("Driver License Number: ${driverlicensenumb.text}");
+      print("Position: position");
+      print("Clinician: ${_selectedClinician.toString()}");
+      print("Race: ${racetype.toString()}");
 
 
-                  // Call the update function
-                  var response = await updateOnlinkGeneralPatch(
-                    context,
-                    generalId!,
-                    '',
-                    userId,
-                    firstname.text,
-                    lastname.text,
-                    1,
-                    // 1,
-                    spalicity.text,
-                    // 1,
-                    1,
-                    1,
-                    // 1,
-                    ssecuritynumber.text,
-                    //  '',
-                    phonenumber.text,
-                    '',
-                    // '',
-                    personalemail.text,
-                    //  personalemail.text,
-                    address.text,
-                    dobcontroller.text,
-                    '',
-                    'covreage',
-                    //'employment',
-                    gendertype.toString(),
-                    'Partial',
-                    // 'service',
-                    'imgurl',
-                    'resumeurl',
-                    companyId,
-                    'Active',
-                    driverlicensenumb.text,
-                    "0000-00-00",
-                    //'2024-01-01',
-                    "0000-00-00",
-                    //'2024-01-01',
-                    // '',// '2024-01-01',
-                    'rehirable',
-                    'position',
-                    address.text,
-                    _selectedClinician.toString(),
-                    'reason',
-                    1,
-                    "0000-00-00",
-                    //'2024-01-01',
-                    1,
-                    1,
-                    'methods',
-                    'materials',
-                    racetype.toString(),
-                    'rating',
-                    signatureUrl!,
-                  );
-                  var uploadResponse = await UploadEmployeePhoto(
-                      context: context, documentFile: finalPath, employeeId: generalId!);
-                  print("Response Status Code: ${response.statusCode}");
-                  print("Response Body: ${response.data}");
+      // Call the update function
+      var response = await updateOnlinkGeneralPatch(
+        context,
+        generalId!,
+        '',
+        userId,
+        firstname.text,
+        lastname.text,
+        1,
+        // 1,
+        spalicity.text,
+        // 1,
+        1,
+        1,
+        // 1,
+        ssecuritynumber.text,
+        //  '',
+        phonenumber.text,
+        '',
+        // '',
+        personalemail.text,
+        //  personalemail.text,
+        address.text,
+        dobcontroller.text,
+        '',
+        'covreage',
+        //'employment',
+        gendertype.toString(),
+        'Partial',
+        // 'service',
+        'imgurl',
+        'resumeurl',
+        companyId,
+        'Active',
+        driverlicensenumb.text,
+        "0000-00-00",
+        //'2024-01-01',
+        "0000-00-00",
+        //'2024-01-01',
+        // '',// '2024-01-01',
+        'rehirable',
+        'position',
+        address.text,
+        _selectedClinician.toString(),
+        'reason',
+        1,
+        "0000-00-00",
+        //'2024-01-01',
+        1,
+        1,
+        'methods',
+        'materials',
+        racetype.toString(),
+        'rating',
+        signatureUrl!,
+      );
+      var uploadResponse = await UploadEmployeePhoto(
+          context: context, documentFile: finalPath, employeeId: generalId!);
+      print("Response Status Code: ${response.statusCode}");
+      print("Response Body: ${response.data}");
 
-                  if (response.statusCode == 200 ||
-                      response.statusCode == 201 && uploadResponse.statusCode == 200 ||
-                      uploadResponse.statusCode == 201) {
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
-                    // );
-                    await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'User Data Updated',
-                        );
-                      },
-                    );
-                    _initializeFormWithPrefilledData();
-                    widget.onSave();
-                  } else {
-                    await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'Failed To Update User Data',
-                        );
-                      },
-                    );
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(content: Text("Failed to update user data")),
-                    // );
-                  }
-                  setState(() {
-                    isLoading = false; // End loading
-                  });
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 && uploadResponse.statusCode == 200 ||
+          uploadResponse.statusCode == 201) {
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
+        // );
+   await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AddSuccessPopup(
+              message: 'User Data Updated',
+            );
+          },
+        );
+        _initializeFormWithPrefilledData();
+        widget.onSave();
+      } else {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AddFailePopup(
+              message: 'Failed To Update User Data',
+            );
+          },
+        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text("Failed to update user data")),
+        // );
+      }
+      setState(() {
+        isLoading = false; // End loading
+      });
 
-                  // Clear fields after saving
-                  // firstname.clear();
-                  // lastname.clear();
-                  // ssecuritynumber.clear();
-                  // phonenumber.clear();
-                  // personalemail.clear();
-                  // driverlicensenumb.clear();
-                  // address.clear();
-                  // dobcontroller.clear();
+    // Clear fields after saving
+    // firstname.clear();
+    // lastname.clear();
+    // ssecuritynumber.clear();
+    // phonenumber.clear();
+    // personalemail.clear();
+    // driverlicensenumb.clear();
+    // address.clear();
+    // dobcontroller.clear();
 
-                },
+    },
 
                 child: Text(
                   'Save',

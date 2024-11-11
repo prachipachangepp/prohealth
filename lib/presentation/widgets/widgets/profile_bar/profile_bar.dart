@@ -335,8 +335,7 @@ class _ProfileBarState extends State<ProfileBar> {
                               children: [
                                 Text(
                                   "Profile\n${snapshot.data!.percentage}%",
-                                  style: ThemeManagerWhite.customTextStyle(
-                                      context),
+                                  style: ThemeManagerWhite.customTextStyle(context),
                                 ),
                               ]),
                         );

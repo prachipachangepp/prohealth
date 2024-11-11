@@ -274,7 +274,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                       await  showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AddSuccessPopup(
+                          return AddFailePopup(
                             message: 'Failed To Save Employment Data',
                           );
                         },

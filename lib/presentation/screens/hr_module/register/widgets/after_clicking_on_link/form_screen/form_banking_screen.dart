@@ -47,7 +47,7 @@ class _BankingScreenState extends State<BankingScreen> {
 
 
 
-  bool isLoading = false;
+ bool isLoading = false;
 
   @override
   void initState() {
@@ -102,58 +102,58 @@ class _BankingScreenState extends State<BankingScreen> {
     required dynamic documentFile,
     required String documentName,
   }) async {
-    try {
-      ApiDataRegister result = await postbankingscreenData(
-          context,
-          employeeId,
-          accountNumber,
-          bankName,
-          amountRequested,
-          checkUrl,
-          effectiveDate,
-          routingNumber,
-          type,
-          requestedPercentage);
+        try {
+          ApiDataRegister result = await postbankingscreenData(
+              context,
+              employeeId,
+              accountNumber,
+              bankName,
+              amountRequested,
+              checkUrl,
+              effectiveDate,
+              routingNumber,
+              type,
+              requestedPercentage);
 
 
-      await uploadcheck(
-          context: context,
-          employeeid: employeeId,
-          empBankingId: result.banckingId!,
-          documentFile: documentFile,
-          documentName: documentName);
-      print('BanckingId :::::: ${result.banckingId!}');
-      if(result.success){
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AddSuccessPopup(
-              message: 'Banking Data Saved',
+          await uploadcheck(
+              context: context,
+              employeeid: employeeId,
+              empBankingId: result.banckingId!,
+              documentFile: documentFile,
+              documentName: documentName);
+          print('BanckingId :::::: ${result.banckingId!}');
+          if(result.success){
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AddSuccessPopup(
+                  message: 'Banking Data Saved',
+                );
+              },
             );
-          },
-        );
-        await widget.onSave();
-      } else{
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AddSuccessPopup(
-              message: 'Failed To Save Banking Data',
+            await widget.onSave();
+          } else{
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AddFailePopup(
+                  message: 'Failed To Save Banking Data',
+                );
+              },
             );
-          },
-        );
-      }
-    } catch (e) {
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AddSuccessPopup(
-            message: 'Failed To Save Banking Dataccc',
+          }
+        } catch (e) {
+          await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AddFailePopup(
+                message: 'Failed To Save Banking Dataccc',
+              );
+            },
           );
-        },
-      );
+        }
     }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,8 +161,8 @@ class _BankingScreenState extends State<BankingScreen> {
       children: [
         Center(
           child: Text(
-              'Banking',
-              style:  FormHeading.customTextStyle(context)
+            'Banking',
+            style:  FormHeading.customTextStyle(context)
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -340,9 +340,9 @@ class BankingForm extends StatefulWidget {
   final bool isVisible;
   const BankingForm(
       {super.key,
-        required this.onRemove,
-        required this.index,
-        required this.employeeID, required this.isVisible});
+      required this.onRemove,
+      required this.index,
+      required this.employeeID, required this.isVisible});
 
   @override
   _BankingFormState createState() => _BankingFormState();
@@ -431,335 +431,335 @@ class _BankingFormState extends State<BankingForm> {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: EdgeInsets.only(left: 166.0, right: 166),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                bankingId == null ? 'Bank Details #${widget.index}' :  'Bank Details #${bankingId}',
-                style:  HeadingFormStyle.customTextStyle(context),
-              ),
-              if (widget.index > 1)
-                IconButton(
-                  icon:
-                  Icon(Icons.remove_circle, color: Colors.red),
-                  onPressed: widget.onRemove,
-                ),
-            ],
-          ),
-          SizedBox(
-              height: MediaQuery.of(context).size.height / 20),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    Text(
-                      'Effective Date',
-                      style: AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            60),
-                    CustomTextFieldRegister(
-                      controller: effectivecontroller,
-                      hintText: 'yyyy-mm-dd',
-                      hintStyle: onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
-                      onChanged: (value){
-                        if(value.isNotEmpty){
-                          isPrefill= false;
-                        }
-                      },
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.calendar_month_outlined,
-                          color: Color(0xff50B5E5),
-                          size: 16,
-                        ),
-                        onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            effectivecontroller.text =
-                            "${pickedDate.toLocal()}"
-                                .split(' ')[0];
-                          }
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            30),
-                    Text(
-                      'Bank Name',
-                      style:AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            60),
-                    CustomTextFieldRegister(
-                      controller: bankname,
-                      hintText: 'Enter Bank Name',
-                      hintStyle:onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
-                      onChanged: (value){
-                        if(value.isNotEmpty){
-                          isPrefill= false;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            25),
-                    Text(
-                      'Routing/Transit Number ( 9 Digits )',
-                      style:AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            60),
-                    CustomTextFieldSSn(
-                      maxLength: 9,
-                      controller: routingnumber,
-                      hintText: 'Enter Number',
-                      hintStyle:onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
-                      onChanged: (value){
-                        if(value.isNotEmpty){
-                          isPrefill= false;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            30),
-
-
-                    Text(
-                      'Type',
-                      style: AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            30),
-                    Row(
+                    padding: EdgeInsets.only(left: 166.0, right: 166),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                            child: CustomRadioListTile(
-                              title: 'Checking',
-                              value: 'Checking',
-                              groupValue: selectedtype,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedtype = value;
-                                  isPrefill= false;
-                                });
-                              },
-                            )),
-                        Expanded(
-                          child: CustomRadioListTile(
-                            title: 'Savings',
-                            value: 'Savings',
-                            groupValue: selectedtype,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedtype = value;
-                                isPrefill= false;
-                              });
-                            },
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              bankingId == null ? 'Bank Details #${widget.index}' :  'Bank Details #${bankingId}',
+                              style:  HeadingFormStyle.customTextStyle(context),
+                            ),
+                            if (widget.index > 1)
+                            IconButton(
+                              icon:
+                                  Icon(Icons.remove_circle, color: Colors.red),
+                              onPressed: widget.onRemove,
+                            ),
+                          ],
                         ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height / 20),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+
+                                  Text(
+                                    'Effective Date',
+                                    style: AllPopupHeadings.customTextStyle(context),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldRegister(
+                                    controller: effectivecontroller,
+                                    hintText: 'yyyy-mm-dd',
+                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
+                                    height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        Icons.calendar_month_outlined,
+                                        color: Color(0xff50B5E5),
+                                        size: 16,
+                                      ),
+                                      onPressed: () async {
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(2000),
+                                          lastDate: DateTime(2101),
+                                        );
+                                        if (pickedDate != null) {
+                                          effectivecontroller.text =
+                                              "${pickedDate.toLocal()}"
+                                                  .split(' ')[0];
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              30),
+                                  Text(
+                                    'Bank Name',
+                                    style:AllPopupHeadings.customTextStyle(context),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldRegister(
+                                    controller: bankname,
+                                    hintText: 'Enter Bank Name',
+                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
+                                    height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              25),
+                                  Text(
+                                    'Routing/Transit Number ( 9 Digits )',
+                                    style:AllPopupHeadings.customTextStyle(context),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldSSn(
+                                    maxLength: 9,
+                                    controller: routingnumber,
+                                    hintText: 'Enter Number',
+                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
+                                    height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery.of(context).size.height /
+                                          30),
+
+
+                                  Text(
+                                    'Type',
+                                    style: AllPopupHeadings.customTextStyle(context),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery.of(context).size.height /
+                                          30),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child: CustomRadioListTile(
+                                            title: 'Checking',
+                                            value: 'Checking',
+                                            groupValue: selectedtype,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                selectedtype = value;
+                                                isPrefill= false;
+                                              });
+                                            },
+                                          )),
+                                      Expanded(
+                                        child: CustomRadioListTile(
+                                          title: 'Savings',
+                                          value: 'Savings',
+                                          groupValue: selectedtype,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedtype = value;
+                                              isPrefill= false;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width / 15),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Account Number ',
+                                    style: AllPopupHeadings.customTextStyle(context),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldRegister(
+                                    controller: accountnumber,
+                                    hintText: 'Enter AC Number',
+                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
+                                    height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              30),
+                                  Text(
+                                    'Verify Account Number',
+                                    style: AllPopupHeadings.customTextStyle(context),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldRegister(
+                                    controller: verifyaccountnumber,
+                                    // controller: ,
+                                    hintText: 'Enter AC Number',
+                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
+                                    height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
+                                  ),
+                                  if (errorMessage != null)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        errorMessage!,
+                                        style: TextStyle(
+                                            color: Colors.red, fontSize: 10),
+                                      ),
+                                    ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              25),
+                                  Text(
+                                    'Requested amount for this account (select one)',
+                                    style: AllPopupHeadings.customTextStyle(context),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery.of(context).size.height /
+                                          60),
+                                  // CustomRadioListTile(
+                                  //   title: 'Specific Amount',
+                                  //   value: 'Specific Amount',
+                                  //   groupValue: selectedacc,
+                                  //   onChanged: (value) {
+                                  //     setState(() {
+                                  //       selectedacc = value;
+                                  //     });
+                                  //   },
+                                  // ),
+                                  CustomTextFieldRegister(
+                                    hintText: 'Enter Requested amount',
+                                    controller: requestammount,
+                                    prefixText: '\$',
+                                    prefixStyle: onlyFormDataStyle.customTextStyle(context),
+                                    height: 32,
+                                    onChanged: (value){
+                                      if(value.isNotEmpty){
+                                        isPrefill= false;
+                                      }
+                                    },
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height / 20),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Upload your Void Check',
+                                style:  FileuploadString.customTextStyle(context),
+                              ),
+                            ),
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width / 5),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                ElevatedButton.icon(
+                                    onPressed: ()async{
+                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                          type: FileType.custom,
+                                          allowedExtensions: ['pdf']
+                                      );
+
+                                      if (result != null) {
+                                        final file = result.files.first;
+                                        setState(() {
+                                          fileName = file.name;
+                                          finalPath = file.bytes;
+                                        });
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color(0xff50B5E5),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+
+                                    ),
+                                    icon: checkUrl == "--" ? Icon(Icons.upload, color: Colors.white):null,
+                                    label:checkUrl == null ?Text(
+                                      'Upload File',
+                                      style:BlueButtonTextConst.customTextStyle(context),
+                                    ):Text(
+                                      'Uploaded',
+                                      style: BlueButtonTextConst.customTextStyle(context),
+                                    )
+                                ),
+                                SizedBox(height: 8,),
+                                checkUrl != null ? AutoSizeText(
+                                  'Uploaded File: $checkUrl',
+                                  style:onlyFormDataStyle.customTextStyle(context),
+                                ):
+                                fileName != null ?
+                                AutoSizeText(
+                                  'File picked: $fileName',
+                                  style: onlyFormDataStyle.customTextStyle(context),
+                                ) : SizedBox(),
+                              ],
+                            ),
+                            SizedBox(
+                                height: MediaQuery.of(context).size.height /
+                                    20), // Display file names if picked
+                          ],
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                          thickness: 2,
+                        )
                       ],
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width / 15),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Account Number ',
-                      style: AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            60),
-                    CustomTextFieldRegister(
-                      controller: accountnumber,
-                      hintText: 'Enter AC Number',
-                      hintStyle: onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
-                      onChanged: (value){
-                        if(value.isNotEmpty){
-                          isPrefill= false;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            30),
-                    Text(
-                      'Verify Account Number',
-                      style: AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            60),
-                    CustomTextFieldRegister(
-                      controller: verifyaccountnumber,
-                      // controller: ,
-                      hintText: 'Enter AC Number',
-                      hintStyle: onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
-                      onChanged: (value){
-                        if(value.isNotEmpty){
-                          isPrefill= false;
-                        }
-                      },
-                    ),
-                    if (errorMessage != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Text(
-                          errorMessage!,
-                          style: TextStyle(
-                              color: Colors.red, fontSize: 10),
-                        ),
-                      ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            25),
-                    Text(
-                      'Requested amount for this account (select one)',
-                      style: AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            60),
-                    // CustomRadioListTile(
-                    //   title: 'Specific Amount',
-                    //   value: 'Specific Amount',
-                    //   groupValue: selectedacc,
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       selectedacc = value;
-                    //     });
-                    //   },
-                    // ),
-                    CustomTextFieldRegister(
-                      hintText: 'Enter Requested amount',
-                      controller: requestammount,
-                      prefixText: '\$',
-                      prefixStyle: onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
-                      onChanged: (value){
-                        if(value.isNotEmpty){
-                          isPrefill= false;
-                        }
-                      },
-                      keyboardType: TextInputType.number,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-              height: MediaQuery.of(context).size.height / 20),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Upload your Void Check',
-                  style:  FileuploadString.customTextStyle(context),
-                ),
-              ),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width / 5),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  ElevatedButton.icon(
-                      onPressed: ()async{
-                        FilePickerResult? result = await FilePicker.platform.pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: ['pdf']
-                        );
-
-                        if (result != null) {
-                          final file = result.files.first;
-                          setState(() {
-                            fileName = file.name;
-                            finalPath = file.bytes;
-                          });
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff50B5E5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-
-                      ),
-                      icon: checkUrl == "--" ? Icon(Icons.upload, color: Colors.white):null,
-                      label:checkUrl == null ?Text(
-                        'Upload File',
-                        style:BlueButtonTextConst.customTextStyle(context),
-                      ):Text(
-                        'Uploaded',
-                        style: BlueButtonTextConst.customTextStyle(context),
-                      )
-                  ),
-                  SizedBox(height: 8,),
-                  checkUrl != null ? AutoSizeText(
-                    'Uploaded File: $checkUrl',
-                    style:onlyFormDataStyle.customTextStyle(context),
-                  ):
-                  fileName != null ?
-                  AutoSizeText(
-                    'File picked: $fileName',
-                    style: onlyFormDataStyle.customTextStyle(context),
-                  ) : SizedBox(),
-                ],
-              ),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height /
-                      20), // Display file names if picked
-            ],
-          ),
-          const Divider(
-            color: Colors.grey,
-            thickness: 2,
-          )
-        ],
-      ),
-    );
+                  );
   }
 }

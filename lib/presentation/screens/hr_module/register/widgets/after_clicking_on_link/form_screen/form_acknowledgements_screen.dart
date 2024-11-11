@@ -509,7 +509,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                       await  showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AddSuccessPopup(
+                          return AddFailePopup(
                             message: 'Failed To Upoad Document',
                           );
                         },

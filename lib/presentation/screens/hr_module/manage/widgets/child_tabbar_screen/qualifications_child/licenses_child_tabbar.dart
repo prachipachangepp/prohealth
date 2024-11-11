@@ -57,6 +57,52 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
     }
     return address;
   }
+
+  OverlayEntry? _overlayEntry;
+  final LayerLink _layerLink = LayerLink();
+  bool _isOverlayVisible = false;
+
+  OverlayEntry _createOverlayEntry(BuildContext context, Offset position, String text) {
+    return OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          left: position.dx,
+          top: position.dy,
+          child: Material(
+            elevation: 8.0,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                  text,
+                  style: ThemeManagerDarkFont.customTextStyle(context)
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+  // Show overlay
+  void _showOverlay(BuildContext context, Offset position, String text) {
+    if (_isOverlayVisible) return;
+
+    _overlayEntry = _createOverlayEntry(context, position, text);
+    Overlay.of(context)?.insert(_overlayEntry!);
+    _isOverlayVisible = true;
+  }
+
+  // Remove overlay
+  void _removeOverlay() {
+    if (_overlayEntry != null && _isOverlayVisible) {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+      _isOverlayVisible = false;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -416,8 +462,21 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           Text(snapshot.data![index].licenure,
                             style: ThemeManagerDarkFont.customTextStyle(context),),
                           const SizedBox(height: 10,),
-                          Text(_trimAddress(snapshot.data![index].org),
-                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                          MouseRegion(
+                            onHover: (event){
+                              _showOverlay(context, event.position, snapshot.data![index].org ?? '--');
+                            },
+                            onExit: (_) {
+                              _removeOverlay();
+                            },
+                            child: CompositedTransformTarget(link: _layerLink,
+                              child: Text(
+                                _trimAddress(snapshot.data![index].org ?? '--'),
+                                style: ThemeManagerDarkFont.customTextStyle(context),
+                              ),),
+                          ),
+                          // Text(_trimAddress(snapshot.data![index].org),
+                          //   style: ThemeManagerDarkFont.customTextStyle(context),),
                           const SizedBox(height: 10,),
                           Text(snapshot.data![index].country,
                             style: ThemeManagerDarkFont.customTextStyle(context),),

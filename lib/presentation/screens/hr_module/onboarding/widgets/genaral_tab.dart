@@ -16,7 +16,7 @@ import '../../../../../data/api_data/hr_module_data/see_all_data/see_all_data.da
 
 class OnboardingGeneral extends StatefulWidget {
 
-  final void Function(int,int, String) selectButton;
+  final void Function(int,int, String,String) selectButton;
   final VoidCallback goBackButtion;
 
   const OnboardingGeneral({Key? key, required this.selectButton,  required this.goBackButtion}) : super(key: key);
@@ -325,7 +325,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                     MediaQuery.of(context).size.width /
                         60),
                 child: InkWell(
-                  onTap: () => widget.selectButton(1,general.empId!,fullName), // Corrected reference
+                  onTap: () => widget.selectButton(1,general.empId!,fullName, general.imgurl!), // Corrected reference
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
