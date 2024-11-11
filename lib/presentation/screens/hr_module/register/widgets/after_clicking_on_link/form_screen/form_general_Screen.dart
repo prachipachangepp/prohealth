@@ -1101,7 +1101,14 @@ class _generalFormState extends State<generalForm> {
     //             width: 30,
     //           ),
 
-              CustomButton(
+              isLoading
+                  ? SizedBox(
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(
+                  color: ColorManager.blueprime,
+                ),
+              )  :CustomButton(
                 width: 117,
                 height: 30,
                 text: 'Save',
