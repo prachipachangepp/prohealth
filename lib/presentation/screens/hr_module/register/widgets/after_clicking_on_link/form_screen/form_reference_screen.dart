@@ -31,7 +31,7 @@ class ReferencesScreen extends StatefulWidget {
 
 class _ReferencesScreenState extends State<ReferencesScreen> {
   List<GlobalKey<_ReferencesFormState>> referenceFormKeys = [];
- bool isVisible = false;
+  bool isVisible = false;
   TextEditingController name = TextEditingController();
   TextEditingController titleposition = TextEditingController();
   TextEditingController companyorganization = TextEditingController();
@@ -47,8 +47,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
   @override
   void initState() {
     super.initState();
-  // referenceFormKeys.add(GlobalKey<_ReferencesFormState>());
-   // addReferenseForm();
+    // referenceFormKeys.add(GlobalKey<_ReferencesFormState>());
+    // addReferenseForm();
     _loadEducationData();
   }
   Future<void> _loadEducationData() async {
@@ -87,8 +87,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
       children: [
         Center(
           child: Text(
-            AppString.references,
-            style:FormHeading.customTextStyle(context)
+              AppString.references,
+              style:FormHeading.customTextStyle(context)
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -147,8 +147,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                 ),
                 icon: Icon(Icons.add, color: Colors.white),
                 label: Text(
-                  'Add Reference',
-                  style:BlueButtonTextConst.customTextStyle(context)
+                    'Add Reference',
+                    style:BlueButtonTextConst.customTextStyle(context)
                 ),
               ),
             ],
@@ -211,25 +211,26 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
 
                   if(st.isPrefill ==false){
 
-    await postreferencescreenData(
-    context,
-    st.lengthofassociation.text,
-    "__",
-    st.companyorganization.text,
-    st.email.text,
-    st.widget.employeeID,
-    st.mobilenumber.text,
-    st.name.text,
-    st.knowthisperson.text,
-    st.titleposition.text);
-    }
-    setState(() {
-    isLoading = false; // End loading
-    });
-
+                    await postreferencescreenData(
+                        context,
+                        st.lengthofassociation.text,
+                        "__",
+                        st.companyorganization.text,
+                        st.email.text,
+                        st.widget.employeeID,
+                        st.mobilenumber.text,
+                        st.name.text,
+                        st.knowthisperson.text,
+                        st.titleposition.text);
                   }
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
+
+                }
 
                 await  widget.onSave();
+                _loadEducationData();
 
                 lengthofassociation.clear();
                 companyorganization.clear();
@@ -239,6 +240,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                 knowthisperson.clear();
                 titleposition.clear();
               },
+
               child: Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
@@ -258,9 +260,9 @@ class ReferencesForm extends StatefulWidget {
   final bool isVisible;
   const ReferencesForm(
       {Key? key,
-      required this.onRemove,
-      required this.index,
-      required this.employeeID,
+        required this.onRemove,
+        required this.index,
+        required this.employeeID,
         required this.isVisible
       })
       : super(key: key);
@@ -356,271 +358,271 @@ class _ReferencesFormState extends State<ReferencesForm> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 160.0, right: 160),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              referenseIndex == null ? 'References #${widget.index}' :  'References #${referenseIndex}',
-                              style:  HeadingFormStyle.customTextStyle(context),
-                            ),
-                            if (widget.index > 1)
-                            IconButton(
-                              icon:
-                                  Icon(Icons.remove_circle, color: Colors.red),
-                              onPressed: widget.onRemove,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 20),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    AppString.name,
-                                    style:AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldRegister(
-                                    controller: name,
-                                    hintText: 'Enter Name',
-                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
-                                    height: 32,
-                                    onChanged: (value){
-                                      if(value.isNotEmpty){
-                                        isPrefill= false;
-                                      }
-                                    },
-                                  ),
-                                  if (_nameError != null) // Display error if any
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 1),
-                                      child: Text(
-                                        _nameError!,
-                                        style: CommonErrorMsg.customTextStyle(context),
-                                      ),
-                                    ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              40),
-                                  Text(
-                                    AppString.title_position,
-                                    style:AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldRegister(
-                                    controller: titleposition,
-                                    hintText: 'Enter Position',
-                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
-                                    height: 32,
-                                    onChanged: (value){
-                                      if(value.isNotEmpty){
-                                        isPrefill= false;
-                                      }
-                                    },
-                                  ),
-                                  if (_positionError != null) // Display error if any
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 1),
-                                      child: Text(
-                                        _positionError!,
-                                        style: CommonErrorMsg.customTextStyle(context),
-                                      ),
-                                    ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              40),
-                                  Text(
-                                    AppString.company_organization,
-                                    style:AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldRegister(
-                                    controller: companyorganization,
-                                    hintText: 'Enter Organization Name',
-                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
-                                    height: 32,
-                                    onChanged: (value){
-                                      if(value.isNotEmpty){
-                                        isPrefill= false;
-                                      }
-                                    },
-                                  ),
-                                  if (_OrganizationError != null) // Display error if any
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 1),
-                                      child: Text(
-                                        _OrganizationError!,
-                                        style: CommonErrorMsg.customTextStyle(context),
-                                      ),
-                                    ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              40),
-                                  Text(
-                                    AppString.mobile_number,
-                                    style: AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldRegisterPhone(
-                                    controller: mobilenumber,
-                                    hintText: 'Enter Number',
-                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
-                                    height: 32,
-                                    onChanged: (value){
-                                      if(value.isNotEmpty){
-                                        isPrefill= false;
-                                      }
-                                    },
-                                  ),
-                                  if (_pPhoneDocError != null) // Display error if any
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 1),
-                                      child: Text(
-                                        _pPhoneDocError!,
-                                        style: CommonErrorMsg.customTextStyle(context),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width / 15),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    AppString.email,
-                                    style:AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldForEmail(
-                                    controller: email,
-                                    hintText: 'Enter Email',
-                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
-                                    height: 32,
-                                    onChanged: (value){
-                                      if(value.isNotEmpty){
-                                        isPrefill= false;
-                                      }
-                                    },
-                                  ),
-                                  if (_emailDocError != null) // Display error if any
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 1),
-                                      child: Text(
-                                        _emailDocError!,
-                                        style: CommonErrorMsg.customTextStyle(context),
-                                      ),
-                                    ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              40),
-                                  Text(
-                                    AppString.how_do_you_know_this_person,
-                                    style:AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldRegister(
-                                    controller: knowthisperson,
-                                    hintText: 'Enter Text',
-                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
-                                    height: 32,
-                                    onChanged: (value){
-                                      if(value.isNotEmpty){
-                                        isPrefill= false;
-                                      }
-                                    },
-                                  ),
-                                  if (_KnowthisError != null) // Display error if any
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 1),
-                                      child: Text(
-                                        _KnowthisError!,
-                                        style: CommonErrorMsg.customTextStyle(context),
-                                      ),
-                                    ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              40),
-                                  Text(
-                                    AppString.length_of_association,
-                                    style: AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldRegister(
-                                    controller: lengthofassociation,
-                                    hintText: 'Enter Length',
-                                    hintStyle: onlyFormDataStyle.customTextStyle(context),
-                                    height: 32,
-                                    onChanged: (value){
-                                      if(value.isNotEmpty){
-                                        isPrefill= false;
-                                      }
-                                    },
-                                  ),
-                                  if (_lengthError != null) // Display error if any
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 1),
-                                      child: Text(
-                                        _lengthError!,
-                                        style: CommonErrorMsg.customTextStyle(context),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 20),
-                        Text(
-                          'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
-                          style: FileuploadString.customTextStyle(context),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 20),
-                        const Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        )
-                      ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                referenseIndex == null ? 'References #${widget.index}' :  'References #${referenseIndex}',
+                style:  HeadingFormStyle.customTextStyle(context),
+              ),
+              if (widget.index > 1)
+                IconButton(
+                  icon:
+                  Icon(Icons.remove_circle, color: Colors.red),
+                  onPressed: widget.onRemove,
+                ),
+            ],
+          ),
+          SizedBox(
+              height: MediaQuery.of(context).size.height / 20),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppString.name,
+                      style:AllPopupHeadings.customTextStyle(context),
                     ),
-                  );
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            60),
+                    CustomTextFieldRegister(
+                      controller: name,
+                      hintText: 'Enter Name',
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
+                    ),
+                    if (_nameError != null) // Display error if any
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Text(
+                          _nameError!,
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
+                      ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            40),
+                    Text(
+                      AppString.title_position,
+                      style:AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            60),
+                    CustomTextFieldRegister(
+                      controller: titleposition,
+                      hintText: 'Enter Position',
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
+                    ),
+                    if (_positionError != null) // Display error if any
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Text(
+                          _positionError!,
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
+                      ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            40),
+                    Text(
+                      AppString.company_organization,
+                      style:AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            60),
+                    CustomTextFieldRegister(
+                      controller: companyorganization,
+                      hintText: 'Enter Organization Name',
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
+                    ),
+                    if (_OrganizationError != null) // Display error if any
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Text(
+                          _OrganizationError!,
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
+                      ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            40),
+                    Text(
+                      AppString.mobile_number,
+                      style: AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            60),
+                    CustomTextFieldRegisterPhone(
+                      controller: mobilenumber,
+                      hintText: 'Enter Number',
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
+                    ),
+                    if (_pPhoneDocError != null) // Display error if any
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Text(
+                          _pPhoneDocError!,
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width / 15),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppString.email,
+                      style:AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            60),
+                    CustomTextFieldForEmail(
+                      controller: email,
+                      hintText: 'Enter Email',
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
+                    ),
+                    if (_emailDocError != null) // Display error if any
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Text(
+                          _emailDocError!,
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
+                      ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            40),
+                    Text(
+                      AppString.how_do_you_know_this_person,
+                      style:AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            60),
+                    CustomTextFieldRegister(
+                      controller: knowthisperson,
+                      hintText: 'Enter Text',
+                      hintStyle:onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
+                    ),
+                    if (_KnowthisError != null) // Display error if any
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Text(
+                          _KnowthisError!,
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
+                      ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            40),
+                    Text(
+                      AppString.length_of_association,
+                      style: AllPopupHeadings.customTextStyle(context),
+                    ),
+                    SizedBox(
+                        height:
+                        MediaQuery.of(context).size.height /
+                            60),
+                    CustomTextFieldRegister(
+                      controller: lengthofassociation,
+                      hintText: 'Enter Length',
+                      hintStyle: onlyFormDataStyle.customTextStyle(context),
+                      height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
+                    ),
+                    if (_lengthError != null) // Display error if any
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Text(
+                          _lengthError!,
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+              height: MediaQuery.of(context).size.height / 20),
+          Text(
+            'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
+            style: FileuploadString.customTextStyle(context),
+          ),
+          SizedBox(
+              height: MediaQuery.of(context).size.height / 20),
+          const Divider(
+            color: Colors.grey,
+            thickness: 2,
+          )
+        ],
+      ),
+    );
   }
 }
 

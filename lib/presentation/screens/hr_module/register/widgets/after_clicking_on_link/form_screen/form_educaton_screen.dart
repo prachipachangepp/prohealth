@@ -280,6 +280,7 @@ class _EducationScreenState extends State<EducationScreen> {
                     isLoading = false;
                   });
                   widget.onSave();
+                  _loadEducationData();
                 },
                 child: Text(
                   'Save',
@@ -316,7 +317,7 @@ class EducationForm extends StatefulWidget {
 }
 
 class _EducationFormState extends State<EducationForm> {
-   bool isPrefill= true;
+  bool isPrefill= true;
   TextEditingController collegeuniversity = TextEditingController();
   TextEditingController majorsubject = TextEditingController();
   TextEditingController phone = TextEditingController();
@@ -481,9 +482,9 @@ class _EducationFormState extends State<EducationForm> {
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
                       onChanged: (value){
-                      if(value.isNotEmpty){
-                        isPrefill= false;
-                      }
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
                       },
                     ),
                   ],
@@ -567,8 +568,8 @@ class _EducationFormState extends State<EducationForm> {
                     ElevatedButton.icon(
                         onPressed: ()async {
                           FilePickerResult? result = await FilePicker.platform.pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: ['pdf']
+                              type: FileType.custom,
+                              allowedExtensions: ['pdf']
                           );
 
                           if (result != null) {

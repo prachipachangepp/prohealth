@@ -115,8 +115,8 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
         children: [
           Center(
             child: Text(
-              'Employment',
-              style: FormHeading.customTextStyle(context)
+                'Employment',
+                style: FormHeading.customTextStyle(context)
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -161,8 +161,8 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                   ),
                   icon: Icon(Icons.add, color: Colors.white),
                   label: Text(
-                    'Add Experience',
-                    style:BlueButtonTextConst.customTextStyle(context)
+                      'Add Experience',
+                      style:BlueButtonTextConst.customTextStyle(context)
                   ),
                   onPressed: () {
                     setState(() {
@@ -287,6 +287,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                     isLoading = false; // End loading
                   });
                   widget.onSave();
+                  _loadEmploymentData();
                 },
                 child: Text(
                   'Save',
@@ -461,7 +462,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
           finalPositionController.text = data.title ?? '';
           startDateController.text = data.dateOfJoining ?? '';
           endDateController.text = data.endDate;
-        // isChecked = data.endDate == true;
+          // isChecked = data.endDate == true;
           employementIndex = data.employmentId ?? 0;
 
         });
@@ -504,30 +505,30 @@ class _EmploymentFormState extends State<EmploymentForm> {
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 20),
               isChecked?StatefulBuilder(
-                  builder: (BuildContext context, void Function(void Function()) setState) { return Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: _handleFileUpload,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        icon: Icon(Icons.upload, color: Colors.white),
-                        label: Text(
-                          'Upload File',
-                          style: BlueButtonTextConst.customTextStyle(context),
+                builder: (BuildContext context, void Function(void Function()) setState) { return Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: _handleFileUpload,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff50B5E5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                      SizedBox(height:8),
-                      if (fileName != null)
-                        AutoSizeText('Selected file: $fileName',style:onlyFormDataStyle.customTextStyle(context),),
-                    ],
-                  ); },
+                      icon: Icon(Icons.upload, color: Colors.white),
+                      label: Text(
+                        'Upload File',
+                        style: BlueButtonTextConst.customTextStyle(context),
+                      ),
+                    ),
+                    SizedBox(height:8),
+                    if (fileName != null)
+                      AutoSizeText('Selected file: $fileName',style:onlyFormDataStyle.customTextStyle(context),),
+                  ],
+                ); },
 
-                ):SizedBox()
+              ):SizedBox()
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -570,7 +571,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           isPrefill= false;
                         }
                       },
-                     // width: MediaQuery.of(context).size.width / 5,
+                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -715,7 +716,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           isPrefill= false;
                         }
                       },
-                     // width: MediaQuery.of(context).size.width / 5,
+                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -751,7 +752,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           isPrefill= false;
                         }
                       },
-                     // width: MediaQuery.of(context).size.width / 5,
+                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -769,7 +770,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           isPrefill= false;
                         }
                       },
-                     // width: MediaQuery.of(context).size.width / 5,
+                      // width: MediaQuery.of(context).size.width / 5,
                     ),
                   ],
                 ),
