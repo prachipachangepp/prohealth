@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/banking_tab.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/form_status.dart';
@@ -24,12 +25,14 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
   int _selectedIndex = 0;
   int employeeIdCheck = 0;
   String employeeName = '';
+  String imageUrl = '';
 
-  void _selectButton(int index, int employeeId, String name) {
+  void _selectButton(int index, int employeeId, String name, String url) {
     setState(() {
       _selectedIndex = index;
       employeeIdCheck = employeeId;
       employeeName = name;
+      imageUrl = url;
     });
     _onboardPageController.animateToPage(
       index,
@@ -55,6 +58,7 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
       selectButton: _selectButton,
       employeeId: employeeIdCheck,
       employeeName: employeeName,
+      imageUrl: imageUrl,
       backButtonCallBack: _handleBackButton, onBackPressed: widget.onBackPressed,
     );
   }
@@ -69,11 +73,12 @@ class OnboardingTabManage extends StatefulWidget {
   final int selectedIndex;
   final int employeeId;
   final String employeeName;
+  final String imageUrl;
   final BackButtonCallBack backButtonCallBack;
   final VoidCallback onBackPressed;
-  final void Function(int,int, String) selectButton;
+  final void Function(int,int, String, String) selectButton;
   OnboardingTabManage({super.key, required this.managePageController, required this.selectedIndex, required this.selectButton,
-    required this.employeeId, required this.employeeName,required this.backButtonCallBack, required this.onBackPressed,
+    required this.employeeId, required this.employeeName,required this.backButtonCallBack, required this.onBackPressed, required this.imageUrl,
   });
 
   @override
@@ -123,17 +128,6 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                 ),
               ],
             ),
-          //if (widget.selectedIndex != 0)
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 340,vertical: 2),
-          //   child: Container(
-          //     //color: ColorManager.red,
-          //     child: Text(
-          //       widget.employeeName,
-          //       style: CompanyIdentityManageHeadings.customTextStyle(context),
-          //     ),
-          //   ),
-          // )
           if (widget.selectedIndex == 0)
             SizedBox(height: 5,),
           if (widget.selectedIndex != 0)
@@ -143,8 +137,9 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  ///back
                   Padding(
-                    padding: const EdgeInsets.only(top: 35),
+                    padding: const EdgeInsets.only(top: 60),
                     child: InkWell(
                         onTap: (){
                           widget.backButtonCallBack(true);
@@ -174,13 +169,31 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                           children: [
                             if (widget.selectedIndex != 0)
                               Padding(
-                                padding: const EdgeInsets.only(bottom: AppPadding.p10,left: 10),
-                                child: Container(
-                                  //color: ColorManager.red,
-                                  child: Text(
-                                    widget.employeeName,
-                                    style: CompanyIdentityManageHeadings.customTextStyle(context),
-                                  ),
+                                padding: const EdgeInsets.only(bottom: AppPadding.p10,left: 1),
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 20,
+                                      backgroundColor: Colors.white,
+                                      child:
+                                      ClipOval(
+                                        child: CachedNetworkImage(
+                                          imageUrl: widget.imageUrl!,
+                                          placeholder: (context, url) => CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              CircleAvatar(child: Image.asset("images/profilepic.png"),),
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: AppSize.s10,),
+                                    Text(
+                                      widget.employeeName,
+                                      style: CompanyIdentityManageHeadings.customTextStyle(context),
+                                    ),
+                                  ],
                                 ),
                               ),
 
@@ -231,7 +244,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                           ),
                                         ),
                                       ),
-                                      onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName),  //onTap: () => widget.selectButton(entry.key),
+                                      onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName,widget.imageUrl),  //onTap: () => widget.selectButton(entry.key),
                                     ),
                                   )
                                       .toList(),
