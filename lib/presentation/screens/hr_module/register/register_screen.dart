@@ -146,13 +146,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           InkWell(
                               onTap: widget.onBackPressed,
-
                               // widget.backButtonCallBack(true);
                               // Navigator.pop(context);
                               // _pageController.animateToPage(1,
                               //     duration: Duration(milliseconds: 500),
                               //     curve: Curves.ease);
-
                               child: Row(
                                 children: [
                                   Icon(
@@ -484,8 +482,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                               onPressed: () async {
                                 //html.window.open('/onBordingWelcome',"_blank");
-                                const url = "http://localhost:53967/#/onBordingWelcome";
-                                // const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                                // const url = "http://localhost:58429/#/onBordingWelcome";
+                                const url = "${AppConfig.deployment}/#/onBordingWelcome";
                                 //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                               //  Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
                                 if (await canLaunch(url)) {
