@@ -8,8 +8,11 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_licenses_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'package:shimmer/shimmer.dart';
@@ -330,7 +333,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                           licenseUrl: 'NA',
                           licensure: st.licensure.text,
                           org: st.org.text,
-                          documentType: 'NA',
+                          documentType: st.documentTypeName!,
                           documentFile: st.finalPath,
                           documentName: st.fileName);
                     }
@@ -346,6 +349,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 });
                 //licensure.clear();
                 widget.onSave();
+                _loadLicensesData();
               },
               child: Text(
                 'Save',
@@ -390,6 +394,7 @@ class _licensesFormState extends State<licensesForm> {
   String? licenseUrl;
   int countryId =0;
   String? selectedCountry;
+  String? documentTypeName;
 
   final StreamController<List<AEClinicalReportingOffice>> Countrystream =
       StreamController<List<AEClinicalReportingOffice>>();
@@ -419,6 +424,7 @@ class _licensesFormState extends State<licensesForm> {
           licenseIdIndex = data.licenseId ?? 0;
           //licenseUrl = data.licenseUrl;
            licenseUrl = data.licenseUrl.split('/').last;
+           documentTypeName = data.documentType;
         });
       }
     } catch (e) {
@@ -560,114 +566,134 @@ class _licensesFormState extends State<licensesForm> {
               SizedBox(
                   width: MediaQuery.of(context).size.width / 15),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Issue Date',
-                      style:AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            60),
-                    CustomTextFieldRegister(
-                      controller: controllerIssueDate,
-                      hintText: 'yyyy-mm-dd',
-                      hintStyle:onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
-                      onChanged: (value){
-                        if(value.isNotEmpty){
-                          isPrefill= false;
-                        }
-                      },
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.calendar_month_outlined,
-                          color: Color(0xff50B5E5),
-                          size: 16,
-                        ),
-                        onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                            DateFormat('yyyy-MM-dd')
-                                .format(pickedDate);
-                            controllerIssueDate.text =
-                                formattedDate;
+                child: Padding(
+                  padding: const EdgeInsets.only(top:20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                   // mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Issue Date',
+                        style:AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              60),
+                      CustomTextFieldRegister(
+                        controller: controllerIssueDate,
+                        hintText: 'yyyy-mm-dd',
+                        hintStyle:onlyFormDataStyle.customTextStyle(context),
+                        height: 32,
+                        onChanged: (value){
+                          if(value.isNotEmpty){
+                            isPrefill= false;
                           }
                         },
-                      ),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            100),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'If the licensure / certification will be recieved in future, enter the expected issuing date',
-                            style:onlyFormDataStyle.customTextStyle(context),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.calendar_month_outlined,
+                            color: Color(0xff50B5E5),
+                            size: 16,
                           ),
+                          onPressed: () async {
+                            DateTime? pickedDate =
+                            await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickedDate != null) {
+                              String formattedDate =
+                              DateFormat('yyyy-MM-dd')
+                                  .format(pickedDate);
+                              controllerIssueDate.text =
+                                  formattedDate;
+                            }
+                          },
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            100),
-                    Text(
-                      'Expiration Date',
-                      style: AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            60),
-                    CustomTextFieldRegister(
-                      controller: controllerExpirationDate,
-                      hintText: 'yyyy-mm-dd',
-                      hintStyle: onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
-                      onChanged: (value){
-                        if(value.isNotEmpty){
-                          isPrefill= false;
-                        }
-                      },
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.calendar_month_outlined,
-                          color: Color(0xff50B5E5),
-                          size: 16,
-                        ),
-                        onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                            DateFormat('yyyy-MM-dd')
-                                .format(pickedDate);
-                            controllerExpirationDate.text =
-                                formattedDate;
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              100),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'If the licensure / certification will be recieved in future, enter the expected issuing date',
+                              style:onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              40),
+                      Text(
+                        'Expiration Date',
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              60),
+                      CustomTextFieldRegister(
+                        controller: controllerExpirationDate,
+                        hintText: 'yyyy-mm-dd',
+                        hintStyle: onlyFormDataStyle.customTextStyle(context),
+                        height: 32,
+                        onChanged: (value){
+                          if(value.isNotEmpty){
+                            isPrefill= false;
                           }
                         },
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.calendar_month_outlined,
+                            color: Color(0xff50B5E5),
+                            size: 16,
+                          ),
+                          onPressed: () async {
+                            DateTime? pickedDate =
+                            await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickedDate != null) {
+                              String formattedDate =
+                              DateFormat('yyyy-MM-dd')
+                                  .format(pickedDate);
+                              controllerExpirationDate.text =
+                                  formattedDate;
+                            }
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 170)
-                  ],
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              40),
+                      Text(
+                        'Document type',
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              60),
+                      StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
+                            return buildDropdownButtonDocumentType(context);
+                          },
+                          ),
+                      SizedBox(height: 97)
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -817,6 +843,87 @@ class _licensesFormState extends State<licensesForm> {
           return CustomDropdownTextField(
             // width: MediaQuery.of(context).size.width / 5,
             headText: 'Country',
+
+            items: ['No Data'],
+          );
+        }
+      },
+    );
+  }
+  Widget buildDropdownButtonDocumentType(BuildContext context) {
+    return FutureBuilder<List<NewOrgDocument>>(
+      future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState ==
+            ConnectionState.waiting) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 7),
+            child: Container(
+              height: 31,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: ColorManager.white),
+            ),
+          );
+
+        } else if (snapshot.hasError) {
+          return  CustomDropdownTextField(
+            //width: MediaQuery.of(context).size.width / 5,
+            headText: 'Select Document',
+            items: ['Error'],
+          );
+        } else if (snapshot.hasData) {
+          List<DropdownMenuItem<String>> dropDownList = [];
+
+          for(var i in snapshot.data!){
+            dropDownList.add(DropdownMenuItem<String>(
+              child: Text(i.docName),
+              value: i.docName,
+            ));
+          }
+          return Container(
+            height: 32,
+            // margin: EdgeInsets.symmetric(horizontal: 20),
+            padding:
+            const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                  color: const Color(0xff686464).withOpacity(0.5),
+                  width: 1), // Black border
+              borderRadius:
+              BorderRadius.circular(6), // Rounded corners
+            ),
+            child: DropdownButtonFormField<String>(
+              focusColor: Colors.transparent,
+              icon: const Icon(
+                Icons.arrow_drop_down_sharp,
+                color: Color(0xff686464),
+              ),
+              decoration: InputDecoration.collapsed(hintText: ''),
+              items: dropDownList,
+              onChanged: (newValue) {
+                isPrefill =false;
+                for(var a in snapshot.data!){
+                  if(a.docName == newValue){
+                    documentTypeName = a.docName;
+                    // selectedCountry = dropDownList[0].value!;
+                    // countryId = a.countryId;
+                    print("documentType :: ${documentTypeName}");
+                    // print("country :: ${countryId}");
+                    //empTypeId = docType;
+                  }
+                }
+              },
+              value: dropDownList[0].value,
+              style: onlyFormDataStyle.customTextStyle(context),
+            ),
+          );
+        } else {
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
+            headText: 'Select Document',
 
             items: ['No Data'],
           );
