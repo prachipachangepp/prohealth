@@ -161,8 +161,8 @@ class _LicensesScreenState extends State<LicensesScreen> {
       children: [
         Center(
           child: Text(
-              'Licenses',
-              style: FormHeading.customTextStyle(context)
+            'Licenses',
+            style: FormHeading.customTextStyle(context)
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -337,7 +337,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
 
 
                   }catch(e){
-                    print(e);
+                   print(e);
                   }
 
                 }
@@ -346,7 +346,6 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 });
                 //licensure.clear();
                 widget.onSave();
-                _loadLicensesData();
               },
               child: Text(
                 'Save',
@@ -367,9 +366,9 @@ class licensesForm extends StatefulWidget {
   final bool isVisible;
   const licensesForm(
       {Key? key,
-        required this.onRemove,
-        required this.index,
-        required this.employeeID, required this.isVisible})
+      required this.onRemove,
+      required this.index,
+      required this.employeeID, required this.isVisible})
       : super(key: key);
 
   @override
@@ -386,14 +385,14 @@ class _licensesFormState extends State<licensesForm> {
   TextEditingController controllerExpirationDate = TextEditingController();
   TextEditingController controllercountry= TextEditingController(text: 'United States Of America');
 
-  // String selectedCountry = 'United States Of America';
+ // String selectedCountry = 'United States Of America';
   int? licenseIdIndex;
   String? licenseUrl;
   int countryId =0;
   String? selectedCountry;
 
   final StreamController<List<AEClinicalReportingOffice>> Countrystream =
-  StreamController<List<AEClinicalReportingOffice>>();
+      StreamController<List<AEClinicalReportingOffice>>();
   void initState() {
     super.initState();
     HrAddEmplyClinicalReportingOfficeApi(context, 11).then((data) {
@@ -419,7 +418,7 @@ class _licensesFormState extends State<licensesForm> {
           //selectedCountry = data.country ?? '';
           licenseIdIndex = data.licenseId ?? 0;
           //licenseUrl = data.licenseUrl;
-          licenseUrl = data.licenseUrl.split('/').last;
+           licenseUrl = data.licenseUrl.split('/').last;
         });
       }
     } catch (e) {
@@ -437,7 +436,7 @@ class _licensesFormState extends State<licensesForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+     return Padding(
       padding: const EdgeInsets.only(left: 166.0, right: 166),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -450,11 +449,11 @@ class _licensesFormState extends State<licensesForm> {
                 style: HeadingFormStyle.customTextStyle(context),
               ),
               if (widget.index > 1)
-                IconButton(
-                  icon:
-                  Icon(Icons.remove_circle, color: Colors.red),
-                  onPressed: widget.onRemove,
-                ),
+              IconButton(
+                icon:
+                Icon(Icons.remove_circle, color: Colors.red),
+                onPressed: widget.onRemove,
+              ),
             ],
           ),
           SizedBox(
@@ -802,7 +801,7 @@ class _licensesFormState extends State<licensesForm> {
                 for(var a in snapshot.data!){
                   if(a.name == newValue){
                     selectedCountry = a.name;
-                    // selectedCountry = dropDownList[0].value!;
+                   // selectedCountry = dropDownList[0].value!;
                     countryId = a.countryId;
                     print("country :: ${selectedCountry}");
                     print("country :: ${countryId}");
