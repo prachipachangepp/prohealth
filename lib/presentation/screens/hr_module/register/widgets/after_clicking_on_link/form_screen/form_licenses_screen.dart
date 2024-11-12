@@ -238,7 +238,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
         Padding(
-          padding: const EdgeInsets.only(left: 150),
+          padding: const EdgeInsets.only(left: 160),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

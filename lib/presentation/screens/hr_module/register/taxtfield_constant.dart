@@ -326,6 +326,7 @@ class CustomTextFieldRegister extends StatelessWidget {
   final double? cursorHeight;
   final int? maxLength;
   final bool capitalIsSelect;
+  final bool readOnly;
   final bool? phoneNumberField;
 
   CustomTextFieldRegister({
@@ -355,6 +356,7 @@ class CustomTextFieldRegister extends StatelessWidget {
     this.height,
     this.cursorHeight,
     this.onTap,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -413,6 +415,7 @@ class CustomTextFieldRegister extends StatelessWidget {
           onChanged: onChanged,
           validator: validator,
           focusNode: focusNode,
+          readOnly: readOnly,
           onFieldSubmitted: onFieldSubmitted,
           inputFormatters: capitalIsSelect ? [
             //CapitalizeFirstLetterFormatter()

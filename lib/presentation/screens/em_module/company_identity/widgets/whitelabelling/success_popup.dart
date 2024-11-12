@@ -139,7 +139,7 @@ class _EditSuccessPopupState extends State<EditSuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -218,7 +218,7 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -303,7 +303,7 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -387,7 +387,7 @@ class _CountySuccessPopupState extends State<CountySuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -478,7 +478,7 @@ class _offerSuccessPopupState extends State<offerSuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -569,7 +569,7 @@ class _AddFailePopupState extends State<AddFailePopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
