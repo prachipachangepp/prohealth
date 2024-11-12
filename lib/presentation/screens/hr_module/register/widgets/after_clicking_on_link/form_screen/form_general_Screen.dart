@@ -67,6 +67,7 @@ class _generalFormState extends State<generalForm> {
   // Current step in the stepper
   int _currentStep = 0;
   bool isChecked = false;
+  bool isDobSelected = false;
   String? specialityName;
   String? clinicialName;
   bool get isFirstStep => _currentStep == 0;
@@ -107,7 +108,24 @@ class _generalFormState extends State<generalForm> {
       var data = onlinkGeneralData; // Assuming index matches the data list
       setState(() {
         print("Inside function");
-       dobcontroller.text = data.dateOfBirth ?? '';
+
+        // If isDobSelected is false and the dateOfBirth is today's date, leave it empty
+        if (!isDobSelected && data.dateOfBirth != null) {
+          DateTime apiDob = DateTime.parse(data.dateOfBirth!); // Assuming data.dateOfBirth is a string
+          DateTime today = DateTime.now();
+
+          // Compare API's dateOfBirth with today's date
+          if (apiDob.year == today.year && apiDob.month == today.month && apiDob.day == today.day) {
+            // Do not populate DOB if the date is today's date
+            dobcontroller.text = '';  // Keep it empty
+          } else {
+            dobcontroller.text = data.dateOfBirth!;  // Otherwise, populate the date
+          }
+        }
+        // if (!isDobSelected && data.dateOfBirth != null && data.dateOfBirth.isNotEmpty) {
+        //   dobcontroller.text = data.dateOfBirth;  // Prefill with the formatted date
+        // }
+        //dobcontroller.text = data.dateOfBirth;
         firstname.text = data.firstName ?? '';
         lastname.text = data.lastName ?? '';
         ssecuritynumber.text = data.SSNNbr ?? '';
@@ -365,7 +383,7 @@ class _generalFormState extends State<generalForm> {
                                 : fileName != null
                                 ? Padding(
                               padding:
-                              const EdgeInsets.all(8.0),
+                              const EdgeInsets.only(top: 5),
                               child: Text(
                                   'File picked: $fileName',
                                   style: onlyFormDataStyle.customTextStyle(context)
@@ -609,6 +627,7 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+                        readOnly: true,
                         controller: dobcontroller,
                         hintText: 'yyyy-mm-dd',
                         hintStyle: onlyFormDataStyle.customTextStyle(context),
@@ -629,6 +648,7 @@ class _generalFormState extends State<generalForm> {
                             if (pickedDate != null) {
                               dobcontroller.text =
                               "${pickedDate.toLocal()}".split(' ')[0];
+                           isDobSelected = true;
                             }
                           },
                         ),

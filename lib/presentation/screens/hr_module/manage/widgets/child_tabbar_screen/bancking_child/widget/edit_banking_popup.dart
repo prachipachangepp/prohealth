@@ -182,7 +182,8 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
 
 
                         Text(
-                          widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+                          // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+                         'Bank',
                           style:TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w600,
@@ -733,7 +734,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+         // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+         'Bank',
           style:TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.w600,
