@@ -146,10 +146,10 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                           ),
                         );
                       }
-                      inventoryName = snapshot.data![0].name;
-                      inventoryId = snapshot.data![0].inventoryId;
-                      print('Inventory name ${inventoryName}');
-                      print('Inventory Id ${inventoryId}');
+                      //inventoryName = snapshot.data![0].name;
+                      // inventoryId = snapshot.data![0].inventoryId;
+                      // print('Inventory name abcd ${inventoryName}');
+                      //  print('Inventory Id abcd ${inventoryId}');
                       return CICCDropdown(
                           initialValue: dropDownMenuItems[0].value,
                           onChange: (val) {
@@ -221,7 +221,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                         hoverColor: ColorManager.mediumgrey,
                         hintText: 'yyyy-mm-dd',
                         hintStyle:
-                            DocumentTypeDataStyle.customTextStyle(context),
+                        DocumentTypeDataStyle.customTextStyle(context),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(
@@ -256,7 +256,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                         );
                         if (date != null) {
                           String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(date);
+                          DateFormat('yyyy-MM-dd').format(date);
                           calenderController.text = formattedDate;
                           field.didChange(formattedDate);
                           // birthdayController.text =
@@ -286,54 +286,56 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
       bottomButtons: Center(
         child: isLoading
             ? SizedBox(
-                height: AppSize.s25,
-                width: AppSize.s25,
-                child: CircularProgressIndicator(
-                  color: ColorManager.blueprime,
-                ))
+            height: AppSize.s25,
+            width: AppSize.s25,
+            child: CircularProgressIndicator(
+              color: ColorManager.blueprime,
+            ))
             : CustomElevatedButton(
-                width: AppSize.s150,
-                height: AppSize.s30,
-                text: 'Add',
-                onPressed: () async {
-                  _validateForm();
-                  if (_isFormValid) {
-                    setState(() {
-                      isLoading = true;
-                    });
-                    var response = await addEquipment(
-                      context,
-                      inventoryId,
-                      calenderController.text,
-                      widget.employeeId,
-                      inventoryName,
-                      idController.text,
-                      // typeName,
-                      nameController.text,
-                    );
-                    if (response.statusCode == 200 || response.statusCode == 201) {
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddSuccessPopup(message: 'Equipment Added Successfully');
-                        },
-                      );
-                    }
-                    print("::${idController.text}");
-                    print("::${typeName}");
-                    print("::${calenderController.text}");
-                    print("::${nameController.text}");
-                    setState(() {
-                      isLoading = false;
-                    });
-                    inventoryId = 0;
-                    inventoryName = '';
-                    nameController.clear();
-                    idController.clear();
-                    calenderController.clear();
-                  }
-                }),
+            width: AppSize.s150,
+            height: AppSize.s30,
+            text: 'Add',
+            onPressed: () async {
+              _validateForm();
+              if (_isFormValid) {
+                setState(() {
+                  isLoading = true;
+                });
+                var response = await addEquipment(
+                  context,
+                  inventoryId,
+                  calenderController.text,
+                  widget.employeeId,
+                  inventoryName,
+                  idController.text,
+                  // typeName,
+                  nameController.text,
+                );
+                if (response.statusCode == 200 || response.statusCode == 201) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddSuccessPopup(message: 'Equipment Added Successfully');
+                    },
+                  );
+                }
+                print("::${idController.text}");
+                print("::${typeName}");
+                print("::${calenderController.text}");
+                print("::${nameController.text}");
+                print('Inventory name abcd ${inventoryName}');
+                print('Inventory Id abcd ${inventoryId}');
+                setState(() {
+                  isLoading = false;
+                });
+                inventoryId = 0;
+                inventoryName = '';
+                nameController.clear();
+                idController.clear();
+                calenderController.clear();
+              }
+            }),
       ),
     );
   }

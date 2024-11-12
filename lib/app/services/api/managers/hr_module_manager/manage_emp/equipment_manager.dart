@@ -26,21 +26,21 @@ Future<List<EquipmentData>> getEquipement(
   List<EquipmentData> itemsData = [];
   try {
     final response =
-        await Api(context).get(path: ManageReposotory.getEquipement(employeeId: employeeId));
+    await Api(context).get(path: ManageReposotory.getEquipement(employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         String assignedFormattedDate =
-            convertIsoToDayMonthYear(item['assignedDate']);
+        convertIsoToDayMonthYear(item['assignedDate']);
         itemsData.add(
             EquipmentData(
-            empInventoryId: item['employeeInventoryId']??0,
-            inventoryId: item['inventoryId']??0,
-            assignedDate: assignedFormattedDate,
-            employeeId: item['employeeId'],
-            givenId: item['givenId'],
-            inventoryTypeId: item['inventoryTypeId']??0,
-            name: item['name'],
-            createdAt: item['createdAt'] ?? "--"));
+                empInventoryId: item['employeeInventoryId']??0,
+                inventoryId: item['inventoryId']??0,
+                assignedDate: assignedFormattedDate,
+                employeeId: item['employeeId'],
+                givenId: item['givenId'],
+                inventoryTypeId: item['inventoryTypeId']??0,
+                name: item['name'],
+                createdAt: item['createdAt'] ?? "--"));
         itemsData.sort((a, b) => a.empInventoryId.compareTo(b.empInventoryId));
       }
     } else {
@@ -98,20 +98,20 @@ Future<EquipmentPrefillData> getPrefillEquipement(
   var itemsData;
   try {
     final response =
-        await Api(context).get(path: ManageReposotory.getEquipement(employeeId: employeeId));
+    await Api(context).get(path: ManageReposotory.getEquipement(employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
-        String assignedFormattedDate =
-            convertIsoToDayMonthYear(response.data['assignedDate']);
-        itemsData =
-            EquipmentPrefillData(
-            empInventoryId: response.data['employeeInventoryId'],
-            inventoryId: response.data['inventoryId'],
-            assignedDate: assignedFormattedDate,
-            employeeId: response.data['employeeId'],
-            givenId: response.data['givenId'],
-            inventoryTypeId: response.data['inventoryTypeId'],
-            name: response.data['name'],
-            createdAt: response.data['createdAt'] ?? "--");
+      String assignedFormattedDate =
+      convertIsoToDayMonthYear(response.data['assignedDate']);
+      itemsData =
+          EquipmentPrefillData(
+              empInventoryId: response.data['employeeInventoryId'],
+              inventoryId: response.data['inventoryId'],
+              assignedDate: assignedFormattedDate,
+              employeeId: response.data['employeeId'],
+              givenId: response.data['givenId'],
+              inventoryTypeId: response.data['inventoryTypeId'],
+              name: response.data['name'],
+              createdAt: response.data['createdAt'] ?? "--");
 
     } else {
       print("Equipment prefill");
@@ -129,7 +129,7 @@ Future<ApiData> addEquipment(BuildContext context,
     ) async {
   try {
     var response = await Api(context).post(path: ManageReposotory.addEquipement(), data: {
-      "inventoryId": "",
+      "inventoryId": inventoryId,
       "assignedDate": "${assignedDate}T00:00:00Z",
       "employeeId": empId,
       "givenId": givenId,
