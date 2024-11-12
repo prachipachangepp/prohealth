@@ -303,11 +303,11 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                     });
                     var response = await addEquipment(
                       context,
-                      int.parse(idController.text),
+                      inventoryId,
                       calenderController.text,
                       widget.employeeId,
                       inventoryName,
-                      inventoryId,
+                      idController.text,
                       // typeName,
                       nameController.text,
                     );

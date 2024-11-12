@@ -186,3 +186,18 @@ class ServicesMetaData {
         required this.serviceMetaDataId,
         });
 }
+
+/// Get prefill service data
+class ServicePreFillData{
+  final int officeServiceId;
+  final int companyId;
+  final String officeId;
+  final String serviceName;
+  final String serviceId;
+  final String npiNumber;
+  final String medicareId;
+  final String hcoNumber;
+  final int serviceCompanySetupId;
+  ServicePreFillData({required this.officeServiceId, required this.companyId, required this.officeId, required this.serviceName,
+  required this.serviceId, required this.npiNumber, required this.medicareId, required this.hcoNumber, required this.serviceCompanySetupId});
+}
