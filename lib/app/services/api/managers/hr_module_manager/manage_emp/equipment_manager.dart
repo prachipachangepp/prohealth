@@ -125,11 +125,11 @@ Future<EquipmentPrefillData> getPrefillEquipement(
 
 /// add equipment
 Future<ApiData> addEquipment(BuildContext context,
-    int inventoryId,String assignedDate,int empId,String givenId,int inventoryTypeId,String name,
+    int inventoryId,String assignedDate,int empId,String givenId,String inventoryTypeId,String name,
     ) async {
   try {
     var response = await Api(context).post(path: ManageReposotory.addEquipement(), data: {
-      "inventoryId": inventoryId,
+      "inventoryId": "",
       "assignedDate": "${assignedDate}T00:00:00Z",
       "employeeId": empId,
       "givenId": givenId,

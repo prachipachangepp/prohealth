@@ -411,6 +411,45 @@ Future<List<ServicesData>> getAllServicesData(
   }
 }
 
+/// get prefill service
+Future<ServicePreFillData> getAllServicesPrefillData({
+  required BuildContext context,
+  required int officeServiceId
+}
+    ) async {
+  var itemsList;
+  try {
+    final companyID = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.companyOfficeServiceGetByCompanyIdPreFill(
+            companyId: companyID, officeServiceId: officeServiceId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("Prefill service fetched");
+        itemsList =
+            ServicePreFillData(
+              officeServiceId: response.data['Office_service_id']??0,
+              companyId: response.data['company_id']??1,
+              officeId: response.data['office_id']??"",
+              serviceName: response.data['service_name']??"",
+              serviceId: response.data['service_id']??"",
+              npiNumber: response.data['npi_number']??"",
+              medicareId: response.data['medicare_provider_id']??"",
+              hcoNumber: response.data['hco_num_id']??"", serviceCompanySetupId: response.data['ServiceCompanySetupId']??0 ,
+              );
+      // print("Org Document response:::::${itemsList}");
+    } else {
+      print('Service prefill Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
 
 /// Get services meta data
 Future<List<ServicesMetaData>> getServicesMetaData(

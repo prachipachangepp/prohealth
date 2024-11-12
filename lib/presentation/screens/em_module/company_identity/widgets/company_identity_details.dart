@@ -50,6 +50,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   TextEditingController secFaxController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController hcoNumController = TextEditingController();
+  TextEditingController hcoNumControllerPrefill = TextEditingController();
   TextEditingController medicareController = TextEditingController();
   TextEditingController npiNumController = TextEditingController();
   TextEditingController stateNameController = TextEditingController();
@@ -288,61 +289,71 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                           context: context,
                                                           builder: (BuildContext
                                                               context) {
-                                                            return DialogueTemplate(
-                                                              width: AppSize.s420,
-                                                              height: 250,
-                                                              body: [
-                                                                FirstSMTextFConst(
-                                                                  controller:
-                                                                      hcoNumController,
-                                                                  keyboardType:
-                                                                      TextInputType
-                                                                          .text,
-                                                                  text:
-                                                                      'HCO Number',
-                                                                ),
-                                                              ],
-                                                              bottomButtons: CustomElevatedButton(
-                                                                      width: AppSize
-                                                                          .s105,
-                                                                      height:
-                                                                          AppSize
-                                                                              .s30,
-                                                                      text: AppStringEM
-                                                                          .save, //submit
-                                                                      onPressed:
-                                                                          () async {
-                                                                        await updateServices(
-                                                                            serviceDetail
-                                                                                .officeServiceId,
-                                                                            widget
-                                                                                .officeId,
-                                                                            serviceDetail
-                                                                                .serviceName,
-                                                                            serviceDetail
-                                                                                .serviceId,
-                                                                            serviceDetail
-                                                                                .npiNum,
-                                                                            serviceDetail
-                                                                                .medicareNum,
-                                                                            hcoNumController
-                                                                                .text);
-                                                                        hcoNumController
-                                                                            .clear();
-                                                                        Navigator.pop(
-                                                                            context);
-                                                                        showDialog(
-                                                                          context: context,
-                                                                          builder: (BuildContext context) {
-                                                                            return AddSuccessPopup(
-                                                                              message: 'Service edited successfully.',
+                                                            return FutureBuilder<ServicePreFillData>(
+                                                              future:getAllServicesPrefillData(context: context, officeServiceId: serviceDetail.officeServiceId,),
+                                                              builder: (context, snapshot) {
+                                                                if(snapshot.connectionState == ConnectionState.waiting){
+                                                                  return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                                }
+                                                                var hcoNumber = snapshot.data!.hcoNumber;
+                                                                hcoNumControllerPrefill = TextEditingController(text: snapshot.data!.hcoNumber);
+                                                                return DialogueTemplate(
+                                                                  width: AppSize.s420,
+                                                                  height: 250,
+                                                                  body: [
+                                                                    FirstSMTextFConst(
+                                                                      controller:
+                                                                      hcoNumControllerPrefill,
+                                                                      keyboardType:
+                                                                          TextInputType
+                                                                              .text,
+                                                                      text:
+                                                                          'HCO Number',
+                                                                    ),
+                                                                  ],
+                                                                  bottomButtons: CustomElevatedButton(
+                                                                          width: AppSize
+                                                                              .s105,
+                                                                          height:
+                                                                              AppSize
+                                                                                  .s30,
+                                                                          text: AppStringEM
+                                                                              .save, //submit
+                                                                          onPressed:
+                                                                              () async {
+                                                                            await updateServices(
+                                                                                serviceDetail
+                                                                                    .officeServiceId,
+                                                                                widget
+                                                                                    .officeId,
+                                                                                serviceDetail
+                                                                                    .serviceName,
+                                                                                serviceDetail
+                                                                                    .serviceId,
+                                                                                serviceDetail
+                                                                                    .npiNum,
+                                                                                serviceDetail
+                                                                                    .medicareNum,
+                                                                               hcoNumber == hcoNumControllerPrefill
+                                                                                    .text ? hcoNumber : hcoNumControllerPrefill.text);
+                                                                            hcoNumControllerPrefill
+                                                                                .clear();
+                                                                            Navigator.pop(
+                                                                                context);
+                                                                            showDialog(
+                                                                              context: context,
+                                                                              builder: (BuildContext context) {
+                                                                                return AddSuccessPopup(
+                                                                                  message: 'Service edited successfully.',
+                                                                                );
+                                                                              },
                                                                             );
-                                                                          },
-                                                                        );
 
-                                                                      }),
-                                                              title:
-                                                                  'Edit Service',
+                                                                          }),
+                                                                  title:
+                                                                      'Edit Service',
+                                                                );
+                                                              }
                                                             );
                                                           });
                                                     },
