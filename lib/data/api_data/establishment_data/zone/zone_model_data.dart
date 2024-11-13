@@ -211,8 +211,8 @@ class ZipCodeGetPrefill {
   final int? zoneId;
   final int? countyID;
   final int? companyID;
-  // final String zoneName;
-  // final String countyName;
+  final String zoneName;
+  final String countyName;
   final String? city;
   final String? zipcode;
   final String? latitude;
@@ -222,8 +222,8 @@ class ZipCodeGetPrefill {
 
 
   ZipCodeGetPrefill({
-    // required this.zoneName,
-    // required this.countyName,
+    required this.zoneName,
+    required this.countyName,
     required this.zipcodeSetupId,
     required this.zoneId,
     required this.countyID,

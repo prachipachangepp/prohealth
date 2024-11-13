@@ -708,13 +708,13 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                               child:
                                                                   PatientCustomDropDown(
                                                                 items: [
-                                                                  'Full-Time',
-                                                                  'Part-Time'
+                                                                  'Full Time',
+                                                                  'Part Time'
                                                                 ],
                                                                 labelText:
                                                                     'Availability',
                                                                 value:
-                                                                    'Full-Time',
+                                                                    'Full Time',
                                                                 // labelStyle: SearchDropdownConst.customTextStyle(context),
                                                                 onChanged:
                                                                     (value) {

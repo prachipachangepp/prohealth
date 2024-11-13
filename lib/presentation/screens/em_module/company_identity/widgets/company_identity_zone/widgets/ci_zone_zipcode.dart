@@ -262,8 +262,8 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     if(snapshotPrefill.connectionState == ConnectionState.waiting){
                                                       return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
                                                     }
-                                                    // var countyName = snapshotPrefill.data!.countyName;
-                                                    // var cityName = snapshotPrefill.data!.city;
+                                                    var countyName = snapshotPrefill.data!.countyName;
+                                                    var zoneName = snapshotPrefill.data!.zoneName;
                                                     var zipCode = snapshotPrefill.data!.zipcode;
                                                     // var landmark = snapshotPrefill.data!.landmark;
                                                     var zoinId = snapshotPrefill.data!.zoneId;
@@ -275,6 +275,8 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     // cityController = TextEditingController(text: snapshotPrefill.data!.city.toString());
                                                     zipcodeController = TextEditingController(text: snapshotPrefill.data!.zipcode.toString());
                                                     return EditZipCodePopup(
+                                                      zoneName:zoneName,
+                                                      countyName:countyName,
                                                       title: 'Edit Zip Code',
                                                       // countynameController: countynameController,
                                                       officeId: widget.officeId,

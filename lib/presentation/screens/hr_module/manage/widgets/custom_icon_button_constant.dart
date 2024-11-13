@@ -125,6 +125,60 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
   }
 }
 
+/// whiteLebbling back button
+class CustomeTransparentWhitelabeling extends StatefulWidget {
+  final String text;
+  VoidCallback onPressed;
+  final double? height;
+  final double? width;
+   CustomeTransparentWhitelabeling({required this.text,
+  required this.onPressed,
+  this.height,
+  this.width,super.key});
+
+  @override
+  State<CustomeTransparentWhitelabeling> createState() => _CustomeTransparentWhitelabelingState();
+}
+
+class _CustomeTransparentWhitelabelingState extends State<CustomeTransparentWhitelabeling> {
+  bool isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? CircularProgressIndicator( color: ColorManager.blueprime,)
+        :SizedBox(height: AppSize.s35,width: AppSize.s100,
+
+      child: ElevatedButton(
+        onPressed: () async{
+          setState(() {
+            isLoading = true;
+          });
+          try {
+            await widget.onPressed;
+          } finally {
+            setState(() {
+              isLoading = false;
+            });
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          backgroundColor: ColorManager.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: const BorderSide(color: Color(0xFF50B5E5)),
+          ),
+        ),
+        child: Text(
+            widget.text,
+            style: LoginFlowBase.customTextStyle(context)
+        ),
+      ),
+    );
+  }
+}
+
+
 class CustomeTransparentAddShift extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
