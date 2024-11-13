@@ -410,38 +410,46 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () async {
-                          // FilePickerResult? result = await FilePicker.platform.pickFiles(
-                          //   allowMultiple: false,
-                          // );
-                          FilePickerResult? result = await FilePicker.platform
-                              .pickFiles(
-                                  type: FileType.custom, allowedExtensions: ['pdf']);
-                          if (result != null) {
-                            print("Result::: ${result}");
+                          // FilePicker allows only one file to be selected at a time
+                          FilePickerResult? result = await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['pdf'],
+                            allowMultiple: false, // Ensure only one file is selected
+                          );
 
+                          if (result != null) {
                             try {
+                              // Get the selected file's bytes and path
                               Uint8List? bytes = result.files.first.bytes;
                               XFile xlfile = XFile(result.xFiles.first.path);
-                              xfileToFile = File(xlfile.path);
+                              xfileToFile = File(xlfile.path); // Store the file as a File object
 
                               print("::::XFile To File ${xfileToFile.toString()}");
+
+                              // Optional: You can convert bytes to XFile if needed for further processing
                               XFile xFile = await convertBytesToXFile(
-                                  bytes!, result.xFiles.first.name);
-                              _fileNames
-                                  .addAll(result.files.map((file) => file.name!));
+                                  bytes!, result.xFiles.first.name
+                              );
+
+                              // Update the file name and path in your state
+                              _fileNames.clear(); // Clear previous file name(s) to ensure only one file is listed
+                              _fileNames.add(result.files.first.name!);
+
                               print('File picked: ${_fileNames}');
-                              //print(String.fromCharCodes(file));
+
                               finalPath = result.files.first.bytes;
                               fileName = result.files.first.name;
+
+                              // Update the UI to indicate the file has been uploaded
                               setState(() {
-                                _fileNames;
-                                _documentUploaded = true;
+                                _documentUploaded = true; // Indicate the document was uploaded
                               });
                             } catch (e) {
-                              print(e);
+                              print('Error picking file: $e');
                             }
                           }
                         },
+
                         // onPressed: () async {
                         //   FilePickerResult? result =
                         //   await FilePicker.platform.pickFiles(

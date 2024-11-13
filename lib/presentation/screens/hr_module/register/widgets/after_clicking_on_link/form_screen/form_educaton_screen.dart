@@ -357,7 +357,7 @@ class _EducationFormState extends State<EducationForm> {
           city.text = data.city ?? '';
           state.text = data.state ?? '';
           graduatetype = data.graduate ?? '';
-          // selectedDegree = data.degree ?? '';
+        selectedDegree = data.degree ?? '';
           educationIndex = data.educationID ?? 0;
           docName = data.docName ?? "--";
 
@@ -623,75 +623,77 @@ class _EducationFormState extends State<EducationForm> {
       ),
     );
   }
+
   Widget buildDropdownButton(BuildContext context) {
+    // Store prefilled degree value (you can initialize it with null or fetch it dynamically)
+    // String? prefilledDegree;
+
     return FutureBuilder<List<EduactionDegree>>(
       future: getDegreeDropDown(context),
       builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 7),
             child: Container(
               height: 31,
               width: 250,
-              decoration: BoxDecoration(
-                  color: ColorManager.white),
+              decoration: BoxDecoration(color: ColorManager.white),
             ),
           );
-
         } else if (snapshot.hasError) {
-          return  CustomDropdownTextField(
-            //width: MediaQuery.of(context).size.width / 5,
-            items: ['Error'], headText: 'Degree',
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
+            items: ['Error'],
+            headText: 'Degree',
           );
         } else if (snapshot.hasData) {
           List<DropdownMenuItem<String>> dropDownList = [];
           int degreeID = 0;
-          for(var i in snapshot.data!){
+
+          // Populate the dropdown list from the fetched data
+          for (var i in snapshot.data!) {
             dropDownList.add(DropdownMenuItem<String>(
               child: Text(i.degree),
               value: i.degree,
             ));
           }
+
+          // If prefilledDegree is set, use it for the value of the dropdown
+          String initialValue = selectedDegree ?? dropDownList[0].value!;
+
           return StatefulBuilder(
             builder: (BuildContext context, void Function(void Function()) setState) {
               return Container(
                 height: 32,
-                // margin: EdgeInsets.symmetric(horizontal: 20),
-                padding:
-                const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
                       color: const Color(0xff686464).withOpacity(0.5),
                       width: 1), // Black border
-                  borderRadius:
-                  BorderRadius.circular(6), // Rounded corners
+                  borderRadius: BorderRadius.circular(6), // Rounded corners
                 ),
                 child: DropdownButtonFormField<String>(
-
-                    focusColor: Colors.transparent,
-                    icon: const Icon(
-                      Icons.arrow_drop_down_sharp,
-                      color: Color(0xff686464),
-                    ),
-                    decoration: const InputDecoration.collapsed(hintText: ''),
-                    items: dropDownList,
-                    onChanged: (newValue) {
-                      isPrefill =false;
-                      for(var a in snapshot.data!){
-                        if(a.degree == newValue){
-                          selectedDegree = a.degree;
-                          degreeID = a.degreeId;
-                          selectedDegreeId = degreeID;
-                          print("Degree :: ${selectedDegree}");
-                          //empTypeId = docType;
-                        }
+                  focusColor: Colors.transparent,
+                  icon: const Icon(
+                    Icons.arrow_drop_down_sharp,
+                    color: Color(0xff686464),
+                  ),
+                  decoration: const InputDecoration.collapsed(hintText: ''),
+                  items: dropDownList,
+                  onChanged: (newValue) {
+                    isPrefill = false;
+                    for (var a in snapshot.data!) {
+                      if (a.degree == newValue) {
+                        selectedDegree = a.degree;
+                        degreeID = a.degreeId;
+                        selectedDegreeId = degreeID;
+                        print("Degree :: ${selectedDegree}");
                       }
-                    },
-                    value: dropDownList[0].value,
-                    style: onlyFormDataStyle.customTextStyle(context)
+                    }
+                  },
+                  value: initialValue, // Use the prefilled value or the first item
+                  style: onlyFormDataStyle.customTextStyle(context),
                 ),
               );
             },
@@ -706,5 +708,94 @@ class _EducationFormState extends State<EducationForm> {
       },
     );
   }
+
+
+
+
+/////////
+  ///
+  // Widget buildDropdownButton(BuildContext context) {
+  //   return FutureBuilder<List<EduactionDegree>>(
+  //     future: getDegreeDropDown(context),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState ==
+  //           ConnectionState.waiting) {
+  //         return Padding(
+  //           padding: const EdgeInsets.symmetric(
+  //               horizontal: 7),
+  //           child: Container(
+  //             height: 31,
+  //             width: 250,
+  //             decoration: BoxDecoration(
+  //                 color: ColorManager.white),
+  //           ),
+  //         );
+  //
+  //       } else if (snapshot.hasError) {
+  //         return  CustomDropdownTextField(
+  //           //width: MediaQuery.of(context).size.width / 5,
+  //           items: ['Error'], headText: 'Degree',
+  //         );
+  //       } else if (snapshot.hasData) {
+  //         List<DropdownMenuItem<String>> dropDownList = [];
+  //         int degreeID = 0;
+  //         for(var i in snapshot.data!){
+  //           dropDownList.add(DropdownMenuItem<String>(
+  //             child: Text(i.degree),
+  //             value: i.degree,
+  //           ));
+  //         }
+  //         return StatefulBuilder(
+  //           builder: (BuildContext context, void Function(void Function()) setState) {
+  //             return Container(
+  //               height: 32,
+  //               // margin: EdgeInsets.symmetric(horizontal: 20),
+  //               padding:
+  //               const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //               decoration: BoxDecoration(
+  //                 color: Colors.white,
+  //                 border: Border.all(
+  //                     color: const Color(0xff686464).withOpacity(0.5),
+  //                     width: 1), // Black border
+  //                 borderRadius:
+  //                 BorderRadius.circular(6), // Rounded corners
+  //               ),
+  //               child: DropdownButtonFormField<String>(
+  //
+  //                   focusColor: Colors.transparent,
+  //                   icon: const Icon(
+  //                     Icons.arrow_drop_down_sharp,
+  //                     color: Color(0xff686464),
+  //                   ),
+  //                   decoration: const InputDecoration.collapsed(hintText: ''),
+  //                   items: dropDownList,
+  //                   onChanged: (newValue) {
+  //                     isPrefill =false;
+  //                     for(var a in snapshot.data!){
+  //                       if(a.degree == newValue){
+  //                         selectedDegree = a.degree;
+  //                         degreeID = a.degreeId;
+  //                         selectedDegreeId = degreeID;
+  //                         print("Degree :: ${selectedDegree}");
+  //                         //empTypeId = docType;
+  //                       }
+  //                     }
+  //                   },
+  //                   value: dropDownList[0].value,
+  //                   style: onlyFormDataStyle.customTextStyle(context)
+  //               ),
+  //             );
+  //           },
+  //         );
+  //       } else {
+  //         return CustomDropdownTextField(
+  //           // width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Zone',
+  //           items: ['No Data'],
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 }
 
