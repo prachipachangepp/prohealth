@@ -80,7 +80,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
           context: context,
           builder: (BuildContext context) {
             return AddFailePopup(
-              message: "Authentication failed! Try again",
+              message: "Incorrect OTP! Try again",
             );
           },
         );
