@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
-
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -44,8 +41,6 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
   int docTypeMetaIdCCCap = AppConfig.subDocId4CapReport;
   final StreamController<List<MCorporateComplianceModal>> _ccCapController =
       StreamController<List<MCorporateComplianceModal>>();
-  final StreamController<List<IdentityDocumentIdData>> _identityDataController =
-      StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   String? selectedValue;
   late List<Color> hrcontainerColors;
@@ -87,37 +82,18 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SizedBox(
-            height: AppSize.s5,
-          ),
+          SizedBox(height: AppSize.s5),
           Expanded(
             child: StreamBuilder<List<MCorporateComplianceModal>>(
-                // future:
-                // getListMCorporateCompliancefetch(context,
-                //     AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
-                // ),
                 stream: _ccCapController.stream,
                 builder: (context, snapshot) {
-                  getListMCorporateCompliancefetch(
-                          context,
-                          AppConfig.corporateAndCompliance,
-                      widget.officeId,
-                          AppConfig.subDocId4CapReport,
-                          1,
-                          20)
+                  getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance,
+                      widget.officeId, AppConfig.subDocId4CapReport, 1, 20)
                       .then((data) {
                     _ccCapController.add(data);
                   }).catchError((error) {
                     // Handle error
                   });
-                  // StreamBuilder<List<ManageCCDoc>>(
-                  //     stream : _ccCapController.stream,
-                  //     builder: (context, snapshot) {
-                  //       getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
-                  //         _ccCapController.add(data);
-                  //       }).catchError((error) {
-                  //         // Handle error
-                  //       });
                   print('55555555');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -137,11 +113,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                   if (snapshot.hasData) {
                     int totalItems = snapshot.data!.length;
                     int totalPages = (totalItems / itemsPerPage).ceil();
-                    List<MCorporateComplianceModal> paginatedData = snapshot
-                        .data!
-                        .skip((currentPage - 1) * itemsPerPage)
-                        .take(itemsPerPage)
-                        .toList();
+                    List<MCorporateComplianceModal> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
 
                     return Column(
                       children: [
@@ -150,13 +122,9 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                               scrollDirection: Axis.vertical,
                               itemCount: paginatedData.length,
                               itemBuilder: (context, index) {
-                                int serialNumber = index +
-                                    1 +
-                                    (currentPage - 1) * itemsPerPage;
-                                String formattedSerialNumber =
-                                    serialNumber.toString().padLeft(2, '0');
-                                MCorporateComplianceModal CapReports =
-                                    paginatedData[index];
+                                int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                                MCorporateComplianceModal CapReports = paginatedData[index];
                                 var ccCapReport = snapshot.data![index];
                                 var fileUrl = ccCapReport.docurl;
                                 final fileExtension = fileUrl.split('/').last;
@@ -164,18 +132,15 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // SizedBox(height: 5),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(4),
+                                            borderRadius: BorderRadius.circular(4),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Color(0xff000000)
-                                                    .withOpacity(0.25),
+                                                color: Color(0xff000000).withOpacity(0.25),
                                                 spreadRadius: 0,
                                                 blurRadius: 4,
                                                 offset: Offset(0, 2),
@@ -187,9 +152,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 15),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
@@ -205,23 +168,16 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
                                                     SizedBox(width: AppSize.s10),
                                                     Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Text(
                                                           "ID : ${CapReports.idOfDocument}",
-                                                          //CapReports.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
-                                                          CapReports.fileName
-                                                              .toString(),
-                                                          textAlign:
-                                                              TextAlign.center,
+                                                          CapReports.fileName.toString(),
+                                                          textAlign: TextAlign.center,
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                       ],
@@ -229,43 +185,30 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-
                                                     IconButton(
                                                       onPressed: () {
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) =>
-                                                              ManageHistoryPopup(
-                                                            docHistory:
-                                                                CapReports
-                                                                    .docHistory,
+                                                              ManageHistoryPopup(docHistory: CapReports.docHistory,
                                                           ),
                                                         );
                                                       },
                                                       icon: Icon(
                                                         Icons.history,
                                                         size: IconSize.I18,
-                                                        color: IconColorManager
-                                                            .bluebottom,
+                                                        color: IconColorManager.bluebottom,
                                                       ),
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
                                                     ///print
                                                     IconButton(
                                                       onPressed: () {
                                                         print("FileExtension:${fileExtension}");
-                                                        // DowloadFile()
-                                                        //     .downloadPdfFromBase64(
-                                                        //     fileExtension,
-                                                        //     "DME.pdf");
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(
@@ -286,88 +229,47 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
 
                                                     IconButton(
                                                       onPressed: () {
-                                                        String?
-                                                            selectedExpiryType =
-                                                            expiryType;
+                                                        String? selectedExpiryType = expiryType;
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) {
                                                             return FutureBuilder<
                                                                 MCorporateCompliancePreFillModal>(
                                                               future: getPrefillNewOrgOfficeDocument(
-                                                                  context,
-                                                                  CapReports
-                                                                      .orgOfficeDocumentId),
+                                                                  context, CapReports.orgOfficeDocumentId),
                                                               builder: (context,
                                                                   snapshotPrefill) {
-                                                                if (snapshotPrefill
-                                                                        .connectionState ==
-                                                                    ConnectionState
-                                                                        .waiting) {
+                                                                if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                                   return Center(
-                                                                    child:
-                                                                        CircularProgressIndicator(
-                                                                      color: ColorManager
-                                                                          .blueprime,
+                                                                    child: CircularProgressIndicator(
+                                                                      color: ColorManager.blueprime,
                                                                     ),
                                                                   );
                                                                 }
 
-                                                                var calender =
-                                                                    snapshotPrefill
-                                                                        .data!
-                                                                        .expiry_date;
-                                                                calenderController =
-                                                                    TextEditingController(
-                                                                  text: snapshotPrefill
-                                                                      .data!
-                                                                      .expiry_date,
-                                                                );
-
-                                                                // fileName = snapshotPrefill.data!.url;
-
                                                                 return StatefulBuilder(
-                                                                  builder: (BuildContext
-                                                                          context,
-                                                                      void Function(
-                                                                              void Function())
+                                                                  builder: (BuildContext context,
+                                                                      void Function(void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
-                                                                      fileName: snapshotPrefill
-                                                                          .data!
-                                                                          .fileName,
-                                                                      url: snapshotPrefill
-                                                                          .data!
-                                                                          .url,
-                                                                      expiryDate: snapshotPrefill
-                                                                          .data!
-                                                                          .expiry_date,
-                                                                      title:
-                                                                      EditPopupString.editCap,
-                                                                      loadingDuration:
-                                                                          _isLoading,
-                                                                      officeId:
-                                                                          widget
-                                                                              .officeId,
-                                                                      docTypeMetaIdCC:
-                                                                          widget
-                                                                              .docId,
-                                                                      selectedSubDocId:
-                                                                          widget
-                                                                              .subDocId,
-                                                                      //orgDocId: manageCCADR.orgOfficeDocumentId,
-                                                                      orgDocId: snapshotPrefill
-                                                                          .data!
-                                                                          .orgOfficeDocumentId,
-                                                                      orgDocumentSetupid: snapshotPrefill
-                                                                          .data!
-                                                                          .documentSetupId,
-                                                                      docName: snapshotPrefill
-                                                                          .data!
-                                                                          .docName,
-                                                                      selectedExpiryType: snapshotPrefill
-                                                                          .data!
-                                                                          .expType,
+                                                                      fileName: snapshotPrefill.data!.fileName,
+                                                                      url: snapshotPrefill.data!.url,
+                                                                      expiryDate: snapshotPrefill.data!.expiry_date,
+                                                                      title: EditPopupString.editCap,
+                                                                      loadingDuration: _isLoading,
+                                                                      officeId: widget.officeId,
+                                                                      docTypeMetaIdCC: widget.docId,
+                                                                      selectedSubDocId: widget.subDocId,
+                                                                      orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
+                                                                      orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                                      docName: snapshotPrefill.data!.docName,
+                                                                      selectedExpiryType: snapshotPrefill.data!.expType,
+                                                                      documentType: AppStringEM.corporateAndComplianceDocuments,
+                                                                      documentSubType: AppStringEM.capReport,
+                                                                      isOthersDocs: snapshotPrefill.data!.isOthersDocs,
+                                                                      idOfDoc: snapshotPrefill.data!.idOfDocument,
+                                                                      expiryType: snapshotPrefill.data!.expType,
+                                                                      threshhold: snapshotPrefill.data!.threshould,
                                                                     );
                                                                   },
                                                                 );
@@ -378,50 +280,35 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                       },
                                                       icon:  Icon(Icons.edit_outlined,
                                                         size:IconSize.I18,color: IconColorManager.bluebottom,),
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
 
                                                     IconButton(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,
                                                               builder: (context) =>
                                                                   StatefulBuilder(
-                                                                    builder: (BuildContext
-                                                                            context,
-                                                                        void Function(void Function())
-                                                                            setState) {
+                                                                    builder: (BuildContext context,
+                                                                        void Function(void Function()) setState) {
                                                                       return DeletePopup(
-                                                                          title:
-                                                                          DeletePopupString.deleteCap ,
-                                                                          loadingDuration:
-                                                                              _isLoading,
-                                                                          onCancel:
-                                                                              () {
+                                                                          title: DeletePopupString.deleteCap ,
+                                                                          loadingDuration: _isLoading,
+                                                                          onCancel: () {
                                                                             Navigator.pop(context);
                                                                           },
-                                                                          onDelete:
-                                                                              () async {
+                                                                          onDelete: () async {
                                                                             setState(() {
                                                                               _isLoading = true;
                                                                             });
                                                                             try {
-                                                                              await deleteOrgDoc(
-                                                                                context: context,
-                                                                                orgDocId: CapReports.orgOfficeDocumentId,
+                                                                              await deleteOrgDoc(context: context, orgDocId: CapReports.orgOfficeDocumentId,
                                                                               );
-                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
                                                                                 await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId4CapReport, 1, 20).then((data) {
                                                                                   _ccCapController.add(data);
@@ -479,37 +366,8 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                   return Offstage();
                 }),
           ),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          // PaginationControlsWidget(
-          //   currentPage: currentPage,
-          //   items: items,
-          //   itemsPerPage: itemsPerPage,
-          //   onPreviousPagePressed: () {
-          //     /// Handle previous page button press
-          //     setState(() {
-          //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-          //     });
-          //   },
-          //   onPageNumberPressed: (pageNumber) {
-          //     /// Handle page number tap
-          //     setState(() {
-          //       currentPage = pageNumber;
-          //     });
-          //   },
-          //   onNextPagePressed: () {
-          //     /// Handle next page button press
-          //     setState(() {
-          //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
-          //           ? currentPage + 1
-          //           : (items.length / itemsPerPage).ceil();
-          //     });
-          //   },
-          // ),
         ],
       ),
     );
   }
 }
-

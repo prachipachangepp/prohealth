@@ -476,9 +476,11 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
     nameDocController.text = widget.docName;
     if (widget.expiryType == AppConfig.scheduled) {
       selectedExpiryType = AppConfig.scheduled;
-    } else if (widget.expiryType == AppConfig.notApplicable) {
+    }
+    else if (widget.expiryType == AppConfig.notApplicable) {
       selectedExpiryType = AppConfig.notApplicable;
-    } else if (widget.expiryType == AppConfig.issuer) {
+    }
+    else if (widget.expiryType == AppConfig.issuer) {
       selectedExpiryType = AppConfig.issuer;
     }
 

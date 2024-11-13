@@ -305,8 +305,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                       decoration: BoxDecoration(
                         color: _getStatusColor(displayStatus),
                         borderRadius: BorderRadius.only(
-                            topRight:
-                            Radius.circular(20)),),
+                            topRight: Radius.circular(20)),),
                       child: Center(
                         child: Text(
                             displayStatus,

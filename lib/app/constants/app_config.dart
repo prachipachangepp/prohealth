@@ -62,6 +62,7 @@ class AppConfig {
   static const String year = "Year";
   static const String month = "Month";
   static const String misc = "MISC";
+  static const String other = "Other";
 }
 
 

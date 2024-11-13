@@ -331,8 +331,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                           height: 121,
                                           child: Stack(
                                               children: [
-                                                snapshot.data![index].isHeadOffice
-                                                    ?Positioned(
+                                                snapshot.data![index].isHeadOffice == true
+                                                    ? Positioned(
                                                   right:0,
                                                   top:0,
                                                   child: Container(

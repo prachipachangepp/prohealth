@@ -928,7 +928,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                           expiryType: selectedExpiryType.toString(),
                           threshold: threshold,
                           expiryDate: expiryDate,
-                          expiryReminder: selectedRadio.toString(),
+                          expiryReminder: selectedExpiryType.toString(),
                           idOfDoc: idDocController.text,
                           docCreated: DateTime.now().toIso8601String() + "Z",
                           fileName: fileName,
