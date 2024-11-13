@@ -533,7 +533,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               controller: _pageController,
               children: [
                 Container(
-                  child: WhitelabellingScreen(officeId: selectedOfficeID, onPressedCancel: (bool ) {  },),
+                  child: WhitelabellingScreen(officeId: selectedOfficeID, onPressedCancel: (val ) {  },),
                 ),
               ],
             ),

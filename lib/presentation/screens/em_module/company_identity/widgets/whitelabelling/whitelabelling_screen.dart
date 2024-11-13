@@ -24,7 +24,7 @@ import '../../../../hr_module/register/confirmation_constant.dart';
 import '../../../widgets/button_constant.dart';
 import '../../../widgets/dialogue_template.dart';
 import '../../../widgets/text_form_field_const.dart';
-typedef BackButtonCallBack = Function(bool val);
+typedef BackButtonCallBack = void Function(bool val);
 class WhitelabellingScreen extends StatefulWidget {
   final String officeId;
   final BackButtonCallBack onPressedCancel;
@@ -194,8 +194,8 @@ void fetchData()async{
                       ),
                     ),
                   ),
-                  Row(
-                    children: [
+                  // Row(
+                  //   children: [
                       Container(
                         height: 30,
                         width: 90,
@@ -232,32 +232,32 @@ void fetchData()async{
                           },
                         ),
                       ),
-                      SizedBox(width: 10,),
-                      Container(
-                          height: 30,
-                          width: 90,
-                          child: ElevatedButton(
-                            onPressed: widget.onPressedCancel(true),
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                              backgroundColor: ColorManager.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                side: const BorderSide(color: Color(0xFF50B5E5)),
-                              ),
-                            ),
-                            child: Text(
-                                'Cancel',
-                                style: LoginFlowBase.customTextStyle(context)
-                            ),
-                          ),
-                          // CustomeTransparentWhitelabeling(text: , onPressed: () {
-                          //
-                          //
-                          // },)
-                      )
-                    ],
-                  ),
+                      // SizedBox(width: 10,),
+                      // Container(
+                      //     height: 30,
+                      //     width: 90,
+                      //     child: ElevatedButton(
+                      //       onPressed: (){widget.onPressedCancel(true);},
+                      //       style: ElevatedButton.styleFrom(
+                      //         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      //         backgroundColor: ColorManager.white,
+                      //         shape: RoundedRectangleBorder(
+                      //           borderRadius: BorderRadius.circular(12),
+                      //           side: const BorderSide(color: Color(0xFF50B5E5)),
+                      //         ),
+                      //       ),
+                      //       child: Text(
+                      //           'Cancel',
+                      //           style: LoginFlowBase.customTextStyle(context)
+                      //       ),
+                      //     ),
+                      //     // CustomeTransparentWhitelabeling(text: , onPressed: () {
+                      //     //
+                      //     //
+                      //     // },)
+                      // )
+                  //   ],
+                  // ),
 
                   SizedBox(width: MediaQuery.of(context).size.width / 50),
                   FutureBuilder(
