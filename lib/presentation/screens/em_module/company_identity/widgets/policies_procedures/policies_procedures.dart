@@ -128,6 +128,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         docTypeMetaIdCC: docTypeMetaIdPP,
                                         selectedSubDocId: selectedSubDocId,
                                         dataList: snapshot.data!,
+                                        docTypeText: AppStringEM.policiesAndProcedures,
+                                        subDocTypeText: '',
                                       );
                                     } else {
                                       return ErrorPopUp(
@@ -246,7 +248,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                 ),
                                               ],
                                             ),
-                                            height: 50,
+                                            height: AppSize.s50,
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -268,9 +270,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         "ID : ${policiesdata.idOfDocument}",
                                                         style:  DocumentTypeDataStyle.customTextStyle(context),
                                                       ),
-                                                      SizedBox(
-                                                        height: AppSize.s5,
-                                                      ),
+
                                                       Text(
                                                         policiesdata.fileName.toString(),
                                                         textAlign:
@@ -418,6 +418,12 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                         orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
                                                                         docName: snapshotPrefill.data!.docName,
                                                                         selectedExpiryType: snapshotPrefill.data!.expType,
+                                                                        documentType: AppStringEM.policiesAndProcedures,
+                                                                        documentSubType: '',
+                                                                        isOthersDocs: snapshotPrefill.data!.isOthersDocs,
+                                                                        idOfDoc: snapshotPrefill.data!.idOfDocument,
+                                                                        expiryType: snapshotPrefill.data!.expType,
+                                                                        threshhold: snapshotPrefill.data!.threshould,
                                                                       );
                                                                     },
                                                                   );

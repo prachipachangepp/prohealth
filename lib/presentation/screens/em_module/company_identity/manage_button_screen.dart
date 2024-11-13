@@ -150,7 +150,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 50,),
                 Container(
-                  width: MediaQuery.of(context).size.width / 1.17,
+                  width: MediaQuery.of(context).size.width / 1.1491,
                   height: AppSize.s30,
                   decoration: BoxDecoration(
                       boxShadow: [
@@ -208,7 +208,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                       InkWell(
                         child: Container(
                           height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 6,
+                          width: MediaQuery.of(context).size.width / 5.5,
                           padding: EdgeInsets.symmetric(vertical: 6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),

@@ -183,7 +183,7 @@ class _CiMdState extends State<CiMd> {
                                               ),
                                             ],
                                           ),
-                                          height: 50,
+                                          height: AppSize.s50,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 15),
@@ -333,41 +333,25 @@ class _CiMdState extends State<CiMd> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
-                                                                      fileName: snapshotPrefill
-                                                                          .data!
-                                                                          .fileName,
-                                                                      url: snapshotPrefill
-                                                                          .data!
-                                                                          .url,
-                                                                      expiryDate: snapshotPrefill
-                                                                          .data!
-                                                                          .expiry_date,
-                                                                      title:
-                                                                      EditPopupString.editMD,
-                                                                      loadingDuration:
-                                                                          _isLoading,
-                                                                      officeId:
-                                                                          widget
-                                                                              .officeId,
-                                                                      docTypeMetaIdCC:
-                                                                          widget
-                                                                              .docId,
-                                                                      selectedSubDocId:
-                                                                          widget
-                                                                              .subDocId,
+                                                                      fileName: snapshotPrefill.data!.fileName,
+                                                                      url: snapshotPrefill.data!.url,
+                                                                      expiryDate: snapshotPrefill.data!.expiry_date,
+                                                                      title: EditPopupString.editMD,
+                                                                      loadingDuration: _isLoading,
+                                                                      officeId: widget.officeId,
+                                                                      docTypeMetaIdCC: widget.docId,
+                                                                      selectedSubDocId: widget.subDocId,
                                                                       //orgDocId: manageCCADR.orgOfficeDocumentId,
-                                                                      orgDocId: snapshotPrefill
-                                                                          .data!
-                                                                          .orgOfficeDocumentId,
-                                                                      orgDocumentSetupid: snapshotPrefill
-                                                                          .data!
-                                                                          .documentSetupId,
-                                                                      docName: snapshotPrefill
-                                                                          .data!
-                                                                          .docName,
-                                                                      selectedExpiryType: snapshotPrefill
-                                                                          .data!
-                                                                          .expType,
+                                                                      orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
+                                                                      orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                                      docName: snapshotPrefill.data!.docName,
+                                                                      selectedExpiryType: snapshotPrefill.data!.expType,
+                                                                      documentType: AppStringEM.vendorContracts,
+                                                                      documentSubType: AppStringEM.md,
+                                                                      isOthersDocs: snapshotPrefill.data!.isOthersDocs,
+                                                                      idOfDoc: snapshotPrefill.data!.idOfDocument,
+                                                                      expiryType: snapshotPrefill.data!.expType,
+                                                                      threshhold: snapshotPrefill.data!.threshould,
                                                                     );
                                                                   },
                                                                 );

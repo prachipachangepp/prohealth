@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
-
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -15,7 +13,6 @@ import '../../../../../../app/resources/establishment_resources/establishment_st
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
-import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -53,7 +50,6 @@ class _CICCADRState extends State<CICCADR> {
   int docSubTypeMetaId = 0;
   String? expiryType;
   bool _isLoading = false;
-
   int currentPage = 1;
   final int itemsPerPage = 10;
   final int totalPages = 5;
@@ -93,32 +89,13 @@ class _CICCADRState extends State<CICCADR> {
           ),
           Expanded(
             child: StreamBuilder<List<MCorporateComplianceModal>>(
-                // future:
-                // getListMCorporateCompliancefetch(context,
-                //     AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 20
-                // ),
                 stream: _ccAdrController.stream,
                 builder: (context, snapshot) {
-                  getListMCorporateCompliancefetch(
-                          context,
-                          AppConfig.corporateAndCompliance,
-                          widget.officeId,
-                          AppConfig.subDocId2Adr,
-                          1,
-                          20)
-                      .then((data) {
+                  getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId2Adr, 1, 20).then((data) {
                     _ccAdrController.add(data);
                   }).catchError((error) {
                     // Handle error
                   });
-                  // StreamBuilder<List<ManageCCDoc>>(
-                  //     stream : _ccAdrController.stream,
-                  //     builder: (context, snapshot) {
-                  //       getManageCorporate(context, widget.officeId, widget.docId, widget.subDocId, 1, 20).then((data) {
-                  //         _ccAdrController.add(data);
-                  //       }).catchError((error) {
-                  //         // Handle error
-                  //       });
                   print('55555555');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -138,11 +115,7 @@ class _CICCADRState extends State<CICCADR> {
                   if (snapshot.hasData) {
                     int totalItems = snapshot.data!.length;
                     int totalPages = (totalItems / itemsPerPage).ceil();
-                    List<MCorporateComplianceModal> paginatedData = snapshot
-                        .data!
-                        .skip((currentPage - 1) * itemsPerPage)
-                        .take(itemsPerPage)
-                        .toList();
+                    List<MCorporateComplianceModal> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
                     return Column(
                       children: [
                         Expanded(
@@ -150,13 +123,9 @@ class _CICCADRState extends State<CICCADR> {
                               scrollDirection: Axis.vertical,
                               itemCount: paginatedData.length,
                               itemBuilder: (context, index) {
-                                int serialNumber = index +
-                                    1 +
-                                    (currentPage - 1) * itemsPerPage;
-                                String formattedSerialNumber =
-                                    serialNumber.toString().padLeft(2, '0');
-                                MCorporateComplianceModal manageCCADR =
-                                    paginatedData[index];
+                                int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                                MCorporateComplianceModal manageCCADR = paginatedData[index];
                                 var ccADR = snapshot.data![index];
                                 var fileUrl = ccADR.docurl;
                                 final fileExtension = fileUrl.split('/').last;
@@ -169,12 +138,10 @@ class _CICCADRState extends State<CICCADR> {
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: ColorManager.white,
-                                            borderRadius:
-                                                BorderRadius.circular(4),
+                                            borderRadius: BorderRadius.circular(4),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: ColorManager.black
-                                                    .withOpacity(0.25),
+                                                color: ColorManager.black.withOpacity(0.25),
                                                 spreadRadius: 0,
                                                 blurRadius: 4,
                                                 offset: Offset(0, 2),
@@ -182,13 +149,9 @@ class _CICCADRState extends State<CICCADR> {
                                             ],
                                           ),
                                           height: AppSize.s50,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
+                                          child: Padding(padding: const EdgeInsets.symmetric(horizontal: 15),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
@@ -204,24 +167,16 @@ class _CICCADRState extends State<CICCADR> {
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
                                                     SizedBox(width: AppSize.s10),
                                                     Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Text(
                                                           "ID : ${manageCCADR.idOfDocument}",
-                                                          // manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style:  TableSubHeading.customTextStyle(context),
                                                         ),
                                                         Text(
-                                                          manageCCADR
-                                                              .fileName
-                                                              .toString(),
-                                                          textAlign:
-                                                              TextAlign.center,
+                                                          manageCCADR.fileName.toString(),
+                                                          textAlign: TextAlign.center,
                                                           style:  TableSubHeading.customTextStyle(context),
                                                         ),
                                                       ],
@@ -229,143 +184,81 @@ class _CICCADRState extends State<CICCADR> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     IconButton(
                                                       onPressed: () {
                                                         showDialog(
                                                           context: context,
-                                                          builder: (context) =>
-                                                              ManageHistoryPopup(
-                                                            docHistory:
-                                                                manageCCADR
-                                                                    .docHistory,
+                                                          builder: (context) => ManageHistoryPopup(
+                                                            docHistory: manageCCADR.docHistory,
                                                           ),
                                                         );
                                                       },
                                                       icon:  Icon(
                                                         Icons.history,
                                                         size: IconSize.I18,
-                                                        color: IconColorManager
-                                                            .bluebottom,
+                                                        color: IconColorManager.bluebottom,
                                                       ),
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
                                                     ///print
                                                     IconButton(
                                                       onPressed: () {
                                                         print("FileExtension:${fileExtension}");
-                                                        // DowloadFile()
-                                                        //     .downloadPdfFromBase64(
-                                                        //     fileExtension,
-                                                        //     "DME.pdf");
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(
-                                                        Icons
-                                                            .print_outlined,
+                                                        Icons.print_outlined,
                                                         size:IconSize.I18,color: IconColorManager.bluebottom,
                                                       ),
-                                                      splashColor:
-                                                      Colors.transparent,
-                                                      highlightColor:
-                                                      Colors.transparent,
-                                                      hoverColor:
-                                                      Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
                                                     ///download saloni
                                                     PdfDownloadButton(apiUrl: manageCCADR.docurl,
                                                         documentName: manageCCADR.docName!),
                                                     IconButton(
                                                       onPressed: () {
-                                                        String?
-                                                            selectedExpiryType =
-                                                            expiryType;
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) {
-                                                            return FutureBuilder<
-                                                                MCorporateCompliancePreFillModal>(
-                                                              future: getPrefillNewOrgOfficeDocument(
-                                                                  context,
-                                                                  manageCCADR
-                                                                      .orgOfficeDocumentId),
-                                                              builder: (context,
-                                                                  snapshotPrefill) {
-                                                                if (snapshotPrefill
-                                                                        .connectionState ==
-                                                                    ConnectionState
-                                                                        .waiting) {
+                                                            return FutureBuilder<MCorporateCompliancePreFillModal>(
+                                                              future: getPrefillNewOrgOfficeDocument(context, manageCCADR.orgOfficeDocumentId),
+                                                              builder: (context, snapshotPrefill) {
+                                                                if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                                   return Center(
-                                                                    child:
-                                                                        CircularProgressIndicator(
-                                                                      color: ColorManager
-                                                                          .blueprime,
+                                                                    child: CircularProgressIndicator(
+                                                                      color: ColorManager.blueprime,
                                                                     ),
                                                                   );
                                                                 }
-
-                                                                var calender =
-                                                                    snapshotPrefill
-                                                                        .data!
-                                                                        .expiry_date;
-                                                                calenderController =
-                                                                    TextEditingController(
-                                                                  text: snapshotPrefill
-                                                                      .data!
-                                                                      .expiry_date,
-                                                                );
-
-                                                                //fileName = snapshotPrefill.data!.url;
-
                                                                 return StatefulBuilder(
-                                                                  builder: (BuildContext
-                                                                          context,
-                                                                      void Function(
-                                                                              void Function())
+                                                                  builder: (BuildContext context,
+                                                                      void Function(void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
-                                                                      fileName: snapshotPrefill
-                                                                          .data!
-                                                                          .fileName,
-                                                                      title:
-                                                                          EditPopupString.editAdr,
-                                                                      loadingDuration:
-                                                                          _isLoading,
-                                                                      officeId:
-                                                                          widget
-                                                                              .officeId,
-                                                                      docTypeMetaIdCC:
-                                                                          widget
-                                                                              .docId,
-                                                                      selectedSubDocId:
-                                                                          widget
-                                                                              .subDocId,
-                                                                      //orgDocId: manageCCADR.orgOfficeDocumentId,
-                                                                      orgDocId: snapshotPrefill
-                                                                          .data!
-                                                                          .orgOfficeDocumentId,
-                                                                      orgDocumentSetupid: snapshotPrefill
-                                                                          .data!
-                                                                          .documentSetupId,
-                                                                      docName: snapshotPrefill
-                                                                          .data!
-                                                                          .docName,
-                                                                      selectedExpiryType: snapshotPrefill
-                                                                          .data!
-                                                                          .expType,
-                                                                      expiryDate: snapshotPrefill
-                                                                          .data!
-                                                                          .expiry_date,
-                                                                      url: snapshotPrefill
-                                                                          .data!
-                                                                          .url,
+                                                                      fileName: snapshotPrefill.data!.fileName,
+                                                                      title: EditPopupString.editAdr,
+                                                                      loadingDuration: _isLoading,
+                                                                      officeId: widget.officeId,
+                                                                      docTypeMetaIdCC: widget.docId,
+                                                                      selectedSubDocId: widget.subDocId,
+                                                                      orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
+                                                                      orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                                      docName: snapshotPrefill.data!.docName,
+                                                                      selectedExpiryType: snapshotPrefill.data!.expType,
+                                                                      expiryDate: snapshotPrefill.data!.expiry_date,
+                                                                      url: snapshotPrefill.data!.url,
+                                                                      documentType: AppStringEM.corporateAndComplianceDocuments,
+                                                                      documentSubType: AppStringEM.ard,
+                                                                      isOthersDocs: snapshotPrefill.data!.isOthersDocs,
+                                                                      idOfDoc: snapshotPrefill.data!.idOfDocument,
+                                                                      expiryType: snapshotPrefill.data!.expType,
+                                                                      threshhold: snapshotPrefill.data!.threshould,
                                                                     );
                                                                   },
                                                                 );
@@ -376,40 +269,25 @@ class _CICCADRState extends State<CICCADR> {
                                                       },
                                                       icon: Icon(Icons.edit_outlined,
                                                         size:IconSize.I18,color: IconColorManager.bluebottom,),
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
                                                     IconButton(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                         onPressed: () {
-                                                          showDialog(
-                                                              context: context,
-                                                              builder: (context) =>
-                                                                  StatefulBuilder(
-                                                                    builder: (BuildContext
-                                                                            context,
-                                                                        void Function(void Function())
-                                                                            setState) {
+                                                          showDialog(context: context,
+                                                              builder: (context) => StatefulBuilder(
+                                                                    builder: (BuildContext context, void Function(void Function())setState) {
                                                                       return DeletePopup(
-                                                                          title:
-                                                                              DeletePopupString.deleteAdr,
-                                                                          loadingDuration:
-                                                                              _isLoading,
-                                                                          onCancel:
-                                                                              () {
+                                                                          title: DeletePopupString.deleteAdr,
+                                                                          loadingDuration: _isLoading,
+                                                                          onCancel: () {
                                                                             Navigator.pop(context);
                                                                           },
-                                                                          onDelete:
-                                                                              () async {
+                                                                          onDelete: () async {
                                                                             setState(() {
                                                                               _isLoading = true;
                                                                             });
@@ -418,7 +296,6 @@ class _CICCADRState extends State<CICCADR> {
                                                                                 context: context,
                                                                                 orgDocId: manageCCADR.orgOfficeDocumentId,
                                                                               );
-                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
                                                                               setState(() async {
                                                                                 await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId2Adr, 1, 20).then((data) {
                                                                                   _ccAdrController.add(data);
@@ -485,5 +362,3 @@ class _CICCADRState extends State<CICCADR> {
     );
   }
 }
-
-

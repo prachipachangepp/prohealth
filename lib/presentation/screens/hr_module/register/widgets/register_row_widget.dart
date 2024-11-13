@@ -22,7 +22,10 @@ class CustomRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 15,color: ColorManager.mediumgrey),
+        Padding(
+          padding: const EdgeInsets.only(top: 5.0),
+          child: Icon(icon, size: 15,color: ColorManager.mediumgrey),
+        ),
         SizedBox(width: MediaQuery.of(context).size.width/40),
         Text(
           text1,

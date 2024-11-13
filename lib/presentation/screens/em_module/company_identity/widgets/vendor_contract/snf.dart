@@ -182,14 +182,12 @@ class _CiSnfState extends State<CiSnf> {
                                               ),
                                             ],
                                           ),
-                                          height: 50,
+                                          height: AppSize.s50,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 15),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
@@ -295,33 +293,18 @@ class _CiSnfState extends State<CiSnf> {
                                                             return FutureBuilder<
                                                                 MCorporateCompliancePreFillModal>(
                                                               future: getPrefillNewOrgOfficeDocument(
-                                                                  context,
-                                                                  snfData
-                                                                      .orgOfficeDocumentId),
-                                                              builder: (context,
-                                                                  snapshotPrefill) {
-                                                                if (snapshotPrefill
-                                                                        .connectionState ==
-                                                                    ConnectionState
-                                                                        .waiting) {
+                                                                  context, snfData.orgOfficeDocumentId),
+                                                              builder: (context, snapshotPrefill) {
+                                                                if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                                   return Center(
-                                                                    child:
-                                                                        CircularProgressIndicator(
-                                                                      color: ColorManager
-                                                                          .blueprime,
+                                                                    child: CircularProgressIndicator(
+                                                                      color: ColorManager.blueprime,
                                                                     ),
                                                                   );
                                                                 }
 
-                                                                var calender =
-                                                                    snapshotPrefill
-                                                                        .data!
-                                                                        .expiry_date;
-                                                                calenderController =
-                                                                    TextEditingController(
-                                                                  text: snapshotPrefill
-                                                                      .data!
-                                                                      .expiry_date,
+                                                                var calender = snapshotPrefill.data!.expiry_date;
+                                                                calenderController = TextEditingController(text: snapshotPrefill.data!.expiry_date,
                                                                 );
 
                                                                 // fileName = snapshotPrefill.data!.url;
@@ -333,41 +316,25 @@ class _CiSnfState extends State<CiSnf> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
-                                                                      fileName: snapshotPrefill
-                                                                          .data!
-                                                                          .fileName,
-                                                                      url: snapshotPrefill
-                                                                          .data!
-                                                                          .url,
-                                                                      expiryDate: snapshotPrefill
-                                                                          .data!
-                                                                          .expiry_date,
-                                                                      title:
-                                                                      EditPopupString.editSNF ,
-                                                                      loadingDuration:
-                                                                          _isLoading,
-                                                                      officeId:
-                                                                          widget
-                                                                              .officeId,
-                                                                      docTypeMetaIdCC:
-                                                                          widget
-                                                                              .docId,
-                                                                      selectedSubDocId:
-                                                                          widget
-                                                                              .subDocId,
+                                                                      fileName: snapshotPrefill.data!.fileName,
+                                                                      url: snapshotPrefill.data!.url,
+                                                                      expiryDate: snapshotPrefill.data!.expiry_date,
+                                                                      title: EditPopupString.editSNF ,
+                                                                      loadingDuration: _isLoading,
+                                                                      officeId: widget.officeId,
+                                                                      docTypeMetaIdCC: widget.docId,
+                                                                      selectedSubDocId: widget.subDocId,
                                                                       //orgDocId: manageCCADR.orgOfficeDocumentId,
-                                                                      orgDocId: snapshotPrefill
-                                                                          .data!
-                                                                          .orgOfficeDocumentId,
-                                                                      orgDocumentSetupid: snapshotPrefill
-                                                                          .data!
-                                                                          .documentSetupId,
-                                                                      docName: snapshotPrefill
-                                                                          .data!
-                                                                          .docName,
-                                                                      selectedExpiryType: snapshotPrefill
-                                                                          .data!
-                                                                          .expType,
+                                                                      orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
+                                                                      orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                                      docName: snapshotPrefill.data!.docName,
+                                                                      selectedExpiryType: snapshotPrefill.data!.expType,
+                                                                      documentType: AppStringEM.vendorContracts,
+                                                                      documentSubType: AppStringEM.snf,
+                                                                      isOthersDocs: snapshotPrefill.data!.isOthersDocs,
+                                                                      idOfDoc: snapshotPrefill.data!.idOfDocument,
+                                                                      expiryType: snapshotPrefill.data!.expType,
+                                                                      threshhold: snapshotPrefill.data!.threshould,
                                                                     );
                                                                   },
                                                                 );

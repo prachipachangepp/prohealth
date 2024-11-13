@@ -60,6 +60,7 @@ class MCorporateComplianceModal {
   final String officeId;
   final String? docName;
   final String fileName;
+  final bool isOthersDocs;
   final List<dynamic> docHistory; // Add this field
 
   MCorporateComplianceModal({
@@ -72,6 +73,7 @@ class MCorporateComplianceModal {
     required this.docurl,
     required this.companyId,
     required this.officeId,
+    required this.isOthersDocs,
     this.docName,
     required this.docHistory, // Initialize it here
   });
@@ -93,6 +95,7 @@ class MCorporateCompliancePreFillModal {
   final String fileName;
   final int docTypeId;
   final int orgOfficeDocumentId;
+  final bool isOthersDocs;
 
   MCorporateCompliancePreFillModal(
       {required this.orgOfficeDocumentId,
@@ -108,5 +111,6 @@ class MCorporateCompliancePreFillModal {
       required this.expiry_date,
       required this.url,
       required this.companyId,
+      required this.isOthersDocs,
       required this.officeId});
 }

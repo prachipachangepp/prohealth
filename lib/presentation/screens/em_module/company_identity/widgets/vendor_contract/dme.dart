@@ -176,7 +176,7 @@ class _CiDmeState extends State<CiDme> {
                                               ),
                                             ],
                                           ),
-                                          height: 50,
+                                          height: AppSize.s50,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 15),
@@ -208,18 +208,6 @@ class _CiDmeState extends State<CiDme> {
                                                       children: [
                                                         Text(
                                                           "ID : ${dmeData.idOfDocument}",
-                                                          //dmeData.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          // style: GoogleFonts
-                                                          //     .firaSans(
-                                                          //   fontSize: 10,
-                                                          //   fontWeight:
-                                                          //       FontWeight.w400,
-                                                          //   color: Color(
-                                                          //       0xff686464),
-                                                          //   decoration:
-                                                          //       TextDecoration
-                                                          //           .none,
-                                                          // ),
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                         Text(
@@ -227,17 +215,6 @@ class _CiDmeState extends State<CiDme> {
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
-                                                          // style: GoogleFonts
-                                                          //     .firaSans(
-                                                          //   fontSize: 10,
-                                                          //   fontWeight:
-                                                          //       FontWeight.bold,
-                                                          //   color: Color(
-                                                          //       0xff686464),
-                                                          //   decoration:
-                                                          //       TextDecoration
-                                                          //           .none,
-                                                          // ),
                                                           style:  DocumentTypeDataStyle.customTextStyle(context),
                                                         ),
                                                       ],
@@ -347,41 +324,25 @@ class _CiDmeState extends State<CiDme> {
                                                                               void Function())
                                                                           setState) {
                                                                     return VCScreenPopupEditConst(
-                                                                      fileName: snapshotPrefill
-                                                                          .data!
-                                                                          .fileName,
-                                                                      url: snapshotPrefill
-                                                                          .data!
-                                                                          .url,
-                                                                      expiryDate: snapshotPrefill
-                                                                          .data!
-                                                                          .expiry_date,
-                                                                      title:
-                                                                      EditPopupString.editDME ,
-                                                                      loadingDuration:
-                                                                          _isLoading,
-                                                                      officeId:
-                                                                          widget
-                                                                              .officeId,
-                                                                      docTypeMetaIdCC:
-                                                                          widget
-                                                                              .docId,
-                                                                      selectedSubDocId:
-                                                                          widget
-                                                                              .subDocId,
+                                                                      fileName: snapshotPrefill.data!.fileName,
+                                                                      url: snapshotPrefill.data!.url,
+                                                                      expiryDate: snapshotPrefill.data!.expiry_date,
+                                                                      title: EditPopupString.editDME ,
+                                                                      loadingDuration: _isLoading,
+                                                                      officeId: widget.officeId,
+                                                                      docTypeMetaIdCC: widget.docId,
+                                                                      selectedSubDocId: widget.subDocId,
                                                                       //orgDocId: manageCCADR.orgOfficeDocumentId,
-                                                                      orgDocId: snapshotPrefill
-                                                                          .data!
-                                                                          .orgOfficeDocumentId,
-                                                                      orgDocumentSetupid: snapshotPrefill
-                                                                          .data!
-                                                                          .documentSetupId,
-                                                                      docName: snapshotPrefill
-                                                                          .data!
-                                                                          .docName,
-                                                                      selectedExpiryType: snapshotPrefill
-                                                                          .data!
-                                                                          .expType,
+                                                                      orgDocId: snapshotPrefill.data!.orgOfficeDocumentId,
+                                                                      orgDocumentSetupid: snapshotPrefill.data!.documentSetupId,
+                                                                      docName: snapshotPrefill.data!.docName,
+                                                                      selectedExpiryType: snapshotPrefill.data!.expType,
+                                                                      documentType: AppStringEM.vendorContracts,
+                                                                      documentSubType: AppStringEM.dme,
+                                                                      isOthersDocs: snapshotPrefill.data!.isOthersDocs,
+                                                                      idOfDoc: snapshotPrefill.data!.idOfDocument,
+                                                                      expiryType: snapshotPrefill.data!.expType,
+                                                                      threshhold: snapshotPrefill.data!.threshould,
                                                                     );
                                                                   },
                                                                 );
