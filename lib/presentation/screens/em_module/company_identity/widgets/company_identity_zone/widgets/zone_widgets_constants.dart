@@ -1117,6 +1117,8 @@ class EditZipCodePopup extends StatefulWidget {
   final String zipCodes;
   final String latitude;
   final String longitude;
+  final String zoneName;
+  final String countyName;
   final Future<void> Function() onSavePressed;
   EditZipCodePopup({
     super.key,
@@ -1127,7 +1129,9 @@ class EditZipCodePopup extends StatefulWidget {
     // this.landmarkController,
     required this.onSavePressed,
     // this.cityNameController,
-     required this.latitude, required this.longitude, required this.zoneId, required this.countyId, required this.zipCodes, required this.zipCodeSetupId, required this.officeId,
+     required this.latitude, required this.longitude, required this.zoneId, required this.countyId,
+    required this.zipCodes, required this.zipCodeSetupId,
+    required this.officeId, required this.zoneName, required this.countyName,
   });
 
   @override
@@ -1144,6 +1148,8 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
   double? _longitude;
   int docZoneId =0;
   int countyId =0;
+  String zoneNameText = '';
+  String countyNameText= '';
 @override
   void initState() {
     // TODO: implement initState
@@ -1151,6 +1157,8 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
   fetchedLng = widget.longitude;
   docZoneId = widget.zoneId;
   countyId = widget.countyId;
+  zoneNameText = widget.zoneName;
+  countyNameText = widget.countyName;
     super.initState();
   }
   void _pickLocation() async {
@@ -1283,6 +1291,14 @@ title: widget.title,
                                 int docType = 0;
                                 List<DropdownMenuItem<String>> dropDownTypesList = [];
                                 for(var i in snapshotZone.data!){
+                                  if(widget.zoneName == countyNameText){
+                                    dropDownTypesList.add(
+                                         DropdownMenuItem<String>(
+                                          child: Text(countyNameText),
+                                          value: countyNameText,
+                                        ));
+                                  }
+
                                   dropDownTypesList.add(
                                     DropdownMenuItem<String>(
                                       value: i.countyName,
@@ -1298,6 +1314,7 @@ title: widget.title,
                                     onChange: (val){
                                       for(var a in snapshotZone.data!){
                                         if(a.countyName == val){
+                                          countyNameText = val;
                                           docType = a.countyId;
                                           print("County id :: ${a.companyId}");
                                           countyId = docType;
@@ -1367,6 +1384,13 @@ title: widget.title,
                                 List dropDown = [];
                                 int docType = 0;
                                 List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                if(widget.zoneName == zoneNameText){
+                                  dropDownTypesList.add(
+                                      DropdownMenuItem<String>(
+                                        child: Text(zoneNameText),
+                                        value: zoneNameText,
+                                      ));
+                                }
                                 for(var i in snapshotZone.data!){
                                   dropDownTypesList.add(
                                     DropdownMenuItem<String>(
@@ -1380,6 +1404,7 @@ title: widget.title,
                                     onChange: (val){
                                       for(var a in snapshotZone.data!){
                                         if(a.zoneName == val){
+                                          zoneNameText = val;
                                           docType = a.zoneId;
                                           print("ZONE id :: ${a.zoneId}");
                                           docZoneId = docType;
