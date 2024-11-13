@@ -28,13 +28,14 @@ class CIDetailsScreen extends StatefulWidget {
       required int companyID,
       required this.companyOfficeid,
       required this.stateName,
-      required this.countryName});
+      required this.countryName, required this.updateOfficeName});
   final String stateName;
   final String countryName;
   final int companyId;
   final int docTD;
   final int companyOfficeid;
   final String officeId;
+  final Function(String) updateOfficeName;
 
   @override
   State<CIDetailsScreen> createState() => _CIDetailsScreenState();
@@ -774,6 +775,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               "",
                               stateNameController.text,
                               countryNameController.text);
+
+                          widget.updateOfficeName(nameController.text);
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {

@@ -128,17 +128,18 @@ class _BankingScreenState extends State<BankingScreen> {
               context: context,
               builder: (BuildContext context) {
                 return AddSuccessPopup(
-                  message: 'Banking Data Saved',
+                  message: 'Banking Document Saved',
                 );
               },
             );
             await widget.onSave();
+            _loadBankingData();
           } else{
             await showDialog(
               context: context,
               builder: (BuildContext context) {
                 return AddFailePopup(
-                  message: 'Failed To Save Banking Data',
+                  message: 'Failed To Save Banking Document',
                 );
               },
             );
@@ -148,7 +149,7 @@ class _BankingScreenState extends State<BankingScreen> {
             context: context,
             builder: (BuildContext context) {
               return AddFailePopup(
-                message: 'Failed To Save Banking Dataccc',
+                message: 'Failed To Save Banking Document',
               );
             },
           );
@@ -252,7 +253,7 @@ class _BankingScreenState extends State<BankingScreen> {
                 color: ColorManager.blueprime,
               ),
             )
-                : CustomButton(
+                :CustomButton(
               width: 117,
               height: 30,
               text: 'Save',
@@ -264,11 +265,32 @@ class _BankingScreenState extends State<BankingScreen> {
                   isLoading = true;
                 });
 
+                bool documentSelected = false;  // Flag to check if a document is selected
+
                 // Loop through bankingFormKeys
                 for (var key in bankingFormKeys) {
                   try {
                     final st = key.currentState!;
-                    if (st.isPrefill ==false) {
+                    if (st.isPrefill == false) {
+                      // Check if documentFile is selected
+                      if (st.finalPath == null || st.finalPath.isEmpty) {
+                        // If no document is selected, show a message and stop further execution
+                        await  showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return VendorSelectNoti(
+                              message: 'Please Select A File',
+                            );
+                          },
+                        );
+                        setState(() {
+                          isLoading = false; // Stop loading
+                        });
+                        return;  // Exit the loop and method early
+                      } else {
+                        documentSelected = true; // Document is selected
+                      }
+
                       // Print values before calling perfFormBanckingData
                       print(':::::::Saving Banking Data:::::::::::::');
                       print('Employee ID: ${widget.employeeID}');
@@ -282,7 +304,7 @@ class _BankingScreenState extends State<BankingScreen> {
                       print('Document File: ${st.finalPath}');
                       print('Document Name:>>>> ${st.fileName}');
 
-                      // Call the function
+                      // Call the function to submit the data
                       await perfFormBanckingData(
                         context: context,
                         employeeId: widget.employeeID,
@@ -294,28 +316,96 @@ class _BankingScreenState extends State<BankingScreen> {
                         routingNumber: st.routingnumber.text,
                         type: st.selectedtype.toString(),
                         requestedPercentage: '', // If you have this value, pass it
-                        documentFile: st.finalPath ,
-                        documentName: st.fileName ,
+                        documentFile: st.finalPath,
+                        documentName: st.fileName,
                       );
                     }
                   } catch (e) {
-
                     print('Error: $e');
                   }
                 }
 
-                // End loading state
-                setState(() {
-                  isLoading = false;
-                });
+                // If a document is selected and everything goes fine, complete the process
+                if (documentSelected) {
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
+                }
 
-
+                // You can also call any post-save actions here
+               // widget.onSave();
               },
               child: Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
+
+
+            //     : CustomButton(
+            //   width: 117,
+            //   height: 30,
+            //   text: 'Save',
+            //   style: BlueButtonTextConst.customTextStyle(context),
+            //   borderRadius: 12,
+            //   onPressed: () async {
+            //     // Start loading state
+            //     setState(() {
+            //       isLoading = true;
+            //     });
+            //
+            //     // Loop through bankingFormKeys
+            //     for (var key in bankingFormKeys) {
+            //       try {
+            //         final st = key.currentState!;
+            //         if (st.isPrefill ==false) {
+            //           // Print values before calling perfFormBanckingData
+            //           print(':::::::Saving Banking Data:::::::::::::');
+            //           print('Employee ID: ${widget.employeeID}');
+            //           print('Account Number: ${st.accountnumber.text}');
+            //           print('Bank Name: ${st.bankname.text}');
+            //           print('Amount Requested: ${int.parse(st.requestammount.text)}');
+            //           print('Effective Date: ${st.effectivecontroller.text}');
+            //           print('Routing Number: ${st.routingnumber.text}');
+            //           print('Type: ${st.selectedtype.toString()}');
+            //           print('Requested Percentage: '); // If you have this value, print it
+            //           print('Document File: ${st.finalPath}');
+            //           print('Document Name:>>>> ${st.fileName}');
+            //
+            //           // Call the function
+            //           await perfFormBanckingData(
+            //             context: context,
+            //             employeeId: widget.employeeID,
+            //             accountNumber: st.accountnumber.text,
+            //             bankName: st.bankname.text,
+            //             amountRequested: int.parse(st.requestammount.text),
+            //             checkUrl: "",
+            //             effectiveDate: st.effectivecontroller.text,
+            //             routingNumber: st.routingnumber.text,
+            //             type: st.selectedtype.toString(),
+            //             requestedPercentage: '', // If you have this value, pass it
+            //             documentFile: st.finalPath ,
+            //             documentName: st.fileName ,
+            //           );
+            //         }
+            //       } catch (e) {
+            //
+            //         print('Error: $e');
+            //       }
+            //     }
+            //
+            //     // End loading state
+            //     setState(() {
+            //       isLoading = false;
+            //     });
+            //
+            //
+            //   },
+            //   child: Text(
+            //     'Save',
+            //     style: BlueButtonTextConst.customTextStyle(context),
+            //   ),
+            // ),
 
 
             // if (errorMessage != null)
