@@ -107,7 +107,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
         context: context,
         builder: (BuildContext context) {
           return AddFailePopup(
-            message: 'Failed to update user data',
+            message: 'Failed to Save Licenses Document',
           );
         },
       );
@@ -305,57 +305,132 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 :CustomButton(
               width: 117,
               height: 30,
-              text:  'Save',
-              style:BlueButtonTextConst.customTextStyle(context),
+              text: 'Save',
+              style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
-
-
-                // Loop through each form and extract data to post
-
                 setState(() {
                   isLoading = true; // Start loading
                 });
-                for (var key in licenseFormKeys) {
-                  try{
 
+                bool documentSelected = false;  // Flag to check if a document is selected
+
+                for (var key in licenseFormKeys) {
+                  try {
                     final st = key.currentState!;
-                    if(st.isPrefill ==false){
+
+                    if (st.isPrefill == false) {
+                      // Check if documentFile is selected
+                      if (st.finalPath == null || st.finalPath.isEmpty) {
+                        // If no document is selected, show a message and stop further execution
+                        await  showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return VendorSelectNoti(
+                              message:'Please Select A File',
+                            );
+                          },
+                        );
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(content: Text('Please select a file.')),
+                        // );
+                        setState(() {
+                          isLoading = false; // Stop loading
+                        });
+                        return;  // Exit the loop and method early
+                      } else {
+                        documentSelected = true; // Document is selected
+                      }
 
                       await perfFormLinsence(
-                          context: context,
-                          licenseNumber: st.licensurenumber.text,
-                          country: st.selectedCountry.toString(),
-                          // country: st.controllercountry.text.toString(),
-                          employeeId: widget.employeeID,
-                          expDate: st.controllerExpirationDate.text,
-                          issueDate: st.controllerIssueDate.text,
-                          licenseUrl: 'NA',
-                          licensure: st.licensure.text,
-                          org: st.org.text,
-                          documentType: st.documentTypeName!,
-                          documentFile: st.finalPath,
-                          documentName: st.fileName);
+                        context: context,
+                        licenseNumber: st.licensurenumber.text,
+                        country: st.selectedCountry.toString(),
+                        employeeId: widget.employeeID,
+                        expDate: st.controllerExpirationDate.text,
+                        issueDate: st.controllerIssueDate.text,
+                        licenseUrl: 'NA',
+                        licensure: st.licensure.text,
+                        org: st.org.text,
+                        documentType: st.documentTypeName!,
+                        documentFile: st.finalPath,
+                        documentName: st.fileName,
+                      );
                     }
-
-
-                  }catch(e){
-                   print(e);
+                  } catch (e) {
+                    print(e);
                   }
-
                 }
-                setState(() {
-                  isLoading = false; // End loading
-                });
-                //licensure.clear();
-                widget.onSave();
-                _loadLicensesData();
+
+                // If a document is selected and everything goes fine, complete the process
+                if (documentSelected) {
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
+                  widget.onSave();
+                  _loadLicensesData();
+                }
               },
               child: Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
+
+            //     :CustomButton(
+            //   width: 117,
+            //   height: 30,
+            //   text:  'Save',
+            //   style:BlueButtonTextConst.customTextStyle(context),
+            //   borderRadius: 12,
+            //   onPressed: () async {
+            //
+            //
+            //     // Loop through each form and extract data to post
+            //
+            //     setState(() {
+            //       isLoading = true; // Start loading
+            //     });
+            //     for (var key in licenseFormKeys) {
+            //       try{
+            //
+            //         final st = key.currentState!;
+            //         if(st.isPrefill ==false){
+            //
+            //           await perfFormLinsence(
+            //               context: context,
+            //               licenseNumber: st.licensurenumber.text,
+            //               country: st.selectedCountry.toString(),
+            //               // country: st.controllercountry.text.toString(),
+            //               employeeId: widget.employeeID,
+            //               expDate: st.controllerExpirationDate.text,
+            //               issueDate: st.controllerIssueDate.text,
+            //               licenseUrl: 'NA',
+            //               licensure: st.licensure.text,
+            //               org: st.org.text,
+            //               documentType: st.documentTypeName!,
+            //               documentFile: st.finalPath,
+            //               documentName: st.fileName);
+            //         }
+            //
+            //
+            //       }catch(e){
+            //        print(e);
+            //       }
+            //
+            //     }
+            //     setState(() {
+            //       isLoading = false; // End loading
+            //     });
+            //     //licensure.clear();
+            //     widget.onSave();
+            //     _loadLicensesData();
+            //   },
+            //   child: Text(
+            //     'Save',
+            //     style: BlueButtonTextConst.customTextStyle(context),
+            //   ),
+            // ),
           ],
         ),
       ],

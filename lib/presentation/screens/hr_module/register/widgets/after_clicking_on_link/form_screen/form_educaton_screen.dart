@@ -204,81 +204,97 @@ class _EducationScreenState extends State<EducationScreen> {
                   color: ColorManager.blueprime,
                 ),
               )
-                  : CustomButton(
+
+
+                  :CustomButton(
                 width: 117,
                 height: 30,
                 text: 'Save',
-                style:  BlueButtonTextConst.customTextStyle(context),
+                style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-
                   // Loop through each form and extract data to post
                   for (var key in educationFormKeys) {
-
                     final st = key.currentState!;
-                    if (st.finalPath == null || st.finalPath!.isEmpty) {
-                      print("Loading");
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (BuildContext context) {
-                      //     return const VendorSelectNoti(
-                      //       message: 'Please Select File',
-                      //     );
-                      //   },
-                      // );
-                    } else {
-                      try {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        if(st.isPrefill ==false){
-                          ApiDataRegister result =  await FormEducationManager().posteducationscreen(
-                              context,
-                              st.widget.employeeID,
-                              st.graduatetype.toString(),
-                              st.selectedDegree.toString(),
-                              st.majorsubject.text,
-                              st.city.text,
-                              st.collegeuniversity.text,
-                              st.phone.text,
-                              st.state.text,
-                              "USA",
-                              "2024-08-09");
-                          await uploadEducationDocument(
-                              context,
-                              result.educationId!,
-                              st.finalPath,
-                              st.fileName!
+
+                    try {
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      // Only execute the code if st.isPrefill is false
+                      if (st.isPrefill == false) {
+                        // Check if the file is selected
+                        if (st.finalPath == null || st.finalPath!.isEmpty) {
+                          // Show a message asking the user to select a file
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddFailePopup(
+                                message: 'Please Select A File',
+                              );
+                            },
                           );
-                          if(result.success){
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'Education Data Saved',
-                                );
-                              },
-                            );
-                          }
+                          setState(() {
+                            isLoading = false;
+                          });
+                          return; // Stop further execution if no file is selected
                         }
 
-
-
-                      } catch (e) {
-                        await  showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddFailePopup(
-                              message: 'Failed To Save Education Data',
-                            );
-                          },
+                        // Call the posteducationscreen API regardless of whether the file is selected
+                        ApiDataRegister result = await FormEducationManager().posteducationscreen(
+                          context,
+                          st.widget.employeeID,
+                          st.graduatetype.toString(),
+                          st.selectedDegree.toString(),
+                          st.majorsubject.text,
+                          st.city.text,
+                          st.collegeuniversity.text,
+                          st.phone.text,
+                          st.state.text,
+                          "USA",
+                          "2024-08-09",
                         );
+
+                        // If the file is selected, upload it
+                        await uploadEducationDocument(
+                          context,
+                          result.educationId!,
+                          st.finalPath,
+                          st.fileName!,
+                        );
+
+                        // If the API call is successful
+                        if (result.success) {
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(
+                                message: 'Education Data Saved',
+                              );
+                            },
+                          );
+                        }
                       }
+
+                    } catch (e) {
+                      // If an error occurs, show failure dialog
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddFailePopup(
+                            message: 'Failed To Save Education Data',
+                          );
+                        },
+                      );
                     }
+
+                    // Close the loading state and call onSave
+                    setState(() {
+                      isLoading = false;
+                    });
+
                   }
-                  setState(() {
-                    isLoading = false;
-                  });
                   widget.onSave();
                   _loadEducationData();
                 },
@@ -287,6 +303,90 @@ class _EducationScreenState extends State<EducationScreen> {
                   style: BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
+
+              //     : CustomButton(
+              //   width: 117,
+              //   height: 30,
+              //   text: 'Save',
+              //   style:  BlueButtonTextConst.customTextStyle(context),
+              //   borderRadius: 12,
+              //   onPressed: () async {
+              //
+              //     // Loop through each form and extract data to post
+              //     for (var key in educationFormKeys) {
+              //
+              //       final st = key.currentState!;
+              //       if (st.finalPath == null || st.finalPath!.isEmpty) {
+              //         print("Loading");
+              //         // showDialog(
+              //         //   context: context,
+              //         //   builder: (BuildContext context) {
+              //         //     return const VendorSelectNoti(
+              //         //       message: 'Please Select File',
+              //         //     );
+              //         //   },
+              //         // );
+              //       } else {
+              //         try {
+              //           setState(() {
+              //             isLoading = true;
+              //           });
+              //           if(st.isPrefill ==false){
+              //             ApiDataRegister result =  await FormEducationManager().posteducationscreen(
+              //                 context,
+              //                 st.widget.employeeID,
+              //                 st.graduatetype.toString(),
+              //                 st.selectedDegree.toString(),
+              //                 st.majorsubject.text,
+              //                 st.city.text,
+              //                 st.collegeuniversity.text,
+              //                 st.phone.text,
+              //                 st.state.text,
+              //                 "USA",
+              //                 "2024-08-09");
+              //             await uploadEducationDocument(
+              //                 context,
+              //                 result.educationId!,
+              //                 st.finalPath,
+              //                 st.fileName!
+              //             );
+              //             if(result.success){
+              //               await showDialog(
+              //                 context: context,
+              //                 builder: (BuildContext context) {
+              //                   return AddSuccessPopup(
+              //                     message: 'Education Data Saved',
+              //                   );
+              //                 },
+              //               );
+              //             }
+              //           }
+              //
+              //
+              //
+              //         } catch (e) {
+              //           await  showDialog(
+              //             context: context,
+              //             builder: (BuildContext context) {
+              //               return AddFailePopup(
+              //                 message: 'Failed To Save Education Data',
+              //               );
+              //             },
+              //           );
+              //         }
+              //       }
+              //     }
+              //     setState(() {
+              //       isLoading = false;
+              //     });
+              //     widget.onSave();
+              //     _loadEducationData();
+              //   },
+              //   child: Text(
+              //     'Save',
+              //     style: BlueButtonTextConst.customTextStyle(context),
+              //   ),
+              // ),
             ],
           ),
         ],
@@ -626,7 +726,7 @@ class _EducationFormState extends State<EducationForm> {
 
   Widget buildDropdownButton(BuildContext context) {
     // Store prefilled degree value (you can initialize it with null or fetch it dynamically)
-    // String? prefilledDegree;
+   // String? prefilledDegree;
 
     return FutureBuilder<List<EduactionDegree>>(
       future: getDegreeDropDown(context),
