@@ -193,6 +193,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                         onChanged: (value) {
                                           setState((){
                                             isSelected = !isSelected;
+                                            endDateController.clear();
                                           });
                                         },
                                       ));

@@ -81,7 +81,20 @@ class _ManageWidgetState extends State<ManageWidget> {
   void initState() {
     super.initState();
     documentTypeGet(context);
+    officeName = widget.officeName;
   }
+
+  String officeName = '';  // local state for office name
+
+  // Function to update the office name from the second screen
+  void updateOfficeName(String newName) {
+    setState(() {
+      officeName = newName;
+    });
+  }
+
+
+
 
   int docID = 1;
 
@@ -100,7 +113,8 @@ class _ManageWidgetState extends State<ManageWidget> {
                   child: Row(
                     children: [
                       Text(
-                        widget.officeName,
+                        officeName,
+                        // widget.officeName,
                         style: CompanyIdentityManageHeadings.customTextStyle(context),
                       ),
                     ],
@@ -328,7 +342,8 @@ class _ManageWidgetState extends State<ManageWidget> {
                         officeId: widget.officeID,
                         docTD: docID,
                         companyId: widget.companyID,
-                        companyOfficeid: widget.companyOfficeId, stateName: widget.stateName, countryName: widget.countryName,
+                        companyOfficeid: widget.companyOfficeId, stateName: widget.stateName,
+                        countryName: widget.countryName, updateOfficeName: updateOfficeName,
                       ),
                       CiZone(
                         companyID: widget.companyID,
