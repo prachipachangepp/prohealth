@@ -666,11 +666,73 @@ Future<ApiData> deleteOrgDoc({
   }
 }
 
-class dd extends StatelessWidget {
-  const dd({super.key});
+///org-office-document/others/add (manage-> documents -> for other change)
+Future<ApiData> addOtherOfficeDocPost({
+  required BuildContext context,
+  required int docTypeid,
+  required int docSubTypeid,
+  required String documentName,
+  required String expiryType,
+  required int threshold,
+  required String? expiryDate,
+  required String expiryReminder,
+  required String idOfDoc,
+  required String docCreated,
+  required String fileName,
+  required String url,
+  required String officeId,
+}) async {
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var data =
+    {
+      "document_type_id": docTypeid,
+      "document_subtype_id": docSubTypeid,
+      "doc_name": documentName,
+      "expiry_type": expiryType,
+      "threshold": threshold,
+      "expiry_date": expiryDate,
+      "expiry_reminder": expiryReminder,
+      "company_id": companyId,
+      "idOfDocument": idOfDoc,
+      "doc_created_at": docCreated,
+      "url": url,
+      "office_id": officeId,
+      "file_name": fileName
+    };
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+    // if (expiryDate != null && expiryDate.isNotEmpty) {
+    //   data['expiry_Date'] = "${expiryDate}";
+    // } else {
+    //   data.remove('expiryDate');
+    // }
+
+    print('New Other Document $data');
+    var response = await Api(context)
+        .post(path: EstablishmentManagerRepository.addOtherDoc(), data: data);
+    print('New other Doc Post::::$response ');
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("New other Doc addded ");
+      var responseData = response.data;
+
+      var docOfficeID = responseData["orgOfficeDocumentId"];
+      print("Post other doc addded ");
+      return ApiData(
+          orgOfficeDocumentId: docOfficeID,
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

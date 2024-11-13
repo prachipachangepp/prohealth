@@ -76,7 +76,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
            child: Material(
              elevation: 8.0,
              child: Container(
-               padding: const EdgeInsets.all(8),
+               width: 150,
+               padding: const EdgeInsets.all(5),
                decoration: BoxDecoration(
                  color: Colors.white,
                  borderRadius: BorderRadius.circular(8),

@@ -517,6 +517,10 @@ class EstablishmentManagerRepository {
   static String addDocOrg() {
     return "$orgdocadd/$add";
   }
+  ///org-office-document/others/add
+  static String addOtherDoc() {
+    return "$orgdocadd/others/$add";
+  }
   static String patchDocOrg({required int orgDocID}) {
     return "$orgdocEndPoind/$orgDocID";
   }

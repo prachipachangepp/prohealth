@@ -257,6 +257,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                   icon: Icons.add,
                   text: "Add",
                   onPressed: () {
+                    vendorNameController.clear();
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {

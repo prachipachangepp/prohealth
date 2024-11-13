@@ -128,6 +128,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         docTypeMetaIdCC: docTypeMetaIdPP,
                                         selectedSubDocId: selectedSubDocId,
                                         dataList: snapshot.data!,
+                                        docTypeText: AppStringEM.policiesAndProcedures,
+                                        subDocTypeText: '',
                                       );
                                     } else {
                                       return ErrorPopUp(

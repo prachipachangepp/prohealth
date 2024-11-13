@@ -387,11 +387,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                             widget.searchByEmployeeIdProfileData!
                                                     .imgurl ==
                                                 null
-                                        ? Icon(
-                                            Icons.person,
-                                            color: ColorManager.white,
-                                            size: AppSize.s50,
-                                          )
+                                        ? CircleAvatar(child: Image.asset("images/profilepic.png"),)
                                         : CachedNetworkImage(
                                             imageUrl: widget
                                                 .searchByEmployeeIdProfileData!

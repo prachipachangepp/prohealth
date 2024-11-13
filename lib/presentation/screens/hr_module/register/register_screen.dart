@@ -470,8 +470,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ///link
                   Row(
                     children: [
-                      Icon(Icons.link,
-                          size: 15, color: ColorManager.mediumgrey),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2.0),
+                        child: Icon(Icons.link,
+                            size: 15, color: ColorManager.mediumgrey),
+                      ),
                       SizedBox(width: MediaQuery.of(context).size.width / 40),
                       Text('Link',
                           style:

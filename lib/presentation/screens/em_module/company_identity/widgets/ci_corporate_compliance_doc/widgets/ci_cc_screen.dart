@@ -348,6 +348,8 @@ class _CiCorporateComplianceScreenState
                                       docTypeMetaIdCC: docTypeMetaIdCC,
                                       selectedSubDocId: selectedSubDocId,
                                       dataList: snapshot.data!,
+                                      docTypeText: AppStringEM.corporateAndComplianceDocuments,
+                                      subDocTypeText: getSubDocTypeText(selectedSubDocId),
                                     );
                                   } else {
                                     return ErrorPopUp(
