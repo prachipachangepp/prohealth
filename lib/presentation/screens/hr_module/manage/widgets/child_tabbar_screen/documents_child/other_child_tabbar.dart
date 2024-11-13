@@ -8,6 +8,8 @@ import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
@@ -22,6 +24,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:http/http.dart' as http;
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -44,44 +47,44 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: [
-        //
-        //     Container(
-        //       margin: EdgeInsets.only(right: 60),
-        //       child: CustomIconButtonConst(
-        //           width: 130,
-        //           text: AppStringHr.addNew,
-        //           icon: Icons.add,
-        //           onPressed: () async {
-        //             showDialog(
-        //                 context: context,
-        //                 builder: (context) {
-        //                   return FutureBuilder<List<EmployeeDocSetupModal>>(
-        //                       future: getEmployeeDocSetupDropDown(context,AppConfig.clinicalVerificationDocId),
-        //                       builder: (context, snapshot) {
-        //                         if (snapshot.connectionState ==
-        //                             ConnectionState.waiting) {
-        //                           return Center(
-        //                               child: CircularProgressIndicator());
-        //                         }
-        //                         if (snapshot.hasData) {
-        //                           return CustomDocumedAddPopup(
-        //                             title: 'Add Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
-        //                           );
-        //                         } else {
-        //                           return ErrorPopUp(
-        //                               title: "Received Error",
-        //                               text: snapshot.error.toString());
-        //                         }
-        //                       });
-        //                 });
-        //             //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
-        //           }),
-        //     ),
-        //   ],
-        // ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+
+            Container(
+              margin: EdgeInsets.only(right: 60),
+              child: CustomIconButtonConst(
+                  width: 130,
+                  text: AppStringHr.addNew,
+                  icon: Icons.add,
+                  onPressed: () async {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return FutureBuilder<List<EmployeeDocSetupModal>>(
+                              future: getEmployeeDocSetupDropDown(context,AppConfig.clinicalVerificationDocId),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (snapshot.hasData) {
+                                  return CustomDocumedAddPopup(
+                                    title: 'Add Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
+                                  );
+                                } else {
+                                  return ErrorPopUp(
+                                      title: "Received Error",
+                                      text: snapshot.error.toString());
+                                }
+                              });
+                        });
+                    //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+                  }),
+            ),
+          ],
+        ),
         const SizedBox(
           height: 20,
         ),

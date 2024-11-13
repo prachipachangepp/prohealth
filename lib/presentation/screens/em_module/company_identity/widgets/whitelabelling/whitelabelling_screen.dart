@@ -8,6 +8,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'package:open_file/open_file.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/whitelabelling_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/whitelabelling_modal/whitelabelling_modal_.dart';
@@ -23,10 +24,11 @@ import '../../../../hr_module/register/confirmation_constant.dart';
 import '../../../widgets/button_constant.dart';
 import '../../../widgets/dialogue_template.dart';
 import '../../../widgets/text_form_field_const.dart';
-
+typedef BackButtonCallBack = Function(bool val);
 class WhitelabellingScreen extends StatefulWidget {
   final String officeId;
-  WhitelabellingScreen({super.key, required this.officeId});
+  final BackButtonCallBack onPressedCancel;
+  WhitelabellingScreen({super.key, required this.officeId,required this.onPressedCancel});
 
   @override
   State<WhitelabellingScreen> createState() => _WhitelabellingScreenState();
@@ -192,42 +194,71 @@ void fetchData()async{
                       ),
                     ),
                   ),
-                  Container(
-                    height: 30,
-                    width: 90,
-                    child: CustomButton(
-                      borderRadius: 12,
-                      style: BlueButtonTextConst.customTextStyle(context),
-                      text: "Save",
-                      onPressed: () async{
-                        var response = await uploadWebAndAppLogo(
-                            context: context,
-                            type: "web",
-                            documentFile: filePath,
-                            documentName: fileName);
-                        if(response.statusCode == 200 || response.statusCode == 201){
-                          setState(() {
-                            getWhiteLabellingData(context);
-                          });
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return EditSuccessPopup(
-                                message:
-                                'Submitted Successfully',
+                  Row(
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 90,
+                        child: CustomButton(
+                          borderRadius: 12,
+                          style: BlueButtonTextConst.customTextStyle(context),
+                          text: "Save",
+                          onPressed: () async{
+                            var response = await uploadWebAndAppLogo(
+                                context: context,
+                                type: "web",
+                                documentFile: filePath,
+                                documentName: fileName);
+                            if(response.statusCode == 200 || response.statusCode == 201){
+                              setState(() {
+                                getWhiteLabellingData(context);
+                              });
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return EditSuccessPopup(
+                                    message:
+                                    'Submitted Successfully',
+                                  );
+                                },
                               );
-                            },
-                          );
-                        }
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return CCSuccessPopup();
-                        //   },
-                        // );
-                      },
-                    ),
+                            }
+                            // showDialog(
+                            //   context: context,
+                            //   builder: (BuildContext context) {
+                            //     return CCSuccessPopup();
+                            //   },
+                            // );
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Container(
+                          height: 30,
+                          width: 90,
+                          child: ElevatedButton(
+                            onPressed: widget.onPressedCancel(true),
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                              backgroundColor: ColorManager.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: const BorderSide(color: Color(0xFF50B5E5)),
+                              ),
+                            ),
+                            child: Text(
+                                'Cancel',
+                                style: LoginFlowBase.customTextStyle(context)
+                            ),
+                          ),
+                          // CustomeTransparentWhitelabeling(text: , onPressed: () {
+                          //
+                          //
+                          // },)
+                      )
+                    ],
                   ),
+
                   SizedBox(width: MediaQuery.of(context).size.width / 50),
                   FutureBuilder(
                     future: getWhiteLabellingData(context),

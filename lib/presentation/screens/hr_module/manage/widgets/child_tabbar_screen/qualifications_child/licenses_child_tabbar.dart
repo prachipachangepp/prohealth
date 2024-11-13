@@ -140,6 +140,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           ),
                         );
                       }
+                      docName = snapshot.data![0].docName;
                       return CICCDropdown(
                           width: 200,
                           initialValue: dropDownMenuItems[0].value,

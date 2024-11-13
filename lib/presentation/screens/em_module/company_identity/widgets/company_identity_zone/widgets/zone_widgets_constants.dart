@@ -420,6 +420,15 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             //   child: Text('Select County'),
                             //   value: 'Select County',
                             // ));
+                            if (selectedZipCodeCounty == null) {
+                              selectedZipCodeCounty =
+                              'Select County';
+                              dropDownTypesList.add(
+                                  const DropdownMenuItem<String>(
+                                    child: Text('Select County'),
+                                    value: 'Select County',
+                                  ));
+                            }
                             for (var i in snapshotZone.data!) {
                               dropDownTypesList.add(
                                 DropdownMenuItem<String>(
@@ -428,11 +437,8 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                 ),
                               );
                             }
-                            if (selectedZipCodeCounty == null) {
-                              selectedZipCodeCounty =
-                              'Select County';
-                            }
-                            countyId = snapshotZone.data![0].countyId;
+
+                           // countyId = snapshotZone.data![0].countyId;
                             return CICCDropdown(
                                 initialValue:
                                 dropDownTypesList[0].value,

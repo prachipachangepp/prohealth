@@ -533,7 +533,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               controller: _pageController,
               children: [
                 Container(
-                  child: WhitelabellingScreen(officeId: selectedOfficeID,),
+                  child: WhitelabellingScreen(officeId: selectedOfficeID, onPressedCancel: (bool ) {  },),
                 ),
               ],
             ),
@@ -561,7 +561,19 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         /// Render whitelabelling screen if showWhitelabellingScreen is true
         if (showWhitelabellingScreen)
           Expanded(
-            child: WhitelabellingScreen(officeId: selectedOfficeID,),
+            child: WhitelabellingScreen(officeId: selectedOfficeID,onPressedCancel: (val){
+              if (val) {
+                setState(() {
+                  showWhitelabellingScreen = false;
+                  showManageScreen = false;
+                  showStreamBuilder = true;
+                });
+              }
+              // setState(() {
+              //   showWhitelabellingScreen = false;
+              //   showStreamBuilder = val;
+              // });
+            },),
           ),
 
       ],
