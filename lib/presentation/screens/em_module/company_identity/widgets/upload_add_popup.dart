@@ -775,12 +775,23 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                       expiryDateController.clear();
                       if (response.statusCode == 200 || response.statusCode == 201) {
                       print("id >>>>>>>>>>>>>>>>>>>>>..... ${response.orgOfficeDocumentId}");
-                        await uploadDocumentsoffice(
+                      var uploadDocNew =   await uploadDocumentsoffice(
                           context: context,
                           documentFile: filePath,
                           orgOfficeDocumentId: response.orgOfficeDocumentId!,
                           fileName: fileName,
                         );
+                      if (uploadDocNew.statusCode == 413) {
+                        Navigator.pop(context);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddErrorPopup(
+                              message: 'Request entity to large!',
+                            );
+                          },
+                        );
+                      }
                       }
                     } finally {
                       setState(() {
@@ -852,13 +863,25 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                        officeId: widget.officeId);
                       if (newResponse.statusCode == 200 || newResponse.statusCode == 201) {
                         print("id >>>>>>>>>>>>>>>>>>>>>..... ${newResponse.orgOfficeDocumentId}");
-                        await uploadDocumentsoffice(
+                       var uploadDocNew = await uploadDocumentsoffice(
                           context: context,
                           documentFile: filePath,
                           fileName: fileName,
                           orgOfficeDocumentId: newResponse.orgOfficeDocumentId!,
                         );
+                        if (uploadDocNew.statusCode == 413) {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddErrorPopup(
+                                message: 'Request entity to large!',
+                              );
+                            },
+                          );
+                        }
                       }
+
                     }
                     finally {
                       setState(() {

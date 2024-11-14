@@ -792,11 +792,22 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
             if (response.statusCode == 200 ||
                 response.statusCode == 201) {
               if (fileIsPicked) {
-                await uploadDocumentsoffice(
+                var uploadDocNew =   await uploadDocumentsoffice(
                     context: context,
                     documentFile: filePath,
                     fileName: fileName,
                     orgOfficeDocumentId: response.orgOfficeDocumentId!);
+                if (uploadDocNew.statusCode == 413) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddErrorPopup(
+                        message: 'Request entity to large!',
+                      );
+                    },
+                  );
+                }
               }
               setState(() {
                 loading = false;
@@ -898,12 +909,23 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 if (response.statusCode == 200 || response.statusCode == 201) {
                   // Upload the document if a new file was picked
                   if (fileIsPicked) {
-                    await uploadDocumentsoffice(
+                    var uploadDocNew =   await uploadDocumentsoffice(
                       context: context,
                       documentFile: filePath,
                       fileName: fileName,
                       orgOfficeDocumentId: response.orgOfficeDocumentId!,
                     );
+                    if (uploadDocNew.statusCode == 413) {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddErrorPopup(
+                            message: 'Request entity to large!',
+                          );
+                        },
+                      );
+                    }
                   }
                   setState(() {
                     loading = false;
