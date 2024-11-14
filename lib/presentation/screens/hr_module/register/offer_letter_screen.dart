@@ -901,8 +901,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'County',
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        'County', style: DocumentTypeDataStyle.customTextStyle(context),
                       ),
                       const SizedBox(height: 5),
                       FutureBuilder<List<AllCountyGetList>>(
@@ -914,7 +913,11 @@ class _DynamciContainerState extends State<DynamciContainer> {
                               child: Container(
                                 height: 31,
                                 width: 250,
-                                decoration: BoxDecoration(color: ColorManager.white),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
                               ),
                             );
                           } else if (snapshot.hasError) {
@@ -928,8 +931,13 @@ class _DynamciContainerState extends State<DynamciContainer> {
                             dropDownList.clear();
 
                             // Add the default "Select" item
-                            dropDownList.add(const DropdownMenuItem<String>(
-                              child: Text('Select County'),
+                            dropDownList.add( DropdownMenuItem<String>(
+                              child: Text('Select County',style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: FontSize.s12,
+                                color: ColorManager.mediumgrey,
+                                decoration: TextDecoration.none,
+                              ),),
                               value: 'Select County',
                             ));
 
@@ -1005,26 +1013,21 @@ class _DynamciContainerState extends State<DynamciContainer> {
                     children: [
                       Text('Zone',style: DocumentTypeDataStyle.customTextStyle(context),),
                       const SizedBox(height:5),
-                      StreamBuilder<
-                          List<CountyWiseZoneModal>>(
+                      StreamBuilder<List<CountyWiseZoneModal>>(
                           stream: _zoneController.stream,
                           builder: (context, snapshotZone) {
                             fetchCountyWiseZone(context, selectedCountyId)
                                 .then((data) {
                               _zoneController.add(data);
                             }).catchError((error) {});
-                            if (snapshotZone.connectionState ==
-                                ConnectionState.waiting) {
+                            if (snapshotZone.connectionState == ConnectionState.waiting) {
                               return Container(
                                 width: 250,
                                 height: 31,
                                 decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ColorManager
-                                          .containerBorderGrey,
-                                      width: AppSize.s1),
-                                  borderRadius:
-                                  BorderRadius.circular(8),
+                                  color: Colors.white,
+                                  border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: const Text(
                                   "",
@@ -1037,25 +1040,22 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                 width: 250,
                                 height: 31,
                                 decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ColorManager
-                                          .containerBorderGrey,
-                                      width: AppSize.s1),
-                                  borderRadius:
-                                  BorderRadius.circular(4),
+                                  color: Colors.white,
+                                  border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets
-                                        .symmetric(
-                                        horizontal: 10),
+                                  child: Padding(padding: const EdgeInsets.symmetric(horizontal: 10),
                                     child: Text(
-                                      ErrorMessageString
-                                          .noZoneAdded,
+                                      ErrorMessageString.noZoneAdded,
                                       //  AppString.dataNotFound,
-                                      style:
-                                      AllNoDataAvailable.customTextStyle(context),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
+                                        decoration: TextDecoration.none,
+                                      ),
                                     ),
                                   ),
                                 ),

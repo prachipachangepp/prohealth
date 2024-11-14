@@ -107,7 +107,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
         context: context,
         builder: (BuildContext context) {
           return AddFailePopup(
-            message: 'Failed to update user data',
+            message: 'Failed to Save Licenses Document',
           );
         },
       );
@@ -305,57 +305,132 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 :CustomButton(
               width: 117,
               height: 30,
-              text:  'Save',
-              style:BlueButtonTextConst.customTextStyle(context),
+              text: 'Save',
+              style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
-
-
-                // Loop through each form and extract data to post
-
                 setState(() {
                   isLoading = true; // Start loading
                 });
-                for (var key in licenseFormKeys) {
-                  try{
 
+                bool documentSelected = false;  // Flag to check if a document is selected
+
+                for (var key in licenseFormKeys) {
+                  try {
                     final st = key.currentState!;
-                    if(st.isPrefill ==false){
+
+                    if (st.isPrefill == false) {
+                      // Check if documentFile is selected
+                      if (st.finalPath == null || st.finalPath.isEmpty) {
+                        // If no document is selected, show a message and stop further execution
+                        await  showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return VendorSelectNoti(
+                              message:'Please Select A File',
+                            );
+                          },
+                        );
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(content: Text('Please select a file.')),
+                        // );
+                        setState(() {
+                          isLoading = false; // Stop loading
+                        });
+                        return;  // Exit the loop and method early
+                      } else {
+                        documentSelected = true; // Document is selected
+                      }
 
                       await perfFormLinsence(
-                          context: context,
-                          licenseNumber: st.licensurenumber.text,
-                          country: st.selectedCountry.toString(),
-                          // country: st.controllercountry.text.toString(),
-                          employeeId: widget.employeeID,
-                          expDate: st.controllerExpirationDate.text,
-                          issueDate: st.controllerIssueDate.text,
-                          licenseUrl: 'NA',
-                          licensure: st.licensure.text,
-                          org: st.org.text,
-                          documentType: st.documentTypeName!,
-                          documentFile: st.finalPath,
-                          documentName: st.fileName);
+                        context: context,
+                        licenseNumber: st.licensurenumber.text,
+                        country: st.selectedCountry.toString(),
+                        employeeId: widget.employeeID,
+                        expDate: st.controllerExpirationDate.text,
+                        issueDate: st.controllerIssueDate.text,
+                        licenseUrl: 'NA',
+                        licensure: st.licensure.text,
+                        org: st.org.text,
+                        documentType: st.documentTypeName!,
+                        documentFile: st.finalPath,
+                        documentName: st.fileName,
+                      );
                     }
-
-
-                  }catch(e){
-                   print(e);
+                  } catch (e) {
+                    print(e);
                   }
-
                 }
-                setState(() {
-                  isLoading = false; // End loading
-                });
-                //licensure.clear();
-                widget.onSave();
-                _loadLicensesData();
+
+                // If a document is selected and everything goes fine, complete the process
+                if (documentSelected) {
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
+                  widget.onSave();
+                  _loadLicensesData();
+                }
               },
               child: Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
+
+            //     :CustomButton(
+            //   width: 117,
+            //   height: 30,
+            //   text:  'Save',
+            //   style:BlueButtonTextConst.customTextStyle(context),
+            //   borderRadius: 12,
+            //   onPressed: () async {
+            //
+            //
+            //     // Loop through each form and extract data to post
+            //
+            //     setState(() {
+            //       isLoading = true; // Start loading
+            //     });
+            //     for (var key in licenseFormKeys) {
+            //       try{
+            //
+            //         final st = key.currentState!;
+            //         if(st.isPrefill ==false){
+            //
+            //           await perfFormLinsence(
+            //               context: context,
+            //               licenseNumber: st.licensurenumber.text,
+            //               country: st.selectedCountry.toString(),
+            //               // country: st.controllercountry.text.toString(),
+            //               employeeId: widget.employeeID,
+            //               expDate: st.controllerExpirationDate.text,
+            //               issueDate: st.controllerIssueDate.text,
+            //               licenseUrl: 'NA',
+            //               licensure: st.licensure.text,
+            //               org: st.org.text,
+            //               documentType: st.documentTypeName!,
+            //               documentFile: st.finalPath,
+            //               documentName: st.fileName);
+            //         }
+            //
+            //
+            //       }catch(e){
+            //        print(e);
+            //       }
+            //
+            //     }
+            //     setState(() {
+            //       isLoading = false; // End loading
+            //     });
+            //     //licensure.clear();
+            //     widget.onSave();
+            //     _loadLicensesData();
+            //   },
+            //   child: Text(
+            //     'Save',
+            //     style: BlueButtonTextConst.customTextStyle(context),
+            //   ),
+            // ),
           ],
         ),
       ],
@@ -420,7 +495,7 @@ class _licensesFormState extends State<licensesForm> {
           licensurenumber.text = data.licenseNumber ?? '';
           controllerIssueDate.text = data.issueDate ?? '';
           controllerExpirationDate.text = data.expDate ?? '';
-          //selectedCountry = data.country ?? '';
+          selectedCountry = data.country ?? '';
           licenseIdIndex = data.licenseId ?? 0;
           //licenseUrl = data.licenseUrl;
            licenseUrl = data.licenseUrl.split('/').last;
@@ -769,50 +844,55 @@ class _licensesFormState extends State<licensesForm> {
       ),
     );
   }
+
+
   Widget buildDropdownButton(BuildContext context) {
+    // Store prefilled country value (you can initialize it with null or fetch it dynamically)
+    String? prefilledCountry;
+
     return FutureBuilder<List<CountryGetData>>(
       future: getCountry(context: context),
       builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 7),
             child: Container(
               height: 31,
               width: 250,
-              decoration: BoxDecoration(
-                  color: ColorManager.white),
+              decoration: BoxDecoration(color: ColorManager.white),
             ),
           );
-
         } else if (snapshot.hasError) {
-          return  CustomDropdownTextField(
-            //width: MediaQuery.of(context).size.width / 5,
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
             headText: 'Country',
             items: ['Error'],
           );
         } else if (snapshot.hasData) {
           List<DropdownMenuItem<String>> dropDownList = [];
-          int degreeID = 0;
-          for(var i in snapshot.data!){
+          int countryId = 0;
+
+          // Populate the dropdown list from the fetched data
+          for (var i in snapshot.data!) {
             dropDownList.add(DropdownMenuItem<String>(
               child: Text(i.name),
               value: i.name,
             ));
           }
+
+          // Use the prefilled country if available, otherwise default to the first item
+          String initialValue = selectedCountry ?? dropDownList[0].value!;
+
           return Container(
             height: 32,
-            // margin: EdgeInsets.symmetric(horizontal: 20),
-            padding:
-            const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(
-                  color: const Color(0xff686464).withOpacity(0.5),
-                  width: 1), // Black border
-              borderRadius:
-              BorderRadius.circular(6), // Rounded corners
+                color: const Color(0xff686464).withOpacity(0.5),
+                width: 1, // Black border
+              ),
+              borderRadius: BorderRadius.circular(6), // Rounded corners
             ),
             child: DropdownButtonFormField<String>(
               focusColor: Colors.transparent,
@@ -820,22 +900,20 @@ class _licensesFormState extends State<licensesForm> {
                 Icons.arrow_drop_down_sharp,
                 color: Color(0xff686464),
               ),
-              decoration: InputDecoration.collapsed(hintText: ''),
+              decoration: const InputDecoration.collapsed(hintText: ''),
               items: dropDownList,
               onChanged: (newValue) {
-                isPrefill =false;
-                for(var a in snapshot.data!){
-                  if(a.name == newValue){
+                isPrefill = false;
+                for (var a in snapshot.data!) {
+                  if (a.name == newValue) {
                     selectedCountry = a.name;
-                   // selectedCountry = dropDownList[0].value!;
                     countryId = a.countryId;
-                    print("country :: ${selectedCountry}");
-                    print("country :: ${countryId}");
-                    //empTypeId = docType;
+                    print("Country :: ${selectedCountry}");
+                    print("Country ID :: ${countryId}");
                   }
                 }
               },
-              value: dropDownList[0].value,
+              value: initialValue, // Use the prefilled value or default to the first item
               style: onlyFormDataStyle.customTextStyle(context),
             ),
           );
@@ -843,57 +921,66 @@ class _licensesFormState extends State<licensesForm> {
           return CustomDropdownTextField(
             // width: MediaQuery.of(context).size.width / 5,
             headText: 'Country',
-
             items: ['No Data'],
           );
         }
       },
     );
   }
+
+
+
+
+  ///
+/// ///
+
+
   Widget buildDropdownButtonDocumentType(BuildContext context) {
+    // Store prefilled document type value (you can initialize it with null or fetch it dynamically)
+   // String? prefilledDocumentType;
+
     return FutureBuilder<List<NewOrgDocument>>(
       future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
       builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 7),
             child: Container(
               height: 31,
               width: 250,
-              decoration: BoxDecoration(
-                  color: ColorManager.white),
+              decoration: BoxDecoration(color: ColorManager.white),
             ),
           );
-
         } else if (snapshot.hasError) {
-          return  CustomDropdownTextField(
-            //width: MediaQuery.of(context).size.width / 5,
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
             headText: 'Select Document',
             items: ['Error'],
           );
         } else if (snapshot.hasData) {
           List<DropdownMenuItem<String>> dropDownList = [];
 
-          for(var i in snapshot.data!){
+          // Populate the dropdown list from the fetched data
+          for (var i in snapshot.data!) {
             dropDownList.add(DropdownMenuItem<String>(
               child: Text(i.docName),
               value: i.docName,
             ));
           }
+
+          // Use the prefilled document type if available, otherwise default to the first item
+          String initialValue = documentTypeName ?? dropDownList[0].value!;
+
           return Container(
             height: 32,
-            // margin: EdgeInsets.symmetric(horizontal: 20),
-            padding:
-            const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(
-                  color: const Color(0xff686464).withOpacity(0.5),
-                  width: 1), // Black border
-              borderRadius:
-              BorderRadius.circular(6), // Rounded corners
+                color: const Color(0xff686464).withOpacity(0.5),
+                width: 1, // Black border
+              ),
+              borderRadius: BorderRadius.circular(6), // Rounded corners
             ),
             child: DropdownButtonFormField<String>(
               focusColor: Colors.transparent,
@@ -901,22 +988,18 @@ class _licensesFormState extends State<licensesForm> {
                 Icons.arrow_drop_down_sharp,
                 color: Color(0xff686464),
               ),
-              decoration: InputDecoration.collapsed(hintText: ''),
+              decoration: const InputDecoration.collapsed(hintText: ''),
               items: dropDownList,
               onChanged: (newValue) {
-                isPrefill =false;
-                for(var a in snapshot.data!){
-                  if(a.docName == newValue){
+                isPrefill = false;
+                for (var a in snapshot.data!) {
+                  if (a.docName == newValue) {
                     documentTypeName = a.docName;
-                    // selectedCountry = dropDownList[0].value!;
-                    // countryId = a.countryId;
-                    print("documentType :: ${documentTypeName}");
-                    // print("country :: ${countryId}");
-                    //empTypeId = docType;
+                    print("Document Type :: ${documentTypeName}");
                   }
                 }
               },
-              value: dropDownList[0].value,
+              value: initialValue, // Use the prefilled value or default to the first item
               style: onlyFormDataStyle.customTextStyle(context),
             ),
           );
@@ -924,11 +1007,181 @@ class _licensesFormState extends State<licensesForm> {
           return CustomDropdownTextField(
             // width: MediaQuery.of(context).size.width / 5,
             headText: 'Select Document',
-
             items: ['No Data'],
           );
         }
       },
     );
   }
+
+
+
+/// ////////
+
+  ///
+  ////
+  // Widget buildDropdownButton(BuildContext context) {
+  //   return FutureBuilder<List<CountryGetData>>(
+  //     future: getCountry(context: context),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState ==
+  //           ConnectionState.waiting) {
+  //         return Padding(
+  //           padding: const EdgeInsets.symmetric(
+  //               horizontal: 7),
+  //           child: Container(
+  //             height: 31,
+  //             width: 250,
+  //             decoration: BoxDecoration(
+  //                 color: ColorManager.white),
+  //           ),
+  //         );
+  //
+  //       } else if (snapshot.hasError) {
+  //         return  CustomDropdownTextField(
+  //           //width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Country',
+  //           items: ['Error'],
+  //         );
+  //       } else if (snapshot.hasData) {
+  //         List<DropdownMenuItem<String>> dropDownList = [];
+  //         int degreeID = 0;
+  //         for(var i in snapshot.data!){
+  //           dropDownList.add(DropdownMenuItem<String>(
+  //             child: Text(i.name),
+  //             value: i.name,
+  //           ));
+  //         }
+  //         return Container(
+  //           height: 32,
+  //           // margin: EdgeInsets.symmetric(horizontal: 20),
+  //           padding:
+  //           const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             border: Border.all(
+  //                 color: const Color(0xff686464).withOpacity(0.5),
+  //                 width: 1), // Black border
+  //             borderRadius:
+  //             BorderRadius.circular(6), // Rounded corners
+  //           ),
+  //           child: DropdownButtonFormField<String>(
+  //             focusColor: Colors.transparent,
+  //             icon: const Icon(
+  //               Icons.arrow_drop_down_sharp,
+  //               color: Color(0xff686464),
+  //             ),
+  //             decoration: InputDecoration.collapsed(hintText: ''),
+  //             items: dropDownList,
+  //             onChanged: (newValue) {
+  //               isPrefill =false;
+  //               for(var a in snapshot.data!){
+  //                 if(a.name == newValue){
+  //                   selectedCountry = a.name;
+  //                  // selectedCountry = dropDownList[0].value!;
+  //                   countryId = a.countryId;
+  //                   print("country :: ${selectedCountry}");
+  //                   print("country :: ${countryId}");
+  //                   //empTypeId = docType;
+  //                 }
+  //               }
+  //             },
+  //             value: dropDownList[0].value,
+  //             style: onlyFormDataStyle.customTextStyle(context),
+  //           ),
+  //         );
+  //       } else {
+  //         return CustomDropdownTextField(
+  //           // width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Country',
+  //
+  //           items: ['No Data'],
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
+  ////////////////
+  ///
+  // Widget buildDropdownButtonDocumentType(BuildContext context) {
+  //   return FutureBuilder<List<NewOrgDocument>>(
+  //     future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState ==
+  //           ConnectionState.waiting) {
+  //         return Padding(
+  //           padding: const EdgeInsets.symmetric(
+  //               horizontal: 7),
+  //           child: Container(
+  //             height: 31,
+  //             width: 250,
+  //             decoration: BoxDecoration(
+  //                 color: ColorManager.white),
+  //           ),
+  //         );
+  //
+  //       } else if (snapshot.hasError) {
+  //         return  CustomDropdownTextField(
+  //           //width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Select Document',
+  //           items: ['Error'],
+  //         );
+  //       } else if (snapshot.hasData) {
+  //         List<DropdownMenuItem<String>> dropDownList = [];
+  //
+  //         for(var i in snapshot.data!){
+  //           dropDownList.add(DropdownMenuItem<String>(
+  //             child: Text(i.docName),
+  //             value: i.docName,
+  //           ));
+  //         }
+  //         return Container(
+  //           height: 32,
+  //           // margin: EdgeInsets.symmetric(horizontal: 20),
+  //           padding:
+  //           const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             border: Border.all(
+  //                 color: const Color(0xff686464).withOpacity(0.5),
+  //                 width: 1), // Black border
+  //             borderRadius:
+  //             BorderRadius.circular(6), // Rounded corners
+  //           ),
+  //           child: DropdownButtonFormField<String>(
+  //             focusColor: Colors.transparent,
+  //             icon: const Icon(
+  //               Icons.arrow_drop_down_sharp,
+  //               color: Color(0xff686464),
+  //             ),
+  //             decoration: InputDecoration.collapsed(hintText: ''),
+  //             items: dropDownList,
+  //             onChanged: (newValue) {
+  //               isPrefill =false;
+  //               for(var a in snapshot.data!){
+  //                 if(a.docName == newValue){
+  //                   documentTypeName = a.docName;
+  //                   // selectedCountry = dropDownList[0].value!;
+  //                   // countryId = a.countryId;
+  //                   print("documentType :: ${documentTypeName}");
+  //                   // print("country :: ${countryId}");
+  //                   //empTypeId = docType;
+  //                 }
+  //               }
+  //             },
+  //             value: dropDownList[0].value,
+  //             style: onlyFormDataStyle.customTextStyle(context),
+  //           ),
+  //         );
+  //       } else {
+  //         return CustomDropdownTextField(
+  //           // width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Select Document',
+  //
+  //           items: ['No Data'],
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 }
