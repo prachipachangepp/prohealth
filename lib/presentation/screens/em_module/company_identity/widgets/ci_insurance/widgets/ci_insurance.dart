@@ -97,7 +97,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(4),
                         ),
                         child: Row(
                           children: [
@@ -125,7 +125,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                           // color: Colors.red,
                           border: Border.all(
                               color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(4),
                         ),
                         child: Row(
                           children: [
@@ -145,7 +145,23 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                       );
                     }
                     if (snapshotZone.data!.isEmpty) {
-                      return CICCDropdown(items: [],initialValue: ErrorMessageString.noVendorAdded,);
+                      return Container(
+                        width:  285,
+                        height: 30,
+                       // padding: EdgeInsets.symmetric(horizontal: 20),
+                        decoration: BoxDecoration(
+                          // color: Colors.red,
+                          border: Border.all(
+                              color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Center(
+                          child: Text(ErrorMessageString.noVendorAdded,
+                            style: DocumentTypeDataStyle.customTextStyle(context),),
+                        ),
+                      );
+
+                        //CICCDropdown(items: [],initialValue: ErrorMessageString.noVendorAdded,);
                     }
                     if (snapshotZone.hasData) {
                       List<DropdownMenuItem<String>> dropDownTypesList = [];

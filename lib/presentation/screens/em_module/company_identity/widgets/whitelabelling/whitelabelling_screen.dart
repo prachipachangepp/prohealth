@@ -179,7 +179,7 @@ void fetchData()async{
                       highlightColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       onPressed: widget.backButtonCallback,
-                      icon: Icon(Icons.arrow_back_rounded,
+                      icon: Icon(Icons.arrow_back_rounded, color: ColorManager.mediumgrey, size: IconSize.I16,
                       )),
                   Padding(
                     padding: const EdgeInsets.only(left: 15),

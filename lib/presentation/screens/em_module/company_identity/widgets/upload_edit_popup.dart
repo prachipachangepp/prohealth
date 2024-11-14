@@ -129,8 +129,8 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      _nameDocError =
-          _validateTextField(nameDocController.text, 'Name of the Document');
+      _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
+      _idDocError = _validateTextField(idDocController.text, 'id of the Document');
     });
   }
 
@@ -176,28 +176,28 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
       width: AppSize.s420,
       height:  widget.isOthersDocs == false
           ? widget.height == null ? AppSize.s390 : widget.height!
-          : widget.height == null ? AppSize.s620 : widget.height! ,
+          : widget.height == null ? AppSize.s580 : widget.height! ,
 
       body: [
-        Padding(
-          padding: const EdgeInsets.only(left: 5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomRadioListTile(
-                title:  widget.isOthersDocs == false ? 'Pre-defined' : 'Other',
-                value: widget.isOthersDocs == false ? 'Pre-defined' : 'Other',
-                groupValue: widget.isOthersDocs == false ?  'Pre-defined' : 'Other',
-                onChanged: (value) {
-                  setState(() {
-                    selectedRadio = value!;
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 5.0),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       CustomRadioListTile(
+        //         title:  widget.isOthersDocs == false ? 'Pre-defined' : 'Other',
+        //         value: widget.isOthersDocs == false ? 'Pre-defined' : 'Other',
+        //         groupValue: widget.isOthersDocs == false ?  'Pre-defined' : 'Other',
+        //         onChanged: (value) {
+        //           setState(() {
+        //             selectedRadio = value!;
+        //           });
+        //         },
+        //       ),
+        //     ],
+        //   ),
+        // ),
         widget.isOthersDocs == false
             ? Column(
           children: [
@@ -372,58 +372,119 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                   style:CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(height: AppSize.s2),
-
-              /// Type of the Document
+              /// Upload document
               HeaderContentConst(
-                heading: AppString.type_of_the_document,
-                content: Container(
-                  width: 354,
-                  height: 30,
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: ColorManager.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  heading: AppString.upload_document,
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.documentType,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                      InkWell(
+                        onTap:
+                        _pickFile, // Trigger file picking when the whole container is tapped
+                        child: Container(
+                          height: AppSize.s30,
+                          width: AppSize.s354,
+                          padding: EdgeInsets.only(left: AppPadding.p15),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: ColorManager.containerBorderGrey,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    fileName,
+                                    style: DocumentTypeDataStyle
+                                        .customTextStyle(context),
+                                  ),
+                                ),
+                                IconButton(
+                                  padding: EdgeInsets.all(4),
+                                  onPressed:
+                                  _pickFile, // Keep file picker here as well for icon press
+                                  icon: Icon(
+                                    Icons.file_upload_outlined,
+                                    color: ColorManager.black,
+                                    size: 17,
+                                  ),
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
+                      if (isFileErrorVisible)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            'Please upload a document',
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                        ),
                     ],
-                  ),
-                ),
-              ),
-              SizedBox(height: AppSize.s2),
+                  )),
 
-              /// SubType of the Document
-              widget.selectedSubDocId == AppConfig.subDocId0
-                  ? SizedBox()
-                  : HeaderContentConst(
-                heading: AppString.sub_type_of_the_document,
-                content: Container(
-                  width: 354,
-                  height: 30,
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: ColorManager.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.documentSubType,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: AppSize.s2),
+              // /// Type of the Document
+              // HeaderContentConst(
+              //   heading: AppString.type_of_the_document,
+              //   content: Container(
+              //     width: 354,
+              //     height: 30,
+              //     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+              //     decoration: BoxDecoration(
+              //       color: ColorManager.white,
+              //       borderRadius: BorderRadius.circular(8),
+              //       border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+              //     ),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Text(
+              //           widget.documentType,
+              //           style: DocumentTypeDataStyle.customTextStyle(context),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: AppSize.s2),
+              //
+              // /// SubType of the Document
+              // widget.selectedSubDocId == AppConfig.subDocId0
+              //     ? SizedBox()
+              //     : HeaderContentConst(
+              //   heading: AppString.sub_type_of_the_document,
+              //   content: Container(
+              //     width: 354,
+              //     height: 30,
+              //     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+              //     decoration: BoxDecoration(
+              //       color: ColorManager.white,
+              //       borderRadius: BorderRadius.circular(8),
+              //       border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+              //     ),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Text(
+              //           widget.documentSubType,
+              //           style: DocumentTypeDataStyle.customTextStyle(context),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: AppSize.s2),
               ///radio
               Row(
                 children: [
@@ -671,70 +732,6 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 ),
               ),
 
-              /// Upload document
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                child: HeaderContentConst(
-                    heading: AppString.upload_document,
-                    content: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap:
-                          _pickFile, // Trigger file picking when the whole container is tapped
-                          child: Container(
-                            height: AppSize.s30,
-                            width: AppSize.s354,
-                            padding: EdgeInsets.only(left: AppPadding.p15),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: ColorManager.containerBorderGrey,
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(0),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      fileName,
-                                      style: DocumentTypeDataStyle
-                                          .customTextStyle(context),
-                                    ),
-                                  ),
-                                  IconButton(
-                                    padding: EdgeInsets.all(4),
-                                    onPressed:
-                                    _pickFile, // Keep file picker here as well for icon press
-                                    icon: Icon(
-                                      Icons.file_upload_outlined,
-                                      color: ColorManager.black,
-                                      size: 17,
-                                    ),
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        if (isFileErrorVisible)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Text(
-                              'Please upload a document',
-                              style: CommonErrorMsg.customTextStyle(context),
-                            ),
-                          ),
-                      ],
-                    )),
-              )
             ],
           ),
         )
