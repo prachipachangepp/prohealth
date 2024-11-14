@@ -50,7 +50,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
   String? workError;
   DateTime? datePicked;
 
-  String? citizentype;
+  String? citizentype= 'A citizen of the United States';
   String  alienWork = "";
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {

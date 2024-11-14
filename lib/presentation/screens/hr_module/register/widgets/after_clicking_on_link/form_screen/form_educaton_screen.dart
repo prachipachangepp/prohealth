@@ -431,7 +431,7 @@ class _EducationFormState extends State<EducationForm> {
   int? educationIndex;
   int selectedDegreeId = 0;
 
-  String? graduatetype;
+  String? graduatetype='Yes';
   String? selectedDegree;
   String? docName;
 
