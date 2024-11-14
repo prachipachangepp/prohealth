@@ -254,7 +254,12 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                                         child: CircularProgressIndicator());
                                                   }
                                                   if (snapshotPreFill.hasData) {
-                                                    return SizedBox();
+                                                    return OthersEditPopup(
+                                                      url: snapshotPreFill.data!.url,
+                                                      fileName: snapshotPreFill.data!.fileName,
+                                                      expDate: snapshotPreFill.data!.expDate,
+                                                      documentName: snapshotPreFill.data!.idOfDocument,
+                                                      title: 'Edit Other Document', employeeId: widget.employeeId, otherDocId: others.otherDocId,);
                                                     // return CustomDocumedEditPopup(
                                                     //   labelName: 'Edit Other Document', employeeId: widget.employeeId, docName: others.DocumentName,
                                                     //   docMetaDataId: others.EmployeeDocumentTypeMetaDataId, docSetupId: others.EmployeeDocumentTypeSetupId, empDocumentId: others.employeeDocumentId,
