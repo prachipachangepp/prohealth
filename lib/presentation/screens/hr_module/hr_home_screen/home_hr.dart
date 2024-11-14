@@ -585,9 +585,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                         (BuildContext context) {
                                                       return ProfilePatientPopUp(
                                                         officceIdWidget: FutureBuilder<List<CompanyOfficeListData>>(
-                                                          future:
-                                                              getCompanyOfficeList(
-                                                                  context),
+                                                          future: getCompanyOfficeList(context),
                                                           builder: (context,
                                                               snapshot) {
                                                             if (snapshot
@@ -605,8 +603,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                             if (snapshot
                                                                 .hasData) {
                                                               {
-                                                                List<
-                                                                        DropdownMenuItem<
+                                                                List<DropdownMenuItem<
                                                                             String>>
                                                                     dropDownList =
                                                                     [];
@@ -631,12 +628,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 return Container(
                                                                   height: 31,
                                                                   width: 170,
+
                                                                   // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                                  padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                      vertical: 4,
-                                                                      horizontal:
-                                                                          10),
+                                                                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color: Colors
@@ -656,45 +650,29 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                   child:
                                                                       DropdownButtonFormField<
                                                                           String>(
-                                                                    focusColor: Colors
-                                                                        .transparent,
-                                                                    icon: Icon(
-                                                                      Icons
-                                                                          .arrow_drop_down_sharp,
-                                                                      color: ColorManager
-                                                                          .mediumgrey,
-                                                                    ),
-                                                                    decoration: const InputDecoration
-                                                                        .collapsed(
-                                                                        hintText:
-                                                                            ''),
-                                                                    items:
-                                                                        dropDownList,
-                                                                    onChanged:
-                                                                        (newValue) {
-                                                                      for (var a
-                                                                          in snapshot
-                                                                              .data!) {
-                                                                        if (a.name ==
-                                                                            newValue) {
-                                                                          reportingOfficeId =
-                                                                              a.name;
-                                                                          isReportingOfficeId =
-                                                                              true;
+                                                                        focusColor: Colors.transparent,
+                                                                        icon: Icon(
+                                                                      Icons.arrow_drop_down_sharp,
+                                                                      color: ColorManager.mediumgrey,
+                                                                        ),
+                                                                        decoration: const InputDecoration.collapsed(hintText: ''),
+                                                                        items: dropDownList,
+                                                                        onChanged: (newValue) {for (var a
+                                                                          in snapshot.data!) {
+                                                                        if (a.name == newValue) {
+                                                                          reportingOfficeId =a.name;
+                                                                          isReportingOfficeId = true;
                                                                           print(
                                                                               'Office Name : ${reportingOfficeId}');
                                                                           //empTypeId = docType;
                                                                         }
                                                                       }
-                                                                    },
-                                                                    value:
-                                                                        dropDownList[
-                                                                                0]
-                                                                            .value,
-                                                                    style: SearchDropdownConst
+                                                                      },
+                                                                        value: dropDownList[0].value,
+                                                                        style: SearchDropdownConst
                                                                         .customTextStyle(
                                                                             context),
-                                                                  ),
+                                                                      ),
                                                                 );
                                                               }
                                                             } else {
@@ -702,6 +680,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                             }
                                                           },
                                                         ),
+
+
                                                         avabilityWidget: Row(
                                                           children: [
                                                             Center(
@@ -812,9 +792,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 const EdgeInsets
                                                                     .symmetric(
                                                                     vertical:
-                                                                    6,
+                                                                    5,
                                                                     horizontal:
-                                                                    15),
+                                                                    4),
                                                                 decoration:
                                                                 BoxDecoration(
                                                                   color: Colors
