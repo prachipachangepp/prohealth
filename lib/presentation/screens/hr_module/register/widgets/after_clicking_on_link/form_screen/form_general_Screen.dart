@@ -661,9 +661,17 @@ class _generalFormState extends State<generalForm> {
                         onSuggestionSelected: (selectedSuggestion) {
                           // Handle the selected suggestion here
                           print("Selected suggestion: $selectedSuggestion");
-                        }, onChanged: (String ) {
-
-                      },
+                        },
+                        onChanged: (String value) {
+                          // Validate when user types in the address field
+                          setState(() {
+                            if (value.isEmpty) {
+                              _addressDocError = 'Address cannot be empty';
+                            } else {
+                              _addressDocError = null; // Clear error if text is entered
+                            }
+                          });
+                        },
                       ),
                       if (_addressDocError != null) // Display error if any
                         Row(
