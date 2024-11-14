@@ -342,6 +342,76 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
   }
 }
 
+class AddErrorPopup extends StatefulWidget {
+  final String message;
+  const AddErrorPopup({super.key, required this.message});
+
+  @override
+  State<AddErrorPopup> createState() => _AddErrorPopupState();
+}
+
+class _AddErrorPopupState extends State<AddErrorPopup> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        width: AppSize.s300,
+        height: AppSize.s150,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      "Error",
+                      style:  PopupBlueBarText.customTextStyle(context),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(Icons.close, color: ColorManager.white),
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
+            Center(
+              child: Container(
+                height: AppSize.s50,
+                width: AppSize.s210,
+                child: Center(
+                  child: Text(widget.message == ""?'Something went wrong!':widget.message,textAlign: TextAlign.center,
+                    style:ConstTextFieldRegister.customTextStyle(context),),
+                ),
+              ),
+            ),
+            Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
 
 class CountySuccessPopup extends StatefulWidget {
   final String message;
