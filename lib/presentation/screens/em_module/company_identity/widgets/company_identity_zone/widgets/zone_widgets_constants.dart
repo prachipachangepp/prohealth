@@ -1291,7 +1291,7 @@ title: widget.title,
                                 int docType = 0;
                                 List<DropdownMenuItem<String>> dropDownTypesList = [];
                                 for(var i in snapshotZone.data!){
-                                  if(widget.zoneName == countyNameText){
+                                  if(widget.countyName == countyNameText){
                                     dropDownTypesList.add(
                                          DropdownMenuItem<String>(
                                           child: Text(countyNameText),
