@@ -27,6 +27,9 @@ class ManageReposotory{
   static String Bankcheckupload = "/employee-bankings/attach-checkbase64";
   static String licenseFilterGet = "/employee-licenses/Dropdown/ByLicenseName";
 
+  static String othersDocumentAdd = "/others-docs";
+
+
 
   /// Licenses status wise
 
@@ -72,7 +75,22 @@ class ManageReposotory{
     return "$photoupload/$employeeid";
   }
 
+  /// Others document
+  static String addOthersDoc(){
+    return "$othersDocumentAdd";
+  }
 
+  static String uploadOthersDoc({required int otherDocumentid}){
+    return "$othersDocumentAdd/attach-documentbase64/$otherDocumentid";
+  }
+
+  static String getOthersDocument({required int employeeId, required int companyId}){
+    return "$othersDocumentAdd/by/$employeeId/$companyId";
+  }
+
+  static String patchOthersDoc({required int otherDocId}){
+    return "$othersDocumentAdd/$otherDocId";
+  }
 
 
   /// Employee licences

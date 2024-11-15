@@ -129,8 +129,18 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      _nameDocError =
-          _validateTextField(nameDocController.text, 'Name of the Document');
+      _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
+      _idDocError = _validateTextField(idDocController.text, 'id of the Document');
+      if (selectedExpiryType == AppConfig.issuer) {
+        if (expiryDateController.text.isEmpty) {
+          _expiryTypeError = "Please select expiry date";
+          _isFormValid = false;
+        } else {
+          _expiryTypeError = null;
+        }
+      } else {
+        _expiryTypeError = null;
+      }
     });
   }
 
@@ -176,28 +186,28 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
       width: AppSize.s420,
       height:  widget.isOthersDocs == false
           ? widget.height == null ? AppSize.s390 : widget.height!
-          : widget.height == null ? AppSize.s620 : widget.height! ,
+          : widget.height == null ? AppSize.s580 : widget.height! ,
 
       body: [
-        Padding(
-          padding: const EdgeInsets.only(left: 5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomRadioListTile(
-                title:  widget.isOthersDocs == false ? 'Pre-defined' : 'Other',
-                value: widget.isOthersDocs == false ? 'Pre-defined' : 'Other',
-                groupValue: widget.isOthersDocs == false ?  'Pre-defined' : 'Other',
-                onChanged: (value) {
-                  setState(() {
-                    selectedRadio = value!;
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 5.0),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       CustomRadioListTile(
+        //         title:  widget.isOthersDocs == false ? 'Pre-defined' : 'Other',
+        //         value: widget.isOthersDocs == false ? 'Pre-defined' : 'Other',
+        //         groupValue: widget.isOthersDocs == false ?  'Pre-defined' : 'Other',
+        //         onChanged: (value) {
+        //           setState(() {
+        //             selectedRadio = value!;
+        //           });
+        //         },
+        //       ),
+        //     ],
+        //   ),
+        // ),
         widget.isOthersDocs == false
             ? Column(
           children: [
@@ -372,58 +382,119 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                   style:CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(height: AppSize.s2),
-
-              /// Type of the Document
+              /// Upload document
               HeaderContentConst(
-                heading: AppString.type_of_the_document,
-                content: Container(
-                  width: 354,
-                  height: 30,
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: ColorManager.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  heading: AppString.upload_document,
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.documentType,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                      InkWell(
+                        onTap:
+                        _pickFile, // Trigger file picking when the whole container is tapped
+                        child: Container(
+                          height: AppSize.s30,
+                          width: AppSize.s354,
+                          padding: EdgeInsets.only(left: AppPadding.p15),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: ColorManager.containerBorderGrey,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    fileName,
+                                    style: DocumentTypeDataStyle
+                                        .customTextStyle(context),
+                                  ),
+                                ),
+                                IconButton(
+                                  padding: EdgeInsets.all(4),
+                                  onPressed:
+                                  _pickFile, // Keep file picker here as well for icon press
+                                  icon: Icon(
+                                    Icons.file_upload_outlined,
+                                    color: ColorManager.black,
+                                    size: 17,
+                                  ),
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
+                      if (isFileErrorVisible)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            'Please upload a document',
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                        ),
                     ],
-                  ),
-                ),
-              ),
-              SizedBox(height: AppSize.s2),
+                  )),
 
-              /// SubType of the Document
-              widget.selectedSubDocId == AppConfig.subDocId0
-                  ? SizedBox()
-                  : HeaderContentConst(
-                heading: AppString.sub_type_of_the_document,
-                content: Container(
-                  width: 354,
-                  height: 30,
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: ColorManager.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.documentSubType,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: AppSize.s2),
+              // /// Type of the Document
+              // HeaderContentConst(
+              //   heading: AppString.type_of_the_document,
+              //   content: Container(
+              //     width: 354,
+              //     height: 30,
+              //     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+              //     decoration: BoxDecoration(
+              //       color: ColorManager.white,
+              //       borderRadius: BorderRadius.circular(8),
+              //       border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+              //     ),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Text(
+              //           widget.documentType,
+              //           style: DocumentTypeDataStyle.customTextStyle(context),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: AppSize.s2),
+              //
+              // /// SubType of the Document
+              // widget.selectedSubDocId == AppConfig.subDocId0
+              //     ? SizedBox()
+              //     : HeaderContentConst(
+              //   heading: AppString.sub_type_of_the_document,
+              //   content: Container(
+              //     width: 354,
+              //     height: 30,
+              //     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+              //     decoration: BoxDecoration(
+              //       color: ColorManager.white,
+              //       borderRadius: BorderRadius.circular(8),
+              //       border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+              //     ),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Text(
+              //           widget.documentSubType,
+              //           style: DocumentTypeDataStyle.customTextStyle(context),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: AppSize.s2),
               ///radio
               Row(
                 children: [
@@ -463,11 +534,6 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                           },
                           title: AppConfig.issuer,
                         ),
-                        if (_expiryTypeError != null)
-                          Text(
-                            _expiryTypeError!,
-                            style:  CommonErrorMsg.customTextStyle(context),
-                          ),
                       ],
                     ),
                   ),
@@ -594,147 +660,97 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               ),
 
               ///date
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: AppPadding.p5,
-                  right: AppPadding.p5,
-                ),
-                child: Visibility(
-                  visible: selectedExpiryType == AppConfig.issuer,
-                  child: HeaderContentConst(
-                    heading: AppString.expiry_date,
-                    content: FormField<String>(
-                      builder: (FormFieldState<String> field) {
-                        return SizedBox(
-                          width: 354,
-                          height: 30,
-                          child: TextFormField(
-                            controller: expiryDateController,
-                            cursorColor: ColorManager.black,
-                            style: DocumentTypeDataStyle.customTextStyle(
-                                context),
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ColorManager.fmediumgrey,
-                                    width: 1),
-                                borderRadius: BorderRadius.circular(6),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment:CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: AppPadding.p5,
+                      right: AppPadding.p5,
+                    ),
+                    child: Visibility(
+                      visible: selectedExpiryType == AppConfig.issuer,
+                      child: HeaderContentConst(
+                        heading: AppString.expiry_date,
+                        content: FormField<String>(
+                          builder: (FormFieldState<String> field) {
+                            return SizedBox(
+                              width: 354,
+                              height: 30,
+                              child: TextFormField(
+                                controller: expiryDateController,
+                                cursorColor: ColorManager.black,
+                                style: DocumentTypeDataStyle.customTextStyle(
+                                    context),
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: ColorManager.fmediumgrey,
+                                        width: 1),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: ColorManager.fmediumgrey,
+                                        width: 1),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  hintText: 'yyyy-mm-dd',
+                                  hintStyle:
+                                  DocumentTypeDataStyle.customTextStyle(
+                                      context),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: ColorManager.fmediumgrey),
+                                  ),
+                                  contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 16),
+                                  suffixIcon: Icon(
+                                      Icons.calendar_month_outlined,
+                                      color: ColorManager.blueprime),
+                                  errorText: field.errorText,
+                                ),
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1901),
+                                    lastDate: DateTime(3101),
+                                  );
+                                  if (pickedDate != null) {
+                                    datePicked = pickedDate;
+                                    expiryDateController.text =
+                                        DateFormat('yyyy-MM-dd')
+                                            .format(pickedDate);
+                                  }
+                                },
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please select a date';
+                                  }
+                                  return null;
+                                },
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ColorManager.fmediumgrey,
-                                    width: 1),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              hintText: 'yyyy-mm-dd',
-                              hintStyle:
-                              DocumentTypeDataStyle.customTextStyle(
-                                  context),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6),
-                                borderSide: BorderSide(
-                                    width: 1,
-                                    color: ColorManager.fmediumgrey),
-                              ),
-                              contentPadding:
-                              EdgeInsets.symmetric(horizontal: 16),
-                              suffixIcon: Icon(
-                                  Icons.calendar_month_outlined,
-                                  color: ColorManager.blueprime),
-                              errorText: field.errorText,
-                            ),
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(1901),
-                                lastDate: DateTime(3101),
-                              );
-                              if (pickedDate != null) {
-                                datePicked = pickedDate;
-                                expiryDateController.text =
-                                    DateFormat('yyyy-MM-dd')
-                                        .format(pickedDate);
-                              }
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please select a date';
-                              }
-                              return null;
-                            },
-                          ),
-                        );
-                      },
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  if (_expiryTypeError != null)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: Text(
+                        _expiryTypeError!,
+                        style:  CommonErrorMsg.customTextStyle(context),
+                      ),
+                    ),
+                ],
               ),
 
-              /// Upload document
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                child: HeaderContentConst(
-                    heading: AppString.upload_document,
-                    content: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap:
-                          _pickFile, // Trigger file picking when the whole container is tapped
-                          child: Container(
-                            height: AppSize.s30,
-                            width: AppSize.s354,
-                            padding: EdgeInsets.only(left: AppPadding.p15),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: ColorManager.containerBorderGrey,
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(0),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      fileName,
-                                      style: DocumentTypeDataStyle
-                                          .customTextStyle(context),
-                                    ),
-                                  ),
-                                  IconButton(
-                                    padding: EdgeInsets.all(4),
-                                    onPressed:
-                                    _pickFile, // Keep file picker here as well for icon press
-                                    icon: Icon(
-                                      Icons.file_upload_outlined,
-                                      color: ColorManager.black,
-                                      size: 17,
-                                    ),
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        if (isFileErrorVisible)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Text(
-                              'Please upload a document',
-                              style: CommonErrorMsg.customTextStyle(context),
-                            ),
-                          ),
-                      ],
-                    )),
-              )
             ],
           ),
         )
@@ -776,11 +792,22 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
             if (response.statusCode == 200 ||
                 response.statusCode == 201) {
               if (fileIsPicked) {
-                await uploadDocumentsoffice(
+                var uploadDocNew =   await uploadDocumentsoffice(
                     context: context,
                     documentFile: filePath,
                     fileName: fileName,
                     orgOfficeDocumentId: response.orgOfficeDocumentId!);
+                if (uploadDocNew.statusCode == 413) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddErrorPopup(
+                        message: 'Request entity to large!',
+                      );
+                    },
+                  );
+                }
               }
               setState(() {
                 loading = false;
@@ -808,9 +835,15 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
         text: AppStringEM.save, //submit
           onPressed: () async {
             _validateForm();
-            if (_isFormValid) {
-              setState(() {
-                loading = true;
+            if (!_isFormValid) {
+              return; // Stop here if the form is not valid
+            }
+            // if (_isFormValid) {
+            //   setState(() {
+            //     loading = true;
+            //   });
+            setState(() {
+              loading = true;
               });
 
               try {
@@ -831,11 +864,19 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                   threshold = 0;
                   expiryDateToSend = null;
                 } else if (selectedExpiryType == AppConfig.issuer) {
+    // Ensure expiry date is not empty
+                  if (expiryDateController.text.isEmpty) {
+                  setState(() {
+                  _expiryTypeError = "Please select expiry date";
+                  loading = false;
+                  });
+                  return;
+                  }
                   threshold = 0;
                   expiryDateToSend = datePicked != null
-                      ? datePicked!.toIso8601String() + "Z"
+                  ? datePicked!.toIso8601String() + "Z"
                       : widget.expiryDate;
-                }
+                  }
 
                 // Determine the final document name and ID
                 String finalDocName = nameDocController.text.isNotEmpty
@@ -868,12 +909,23 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 if (response.statusCode == 200 || response.statusCode == 201) {
                   // Upload the document if a new file was picked
                   if (fileIsPicked) {
-                    await uploadDocumentsoffice(
+                    var uploadDocNew =   await uploadDocumentsoffice(
                       context: context,
                       documentFile: filePath,
                       fileName: fileName,
                       orgOfficeDocumentId: response.orgOfficeDocumentId!,
                     );
+                    if (uploadDocNew.statusCode == 413) {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddErrorPopup(
+                            message: 'Request entity to large!',
+                          );
+                        },
+                      );
+                    }
                   }
                   setState(() {
                     loading = false;
@@ -898,7 +950,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 });
               }
             }
-          }),
+          ),
       title: widget.title,
     );
   }

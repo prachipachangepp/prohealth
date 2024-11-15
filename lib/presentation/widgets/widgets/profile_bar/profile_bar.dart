@@ -387,32 +387,16 @@ class _ProfileBarState extends State<ProfileBar> {
                                 children: [
                                   // Circular avatar for the image or icon
                                   ClipOval(
-                                    child: widget.searchByEmployeeIdProfileData!
-                                                    .imgurl ==
-                                                'imgurl' ||
-                                            widget.searchByEmployeeIdProfileData!
-                                                    .imgurl ==
-                                                null
-                                        ? CircleAvatar(child: Image.asset("images/profilepic.png"),)
+                                    child: widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' || widget.searchByEmployeeIdProfileData!.imgurl == null
+                                        ? CircleAvatar(radius: 50,child: Image.asset("images/profilepic.png",fit: BoxFit.cover,),)
                                         : CachedNetworkImage(
-                                            imageUrl: widget
-                                                .searchByEmployeeIdProfileData!
-                                                .imgurl,
-                                            placeholder: (context, url) =>
-                                                CircularProgressIndicator(),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    CircleAvatar(
-                                              child: Image.asset(
-                                                  "images/profilepic.png"),
-                                            ),
-                                            fit: BoxFit
-                                                .cover, // Ensure the image fits inside the circle
-                                            height:
-                                                67, // Adjust image height for proper fit
-                                            width:
-                                                67, // Adjust image width for proper fit
-                                          ),
+                                      imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
+                                      placeholder: (context, url) => CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) => CircleAvatar(child: Image.asset("images/profilepic.png", fit: BoxFit.cover,),),
+                                      fit: BoxFit.cover,
+                                      height: 67,
+                                      width: 67,
+                                    ),
                                   ),
                                   // Circular progress indicator around the image
                                   SizedBox(

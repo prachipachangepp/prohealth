@@ -888,7 +888,18 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                       );
                     },
                   );
-                } else {
+                } else if (response.statusCode == 413) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddErrorPopup(
+                        message: 'Request entity to large!',
+                      );
+                    },
+                  );
+                }
+                else {
                   Navigator.pop(context);
                   print('Error');
                 }
@@ -1196,6 +1207,17 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                     context: context,
                     builder: (BuildContext context) {
                       return AddSuccessPopup(message: 'Document Uploaded Successfully');
+                    },
+                  );
+                }
+                if (response.statusCode == 413) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddErrorPopup(
+                        message: 'Request entity to large!',
+                      );
                     },
                   );
                 }

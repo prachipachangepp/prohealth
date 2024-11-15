@@ -910,7 +910,7 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
         borderRadius: BorderRadius.circular(6), // Rounded corners
       ),
       height: 31,
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
       child: DropdownButtonFormField<String>(
           icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey,),
           value: _selectedValue,

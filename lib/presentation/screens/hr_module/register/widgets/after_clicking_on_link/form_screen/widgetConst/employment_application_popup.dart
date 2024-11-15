@@ -87,7 +87,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
     position = selectedPositions.join(', ');
   }
 
-  String? emptype;
+  String? emptype ='Yes';
   @override
   void initState() {
     super.initState();

@@ -464,7 +464,7 @@ class _BankingFormState extends State<BankingForm> {
   TextEditingController bankname = TextEditingController();
   TextEditingController verifyaccountnumber = TextEditingController();
 
-  String? selectedtype;
+  String? selectedtype ='Checking';
 
   String? selectedacc;
   int? bankingId;

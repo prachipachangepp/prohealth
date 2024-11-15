@@ -129,12 +129,13 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
       if (nameOfDocumentText.isEmpty) {
         _isNameOfDocumentValid = false;
         _nameOfDocumentErrorText = 'Please Enter Type of Visit';
-      } else if (nameOfDocumentText.isNotEmpty &&
-          nameOfDocumentText[0] != nameOfDocumentText[0].toUpperCase())
-      {
-        _isNameOfDocumentValid = false;
-        _nameOfDocumentErrorText = 'First letter must be capitalized';
       }
+      // else if (nameOfDocumentText.isNotEmpty &&
+      //     nameOfDocumentText[0] != nameOfDocumentText[0].toUpperCase())
+      // {
+      //   _isNameOfDocumentValid = false;
+      //   _nameOfDocumentErrorText = 'First letter must be capitalized';
+      // }
       else {
         _isNameOfDocumentValid = true;
         _nameOfDocumentErrorText = '';
@@ -146,7 +147,7 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
         width: AppSize.s400,
-        height: AppSize.s420,
+        height: AppSize.s460,
           body: [
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -166,14 +167,14 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                           keyboardType: TextInputType.text,
                           text: 'Type of Visit',
                         ),
-                        if (!_isNameOfDocumentValid)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4.0),
-                            child: Text(
-                              _nameOfDocumentErrorText,
-                              style: CommonErrorMsg.customTextStyle(context),
-                            ),
-                          ),
+                        // if (!_isNameOfDocumentValid)
+                        //   Padding(
+                        //     padding: const EdgeInsets.only(top: 4.0),
+                        //     child: Text(
+                        //       _nameOfDocumentErrorText,
+                        //       style: CommonErrorMsg.customTextStyle(context),
+                        //     ),
+                        //   ),
                       ],
                     ),
                     SizedBox(height: AppSize.s10),
@@ -805,11 +806,13 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
       if (nameOfDocumentText.isEmpty) {
         _isNameOfDocumentValid = false;
         _nameOfDocumentErrorText = 'Please Enter Type of Visit';
-      } else if (nameOfDocumentText.isNotEmpty &&
-          nameOfDocumentText[0] != nameOfDocumentText[0].toUpperCase()) {
-        _isNameOfDocumentValid = false;
-        _nameOfDocumentErrorText = 'First letter must be capitalized';
-      } else {
+      }
+      // else if (nameOfDocumentText.isNotEmpty &&
+      //     nameOfDocumentText[0] != nameOfDocumentText[0].toUpperCase()) {
+      //   _isNameOfDocumentValid = false;
+      //   _nameOfDocumentErrorText = 'First letter must be capitalized';
+      // }
+      else {
         _isNameOfDocumentValid = true;
         _nameOfDocumentErrorText = '';
       }
@@ -830,7 +833,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s420,
+      height: AppSize.s460,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(

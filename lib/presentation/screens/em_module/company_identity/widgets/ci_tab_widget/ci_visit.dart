@@ -22,6 +22,7 @@ import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class CiVisitScreen extends StatefulWidget {
@@ -162,7 +163,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             children: [
               // Expanded(flex: 2, child: Container()),
               Padding(
-                padding: const EdgeInsets.only(left: 80),
+                padding: const EdgeInsets.only(left: 60),
                 child: Text(
                   AppString.srNo,
                   textAlign: TextAlign.center,
@@ -173,24 +174,24 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 
               ///type ofvisit
               Padding(
-                padding: const EdgeInsets.only(left: 150),
+                padding: const EdgeInsets.only(left: 80),
                 child: Text(
                   AppString.visit,
                   textAlign: TextAlign.center,
                   style: TableHeading.customTextStyle(context),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 150),
-                child: Text(
-                 "",
-                  textAlign: TextAlign.center,
-                  style: TableHeading.customTextStyle(context),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 150),
+              //   child: Text(
+              //    "",
+              //     textAlign: TextAlign.center,
+              //     style: TableHeading.customTextStyle(context),
+              //   ),
+              // ),
               ///EL clinician
               Padding(
-                padding: const EdgeInsets.only(right: 250),
+                padding: const EdgeInsets.only(right: 195),
                 child: Text(
                   AppString.eligibleClinician,
                   textAlign: TextAlign.center,
@@ -198,7 +199,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 75.0),
+                padding: const EdgeInsets.only(right: 60.0),
                 child: Text(
                   AppString.actions,
                   textAlign: TextAlign.center,
@@ -218,7 +219,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
               stream: _visitController.stream,
               builder: (context, snapshot) {
                 print('1111111');
-                getVisit(context, 1, 30).then((data) {
+                getVisit(context, 1, 10).then((data) {
                   _visitController.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -320,27 +321,33 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           ),
                                           // Expanded(flex: 1, child: Container()),
                                           Expanded(
-                                            child: Text(
-                                              visitData.typeofVisit.toString(),
-                                              textAlign: TextAlign.center,
-                                              style:DocumentTypeDataStyle.customTextStyle(context),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(right: 70.0),
+                                              child: Text(
+                                                visitData.typeofVisit.toString(),
+                                                textAlign: TextAlign.center,
+                                                style:DocumentTypeDataStyle.customTextStyle(context),
+                                              ),
                                             ),
                                           ),
-                                          Expanded(
-                                            child: Text(
-                                              "",
-                                              textAlign: TextAlign.center,
-                                              style:DocumentTypeDataStyle.customTextStyle(context),
-                                            ),
-                                          ),
+                                          // Expanded(
+                                          //   child: Text(
+                                          //     "",
+                                          //     textAlign: TextAlign.center,
+                                          //     style:DocumentTypeDataStyle.customTextStyle(context),
+                                          //   ),
+                                          // ),
                                         //  Expanded( child: Container()),
                                           Expanded(
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: clinical),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 10.0),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  children: clinical),
+                                            ),
                                           ),
                                           // Expanded(flex: 2, child: Container()),
                                           Expanded(
@@ -502,26 +509,26 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               );
                             }),
                       ),
-                      // PaginationControlsWidget(
-                      //   currentPage: currentPage,
-                      //   items: snapshot.data!,
-                      //   itemsPerPage: itemsPerPage,
-                      //   onPreviousPagePressed: () {
-                      //     setState(() {
-                      //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                      //     });
-                      //   },
-                      //   onPageNumberPressed: (pageNumber) {
-                      //     setState(() {
-                      //       currentPage = pageNumber;
-                      //     });
-                      //   },
-                      //   onNextPagePressed: () {
-                      //     setState(() {
-                      //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-                      //     });
-                      //   },
-                      // ),
+                      PaginationControlsWidget(
+                        currentPage: currentPage,
+                        items: snapshot.data!,
+                        itemsPerPage: itemsPerPage,
+                        onPreviousPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                          });
+                        },
+                        onPageNumberPressed: (pageNumber) {
+                          setState(() {
+                            currentPage = pageNumber;
+                          });
+                        },
+                        onNextPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                          });
+                        },
+                      ),
                     ],
                   );
                 }
