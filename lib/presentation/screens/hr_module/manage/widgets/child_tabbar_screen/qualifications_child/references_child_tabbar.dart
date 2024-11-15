@@ -412,10 +412,12 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                           text: snapshotPrefill
                                                               .data!.title);
 
-                                                  var knowPerson = "LinkedIn";
+                                                  var knowPerson =  snapshotPrefill
+                                                      .data!.references;
                                                   knowPersonController =
                                                       TextEditingController(
-                                                          text: "LinkedIn");
+                                                          text:  snapshotPrefill
+                                                              .data!.references);
 
                                                   var companyName =
                                                       snapshotPrefill
@@ -442,9 +444,9 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                               .data!
                                                               .references);
 
-                                                  var references =
-                                                      snapshotPrefill
-                                                          .data!.references;
+                                                  // var references =
+                                                  //     snapshotPrefill
+                                                  //         .data!.references;
                                                   var mobileNumber =
                                                       snapshotPrefill
                                                           .data!.mobNumber;
@@ -495,6 +497,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                                 : associationLengthController
                                                                     .text,
                                                             comment.toString(),
+                                                            ///////////////////////////
                                                             companyName ==
                                                                     companyNameController
                                                                         .text
@@ -502,6 +505,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                                     .toString()
                                                                 : companyNameController
                                                                     .text,
+                                                            /////////////////
                                                             email ==
                                                                     emailController
                                                                         .text
@@ -510,6 +514,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                                 : emailController
                                                                     .text,
                                                             widget.employeeId,
+                                                            ////////////////////////
                                                             mobileNumber ==
                                                                     mobileNumberController
                                                                         .text
@@ -517,6 +522,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                                     .toString()
                                                                 : mobileNumberController
                                                                     .text,
+                                                            /////////////////////////
                                                             name ==
                                                                     nameController
                                                                         .text
@@ -524,21 +530,24 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                                     .toString()
                                                                 : nameController
                                                                     .text,
+                                                            ////////////////////////
                                                             //references.toString(),
-                                                            referredby ==
-                                                                    referredBController
-                                                                        .text
-                                                                ? referredby
-                                                                    .toString()
-                                                                : referredBController
-                                                                    .text,
-                                                            title ==
-                                                                    titlePositionController
-                                                                        .text
-                                                                ? title
-                                                                    .toString()
-                                                                : titlePositionController
-                                                                    .text,
+                                                            // referredby ==
+                                                            //         referredBController
+                                                            //             .text
+                                                            //     ? referredby
+                                                            //         .toString()
+                                                            //     : referredBController
+                                                            //         .text,
+                                                                knowPerson ==    knowPersonController.text
+                                                                    ? knowPerson.toString()
+                                                                    : knowPersonController.text,
+                                                          ////////////////////////////
+                                                            title == titlePositionController.text
+                                                                ? title.toString()
+                                                                : titlePositionController.text,
+                                                              ////////////////////
+
                                                           );
                                                           Navigator.pop(
                                                               context);
