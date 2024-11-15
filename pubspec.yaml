@@ -44,7 +44,6 @@ dependencies:
   shared_preferences: any
   mailer: any
   provider: any
-
   flutter_svg: any
   flutter_svg_provider: any
   flex_color_picker: any

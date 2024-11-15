@@ -1,6 +1,8 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/dataModel_barchart.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/hr_dashboard_const.dart';
 
 import '../../../../app/resources/color.dart';
@@ -15,6 +17,91 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
+  // List<String> _bottomTitle = ['Sat','Sun','Mon','Tue','Wed','Thu','Fri'];
+  List<DataModel> _list = List<DataModel>.empty(growable:true);
+  List<BarChartGroupData> _chartGroups(){
+    List<BarChartGroupData> list = List<BarChartGroupData>.empty(growable: true);
+    for(int i = 0; i< _list.length; i++){
+      list.add(BarChartGroupData(x: i, barRods: [BarChartRodData(toY: double.parse(_list[i].value!), color:ColorManager.blueprime)]));
+    }
+    return list;
+  }
+  SideTitles get _bottomTitles => SideTitles(
+      showTitles: true,
+      getTitlesWidget: (value, meta){
+        String text ='';
+        switch (value.toInt()){
+          case 0:
+            text = 'Sat';
+            break;
+
+          case 1:
+            text = 'Sun';
+            break;
+
+          case 2:
+            text = 'Mon';
+            break;
+
+          case 3:
+            text = 'Tus';
+            break;
+
+          case 4:
+            text = 'Wed';
+            break;
+
+          case 5:
+            text = 'Thu';
+            break;
+
+          case 6:
+            text = 'Fri';
+            break;
+
+        }
+        return Text(text,style: TextStyle(fontSize: 10),);
+      }
+  );
+
+  /// pie chart data
+  List<PieChartSectionData> _getSections() {
+    return [
+      PieChartSectionData(
+        color: Colors.lightBlueAccent,
+        value: 34,
+        title: '34%',
+        titleStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+        radius: 50,
+      ),
+      PieChartSectionData(
+        color: Colors.redAccent,
+        value: 2,
+        title: '2%',
+        titleStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+        radius: 40,
+      ),
+      PieChartSectionData(
+        color: Colors.greenAccent,
+        value: 64,
+        title: '64%',
+        titleStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+        radius: 40,
+      ),
+    ];
+  }
+  @override
+  void initState() {
+    super.initState();
+    _list.add(DataModel(key:"0",value: "10"));
+    _list.add(DataModel(key:"10%",value: "6"));
+    _list.add(DataModel(key:"20%",value: "8"));
+    _list.add(DataModel(key:"30%",value: "4"));
+    _list.add(DataModel(key:"40%",value: "6"));
+    _list.add(DataModel(key:"50%",value: "7"));
+    _list.add(DataModel(key:"60%",value: "2"));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,9 +203,36 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 offset: const Offset(0, 3), // Downward shadow
                               ),
                             ],
-                          ),)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical:5,horizontal:5),
+                            child: BarChart(
+                              BarChartData(
+                                backgroundColor: ColorManager.white,
+                                barGroups: _chartGroups(),
+                                borderData: FlBorderData(
+                                  border: Border(bottom: BorderSide(),left: BorderSide())
+                                ),
+                                gridData: FlGridData(show: false),
+                                titlesData: FlTitlesData(
+                                  bottomTitles: AxisTitles(sideTitles: _bottomTitles),
+                                  leftTitles:AxisTitles(sideTitles: SideTitles(
+                                    showTitles:true,
+                                    interval:1,
+                                    getTitlesWidget: (value, meta){
+                                      return Text(value.toString(),style:TextStyle(fontSize: 10));
+                                    }
+                                  )),
+                                  topTitles: AxisTitles(sideTitles:SideTitles(showTitles:false)),
+                                  rightTitles:AxisTitles(sideTitles:SideTitles(showTitles:false)),
+                                ),
+                              )
+                            ),
+                          )
+                        )),
                         SizedBox(width: 15,),
-                        Expanded(flex:1, child: Container(height: 250,decoration: BoxDecoration(
+                        Expanded(flex:1, child: Container(height: 250,
+                          decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(6),
                           // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
@@ -130,6 +244,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               offset: const Offset(0, 3), // Downward shadow
                             ),
                           ],
+                        ),
+                        child: PieChart(
+                          PieChartData(
+                            sections: _getSections(),
+                            centerSpaceRadius: 40,
+                            centerSpaceColor: Colors.white,
+                            sectionsSpace: 2,
+                            borderData: FlBorderData(show: false),
+                            startDegreeOffset: -90,
+                          ),
                         ),)),
                         SizedBox(width: 15,),
                         Expanded(flex:2, child: Container(height: 250,
