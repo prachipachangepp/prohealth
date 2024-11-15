@@ -73,11 +73,9 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Expanded(
-                child: Text(
-                    text,
-                    style: ThemeManagerDarkFont.customTextStyle(context)
-                ),
+              child: Text(
+                  text,
+                  style: ThemeManagerDarkFont.customTextStyle(context)
               ),
             ),
           ),
