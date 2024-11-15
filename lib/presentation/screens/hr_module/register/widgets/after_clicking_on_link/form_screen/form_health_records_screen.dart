@@ -401,7 +401,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                     await showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AddSuccessPopup(
+                        return VendorSelectNoti(
                           message: 'Please Select File',
                         );
                       },
@@ -435,6 +435,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         }
 
                       }
+
                       await showDialog(
                         context: context,
                         builder: (BuildContext context) {

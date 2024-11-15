@@ -110,7 +110,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      // padding: EdgeInsets.all(16.0),
       child: Column(
         children: [
           Center(
@@ -463,6 +463,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
           startDateController.text = data.dateOfJoining ?? '';
           endDateController.text = data.endDate;
           // isChecked = data.endDate == true;
+          //isChecked = data.endDate?.isEmpty ?? true;
           employementIndex = data.employmentId ?? 0;
 
         });
