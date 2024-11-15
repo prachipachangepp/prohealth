@@ -180,6 +180,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ],
                       )),
+
+
                 ],
               ),
               ///graph section
@@ -265,110 +267,66 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ),)),
                         SizedBox(width: 15,),
-                        Expanded(flex:2,
-                            child: HrDashboadGraphContainer(child: Container(),)),
-                      ],),
-                      SizedBox(height: 15,),
-                      ///row 2
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            child: HrDashboadGraphContainer(
-                              child: Row(),
+                        Expanded(flex:2, child: Container(height: 250,
+                            decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(6),
+                          // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorManager.fmediumgrey.withOpacity(0.2),
+                              blurRadius: 2,
+                              spreadRadius: 1,
+                              offset: const Offset(0, 3), // Downward shadow
                             ),
-                          ),
-                          SizedBox(width: 15,),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(children: [
-                                    HrDashboardSmallcontainer(child: Row(),),
-                                    SizedBox(height: 10,),
-                                    HrDashboardSmallcontainer(child: Row(),),
-                                  ],),
-                                ),
-                                SizedBox(width: 15,),
-                                Expanded(
-                                  child: Column(children: [
-                                    HrDashboardSmallcontainer(child: Row(),),
-                                    SizedBox(height: 10,),
-                                    HrDashboardSmallcontainer(child: Row(),),
-                                  ],),
-                                ),
-
-                              ],
-                            ),
-                          ),
-                          SizedBox(width: 15,),
-                          Expanded(
-                            child: Container(
-                                height: 250,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(width: 0.75,color: ColorManager.ContainerBorder//.withOpacity(0.2)
-                                    ,),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0xFFDADEE8),
-                                      blurRadius: 13.53,
-                                      spreadRadius: 1,
-                                      offset: const Offset(-6.01, 9.02),
+                          ],
+                        ),
+                        child:SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Container(height:25,
+                                  color: Colors.lightBlueAccent.withOpacity(0.3),
+                                  child:Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                                    child: Row(
+                                      children: [
+                                    Expanded(child: Text('Sr',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500))),
+                                    Expanded(child: Text('Rates',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500))),
+                                    Expanded(child: Text('Percentage',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500))),
+                                      ],
                                     ),
-                                  ],
-                                )),
+                                  )),
+                              Container(
+                                height: 150,
+                                child: ListView.builder(
+                                  itemCount: 5,
+                                    itemBuilder: (context, index){
+                                    return Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(child: Text('01',style: TextStyle(fontSize: 10))),
+                                            Expanded(child: Text('Offer Acceptance Rate',style: TextStyle(fontSize: 10))),
+                                            Expanded(child: Text('15%',style: TextStyle(fontSize: 10),))
+                                          ],
+                                        ),
+                                       Padding(
+                                         padding: const EdgeInsets.all(2.0),
+                                         child: Divider(color: ColorManager.faintGrey,height: 1,),
+                                       )
+                                      ],
+                                    );
+                                }),
+                              )
+                            ],
                           ),
-                        ],),
-                      SizedBox(height: 15,),
-                      ///row 3
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                        Expanded(
-                          child: Container(
-                              height: 280,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(width: 0.75,color: ColorManager.ContainerBorder//.withOpacity(0.2)
-                                    ,),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xFFDADEE8),
-                                    blurRadius: 13.53,
-                                    spreadRadius: 1,
-                                    offset: const Offset(-6.01, 9.02),
-                                  ),
-                                ],
-                              )),
-                        ),
-                        SizedBox(width: 15,),
-                        Expanded(
-                          child: Container(
-                              height: 280,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                // border: Border.all(width: 1,color: ColorManager.fmediumgrey.withOpacity(0.2),),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: ColorManager.black.withOpacity(0.2),
-                                    blurRadius: 4,
-                                    spreadRadius: 0,
-                                    offset: const Offset(0, 0), // Downward shadow
-                                  ),
-                                ],
-                              )),
-                        ),
-                        SizedBox(width: 15,),
-                        Expanded(
-                          child: HrDashboadGraphContainer(
-                            child: Row(),
-                          ),
-                        )
-                      ],)
+                        ))),
+                      ],),
+                      Center(
+                        child: Text("widget.headText",
+                          style: CustomTextStylesCommon.commonStyle(fontSize: 16,
+                              color: ColorManager.black,fontWeight: FontWeight.w600),),
+                      ),
                     ],
                   ),
                 ),
