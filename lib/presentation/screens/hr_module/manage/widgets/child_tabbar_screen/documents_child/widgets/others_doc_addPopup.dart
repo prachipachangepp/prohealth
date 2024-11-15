@@ -327,6 +327,7 @@ class _OthersEditPopupState extends State<OthersEditPopup> {
   int documentMetaDataId = 0;
   int documentSetupId = 0;
   bool _submitted = false;
+  bool isFilePicked = false;
   // String documentTypeName = "";
   dynamic filePath;
   String? selectedDocType;
@@ -353,6 +354,7 @@ class _OthersEditPopupState extends State<OthersEditPopup> {
       allowedExtensions: ['pdf'],
     );
     if (result != null) {
+      isFilePicked = true;
       setState(() {
         filePath = result.files.first.bytes;
         fileName = result.files.first.name;
@@ -519,7 +521,7 @@ class _OthersEditPopupState extends State<OthersEditPopup> {
             _submitted = true;
           });
 
-          if (filePath != null ) {
+          // if (filePath != null ) {
             setState(() {
               load = true;
             });
@@ -539,11 +541,15 @@ class _OthersEditPopupState extends State<OthersEditPopup> {
                   ifOfDocument: documentTypeName.text,
                   createdAt: DateTime.now().toString(),
                   otherDocumentId: widget.otherDocId);
-              // var response = await uploadOtherDoc(
-              //   context: context,
-              //   documentName: fileName,
-              //   documentFile: filePath, otherDocId: addedResponse.otherDocId!,
-              // );
+              if(isFilePicked) {
+                await patchUploadOtherDoc(
+                context: context,
+                documentName: fileName,
+                documentFile: filePath, otherDocId: widget.otherDocId!,
+              );
+              }else{
+
+              }
               // var result = await singleBatchApproveOnboardAckHealthPatch(context, response.documentId!);
               if (editResponse.statusCode == 200 || editResponse.statusCode == 201) {
                 Navigator.pop(context);
@@ -562,9 +568,9 @@ class _OthersEditPopupState extends State<OthersEditPopup> {
                 load = true;
               });
             }
-          } else {
-            print('Validation error');
-          }
+          //  else {
+          //   print('Validation error');
+          // }
         },
       ),
       title: widget.title,

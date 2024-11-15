@@ -269,6 +269,46 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               offset: const Offset(0, 3), // Downward shadow
                             ),
                           ],
+                        ),
+                        child:SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Container(height:25,
+                                  color: Colors.lightBlueAccent.withOpacity(0.3),
+                                  child:Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                                    child: Row(
+                                      children: [
+                                    Expanded(child: Text('Sr',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500))),
+                                    Expanded(child: Text('Rates',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500))),
+                                    Expanded(child: Text('Percentage',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500))),
+                                      ],
+                                    ),
+                                  )),
+                              Container(
+                                height: 150,
+                                child: ListView.builder(
+                                  itemCount: 5,
+                                    itemBuilder: (context, index){
+                                    return Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(child: Text('01',style: TextStyle(fontSize: 10))),
+                                            Expanded(child: Text('Offer Acceptance Rate',style: TextStyle(fontSize: 10))),
+                                            Expanded(child: Text('15%',style: TextStyle(fontSize: 10),))
+                                          ],
+                                        ),
+                                       Padding(
+                                         padding: const EdgeInsets.all(2.0),
+                                         child: Divider(color: ColorManager.faintGrey,height: 1,),
+                                       )
+                                      ],
+                                    );
+                                }),
+                              )
+                            ],
+                          ),
                         ))),
                       ],),
                       Center(
