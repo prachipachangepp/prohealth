@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/hr_dashboard_const.dart';
 
 import '../../../../app/resources/color.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../app/resources/hr_resources/hr_theme_manager.dart';
 
 class DashBoardScreen extends StatefulWidget {
   DashBoardScreen({
@@ -89,11 +93,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ],
                       )),
-
-
                 ],
               ),
 
+              ///graph section
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p15,right: AppPadding.p15,bottom: AppPadding.p10),
                 child: Container(
@@ -156,17 +159,33 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                 ),
               ),
+              ///listview section
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p25,right: AppPadding.p25,bottom: AppPadding.p10),
                 child: Container(
-                  height: AppSize.s800,
-                  color: Colors.grey,
+                  height: AppSize.s450,
+                  color: Colors.white,
                   child: Column(
                     children: [
-                      Center(
-                        child: Text("widget.headText",
-                          style: CustomTextStylesCommon.commonStyle(fontSize: 16,
-                              color: ColorManager.black,fontWeight: FontWeight.w600),),
+                      HrDashboardListviewHeading(),
+                      ///
+                      Expanded(
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: 15,
+                          itemBuilder: (context, index) {
+                            //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                           // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                           // EmployeeDocumentModal employeedoc = paginatedData[index];
+                            return Column(
+                              children: [
+                                SizedBox(height: AppSize.s5),
+                                HRDashboardListViewData(),
+                                SizedBox(height: AppSize.s5),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),

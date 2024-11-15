@@ -38,6 +38,15 @@ class AppStringHr{
   static String inventoryid = "Id of the Inventory";
   static String docName = "Name of the Document";
 
+  ///dashboard
+  static String empName = "Employee Name";
+  static String expDVisa = "Expiry Date for\nVisa";
+  static String expDPermit = "Expiry Date for Work\nPermits";
+  static String expDLicense = "Expiry Date for\nLicense";
+  static String expDTrain = "Expiry Date for Training\nCertificate";
+  static String avgSickDay = "Average Sick\nDays";
+  static String viewDetails = "View Details";
+
 }
 
 class ValidationMessage{

@@ -67,6 +67,10 @@ class ColorManager {
   static Color blueDash = Color(0xff3786F1);
   static Color skini = Color(0xFFFFA8A8);
   static Color purple = Color(0xFFC0FE233).withOpacity(0.2);
+  static Color dashBlueHead = Color(0xFFDCF0FA);
+  static Color dashBlueHeadBottom = Color(0xFF1EA0F1);
+  static Color dashListviewData = Color(0xFF718EBF);
+  static Color dashListviewDataPink = Color(0xFFFFE0EB);
 }
 
 extension HexColor on Color {
