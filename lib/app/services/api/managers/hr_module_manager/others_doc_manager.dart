@@ -154,14 +154,14 @@ Future<OthersDocPreFillModel> getOthersPrefillData(
     if (response.statusCode == 200 || response.statusCode == 201) {
         // String joiningFormattedDate =
         // convertIsoToDayMonthYear(item['dateOfJoining']);
-        // String endFormattedDate = convertIsoToDayMonthYear(item['endDate']);
+
         itemsData = OthersDocPreFillModel(
             otherDocId: response.data['otherDocument_id'],
             fileName: response.data['fileName']??"",
             employeeId: response.data['employeeId']??0,
             createdAt: response.data['doc_created_at']??"",
             url: response.data['url']??"",
-            expDate: response.data['expiry_date']??"",
+            expDate: response.data['expiry_date'] == null ? "" : convertIsoToDayMonthYear(response.data['expiry_date']),
             idOfDocument: response.data['idOfDocument']??"",
             companyId: response.data['companyId']??1
         );
@@ -184,9 +184,9 @@ Future<ApiData> patchOthersDocumentData({required BuildContext context, required
     var response = await Api(context).patch(path: ManageReposotory.patchOthersDoc(otherDocId: otherDocumentId), data: {
       "fileName": fileName,
       "employeeId": employeeId,
-      "doc_created_at": createdAt,
+      "doc_created_at": DateTime.now().toIso8601String()+"Z",
       "url": url,
-      "expiry_date": expDate,
+      "expiry_date": "${expDate}T00:00:00Z",
       "idOfDocument":ifOfDocument,
       "companyId": companyId
     },);
