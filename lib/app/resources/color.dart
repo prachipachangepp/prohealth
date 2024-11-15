@@ -62,11 +62,16 @@ class ColorManager {
   static Color buttongridecolor = HexColor.fromHex('#D6E4F0');
 
   ///Dashboard Hr
+  static Color ContainerBorder = Color(0xFFDEEBFD);
   static Color purpleBlack = Color(0xFF7886A9);
   static Color pink = Color(0xFFEE61CF);
   static Color blueDash = Color(0xff3786F1);
   static Color skini = Color(0xFFFFA8A8);
   static Color purple = Color(0xFFC0FE233).withOpacity(0.2);
+  static Color barChartBlue = Color(0xFFCBFFFF);
+  static Color pieChartGreen = Color(0xFFBAEDBD);
+  static Color pieChartBBlue = Color(0xFF527FB9);
+  static Color pieChartBlue = Color(0xFF95A4FC);
   static Color dashBlueHead = Color(0xFFDCF0FA);
   static Color dashBlueHeadBottom = Color(0xFF1EA0F1);
   static Color dashListviewData = Color(0xFF718EBF);

@@ -26,7 +26,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   List<BarChartGroupData> _chartGroups(){
     List<BarChartGroupData> list = List<BarChartGroupData>.empty(growable: true);
     for(int i = 0; i< _list.length; i++){
-      list.add(BarChartGroupData(x: i, barRods: [BarChartRodData(toY: double.parse(_list[i].value!), color:ColorManager.blueprime)]));
+      list.add(BarChartGroupData(x: i, barRods: [BarChartRodData(toY: double.parse(_list[i].value!), color:ColorManager.barChartBlue)]));
     }
     return list;
   }
@@ -72,23 +72,23 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   List<PieChartSectionData> _getSections() {
     return [
       PieChartSectionData(
-        color: Colors.lightBlueAccent,
+        color: ColorManager.pieChartGreen,
         value: 34,
         title: '34%',
         titleStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-        radius: 50,
+        radius: 45,
       ),
       PieChartSectionData(
-        color: Colors.redAccent,
-        value: 2,
-        title: '2%',
+        color: ColorManager.pieChartBBlue,
+        value: 7,
+        title: '7%',
         titleStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
         radius: 40,
       ),
       PieChartSectionData(
-        color: Colors.greenAccent,
-        value: 64,
-        title: '64%',
+        color: ColorManager.pieChartBlue,
+        value: 60,
+        title: '60%',
         titleStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
         radius: 40,
       ),
@@ -182,72 +182,78 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       )),
                 ],
               ),
-
               ///graph section
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p15,right: AppPadding.p15,bottom: AppPadding.p10),
                 child: Container(
-                  height: AppSize.s700,
+                  height: 870,
                   color: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: AppPadding.p10,horizontal: 5),
                   child: Column(
                     children: [
+                      ///row 1
                       Row(children: [
-                        Expanded(flex:3, child: Container(height: 250,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(6),
-                            // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: ColorManager.fmediumgrey.withOpacity(0.2),
-                                blurRadius: 2,
-                                spreadRadius: 1,
-                                offset: const Offset(0, 3), // Downward shadow
-                              ),
-                            ],
-                          ),
+                        Expanded(flex:3, child: HrDashboadGraphContainer(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical:5,horizontal:5),
-                            child: BarChart(
-                              BarChartData(
-                                backgroundColor: ColorManager.white,
-                                barGroups: _chartGroups(),
-                                borderData: FlBorderData(
-                                  border: Border(bottom: BorderSide(),left: BorderSide())
+                            child: Column(
+                              children: [
+                                Row(children: [
+                                  Expanded(
+                                    child: Text(
+                                      "Output Relative to Input",
+                                      textAlign: TextAlign.center,
+                                      style: TableHeadHRDashboard.customTextStyle(context),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    // flex: 1,
+                                    child: Text(
+                                     "Work Hours",
+                                      textAlign: TextAlign.center,
+                                      style: TableHeadHRDashboard.customTextStyle(context),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    // flex: 1,
+                                    child: Text(
+                                      "Result",
+                                      textAlign: TextAlign.center,
+                                      style: TableHeadHRDashboard.customTextStyle(context),
+                                    ),
+                                  ),
+                                ],),
+                                Container(
+                                  height: 200,
+                                  child: BarChart(
+                                    BarChartData(
+                                      backgroundColor: ColorManager.white,
+                                      barGroups: _chartGroups(),
+                                      borderData: FlBorderData(
+                                        border: Border(bottom: BorderSide(),left: BorderSide())
+                                      ),
+                                      gridData: FlGridData(show: false),
+                                      titlesData: FlTitlesData(
+                                        bottomTitles: AxisTitles(sideTitles: _bottomTitles),
+                                        leftTitles:AxisTitles(sideTitles: SideTitles(
+                                          showTitles:true,
+                                          interval:1,
+                                          getTitlesWidget: (value, meta){
+                                            return Text(value.toString(),style:TextStyle(fontSize: 10));
+                                          }
+                                        )),
+                                        topTitles: AxisTitles(sideTitles:SideTitles(showTitles:false)),
+                                        rightTitles:AxisTitles(sideTitles:SideTitles(showTitles:false)),
+                                      ),
+                                    )
+                                  ),
                                 ),
-                                gridData: FlGridData(show: false),
-                                titlesData: FlTitlesData(
-                                  bottomTitles: AxisTitles(sideTitles: _bottomTitles),
-                                  leftTitles:AxisTitles(sideTitles: SideTitles(
-                                    showTitles:true,
-                                    interval:1,
-                                    getTitlesWidget: (value, meta){
-                                      return Text(value.toString(),style:TextStyle(fontSize: 10));
-                                    }
-                                  )),
-                                  topTitles: AxisTitles(sideTitles:SideTitles(showTitles:false)),
-                                  rightTitles:AxisTitles(sideTitles:SideTitles(showTitles:false)),
-                                ),
-                              )
+                              ],
                             ),
                           )
                         )),
                         SizedBox(width: 15,),
-                        Expanded(flex:1, child: Container(height: 250,
-                          decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(6),
-                          // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorManager.fmediumgrey.withOpacity(0.2),
-                              blurRadius: 2,
-                              spreadRadius: 1,
-                              offset: const Offset(0, 3), // Downward shadow
-                            ),
-                          ],
-                        ),
+                        Expanded(flex:1, child: HrDashboadGraphContainer(
                         child: PieChart(
                           PieChartData(
                             sections: _getSections(),
@@ -259,26 +265,110 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ),)),
                         SizedBox(width: 15,),
-                        Expanded(flex:2, child: Container(height: 250,
-                            decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(6),
-                          // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorManager.fmediumgrey.withOpacity(0.2),
-                              blurRadius: 2,
-                              spreadRadius: 1,
-                              offset: const Offset(0, 3), // Downward shadow
-                            ),
-                          ],
-                        ))),
+                        Expanded(flex:2,
+                            child: HrDashboadGraphContainer(child: Container(),)),
                       ],),
-                      Center(
-                        child: Text("widget.headText",
-                          style: CustomTextStylesCommon.commonStyle(fontSize: 16,
-                              color: ColorManager.black,fontWeight: FontWeight.w600),),
-                      ),
+                      SizedBox(height: 15,),
+                      ///row 2
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: HrDashboadGraphContainer(
+                              child: Row(),
+                            ),
+                          ),
+                          SizedBox(width: 15,),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(children: [
+                                    HrDashboardSmallcontainer(child: Row(),),
+                                    SizedBox(height: 10,),
+                                    HrDashboardSmallcontainer(child: Row(),),
+                                  ],),
+                                ),
+                                SizedBox(width: 15,),
+                                Expanded(
+                                  child: Column(children: [
+                                    HrDashboardSmallcontainer(child: Row(),),
+                                    SizedBox(height: 10,),
+                                    HrDashboardSmallcontainer(child: Row(),),
+                                  ],),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 15,),
+                          Expanded(
+                            child: Container(
+                                height: 250,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(width: 0.75,color: ColorManager.ContainerBorder//.withOpacity(0.2)
+                                    ,),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0xFFDADEE8),
+                                      blurRadius: 13.53,
+                                      spreadRadius: 1,
+                                      offset: const Offset(-6.01, 9.02),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ],),
+                      SizedBox(height: 15,),
+                      ///row 3
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                        Expanded(
+                          child: Container(
+                              height: 280,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(width: 0.75,color: ColorManager.ContainerBorder//.withOpacity(0.2)
+                                    ,),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFFDADEE8),
+                                    blurRadius: 13.53,
+                                    spreadRadius: 1,
+                                    offset: const Offset(-6.01, 9.02),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        SizedBox(width: 15,),
+                        Expanded(
+                          child: Container(
+                              height: 280,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                // border: Border.all(width: 1,color: ColorManager.fmediumgrey.withOpacity(0.2),),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: ColorManager.black.withOpacity(0.2),
+                                    blurRadius: 4,
+                                    spreadRadius: 0,
+                                    offset: const Offset(0, 0), // Downward shadow
+                                  ),
+                                ],
+                              )),
+                        ),
+                        SizedBox(width: 15,),
+                        Expanded(
+                          child: HrDashboadGraphContainer(
+                            child: Row(),
+                          ),
+                        )
+                      ],)
                     ],
                   ),
                 ),
@@ -292,6 +382,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   child: Column(
                     children: [
                       HrDashboardListviewHeading(),
+                      SizedBox(height: AppSize.s10),
                       ///
                       Expanded(
                         child: ListView.builder(

@@ -80,6 +80,60 @@ class _HrDashboardContainerConstState extends State<HrDashboardContainerConst> {
   }
 }
 
+///part 2 Graph container const
+class HrDashboadGraphContainer extends StatelessWidget {
+  final Widget child;
+  const HrDashboadGraphContainer({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 250,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
+          boxShadow: [
+            BoxShadow(
+              color: ColorManager.fmediumgrey.withOpacity(0.2),
+              blurRadius: 2,
+              spreadRadius: 1,
+              offset: const Offset(0, 3), // Downward shadow
+            ),
+          ],
+        ),
+    child: child,);
+  }
+}
+
+class HrDashboardSmallcontainer extends StatelessWidget {
+  final Widget child;
+  const HrDashboardSmallcontainer({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 120,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border(top: BorderSide(
+            color: Color(0xFF579EBA),  // Set the color of the bottom border
+            width: 2.5,          // Set the thickness of the bottom border
+          ),),
+          boxShadow: [
+            BoxShadow(
+              color: ColorManager.black.withOpacity(0.2),
+              blurRadius: 4,
+              spreadRadius: 0,
+              offset: const Offset(0, 4), // Downward shadow
+            ),
+          ],
+        ),
+    child: child,);
+  }
+}
+
 
 ///part 3 heading
 class HrDashboardListviewHeading extends StatelessWidget {
@@ -232,7 +286,7 @@ class HRDashboardListViewData extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   color: ColorManager.mediumgrey,),
               ),
-              SizedBox(height: 5,),
+              SizedBox(height: 10,),
               Text(
                 "Psychiatrist",
                 textAlign: TextAlign.center,
@@ -261,7 +315,7 @@ class HRDashboardListViewData extends StatelessWidget {
       ),
       Expanded(
         child: Padding(
-          padding: const EdgeInsets.only(right: 10.0),
+          padding: const EdgeInsets.only(right: AppPadding.p15),
           child: Text(
             "01.06.2032",
             textAlign: TextAlign.center,
@@ -271,7 +325,7 @@ class HRDashboardListViewData extends StatelessWidget {
       ),
       Expanded(
         child: Padding(
-          padding: const EdgeInsets.only(left: 40.0),
+          padding: const EdgeInsets.only(left: 45.0),
           child: Text(
             "24.06.2025",
             textAlign: TextAlign.start,
@@ -281,7 +335,7 @@ class HRDashboardListViewData extends StatelessWidget {
       ),
       Expanded(
         child: Padding(
-          padding: const EdgeInsets.only(left: 40.0),
+          padding: const EdgeInsets.only(left: 45.0),
           child: Text(
             "12 Days",
             textAlign: TextAlign.start,
@@ -314,5 +368,3 @@ class HRDashboardListViewData extends StatelessWidget {
     );
   }
 }
-
-
