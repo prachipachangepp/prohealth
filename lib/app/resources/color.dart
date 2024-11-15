@@ -60,6 +60,13 @@ class ColorManager {
   static Color sidebarcolor = HexColor.fromHex('d3dde8');
   static Color appbarcolor = HexColor.fromHex('#1E56A0');
   static Color buttongridecolor = HexColor.fromHex('#D6E4F0');
+
+  ///Dashboard Hr
+  static Color purpleBlack = Color(0xFF7886A9);
+  static Color pink = Color(0xFFEE61CF);
+  static Color blueDash = Color(0xff3786F1);
+  static Color skini = Color(0xFFFFA8A8);
+  static Color purple = Color(0xFFC0FE233).withOpacity(0.2);
 }
 
 extension HexColor on Color {
