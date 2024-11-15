@@ -267,37 +267,40 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ),)),
                         SizedBox(width: 15,),
-                        Expanded(flex:2, child: Container(height: 250,
-                            decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(6),
-                          // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorManager.fmediumgrey.withOpacity(0.2),
-                              blurRadius: 2,
-                              spreadRadius: 1,
-                              offset: const Offset(0, 3), // Downward shadow
-                            ),
-                          ],
-                        ),
+                        Expanded(flex:2, child: HrDashboadGraphContainer(
                         child:SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Container(height:25,
-                                  color: Colors.lightBlueAccent.withOpacity(0.3),
-                                  child:Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                                    child: Row(
-                                      children: [
-                                    Expanded(child: Text('Sr',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500))),
-                                    Expanded(child: Text('Rates',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500))),
-                                    Expanded(child: Text('Percentage',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 15),
+                            child: Column(
+                              children: [
+                                Container(
+                                    height:25,
+                                    padding: EdgeInsets.symmetric(horizontal: 20),
+                                    decoration: BoxDecoration(
+                                      color: ColorManager.dashBlueHead,
+                                      borderRadius: BorderRadius.circular(12),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: ColorManager.black.withOpacity(0.2),
+                                          spreadRadius: 0,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
                                       ],
                                     ),
-                                  )),
+                                    child:Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                    Expanded(child: Center(child: Text('Sr',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500)))),
+                                    Expanded(child: Center(child: Text('Rates',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500)))),
+                                    Expanded(child: Center(child: Text('Percentage',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500)))),
+                                      ],
+                                    )),
+                              SizedBox(height: 5,),
                               Container(
-                                height: 150,
+                                height: 200,
+                                padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                                 child: ListView.builder(
                                   itemCount: 5,
                                     itemBuilder: (context, index){
@@ -305,14 +308,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       children: [
                                         Row(
                                           children: [
-                                            Expanded(child: Text('01',style: TextStyle(fontSize: 10))),
-                                            Expanded(child: Text('Offer Acceptance Rate',style: TextStyle(fontSize: 10))),
-                                            Expanded(child: Text('15%',style: TextStyle(fontSize: 10),))
+                                            Expanded(child: Center(child: Text('01',style: TextStyle(fontSize: 10)))),
+                                            Expanded(child: Center(child: Text('Offer Acceptance Rate',style: TextStyle(fontSize: 10)))),
+                                            Expanded(child: Center(child: Text('15%',style: TextStyle(fontSize: 10),)))
                                           ],
                                         ),
                                        Padding(
-                                         padding: const EdgeInsets.all(2.0),
-                                         child: Divider(color: ColorManager.faintGrey,height: 1,),
+                                         padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 5),
+                                         child: Divider(color: ColorManager.fmediumgrey,height: 1,),
                                        )
                                       ],
                                     );
@@ -320,13 +323,110 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               )
                             ],
                           ),
-                        ))),
+                        ))),)
                       ],),
-                      Center(
-                        child: Text("widget.headText",
-                          style: CustomTextStylesCommon.commonStyle(fontSize: 16,
-                              color: ColorManager.black,fontWeight: FontWeight.w600),),
-                      ),
+                      SizedBox(height: 15,),
+                      ///row 2
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: HrDashboadGraphContainer(
+                              child: Row(),
+                            ),
+                          ),
+                          SizedBox(width: 15,),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(children: [
+                                    HrDashboardSmallcontainer(child: Row(),),
+                                    SizedBox(height: 10,),
+                                    HrDashboardSmallcontainer(child: Row(),),
+                                  ],),
+                                ),
+                                SizedBox(width: 15,),
+                                Expanded(
+                                  child: Column(children: [
+                                    HrDashboardSmallcontainer(child: Row(),),
+                                    SizedBox(height: 10,),
+                                    HrDashboardSmallcontainer(child: Row(),),
+                                  ],),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 15,),
+                          Expanded(
+                            child: Container(
+                                height: 250,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(width: 0.75,color: ColorManager.ContainerBorder//.withOpacity(0.2)
+                                    ,),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0xFFDADEE8),
+                                      blurRadius: 13.53,
+                                      spreadRadius: 1,
+                                      offset: const Offset(-6.01, 9.02),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ],),
+                      SizedBox(height: 15,),
+                      ///row 3
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Container(
+                                height: 280,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(width: 0.75,color: ColorManager.ContainerBorder//.withOpacity(0.2)
+                                    ,),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0xFFDADEE8),
+                                      blurRadius: 13.53,
+                                      spreadRadius: 1,
+                                      offset: const Offset(-6.01, 9.02),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                          SizedBox(width: 15,),
+                          Expanded(
+                            child: Container(
+                                height: 280,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  // border: Border.all(width: 1,color: ColorManager.fmediumgrey.withOpacity(0.2),),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: ColorManager.black.withOpacity(0.2),
+                                      blurRadius: 4,
+                                      spreadRadius: 0,
+                                      offset: const Offset(0, 0), // Downward shadow
+                                    ),
+                                  ],
+                                )),
+                          ),
+                          SizedBox(width: 15,),
+                          Expanded(
+                            child: HrDashboadGraphContainer(
+                              child: Row(),
+                            ),
+                          )
+                        ],)
+
                     ],
                   ),
                 ),
