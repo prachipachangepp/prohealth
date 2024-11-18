@@ -1453,3 +1453,21 @@ class _AddressInputState extends State<AddressInput> {
 
 
 
+
+
+
+/////
+// onTap: () {
+// // Ensure the list is valid before proceeding
+// if (_suggestions.isNotEmpty && index < _suggestions.length) {
+// FocusScope.of(context).unfocus();
+// widget.controller.text = _suggestions[index];
+// setState(() {
+// _suggestions.clear(); // Clear suggestions after selecting one
+// });
+// // Call the callback with the selected suggestion
+// if (widget.onSuggestionSelected != null) {
+// widget.onSuggestionSelected!(_suggestions[index]);
+// }
+// }
+// }

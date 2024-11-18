@@ -22,13 +22,13 @@ import 'checkbox_constant.dart';
 class CIDetailsScreen extends StatefulWidget {
   CIDetailsScreen(
       {super.key,
-      required this.officeId,
-      required this.docTD,
-      required this.companyId,
-      required int companyID,
-      required this.companyOfficeid,
-      required this.stateName,
-      required this.countryName, required this.updateOfficeName});
+        required this.officeId,
+        required this.docTD,
+        required this.companyId,
+        required int companyID,
+        required this.companyOfficeid,
+        required this.stateName,
+        required this.countryName, required this.updateOfficeName});
   final String stateName;
   final String countryName;
   final int companyId;
@@ -162,7 +162,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
       companyDetailGetAll(context, widget.officeId);
     });
   }
- bool _isLoading = false;
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -252,109 +252,109 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                       child: StatefulBuilder(
                                         builder: (BuildContext context,
                                             void Function(void Function())
-                                                setState) {
+                                            setState) {
                                           return Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                             children: [
                                               Padding(
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: 10),
                                                 child: Container(
-                                                    width: 300,
-                                                    child: Text(serviceDetail
-                                                        .serviceName,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: Colors.white),),
-                                                    // CheckboxTileDetails(
-                                                    //   title: serviceDetail
-                                                    //       .serviceName,
-                                                    //   initialValue: isChecked,
-                                                    //   onChanged: (value) {
-                                                    //     setState(() {
-                                                    //       isChecked = !isChecked;
-                                                    //     });
-                                                    //   },
-                                                    // )
+                                                  width: 300,
+                                                  child: Text(serviceDetail
+                                                      .serviceName,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: Colors.white),),
+                                                  // CheckboxTileDetails(
+                                                  //   title: serviceDetail
+                                                  //       .serviceName,
+                                                  //   initialValue: isChecked,
+                                                  //   onChanged: (value) {
+                                                  //     setState(() {
+                                                  //       isChecked = !isChecked;
+                                                  //     });
+                                                  //   },
+                                                  // )
                                                 ),
                                               ),
                                               Row(
                                                 children: [
                                                   IconButton(
                                                     splashColor:
-                                                        Colors.transparent,
+                                                    Colors.transparent,
                                                     hoverColor:
-                                                        Colors.transparent,
+                                                    Colors.transparent,
                                                     highlightColor:
-                                                        Colors.transparent,
+                                                    Colors.transparent,
                                                     onPressed: () {
                                                       showDialog(
                                                           context: context,
                                                           builder: (BuildContext
-                                                              context) {
+                                                          context) {
                                                             return FutureBuilder<ServicePreFillData>(
-                                                              future:getAllServicesPrefillData(context: context, officeServiceId: serviceDetail.officeServiceId,),
-                                                              builder: (context, snapshot) {
-                                                                if(snapshot.connectionState == ConnectionState.waiting){
-                                                                  return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                                                }
-                                                                var hcoNumber = snapshot.data!.hcoNumber;
-                                                                hcoNumControllerPrefill = TextEditingController(text: snapshot.data!.hcoNumber);
-                                                                return DialogueTemplate(
-                                                                  width: AppSize.s420,
-                                                                  height: 250,
-                                                                  body: [
-                                                                    FirstSMTextFConst(
-                                                                      controller:
-                                                                      hcoNumControllerPrefill,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .text,
-                                                                      text:
-                                                                          'HCO Number',
-                                                                    ),
-                                                                  ],
-                                                                  bottomButtons: CustomElevatedButton(
-                                                                          width: AppSize
-                                                                              .s105,
-                                                                          height:
-                                                                              AppSize
-                                                                                  .s30,
-                                                                          text: AppStringEM
-                                                                              .save, //submit
-                                                                          onPressed:
-                                                                              () async {
-                                                                            await updateServices(
-                                                                                serviceDetail
-                                                                                    .officeServiceId,
-                                                                                widget
-                                                                                    .officeId,
-                                                                                serviceDetail
-                                                                                    .serviceName,
-                                                                                serviceDetail
-                                                                                    .serviceId,
-                                                                                serviceDetail
-                                                                                    .npiNum,
-                                                                                serviceDetail
-                                                                                    .medicareNum,
-                                                                               hcoNumber == hcoNumControllerPrefill
-                                                                                    .text ? hcoNumber : hcoNumControllerPrefill.text);
-                                                                            hcoNumControllerPrefill
-                                                                                .clear();
-                                                                            Navigator.pop(
-                                                                                context);
-                                                                            showDialog(
-                                                                              context: context,
-                                                                              builder: (BuildContext context) {
-                                                                                return AddSuccessPopup(
-                                                                                  message: 'Service edited successfully.',
-                                                                                );
-                                                                              },
-                                                                            );
+                                                                future:getAllServicesPrefillData(context: context, officeServiceId: serviceDetail.officeServiceId,),
+                                                                builder: (context, snapshot) {
+                                                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                                                    return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                                  }
+                                                                  var hcoNumber = snapshot.data!.hcoNumber;
+                                                                  hcoNumControllerPrefill = TextEditingController(text: snapshot.data!.hcoNumber);
+                                                                  return DialogueTemplate(
+                                                                    width: AppSize.s420,
+                                                                    height: 250,
+                                                                    body: [
+                                                                      FirstSMTextFConst(
+                                                                        controller:
+                                                                        hcoNumControllerPrefill,
+                                                                        keyboardType:
+                                                                        TextInputType
+                                                                            .text,
+                                                                        text:
+                                                                        'HCO Number',
+                                                                      ),
+                                                                    ],
+                                                                    bottomButtons: CustomElevatedButton(
+                                                                        width: AppSize
+                                                                            .s105,
+                                                                        height:
+                                                                        AppSize
+                                                                            .s30,
+                                                                        text: AppStringEM
+                                                                            .save, //submit
+                                                                        onPressed:
+                                                                            () async {
+                                                                          await updateServices(
+                                                                              serviceDetail
+                                                                                  .officeServiceId,
+                                                                              widget
+                                                                                  .officeId,
+                                                                              serviceDetail
+                                                                                  .serviceName,
+                                                                              serviceDetail
+                                                                                  .serviceId,
+                                                                              serviceDetail
+                                                                                  .npiNum,
+                                                                              serviceDetail
+                                                                                  .medicareNum,
+                                                                              hcoNumber == hcoNumControllerPrefill
+                                                                                  .text ? hcoNumber : hcoNumControllerPrefill.text);
+                                                                          hcoNumControllerPrefill
+                                                                              .clear();
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                          showDialog(
+                                                                            context: context,
+                                                                            builder: (BuildContext context) {
+                                                                              return AddSuccessPopup(
+                                                                                message: 'Service edited successfully.',
+                                                                              );
+                                                                            },
+                                                                          );
 
-                                                                          }),
-                                                                  title:
-                                                                      'Edit Service',
-                                                                );
-                                                              }
+                                                                        }),
+                                                                    title:
+                                                                    'Edit Service',
+                                                                  );
+                                                                }
                                                             );
                                                           });
                                                     },
@@ -447,7 +447,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           horizontal: 20),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             'HCO Number :',
@@ -475,7 +475,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           horizontal: 20),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             'Medicare ID :',
@@ -503,7 +503,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           horizontal: 20),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             'NPI Number :',
@@ -578,7 +578,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.symmetric(vertical: AppPadding.p20),
+                    const EdgeInsets.symmetric(vertical: AppPadding.p20),
                     child: Row(
                       children: [
                         Text(
@@ -733,8 +733,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                           Text(
                             'Services',
                             style:
-                                CompanyIdentityManageHeadings.customTextStyle(
-                                    context),
+                            CompanyIdentityManageHeadings.customTextStyle(
+                                context),
                           ),
                           const SizedBox(height: AppSize.s10),
                           Container(
