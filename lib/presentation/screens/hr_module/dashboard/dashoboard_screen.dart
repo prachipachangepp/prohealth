@@ -480,10 +480,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                             startDegreeOffset: -90,
                                           ),
                                         ),
-                                          // Positioned(
-                                          //     top:50,
-                                          //     left: 50,
-                                          //     child: Text('Sex Ratio')),
+                                          Positioned(
+                                              top:103,
+                                              left: 80,
+                                              child: Text('Sex Ratio',style:TableHeadHRDashboard.customTextStyle(context),)),
 
                                         ],
                                       );
