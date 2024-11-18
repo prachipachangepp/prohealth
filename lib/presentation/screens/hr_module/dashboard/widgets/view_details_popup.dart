@@ -15,6 +15,18 @@ import '../../../../../app/resources/theme_manager.dart';
 class ViewDetailsPopup extends StatelessWidget {
   const ViewDetailsPopup({super.key});
 
+  Future<void> _launchEmail(String email) async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: email,
+    );
+
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+    } else {
+      print('Could not launch $emailUri');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,8 +141,28 @@ class ViewDetailsPopup extends StatelessWidget {
                 SizedBox(width: 50,),
                 Column(mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    ViewDetailsRowConst(isUnderlined: false, headText: AppStringHr.zone, dataText: 'ProHealth, San Jose Z4',),
-                    ViewDetailsRowConst(isUnderlined: false, headText: AppStringHr.zone, dataText: 'ProHealth, San Jose Z4',),
+                    GestureDetector(
+                      onTap: () {
+                        _launchEmail('pardeshisaloni22@gmail.com');
+                      },
+                      child: ViewDetailsRowConst(
+                        isUnderlined: true,
+                        color: ColorManager.bluebottom,
+                        headText: AppStringHr.email,
+                        dataText: 'pardeshisaloni22@gmail.com',
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        _launchEmail('saloni.dev@symmetry.care');
+                      },
+                      child: ViewDetailsRowConst(
+                        isUnderlined: true,
+                        color: ColorManager.bluebottom,
+                        headText: AppStringHr.email,
+                        dataText: 'saloni.dev@symmetry.care',
+                      ),
+                    ),
                     ViewDetailsRowConst(isUnderlined: false, headText: AppStringHr.zone, dataText: 'ProHealth, San Jose Z4',),
                     ViewDetailsRowConst(isUnderlined: false,headText: AppStringHr.speciality, dataText: 'Physical Thearpy',),
                     ViewDetailsRowConst(isUnderlined: false,headText: AppStringHr.service, dataText: 'NA',),
@@ -235,7 +267,7 @@ class ViewDetailsLicenseConst extends StatelessWidget {
       highlightColor: Colors.transparent,
       onTap: onTap,
       child: Container(
-        width: 180,
+        width: 170,
        // color: Colors.purple,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -250,7 +282,7 @@ class ViewDetailsLicenseConst extends StatelessWidget {
                 color: Color(0xFF579EBA)
               ),
             ),
-            SizedBox(width: 20),
+            SizedBox(width: 5),
             ClipOval(
               child: Container(
                 height: 20,

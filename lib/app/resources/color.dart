@@ -72,6 +72,7 @@ class ColorManager {
   static Color pieChartGreen = Color(0xFFBAEDBD);
   static Color pieChartBBlue = Color(0xFF527FB9);
   static Color pieChartBlue = Color(0xFF95A4FC);
+  static Color pieChartNBlue = Color(0xFF59A9F4);
   static Color dashBlueHead = Color(0xFFDCF0FA);
   static Color dashBlueHeadBottom = Color(0xFF1EA0F1);
   static Color dashListviewData = Color(0xFF718EBF);

@@ -115,6 +115,7 @@ class HrDashboardSmallcontainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 120,
+        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
