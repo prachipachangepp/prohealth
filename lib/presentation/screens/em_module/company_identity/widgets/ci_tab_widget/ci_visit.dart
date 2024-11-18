@@ -100,7 +100,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 
   int currentPage = 1;
   final int itemsPerPage = 10;
-  final int totalPages = 5;
+   final int totalPages = 5;
 
   void onPageNumberPressed(int pageNumber) {
     setState(() {
@@ -219,7 +219,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
               stream: _visitController.stream,
               builder: (context, snapshot) {
                 print('1111111');
-                getVisit(context, 1, 10).then((data) {
+                getVisit(context, 1, 20).then((data) {
                   _visitController.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -289,10 +289,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           ))),
                                 ));
                               }
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5),
-                                child: Column(children: [
-                                  Container(
+                              return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
                                       padding: EdgeInsets.only(bottom: AppPadding.p5),
                                       decoration: BoxDecoration(
                                         color: ColorManager.white,
@@ -504,9 +506,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           ),
                                           // Expanded(flex: 3, child: Container())
                                         ],
-                                      ))
-                                ]),
-                              );
+                                      )),
+                                )
+                              ]);
                             }),
                       ),
                       PaginationControlsWidget(
@@ -535,7 +537,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 return Offstage();
               }),
         ),
-        //       PaginationControlsWidget(
       ]),
     );
   }
