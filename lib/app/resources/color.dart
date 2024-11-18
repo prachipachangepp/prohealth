@@ -76,6 +76,7 @@ class ColorManager {
   static Color dashBlueHeadBottom = Color(0xFF1EA0F1);
   static Color dashListviewData = Color(0xFF718EBF);
   static Color dashListviewDataPink = Color(0xFFFFE0EB);
+  static Color dashDivider = Color(0xFFE9E9E9);
 }
 
 extension HexColor on Color {

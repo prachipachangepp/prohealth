@@ -791,8 +791,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                 padding: const EdgeInsets.only(bottom: 5.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     ///"Expired License"
                                     ProfileBarClipConst(

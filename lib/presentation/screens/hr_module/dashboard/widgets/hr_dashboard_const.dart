@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/view_details_popup.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -347,7 +348,9 @@ class HRDashboardListViewData extends StatelessWidget {
         height:35,
         width: 120,
         child: ElevatedButton(
-          onPressed: (){},
+          onPressed: (){
+            showDialog(context: context, builder: (context) => ViewDetailsPopup());
+          },
           child: Text(
               AppStringHr.viewDetails,
               style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s15,
