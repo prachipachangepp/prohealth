@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
@@ -28,9 +26,6 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
-  final StreamController<List<NewJoineeDash>> newJoinee =
-      StreamController<List<NewJoineeDash>>();
-
   // List<String> _bottomTitle = ['Sat','Sun','Mon','Tue','Wed','Thu','Fri'];
 
   /// Bar Column chart data
@@ -129,9 +124,39 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     ChartData(2022, 34),
     ChartData(2024, 40)
   ];
+
+  /// Area chart
+  final List<ChartAreaData> AreachartData = <ChartAreaData>[
+    ChartAreaData(2010, 10.53, 3.3),
+    ChartAreaData(2011, 9.5, 5.4),
+    ChartAreaData(2012, 10, 2.65),
+    ChartAreaData(2013, 9.4, 2.62),
+    ChartAreaData(2014, 5.8, 1.99),
+    ChartAreaData(2015, 4.9, 1.44),
+    ChartAreaData(2016, 4.5, 2),
+    ChartAreaData(2017, 3.6, 1.56),
+    ChartAreaData(2018, 3.43, 2.1),
+
+  ];
+
+  /// TrackBall chart
+  late TrackballBehavior _trackballBehavior;
+  final List<TrackBallChartData> data = <TrackBallChartData>[
+    TrackBallChartData('John', 15, 60),
+    TrackBallChartData('Eva', 20, 55),
+    TrackBallChartData('Ana', 25, 48),
+    TrackBallChartData('Rio', 21, 57),
+    TrackBallChartData('Jenie', 13, 62),
+    TrackBallChartData('Roy', 18, 64),
+    TrackBallChartData('Jeh', 24, 57),
+  ];
   @override
   void initState() {
     super.initState();
+    _trackballBehavior = TrackballBehavior(
+      enable: true,
+        tooltipDisplayMode: TrackballDisplayMode.groupAllPoints
+    );
     // _list.add(DataModel(key:"0",value: "10"));
     // _list.add(DataModel(key:"10%",value: "6"));
     // _list.add(DataModel(key:"20%",value: "8"));
@@ -848,7 +873,43 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       offset: Offset(-6.01, 9.02),
                                     ),
                                   ],
-                                )),
+                                ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Employee Tenure & Documentation",
+                                        textAlign: TextAlign.start,
+                                        style: TableHeadHRDashboard.customTextStyle(context),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    height:200,
+                                    child: SfCartesianChart(
+                                        primaryXAxis: CategoryAxis(),
+                                        trackballBehavior: _trackballBehavior,
+                                        series: <LineSeries<TrackBallChartData, String>>[
+                                          LineSeries<TrackBallChartData, String>(
+                                            color: ColorManager.blueprime,
+                                              dataSource: data,
+                                              xValueMapper: (TrackBallChartData data, _) => data.empName,
+                                              yValueMapper: (TrackBallChartData data, _) => data.firstSale),
+                                          LineSeries<TrackBallChartData, String>(
+                                              color: ColorManager.faintOrange,
+                                              dataSource: data,
+                                              xValueMapper: (TrackBallChartData data, _) => data.empName,
+                                              yValueMapper: (TrackBallChartData data, _) => data.secondSale),
+
+                                        ]
+                                    )
+                                  )
+                                ],
+                              ),
+                            ),),
                           ),
                         ],
                       ),
@@ -934,7 +995,61 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           const Offset(0, 0), // Downward shadow
                                     ),
                                   ],
-                                )),
+                                ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Incident and violation tracking",
+                                      textAlign: TextAlign.start,
+                                      style: TableHeadHRDashboard.customTextStyle(context),
+                                    ),
+                                    Container(
+                                      height: 200,
+                                      child: SfCartesianChart(
+                                          series: <CartesianSeries>[
+                                            SplineAreaSeries<ChartAreaData, int>(
+                                                dataSource: AreachartData,
+                                                xValueMapper: (ChartAreaData data, _) => data.x,
+                                                yValueMapper: (ChartAreaData data, _) => data.y
+                                            ),
+                                            SplineAreaSeries<ChartAreaData, int>(
+                                                dataSource: AreachartData,
+                                                yValueMapper: (ChartAreaData data, _) => data.y1,
+                                              xValueMapper: (ChartAreaData data, _) => data.x,
+                                            ),
+                                          ]
+                                      ),
+                                    ),
+                                    SizedBox(height: 5,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Safety Incidents",
+                                              textAlign: TextAlign.center,
+                                              style: TableHeadHRDashboard.customTextStyle(context),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Policy Breaches",
+                                              textAlign: TextAlign.center,
+                                              style: TableHeadHRDashboard.customTextStyle(context),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             width: 15,
@@ -998,7 +1113,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                               //   radius: 45,
                                               // ),
                                             ],
-                                            centerSpaceRadius: 40,
+                                            centerSpaceRadius: 60,
                                             centerSpaceColor: Colors.white,
                                             sectionsSpace: 3,
                                             borderData:
@@ -1009,6 +1124,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       ),
                                     ],
                                   ),
+
                                 ],
                               ),
                             ),
@@ -1041,8 +1157,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           itemCount: 15,
                           itemBuilder: (context, index) {
                             //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                            // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            // EmployeeDocumentModal employeedoc = paginatedData[index];
+                           // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                           // EmployeeDocumentModal employeedoc = paginatedData[index];
                             return const Column(
                               children: [
                                 SizedBox(height: AppSize.s5),
