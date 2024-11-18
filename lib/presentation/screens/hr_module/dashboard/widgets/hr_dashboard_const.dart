@@ -90,6 +90,7 @@ class HrDashboadGraphContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 250,
+        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(6),
@@ -133,6 +134,34 @@ class HrDashboardSmallcontainer extends StatelessWidget {
           ],
         ),
     child: child,);
+  }
+}
+
+class TextCircleConst extends StatelessWidget {
+  final String text;
+  final Color circleColor;
+  final Color? textColor;
+  const TextCircleConst({super.key, required this.text, required this.circleColor, this.textColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 10.0,
+          height: 15.0,
+          decoration: BoxDecoration(
+            color: circleColor,
+            shape: BoxShape.circle,
+          ),
+        ),
+        SizedBox(width: 10,),
+        Text(text,style: CustomTextStylesCommon.commonStyle(
+            color: textColor ?? ColorManager.dashListviewData,
+        fontSize: FontSize.s12,
+        fontWeight: FontWeight.w500),)
+      ],
+    );
   }
 }
 
