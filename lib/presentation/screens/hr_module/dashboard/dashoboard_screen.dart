@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/dashboard/hr_dashboard/hr_dashboard_graph_manager.dart';
 import 'package:prohealth/app/services/api/managers/dashboard/hr_dashboard/hr_dashboard_manager.dart';
+import 'package:prohealth/data/api_data/dashboard/hr_dashboard/hr_dashboard_graph_model.dart';
 import 'package:prohealth/data/api_data/dashboard/hr_dashboard/hr_dashboard_part_one_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/barChart_const_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/dataModel_barchart.dart';
@@ -85,7 +87,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   // );
 
   /// pie chart data
-  List<PieChartSectionData> _getSections() {
+  List<PieChartSectionData> _getSections(EmployeeSexRatioData employeeSexRatioData) {
     return [
       PieChartSectionData(
         color: ColorManager.pieChartGreen,
@@ -446,15 +448,50 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           Expanded(
                               flex: 1,
                               child: HrDashboadGraphContainer(
-                                child: PieChart(
-                                  PieChartData(
-                                    sections: _getSections(),
-                                    centerSpaceRadius: 40,
-                                    centerSpaceColor: Colors.white,
-                                    sectionsSpace: 2,
-                                    borderData: FlBorderData(show: false),
-                                    startDegreeOffset: -90,
-                                  ),
+                                child: FutureBuilder<EmployeeSexRatioData>(
+                                  future: getSexRation(context: context),
+                                  builder: (context, snapshot) {
+                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                      return SizedBox();
+                                    }
+                                    if(snapshot.hasData){
+                                      return Stack(
+                                        children: [
+                                          PieChart(
+                                          PieChartData(
+                                            sections: [
+                                              ...List.generate(snapshot.data!.genderStatistics.length, (index){
+                                               String percentage =  snapshot.data!.genderStatistics[index].percentage.replaceAll("%", "");
+                                                return PieChartSectionData(
+                                                  color: ColorManager.pieChartGreen,
+                                                  value: double.parse(percentage),
+                                                  title: '${snapshot.data!.genderStatistics[index].percentage}',
+                                                  titleStyle: const TextStyle(
+                                                      fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                  radius: 45,
+                                                );
+                                              })
+                                              ],
+                                            centerSpaceRadius: 40,
+                                            centerSpaceColor: Colors.white,
+                                            sectionsSpace: 2,
+                                            borderData: FlBorderData(show: false),
+                                            startDegreeOffset: -90,
+                                          ),
+                                        ),
+                                          // Positioned(
+                                          //     top:50,
+                                          //     left: 50,
+                                          //     child: Text('Sex Ratio')),
+
+                                        ],
+                                      );
+                                    }
+                                    else{
+                                      return SizedBox();
+                                    }
+
+                                  }
                                 ),
                               )),
                           const SizedBox(
@@ -470,98 +507,35 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               child: Column(
                                 children: [
                                   Container(
-                                      height: 25,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      decoration: BoxDecoration(
-                                        color: ColorManager.dashBlueHead,
-                                        borderRadius: BorderRadius.circular(12),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: ColorManager.black
-                                                .withOpacity(0.2),
-                                            spreadRadius: 0,
-                                            blurRadius: 4,
-                                            offset: const Offset(0, 2),
-                                          ),
-                                        ],
-                                      ),
-                                      child: const Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                              child: Center(
-                                                  child: Text('Sr',
-                                                      style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight: FontWeight
-                                                              .w500)))),
-                                          Expanded(
-                                              child: Center(
-                                                  child: Text('Rates',
-                                                      style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight: FontWeight
-                                                              .w500)))),
-                                          Expanded(
-                                              child: Center(
-                                                  child: Text('Percentage',
-                                                      style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight: FontWeight
-                                                              .w500)))),
-                                        ],
-                                      )),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 200,
+                                    height: 270,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 15, vertical: 15),
                                     child: ListView.builder(
-                                        itemCount: 5,
+                                        itemCount: 4,
                                         itemBuilder: (context, index) {
                                           return Column(
                                             children: [
-                                              const Row(
+                                              Row(
                                                 children: [
-                                                  Expanded(
-                                                      child: Center(
-                                                          child: Text('01',
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      10)))),
                                                   Expanded(
                                                       child: Center(
                                                           child: Text(
                                                               'Offer Acceptance Rate',
                                                               style: TextStyle(
                                                                   fontSize:
-                                                                      10)))),
-                                                  Expanded(
+                                                                      12,fontWeight: FontWeight.w500,
+                                                                color: ColorManager.mediumgrey,)))),
+                                                   Expanded(
                                                       child: Center(
                                                           child: Text(
                                                     '15%',
                                                     style:
-                                                        TextStyle(fontSize: 10),
+                                                        TextStyle(fontSize: 12,fontWeight: FontWeight.w500,
+                                                          color: ColorManager.mediumgrey,),
                                                   )))
                                                 ],
                                               ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 15.0,
-                                                        horizontal: 5),
-                                                child: Divider(
-                                                  color:
-                                                      ColorManager.fmediumgrey,
-                                                  height: 1,
-                                                ),
-                                              )
+
                                             ],
                                           );
                                         }),
