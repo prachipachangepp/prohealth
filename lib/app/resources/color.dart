@@ -66,12 +66,20 @@ class ColorManager {
   static Color purpleBlack = Color(0xFF7886A9);
   static Color pink = Color(0xFFEE61CF);
   static Color blueDash = Color(0xff3786F1);
+  static Color incidentBlue = Color(0xff344BFD);
+  static Color incidentskin = Color(0xffF4A79D);
+
+
   static Color skini = Color(0xFFFFA8A8);
   static Color purple = Color(0xFFC0FE233).withOpacity(0.2);
   static Color barChartBlue = Color(0xFFCBFFFF);
   static Color pieChartGreen = Color(0xFFBAEDBD);
   static Color pieChartBBlue = Color(0xFF527FB9);
   static Color pieChartBlue = Color(0xFF95A4FC);
+  static Color pieChartpurple = Color(0xFFAFB7FF);
+  static Color pieChartFpurple = Color(0xFFDFE2FF);
+  static Color pieChartYellow = Color(0xFFD2F55C);
+  static Color pieChartFYellow = Color(0xFFEBF9BB);
   static Color pieChartNBlue = Color(0xFF59A9F4);
   static Color dashBlueHead = Color(0xFFDCF0FA);
   static Color dashBlueHeadBottom = Color(0xFF1EA0F1);

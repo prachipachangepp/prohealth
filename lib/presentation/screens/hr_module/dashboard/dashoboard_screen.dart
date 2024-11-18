@@ -14,6 +14,7 @@ import '../../../../app/resources/color.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/hr_resources/hr_theme_manager.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -467,106 +468,44 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 15),
-                              child: Column(
-                                children: [
-                                  Container(
-                                      height: 25,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      decoration: BoxDecoration(
-                                        color: ColorManager.dashBlueHead,
-                                        borderRadius: BorderRadius.circular(12),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: ColorManager.black
-                                                .withOpacity(0.2),
-                                            spreadRadius: 0,
-                                            blurRadius: 4,
-                                            offset: const Offset(0, 2),
-                                          ),
-                                        ],
-                                      ),
-                                      child: const Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                              child: Center(
-                                                  child: Text('Sr',
-                                                      style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight: FontWeight
-                                                              .w500)))),
-                                          Expanded(
-                                              child: Center(
-                                                  child: Text('Rates',
-                                                      style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight: FontWeight
-                                                              .w500)))),
-                                          Expanded(
-                                              child: Center(
-                                                  child: Text('Percentage',
-                                                      style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight: FontWeight
-                                                              .w500)))),
-                                        ],
-                                      )),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 200,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 15),
-                                    child: ListView.builder(
-                                        itemCount: 5,
-                                        itemBuilder: (context, index) {
-                                          return Column(
-                                            children: [
-                                              const Row(
-                                                children: [
-                                                  Expanded(
-                                                      child: Center(
-                                                          child: Text('01',
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      10)))),
-                                                  Expanded(
-                                                      child: Center(
-                                                          child: Text(
-                                                              'Offer Acceptance Rate',
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      10)))),
-                                                  Expanded(
-                                                      child: Center(
-                                                          child: Text(
-                                                    '15%',
-                                                    style:
-                                                        TextStyle(fontSize: 10),
-                                                  )))
-                                                ],
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 15.0,
-                                                        horizontal: 5),
-                                                child: Divider(
-                                                  color:
-                                                      ColorManager.fmediumgrey,
-                                                  height: 1,
-                                                ),
-                                              )
-                                            ],
-                                          );
-                                        }),
-                                  )
-                                ],
+                              child: Container(
+                                //color: Colors.purple,
+                                height: 200,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                child: ListView.builder(
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                       // color: ColorManager.incidentskin,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                           crossAxisAlignment: CrossAxisAlignment.start,
+                                           children: [
+                                             Expanded(
+                                                 child: Center(
+                                                     child: Text(
+                                                         'Offer Acceptance Rate',
+                                                         style: CustomTextStylesCommon.commonStyle(
+                                                             color: ColorManager.mediumgrey,
+                                                             fontSize: FontSize.s12,
+                                                             fontWeight: FontWeight.w700)))),
+                                             Expanded(
+                                                 child: Center(
+                                                     child: Text(
+                                               '15%',
+                                               style: CustomTextStylesCommon.commonStyle(
+                                                   color: ColorManager.dashListviewData,
+                                                   fontSize: FontSize.s12,
+                                                   fontWeight: FontWeight.w500),
+                                             )))
+                                           ],
+                                                                                    ),
+                                        ),
+                                      );
+                                    }),
                               ),
                             ))),
                           )
@@ -921,6 +860,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          ///career progression metrix
                           Expanded(
                             child: Container(
                               height: 280,
@@ -948,12 +888,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Career progression matrics",
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          TableHeadHRDashboard.customTextStyle(
-                                              context),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 30.0),
+                                      child: Text(
+                                        "Career progression matrics",
+                                        textAlign: TextAlign.center,
+                                        style:
+                                            TableHeadHRDashboard.customTextStyle(
+                                                context),
+                                      ),
                                     ),
                                     Container(
                                       height: 210,
@@ -978,6 +921,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           const SizedBox(
                             width: 15,
                           ),
+                          ///incidence and violation
                           Expanded(
                             child: Container(
                                 height: 280,
@@ -998,6 +942,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
                                       "Incident and violation tracking",
@@ -1009,11 +954,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       child: SfCartesianChart(
                                           series: <CartesianSeries>[
                                             SplineAreaSeries<ChartAreaData, int>(
+                                              color: ColorManager.incidentBlue.withOpacity(0.2),
+                                              borderColor: ColorManager.incidentBlue,
+                                                borderWidth: 2,
                                                 dataSource: AreachartData,
                                                 xValueMapper: (ChartAreaData data, _) => data.x,
                                                 yValueMapper: (ChartAreaData data, _) => data.y
                                             ),
                                             SplineAreaSeries<ChartAreaData, int>(
+                                              color: ColorManager.incidentskin.withOpacity(0.3),
+                                              borderColor: ColorManager.incidentskin,
+                                              borderWidth: 2,
                                                 dataSource: AreachartData,
                                                 yValueMapper: (ChartAreaData data, _) => data.y1,
                                               xValueMapper: (ChartAreaData data, _) => data.x,
@@ -1025,24 +976,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Safety Incidents",
-                                              textAlign: TextAlign.center,
-                                              style: TableHeadHRDashboard.customTextStyle(context),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Policy Breaches",
-                                              textAlign: TextAlign.center,
-                                              style: TableHeadHRDashboard.customTextStyle(context),
-                                            ),
-                                          ],
-                                        )
+                                        TextCircleConst(text: "Safety Incidents", circleColor: ColorManager.incidentBlue, textColor: ColorManager.black,),
+                                        TextCircleConst(text:  "Policy Breaches", circleColor: ColorManager.incidentskin, textColor: ColorManager.black)
                                       ],
                                     )
                                   ],
@@ -1058,59 +993,52 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           Expanded(
                             child: HrDashboadGraphContainer(
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Metrics on Ethnic Dicersity',
+                                        'Metrics on Ethnic Diversity',
                                         textAlign: TextAlign.start,
-                                        style: TableHeadHRDashboard
-                                            .customTextStyle(context),
+                                        style: TableHeadHRDashboard.customTextStyle(context),
                                       ),
                                       Container(
                                         height: 200,
-                                        width: 180,
+                                         width: 200,
+                                       // color: Colors.red,
                                         child: PieChart(
                                           PieChartData(
                                             sections: [
                                               PieChartSectionData(
-                                                color: ColorManager.green,
+                                                color: ColorManager.pieChartFYellow,
                                                 value: 40,
                                                 title: '',
                                                 //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                radius: 45,
+                                                radius: 40,
                                               ),
                                               PieChartSectionData(
-                                                color:
-                                                    ColorManager.faintblueweb,
+                                                color: ColorManager.pieChartpurple,
                                                 value: 20,
                                                 title: '',
                                                 //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                radius: 45,
+                                                radius: 40,
                                               ),
                                               PieChartSectionData(
-                                                color: ColorManager.faintOrange,
-                                                value: 15,
+                                                color: ColorManager.pieChartFpurple,
+                                                value: 10,
                                                 title: '',
                                                 //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                radius: 45,
+                                                radius: 40,
                                               ),
                                               PieChartSectionData(
-                                                color: ColorManager.red,
+                                                color: ColorManager.pieChartYellow,
                                                 value: 25,
                                                 title: '',
                                                 //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                radius: 45,
+                                                radius: 40,
                                               ),
-                                              //   PieChartSectionData(
-                                              //   color: ColorManager.mediumgrey,
-                                              //   value: 88,
-                                              //   //title: '34%',
-                                              //   //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                              //   radius: 45,
-                                              // ),
                                             ],
                                             centerSpaceRadius: 60,
                                             centerSpaceColor: Colors.white,
@@ -1123,6 +1051,26 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       ),
                                     ],
                                   ),
+                                  Center(
+                                    child: Container(
+                                      height: 150,
+                                      width: 200,
+                                      //color: Colors.greenAccent,
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              TextCircleConst(text: 'American', circleColor: ColorManager.pieChartpurple),
+                                              TextCircleConst(text: 'African', circleColor: ColorManager.pieChartYellow),
+                                              TextCircleConst(text: 'Asian', circleColor: ColorManager.pieChartFpurple),
+                                              TextCircleConst(text: 'American African', circleColor: ColorManager.pieChartFYellow),
+
+                                            ],
+                                          ),
+                                        ),
+                                    ),
+                                  )
 
                                 ],
                               ),
