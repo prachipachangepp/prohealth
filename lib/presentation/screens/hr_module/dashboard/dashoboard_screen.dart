@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/barChart_const_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/dataModel_barchart.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/hr_dashboard_const.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -22,51 +24,62 @@ class DashBoardScreen extends StatefulWidget {
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
   // List<String> _bottomTitle = ['Sat','Sun','Mon','Tue','Wed','Thu','Fri'];
-  List<DataModel> _list = List<DataModel>.empty(growable:true);
-  List<BarChartGroupData> _chartGroups(){
-    List<BarChartGroupData> list = List<BarChartGroupData>.empty(growable: true);
-    for(int i = 0; i< _list.length; i++){
-      list.add(BarChartGroupData(x: i, barRods: [BarChartRodData(toY: double.parse(_list[i].value!), color:ColorManager.barChartBlue)]));
-    }
-    return list;
-  }
-  SideTitles get _bottomTitles => SideTitles(
-      showTitles: true,
-      getTitlesWidget: (value, meta){
-        String text ='';
-        switch (value.toInt()){
-          case 0:
-            text = 'Sat';
-            break;
 
-          case 1:
-            text = 'Sun';
-            break;
-
-          case 2:
-            text = 'Mon';
-            break;
-
-          case 3:
-            text = 'Tus';
-            break;
-
-          case 4:
-            text = 'Wed';
-            break;
-
-          case 5:
-            text = 'Thu';
-            break;
-
-          case 6:
-            text = 'Fri';
-            break;
-
-        }
-        return Text(text,style: TextStyle(fontSize: 10),);
-      }
-  );
+  /// Bar Column chart data
+  final List<ComboChartData> CombochartData = <ComboChartData>[
+    ComboChartData('Sat', 50, 30),
+    ComboChartData('Sun', 40, 25),
+    ComboChartData('Mon', 100, 80),
+    ComboChartData('Tue', 80, 50),
+    ComboChartData('Wed', 90, 75),
+    ComboChartData('Thu', 80, 65),
+    ComboChartData('Fri', 80, 40),
+  ];
+  // List<DataModel> _list = List<DataModel>.empty(growable:true);
+  // List<BarChartGroupData> _chartGroups(){
+  //   List<BarChartGroupData> list = List<BarChartGroupData>.empty(growable: true);
+  //   for(int i = 0; i< _list.length; i++){
+  //     list.add(BarChartGroupData(x: i, barRods: [BarChartRodData(toY: double.parse(_list[i].value!), color:ColorManager.barChartBlue)]));
+  //   }
+  //   return list;
+  // }
+  // SideTitles get _bottomTitles => SideTitles(
+  //     showTitles: true,
+  //     getTitlesWidget: (value, meta){
+  //       String text ='';
+  //       switch (value.toInt()){
+  //         case 0:
+  //           text = 'Sat';
+  //           break;
+  //
+  //         case 1:
+  //           text = 'Sun';
+  //           break;
+  //
+  //         case 2:
+  //           text = 'Mon';
+  //           break;
+  //
+  //         case 3:
+  //           text = 'Tus';
+  //           break;
+  //
+  //         case 4:
+  //           text = 'Wed';
+  //           break;
+  //
+  //         case 5:
+  //           text = 'Thu';
+  //           break;
+  //
+  //         case 6:
+  //           text = 'Fri';
+  //           break;
+  //
+  //       }
+  //       return Text(text,style: const TextStyle(fontSize: 10),);
+  //     }
+  // );
 
   /// pie chart data
   List<PieChartSectionData> _getSections() {
@@ -75,35 +88,46 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         color: ColorManager.pieChartGreen,
         value: 34,
         title: '34%',
-        titleStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+        titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
         radius: 45,
       ),
       PieChartSectionData(
         color: ColorManager.pieChartBBlue,
         value: 7,
         title: '7%',
-        titleStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+        titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
         radius: 40,
       ),
       PieChartSectionData(
         color: ColorManager.pieChartBlue,
         value: 60,
         title: '60%',
-        titleStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+        titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
         radius: 40,
       ),
     ];
   }
+
+  /// Spline chart data
+  final List<ChartData> chartData = [
+    ChartData(2012, 40),
+    ChartData(2014, 35),
+    ChartData(2016, 60),
+    ChartData(2018, 20),
+    ChartData(2020, 38),
+    ChartData(2022, 34),
+    ChartData(2024, 40)
+  ];
   @override
   void initState() {
     super.initState();
-    _list.add(DataModel(key:"0",value: "10"));
-    _list.add(DataModel(key:"10%",value: "6"));
-    _list.add(DataModel(key:"20%",value: "8"));
-    _list.add(DataModel(key:"30%",value: "4"));
-    _list.add(DataModel(key:"40%",value: "6"));
-    _list.add(DataModel(key:"50%",value: "7"));
-    _list.add(DataModel(key:"60%",value: "2"));
+    // _list.add(DataModel(key:"0",value: "10"));
+    // _list.add(DataModel(key:"10%",value: "6"));
+    // _list.add(DataModel(key:"20%",value: "8"));
+    // _list.add(DataModel(key:"30%",value: "4"));
+    // _list.add(DataModel(key:"40%",value: "6"));
+    // _list.add(DataModel(key:"50%",value: "7"));
+    // _list.add(DataModel(key:"60%",value: "2"));
   }
 
   @override
@@ -120,8 +144,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   Container(
                     height: AppSize.s150,
                     width: double.maxFinite,
-                    decoration: BoxDecoration(color:Color(0xFFE9F2F5),// Color(0xFFF2F9FC),
-                      borderRadius: const BorderRadius.only(
+                    decoration: const BoxDecoration(color:Color(0xFFE9F2F5),// Color(0xFFF2F9FC),
+                      borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10)),
                       // boxShadow: [
@@ -135,7 +159,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 40,horizontal: 80),
+                      padding: const EdgeInsets.symmetric(vertical: 40,horizontal: 80),
                       child: Row(
                         children: [
                           Expanded(
@@ -147,7 +171,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 imageTileColor: ColorManager.skini.withOpacity(0.8),
                             ),
                           ),
-                          SizedBox(width: 25,),
+                          const SizedBox(width: 25,),
                           Expanded(
                             child: HrDashboardContainerConst(
                               headText: "New Joining's",
@@ -158,7 +182,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                             ),
                           ),
 
-                          SizedBox(width: 25,),
+                          const SizedBox(width: 25,),
                           Expanded(
                             child: HrDashboardContainerConst(
                               headText: "Today’s Attendance",
@@ -168,7 +192,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               imageTileColor: ColorManager.pink.withOpacity(0.8),
                             ),
                           ),
-                          SizedBox(width: 25,),
+                          const SizedBox(width: 25,),
                           Expanded(
                             child: HrDashboardContainerConst(
                               headText: "Employees on Leave",
@@ -227,34 +251,53 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 ],),
                                 Container(
                                   height: 200,
-                                  child: BarChart(
-                                    BarChartData(
-                                      backgroundColor: ColorManager.white,
-                                      barGroups: _chartGroups(),
-                                      borderData: FlBorderData(
-                                        border: Border(bottom: BorderSide(),left: BorderSide())
-                                      ),
-                                      gridData: FlGridData(show: false),
-                                      titlesData: FlTitlesData(
-                                        bottomTitles: AxisTitles(sideTitles: _bottomTitles),
-                                        leftTitles:AxisTitles(sideTitles: SideTitles(
-                                          showTitles:true,
-                                          interval:1,
-                                          getTitlesWidget: (value, meta){
-                                            return Text(value.toString(),style:TextStyle(fontSize: 10));
-                                          }
-                                        )),
-                                        topTitles: AxisTitles(sideTitles:SideTitles(showTitles:false)),
-                                        rightTitles:AxisTitles(sideTitles:SideTitles(showTitles:false)),
-                                      ),
-                                    )
-                                  ),
+                                  child:SfCartesianChart(
+                                    backgroundColor: ColorManager.white,
+                                      primaryXAxis: CategoryAxis(),
+                                      series: <CartesianSeries>[
+                                        ColumnSeries<ComboChartData, String>(
+                                          color: ColorManager.barChartBlue,
+                                            dataSource: CombochartData,
+                                            xValueMapper: (ComboChartData data, _) => data.x,
+                                            yValueMapper: (ComboChartData data, _) => data.y
+                                        ),
+                                        ColumnSeries<ComboChartData, String>(
+                                          color: ColorManager.blueprime.withOpacity(0.2),
+                                            dataSource: CombochartData,
+                                            xValueMapper: (ComboChartData data, _) => data.x,
+                                            yValueMapper: (ComboChartData data, _) => data.y1
+                                        ),
+
+                                      ]
+                                  )
+                                  // BarChart(
+                                  //   BarChartData(
+                                  //     backgroundColor: ColorManager.white,
+                                  //     barGroups: _chartGroups(),
+                                  //     borderData: FlBorderData(
+                                  //       border: const Border(bottom: BorderSide(),left: BorderSide())
+                                  //     ),
+                                  //     gridData: const FlGridData(show: false),
+                                  //     titlesData: FlTitlesData(
+                                  //       bottomTitles: AxisTitles(sideTitles: _bottomTitles),
+                                  //       leftTitles:AxisTitles(sideTitles: SideTitles(
+                                  //         showTitles:true,
+                                  //         interval:1,
+                                  //         getTitlesWidget: (value, meta){
+                                  //           return Text(value.toString(),style:const TextStyle(fontSize: 10));
+                                  //         }
+                                  //       )),
+                                  //       topTitles: const AxisTitles(sideTitles:SideTitles(showTitles:false)),
+                                  //       rightTitles:const AxisTitles(sideTitles:SideTitles(showTitles:false)),
+                                  //     ),
+                                  //   )
+                                  // ),
                                 ),
                               ],
                             ),
                           )
                         )),
-                        SizedBox(width: 15,),
+                        const SizedBox(width: 15,),
                         Expanded(flex:1, child: HrDashboadGraphContainer(
                         child: PieChart(
                           PieChartData(
@@ -266,7 +309,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                             startDegreeOffset: -90,
                           ),
                         ),)),
-                        SizedBox(width: 15,),
+                        const SizedBox(width: 15,),
                         Expanded(flex:2, child: HrDashboadGraphContainer(
                         child:SingleChildScrollView(
                           child: Padding(
@@ -275,7 +318,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               children: [
                                 Container(
                                     height:25,
-                                    padding: EdgeInsets.symmetric(horizontal: 20),
+                                    padding: const EdgeInsets.symmetric(horizontal: 20),
                                     decoration: BoxDecoration(
                                       color: ColorManager.dashBlueHead,
                                       borderRadius: BorderRadius.circular(12),
@@ -284,11 +327,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           color: ColorManager.black.withOpacity(0.2),
                                           spreadRadius: 0,
                                           blurRadius: 4,
-                                          offset: Offset(0, 2),
+                                          offset: const Offset(0, 2),
                                         ),
                                       ],
                                     ),
-                                    child:Row(
+                                    child:const Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
@@ -297,16 +340,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     Expanded(child: Center(child: Text('Percentage',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500)))),
                                       ],
                                     )),
-                              SizedBox(height: 5,),
+                              const SizedBox(height: 5,),
                               Container(
                                 height: 200,
-                                padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                                 child: ListView.builder(
                                   itemCount: 5,
                                     itemBuilder: (context, index){
                                     return Column(
                                       children: [
-                                        Row(
+                                        const Row(
                                           children: [
                                             Expanded(child: Center(child: Text('01',style: TextStyle(fontSize: 10)))),
                                             Expanded(child: Center(child: Text('Offer Acceptance Rate',style: TextStyle(fontSize: 10)))),
@@ -325,40 +368,190 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ))),)
                       ],),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       ///row 2
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Expanded(
+                          const Expanded(
                             child: HrDashboadGraphContainer(
                               child: Row(),
                             ),
                           ),
-                          SizedBox(width: 15,),
+                          const SizedBox(width: 15,),
                           Expanded(
                             child: Row(
                               children: [
                                 Expanded(
                                   child: Column(children: [
-                                    HrDashboardSmallcontainer(child: Row(),),
-                                    SizedBox(height: 10,),
-                                    HrDashboardSmallcontainer(child: Row(),),
+                                    HrDashboardSmallcontainer(child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text('Audit Readiness Score',textAlign: TextAlign.start,style: TextStyle(fontSize: AppSize.s10),),
+                                              Text('92%',textAlign: TextAlign.start,style: TextStyle(color: ColorManager.blueprime,fontSize: AppSize.s30),)
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          height:120,
+                                          width:100,
+                                          child: PieChart(
+                                            PieChartData(
+                                              sections: [PieChartSectionData(
+                                                color: ColorManager.blueprime,
+                                                value: 92,
+                                                title: '',
+                                                //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                radius: 45,
+                                              ),PieChartSectionData(
+                                                color: ColorManager.faintGrey,
+                                                value: 8,
+                                                title: '',
+                                                //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                radius: 45,
+                                              ),],
+                                              centerSpaceRadius: 20,
+                                              centerSpaceColor: Colors.white,
+                                              sectionsSpace: 2,
+                                              borderData: FlBorderData(show: false),
+                                              startDegreeOffset: -90,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),),
+                                    const SizedBox(height: 10,),
+                                     HrDashboardSmallcontainer(child: Row(
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text('Hr Staff To Employee Ratio',textAlign: TextAlign.start,style: TextStyle(fontSize: AppSize.s10),),
+                                            Text('56%',textAlign: TextAlign.start,style: TextStyle(color: ColorManager.blueprime,fontSize: AppSize.s30),)
+                                          ],
+                                        ),
+                                        // Container(
+                                        //   child: PieChart(
+                                        //     PieChartData(
+                                        //       sections: [PieChartSectionData(
+                                        //         color: ColorManager.blueprime,
+                                        //         value: 12,
+                                        //         //title: '34%',
+                                        //         //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                        //         radius: 45,
+                                        //       ),PieChartSectionData(
+                                        //         color: ColorManager.mediumgrey,
+                                        //         value: 88,
+                                        //         //title: '34%',
+                                        //         //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                        //         radius: 45,
+                                        //       ),],
+                                        //       centerSpaceRadius: 20,
+                                        //       centerSpaceColor: Colors.white,
+                                        //       sectionsSpace: 2,
+                                        //       borderData: FlBorderData(show: false),
+                                        //       startDegreeOffset: -90,
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                      ],
+                                    ),),
                                   ],),
                                 ),
-                                SizedBox(width: 15,),
-                                Expanded(
+                                const SizedBox(width: 15,),
+                                 Expanded(
                                   child: Column(children: [
-                                    HrDashboardSmallcontainer(child: Row(),),
+                                    HrDashboardSmallcontainer(child: Row(
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text('Attrition Rate\n Withine 1 year',textAlign: TextAlign.start,style: TextStyle(fontSize: AppSize.s10),),
+                                            Text('12%',textAlign: TextAlign.start,style: TextStyle(color: ColorManager.blueprime,fontSize: AppSize.s30),)
+                                          ],
+                                        ),
+                                        Container(
+                                          height:70,
+                                          width:100,
+                                          child: PieChart(
+                                            PieChartData(
+                                              sections: [PieChartSectionData(
+                                                color: ColorManager.blueprime,
+                                                value: 12,
+                                                title: '',
+                                                //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                radius: 45,
+                                              ),PieChartSectionData(
+                                                color: ColorManager.faintGrey,
+                                                value: 88,
+                                                title: '',
+                                                //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                radius: 45,
+                                              ),],
+                                              centerSpaceRadius: 20,
+                                              centerSpaceColor: Colors.white,
+                                              sectionsSpace: 2,
+                                              borderData: FlBorderData(show: false),
+                                              startDegreeOffset: -90,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),),
                                     SizedBox(height: 10,),
-                                    HrDashboardSmallcontainer(child: Row(),),
+                                    HrDashboardSmallcontainer(child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text('Hiring Ratio',textAlign: TextAlign.start,style: TextStyle(fontSize: AppSize.s10),),
+                                              Text('56%',textAlign: TextAlign.start,style: TextStyle(color: ColorManager.blueprime,fontSize: AppSize.s30),)
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          height:150,
+                                          width:130,
+                                          child: PieChart(
+                                            PieChartData(
+                                              sections: [PieChartSectionData(
+                                                color: ColorManager.green,
+                                                value: 56,
+                                                title: '',
+                                                //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                radius: 45,
+                                              ),
+                                                PieChartSectionData(
+                                                color: ColorManager.faintGrey,
+                                                value: 88,
+                                                title: '',
+                                                //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                radius: 45,
+                                              ),
+                                              ],
+                                              centerSpaceRadius: 30,
+                                              centerSpaceColor: Colors.white,
+                                              sectionsSpace: 2,
+                                              borderData: FlBorderData(show: false),
+                                              startDegreeOffset: -150,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),),
                                   ],),
                                 ),
 
                               ],
                             ),
                           ),
-                          SizedBox(width: 15,),
+                          const SizedBox(width: 15,),
                           Expanded(
                             child: Container(
                                 height: 250,
@@ -368,17 +561,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   border: Border.all(width: 0.75,color: ColorManager.ContainerBorder//.withOpacity(0.2)
                                     ,),
                                   boxShadow: [
-                                    BoxShadow(
+                                    const BoxShadow(
                                       color: Color(0xFFDADEE8),
                                       blurRadius: 13.53,
                                       spreadRadius: 1,
-                                      offset: const Offset(-6.01, 9.02),
+                                      offset: Offset(-6.01, 9.02),
                                     ),
                                   ],
                                 )),
                           ),
                         ],),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       ///row 3
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -392,16 +585,43 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   border: Border.all(width: 0.75,color: ColorManager.ContainerBorder//.withOpacity(0.2)
                                     ,),
                                   boxShadow: [
-                                    BoxShadow(
+                                    const BoxShadow(
                                       color: Color(0xFFDADEE8),
                                       blurRadius: 13.53,
                                       spreadRadius: 1,
-                                      offset: const Offset(-6.01, 9.02),
+                                      offset: Offset(-6.01, 9.02),
                                     ),
                                   ],
-                                )),
+                                ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical:10,horizontal:10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Career progression matrics",
+                                    textAlign: TextAlign.center,
+                                    style: TableHeadHRDashboard.customTextStyle(context),
+                                  ),
+                                  Container(
+                                    height: 210,
+                                    child: SfCartesianChart(
+                                        series: <CartesianSeries>[
+                                          // Renders spline chart
+                                          SplineSeries<ChartData, int>(
+                                              dataSource: chartData,
+                                              xValueMapper: (ChartData data, _) => data.x,
+                                              yValueMapper: (ChartData data, _) => data.y
+                                          )
+                                        ]
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),),
+
                           ),
-                          SizedBox(width: 15,),
+                          const SizedBox(width: 15,),
                           Expanded(
                             child: Container(
                                 height: 280,
@@ -419,10 +639,70 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   ],
                                 )),
                           ),
-                          SizedBox(width: 15,),
-                          Expanded(
+                          const SizedBox(width: 15,),
+                           Expanded(
                             child: HrDashboadGraphContainer(
-                              child: Row(),
+                              child: Row(
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text('Metrics on Ethnic Dicersity',textAlign: TextAlign.start,style: TableHeadHRDashboard.customTextStyle(context),),
+                                      Container(
+                                        height:200,
+                                        width:180,
+                                        child: PieChart(
+                                          PieChartData(
+                                            sections: [
+                                              PieChartSectionData(
+                                              color: ColorManager.green,
+                                              value: 40,
+                                              title: '',
+                                              //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                              radius: 45,
+                                            ),
+                                              PieChartSectionData(
+                                                color: ColorManager.faintblueweb,
+                                                value: 20,
+                                                title: '',
+                                                //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                radius: 45,
+                                              ),
+                                              PieChartSectionData(
+                                                color: ColorManager.faintOrange,
+                                                value: 15,
+                                                title: '',
+                                                //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                radius: 45,
+                                              ),
+                                              PieChartSectionData(
+                                                color: ColorManager.red,
+                                                value: 25,
+                                                title: '',
+                                                //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                radius: 45,
+                                              ),
+                                              //   PieChartSectionData(
+                                              //   color: ColorManager.mediumgrey,
+                                              //   value: 88,
+                                              //   //title: '34%',
+                                              //   //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                              //   radius: 45,
+                                              // ),
+                                            ],
+                                            centerSpaceRadius: 60,
+                                            centerSpaceColor: Colors.white,
+                                            sectionsSpace: 3,
+                                            borderData: FlBorderData(show: false),
+                                            startDegreeOffset: -90,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                ],
+                              ),
                             ),
                           )
                         ],)
@@ -438,8 +718,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   color: Colors.white,
                   child: Column(
                     children: [
-                      HrDashboardListviewHeading(),
-                      SizedBox(height: AppSize.s10),
+                      const HrDashboardListviewHeading(),
+                      const SizedBox(height: AppSize.s10),
                       ///
                       Expanded(
                         child: ListView.builder(
@@ -449,7 +729,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                             //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                            // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                            // EmployeeDocumentModal employeedoc = paginatedData[index];
-                            return Column(
+                            return const Column(
                               children: [
                                 SizedBox(height: AppSize.s5),
                                 HRDashboardListViewData(),
