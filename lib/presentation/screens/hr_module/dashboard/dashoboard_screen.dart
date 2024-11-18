@@ -984,7 +984,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
-                                  // border: Border.all(width: 1,color: ColorManager.fmediumgrey.withOpacity(0.2),),
                                   boxShadow: [
                                     BoxShadow(
                                       color:
