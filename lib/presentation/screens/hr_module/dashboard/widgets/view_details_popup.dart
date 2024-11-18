@@ -15,6 +15,7 @@ import '../../../../../app/resources/theme_manager.dart';
 class ViewDetailsPopup extends StatelessWidget {
   const ViewDetailsPopup({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
