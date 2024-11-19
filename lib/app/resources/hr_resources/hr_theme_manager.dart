@@ -109,3 +109,15 @@ class TableDataHRDashboard {
     );
   }
 }
+
+///graph heading
+class GraphHeadingHRDashboard {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}

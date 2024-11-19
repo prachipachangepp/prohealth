@@ -360,7 +360,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           child: Text(
                                             "Output Relative to Input",
                                             textAlign: TextAlign.center,
-                                            style: TableHeadHRDashboard
+                                            style: GraphHeadingHRDashboard
                                                 .customTextStyle(context),
                                           ),
                                         ),
@@ -525,10 +525,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                  child: Center(
                                                      child: Text(
                                                          'Offer Acceptance Rate',
-                                                         style: CustomTextStylesCommon.commonStyle(
-                                                             color: ColorManager.mediumgrey,
-                                                             fontSize: FontSize.s12,
-                                                             fontWeight: FontWeight.w700)))),
+                                                         style: GraphHeadingHRDashboard.customTextStyle(context)))),
                                              Expanded(
                                                  child: Center(
                                                      child: Text(
@@ -548,9 +545,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           )
                         ],
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      const SizedBox(height: 15,),
 
                       ///row 2
                       Row(
@@ -561,9 +556,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               child: Row(),
                             ),
                           ),
-                          const SizedBox(
-                            width: 15,
-                          ),
+                          const SizedBox(width: 15,),
                           Expanded(
                             child: Row(
                               children: [
@@ -572,25 +565,20 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     children: [
                                       HrDashboardSmallcontainer(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
                                                   'Audit Readiness Score',
                                                   textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                      fontSize: AppSize.s10),
+                                                  style: TextStyle(fontSize: AppSize.s10),
                                                 ),
                                                 Text(
                                                   '92%',
                                                   textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                      color: ColorManager
-                                                          .blueprime,
+                                                  style: TextStyle(color: ColorManager.blueprime,
                                                       fontSize: AppSize.s30),
                                                 )
                                               ],
@@ -602,8 +590,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                 PieChartData(
                                                   sections: [
                                                     PieChartSectionData(
-                                                      color: ColorManager
-                                                          .pieChartNBlue,
+                                                      color: ColorManager.pieChartNBlue,
                                                       value: 92,
                                                       title: '',
                                                       //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
@@ -826,9 +813,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               ],
                             ),
                           ),
-                          const SizedBox(
-                            width: 15,
-                          ),
+                          const SizedBox(width: 15,),
                           Expanded(
                             child: Container(
                                 height: 250,
@@ -837,8 +822,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                     width: 0.75,
-                                    color: ColorManager
-                                        .ContainerBorder //.withOpacity(0.2)
+                                    color: ColorManager.ContainerBorder //.withOpacity(0.2)
                                     ,
                                   ),
                                   boxShadow: [
@@ -855,12 +839,22 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               child: Column(
                                 children: [
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "Employee Tenure & Documentation",
-                                        textAlign: TextAlign.start,
-                                        style: TableHeadHRDashboard.customTextStyle(context),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Employee Tenure & Documentation",
+                                            textAlign: TextAlign.start,
+                                            style: GraphHeadingHRDashboard.customTextStyle(context),
+                                          ),
+                                        ],
                                       ),
+                                      Row(children: [
+                                        TextCircleConst(text: 'Tenure', circleColor: ColorManager.emptenure,textColor: ColorManager.blackForLoginTexts,),
+                                        SizedBox(width:5),
+                                        TextCircleConst(text: 'Documentation', circleColor: ColorManager.empdoc, textColor: ColorManager.blackForLoginTexts,),
+                                      ],)
                                     ],
                                   ),
                                   Container(
@@ -870,12 +864,12 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                         trackballBehavior: _trackballBehavior,
                                         series: <LineSeries<TrackBallChartData, String>>[
                                           LineSeries<TrackBallChartData, String>(
-                                            color: ColorManager.blueprime,
+                                            color: ColorManager.emptenure,
                                               dataSource: data,
                                               xValueMapper: (TrackBallChartData data, _) => data.empName,
                                               yValueMapper: (TrackBallChartData data, _) => data.firstSale),
                                           LineSeries<TrackBallChartData, String>(
-                                              color: ColorManager.faintOrange,
+                                              color: ColorManager.empdoc,
                                               dataSource: data,
                                               xValueMapper: (TrackBallChartData data, _) => data.empName,
                                               yValueMapper: (TrackBallChartData data, _) => data.secondSale),
@@ -889,9 +883,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      const SizedBox(height: 15,),
 
                       ///row 3
                       Row(
@@ -930,9 +922,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       child: Text(
                                         "Career progression matrics",
                                         textAlign: TextAlign.center,
-                                        style:
-                                            TableHeadHRDashboard.customTextStyle(
-                                                context),
+                                        style: GraphHeadingHRDashboard.customTextStyle(context),
                                       ),
                                     ),
                                     Container(
@@ -984,7 +974,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     Text(
                                       "Incident and violation tracking",
                                       textAlign: TextAlign.start,
-                                      style: TableHeadHRDashboard.customTextStyle(context),
+                                      style: GraphHeadingHRDashboard.customTextStyle(context),
                                     ),
                                     Container(
                                       height: 200,
@@ -1039,7 +1029,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       Text(
                                         'Metrics on Ethnic Diversity',
                                         textAlign: TextAlign.start,
-                                        style: TableHeadHRDashboard.customTextStyle(context),
+                                        style: GraphHeadingHRDashboard.customTextStyle(context),
                                       ),
                                       Container(
                                         height: 200,

@@ -86,6 +86,10 @@ class ColorManager {
   static Color dashListviewData = Color(0xFF718EBF);
   static Color dashListviewDataPink = Color(0xFFFFE0EB);
   static Color dashDivider = Color(0xFFE9E9E9);
+  ///emp tenure doc
+  static Color emptenure = Color(0xFF579EBA);
+  static Color empdoc = Color(0xFF16DBCC);
+
 }
 
 extension HexColor on Color {
