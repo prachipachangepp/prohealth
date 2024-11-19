@@ -54,40 +54,40 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
 
-            Container(
-              margin: EdgeInsets.only(right: 60),
-              child: CustomIconButtonConst(
-                  width: 130,
-                  text: AppStringHr.addNew,
-                  icon: Icons.add,
-                  onPressed: () async {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return OthersDocAddpopup(title: 'Add Other Document',  employeeId: widget.employeeId,);
-                            // FutureBuilder<List<EmployeeDocSetupModal>>(
-                            //   future: getEmployeeDocSetupDropDown(context,AppConfig.clinicalVerificationDocId),
-                            //   builder: (context, snapshot) {
-                            //     if (snapshot.connectionState ==
-                            //         ConnectionState.waiting) {
-                            //       return Center(
-                            //           child: CircularProgressIndicator());
-                            //     }
-                            //     if (snapshot.hasData) {
-                            //       return OthersDocAddpopup(title: 'Add Other Document',  employeeId: widget.employeeId,);
-                            //       // CustomDocumedAddPopup(
-                            //       //   title: 'Add Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
-                            //       // );
-                            //     } else {
-                            //       return ErrorPopUp(
-                            //           title: "Received Error",
-                            //           text: snapshot.error.toString());
-                            //     }
-                            //   });
-                        });
-                    //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
-                  }),
-            ),
+            // Container(
+            //   margin: EdgeInsets.only(right: 60),
+            //   child: CustomIconButtonConst(
+            //       width: 130,
+            //       text: AppStringHr.addNew,
+            //       icon: Icons.add,
+            //       onPressed: () async {
+            //         showDialog(
+            //             context: context,
+            //             builder: (context) {
+            //               return OthersDocAddpopup(title: 'Add Other Document',  employeeId: widget.employeeId,);
+            //                 // FutureBuilder<List<EmployeeDocSetupModal>>(
+            //                 //   future: getEmployeeDocSetupDropDown(context,AppConfig.clinicalVerificationDocId),
+            //                 //   builder: (context, snapshot) {
+            //                 //     if (snapshot.connectionState ==
+            //                 //         ConnectionState.waiting) {
+            //                 //       return Center(
+            //                 //           child: CircularProgressIndicator());
+            //                 //     }
+            //                 //     if (snapshot.hasData) {
+            //                 //       return OthersDocAddpopup(title: 'Add Other Document',  employeeId: widget.employeeId,);
+            //                 //       // CustomDocumedAddPopup(
+            //                 //       //   title: 'Add Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
+            //                 //       // );
+            //                 //     } else {
+            //                 //       return ErrorPopUp(
+            //                 //           title: "Received Error",
+            //                 //           text: snapshot.error.toString());
+            //                 //     }
+            //                 //   });
+            //             });
+            //         //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+            //       }),
+            // ),
           ],
         ),
         const SizedBox(
