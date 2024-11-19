@@ -906,7 +906,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          Future.delayed(const Duration(seconds: 4), () {
+                                          Future.delayed(const Duration(seconds: 3), () {
                                             if (Navigator.of(context).canPop()) {
                                               Navigator.pop(context);
                                               popNavigation();
