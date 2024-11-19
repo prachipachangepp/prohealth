@@ -99,6 +99,7 @@ dependencies:
   dropdown_button2: any
   flutter_html_to_pdf: any
   syncfusion_flutter_charts: ^27.2.2
+  syncfusion_flutter_gauges: ^27.2.2
 
 
 #  riverpod: ^2.5.1
