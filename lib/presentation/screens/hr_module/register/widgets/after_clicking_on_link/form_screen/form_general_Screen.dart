@@ -1355,65 +1355,75 @@ class _AddressInputState extends State<AddressInput> {
     final position = renderBox.localToGlobal(Offset.zero);
 
     _overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        left: position.dx,
-        top: position.dy + renderBox.size.height,
-        width: 354,
-        child: Material(
-          elevation: 4.0,
-          borderRadius: BorderRadius.circular(8),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 4,
-                  offset: Offset(0, 2),
-                ),
-              ],
+      builder: (context) => Stack(
+        children:[
+          GestureDetector(
+            onTap: _removeOverlay,
+            child: Container(
+              color: Colors.transparent, // Make this transparent so it's invisible
             ),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: _suggestions.length > 5 ? 80.0 : double.infinity,
+          ),Positioned(
+          left: position.dx,
+          top: position.dy + renderBox.size.height,
+          width: 354,
+          child: Material(
+            elevation: 4.0,
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
               ),
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemCount: _suggestions.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                      _suggestions[index],
-                      style: TableSubHeading.customTextStyle(context),
-                    ),
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      widget.controller.text = _suggestions[index];
-                      _suggestions.clear();
-                      _removeOverlay();
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: _suggestions.length > 5 ? 80.0 : double.infinity,
+                ),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: _suggestions.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(
+                        _suggestions[index],
+                        style: TableSubHeading.customTextStyle(context),
+                      ),
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        widget.controller.text = _suggestions[index];
+                        _suggestions.clear();
+                        _removeOverlay();
 
-                      // Call the callback with the selected suggestion
-                      if (widget.onSuggestionSelected != null) {
-                        widget.onSuggestionSelected!(_suggestions[index]);
-                      }
-                    },
-                  );
-                },
+                        // Call the callback with the selected suggestion
+                        if (widget.onSuggestionSelected != null) {
+                          widget.onSuggestionSelected!(_suggestions[index]);
+                        }
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ),
         ),
-      ),
+      ]),
     );
 
     overlay.insert(_overlayEntry!);
   }
 
   void _removeOverlay() {
-    _overlayEntry?.remove();
-    _overlayEntry = null;
+    if (_overlayEntry != null) {
+      _overlayEntry!.remove();
+      _overlayEntry = null;
+    }
   }
 
   @override

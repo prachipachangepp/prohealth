@@ -77,15 +77,18 @@ class RegisterDataUserIDPrefill {
   final int userId;
   final String firstName;
   final String lastName;
+  final int departmentId;
   final String role;
   final String email;
   final int company_id;
   final String status;
 
-  RegisterDataUserIDPrefill({
+
+  RegisterDataUserIDPrefill( {
     required this.userId,
     required this.firstName,
     required this.lastName,
+    required this.departmentId,
     required this.role,
     required this.email,
     required this.company_id,
