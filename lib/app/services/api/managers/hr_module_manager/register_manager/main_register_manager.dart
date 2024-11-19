@@ -102,10 +102,11 @@ Future<RegisterDataUserIDPrefill> getRegisterEnrollPrefillUserId(
           userId: response.data['userId'] ?? 0,
           firstName: response.data['firstName'] ?? "--",
           lastName: response.data['lastName'] ?? '--',
-          role: response.data['role'] ?? '--',
+        departmentId: response.data['departmentId'] ?? 0,
+        role: response.data['role'] ?? '--',
           email: response.data['email'] ?? '--',
           company_id: response.data['company_id'] ?? 0,
-          status: response.data['status'] ?? '--');
+          status: response.data['status'] ?? '--', );
     } else {
       return itemsList;
     }

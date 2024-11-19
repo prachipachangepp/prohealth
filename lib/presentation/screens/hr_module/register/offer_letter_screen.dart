@@ -39,6 +39,7 @@ class OfferLetterScreen extends StatefulWidget {
   final String soecalityName;
   final String clinicalName;
   final int employeeId;
+  final int depId;
   final ApiData? apiData;
  final Function() onRefreshRegister;
 
@@ -58,7 +59,7 @@ class OfferLetterScreen extends StatefulWidget {
         required this.soecalityName,
         required this.clinicalName,
         required this.employeeId,
-         this.apiData, required this.onRefreshRegister
+         this.apiData, required this.onRefreshRegister, required this.depId
       });
 
   @override
@@ -156,6 +157,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   bool lastDate= false;
   bool pervisitDate = false;
   bool noOfPatientDate = false;
+  late int patientsValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -237,85 +239,90 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             errorText: verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null);
                       },
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
-                       SizedBox(height: 5,),
-                        Container(
-                          height: 30,
-                         // color: ColorManager.red,
-                          width: MediaQuery.of(context).size.width / 5,
-                          child: StatefulBuilder(
-                            builder: (BuildContext context, void Function(void Function()) setState) {
-                              return TextField(
-                                cursorColor: Colors.black,
-                                controller: patientsController,
-                                onChanged: (value){
-                                  setState(() {
-                                    if ("No. of Patients" == "No. of Patients") noOfPatientDate = value.isEmpty;});
-                                },
-                                decoration: InputDecoration(
-                                  border: const OutlineInputBorder(
-                                    borderSide:
-                                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                                  ),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide:
-                                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                                  ),
-                                  focusedBorder: const OutlineInputBorder(
-                                    borderSide:
-                                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintText: 'Enter No. of Patients',
-                                  hintStyle:  onlyFormDataStyle.customTextStyle(context),
-                                  suffixIcon: DropdownButton<String>(
-                                    value: selectedDropdownValue,
-                                    items: ['Per day', 'Per week', 'Per month']
-                                        .map((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 12.0),
-                                          child: Text(
-                                            value,
-                                            style: const TextStyle(fontSize: 12.0),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? value) {
-                                      if (value != null) {
-                                        setState(() {
-                                          selectedDropdownValue = value;
-                                        });
-                                      }
-                                    },
-                                    underline: const SizedBox(),
-                                    icon:  Icon(Icons.arrow_drop_down,
-                                        color: ColorManager.mediumgrey),
-                                  ),
-                                  contentPadding:
-                                  const EdgeInsets.only(left: 20, bottom: 5),
-                                ),
-                                style: DocumentTypeDataStyle.customTextStyle(context),);
-                            },
-                          ),
-                        ),
-                        if (noOfPatientDate == true)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 1),
-                            child: Text(
-                              "Please enter no. of Patients",
-                              style: CommonErrorMsg.customTextStyle(context),
-                            ),
-                          ),
-                      ],
+                    if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId)
+                      SizedBox(
+                        height: 30,
+                        width: MediaQuery.of(context).size.width / 5,// Set the height of the SizedBox here as needed
+                      )
+                    else Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
+                    SizedBox(height: 5,),
+                    Container(
+                    height: 30,
+                    // color: ColorManager.red,
+                    width: MediaQuery.of(context).size.width / 5,
+                    child: StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) {
+                    return TextField(
+                    cursorColor: Colors.black,
+                    controller: patientsController,
+                    // onChanged: (value){
+                    // setState(() {
+                    // if ("No. of Patients" == "No. of Patients") noOfPatientDate = value.isEmpty;});
+                    // },
+                    decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                    borderSide:
+                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
                     ),
+                    enabledBorder: const OutlineInputBorder(
+                    borderSide:
+                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                    borderSide:
+                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    hintText: 'Enter No. of Patients',
+                    hintStyle:  onlyFormDataStyle.customTextStyle(context),
+                    suffixIcon: DropdownButton<String>(
+                    value: selectedDropdownValue,
+                    items: ['Per day', 'Per week', 'Per month']
+                        .map((String value) {
+                    return DropdownMenuItem<String>(
+                    value: value,
+                    child: Container(
+                    padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0),
+                    child: Text(
+                    value,
+                    style: const TextStyle(fontSize: 12.0),
+                    ),
+                    ),
+                    );
+                    }).toList(),
+                    onChanged: (String? value) {
+                    if (value != null) {
+                    setState(() {
+                    selectedDropdownValue = value;
+                    });
+                    }
+                    },
+                    underline: const SizedBox(),
+                    icon:  Icon(Icons.arrow_drop_down,
+                    color: ColorManager.mediumgrey),
+                    ),
+                    contentPadding:
+                    const EdgeInsets.only(left: 20, bottom: 5),
+                    ),
+                    style: DocumentTypeDataStyle.customTextStyle(context),);
+                    },
+                    ),
+                    ),
+                    if (noOfPatientDate == true)
+    Padding(
+    padding: const EdgeInsets.only(top: 1),
+    child: Text(
+    "Please enter no. of Patients",
+    style: CommonErrorMsg.customTextStyle(context),
+    ),
+    ),
+    ],
+    ),
                     //SizedBox(width: MediaQuery.of(context).size.width / 10),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 5,
@@ -364,225 +371,417 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height / 40),
                 ///salery
+                ///
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 100),
                   child: StatefulBuilder(
                     builder: (BuildContext context, void Function(void Function()) setState) {
-                      return  Row(
+                      return Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
                             height: 30,
                             width: 300,
                             child: CustomDropdownFormField(
-                                hintText: 'Salaried',
-                                items: ['Salaried', 'Per Visit'],
-                                value: dropdownValue,
-                                onChanged: (newValue){
-                                  setState(() {
-                                    dropdownValue = newValue! ?? 'Salaried';
-                                    print('dropDownValue ${dropdownValue}');
-                                  });
-                                }),
+                              hintText: 'Salaried',
+                              // Conditionally show "Per Visit" in the dropdown if depId is not salesId or AdministrationId
+                              items: widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId
+                                  ? ['Salaried'] // Only show 'Salaried' option
+                                  : ['Salaried', 'Per Visit'], // Show both 'Salaried' and 'Per Visit'
+                              value: dropdownValue,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  dropdownValue = newValue! ?? 'Salaried';
+                                  print('dropDownValue ${dropdownValue}');
+                                });
+                              },
+                            ),
                           ),
-                          const SizedBox(width: 30,),
+                          const SizedBox(width: 30),
                           Row(
                             children: [
                               Text(
-                                _salary.isNotEmpty
-                                    ? "\$ ${_salary}"
-                                    : "Not Defined",
+                                _salary.isNotEmpty ? "\$ ${_salary}" : "Not Defined",
                                 style: DropdownItemStyle.customTextStyle(context),
                               ),
-                              const SizedBox(width: 30,),
+                              const SizedBox(width: 30),
                               ElevatedButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(12.0),
-                                          ),
-                                          titlePadding: EdgeInsets.zero,
-                                          title: Container(
-                                            decoration: const BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(12),
-                                                bottomLeft: Radius.circular(12),
-                                                bottomRight: Radius.circular(12),
-                                                topRight: Radius.circular(12),
-                                              ),
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                        ),
+                                        titlePadding: EdgeInsets.zero,
+                                        title: Container(
+                                          decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(12),
+                                              bottomLeft: Radius.circular(12),
+                                              bottomRight: Radius.circular(12),
+                                              topRight: Radius.circular(12),
                                             ),
-                                            width: 302,
-                                            height: 230,
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  height: 35,
-                                                  width: double.infinity,
-                                                  decoration: const BoxDecoration(
-                                                    color: Color(0xff1696C8),
-                                                    borderRadius: BorderRadius.only(
-                                                      topLeft: Radius.circular(12.0),
-                                                      topRight: Radius.circular(12.0),
-                                                    ),
+                                          ),
+                                          width: 302,
+                                          height: 230,
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                height: 35,
+                                                width: double.infinity,
+                                                decoration: const BoxDecoration(
+                                                  color: Color(0xff1696C8),
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(12.0),
+                                                    topRight: Radius.circular(12.0),
                                                   ),
-                                                  padding: const EdgeInsets.only(right: 5,bottom: 5),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                    children: [
-                                                      IconButton(
-                                                        icon: const Icon(Icons.close,
-                                                            color: Colors.white),
-                                                        onPressed: () {
-                                                          Navigator.of(context).pop();
+                                                ),
+                                                padding: const EdgeInsets.only(right: 5, bottom: 5),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    IconButton(
+                                                      icon: const Icon(Icons.close, color: Colors.white),
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    // Display the appropriate text based on dropdown selection
+                                                    dropdownValue == 'Salaried'
+                                                        ? Text(
+                                                      'Salary',
+                                                      style: DefineWorkWeekStyle.customTextStyle(context),
+                                                    )
+                                                        : Text(
+                                                      'Per Visit',
+                                                      style: DefineWorkWeekStyle.customTextStyle(context),
+                                                    ),
+                                                    SizedBox(
+                                                      height: MediaQuery.of(context).size.height / 30,
+                                                    ),
+                                                    Container(
+                                                      height: 30,
+                                                      child: TextFormField(
+                                                        cursorColor: Colors.black,
+                                                        style: DocumentTypeDataStyle.customTextStyle(context),
+                                                        decoration: InputDecoration(
+                                                          prefix: const Text("\$ "),
+                                                          hintText: '0.00',
+                                                          hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                                          enabledBorder: OutlineInputBorder(
+                                                            borderRadius: BorderRadius.circular(8.0),
+                                                            borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                          ),
+                                                          focusedBorder: OutlineInputBorder(
+                                                            borderRadius: BorderRadius.circular(8.0),
+                                                            borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                          ),
+                                                          border: OutlineInputBorder(
+                                                            borderRadius: BorderRadius.circular(8.0),
+                                                            borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                          ),
+                                                          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                                                        ),
+                                                        keyboardType: TextInputType.number,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            _salary = value;
+                                                          });
+                                                          print("Salary:: ${_salary}");
                                                         },
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.symmetric(
-                                                      vertical: 15.0, horizontal: 16.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                    children: [
-                                                      dropdownValue == 'Salaried' ?  Text(
-                                                        'Salary',
-                                                        style:DefineWorkWeekStyle.customTextStyle(context),
-                                                      ) : Text(
-                                                        'Per Visit',
-                                                        style: DefineWorkWeekStyle.customTextStyle(context),
-                                                      ),
-                                                      SizedBox(
-                                                        height: MediaQuery.of(context)
-                                                            .size
-                                                            .height /
-                                                            30,
-                                                      ),
-                                                      Container(
-                                                        height: 30,
-                                                        child: TextFormField(
-                                                          cursorColor: Colors.black,
-                                                          style: DocumentTypeDataStyle.customTextStyle(context),
-                                                          decoration: InputDecoration(
-                                                            prefix:const Text("\$ "),
-                                                            hintText: '0.00',
-                                                            hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
-                                                            enabledBorder:
-                                                            OutlineInputBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(
-                                                                  8.0),
-                                                              borderSide: const BorderSide(
-                                                                color: Color(0xff51B5E6),
-                                                                width: 1.0,
-                                                              ),
-                                                            ),
-                                                            focusedBorder:
-                                                            OutlineInputBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(
-                                                                  8.0),
-                                                              borderSide: const BorderSide(
-                                                                color: Color(0xff51B5E6),
-                                                                width: 1.0,
-                                                              ),
-                                                            ),
-                                                            border: OutlineInputBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(
-                                                                  8.0),
-                                                              borderSide: const BorderSide(
-                                                                color: Color(0xff51B5E6),
-                                                                width: 1.0,
-                                                              ),
-                                                            ),
-                                                            contentPadding:
-                                                            const EdgeInsets.symmetric(
-                                                                horizontal: 16.0,
-                                                                vertical: 12.0),
+                                                    ),
+                                                    SizedBox(
+                                                      height: MediaQuery.of(context).size.height / 20,
+                                                    ),
+                                                    Center(
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          // Handle the submit action
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        style: ElevatedButton.styleFrom(
+                                                          backgroundColor: const Color(0xff1696C8),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(12),
                                                           ),
-                                                          keyboardType:
-                                                          TextInputType.number,
-                                                          onChanged: (value) {
-                                                            setState((){
-                                                              _salary = value;
-                                                            });
-                                                            print("Salary:: ${_salary}");
-                                                          },
                                                         ),
-                                                      ),
-                                                      SizedBox(
-                                                          height: MediaQuery.of(context)
-                                                              .size
-                                                              .height /
-                                                              20),
-                                                      Center(
-                                                        child: ElevatedButton(
-                                                          onPressed: () {
-                                                            // Handle the submit action
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                          style: ElevatedButton.styleFrom(
-                                                            backgroundColor:
-                                                            const Color(0xff1696C8),
-                                                            shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(
-                                                                  12),
-                                                            ),
-                                                          ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal: 24.0,
-                                                                vertical: 8.0),
-                                                            child: Text(
-                                                              'Submit',
-                                                              style: BlueButtonTextConst.customTextStyle(context),
-                                                            ),
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                                                          child: Text(
+                                                            'Submit',
+                                                            style: BlueButtonTextConst.customTextStyle(context),
                                                           ),
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xff1696C8),
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xff1696C8),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
-                                  child: dropdownValue == 'Salaried' ? Text(
-                                    'Add',
-                                    style: BlueButtonTextConst.customTextStyle(context),
-                                  ) : Text(
-                                    'Add Visit',
-                                    style: BlueButtonTextConst.customTextStyle(context),
-                                  )
+                                ),
+                                child: dropdownValue == 'Salaried'
+                                    ? Text(
+                                  'Add',
+                                  style: BlueButtonTextConst.customTextStyle(context),
+                                )
+                                    : Text(
+                                  'Add Visit',
+                                  style: BlueButtonTextConst.customTextStyle(context),
+                                ),
                               ),
                               const SizedBox(width: 15),
-
                             ],
                           ),
-
                         ],
                       );
                     },
                   ),
                 ),
+
+                ///
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 100),
+                //   child: StatefulBuilder(
+                //     builder: (BuildContext context, void Function(void Function()) setState) {
+                //       return  Row(
+                //         mainAxisAlignment: MainAxisAlignment.start,
+                //         children: [
+                //           SizedBox(
+                //             height: 30,
+                //             width: 300,
+                //             child: CustomDropdownFormField(
+                //                 hintText: 'Salaried',
+                //                 items: ['Salaried', 'Per Visit'],
+                //                 value: dropdownValue,
+                //                 onChanged: (newValue){
+                //                   setState(() {
+                //                     dropdownValue = newValue! ?? 'Salaried';
+                //                     print('dropDownValue ${dropdownValue}');
+                //                   });
+                //                 }),
+                //           ),
+                //           const SizedBox(width: 30,),
+                //           Row(
+                //             children: [
+                //               Text(
+                //                 _salary.isNotEmpty
+                //                     ? "\$ ${_salary}"
+                //                     : "Not Defined",
+                //                 style: DropdownItemStyle.customTextStyle(context),
+                //               ),
+                //               const SizedBox(width: 30,),
+                //               ElevatedButton(
+                //                   onPressed: () {
+                //                     showDialog(
+                //                       context: context,
+                //                       builder: (BuildContext context) {
+                //                         return AlertDialog(
+                //                           shape: RoundedRectangleBorder(
+                //                             borderRadius: BorderRadius.circular(12.0),
+                //                           ),
+                //                           titlePadding: EdgeInsets.zero,
+                //                           title: Container(
+                //                             decoration: const BoxDecoration(
+                //                               color: Colors.white,
+                //                               borderRadius: BorderRadius.only(
+                //                                 topLeft: Radius.circular(12),
+                //                                 bottomLeft: Radius.circular(12),
+                //                                 bottomRight: Radius.circular(12),
+                //                                 topRight: Radius.circular(12),
+                //                               ),
+                //                             ),
+                //                             width: 302,
+                //                             height: 230,
+                //                             child: Column(
+                //                               children: [
+                //                                 Container(
+                //                                   height: 35,
+                //                                   width: double.infinity,
+                //                                   decoration: const BoxDecoration(
+                //                                     color: Color(0xff1696C8),
+                //                                     borderRadius: BorderRadius.only(
+                //                                       topLeft: Radius.circular(12.0),
+                //                                       topRight: Radius.circular(12.0),
+                //                                     ),
+                //                                   ),
+                //                                   padding: const EdgeInsets.only(right: 5,bottom: 5),
+                //                                   child: Row(
+                //                                     mainAxisAlignment: MainAxisAlignment.end,
+                //                                     children: [
+                //                                       IconButton(
+                //                                         icon: const Icon(Icons.close,
+                //                                             color: Colors.white),
+                //                                         onPressed: () {
+                //                                           Navigator.of(context).pop();
+                //                                         },
+                //                                       ),
+                //                                     ],
+                //                                   ),
+                //                                 ),
+                //                                 Padding(
+                //                                   padding: const EdgeInsets.symmetric(
+                //                                       vertical: 15.0, horizontal: 16.0),
+                //                                   child: Column(
+                //                                     crossAxisAlignment:
+                //                                     CrossAxisAlignment.start,
+                //                                     children: [
+                //                                       dropdownValue == 'Salaried' ?  Text(
+                //                                         'Salary',
+                //                                         style:DefineWorkWeekStyle.customTextStyle(context),
+                //                                       ) : Text(
+                //                                         'Per Visit',
+                //                                         style: DefineWorkWeekStyle.customTextStyle(context),
+                //                                       ),
+                //                                       SizedBox(
+                //                                         height: MediaQuery.of(context)
+                //                                             .size
+                //                                             .height /
+                //                                             30,
+                //                                       ),
+                //                                       Container(
+                //                                         height: 30,
+                //                                         child: TextFormField(
+                //                                           cursorColor: Colors.black,
+                //                                           style: DocumentTypeDataStyle.customTextStyle(context),
+                //                                           decoration: InputDecoration(
+                //                                             prefix:const Text("\$ "),
+                //                                             hintText: '0.00',
+                //                                             hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                //                                             enabledBorder:
+                //                                             OutlineInputBorder(
+                //                                               borderRadius:
+                //                                               BorderRadius.circular(
+                //                                                   8.0),
+                //                                               borderSide: const BorderSide(
+                //                                                 color: Color(0xff51B5E6),
+                //                                                 width: 1.0,
+                //                                               ),
+                //                                             ),
+                //                                             focusedBorder:
+                //                                             OutlineInputBorder(
+                //                                               borderRadius:
+                //                                               BorderRadius.circular(
+                //                                                   8.0),
+                //                                               borderSide: const BorderSide(
+                //                                                 color: Color(0xff51B5E6),
+                //                                                 width: 1.0,
+                //                                               ),
+                //                                             ),
+                //                                             border: OutlineInputBorder(
+                //                                               borderRadius:
+                //                                               BorderRadius.circular(
+                //                                                   8.0),
+                //                                               borderSide: const BorderSide(
+                //                                                 color: Color(0xff51B5E6),
+                //                                                 width: 1.0,
+                //                                               ),
+                //                                             ),
+                //                                             contentPadding:
+                //                                             const EdgeInsets.symmetric(
+                //                                                 horizontal: 16.0,
+                //                                                 vertical: 12.0),
+                //                                           ),
+                //                                           keyboardType:
+                //                                           TextInputType.number,
+                //                                           onChanged: (value) {
+                //                                             setState((){
+                //                                               _salary = value;
+                //                                             });
+                //                                             print("Salary:: ${_salary}");
+                //                                           },
+                //                                         ),
+                //                                       ),
+                //                                       SizedBox(
+                //                                           height: MediaQuery.of(context)
+                //                                               .size
+                //                                               .height /
+                //                                               20),
+                //                                       Center(
+                //                                         child: ElevatedButton(
+                //                                           onPressed: () {
+                //                                             // Handle the submit action
+                //                                             Navigator.of(context).pop();
+                //                                           },
+                //                                           style: ElevatedButton.styleFrom(
+                //                                             backgroundColor:
+                //                                             const Color(0xff1696C8),
+                //                                             shape: RoundedRectangleBorder(
+                //                                               borderRadius:
+                //                                               BorderRadius.circular(
+                //                                                   12),
+                //                                             ),
+                //                                           ),
+                //                                           child: Padding(
+                //                                             padding: const EdgeInsets
+                //                                                 .symmetric(
+                //                                                 horizontal: 24.0,
+                //                                                 vertical: 8.0),
+                //                                             child: Text(
+                //                                               'Submit',
+                //                                               style: BlueButtonTextConst.customTextStyle(context),
+                //                                             ),
+                //                                           ),
+                //                                         ),
+                //                                       ),
+                //                                     ],
+                //                                   ),
+                //                                 ),
+                //                               ],
+                //                             ),
+                //                           ),
+                //                         );
+                //                       },
+                //                     );
+                //                   },
+                //                   style: ElevatedButton.styleFrom(
+                //                     backgroundColor: const Color(0xff1696C8),
+                //                     foregroundColor: Colors.white,
+                //                     shape: RoundedRectangleBorder(
+                //                       borderRadius: BorderRadius.circular(12),
+                //                     ),
+                //                   ),
+                //                   child: dropdownValue == 'Salaried' ? Text(
+                //                     'Add',
+                //                     style: BlueButtonTextConst.customTextStyle(context),
+                //                   ) : Text(
+                //                     'Add Visit',
+                //                     style: BlueButtonTextConst.customTextStyle(context),
+                //                   )
+                //               ),
+                //               const SizedBox(width: 15),
+                //
+                //             ],
+                //           ),
+                //
+                //         ],
+                //       );
+                //     },
+                //   ),
+                // ),
                 SizedBox(height: MediaQuery.of(context).size.height / 9),
                 ///bottom button
                 Row(
@@ -616,10 +815,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           startDate = startDateController.text.isEmpty;
                           lastDate = lastDateController.text.isEmpty;
                           verbalAcceptanceDate = verbalAcceptanceController.text.isEmpty;
-                          noOfPatientDate = patientsController.text.isEmpty;
+                         // noOfPatientDate = patientsController.text.isEmpty;
                           // _radioButtonError = !_isRadioButtonSelected;
                         });
-                        if(!issueDate && !startDate && !lastDate && !verbalAcceptanceDate && !noOfPatientDate){
+                        if(!issueDate && !startDate && !lastDate && !verbalAcceptanceDate ){
                           for (var key in containerKeys){
                             final st = key.currentState!;
 
@@ -646,37 +845,46 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 onCancel: () {
                                   Navigator.pop(context);
                                 },
-                                onConfirm: ()  async{
-                                  //await Future.delayed(Duration(seconds: 2));
-                                  // setState(() {
-                                  //   _isLoading = true;
-                                  // });
+                                onConfirm: () async {
+                                  // Print selected values for debugging
                                   print('selected county id : ${selectedCountyId}');
-                                  //  print('selected zone id : ${st.docZoneId}');
-                                  // print('selected zipCode : ${st.selectedZipCodes}');
                                   print('selected city : ${selectedCityName}');
-                                  print('Salari ${_salary}');
-                                  print('Salari Type ${dropdownValue}');
-                                  print('PatianCount ${patientsController.text}');
+                                  print('Salary: $_salary');
+                                  print('Salary Type: $dropdownValue');
+                                  print('Patient Count: ${patientsController.text}');
+
                                   try {
+                                    // Set patientsValue based on depId
+                                    int patientsValue;
+                                    if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId) {
+                                      patientsValue = 0;  // If depId is sales or administration, set to 0
+                                    } else {
+                                      patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
+                                    }
+
+                                    // Call the API with the correct patientsValue
                                     var empEnrollOfferResponse = await addEmpEnrollOffers(
                                       context,
                                       widget.apiData!.employeeEnrollId!,
                                       widget.apiData!.employeeId!,
-                                      int.parse(patientsController.text),
+                                      patientsValue,  // Use patientsValue here
                                       issueDateController.text,
                                       lastDateController.text,
                                       startDateController.text,
                                       verbalAcceptanceController.text,
                                     );
+
                                     print('County id : ${selectedCountyId}');
                                     print('Zone id : ${selectedZoneId}');
+
+                                    // Call other enrollment-related APIs
                                     await addEmpEnrollAddCoverage(
-                                        context,
-                                        widget.apiData!.employeeEnrollId!,
-                                        widget.apiData!.employeeId!,
-                                        addCovrage
+                                      context,
+                                      widget.apiData!.employeeEnrollId!,
+                                      widget.apiData!.employeeId!,
+                                      addCovrage,
                                     );
+
                                     await addEmpEnrollAddCompensation(
                                       context,
                                       widget.apiData!.employeeEnrollId!,
@@ -684,23 +892,27 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       dropdownValue.toString(),
                                       int.parse(_salary),
                                     );
+
                                     // Clear controllers
                                     issueDateController.clear();
                                     lastDateController.clear();
                                     startDateController.clear();
                                     verbalAcceptanceController.clear();
-                                Navigator.pop(context);
-                                    if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
+
+                                    Navigator.pop(context);
+
+                                    // Check the response status
+                                    if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          Future.delayed(const Duration(seconds: 3),(){
-                                            if(Navigator.of(context).canPop()) {
-                                       Navigator.pop(context);
-                                       popNavigation();
+                                          Future.delayed(const Duration(seconds: 3), () {
+                                            if (Navigator.of(context).canPop()) {
+                                              Navigator.pop(context);
+                                              popNavigation();
                                             }
                                           });
-                                          return  offerSuccessPopup(message: 'Employee Enrolled Successfully',);
+                                          return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
                                         },
                                       );
                                     }
@@ -710,11 +922,86 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       SnackBar(content: Text('Enrollment failed: $e')),
                                     );
                                   } finally {
-                                    // setState(() {
-                                    //   _isLoading = false;
-                                    // });
+                                    // setState(() { _isLoading = false; });
                                   }
                                 },
+
+                                // onConfirm: ()  async{
+                                //   //await Future.delayed(Duration(seconds: 2));
+                                //   // setState(() {
+                                //   //   _isLoading = true;
+                                //   // });
+                                //   print('selected county id : ${selectedCountyId}');
+                                //   //  print('selected zone id : ${st.docZoneId}');
+                                //   // print('selected zipCode : ${st.selectedZipCodes}');
+                                //   print('selected city : ${selectedCityName}');
+                                //   print('Salari ${_salary}');
+                                //   print('Salari Type ${dropdownValue}');
+                                //   print('PatianCount ${patientsController.text}');
+                                //   try {
+                                //
+                                //
+                                //     if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId) {
+                                //       patientsValue = 0;  // If depId is sales or administration, set to 0
+                                //     } else {
+                                //       patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
+                                //     }
+                                //     var empEnrollOfferResponse = await addEmpEnrollOffers(
+                                //       context,
+                                //       widget.apiData!.employeeEnrollId!,
+                                //       widget.apiData!.employeeId!,
+                                //       int.parse(patientsController.text),
+                                //       issueDateController.text,
+                                //       lastDateController.text,
+                                //       startDateController.text,
+                                //       verbalAcceptanceController.text,
+                                //     );
+                                //     print('County id : ${selectedCountyId}');
+                                //     print('Zone id : ${selectedZoneId}');
+                                //     await addEmpEnrollAddCoverage(
+                                //         context,
+                                //         widget.apiData!.employeeEnrollId!,
+                                //         widget.apiData!.employeeId!,
+                                //         addCovrage
+                                //     );
+                                //     await addEmpEnrollAddCompensation(
+                                //       context,
+                                //       widget.apiData!.employeeEnrollId!,
+                                //       widget.apiData!.employeeId!,
+                                //       dropdownValue.toString(),
+                                //       int.parse(_salary),
+                                //     );
+                                //     // Clear controllers
+                                //     issueDateController.clear();
+                                //     lastDateController.clear();
+                                //     startDateController.clear();
+                                //     verbalAcceptanceController.clear();
+                                // Navigator.pop(context);
+                                //     if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
+                                //       showDialog(
+                                //         context: context,
+                                //         builder: (BuildContext context) {
+                                //           Future.delayed(const Duration(seconds: 3),(){
+                                //             if(Navigator.of(context).canPop()) {
+                                //        Navigator.pop(context);
+                                //        popNavigation();
+                                //             }
+                                //           });
+                                //           return  const offerSuccessPopup(message: 'Employee Enrolled Successfully',);
+                                //         },
+                                //       );
+                                //     }
+                                //   } catch (e) {
+                                //     print("Error during enrollment: $e");
+                                //     ScaffoldMessenger.of(context).showSnackBar(
+                                //       SnackBar(content: Text('Enrollment failed: $e')),
+                                //     );
+                                //   } finally {
+                                //     // setState(() {
+                                //     //   _isLoading = false;
+                                //     // });
+                                //   }
+                                // },
                                 title: 'Confirm Enrollment',
                                 containerText: 'Do you really want to enroll?',
                               );
