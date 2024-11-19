@@ -442,8 +442,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                               ColumnSeries<ComboChartData,
                                                       String>(
                                                   color:
-                                                      ColorManager.barChartBlue,
+                                                      ColorManager.emptenure,
                                                   dataSource: CombochartData,
+                                                  width:0.3,
+                                                  borderRadius: BorderRadius.circular(30),
                                                   xValueMapper:
                                                       (ComboChartData data,
                                                               _) =>
@@ -454,8 +456,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                           data.y),
                                               ColumnSeries<ComboChartData,
                                                       String>(
-                                                  color: ColorManager.blueprime
-                                                      .withOpacity(0.2),
+                                                  color: ColorManager.relativeResult,
+                                                  width:0.3,
+                                                  borderRadius: BorderRadius.circular(30),
                                                   dataSource: CombochartData,
                                                   xValueMapper:
                                                       (ComboChartData data,
@@ -605,45 +608,65 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text('Attendance & Punctuality Rates',style:
                                     TableHeadHRDashboard.customTextStyle(
                                         context),),
+                                    SizedBox(height:15),
                                     Container(
-                                      height:190,
+                                      height:170,
                                       width:250,
-                                      child:SfRadialGauge(
-                                        axes: <RadialAxis>[
-                                          RadialAxis(
-                                            startAngle: 180, // Start from the bottom center
-                                            endAngle: 0,     // End at the bottom center
-                                            minimum: 0,      // Minimum value of the gauge
-                                            maximum: 100,    // Maximum value of the gauge
-                                            ranges: <GaugeRange>[
-                                              GaugeRange(startValue: 0, endValue: 80, color: ColorManager.blueprime),
-                                              GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey),
-                                            ],
-                                            pointers: <GaugePointer>[
-                                              MarkerPointer(
-                                                value: 70, // The value where the marker points
-                                                markerHeight: 20, // Height of the marker
-                                                markerWidth: 20,  // Width of the marker
-                                              ),
-                                            ],
-                                            annotations: <GaugeAnnotation>[
-                                              GaugeAnnotation(
-                                                widget: Text(
-                                                  '70%',
-                                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                      // color:Colors.red,
+                                      child:Center(
+                                        child: Stack(
+                                          children: [
+                                            // Positioned(
+                                            //   top: 50,
+                                            //   child:
+                                              SfRadialGauge(
+                                              axes: <RadialAxis>[
+                                                RadialAxis(
+                                                  startAngle: 180, // Start from the bottom center
+                                                  endAngle: 0,     // End at the bottom center
+                                                  minimum: 0,      // Minimum value of the gauge
+                                                  maximum: 100,    // Maximum value of the gauge
+                                                  ranges: <GaugeRange>[
+                                                    GaugeRange(startValue: 0, endValue: 80, color: ColorManager.blueprime,),
+                                                    GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey),
+                                                  ],
+                                                  pointers: <GaugePointer>[
+                                                    // MarkerPointer(
+                                                    //   value: 80, // The value where the marker points
+                                                    //   markerHeight: 20, // Height of the marker
+                                                    //   markerWidth: 20,  // Width of the marker
+                                                    // ),
+                                                  ],
+                                                  // annotations: <GaugeAnnotation>[
+                                                  //   GaugeAnnotation(
+                                                  //     widget: Text(
+                                                  //       '70%',
+                                                  //       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                                  //     ),
+                                                  //     angle: 90,
+                                                  //     positionFactor: 0,
+                                                  //   ),
+                                                  // ],
                                                 ),
-                                                angle: 90,
-                                                positionFactor: 0.75,
+                                              ],
+                                            ),
+                                    // ),
+                                            Positioned(
+                                              left: 110,
+                                              bottom: 40,
+                                              child: Text(
+                                                '70%',
+                                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                                               ),
-                                            ],
-                                          ),
-                                        ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     )
                                   ],

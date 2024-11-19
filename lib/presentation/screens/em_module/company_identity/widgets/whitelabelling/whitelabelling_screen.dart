@@ -841,6 +841,78 @@ void fetchData()async{
                           if(snapshot.connectionState == ConnectionState.waiting){
                             return Center(child: CircularProgressIndicator());
                           }
+                          if(snapshot.data!.logos.isEmpty){
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 100,
+                                  child: Text('No logo available',style:TextStyle(fontSize:12)),
+                                ),
+                                // Container(
+                                //   height: 100,
+                                //   child: snapshot.data!.logos[0].url.isNotEmpty
+                                //       ?
+                                //   CachedNetworkImage(
+                                //     imageUrl: snapshot.data!.logos[0].url,
+                                //     placeholder: (context, url) => SizedBox(
+                                //         height:25,
+                                //         width:25,
+                                //         ),
+                                //     errorWidget: (context, url, error) => Image.asset("images/forappprohealth.png"),
+                                //     fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                //     height: 100, // Adjust image height for proper fit// Adjust image width for proper fit
+                                //   )
+                                //   // Image.network(
+                                //   //         "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
+                                //   //         // webLogo.url,
+                                //   //         fit: BoxFit.cover,
+                                //   //         errorBuilder: (BuildContext context,
+                                //   //             Object exception,
+                                //   //             StackTrace? stackTrace) {
+                                //   //           return Center(
+                                //   //             child: Icon(Icons.error,
+                                //   //                 color: Colors.red),
+                                //   //           );
+                                //   //         },
+                                //   //       )
+                                //       : Container(),
+                                // ),
+                                // Container(
+                                //   height: 100,
+                                //   child: snapshot.data!.logos[0].url.isNotEmpty
+                                //       ? CachedNetworkImage(
+                                //       imageUrl: snapshot.data!.logos[0].url,
+                                //       placeholder: (context, url) => SizedBox(
+                                //         height:25,
+                                //           width:25,
+                                //           ),
+                                //       errorWidget: (context, url, error) => Image.asset("images/forappprohealth.png"),
+                                //       fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                //       height: 100, // Adjust image height for proper fit// Adjust image width for proper fit
+                                //       )
+                                //   // Image.network(
+                                //   //   //'images/forappprohealth.png',
+                                //   //   "${snapshot.data!.logos[0].url}",
+                                //   //   fit: BoxFit.cover,
+                                //   // )
+                                //   // Image.network(
+                                //   //         'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                //   //         fit: BoxFit.cover,
+                                //   //         errorBuilder: (BuildContext context,
+                                //   //             Object exception,
+                                //   //             StackTrace? stackTrace) {
+                                //   //           return Center(
+                                //   //             child: Icon(Icons.error,
+                                //   //                 color: Colors.red),
+                                //   //           );
+                                //   //         },
+                                //   //       )
+                                //       : Container(),
+                                // ),
+                              ],
+                            );
+                          }
                           if (snapshot.hasData) {
                             print("Image url ${snapshot.data!.logos[0].url}");
                             var data = snapshot.data!;
@@ -949,7 +1021,8 @@ void fetchData()async{
                                 // ),
                               ],
                             );
-                          } else if (snapshot.hasError) {
+                          }
+                          else if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
                           } else {
                             return SizedBox();
