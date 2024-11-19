@@ -135,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // Remove mainAxisAlignment if it's not needed
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Column(
                 children: [
@@ -162,16 +162,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 36.0),
-                    child: Container(
+
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text('To open this form click here :', style: DocumentTypeDataStyle.customTextStyle(context)),
+                        TextButton(
+                          onPressed: () async {
+                             const url = "http://localhost:63036/#/onBordingWelcome";
+                            // const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                            //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                            //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                            //const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          },
+                          child: Text(
+                            'https://prohealth.symmetry.care/register',
+                            style: RegisterLinkDataStyle.customTextStyle(context),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+
+                Column(
+                  children: [
+                    Container(
                       width: 300,
                       color: Colors.white,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          /// Select Dropdown button
+                          buildDropdownButton(context),
+                          SizedBox(width: 10),
+
+
                           /// Enroll Button
                           Container(
                             height: AppSize.s30,
@@ -201,40 +240,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                             ),
                           ),
-                          SizedBox(width: 10),
-
-                          /// Select Dropdown button
-                          buildDropdownButton(context),
                         ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Row(
-              children: [
-                Text('To open this form click here :', style: DocumentTypeDataStyle.customTextStyle(context)),
-                TextButton(
-                  onPressed: () async {
-                    // const url = "http://localhost:59589/#/onBordingWelcome";
-                    // const url = "${AppConfig.deployment}/#/onBordingWelcome";
-                    //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                    //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
-                    const url = "${AppConfig.deployment}/#/onBordingWelcome";
-                    if (await canLaunch(url)) {
-                      await launch(url);
-                    } else {
-                      throw 'Could not launch $url';
-                    }
-                  },
-                  child: Text(
-                    'https://prohealth.symmetry.care/register',
-                    style: RegisterLinkDataStyle.customTextStyle(context),
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -263,14 +272,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               }
 
               return Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(horizontal: 100),
                 child: ListView.builder(
                   shrinkWrap: true, // Ensures the ListView takes only the space it needs
                   physics: NeverScrollableScrollPhysics(), // Disables scrolling inside the ListView, let SingleChildScrollView handle it
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: buildDatContainer(snapshot.data![index]),
                     );
                   },
@@ -1077,7 +1086,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               //     ],
               //   ),
               // ),
-
+              SizedBox(width: 5,),
               Expanded(
                 flex: 1,
                 child: Padding(
@@ -1142,272 +1151,279 @@ class _RegisterScreenState extends State<RegisterScreen> {
               //         )),
               //   ],
               // ),
-              data.status == 'Notopen'
-                  ? Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: AppSize.s110,
-                    margin:
-                    const EdgeInsets.only(right: AppMargin.m5),
-                    child: CustomIconButton(
-                      text: AppString.enroll,
-                      onPressed: () async {
-                        List<AEClinicalDiscipline> passData =
-                        await HrAddEmplyClinicalDisciplinApi(
-                            context, data.deptId! );
-                        showDialog(
-                          context: context,
-                          builder: (_) => FutureBuilder<
-                              RegisterDataUserIDPrefill>(
-                            future: getRegisterEnrollPrefillUserId(
-                                context, data.userId),
-                            builder: (context, snapshotPrefill) {
-                              if (snapshotPrefill.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                      color: ColorManager.blueprime),
-                                );
-                              }
-                              var firstName = snapshotPrefill
-                                  .data!.firstName
-                                  .toString();
-                              firstNameController =
-                                  TextEditingController(
-                                      text: firstName);
-
-                              var lastName = snapshotPrefill
-                                  .data!.lastName
-                                  .toString();
-                              lastNameController =
-                                  TextEditingController(
-                                      text: lastName);
-
-                              var email = snapshotPrefill.data!.email
-                                  .toString();
-                              emailController =
-                                  TextEditingController(text: email);
-
-                              return RegisterEnrollPopup(
-                                employeeId: data.employeeId,
-                                firstName: firstNameController,
-                                lastName: lastNameController,
-                                email: emailController,
-                                userId: snapshotPrefill.data!.userId,
-                                role: snapshotPrefill.data!.role,
-                                status: snapshotPrefill.data!.status,
-                                // depid :snapshotPrefill.data!.
-                                  depId:snapshotPrefill.data!.departmentId,
-
-                                  onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                onReferesh: () {
-                                  setState(() {
-                                    fetchData();
-                                  });
-                                },
-                                aEClinicalDiscipline: passData,
+              Expanded(
+                child: Column(
+                  
+                  children: [
+                    data.status == 'Notopen'
+                        ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: AppSize.s110,
+                          margin:
+                          const EdgeInsets.only(right: AppMargin.m5),
+                          child: CustomIconButton(
+                            text: AppString.enroll,
+                            onPressed: () async {
+                              List<AEClinicalDiscipline> passData =
+                              await HrAddEmplyClinicalDisciplinApi(
+                                  context, data.deptId! );
+                              showDialog(
+                                context: context,
+                                builder: (_) => FutureBuilder<
+                                    RegisterDataUserIDPrefill>(
+                                  future: getRegisterEnrollPrefillUserId(
+                                      context, data.userId),
+                                  builder: (context, snapshotPrefill) {
+                                    if (snapshotPrefill.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                            color: ColorManager.blueprime),
+                                      );
+                                    }
+                                    var firstName = snapshotPrefill
+                                        .data!.firstName
+                                        .toString();
+                                    firstNameController =
+                                        TextEditingController(
+                                            text: firstName);
+                    
+                                    var lastName = snapshotPrefill
+                                        .data!.lastName
+                                        .toString();
+                                    lastNameController =
+                                        TextEditingController(
+                                            text: lastName);
+                    
+                                    var email = snapshotPrefill.data!.email
+                                        .toString();
+                                    emailController =
+                                        TextEditingController(text: email);
+                    
+                                    return RegisterEnrollPopup(
+                                      employeeId: data.employeeId,
+                                      firstName: firstNameController,
+                                      lastName: lastNameController,
+                                      email: emailController,
+                                      userId: snapshotPrefill.data!.userId,
+                                      role: snapshotPrefill.data!.role,
+                                      status: snapshotPrefill.data!.status,
+                                      // depid :snapshotPrefill.data!.
+                                        depId:snapshotPrefill.data!.departmentId,
+                    
+                                        onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      onReferesh: () {
+                                        setState(() {
+                                          fetchData();
+                                        });
+                                      },
+                                      aEClinicalDiscipline: passData,
+                                    );
+                                  },
+                                ),
                               );
                             },
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              )
-                  : const SizedBox(width: 10),
-              data.status == 'Partial'
-                  ? Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    width: AppSize.s110,
-                    margin:
-                    const EdgeInsets.only(right: AppMargin.m5),
-                    child: CustomIconButton(
-                      text: 'Activate',
-                      onPressed: () async {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return ConfirmationPopup(
-                                loadingDuration: _isLoading,
-                                onCancel: () {
-                                  Navigator.pop(context);
-                                },
-                                onConfirm: () async {
-                                  setState(() {
-                                    _isLoading = true;
+                        ),
+                      ],
+                    )
+                        : const SizedBox(width: 10),
+                    data.status == 'Partial'
+                        ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: AppSize.s110,
+                          margin:
+                          const EdgeInsets.only(right: AppMargin.m5),
+                          child: CustomIconButton(
+                            text: 'Activate',
+                            onPressed: () async {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ConfirmationPopup(
+                                      loadingDuration: _isLoading,
+                                      onCancel: () {
+                                        Navigator.pop(context);
+                                      },
+                                      onConfirm: () async {
+                                        setState(() {
+                                          _isLoading = true;
+                                        });
+                    
+                                        try {
+                                          var response =
+                                          await changeStatusUserPatch(
+                                              context, data.employeeId);
+                                          fetchData();
+                                          Navigator.pop(context);
+                                        } catch (e) {
+                                          print(
+                                              "Error during Onboarding: $e");
+                                          // ScaffoldMessenger.of(context).showSnackBar(
+                                          //   SnackBar(content: Text('Onboarding failed: $e')),
+                                          // );
+                                        } finally {
+                                          setState(() {
+                                            _isLoading = false;
+                                          });
+                                        }
+                                      },
+                                      title: 'Confirm Activation',
+                                      containerText:
+                                      'Do you really want to complete?',
+                                    );
                                   });
-
-                                  try {
-                                    var response =
-                                    await changeStatusUserPatch(
-                                        context, data.employeeId);
-                                    fetchData();
-                                    Navigator.pop(context);
-                                  } catch (e) {
-                                    print(
-                                        "Error during Onboarding: $e");
-                                    // ScaffoldMessenger.of(context).showSnackBar(
-                                    //   SnackBar(content: Text('Onboarding failed: $e')),
-                                    // );
-                                  } finally {
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
-                                  }
-                                },
-                                title: 'Confirm Activation',
-                                containerText:
-                                'Do you really want to complete?',
-                              );
-                            });
-                      },
-                    ),
-                  )
-                ],
-              )
-                  : const SizedBox(width: 10),
-              data.status == 'Completed'
-                  ? Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    width: AppSize.s110,
-                    margin:
-                    const EdgeInsets.only(right: AppMargin.m5),
-                    child: CustomIconButton(
-                      text: 'Onboard',
-                      onPressed: () async {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return ConfirmationPopup(
-                                loadingDuration: _isLoading,
-                                onCancel: () {
-                                  Navigator.pop(context);
-                                },
-                                onConfirm: () async {
-                                  setState(() {
-                                    _isLoading = true;
+                            },
+                          ),
+                        )
+                      ],
+                    )
+                        : const SizedBox(width: 10),
+                    data.status == 'Completed'
+                        ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: AppSize.s110,
+                          margin: const EdgeInsets.only(right: AppMargin.m5),
+                          child: CustomIconButton(
+                            text: 'Onboard',
+                            onPressed: () async {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ConfirmationPopup(
+                                      loadingDuration: _isLoading,
+                                      onCancel: () {
+                                        Navigator.pop(context);
+                                      },
+                                      onConfirm: () async {
+                                        setState(() {
+                                          _isLoading = true;
+                                        });
+                    
+                                        try {
+                                          var response =
+                                          await onboardingUserPatch(
+                                              context, data.employeeId);
+                                          if (response.statusCode == 200 ||
+                                              response.statusCode == 201) {
+                                            // ScaffoldMessenger.of(context).showSnackBar(
+                                            //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+                                            // );
+                                            fetchData();
+                                            Navigator.pop(context);
+                                          } else {
+                                            // ScaffoldMessenger.of(context).showSnackBar(
+                                            //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+                                            // );
+                                            Navigator.pop(context);
+                                          }
+                                        } catch (e) {
+                                          print(
+                                              "Error during Onboarding: $e");
+                                          // ScaffoldMessenger.of(context).showSnackBar(
+                                          //   SnackBar(content: Text('Onboarding failed: $e')),
+                                          // );
+                                        } finally {
+                                          setState(() {
+                                            _isLoading = false;
+                                          });
+                                        }
+                                      },
+                                      title: 'Confirm Onboarding',
+                                      containerText:
+                                      'Do you really want to onboard?',
+                                    );
                                   });
-
-                                  try {
-                                    var response =
-                                    await onboardingUserPatch(
-                                        context, data.employeeId);
-                                    if (response.statusCode == 200 ||
-                                        response.statusCode == 201) {
-                                      // ScaffoldMessenger.of(context).showSnackBar(
-                                      //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
-                                      // );
-                                      fetchData();
-                                      Navigator.pop(context);
-                                    } else {
-                                      // ScaffoldMessenger.of(context).showSnackBar(
-                                      //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
-                                      // );
-                                      Navigator.pop(context);
-                                    }
-                                  } catch (e) {
-                                    print(
-                                        "Error during Onboarding: $e");
-                                    // ScaffoldMessenger.of(context).showSnackBar(
-                                    //   SnackBar(content: Text('Onboarding failed: $e')),
-                                    // );
-                                  } finally {
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
-                                  }
-                                },
-                                title: 'Confirm Onboarding',
-                                containerText:
-                                'Do you really want to onboard?',
-                              );
-                            });
-                      },
-                    ),
-                  )
-                ],
-              )
-                  : const SizedBox(width: 10),
-              data.status == 'Opened'
-                  ? Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    //color: Colors.red,
-                    height: AppSize.s30,
-                    // margin:
-                    // const EdgeInsets.only(right: AppMargin.m5),
-                    // child: CustomIconButton(
-                    //   text: 'Onboard',
-                    //   onPressed: () async {
-                    //     showDialog(
-                    //         context: context,
-                    //         builder: (BuildContext context) {
-                    //           return ConfirmationPopup(
-                    //             loadingDuration: _isLoading,
-                    //             onCancel: () {
-                    //               Navigator.pop(context);
-                    //             },
-                    //             onConfirm: () async {
-                    //               setState(() {
-                    //                 _isLoading = true;
-                    //               });
-                    //
-                    //               try {
-                    //                 var response =
-                    //                 await onboardingUserPatch(
-                    //                     context, data.employeeId);
-                    //                 if (response.statusCode == 200 ||
-                    //                     response.statusCode == 201) {
-                    //                   // ScaffoldMessenger.of(context).showSnackBar(
-                    //                   //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
-                    //                   // );
-                    //                   fetchData();
-                    //                   Navigator.pop(context);
-                    //                 } else {
-                    //                   // ScaffoldMessenger.of(context).showSnackBar(
-                    //                   //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
-                    //                   // );
-                    //                   Navigator.pop(context);
-                    //                 }
-                    //               } catch (e) {
-                    //                 print(
-                    //                     "Error during Onboarding: $e");
-                    //                 // ScaffoldMessenger.of(context).showSnackBar(
-                    //                 //   SnackBar(content: Text('Onboarding failed: $e')),
-                    //                 // );
-                    //               } finally {
-                    //                 setState(() {
-                    //                   _isLoading = false;
-                    //                 });
-                    //               }
-                    //             },
-                    //             title: 'Confirm Onboarding',
-                    //             containerText:
-                    //             'Do you really want to onboard?',
-                    //           );
-                    //         });
-                    //   },
-                    // ),
-                    width: 110,
-                    margin:
-                    const EdgeInsets.only(right: AppMargin.m5),
-                  )
-                ],
-              )
-                  : const SizedBox(width: 10),
-
+                            },
+                          ),
+                        )
+                    
+                      ],
+                    )
+                        : const SizedBox(width: 10),
+                    data.status == 'Opened'
+                        ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          //color: Colors.red,
+                          height: AppSize.s30,
+                          // margin:
+                          // const EdgeInsets.only(right: AppMargin.m5),
+                          // child: CustomIconButton(
+                          //   text: 'Onboard',
+                          //   onPressed: () async {
+                          //     showDialog(
+                          //         context: context,
+                          //         builder: (BuildContext context) {
+                          //           return ConfirmationPopup(
+                          //             loadingDuration: _isLoading,
+                          //             onCancel: () {
+                          //               Navigator.pop(context);
+                          //             },
+                          //             onConfirm: () async {
+                          //               setState(() {
+                          //                 _isLoading = true;
+                          //               });
+                          //
+                          //               try {
+                          //                 var response =
+                          //                 await onboardingUserPatch(
+                          //                     context, data.employeeId);
+                          //                 if (response.statusCode == 200 ||
+                          //                     response.statusCode == 201) {
+                          //                   // ScaffoldMessenger.of(context).showSnackBar(
+                          //                   //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+                          //                   // );
+                          //                   fetchData();
+                          //                   Navigator.pop(context);
+                          //                 } else {
+                          //                   // ScaffoldMessenger.of(context).showSnackBar(
+                          //                   //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+                          //                   // );
+                          //                   Navigator.pop(context);
+                          //                 }
+                          //               } catch (e) {
+                          //                 print(
+                          //                     "Error during Onboarding: $e");
+                          //                 // ScaffoldMessenger.of(context).showSnackBar(
+                          //                 //   SnackBar(content: Text('Onboarding failed: $e')),
+                          //                 // );
+                          //               } finally {
+                          //                 setState(() {
+                          //                   _isLoading = false;
+                          //                 });
+                          //               }
+                          //             },
+                          //             title: 'Confirm Onboarding',
+                          //             containerText:
+                          //             'Do you really want to onboard?',
+                          //           );
+                          //         });
+                          //   },
+                          // ),
+                          width: 110,
+                          margin:
+                          const EdgeInsets.only(right: AppMargin.m5),
+                        )
+                      ],
+                    )
+                        : const SizedBox(width: 10),
+                  ],
+                ),
+              ),
+SizedBox(width: 15,)
 
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.end,
