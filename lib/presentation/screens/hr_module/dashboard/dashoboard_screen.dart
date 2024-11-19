@@ -123,7 +123,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     ChartData(2014, 35),
     ChartData(2016, 60),
     ChartData(2018, 20),
-    ChartData(2020, 38),
+    ChartData(2020, 10),
     ChartData(2022, 34),
     ChartData(2024, 40)
   ];
@@ -387,6 +387,12 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     Container(
                                         height: 200,
                                         child: SfCartesianChart(
+                                            // primaryYAxis: NumericAxis(
+                                            //   axisLabelFormatter: (AxisLabelRenderDetails details) {
+                                            //     // Format the y-axis label to append '%'
+                                            //     return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: 12));
+                                            //   },
+                                            // ),
                                             backgroundColor: ColorManager.white,
                                             primaryXAxis: CategoryAxis(),
                                             series: <CartesianSeries>[
@@ -938,6 +944,12 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     Container(
                                       height: 210,
                                       child: SfCartesianChart(
+                                          primaryYAxis: NumericAxis(
+                                            axisLabelFormatter: (AxisLabelRenderDetails details) {
+                                              // Format the y-axis label to append '%'
+                                              return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: 12));
+                                            },
+                                          ),
                                           series: <CartesianSeries>[
                                             // Renders spline chart
                                             SplineSeries<ChartData, int>(
@@ -989,6 +1001,12 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     Container(
                                       height: 200,
                                       child: SfCartesianChart(
+                                          // primaryYAxis: NumericAxis(
+                                          //   axisLabelFormatter: (AxisLabelRenderDetails details) {
+                                          //     // Format the y-axis label to append '%'
+                                          //     return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: 12));
+                                          //   },
+                                          // ),
                                           series: <CartesianSeries>[
                                             SplineAreaSeries<ChartAreaData, int>(
                                               color: ColorManager.incidentBlue.withOpacity(0.2),
