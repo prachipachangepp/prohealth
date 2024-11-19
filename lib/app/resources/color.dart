@@ -89,7 +89,8 @@ class ColorManager {
   ///emp tenure doc
   static Color emptenure = Color(0xFF579EBA);
   static Color empdoc = Color(0xFF16DBCC);
-
+  ///output relative to input
+  static Color relativeResult = Color(0xFFCBFFFF);
 }
 
 extension HexColor on Color {
@@ -101,8 +102,6 @@ extension HexColor on Color {
     return Color(int.parse(hexColorString, radix: 16));
   }
 }
-
-
 
 class IconColorManager{
   static Color red = Color(0xffD93D3D);

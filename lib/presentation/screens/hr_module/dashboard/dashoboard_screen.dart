@@ -168,6 +168,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     // _list.add(DataModel(key:"50%",value: "7"));
     // _list.add(DataModel(key:"60%",value: "2"));
   }
+  String selectedValue = "Daily";
+
+  final List<String> items = ["Daily", "Weekly", "Monthly"];
 
   @override
   Widget build(BuildContext context) {
@@ -354,35 +357,74 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     vertical: 5, horizontal: 5),
                                 child: Column(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "Output Relative to Input",
-                                            textAlign: TextAlign.center,
-                                            style: GraphHeadingHRDashboard
-                                                .customTextStyle(context),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "Output Relative to Input",
+                                                textAlign: TextAlign.center,
+                                                style: GraphHeadingHRDashboard
+                                                    .customTextStyle(context),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        Expanded(
-                                          // flex: 1,
-                                          child: Text(
-                                            "Work Hours",
-                                            textAlign: TextAlign.center,
-                                            style: TableHeadHRDashboard
-                                                .customTextStyle(context),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          // flex: 1,
-                                          child: Text(
-                                            "Result",
-                                            textAlign: TextAlign.center,
-                                            style: TableHeadHRDashboard
-                                                .customTextStyle(context),
-                                          ),
-                                        ),
-                                      ],
+                                          Row(children: [
+                                            TextCircleConst(text: 'Work Hours', circleColor: ColorManager.emptenure,textColor: ColorManager.blackForLoginTexts,),
+                                            SizedBox(width:5),
+                                            TextCircleConst(text: 'Result', circleColor: ColorManager.relativeResult, textColor: ColorManager.blackForLoginTexts,),
+                                          ],),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                width: 125,
+                                                height: 20,
+                                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
+                                                  borderRadius: BorderRadius.circular(6),
+                                                  color: Colors.transparent, // Ensure opacity 0 effect
+                                                ),
+                                                child: StatefulBuilder(
+                                                  builder: (BuildContext context,
+                                                     void Function(void Function()) setState) {
+                                                    return DropdownButtonHideUnderline(
+                                                      child: DropdownButton<
+                                                          String>(
+                                                        value: selectedValue,
+                                                        icon: const Icon(Icons
+                                                            .arrow_drop_down),
+                                                        iconSize: IconSize.I16,
+                                                        isExpanded: true,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 10),
+                                                        items: items.map((
+                                                            String value) {
+                                                          return DropdownMenuItem<
+                                                              String>(
+                                                            value: value,
+                                                            child: Text(value),
+                                                          );
+                                                        }).toList(),
+                                                        onChanged: (newValue) {
+                                                          setState(() {
+                                                            selectedValue =
+                                                            newValue!;
+                                                          });
+                                                        },
+                                                      ),
+                                                    );
+                                                  }
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                     Container(
                                         height: 200,
@@ -513,7 +555,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   vertical: 10.0, horizontal: 15),
                               child: Container(
                                 //color: Colors.purple,
-                                height: 200,
+                                height: 210,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 15),
                                 child: ListView.builder(
