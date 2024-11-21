@@ -138,6 +138,7 @@ flutter:
   assets:
     - images/
     - images/mobile_images/
+    - images/error/
     - images/tab_images/
     - web/icons/
   #   - images/a_dot_ham.jpeg
