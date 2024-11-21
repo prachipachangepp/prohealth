@@ -332,7 +332,7 @@ class _CustomDialogState extends State<CustomDialog> {
                       title: 'Error',
                       body: [
                         Text(
-                            'Email ID is Already Used',
+                            response.message,
                             style: TextStyle(fontSize: 16)),
                       ],
                       bottomButtons: ElevatedButton(
@@ -715,7 +715,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                     title: 'Error',
                     body: [
                       Text(
-                          'Email ID is Already Used',
+                          response.message,
                           style: TextStyle(fontSize: 16)),
                     ],
                     bottomButtons: ElevatedButton(

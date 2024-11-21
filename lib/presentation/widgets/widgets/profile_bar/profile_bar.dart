@@ -495,6 +495,9 @@ class _ProfileBarState extends State<ProfileBar> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 InkWell(
+                                  splashColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   child: Text(
                                     widget.searchByEmployeeIdProfileData!.personalEmail ?? 'No email provided',
                                     style: ProfileBarConst.profileTextStyle(context),
@@ -523,10 +526,37 @@ class _ProfileBarState extends State<ProfileBar> {
                                   },
                                 ),
 
-                                Text(
-                                    widget
-                                        .searchByEmployeeIdProfileData!.workEmail,
-                                    style: ProfileBarConst.profileTextStyle(context)),
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap:() async {
+                                    String? email = widget.searchByEmployeeIdProfileData!.workEmail;
+
+                                    if (email != null && email.isNotEmpty) {
+                                      // Create a mailto Uri with the email address
+                                      final Uri emailUri = Uri(
+                                        scheme: 'mailto',
+                                        path: email,
+                                        queryParameters: {
+                                          'subject': 'Hello!',
+                                          'body': 'I would like to reach out to you.',
+                                        },
+                                      );
+
+                                      // Launch the email client
+                                      if (await canLaunchUrl(emailUri)) {
+                                        await launchUrl(emailUri);
+                                      } else {
+                                        print('Could not launch $emailUri');
+                                      }
+                                    }
+                                  },
+                                  child: Text(
+                                      widget
+                                          .searchByEmployeeIdProfileData!.workEmail,
+                                      style: ProfileBarConst.profileTextStyle(context)),
+                                ),
 
                                 Text(
                                   widget.searchByEmployeeIdProfileData!.expertise,

@@ -479,23 +479,26 @@ class _offerSuccessPopupState extends State<offerSuccessPopup> {
                 ),
               ),
               height: 35,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      "Success",
-                      style:  PopupBlueBarText.customTextStyle(context),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        "Success",
+                        style:  PopupBlueBarText.customTextStyle(context),
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      //Navigator.of(context).pop();
-                    },
-                    icon: Icon(Icons.close, color: ColorManager.white),
-                  ),
-                ],
+                    IconButton(
+                      onPressed: () {
+                        //Navigator.of(context).pop();
+                      },
+                      icon: Icon(Icons.close, color: ColorManager.white),
+                    ),
+                  ],
+                ),
               ),
             ),
             Spacer(),
