@@ -346,7 +346,7 @@ class RegisterLinkDataStyle {
       fontWeight: FontWeight.w500,
       fontSize: FontSize.s13,
       color: ColorManager.blueprime,
-      decoration: TextDecoration.none,
+      decoration: TextDecoration.underline,
     );
   }
 }
