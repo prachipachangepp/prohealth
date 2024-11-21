@@ -139,6 +139,7 @@ flutter:
   assets:
     - images/
     - images/hr_dashboard/
+    - images/em_dashboard/
     - images/mobile_images/
     - images/tab_images/
     - web/icons/
