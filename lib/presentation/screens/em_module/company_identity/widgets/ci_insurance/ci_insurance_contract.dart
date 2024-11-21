@@ -96,7 +96,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                   return Center(
                     child: Text(
                       ErrorMessageString.noContract,
-                      style: DocumentTypeDataStyle.customTextStyle(context)
+                      style: AllNoDataAvailable.customTextStyle(context),
                     ),
                   );
                 }

@@ -182,7 +182,8 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
 
 
                         Text(
-                          widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+                          // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+                         'Bank',
                           style:TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w600,
@@ -537,12 +538,12 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                       checkUrl: '--',
                                       effectiveDate: effectivecontroller.text,
                                       routingNumber: routingnumber.text,
-                                      percentage: '--',
+                                      percentage: '',
                                       type: selectedtype.toString()
                                   );
                                   var responseBank = await approveBankPatch(context,response.banckingId!);
                                   await uploadBanckingDocument(
-                                      context, widget.banckId, pickedFile);
+                                      context, response.banckingId!, pickedFile);
                                   Navigator.pop(context);
                                   if (responseBank.statusCode == 200 ||
                                       responseBank.statusCode == 201) {
@@ -733,7 +734,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+         // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+         'Bank',
           style:TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.w600,

@@ -126,7 +126,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                 return Center(
                   child: Text(
                     ErrorMessageString.noZones,
-                    style: DocumentTypeDataStyle.customTextStyle(context)
+                    style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 );
               }

@@ -142,6 +142,9 @@ class EstablishmentManagerRepository {
   static String companyOfficeServiceGetByCompanyId({required int companyId}) {
     return "$companyOfficeService/${companyId}";
   }
+  static String companyOfficeServiceGetByCompanyIdPreFill({required int companyId,required int officeServiceId}) {
+    return "$companyOfficeService/${officeServiceId}/${companyId}";
+  }
   static String companyServiceMetaDataGet() {
     return "$companServiceMetaData";
   }
@@ -300,7 +303,7 @@ class EstablishmentManagerRepository {
 
   static String workWeekShiftScheduleGet(
       {required int companyId,required String weekDay}) {
-    return "$workWeekShiftSchedule/$weekDay/$companyId";
+    return "$workWeekShiftSchedule/findByWeekDay/$weekDay/$companyId";
   }
 
   static String addWorkWeekShiftPost() {
@@ -317,7 +320,7 @@ class EstablishmentManagerRepository {
   }
 
   static String getShiftPrefillBatches({required int shiftBatchId}) {
-    return "$workWeekShiftSchedule/batch/$shiftBatchId";
+    return "$workWeekShiftSchedule/getbatchBy/$shiftBatchId";
   }
 
   static String getShiftBatches(
@@ -517,8 +520,16 @@ class EstablishmentManagerRepository {
   static String addDocOrg() {
     return "$orgdocadd/$add";
   }
+  ///org-office-document/others/add
+  static String addOtherDoc() {
+    return "$orgdocadd/others/$add";
+  }
   static String patchDocOrg({required int orgDocID}) {
     return "$orgdocEndPoind/$orgDocID";
+  }
+  ///org-office-document/others/{orgOfficeDocumentId}
+  static String patchOtherOrg({required int orgOfficeDocumentId}) {
+    return "$orgdocEndPoind/others/$orgOfficeDocumentId";
   }
   static String deleteDocOrg({required int orgDocID}) {
     return "$orgdocEndPoind/$orgDocID";

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
-
 import 'color.dart';
 
 
@@ -9,7 +7,7 @@ import 'color.dart';
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 12;
+    double fontSize = FontSize.s12;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.mediumgrey,
@@ -22,7 +20,7 @@ class ThemeManager {
 ///prajwal
 class ThemeManagerBold {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 12;
+    double fontSize = FontSize.s12;
     return TextStyle(
       fontSize: fontSize,
       //color: Color(0xFF686464),
@@ -37,7 +35,7 @@ class ThemeManagerBold {
 
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 12;
+    double fontSize = FontSize.s12;
     return TextStyle(
       fontSize: fontSize,
       color: ColorManager.black,
@@ -49,7 +47,7 @@ class ThemeManagerDark {
 class ThemeManagerAddressPB {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: AppSize.s12,
+      fontSize: FontSize.s12,
       color: ColorManager.primary,
       fontWeight: FontWeight.w700,
     );
@@ -57,7 +55,7 @@ class ThemeManagerAddressPB {
 }
 class ThemeManagerDarkFont {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 12;
+    double fontSize = FontSize.s12;
     return TextStyle(
 
       fontSize: fontSize,
@@ -69,7 +67,7 @@ class ThemeManagerDarkFont {
 
 class ThemeManagerLightblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 12;
+    double fontSize = FontSize.s12;
     return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
@@ -80,7 +78,7 @@ class ThemeManagerLightblue {
 
 class ThemeManagerWhite {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 12;
+    double fontSize = FontSize.s10;
     return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
@@ -92,7 +90,7 @@ class ThemeManagerWhite {
 
 class ThemeManagerBlack {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 12;
+    double fontSize = FontSize.s12;
         // MediaQuery.of(context).size.width / 130;
     return TextStyle(
       fontSize: fontSize,
@@ -104,7 +102,7 @@ class ThemeManagerBlack {
 
 class ThemeManagerAccentblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 10;
+    double fontSize = FontSize.s10;
     return TextStyle(
       fontSize: fontSize,
       color: Colors.blueAccent,
@@ -115,7 +113,7 @@ class ThemeManagerAccentblue {
 
 class ThemeManagerblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 12;
+    double fontSize = FontSize.s12;
     return TextStyle(
       fontSize: fontSize,
       color: Color(0xff2B647F),
@@ -137,7 +135,7 @@ class ThemeManageWhitebold {
 
 class RegisterTableHead {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 12;
+    double fontSize = FontSize.s12;
     return TextStyle(
       fontSize: fontSize,
       color: Colors.white,
@@ -217,7 +215,7 @@ class CustomTextStylesCommon {
     FontWeight? fontWeight,
   }) {
     return TextStyle(
-      fontSize: fontSize ?? 15,
+      fontSize: fontSize ?? FontSize.s15,
       color: color ?? Color(0xff4B89BA),
       fontWeight: fontWeight ?? FontWeight.w600,
     );
@@ -229,7 +227,7 @@ class MenuScreenHeadStyle {
   static TextStyle menuHead(BuildContext context) {
     return TextStyle(
         color: ColorManager.darkgrey,
-        fontSize: 14.0,
+        fontSize: FontSize.s14,
         fontWeight: FontWeight.w600);
   }
 }
@@ -250,7 +248,7 @@ class MobileMenuText {
 
 class BoxHeadingStyle {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 15;
+    double fontSize = FontSize.s15;
     // MediaQuery.of(context).size.width / 130;
     return TextStyle(
       fontSize: fontSize,
@@ -262,7 +260,7 @@ class BoxHeadingStyle {
 
 class PopupHeadingStyle {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 16;
+    double fontSize = FontSize.s16;
     // MediaQuery.of(context).size.width / 130;
     return TextStyle(
       fontSize: fontSize,
@@ -297,7 +295,7 @@ class EquipmentStyleRegular{
 class EquipTableRegStyle {
   static TextStyle  customTextStyle(BuildContext) {
     return TextStyle(
-      fontSize: 12,
+      fontSize: FontSize.s12,
       fontWeight: FontWeight.w700,
       color:  ColorManager.granitegray,
       decoration: TextDecoration.none,
@@ -342,7 +340,7 @@ class ProfileBarNameLicenseStyle {
 class AboutExpiredLStyle{
   static TextStyle customEditTextStyle() {
     return TextStyle(
-      fontSize: 12,
+      fontSize: FontSize.s12,
       fontWeight: FontWeight.w400,
       color: const Color(0xff686464),
       decoration: TextDecoration.none,

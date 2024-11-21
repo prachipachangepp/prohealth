@@ -16,7 +16,7 @@ import '../../../../../data/api_data/hr_module_data/see_all_data/see_all_data.da
 
 class OnboardingGeneral extends StatefulWidget {
 
-  final void Function(int,int, String) selectButton;
+  final void Function(int,int, String,String) selectButton;
   final VoidCallback goBackButtion;
 
   const OnboardingGeneral({Key? key, required this.selectButton,  required this.goBackButtion}) : super(key: key);
@@ -40,6 +40,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
           item.status == 'Completed').toList();
 
       allData = filteredData;
+
       generalController.add(allData);
     }).catchError((error) {
       print('Error fetching data: $error');
@@ -53,6 +54,66 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
     return address;
   }
 
+  OverlayEntry? _overlayEntryAddress;
+  void _showOverlayAddress(BuildContext context, Offset position, String address) {
+    _overlayEntryAddress = OverlayEntry(
+      builder: (context) => Positioned(
+        left: 300,
+        top: position.dy + 15, // Adjust to position below the text
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: 250,
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              boxShadow: [
+                BoxShadow(color: Colors.black26, blurRadius: 4, spreadRadius: 2),
+              ],
+            ),
+            child: Text(
+              address, // Display the actual address here
+              style: ThemeManagerAddressPB.customTextStyle(context),
+            ),
+          ),
+        ),
+      ),
+    );
+    Overlay.of(context)?.insert(_overlayEntryAddress!);
+  }
+
+  // void _showOverlayAddress(BuildContext context, Offset position) {
+  //   _overlayEntryAddress = OverlayEntry(
+  //     builder: (context) => Positioned(
+  //       left:300,
+  //       top: position.dy + 15, // Adjust to position below the text
+  //       child: Material(
+  //         color: Colors.transparent,
+  //         child: Container(
+  //           width: 250,
+  //           padding: EdgeInsets.all(8.0),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             borderRadius: BorderRadius.circular(8.0),
+  //             boxShadow: [
+  //               BoxShadow(color: Colors.black26, blurRadius: 4, spreadRadius: 2),
+  //             ],
+  //           ),
+  //           child: Text(
+  //             "new",
+  //             style: ThemeManagerAddressPB.customTextStyle(context),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  //   Overlay.of(context)?.insert(_overlayEntryAddress!);
+  // }
+  void _removeOverlayAddress() {
+    _overlayEntryAddress?.remove();
+    _overlayEntryAddress = null;
+  }
 
   int currentPage = 1;
   final int itemsPerPage = 10;
@@ -90,7 +151,6 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                   ),
                 );
               }
-
               // Paginate the data.
               int totalItems = snapshot.data!.length;
               int totalPages = (totalItems / itemsPerPage).ceil();
@@ -245,8 +305,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                       decoration: BoxDecoration(
                         color: _getStatusColor(displayStatus),
                         borderRadius: BorderRadius.only(
-                            topRight:
-                            Radius.circular(20)),),
+                            topRight: Radius.circular(20)),),
                       child: Center(
                         child: Text(
                             displayStatus,
@@ -265,7 +324,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                     MediaQuery.of(context).size.width /
                         60),
                 child: InkWell(
-                  onTap: () => widget.selectButton(1,general.empId!,fullName), // Corrected reference
+                  onTap: () => widget.selectButton(1,general.empId!,fullName, general.imgurl!), // Corrected reference
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -338,7 +397,18 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                               InfoData(general.driverLicenseNum ?? '--'),
                               InfoData(general.employeeType ?? '--'),
                               InfoData(general.primaryPhoneNbr ?? '--'),
-                              InfoData(_trimAddress(general.finalAddress ?? '--'),),
+                              MouseRegion(
+                                onEnter: (event) => _showOverlayAddress(
+                                    context, event.position, general.finalAddress ?? '--'),
+                                onExit: (_) => _removeOverlayAddress(),
+                                child: InfoData(_trimAddress(general.finalAddress ?? '--')),
+                              ),
+
+                              // MouseRegion(
+                              //     onEnter: (event) => _showOverlayAddress(
+                              //         context, event.position),
+                              //     onExit: (_) => _removeOverlayAddress(),
+                              //     child: InfoData(_trimAddress(general.finalAddress ?? '--'),)),
 
                             ],
                           ),
@@ -423,14 +493,15 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
 
   Color _getStatusColor(String? status) {
     switch (status) {
-      case 'Opened': // Mask "Enrolled" as "Opened"
+      case 'Opened':
       case 'Enrolled':
-        return const Color(0xff51B5E6);
+        return ColorManager.bluebottom;
       case 'Partial':
         return const Color(0xffCA8A04);
       case 'Completed':
+        return ColorManager.greenF;
       default:
-        return const Color(0xffB4DB4C);
+        return ColorManager.greenF;
     }
   }
 

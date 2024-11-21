@@ -18,12 +18,14 @@ class ApiData {
   final int? educationId;
   final int? documentId;
   final int? banckingId;
+  final int? otherDocId;
   ApiData(
       {this.officeId,
         this.employeeEnrollId,
       required this.statusCode,
       required this.success,
       required this.message,
+        this.otherDocId,
       this.labReportId,
       this.data,
       this.imageUrl,

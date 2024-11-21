@@ -434,8 +434,8 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                     await  showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'No File Selected',
+                        return VendorSelectNoti(
+                          message: 'Please Select File',
                         );
                       },
                     );
@@ -455,6 +455,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                       setState(() {
                         isLoading = true; // Start loading
                       });
+
                       for (int i = 0; i < finalPaths.length; i++) {
                         if (finalPaths[i] != null) {
                           await uploadDocuments(
@@ -502,12 +503,13 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                           );
                         },
                       );
+                      await  widget.onSave();
                     } catch (e) {
 
                       await  showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AddSuccessPopup(
+                          return AddFailePopup(
                             message: 'Failed To Upoad Document',
                           );
                         },
@@ -519,7 +521,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                   setState(() {
                     isLoading = false; // End loading
                   });
-                  widget.onSave();
+
 
                 },
                 child:  Text(

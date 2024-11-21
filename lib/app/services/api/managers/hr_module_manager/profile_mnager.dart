@@ -303,6 +303,9 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
         profileScorePercentage: response.data['profileScorePercentage'] != null
             ? response.data['profileScorePercentage'].toDouble()
             : 0.0,
+        anualSkill: response.data['AnnualSkills'] != null
+            ? response.data['AnnualSkills'].toDouble()
+            : 0.0,
         active: response.data['active']??false,
         color: response.data['color']??"#FFFFFF",
       );
@@ -406,6 +409,7 @@ Future<ApiData> patchEmployeeEdit({
   required String rating,
   required String signatureURL,
   required String colorCode,
+  required String departmentName
 }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -415,6 +419,7 @@ Future<ApiData> patchEmployeeEdit({
       'firstName' : firstName,
       'lastName' : lastName,
       'departmentId' : departmentId,
+      'department':departmentName,
       'employeeTypeId' : employeeTypeId,
       'expertise' : expertise,
       'cityId' : cityId,

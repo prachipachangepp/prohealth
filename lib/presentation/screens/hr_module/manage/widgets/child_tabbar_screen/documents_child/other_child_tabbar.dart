@@ -8,22 +8,29 @@ import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/others_doc_manager.dart';
 import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employee_document_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/others_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/others_doc_addPopup.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:http/http.dart' as http;
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 class OtherChildTabbar extends StatefulWidget {
   final int employeeId;
@@ -38,56 +45,58 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
   TextEditingController otherEditNameController = TextEditingController();
   TextEditingController otherAddIdController = TextEditingController();
   TextEditingController otherAddNameController = TextEditingController();
-  final StreamController<List<OnboardingAckHealthData>> _controller = StreamController<List<OnboardingAckHealthData>>();
+  final StreamController<List<OthersDocModel>> _controller = StreamController<List<OthersDocModel>>();
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: [
-        //
-        //     Container(
-        //       margin: EdgeInsets.only(right: 60),
-        //       child: CustomIconButtonConst(
-        //           width: 130,
-        //           text: AppStringHr.addNew,
-        //           icon: Icons.add,
-        //           onPressed: () async {
-        //             showDialog(
-        //                 context: context,
-        //                 builder: (context) {
-        //                   return FutureBuilder<List<EmployeeDocSetupModal>>(
-        //                       future: getEmployeeDocSetupDropDown(context,AppConfig.clinicalVerificationDocId),
-        //                       builder: (context, snapshot) {
-        //                         if (snapshot.connectionState ==
-        //                             ConnectionState.waiting) {
-        //                           return Center(
-        //                               child: CircularProgressIndicator());
-        //                         }
-        //                         if (snapshot.hasData) {
-        //                           return CustomDocumedAddPopup(
-        //                             title: 'Add Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
-        //                           );
-        //                         } else {
-        //                           return ErrorPopUp(
-        //                               title: "Received Error",
-        //                               text: snapshot.error.toString());
-        //                         }
-        //                       });
-        //                 });
-        //             //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
-        //           }),
-        //     ),
-        //   ],
-        // ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+
+            // Container(
+            //   margin: EdgeInsets.only(right: 60),
+            //   child: CustomIconButtonConst(
+            //       width: 130,
+            //       text: AppStringHr.addNew,
+            //       icon: Icons.add,
+            //       onPressed: () async {
+            //         showDialog(
+            //             context: context,
+            //             builder: (context) {
+            //               return OthersDocAddpopup(title: 'Add Other Document',  employeeId: widget.employeeId,);
+            //                 // FutureBuilder<List<EmployeeDocSetupModal>>(
+            //                 //   future: getEmployeeDocSetupDropDown(context,AppConfig.clinicalVerificationDocId),
+            //                 //   builder: (context, snapshot) {
+            //                 //     if (snapshot.connectionState ==
+            //                 //         ConnectionState.waiting) {
+            //                 //       return Center(
+            //                 //           child: CircularProgressIndicator());
+            //                 //     }
+            //                 //     if (snapshot.hasData) {
+            //                 //       return OthersDocAddpopup(title: 'Add Other Document',  employeeId: widget.employeeId,);
+            //                 //       // CustomDocumedAddPopup(
+            //                 //       //   title: 'Add Other Document', employeeId: widget.employeeId, dataList:snapshot.data! ,
+            //                 //       // );
+            //                 //     } else {
+            //                 //       return ErrorPopUp(
+            //                 //           title: "Received Error",
+            //                 //           text: snapshot.error.toString());
+            //                 //     }
+            //                 //   });
+            //             });
+            //         //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+            //       }),
+            // ),
+          ],
+        ),
         const SizedBox(
           height: 20,
         ),
         StreamBuilder(
           stream: _controller.stream,
           builder: (BuildContext context, snapshot) {
-            getAckHealthRecord(context, AppConfig.clinicalVerificationDocId,widget.employeeId,'no').then((data) {
+            getOthersData(context: context, employeeId: widget.employeeId,).then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -108,11 +117,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                   padding: const EdgeInsets.symmetric(vertical: 100),
                   child: Text(
                     AppStringHRNoData.othersnNoData,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s14,
-                      color: ColorManager.mediumgrey,
-                    ),
+                    style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 ),
               );
@@ -125,7 +130,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     var others = snapshot.data![index];
-                    var fileUrl = others.DocumentUrl;
+                    var fileUrl = others.url;
                     final fileExtension = fileUrl.split('/').last;
                     Widget fileWidget;
                     if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
@@ -192,10 +197,10 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('ID:${others.idOfTheDocument}',
+                                      Text('ID:${others.idOfDocument}',
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       const SizedBox(height: 5,),
-                                       Text(others.documentFileName,
+                                       Text(others.fileName,
                                            style: AknowledgementStyleNormal.customTextStyle(context)),
                                     ],
                                   )
@@ -228,7 +233,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     },
                                     icon: const Icon(Icons.print_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
-                                  PdfDownloadButton(apiUrl: others.DocumentUrl, documentName: others.documentFileName,),
+                                  PdfDownloadButton(apiUrl: others.url, documentName: others.fileName,),
                                   IconButton(
                                     splashColor:
                                     Colors.transparent,
@@ -240,8 +245,8 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                            return FutureBuilder<EmployeeDocumentPrefillData>(
-                                                future: getPrefillEmployeeDocuments( context: context, empDocumentId: others.employeeDocumentId),
+                                            return FutureBuilder<OthersDocPreFillModel>(
+                                                future: getOthersPrefillData( context: context,  otherDocId: others.otherDocId),
                                                 builder: (context, snapshotPreFill) {
                                                   if (snapshotPreFill.connectionState ==
                                                       ConnectionState.waiting) {
@@ -249,11 +254,17 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                                         child: CircularProgressIndicator());
                                                   }
                                                   if (snapshotPreFill.hasData) {
-                                                    return CustomDocumedEditPopup(
-                                                      labelName: 'Edit Other Document', employeeId: widget.employeeId, docName: others.DocumentName,
-                                                      docMetaDataId: others.EmployeeDocumentTypeMetaDataId, docSetupId: others.EmployeeDocumentTypeSetupId, empDocumentId: others.employeeDocumentId,
-                                                      selectedExpiryType: others.ReminderThreshold, url: others.ReminderThreshold,expiryDate: snapshotPreFill.data!.expiry, documentFileName: others.documentFileName,
-                                                    );
+                                                    return OthersEditPopup(
+                                                      url: snapshotPreFill.data!.url,
+                                                      fileName: snapshotPreFill.data!.fileName,
+                                                      expDate: snapshotPreFill.data!.expDate,
+                                                      documentName: snapshotPreFill.data!.idOfDocument,
+                                                      title: 'Edit Other Document', employeeId: widget.employeeId, otherDocId: others.otherDocId,);
+                                                    // return CustomDocumedEditPopup(
+                                                    //   labelName: 'Edit Other Document', employeeId: widget.employeeId, docName: others.DocumentName,
+                                                    //   docMetaDataId: others.EmployeeDocumentTypeMetaDataId, docSetupId: others.EmployeeDocumentTypeSetupId, empDocumentId: others.employeeDocumentId,
+                                                    //   selectedExpiryType: others.ReminderThreshold, url: others.ReminderThreshold,expiryDate: snapshotPreFill.data!.expiry, documentFileName: others.documentFileName,
+                                                    // );
                                                   } else {
                                                     return ErrorPopUp(
                                                         title: "Received Error",
@@ -281,7 +292,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                                 Navigator.pop(context);
                                               }, onDelete: () {
                                                 setState(() async {
-                                                  await deleteEmployeeDocuments(context: context, empDocumentId: others.employeeDocumentId);
+                                                  await deleteOthersDocumentData(context: context, otherDocumentId: others.otherDocId,);
                                                   Navigator.pop(context);
                                                 });
                                               }, title: 'Delete Document',);

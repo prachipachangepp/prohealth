@@ -5,13 +5,14 @@ class AppConfig {
   static const String demo = "https://demoapp.symmetry.care";
   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
   static const String deployment = "https://prohealth.symmetry.care";
-  static const String version = "Version 1.0.9 (15) demo";
+  static const String version = "Version 1.0.9 (26) demo";
 
   ///
   static const String local = "";
   static const String prod = "";
   static const String endpoint = demo;
   static const String dash = '-';
+  static const int templateId = 2;
 
   /// Document types
   static const int corporateAndCompliance = 1;
@@ -61,10 +62,13 @@ class AppConfig {
   static const String year = "Year";
   static const String month = "Month";
   static const String misc = "MISC";
+  static const String other = "Other";
 }
 
-///dev instance
 
+
+
+///dev instance
 // class AppConfig {
 //   static const String demo = "https://demoapp.symmetry.care";
 //   static const String dev = "https://resource.symmetry.care";
@@ -74,7 +78,8 @@ class AppConfig {
 //   static const String local = "";
 //   static const String prod = "";
 //   static const String endpoint = dev;
-// static const String dash = '-';
+//   static const String dash = '-';
+//   static const int templateId = 3;
 //
 //   /// Document types
 //   static const int corporateAndCompliance = 8;

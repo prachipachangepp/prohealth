@@ -919,10 +919,11 @@ class EditUserPopUp extends StatefulWidget {
   final String title;
   final String deptName;
  final int userId;
-  Widget child;
   final String firstname;
   final String lastname;
   final String email;
+  final int departmentId;
+  final String department;
 
   // final TextEditingController lastNameController;
   // final TextEditingController emailController;
@@ -933,7 +934,6 @@ class EditUserPopUp extends StatefulWidget {
 
   EditUserPopUp(
       {required this.title,
-        required this.child,
         required this.userId,
 
 
@@ -943,7 +943,7 @@ class EditUserPopUp extends StatefulWidget {
         //
 
         this.enable,
-        required this.deptName, required this.firstname, required this.lastname, required this.email});
+        required this.deptName, required this.firstname, required this.lastname, required this.email, required this.departmentId, required this.department});
 
   @override
   State<EditUserPopUp> createState() => _EditUserPopUpState();
@@ -1053,7 +1053,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                     // Extract dropdown items from snapshot
                     List<String> dropDownServiceList = snapshot
                         .data!
-                        .map((dept) => dept.deptName!)
+                        .map((dept) => dept.deptName)
                         .toList();
                     String? firstDeptName =
                     snapshot.data!.isNotEmpty
@@ -1065,8 +1065,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
 
                     if (selectedDeptName == null &&
                         dropDownServiceList.isNotEmpty) {
-                      selectedDeptName = firstDeptName;
-                      selectedDeptId = firstDeptId;
+                      selectedDeptName = widget.department;
+                      selectedDeptId = widget.departmentId;
                     }
 
                     return HRUManageDropdown(

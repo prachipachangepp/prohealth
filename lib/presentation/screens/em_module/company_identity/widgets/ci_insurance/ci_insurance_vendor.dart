@@ -11,6 +11,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/custome_dialog.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
@@ -83,19 +84,13 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                       style:TableHeading.customTextStyle(context),
                     ),
             //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25),
-                      child: Text('Name    ',
-                          textAlign: TextAlign.start,
-                        style:TableHeading.customTextStyle(context),),
-                    ),
+                    Text('Name  ',
+                        textAlign: TextAlign.start,
+                      style:TableHeading.customTextStyle(context),),
 
-                    Padding(
-                      padding: const EdgeInsets.only(right: 30),
-                      child: Text(AppString.actions,
-                          textAlign: TextAlign.start,
-                        style:TableHeading.customTextStyle(context),),
-                    ),
+                    Text(AppString.actions,
+                        textAlign: TextAlign.start,
+                      style:TableHeading.customTextStyle(context),),
                   ],
                 ),
               ),
@@ -124,7 +119,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                     return Center(
                         child: Text(
                      ErrorMessageString.noVendor,
-                      style:DocumentTypeDataStyle.customTextStyle(context),)
+                      style:AllNoDataAvailable.customTextStyle(context),)
                         );
                   }
                   if (snapshot.hasData) {
@@ -168,103 +163,116 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
                                               children: [
-                                                Text(
-                                                  formattedSerialNumber,
-                                                  style:  TableSubHeading.customTextStyle(context),
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(left: 165.0),
+                                                    child: Text(
+                                                      formattedSerialNumber,
+                                                      textAlign: TextAlign.center,
+                                                      style:  TableSubHeading.customTextStyle(context),
+                                                    ),
+                                                  ),
                                                 ),
                                                 // Text(''),
-                                                Text(
-                                                  vendorData.vendorName
-                                                      .toString(),
-                                                  textAlign: TextAlign.center,
-                                                  style:  TableSubHeading.customTextStyle(context),
+                                                Expanded(
+                                                  flex: 3,
+                                                  child: Text(
+                                                    vendorData.vendorName
+                                                        .toString(),
+                                                    textAlign: TextAlign.center,
+                                                    style:  TableSubHeading.customTextStyle(context),
+                                                  ),
                                                 ),
                                                 //  Text(''),
-                                                Row(
-                                                  children: [
-                                                    IconButton(
-                                                        onPressed: () {
-                                                          showDialog(
-                                                              context: context,
-                                                              builder: (BuildContext
-                                                                  context) {
-                                                                return FutureBuilder<ManageVendorPrefill>(
-                                                                  future: getPrefillVendor(context,vendorData.insuranceVendorId),
-                                                                  builder: (context, snapshotPrefill) {
-                                                                    if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                                      return Center(
-                                                                        child: CircularProgressIndicator(color: ColorManager.blueprime,),
-                                                                      );
-                                                                    }
-                                                                    var name = snapshotPrefill.data!.vendorName;
-                                                                    nameController = TextEditingController(text: snapshotPrefill.data!.vendorName);
-                                                                    return CustomPopup(
-                                                                        title: 'Edit Vendor',
-                                                                        namecontroller: nameController,
-                                                                         onPressed: () async{
-                                                                           setState(() {
-                                                                             _isLoading = true;
-                                                                           });
-                                                                           try {
-                                                                             //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
-                                                                             await patchCompanyVendor(
-                                                                              context,
-                                                                              vendorData.insuranceVendorId,
-                                                                              widget.officeId,
-                                                                              name == nameController.text ? name.toString() : nameController.text,
-                                                                             );
-                                                                           } finally {
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Row(
+                                                    children: [
+                                                      IconButton(
+                                                          onPressed: () {
+                                                            showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext
+                                                                    context) {
+                                                                  return FutureBuilder<ManageVendorPrefill>(
+                                                                    future: getPrefillVendor(context,vendorData.insuranceVendorId),
+                                                                    builder: (context, snapshotPrefill) {
+                                                                      if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                                        return Center(
+                                                                          child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                                                        );
+                                                                      }
+                                                                      var name = snapshotPrefill.data!.vendorName;
+                                                                      nameController = TextEditingController(text: snapshotPrefill.data!.vendorName);
+                                                                      return CustomPopup(
+                                                                          title: 'Edit Vendor',
+                                                                          namecontroller: nameController,
+                                                                           onPressed: () async{
                                                                              setState(() {
-                                                                               _isLoading = false;
+                                                                               _isLoading = true;
                                                                              });
-                                                                             Navigator.pop(context);
-                                                                           }
-                                                                          }, buttontxt: "Save", successpopuptext: 'Edited Successfully',
-                                                                          );
-
-                                                                  }
-                                                                );
-                                                                      });
-                                                                      },
-                                                        icon: Icon(Icons.edit_outlined,
-                                                          size:IconSize.I18,color: IconColorManager.bluebottom,)),
-                                                    IconButton(
-                                                        onPressed: () {
-                                                          showDialog(context: context,
-                                                              builder: (context) => StatefulBuilder(
-                                                                builder: (BuildContext context, void Function(void Function()) setState) {
-                                                                  return  DeletePopup(
-                                                                      title: 'Delete Vendor',
-                                                                      loadingDuration: _isLoading,
-                                                                      onCancel: (){
-                                                                        Navigator.pop(context);
-                                                                      }, onDelete: () async{
-                                                                    setState(() {
-                                                                      _isLoading = true;
-                                                                    });
-                                                                    try {
-                                                                      await deleteVendor(
-                                                                          context, vendorData.insuranceVendorId!);
-                                                                        companyVendorGet(context,widget.officeId,1,30).then((data) {
-                                                                          _companyVendor.add(data);
-                                                                        }).catchError((error) {
-                                                                          // Handle error
-                                                                        });
-
-
-                                                                    } finally {
-                                                                      setState(() {
-                                                                        _isLoading = false;
-                                                                      });
-                                                                      Navigator.pop(context);
+                                                                             try {
+                                                                               //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
+                                                                               await patchCompanyVendor(
+                                                                                context,
+                                                                                vendorData.insuranceVendorId,
+                                                                                widget.officeId,
+                                                                                name == nameController.text ? name.toString() : nameController.text,
+                                                                               );
+                                                                             } finally {
+                                                                               setState(() {
+                                                                                 _isLoading = false;
+                                                                               });
+                                                                               Navigator.pop(context);
+                                                                             }
+                                                                            }, buttontxt: "Save", successpopuptext: 'Edited Successfully',
+                                                                            );
+                                                  
                                                                     }
-                                                                  });
-                                                                },
-
-                                                              ));
-                                                        },
-                                                        icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
-                                                  ],
+                                                                  );
+                                                                        });
+                                                                        },
+                                                          icon: Icon(Icons.edit_outlined,
+                                                            size:IconSize.I18,color: IconColorManager.bluebottom,)),
+                                                      IconButton(
+                                                          onPressed: () {
+                                                            showDialog(context: context,
+                                                                builder: (context) => StatefulBuilder(
+                                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                    return  DeletePopup(
+                                                                        title: 'Delete Vendor',
+                                                                        loadingDuration: _isLoading,
+                                                                        onCancel: (){
+                                                                          Navigator.pop(context);
+                                                                        }, onDelete: () async{
+                                                                      setState(() {
+                                                                        _isLoading = true;
+                                                                      });
+                                                                      try {
+                                                                        await deleteVendor(
+                                                                            context, vendorData.insuranceVendorId!);
+                                                                          companyVendorGet(context,widget.officeId,1,30).then((data) {
+                                                                            _companyVendor.add(data);
+                                                                          }).catchError((error) {
+                                                                            // Handle error
+                                                                          });
+                                                  
+                                                  
+                                                                      } finally {
+                                                                        setState(() {
+                                                                          _isLoading = false;
+                                                                        });
+                                                                        Navigator.pop(context);
+                                                                      }
+                                                                    });
+                                                                  },
+                                                  
+                                                                ));
+                                                          },
+                                                          icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
+                                                    ],
+                                                  ),
                                                 )
                                               ],
                                             ),

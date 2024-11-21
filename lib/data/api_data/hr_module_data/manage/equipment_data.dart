@@ -4,7 +4,7 @@ class EquipmentData {
   final String assignedDate;
   final int employeeId;
   final String givenId;
-  final int inventoryTypeId;
+  final String inventoryTypeId;
   final String name;
   final String createdAt;
   EquipmentData({

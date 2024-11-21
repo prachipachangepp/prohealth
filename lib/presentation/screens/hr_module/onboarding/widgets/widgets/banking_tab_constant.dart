@@ -80,7 +80,7 @@ class _BankingTabContainerConstantState
               const SizedBox(
                 height: 10,
               ),
-              Text('Routing/Transit No. :',
+              Text('Account No. :',
                   style: ThemeManagerDark.customTextStyle(context)),
               // const SizedBox(
               //   height: 10,
@@ -112,12 +112,12 @@ class _BankingTabContainerConstantState
                 height: 10,
               ),
               Text(
-                snapshot.data![index].rountingNumber,
+                snapshot.data![index].accNum,
                 style: ThemeManagerDarkFont.customTextStyle(context),
               ),
             ],
             row2Child1: [
-              Text('Account No. :',
+              Text('Routing/Transit No. :',
                   style: ThemeManagerDark.customTextStyle(context)),
               const SizedBox(
                 height: 10,
@@ -137,7 +137,7 @@ class _BankingTabContainerConstantState
             ],
             row2Child2: [
               Text(
-                snapshot.data![index].accNum,
+                snapshot.data![index].rountingNumber,
                 style: ThemeManagerDarkFont.customTextStyle(context),
               ),
               const SizedBox(

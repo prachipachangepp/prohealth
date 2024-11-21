@@ -5,20 +5,24 @@ class EmployeeBankingData {
   final String bankName;
   final int amountRequested;
   final String checkUrl;
+  final String percentage;
   final String effectiveDate;
   final String routinNumber;
+  final String requestedPercentage;
   final String type;
    bool? approve;
   // final bool sucess;
   // final String message;
 
   EmployeeBankingData({
+    required this.requestedPercentage,
     required this.empBankingId,
     required this.employeeId,
     required this.accountNumber,
     required this.bankName,
     required this.amountRequested,
     required this.checkUrl,
+    required this.percentage,
     required this.effectiveDate,
     required this.routinNumber,
     required this.type,

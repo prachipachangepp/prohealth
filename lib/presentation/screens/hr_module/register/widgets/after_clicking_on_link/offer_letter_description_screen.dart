@@ -9,6 +9,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/signature_screen.dart';
+import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
@@ -19,13 +20,11 @@ import '../../../../em_module/widgets/button_constant.dart';
 import '../../../manage/widgets/bottom_row.dart';
 import 'multi_step_form.dart';
 
-
 class OfferLetterDescriptionScreen extends StatefulWidget {
   final dynamic signatureBytes;
   final int employeeId;
 
   OfferLetterDescriptionScreen({this.signatureBytes, required this.employeeId});
-
 
   @override
   State<OfferLetterDescriptionScreen> createState() =>
@@ -36,7 +35,7 @@ class _OfferLetterDescriptionScreenState
     extends State<OfferLetterDescriptionScreen> {
   PlatformFile? _selectedFile;
   Uint8List? _webImage;
- // bool _isChecked = false;
+  // bool _isChecked = false;
   Uint8List? signatureBytes;
 
   @override
@@ -68,14 +67,14 @@ class _OfferLetterDescriptionScreenState
       print("File picking cancelled or failed.");
     }
   }
-  int offerId = 1;
 
+  int offerId = 1;
 
   void _clearSelectedFile() {
     setState(() {
       _selectedFile = null;
       _webImage = null;
-     // _isChecked = false;
+      // _isChecked = false;
     });
   }
 
@@ -95,109 +94,115 @@ class _OfferLetterDescriptionScreenState
         child: TopRowConstant(),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Offer Letter', style: FormHeading.customTextStyle(context)),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 15),
+
+          // OfferLetterWidget(employeeId: widget.employeeId),
+
+          FutureBuilder<OfferLetterData>(
+            future: GetOfferLetter(
+                context, widget.employeeId, AppConfig.templateId),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Container(
+                  width: 1032,
+                  height: 1190,
+                );
+              }
+              if (snapshot.hasData) {
+                offerId = snapshot.data!.offerId;
+                return Container(
+                  color: Colors.white,
+                  width: 1032,
+                  height: 1190,
+                  child: Html(
+                    data: """${snapshot.data!.template}""",
+                    style: {
+                      "p": Style(
+                        fontSize: FontSize(12.0),
+                        color: Color(0xff686464),
+                        fontWeight: FontWeight.w400,
+                      ),
+                      "li": Style(
+                        fontSize: FontSize(12.0),
+                        color: Color(0xff686464),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    },
+                  ),
+                );
+              } else {
+                return SizedBox(
+                  height: 1,
+                  width: 1,
+                );
+              }
+            },
+          ),
+
+          SizedBox(height: MediaQuery.of(context).size.height / 100),
+
+          Padding(
+            padding: const EdgeInsets.only(left: 250),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Offer Letter',
-                  style: FormHeading.customTextStyle(context)
+                Container(
+                  width: 120,
+                  height: 90, // Set height to avoid zero height
+                  // color: Colors.yellow,
+                  child: signatureBytes != null
+                      ? Image.memory(
+                          signatureBytes!,
+                          filterQuality: FilterQuality.high,
+                        )
+                      : Center(child: Text('')),
                 ),
+
+                // Container(
+                //    height: 70,
+                //  width: 100,
+                //    color: Colors.yellow,
+                //   child: signatureBytes != null
+                //       ? Image.memory(signatureBytes!)
+                //       : Text(''),
+                // ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 15),
-
-           // OfferLetterWidget(employeeId: widget.employeeId),
-
-            FutureBuilder<OfferLetterData>(
-              future:GetOfferLetter(context, widget.employeeId, 1 ),
-              builder: (context, snapshot) {
-                if(snapshot.connectionState == ConnectionState.waiting){
-                  return Container(width: 1032,
-                    height: 1190,);
-                }
-                if (snapshot.hasData) {
-                  offerId = snapshot.data!.offerId;
-                  return Container(
-                    color: Colors.white,
-                    width: 1032,
-                    height: 1190,
-                    child: Html(
-                      data: """${snapshot.data!.template}""",
-                      style: {
-                        "p": Style(
-                          fontSize: FontSize(12.0),
-                          color: Color(0xff686464),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        "li": Style(
-                          fontSize: FontSize(12.0),
-                          color: Color(0xff686464),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      },
-                    ),
-                  );
-                } else {
-                  return SizedBox(
-                    height: 1,
-                    width: 1,
-                  );
-                }
-              },
-            ),
-
-            SizedBox(height: MediaQuery.of(context).size.height / 100),
-
-            Padding(
-              padding: const EdgeInsets.only(left: 250),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 120,
-                    height: 90, // Set height to avoid zero height
-                    // color: Colors.yellow,
-                    child: signatureBytes != null
-                        ? Image.memory(signatureBytes!,filterQuality: FilterQuality.high,)
-                        : Center(child: Text('')),
-                  ),
-
-                  // Container(
-                  //    height: 70,
-                  //  width: 100,
-                  //    color: Colors.yellow,
-                  //   child: signatureBytes != null
-                  //       ? Image.memory(signatureBytes!)
-                  //       : Text(''),
-                  // ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10,),
-            Padding(
-              padding: const EdgeInsets.only(left: 250),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:  const EdgeInsets.only(left: 250),
+                child: Container(
                     width: 250,
                     height: 40,
-                   // color: Colors.cyanAccent,
-                    child:ElevatedButton(
+                    // color: Colors.cyanAccent,
+                    child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => SignaturePage(
-                              onSignatureSelected: (Uint8List? selectedSignature) {
+                              onSignatureSelected:
+                                  (Uint8List? selectedSignature) {
                                 setState(() {
                                   signatureBytes = selectedSignature;
                                 });
-                              }, employeeId: widget.employeeId,
+                              },
+                              employeeId: widget.employeeId,
                             ),
                           ),
                         );
@@ -209,175 +214,180 @@ class _OfferLetterDescriptionScreenState
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
-                        'Upload Sign',
-                        style: BlueButtonTextConst.customTextStyle(context)
-                      ),
-                    )
-                  ),
-                  SizedBox(height: 10,),
-                  StatefulBuilder(
-                    builder: (BuildContext context, void Function(void Function()) setState) { return Row(
-                      children: [
-
-                        Theme(
-                          data:Theme.of(context).copyWith(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                          ),
-                          child: Checkbox(
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-                        ),
-                        Text(
-                            'I agree to the terms & conditions',
-                            style:onlyFormDataStyle.customTextStyle(context)
-                        ),
-                      ],
-                    );},
-
-                  ),
-                ],
+                      child: Text('Upload Sign',
+                          style: BlueButtonTextConst.customTextStyle(context)),
+                    )),
               ),
-            ),
-               Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () async{
-                      ApiData updateOfferFuture = await updateOfferLetter(
-                        context,
-                        offerId,
-                         1,
-                         widget.employeeId,
-                        "2023-01-01",
-                        "2023-12-31",
-                        "2024-01-01",
-                         "2023-11-01",
-                         true,
-                         "2023-11-05",
-                      );
-                      if(updateOfferFuture.statusCode == 200 || updateOfferFuture.statusCode == 201){
-                        showDialog(context: context, builder: (BuildContext context){
+              SizedBox(
+                height: 10,
+              ),
+              StatefulBuilder(
+                builder: (BuildContext context,
+                    void Function(void Function()) setState) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 250),
+                        child: Row(
+                          children: [
+                            Theme(
+                              data: Theme.of(context).copyWith(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                              ),
+                              child: Checkbox(
+                                activeColor: ColorManager.blueprime,
+                                value: _isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isChecked = value!;
+                                  });
+                                },
+                              ),
+                            ),
+                            Text(
+                              'I agree to the terms & conditions',
+                              style: onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: _isChecked
+                                ? () async {
+                                    ApiData updateOfferFuture =
+                                        await updateOfferLetter(
+                                      context,
+                                      offerId,
+                                      1,
+                                      widget.employeeId,
+                                      "2023-01-01",
+                                      "2023-12-31",
+                                      "2024-01-01",
+                                      "2023-11-01",
+                                      true,
+                                      "2023-11-05",
+                                    );
+                                    if (updateOfferFuture.statusCode == 200 ||
+                                        updateOfferFuture.statusCode == 201) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return ConfirmationPopup(
+                                            onCancel: () {
+                                              Navigator.pop(context);
+                                            },
+                                            onConfirm: () async {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MultiStepForm(
+                                                          employeeID: widget
+                                                              .employeeId),
+                                                ),
+                                              );
+                                            },
+                                            title: 'Offer Letter',
+                                            containerText:
+                                                'Offer Accepted Successfully',
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return ConfirmationPopup(
+                                            onCancel: () {
+                                              Navigator.pop(context);
+                                            },
+                                            onConfirm: () async {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MultiStepForm(
+                                                          employeeID: widget
+                                                              .employeeId),
+                                                ),
+                                              );
+                                            },
+                                            title: 'Offer Letter',
+                                            containerText:
+                                                'Offer Already Accepted',
+                                          );
+                                        },
+                                      );
+                                    }
+                                  }
+                                : null, // Disable the button if checkbox is not checked
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xff50B5E5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 32, vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: Text(
+                              'Continue',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              ),
 
-
-                          return  ConfirmationPopup(onCancel: () {  Navigator.pop(context); }, onConfirm: () async {
-            //String userid= await TokenManager.getUserID();
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
-            );
-          },title: 'Offer Letter', containerText: 'Offer Accepted Successfully',);
-
-                        });
-                      }else{
-                        showDialog(context: context, builder: (BuildContext context){
-                         return ConfirmationPopup(onCancel: () {  Navigator.pop(context); }, onConfirm: () async {
-                            //String userid= await TokenManager.getUserID();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
-                            );
-                          },title: 'Offer Letter', containerText: 'Offer Already Accepted',);
-
-
-                          // return AlertDialog(
-                          //   title: Center(
-                          //     child: Text('Offer Already Accepted', style: TextStyle(
-                          //         color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w600
-                          //     ),),
-                          //   ),
-                          //   content: Text( ""
-                          //     // snapshot.data!.message
-                          //   ),
-                          //   actions: [
-                          //     TextButton(
-                          //       onPressed: () async {
-                          //         //String userid= await TokenManager.getUserID();
-                          //         Navigator.push(
-                          //           context,
-                          //           MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
-                          //         );
-                          //       },
-                          //       child: Text('OK', style:TextStyle(
-                          //           color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w600
-                          //       ),),
-                          //     ),
-                          //   ],
-                          // );
-                        });
-                      }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff50B5E5),
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                   // minimumSize: Size(128, 44),
-                  ),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-            ///
-            //
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     ElevatedButton(
-            //       onPressed: () {
-            //         Navigator.push(
-            //           context,
-            //           MaterialPageRoute(builder: (context) => MultiStepForm()),
-            //         );
-            //       },
-            //       style: ElevatedButton.styleFrom(
-            //         backgroundColor: Color(0xff50B5E5),
-            //         padding: const EdgeInsets.symmetric(
-            //             horizontal: 32, vertical: 16),
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(8),
-            //         ),
-            //         minimumSize: Size(128, 44),
-            //       ),
-            //       child: Text(
-            //         'Continue',
-            //         style: GoogleFonts.firaSans(
-            //             fontSize: 18,
-            //             fontWeight: FontWeight.w500,
-            //             color: Colors.white),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-          ],
-        ),
+              ///
+              //
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     ElevatedButton(
+              //       onPressed: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(builder: (context) => MultiStepForm()),
+              //         );
+              //       },
+              //       style: ElevatedButton.styleFrom(
+              //         backgroundColor: Color(0xff50B5E5),
+              //         padding: const EdgeInsets.symmetric(
+              //             horizontal: 32, vertical: 16),
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(8),
+              //         ),
+              //         minimumSize: Size(128, 44),
+              //       ),
+              //       child: Text(
+              //         'Continue',
+              //         style: GoogleFonts.firaSans(
+              //             fontSize: 18,
+              //             fontWeight: FontWeight.w500,
+              //             color: Colors.white),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+            ],
+          ),
+        ]),
       ),
       bottomNavigationBar: BottomBarRow(),
     );
   }
 }
-
-
-
-
-
-
-
-
 
 class ConfirmationPopup extends StatefulWidget {
   final VoidCallback onCancel;
@@ -475,34 +485,34 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                       ),
                       child: Text(
                         'Cancel',
-                        style: TransparentButtonTextConst.customTextStyle(context),
+                        style:
+                            TransparentButtonTextConst.customTextStyle(context),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(width: AppPadding.p20),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: AppPadding.p24, right: AppPadding.p10),
+                  padding: const EdgeInsets.only(
+                      bottom: AppPadding.p24, right: AppPadding.p10),
                   child: Center(
                     child: widget.loadingDuration == true
                         ? SizedBox(
-                      height: 25,
-                      width: 25,
-                      child: CircularProgressIndicator(
-                        color: ColorManager.blueprime,
-                      ),
-                    )
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(
+                              color: ColorManager.blueprime,
+                            ),
+                          )
                         : CustomElevatedButton(
-                      width: AppSize.s105,
-                      height: AppSize.s30,
-                      text: 'Confirm',
-                      onPressed: () {
-                        // Execute the confirm action and navigate
-                        widget.onConfirm();
-
-
-                      },
-                    ),
+                            width: AppSize.s105,
+                            height: AppSize.s30,
+                            text: 'Confirm',
+                            onPressed: () {
+                              // Execute the confirm action and navigate
+                              widget.onConfirm();
+                            },
+                          ),
                   ),
                 ),
               ],

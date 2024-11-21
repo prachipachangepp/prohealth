@@ -4,6 +4,7 @@ import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/new_org_doc.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
+import '../../../../../../presentation/widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/establishment_manager/establishment_repository.dart';
@@ -18,7 +19,6 @@ Future<ApiData> addNewOrgDocumentPost({
   required String? expiryDate,
   required String expiryReminder,
   required String idOfDoc,
-
 }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -28,35 +28,32 @@ Future<ApiData> addNewOrgDocumentPost({
       "doc_name": docName,
       "expiry_type": expiryType,
       "threshold": threshold,
-      "expiry_date": expiryDate,//expiryDate?.isNotEmpty == true ? "${expiryDate}" : '',
+      "expiry_date": expiryDate,
       "expiry_reminder": expiryReminder,
       "company_id": companyId,
       "idOfDocument": idOfDoc,
     };
 
-    // if (expiryDate != null && expiryDate.isNotEmpty) {
-    //   data['expiry_Date'] = "${expiryDate}";
-    // } else {
-    //   data.remove('expiryDate');
-    // }
-
     print('New Org Corporate Doc $data');
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.addNewDocumentPost(),
         data: data);
+
     print('New ORG Doc Post::::$response ');
+
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("New Org Corporate Doc addded ");
+      print("New Org Corporate Doc added ");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!);
-    } else {
+    }
+    else {
       print("Error 1");
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: response.data['message']);
+          message: response.data['message'][0]);
     }
   } catch (e) {
     print("Error $e");
@@ -65,6 +62,7 @@ Future<ApiData> addNewOrgDocumentPost({
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
 /// get all
 Future<List<NewOrgDocument>> getNewOrgDocument(BuildContext context,) async {
   List<NewOrgDocument> itemsList = [];
@@ -220,7 +218,7 @@ Future<ApiData> updateNewOrgDocumentPatch({
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: response.data['message']);
+          message: response.data['message'][0]);
     }
   } catch (e) {
     print("Error $e");

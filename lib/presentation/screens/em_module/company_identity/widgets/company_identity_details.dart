@@ -15,6 +15,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_templa
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 
+import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../widgets/button_constant.dart';
 import 'checkbox_constant.dart';
@@ -22,19 +23,20 @@ import 'checkbox_constant.dart';
 class CIDetailsScreen extends StatefulWidget {
   CIDetailsScreen(
       {super.key,
-      required this.officeId,
-      required this.docTD,
-      required this.companyId,
-      required int companyID,
-      required this.companyOfficeid,
-      required this.stateName,
-      required this.countryName});
+        required this.officeId,
+        required this.docTD,
+        required this.companyId,
+        required int companyID,
+        required this.companyOfficeid,
+        required this.stateName,
+        required this.countryName, required this.updateOfficeName});
   final String stateName;
   final String countryName;
   final int companyId;
   final int docTD;
   final int companyOfficeid;
   final String officeId;
+  final Function(String) updateOfficeName;
 
   @override
   State<CIDetailsScreen> createState() => _CIDetailsScreenState();
@@ -50,6 +52,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   TextEditingController secFaxController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController hcoNumController = TextEditingController();
+  TextEditingController hcoNumControllerPrefill = TextEditingController();
   TextEditingController medicareController = TextEditingController();
   TextEditingController npiNumController = TextEditingController();
   TextEditingController stateNameController = TextEditingController();
@@ -160,7 +163,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
       companyDetailGetAll(context, widget.officeId);
     });
   }
- bool _isLoading = false;
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -250,99 +253,109 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                       child: StatefulBuilder(
                                         builder: (BuildContext context,
                                             void Function(void Function())
-                                                setState) {
+                                            setState) {
                                           return Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                             children: [
                                               Padding(
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: 10),
                                                 child: Container(
-                                                    width: 300,
-                                                    child: Text(serviceDetail
-                                                        .serviceName,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: Colors.white),),
-                                                    // CheckboxTileDetails(
-                                                    //   title: serviceDetail
-                                                    //       .serviceName,
-                                                    //   initialValue: isChecked,
-                                                    //   onChanged: (value) {
-                                                    //     setState(() {
-                                                    //       isChecked = !isChecked;
-                                                    //     });
-                                                    //   },
-                                                    // )
+                                                  width: 300,
+                                                  child: Text(serviceDetail
+                                                      .serviceName,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: Colors.white),),
+                                                  // CheckboxTileDetails(
+                                                  //   title: serviceDetail
+                                                  //       .serviceName,
+                                                  //   initialValue: isChecked,
+                                                  //   onChanged: (value) {
+                                                  //     setState(() {
+                                                  //       isChecked = !isChecked;
+                                                  //     });
+                                                  //   },
+                                                  // )
                                                 ),
                                               ),
                                               Row(
                                                 children: [
                                                   IconButton(
                                                     splashColor:
-                                                        Colors.transparent,
+                                                    Colors.transparent,
                                                     hoverColor:
-                                                        Colors.transparent,
+                                                    Colors.transparent,
                                                     highlightColor:
-                                                        Colors.transparent,
+                                                    Colors.transparent,
                                                     onPressed: () {
                                                       showDialog(
                                                           context: context,
                                                           builder: (BuildContext
-                                                              context) {
-                                                            return DialogueTemplate(
-                                                              width: AppSize.s420,
-                                                              height: 250,
-                                                              body: [
-                                                                FirstSMTextFConst(
-                                                                  controller:
-                                                                      hcoNumController,
-                                                                  keyboardType:
-                                                                      TextInputType
-                                                                          .text,
-                                                                  text:
-                                                                      'HCO Number',
-                                                                ),
-                                                              ],
-                                                              bottomButtons: CustomElevatedButton(
-                                                                      width: AppSize
-                                                                          .s105,
-                                                                      height:
-                                                                          AppSize
-                                                                              .s30,
-                                                                      text: AppStringEM
-                                                                          .save, //submit
-                                                                      onPressed:
-                                                                          () async {
-                                                                        await updateServices(
-                                                                            serviceDetail
-                                                                                .officeServiceId,
-                                                                            widget
-                                                                                .officeId,
-                                                                            serviceDetail
-                                                                                .serviceName,
-                                                                            serviceDetail
-                                                                                .serviceId,
-                                                                            serviceDetail
-                                                                                .npiNum,
-                                                                            serviceDetail
-                                                                                .medicareNum,
-                                                                            hcoNumController
-                                                                                .text);
-                                                                        hcoNumController
-                                                                            .clear();
-                                                                        Navigator.pop(
-                                                                            context);
-                                                                        showDialog(
-                                                                          context: context,
-                                                                          builder: (BuildContext context) {
-                                                                            return AddSuccessPopup(
-                                                                              message: 'Service edited successfully.',
-                                                                            );
-                                                                          },
-                                                                        );
+                                                          context) {
+                                                            return FutureBuilder<ServicePreFillData>(
+                                                                future:getAllServicesPrefillData(context: context, officeServiceId: serviceDetail.officeServiceId,),
+                                                                builder: (context, snapshot) {
+                                                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                                                    return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                                  }
+                                                                  var hcoNumber = snapshot.data!.hcoNumber;
+                                                                  hcoNumControllerPrefill = TextEditingController(text: snapshot.data!.hcoNumber);
+                                                                  return DialogueTemplate(
+                                                                    width: AppSize.s420,
+                                                                    height: 250,
+                                                                    body: [
+                                                                      FirstSMTextFConst(
+                                                                        controller:
+                                                                        hcoNumControllerPrefill,
+                                                                        keyboardType:
+                                                                        TextInputType
+                                                                            .text,
+                                                                        text:
+                                                                        'HCO Number',
+                                                                      ),
+                                                                    ],
+                                                                    bottomButtons: CustomElevatedButton(
+                                                                        width: AppSize
+                                                                            .s105,
+                                                                        height:
+                                                                        AppSize
+                                                                            .s30,
+                                                                        text: AppStringEM
+                                                                            .save, //submit
+                                                                        onPressed:
+                                                                            () async {
+                                                                          await updateServices(
+                                                                              serviceDetail
+                                                                                  .officeServiceId,
+                                                                              widget
+                                                                                  .officeId,
+                                                                              serviceDetail
+                                                                                  .serviceName,
+                                                                              serviceDetail
+                                                                                  .serviceId,
+                                                                              serviceDetail
+                                                                                  .npiNum,
+                                                                              serviceDetail
+                                                                                  .medicareNum,
+                                                                              hcoNumber == hcoNumControllerPrefill
+                                                                                  .text ? hcoNumber : hcoNumControllerPrefill.text);
+                                                                          hcoNumControllerPrefill
+                                                                              .clear();
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                          showDialog(
+                                                                            context: context,
+                                                                            builder: (BuildContext context) {
+                                                                              return AddSuccessPopup(
+                                                                                message: 'Service edited successfully.',
+                                                                              );
+                                                                            },
+                                                                          );
 
-                                                                      }),
-                                                              title:
-                                                                  'Edit Service',
+                                                                        }),
+                                                                    title:
+                                                                    'Edit Service',
+                                                                  );
+                                                                }
                                                             );
                                                           });
                                                     },
@@ -435,7 +448,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           horizontal: 20),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             'HCO Number :',
@@ -463,7 +476,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           horizontal: 20),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             'Medicare ID :',
@@ -491,7 +504,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           horizontal: 20),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             'NPI Number :',
@@ -566,7 +579,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.symmetric(vertical: AppPadding.p20),
+                    const EdgeInsets.symmetric(vertical: AppPadding.p20),
                     child: Row(
                       children: [
                         Text(
@@ -634,7 +647,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               onSuggestionSelected: (selectedSuggestion) {
                                 // Handle the selected suggestion here
                                 print("Selected suggestion: $selectedSuggestion");
-                              },
+                              }, onChanged: (String ) {  },
                             ),
                           ],
                         ),
@@ -721,8 +734,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                           Text(
                             'Services',
                             style:
-                                CompanyIdentityManageHeadings.customTextStyle(
-                                    context),
+                            CompanyIdentityManageHeadings.customTextStyle(
+                                context),
                           ),
                           const SizedBox(height: AppSize.s10),
                           Container(
@@ -763,6 +776,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               "",
                               stateNameController.text,
                               countryNameController.text);
+
+                          widget.updateOfficeName(nameController.text);
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -796,9 +811,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
 
 class AddressInput extends StatefulWidget {
   final TextEditingController controller;
-  final Function(String)? onSuggestionSelected; // Callback to notify parent
+  final Function(String)? onSuggestionSelected;
+  final Function(String) onChanged;// Callback to notify parent
 
-  AddressInput({required this.controller, this.onSuggestionSelected});
+  AddressInput({required this.controller, this.onSuggestionSelected, required this.onChanged});
 
   @override
   _AddressInputState createState() => _AddressInputState();
@@ -806,6 +822,7 @@ class AddressInput extends StatefulWidget {
 
 class _AddressInputState extends State<AddressInput> {
   List<String> _suggestions = [];
+  OverlayEntry? _overlayEntry;
 
   @override
   void initState() {
@@ -816,15 +833,15 @@ class _AddressInputState extends State<AddressInput> {
   @override
   void dispose() {
     widget.controller.removeListener(_onCountyNameChanged);
+    _removeOverlay();
     super.dispose();
   }
 
   void _onCountyNameChanged() async {
     final query = widget.controller.text;
     if (query.isEmpty) {
-      setState(() {
-        _suggestions.clear();
-      });
+      _suggestions.clear();
+      _removeOverlay();
       return;
     }
 
@@ -832,62 +849,230 @@ class _AddressInputState extends State<AddressInput> {
     setState(() {
       _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
     });
+    _showOverlay();
+  }
+
+  void _showOverlay() {
+    _removeOverlay();
+
+    if (_suggestions.isEmpty) return;
+
+    final overlay = Overlay.of(context);
+    final renderBox = context.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero);
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Stack(
+          children:[
+            GestureDetector(
+              onTap: _removeOverlay,
+              child: Container(
+                color: Colors.transparent, // Make this transparent so it's invisible
+              ),
+            ),Positioned(
+              left: position.dx,
+              top: position.dy + renderBox.size.height,
+              width: 354,
+              child: Material(
+                elevation: 4.0,
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: _suggestions.length > 5 ? 80.0 : double.infinity,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: _suggestions.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            _suggestions[index],
+                            style: TableSubHeading.customTextStyle(context),
+                          ),
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            widget.controller.text = _suggestions[index];
+                            _suggestions.clear();
+                            _removeOverlay();
+
+                            // Call the callback with the selected suggestion
+                            if (widget.onSuggestionSelected != null) {
+                              widget.onSuggestionSelected!(_suggestions[index]);
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ]),
+    );
+
+    overlay.insert(_overlayEntry!);
+  }
+
+  void _removeOverlay() {
+    if (_overlayEntry != null) {
+      _overlayEntry!.remove();
+      _overlayEntry = null;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return   Column(
       children: [
         SMTextFConst(
           controller: widget.controller,
-          keyboardType: TextInputType.text,
-          text: AppStringEM.address,
+          keyboardType: TextInputType.streetAddress,
+          text:'Address',
         ),
-        if (_suggestions.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(top:50),
-            child: Container(
-              height: 60,
-              width: 320,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 4,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: _suggestions.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                      _suggestions[index],
-                      style: AllPopupHeadings.customTextStyle(context),
-                    ),
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      widget.controller.text = _suggestions[index];
-                      setState(() {
-                        _suggestions.clear();
-                      });
-                      // Call the callback with the selected suggestion
-                      if (widget.onSuggestionSelected != null) {
-                        widget.onSuggestionSelected!(_suggestions[index]);
-                      }
-                    },
-                  );
-                },
-              ),
-            ),
-          ),
+        // Row(
+        //   children: [
+        //     Text(
+        //       'Address',
+        //       style:AllPopupHeadings.customTextStyle(context),
+        //     ),
+        //   ],
+        // ),
+        // SizedBox(
+        //     height:
+        //     MediaQuery.of(context).size.height / 60),
+        // CustomTextFieldRegister(
+        //   controller: widget.controller,
+        //   hintText: 'Enter Address',
+        //   hintStyle: onlyFormDataStyle.customTextStyle(context),
+        //   validator: (value) {
+        //     if (value == null || value.isEmpty) {
+        //       return 'Please enter some text';
+        //     }
+        //     return null;
+        //   },
+        //   height: 32,
+        //   onChanged: widget.onChanged,
+        // ),
+
       ],
     );
   }
 }
 
+
+
+
+
+
+//////////////
+///////
+// class AddressInput extends StatefulWidget {
+//   final TextEditingController controller;
+//   final Function(String)? onSuggestionSelected; // Callback to notify parent
+//
+//   AddressInput({required this.controller, this.onSuggestionSelected});
+//
+//   @override
+//   _AddressInputState createState() => _AddressInputState();
+// }
+//
+// class _AddressInputState extends State<AddressInput> {
+//   List<String> _suggestions = [];
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     widget.controller.addListener(_onCountyNameChanged);
+//   }
+//
+//   @override
+//   void dispose() {
+//     widget.controller.removeListener(_onCountyNameChanged);
+//     super.dispose();
+//   }
+//
+//   void _onCountyNameChanged() async {
+//     final query = widget.controller.text;
+//     if (query.isEmpty) {
+//       setState(() {
+//         _suggestions.clear();
+//       });
+//       return;
+//     }
+//
+//     final suggestions = await fetchSuggestions(query);
+//     setState(() {
+//       _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: [
+//         SMTextFConst(
+//           controller: widget.controller,
+//           keyboardType: TextInputType.text,
+//           text: AppStringEM.address,
+//         ),
+//         if (_suggestions.isNotEmpty)
+//           Padding(
+//             padding: const EdgeInsets.only(top:50),
+//             child: Container(
+//               height: 60,
+//               width: 320,
+//               decoration: BoxDecoration(
+//                 color: Colors.white,
+//                 borderRadius: BorderRadius.circular(8),
+//                 boxShadow: [
+//                   BoxShadow(
+//                     color: Colors.black26,
+//                     blurRadius: 4,
+//                     offset: Offset(0, 2),
+//                   ),
+//                 ],
+//               ),
+//               child: ListView.builder(
+//                 shrinkWrap: true,
+//                 itemCount: _suggestions.length,
+//                 itemBuilder: (context, index) {
+//                   return ListTile(
+//                     title: Text(
+//                       _suggestions[index],
+//                       style: TableSubHeading.customTextStyle(context),
+//                     ),
+//                     onTap: () {
+//                       FocusScope.of(context).unfocus();
+//                       widget.controller.text = _suggestions[index];
+//                       setState(() {
+//                         _suggestions.clear();
+//                       });
+//                       // Call the callback with the selected suggestion
+//                       if (widget.onSuggestionSelected != null) {
+//                         widget.onSuggestionSelected!(_suggestions[index]);
+//                       }
+//                     },
+//                   );
+//                 },
+//               ),
+//             ),
+//           ),
+//       ],
+//     );
+//   }
+// }
+//
 

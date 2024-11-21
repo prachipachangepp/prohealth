@@ -331,7 +331,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                       officeId: widget.officeId,
                                       docTypeMetaIdCC: docTypeMetaIdVC,
                                       selectedSubDocId: selectedSubDocId,
-                                      dataList: snapshot.data!,
+                                      dataList: snapshot.data!, 
+                                      docTypeText:AppStringEM.vendorContracts,
+                                      subDocTypeText: getSubDocTypeTextVC(selectedSubDocId),
                                     );
                                   } else {
                                     return ErrorPopUp(

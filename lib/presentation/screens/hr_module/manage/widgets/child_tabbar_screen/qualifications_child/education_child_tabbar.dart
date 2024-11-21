@@ -15,6 +15,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 
@@ -44,6 +45,62 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
 
     super.initState();
   }
+
+  String _trimAddress(String address) {
+    const int maxLength = 22;
+    if (address.length > maxLength) {
+      return '${address.substring(0, maxLength)}...';
+    }
+    return address;
+  }
+
+  OverlayEntry? _overlayEntry;
+  final LayerLink _layerLink = LayerLink();
+  bool _isOverlayVisible = false;
+
+  OverlayEntry _createOverlayEntry(BuildContext context, Offset position, String text) {
+    return OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          left: position.dx,
+          top: position.dy,
+          child: Material(
+            elevation: 8.0,
+            child: Container(
+              width: 150,
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                text,
+                style: ThemeManagerDarkFont.customTextStyle(context)
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+  // Show overlay
+  void _showOverlay(BuildContext context, Offset position, String text) {
+    if (_isOverlayVisible) return;
+
+    _overlayEntry = _createOverlayEntry(context, position, text);
+    Overlay.of(context)?.insert(_overlayEntry!);
+    _isOverlayVisible = true;
+  }
+
+  // Remove overlay
+  void _removeOverlay() {
+    if (_overlayEntry != null && _isOverlayVisible) {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+      _isOverlayVisible = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -59,6 +116,14 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   text: AppStringHr.add,
                   icon: Icons.add,
                   onPressed: () {
+                    collegeUniversityController.clear();
+                    phoneController.clear();
+                    calenderController.clear();
+                    cityController.clear();
+                    degreeController.clear();
+                    stateController.clear();
+                    majorSubjectController.clear();
+                    countryNameController.clear();
                     showDialog(
                         context: context,
                         builder: (context) {
@@ -70,10 +135,8 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                             cityController: cityController,
                             degreeController: degreeController,
                             stateController: stateController,
-                            majorSubjectController:
-                            majorSubjectController,
-                            countryNameController:
-                            countryNameController,
+                            majorSubjectController: majorSubjectController,
+                            countryNameController: countryNameController,
                             onpressedClose: () {
 
                             },
@@ -171,10 +234,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                     padding:const EdgeInsets.symmetric(vertical: 100),
                     child: Text(
                       AppStringHRNoData.educationNoData,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey),
+                      style: AllNoDataAvailable.customTextStyle(context),
                     ),
                   ));
             }
@@ -197,16 +257,59 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                           style: ThemeManagerDark.customTextStyle(context)),
                     ],
                     row1Child2: [
-                      Text(snapshot.data![index].degree,
+                      MouseRegion(
+                        onHover: (event){
+                          _showOverlay(context, event.position, snapshot.data![index].degree ?? '--');
+                        },
+                        onExit: (_) {
+                          // Remove overlay when the cursor exits the widget
+                          _removeOverlay();
+                        },
+                        child: CompositedTransformTarget(link: _layerLink,
+                          child: Text(
+                            _trimAddress(snapshot.data![index].degree ?? '--'),
+                            style: ThemeManagerDarkFont.customTextStyle(context),
+                          ),),
+                      ),
+                      // Text(snapshot.data![index].degree,
+                      //   style: ThemeManagerDarkFont.customTextStyle(context),),
+                      const SizedBox(height: AppSize.s10,),
+                      Text(_trimAddress(snapshot.data![index].graduate),
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                       const SizedBox(height: AppSize.s10,),
-                      Text(snapshot.data![index].graduate,
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: AppSize.s10,),
-                      Text(snapshot.data![index].college,
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
+                     MouseRegion(
+                      onHover: (event){
+                        _showOverlay(context, event.position, snapshot.data![index].college ?? '--');
+                      },
+                      onExit: (_) {
+                        // Remove overlay when the cursor exits the widget
+                        _removeOverlay();
+                      },
+                      child: CompositedTransformTarget(link: _layerLink,
+                      child: Text(
+                            _trimAddress(snapshot.data![index].college ?? '--'),
+                            style: ThemeManagerDarkFont.customTextStyle(context),
+                          ),),
+                    ),
+                    // MouseRegion(
+                    //   onEnter: (event) {
+                    //     RenderBox box = context.findRenderObject() as RenderBox;
+                    //     Offset position = box.localToGlobal(Offset.zero);
+                    //     _showOverlayAddress(context, position, snapshot.data![index].college ?? '--');
+                    //   },
+                    //   onExit: (_) {
+                    //     _removeOverlayAddress();
+                    //   },
+                    //   child: Text(
+                    //     _trimAddress(snapshot.data![index].college ?? '--'),
+                    //     style: ThemeManagerDarkFont.customTextStyle(context),
+                    //   ),
+                    // ),
+                    ///plain text
+                    // Text(_trimAddress(snapshot.data![index].college),
+                    //     style: ThemeManagerDarkFont.customTextStyle(context),),
                       const SizedBox(height: AppSize.s10),
-                      Text(snapshot.data![index].major,
+                      Text(_trimAddress(snapshot.data![index].major),
                         style: ThemeManagerDarkFont.customTextStyle(context),),
                     ],
                     row2Child1: [
@@ -237,11 +340,11 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                     ],
                     button: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [snapshot.data![index].approved == null ? Text('',style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width/120,
-                        color: ColorManager.mediumgrey,
-                        fontWeight: FontWeight.w600,
-                      )):
+                      children: [
+                        snapshot.data![index].approved == null ?
+                        SizedBox(
+                          height: 25,
+                        ):
                       BorderIconButton(iconData: Icons.edit_outlined,
                           buttonText: 'Edit', onPressed: (){
                             showDialog(context: context, builder: (BuildContext context){
@@ -357,228 +460,6 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                           })
                       ],
                     )),);
-                //   Padding(
-                //   padding:const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
-                //   child: Container(
-                //     width: MediaQuery.of(context).size.width/2.5,
-                //     padding: EdgeInsets.all(10),
-                //     decoration: BoxDecoration(
-                //       boxShadow: [
-                //         BoxShadow(
-                //           color: Colors.grey.withOpacity(0.5),
-                //           spreadRadius: 1,
-                //           blurRadius: 4,
-                //           offset: Offset(0, 4),
-                //         ),
-                //       ],
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.all(Radius.circular(12)),
-                //     ),
-                //     // height:  MediaQuery.of(context).size.height/3.3,
-                //     height: MediaQuery.of(context).size.height/3.8,
-                //     child: Padding(
-                //       padding: EdgeInsets.symmetric(
-                //         horizontal: MediaQuery.of(context).size.width / 120,
-                //         vertical: MediaQuery.of(context).size.height / 120,
-                //       ),
-                //       child: Column(
-                //         mainAxisAlignment: MainAxisAlignment.start,
-                //         children: [
-                //            Row(children: [
-                //              Text(
-                //
-                //                'Education #${index + 1}',
-                //                // 'Education #${snapshot.data![index].educationId}',
-                //                style: BoxHeadingStyle.customTextStyle(context)),
-                //           ],),
-                //           SizedBox(height: MediaQuery.of(context).size.height/50,),
-                //           Row(
-                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //             children: [
-                //               Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text('Degree :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: AppSize.s10,),
-                //                   Text('Graduate :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: AppSize.s10),
-                //                   Text('Educational Institute :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: AppSize.s10),
-                //                   Text('Major Subject :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                 ],
-                //               ),
-                //               Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text(snapshot.data![index].degree,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: AppSize.s10,),
-                //                   Text(snapshot.data![index].graduate,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: AppSize.s10,),
-                //                   Text(snapshot.data![index].college,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: AppSize.s10),
-                //                   Text(snapshot.data![index].major,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                 ],
-                //               ),
-                //               Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 mainAxisAlignment: MainAxisAlignment.start,
-                //                 children: [
-                //                   Text('Phone :',
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: AppSize.s10,),
-                //                   Text("City :",
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: AppSize.s10),
-                //                   Text("State :",
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                   const SizedBox(height: AppSize.s10),
-                //                   Text("Country :",
-                //                       style: ThemeManagerDark.customTextStyle(context)),
-                //                 ],
-                //               ),
-                //               Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text(snapshot.data![index].phone,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: AppSize.s10),
-                //                   Text(snapshot.data![index].city,
-                //                     style: ThemeManagerDarkFont.customTextStyle(context),),
-                //                   const SizedBox(height: AppSize.s10),
-                //                   Text(snapshot.data![index].state,
-                //                       style: ThemeManagerDarkFont.customTextStyle(context)),
-                //                   const SizedBox(height: AppSize.s10),
-                //                   Text(snapshot.data![index].country,
-                //                       style: ThemeManagerDarkFont.customTextStyle(context)),
-                //                 ],
-                //               ),
-                //             ],
-                //           ),
-                //           SizedBox(height: MediaQuery.of(context).size.height/40,),
-                //           Row(
-                //             mainAxisAlignment: MainAxisAlignment.end,
-                //             children: [snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(
-                //               fontSize: MediaQuery.of(context).size.width/120,
-                //               color: ColorManager.mediumgrey,
-                //               fontWeight: FontWeight.w600,
-                //             )):
-                //             BorderIconButton(iconData: Icons.edit_outlined,
-                //                   buttonText: 'Edit', onPressed: (){
-                //                 showDialog(context: context, builder: (BuildContext context){
-                //                   return FutureBuilder<EducationPrefillData>(
-                //                     future: getPrefillEmployeeEducation(context,snapshot.data![index].educationId),
-                //                     builder: (context, snapshotPrefill) {
-                //                       if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                //                         return Center(
-                //                           child: CircularProgressIndicator(
-                //                             color: ColorManager.blueprime,
-                //                           ),
-                //                         );
-                //                       }
-                //                       var college = snapshotPrefill.data!.college;
-                //                       collegeUniversityController = TextEditingController(text: snapshotPrefill.data!.college);
-                //
-                //                       var phone = snapshotPrefill.data!.phone;
-                //                       phoneController = TextEditingController(text: snapshotPrefill.data!.phone);
-                //
-                //                       var city = snapshotPrefill.data!.city;
-                //                       cityController = TextEditingController(text: snapshotPrefill.data!.city);
-                //
-                //                       var degree = snapshotPrefill.data!.degree;
-                //                       degreeController = TextEditingController(text: snapshotPrefill.data!.degree);
-                //
-                //                       var state = snapshotPrefill.data!.state;
-                //                       stateController = TextEditingController(text: snapshotPrefill.data!.state);
-                //
-                //                       var majorSubject = snapshotPrefill.data!.major;
-                //                       majorSubjectController = TextEditingController(text: snapshotPrefill.data!.major);
-                //
-                //                       var graduate = snapshotPrefill.data!.graduate;
-                //                       expiryType = snapshotPrefill.data!.graduate.toString();
-                //
-                //                       var country = snapshotPrefill.data!.country;
-                //                       countryNameController = TextEditingController(text: snapshotPrefill.data!.country);
-                //
-                //                       var startDate = snapshotPrefill.data!.startDate;
-                //                       calenderController = TextEditingController(text: snapshotPrefill.data!.startDate);
-                //                       //countryNameController = TextEditingController(text: "")
-                //
-                //                       return StatefulBuilder(
-                //                         builder: (BuildContext context, void Function(void Function()) setState) {
-                //                           return  AddEducationPopup(collegeUniversityController: collegeUniversityController,
-                //                             phoneController: phoneController,
-                //                             calenderController: calenderController, cityController: cityController,
-                //                             degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
-                //                             countryNameController: countryNameController, onpressedClose: (){
-                //                               Navigator.pop(context);
-                //                             }, onpressedSave: () async{
-                //                               await updateEmployeeEducation(context,
-                //                                   snapshot.data![index].educationId,
-                //                                   widget.employeeId,
-                //                                  graduate == expiryType.toString() ? graduate.toString() : expiryType.toString(),
-                //                                   degree == degreeController.text ? degree.toString() : degreeController.text,
-                //                                  majorSubject == majorSubjectController.text ? majorSubject.toString() : majorSubjectController.text,
-                //                                   city == cityController.text ? city.toString() : cityController.text,
-                //                                   college == collegeUniversityController.text ? college.toString() : collegeUniversityController.text,
-                //                                   phone == phoneController.text ? phone.toString() : phoneController.text,
-                //                                   state == stateController.text ? state.toString() : stateController.text,
-                //                                   country == countryNameController.text ?  country.toString() : countryNameController.text,
-                //                                   startDate == calenderController.text ? startDate : calenderController.text,
-                //                                   );
-                //                               expiryType = '';
-                //                             },
-                //                             radioButton:Container(
-                //                               width: AppSize.s280,
-                //                               child: Row(
-                //                                 children: [
-                //                                   Expanded(
-                //                                     child: CustomRadioListTile(
-                //                                       value: "Yes",
-                //                                       groupValue: expiryType.toString(),
-                //                                       onChanged: (value) {
-                //                                         setState(() {
-                //                                           expiryType = value!;
-                //                                         });
-                //                                       },
-                //                                       title: "Yes",
-                //                                     ),
-                //                                   ),
-                //                                   Expanded(
-                //                                     child: CustomRadioListTile(
-                //                                       value: "No",
-                //                                       groupValue: expiryType.toString(),
-                //                                       onChanged: (value) {
-                //                                         setState(() {
-                //                                           expiryType = value!;
-                //                                         });
-                //                                       },
-                //                                       title: "No",
-                //                                     ),
-                //                                   ),
-                //                                 ],
-                //                               ),
-                //                             ), title: 'Edit Education',);
-                //                         },
-                //                       );
-                //                     }
-                //                   );
-                //                 });
-                //                   })
-                //             ],
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // );
               }));
             }else{
               return SizedBox();
@@ -591,3 +472,226 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
 
   }
 }
+
+//   Padding(
+//   padding:const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+//   child: Container(
+//     width: MediaQuery.of(context).size.width/2.5,
+//     padding: EdgeInsets.all(10),
+//     decoration: BoxDecoration(
+//       boxShadow: [
+//         BoxShadow(
+//           color: Colors.grey.withOpacity(0.5),
+//           spreadRadius: 1,
+//           blurRadius: 4,
+//           offset: Offset(0, 4),
+//         ),
+//       ],
+//       color: Colors.white,
+//       borderRadius: BorderRadius.all(Radius.circular(12)),
+//     ),
+//     // height:  MediaQuery.of(context).size.height/3.3,
+//     height: MediaQuery.of(context).size.height/3.8,
+//     child: Padding(
+//       padding: EdgeInsets.symmetric(
+//         horizontal: MediaQuery.of(context).size.width / 120,
+//         vertical: MediaQuery.of(context).size.height / 120,
+//       ),
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.start,
+//         children: [
+//            Row(children: [
+//              Text(
+//
+//                'Education #${index + 1}',
+//                // 'Education #${snapshot.data![index].educationId}',
+//                style: BoxHeadingStyle.customTextStyle(context)),
+//           ],),
+//           SizedBox(height: MediaQuery.of(context).size.height/50,),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text('Degree :',
+//                       style: ThemeManagerDark.customTextStyle(context)),
+//                   const SizedBox(height: AppSize.s10,),
+//                   Text('Graduate :',
+//                       style: ThemeManagerDark.customTextStyle(context)),
+//                   const SizedBox(height: AppSize.s10),
+//                   Text('Educational Institute :',
+//                       style: ThemeManagerDark.customTextStyle(context)),
+//                   const SizedBox(height: AppSize.s10),
+//                   Text('Major Subject :',
+//                       style: ThemeManagerDark.customTextStyle(context)),
+//                 ],
+//               ),
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(snapshot.data![index].degree,
+//                     style: ThemeManagerDarkFont.customTextStyle(context),),
+//                   const SizedBox(height: AppSize.s10,),
+//                   Text(snapshot.data![index].graduate,
+//                     style: ThemeManagerDarkFont.customTextStyle(context),),
+//                   const SizedBox(height: AppSize.s10,),
+//                   Text(snapshot.data![index].college,
+//                     style: ThemeManagerDarkFont.customTextStyle(context),),
+//                   const SizedBox(height: AppSize.s10),
+//                   Text(snapshot.data![index].major,
+//                     style: ThemeManagerDarkFont.customTextStyle(context),),
+//                 ],
+//               ),
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 mainAxisAlignment: MainAxisAlignment.start,
+//                 children: [
+//                   Text('Phone :',
+//                       style: ThemeManagerDark.customTextStyle(context)),
+//                   const SizedBox(height: AppSize.s10,),
+//                   Text("City :",
+//                       style: ThemeManagerDark.customTextStyle(context)),
+//                   const SizedBox(height: AppSize.s10),
+//                   Text("State :",
+//                       style: ThemeManagerDark.customTextStyle(context)),
+//                   const SizedBox(height: AppSize.s10),
+//                   Text("Country :",
+//                       style: ThemeManagerDark.customTextStyle(context)),
+//                 ],
+//               ),
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(snapshot.data![index].phone,
+//                     style: ThemeManagerDarkFont.customTextStyle(context),),
+//                   const SizedBox(height: AppSize.s10),
+//                   Text(snapshot.data![index].city,
+//                     style: ThemeManagerDarkFont.customTextStyle(context),),
+//                   const SizedBox(height: AppSize.s10),
+//                   Text(snapshot.data![index].state,
+//                       style: ThemeManagerDarkFont.customTextStyle(context)),
+//                   const SizedBox(height: AppSize.s10),
+//                   Text(snapshot.data![index].country,
+//                       style: ThemeManagerDarkFont.customTextStyle(context)),
+//                 ],
+//               ),
+//             ],
+//           ),
+//           SizedBox(height: MediaQuery.of(context).size.height/40,),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.end,
+//             children: [snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(
+//               fontSize: MediaQuery.of(context).size.width/120,
+//               color: ColorManager.mediumgrey,
+//               fontWeight: FontWeight.w600,
+//             )):
+//             BorderIconButton(iconData: Icons.edit_outlined,
+//                   buttonText: 'Edit', onPressed: (){
+//                 showDialog(context: context, builder: (BuildContext context){
+//                   return FutureBuilder<EducationPrefillData>(
+//                     future: getPrefillEmployeeEducation(context,snapshot.data![index].educationId),
+//                     builder: (context, snapshotPrefill) {
+//                       if(snapshotPrefill.connectionState == ConnectionState.waiting){
+//                         return Center(
+//                           child: CircularProgressIndicator(
+//                             color: ColorManager.blueprime,
+//                           ),
+//                         );
+//                       }
+//                       var college = snapshotPrefill.data!.college;
+//                       collegeUniversityController = TextEditingController(text: snapshotPrefill.data!.college);
+//
+//                       var phone = snapshotPrefill.data!.phone;
+//                       phoneController = TextEditingController(text: snapshotPrefill.data!.phone);
+//
+//                       var city = snapshotPrefill.data!.city;
+//                       cityController = TextEditingController(text: snapshotPrefill.data!.city);
+//
+//                       var degree = snapshotPrefill.data!.degree;
+//                       degreeController = TextEditingController(text: snapshotPrefill.data!.degree);
+//
+//                       var state = snapshotPrefill.data!.state;
+//                       stateController = TextEditingController(text: snapshotPrefill.data!.state);
+//
+//                       var majorSubject = snapshotPrefill.data!.major;
+//                       majorSubjectController = TextEditingController(text: snapshotPrefill.data!.major);
+//
+//                       var graduate = snapshotPrefill.data!.graduate;
+//                       expiryType = snapshotPrefill.data!.graduate.toString();
+//
+//                       var country = snapshotPrefill.data!.country;
+//                       countryNameController = TextEditingController(text: snapshotPrefill.data!.country);
+//
+//                       var startDate = snapshotPrefill.data!.startDate;
+//                       calenderController = TextEditingController(text: snapshotPrefill.data!.startDate);
+//                       //countryNameController = TextEditingController(text: "")
+//
+//                       return StatefulBuilder(
+//                         builder: (BuildContext context, void Function(void Function()) setState) {
+//                           return  AddEducationPopup(collegeUniversityController: collegeUniversityController,
+//                             phoneController: phoneController,
+//                             calenderController: calenderController, cityController: cityController,
+//                             degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
+//                             countryNameController: countryNameController, onpressedClose: (){
+//                               Navigator.pop(context);
+//                             }, onpressedSave: () async{
+//                               await updateEmployeeEducation(context,
+//                                   snapshot.data![index].educationId,
+//                                   widget.employeeId,
+//                                  graduate == expiryType.toString() ? graduate.toString() : expiryType.toString(),
+//                                   degree == degreeController.text ? degree.toString() : degreeController.text,
+//                                  majorSubject == majorSubjectController.text ? majorSubject.toString() : majorSubjectController.text,
+//                                   city == cityController.text ? city.toString() : cityController.text,
+//                                   college == collegeUniversityController.text ? college.toString() : collegeUniversityController.text,
+//                                   phone == phoneController.text ? phone.toString() : phoneController.text,
+//                                   state == stateController.text ? state.toString() : stateController.text,
+//                                   country == countryNameController.text ?  country.toString() : countryNameController.text,
+//                                   startDate == calenderController.text ? startDate : calenderController.text,
+//                                   );
+//                               expiryType = '';
+//                             },
+//                             radioButton:Container(
+//                               width: AppSize.s280,
+//                               child: Row(
+//                                 children: [
+//                                   Expanded(
+//                                     child: CustomRadioListTile(
+//                                       value: "Yes",
+//                                       groupValue: expiryType.toString(),
+//                                       onChanged: (value) {
+//                                         setState(() {
+//                                           expiryType = value!;
+//                                         });
+//                                       },
+//                                       title: "Yes",
+//                                     ),
+//                                   ),
+//                                   Expanded(
+//                                     child: CustomRadioListTile(
+//                                       value: "No",
+//                                       groupValue: expiryType.toString(),
+//                                       onChanged: (value) {
+//                                         setState(() {
+//                                           expiryType = value!;
+//                                         });
+//                                       },
+//                                       title: "No",
+//                                     ),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ), title: 'Edit Education',);
+//                         },
+//                       );
+//                     }
+//                   );
+//                 });
+//                   })
+//             ],
+//           )
+//         ],
+//       ),
+//     ),
+//   ),
+// );

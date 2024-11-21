@@ -30,6 +30,7 @@ class ColorManager {
   static Color whiteGrey = Color(0xFFF0F0F0);
   static Color darkgrey = Color(0xFF565656);
   static Color faintOrange = Color(0xffF6928A);
+  static Color EfaintOrange = Color(0xffF6928A).withOpacity(0.5);
   static Color sfaintOrange = Color(0xffE8A87D);
   static Color greenDark = Color(0xff008000);
   static Color greenF = Color(0xff52A889);

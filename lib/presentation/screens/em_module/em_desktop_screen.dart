@@ -420,9 +420,9 @@ class EMDesktopScreen extends StatelessWidget {
                                                   : myController.selectedIndex.value == 4
                                                       ? 'Employee Documents'
                                                       : myController.selectedIndex.value == 5
-                                                          ? 'Finance'
+                                                          ? 'Pay Rates'
                                                             : myController.selectedIndex.value == 9
-                                                            ? 'Org Document'
+                                                            ? 'Document Defination'
                                                                : 'Select a Module',
                               onChanged: (newValue) {},
                             ),

@@ -422,7 +422,8 @@ Future<List<MCorporateComplianceModal>> getListMCorporateCompliancefetch(
             companyId: companyId,
             officeId: item['office_id'] ?? '',
             docName: item['doc_name'] ?? '',
-            docHistory: item['docHistory'] ?? [], // Parse docHistory here
+            docHistory: item['docHistory'] ?? [],
+            isOthersDocs: item['isOthersDocs'] ?? false,
           ),
         );
       }
@@ -608,19 +609,21 @@ Future<MCorporateCompliancePreFillModal> getPrefillNewOrgOfficeDocument(
       // print("Document type Response:::::${itemsList}");
       itemsList = MCorporateCompliancePreFillModal(
         fileName: response.data['file_name'],
+        orgOfficeDocumentId: response.data['orgOfficeDocumentId'],
         documentSetupId: response.data['orgDocumentSetupid'],
         idOfDocument: response.data['idOfDocument'] ?? "",
         expiry_date: response.data['expiry_date'] ?? "",
         doc_created_at: response.data['doc_created_at'] ?? "",
-        companyId: companyId,
         url: response.data['url'] ?? "",
+        companyId: companyId,
         officeId: response.data['office_id'],
-        threshould: response.data['threshold'] ?? 0,
-        expType: response.data['expiry_type'] ?? "",
-        docName: response.data['doc_name'] ?? '',
-        docSubTypeId: response.data['document_subtype_id'],
         docTypeId: response.data['document_type_id'],
-        orgOfficeDocumentId: response.data['orgOfficeDocumentId'],
+        docSubTypeId: response.data['document_subtype_id'],
+        docName: response.data['doc_name'] ?? '',
+        expType: response.data['expiry_type'] ?? "",
+        threshould: response.data['threshold'] ?? 0,
+        isOthersDocs: response.data['isOthersDocs'] ?? false,
+
       );
     } else {
       print('Api Error');
@@ -666,11 +669,143 @@ Future<ApiData> deleteOrgDoc({
   }
 }
 
-class dd extends StatelessWidget {
-  const dd({super.key});
+///org-office-document/others/add (manage-> documents -> for other change)
+Future<ApiData> addOtherOfficeDocPost({
+  required BuildContext context,
+  required int docTypeid,
+  required int docSubTypeid,
+  required String documentName,
+  required String expiryType,
+  required int threshold,
+  required String? expiryDate,
+  required String expiryReminder,
+  required String idOfDoc,
+  required String docCreated,
+  required String fileName,
+  required String url,
+  required String officeId,
+}) async {
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var data =
+    {
+      "document_type_id": docTypeid,
+      "document_subtype_id": docSubTypeid,
+      "doc_name": documentName,
+      "expiry_type": expiryType,
+      "threshold": threshold,
+      "expiry_date": expiryDate,
+      "expiry_reminder": expiryReminder,
+      "company_id": companyId,
+      "idOfDocument": idOfDoc,
+      "doc_created_at": docCreated,
+      "url": url,
+      "office_id": officeId,
+      "file_name": fileName
+    };
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+    // if (expiryDate != null && expiryDate.isNotEmpty) {
+    //   data['expiry_Date'] = "${expiryDate}";
+    // } else {
+    //   data.remove('expiryDate');
+    // }
+
+    print('New Other Document $data');
+    var response = await Api(context)
+        .post(path: EstablishmentManagerRepository.addOtherDoc(), data: data);
+    print('New other Doc Post::::$response ');
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("New other Doc addded ");
+      var responseData = response.data;
+
+      var docOfficeID = responseData["orgOfficeDocumentId"];
+      print("Post other doc addded ");
+      return ApiData(
+          orgOfficeDocumentId: docOfficeID,
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Made by saloni patch others
+Future<ApiData> updateOtherDoc({
+  required BuildContext context,
+  required int orgOfficeDocumentId,
+  required int orgDocumentSetupid,
+  required int docTypeID,
+  required int docSubTypeID,
+  required String docName,
+  required String expiryType,
+  required int threshold,
+  required String? expiryDate,
+  required String expiryReminder,
+  required String idOfDocument,
+  required String docCreatedat,
+  required String url,
+  required String officeid,
+  required String fileName,
+ // required bool isOthersDocs,
+}) async {
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    // String formattedExpiryDate = DateFormat('yyyy-MM-dd').format(DateTime.parse(expiryDate));
+    var data = {
+  "orgDocumentSetupid": orgDocumentSetupid,
+  "document_type_id": docTypeID,
+  "document_subtype_id": docSubTypeID,
+  "doc_name": docName,
+  "expiry_type": expiryType,
+  "threshold": threshold,
+  "expiry_date": expiryDate,
+  "expiry_reminder": expiryReminder,
+  "company_id": companyId,
+  "idOfDocument": idOfDocument,
+  "doc_created_at": docCreatedat,
+  "url": url,
+  "office_id": officeid,
+  "file_name": fileName,
+  "isOthersDocs": true
+    };
+    print('patch other Doc $data');
+
+    var response = await Api(context).patch(
+        path: EstablishmentManagerRepository.patchOtherOrg(orgOfficeDocumentId: orgOfficeDocumentId),
+        data: data);
+    print('Patch Other ::::$response ');
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      var responseData = response.data;
+      var docOfficeID = responseData["orgOfficeDocumentId"];
+      print("Patch CCVCPP  Updated ");
+      return ApiData(
+          orgOfficeDocumentId: docOfficeID,
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1 Failed to patch");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

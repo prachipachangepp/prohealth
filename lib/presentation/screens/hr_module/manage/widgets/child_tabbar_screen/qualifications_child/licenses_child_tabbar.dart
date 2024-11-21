@@ -21,6 +21,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_but
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../data/api_data/hr_module_data/manage/qualification_licenses.dart';
 import '../../custom_icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
@@ -47,6 +48,60 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
   void initState() {
     // TODO: implement initState
     super.initState();
+  }
+
+  String _trimAddress(String address) {
+    const int maxLength = 35;
+    if (address.length > maxLength) {
+      return '${address.substring(0, maxLength)}...';
+    }
+    return address;
+  }
+
+  OverlayEntry? _overlayEntry;
+  final LayerLink _layerLink = LayerLink();
+  bool _isOverlayVisible = false;
+
+  OverlayEntry _createOverlayEntry(BuildContext context, Offset position, String text) {
+    return OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          left: position.dx,
+          top: position.dy,
+          child: Material(
+            elevation: 8.0,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                  text,
+                  style: ThemeManagerDarkFont.customTextStyle(context)
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+  // Show overlay
+  void _showOverlay(BuildContext context, Offset position, String text) {
+    if (_isOverlayVisible) return;
+
+    _overlayEntry = _createOverlayEntry(context, position, text);
+    Overlay.of(context)?.insert(_overlayEntry!);
+    _isOverlayVisible = true;
+  }
+
+  // Remove overlay
+  void _removeOverlay() {
+    if (_overlayEntry != null && _isOverlayVisible) {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+      _isOverlayVisible = false;
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -85,6 +140,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           ),
                         );
                       }
+                      docName = snapshot.data![0].docName;
                       return CICCDropdown(
                           width: 200,
                           initialValue: dropDownMenuItems[0].value,
@@ -115,6 +171,12 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                     text: AppStringHr.add,
                     icon: Icons.add,
                     onPressed: () {
+                      livensureController.clear();
+                      issueDateController.clear();
+                      expiryDateController.clear();
+                      issuingOrganizationController.clear();
+                      countryController.clear();
+                      numberIDController.clear();
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -241,10 +303,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                       padding: const EdgeInsets.symmetric(vertical: 100),
                       child: Text(
                         AppStringHRNoData.licenseNoData,
-                        style: CustomTextStylesCommon.commonStyle(
-                            fontWeight: FontWeightManager.medium,
-                            fontSize: FontSize.s14,
-                            color: ColorManager.mediumgrey),
+                        style: AllNoDataAvailable.customTextStyle(context),
                       ),
                     ));
               }
@@ -404,8 +463,21 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           Text(snapshot.data![index].licenure,
                             style: ThemeManagerDarkFont.customTextStyle(context),),
                           const SizedBox(height: 10,),
-                          Text(snapshot.data![index].org,
-                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                          MouseRegion(
+                            onHover: (event){
+                              _showOverlay(context, event.position, snapshot.data![index].org ?? '--');
+                            },
+                            onExit: (_) {
+                              _removeOverlay();
+                            },
+                            child: CompositedTransformTarget(link: _layerLink,
+                              child: Text(
+                                _trimAddress(snapshot.data![index].org ?? '--'),
+                                style: ThemeManagerDarkFont.customTextStyle(context),
+                              ),),
+                          ),
+                          // Text(_trimAddress(snapshot.data![index].org),
+                          //   style: ThemeManagerDarkFont.customTextStyle(context),),
                           const SizedBox(height: 10,),
                           Text(snapshot.data![index].country,
                             style: ThemeManagerDarkFont.customTextStyle(context),),

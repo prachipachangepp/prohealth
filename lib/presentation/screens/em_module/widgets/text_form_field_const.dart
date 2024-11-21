@@ -480,6 +480,7 @@ class FirstSMTextFConst extends StatefulWidget {
   final List<TextInputFormatter>? inputFormated;
   final bool showDatePicker;
   final Icon? suffixIcon;
+  final FocusNode? focusNode;
 
 
 
@@ -496,7 +497,7 @@ class FirstSMTextFConst extends StatefulWidget {
     this.enable,
     this.validator,
     this.prefixWidget,
-    this.showDatePicker = false, this.suffixIcon,
+    this.showDatePicker = false, this.suffixIcon, this.focusNode,
   }) : super(key: key);
 
   @override
@@ -545,6 +546,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                 keyboardType: widget.keyboardType,
                 cursorHeight: 17,
                 cursorColor: Colors.black,
+                focusNode: widget.focusNode,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   suffixIcon: widget.showDatePicker
@@ -558,7 +560,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(
                       bottom: 22,
-                      left: AppPadding.p15),
+                      left: AppPadding.p15, right: AppPadding.p10),
                 ),
                 style: TableSubHeading.customTextStyle(context),
                 //validator: widget.validator,

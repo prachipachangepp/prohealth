@@ -359,6 +359,17 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                   },
                 );
               }
+              if (response.statusCode == 413) {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddErrorPopup(
+                      message: 'Request entity to large!',
+                    );
+                  },
+                );
+              }
             } finally {
               setState(() {
                 load = false;

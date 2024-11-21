@@ -26,7 +26,9 @@ import '../../../widgets/text_form_field_const.dart';
 
 class WhitelabellingScreen extends StatefulWidget {
   final String officeId;
-  WhitelabellingScreen({super.key, required this.officeId});
+  final VoidCallback backButtonCallback;
+
+  WhitelabellingScreen({super.key, required this.officeId, required this.backButtonCallback});
 
   @override
   State<WhitelabellingScreen> createState() => _WhitelabellingScreenState();
@@ -66,6 +68,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
       StreamController<List<PlatformFile>>.broadcast();
   final StreamController<List<WhiteLabellingCompanyDetailModal>> _controller =
       StreamController<List<WhiteLabellingCompanyDetailModal>>();
+  bool showManageScreen = false;
+  bool showWhitelabellingScreen = true;
   @override
   void dispose() {
     _mobileFilesStreamController.close();
@@ -170,6 +174,13 @@ void fetchData()async{
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      onPressed: widget.backButtonCallback,
+                      icon: Icon(Icons.arrow_back_rounded, color: ColorManager.mediumgrey, size: IconSize.I16,
+                      )),
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: Text(

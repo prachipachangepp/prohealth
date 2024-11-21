@@ -67,6 +67,7 @@ class _generalFormState extends State<generalForm> {
   // Current step in the stepper
   int _currentStep = 0;
   bool isChecked = false;
+  bool isDobSelected = false;
   String? specialityName;
   String? clinicialName;
   bool get isFirstStep => _currentStep == 0;
@@ -93,7 +94,7 @@ class _generalFormState extends State<generalForm> {
   void initState() {
     super.initState();
     _initializeFormWithPrefilledData();
-    address.addListener(_onCountyNameChanged);
+   // address.addListener(_onCountyNameChanged);
   }
 
 
@@ -107,7 +108,24 @@ class _generalFormState extends State<generalForm> {
       var data = onlinkGeneralData; // Assuming index matches the data list
       setState(() {
         print("Inside function");
-       dobcontroller.text = data.dateOfBirth ?? '';
+
+        // If isDobSelected is false and the dateOfBirth is today's date, leave it empty
+        if (!isDobSelected && data.dateOfBirth != null) {
+          DateTime apiDob = DateTime.parse(data.dateOfBirth!); // Assuming data.dateOfBirth is a string
+          DateTime today = DateTime.now();
+
+          // Compare API's dateOfBirth with today's date
+          if (apiDob.year == today.year && apiDob.month == today.month && apiDob.day == today.day) {
+            // Do not populate DOB if the date is today's date
+            dobcontroller.text = '';  // Keep it empty
+          } else {
+            dobcontroller.text = data.dateOfBirth!;  // Otherwise, populate the date
+          }
+        }
+        // if (!isDobSelected && data.dateOfBirth != null && data.dateOfBirth.isNotEmpty) {
+        //   dobcontroller.text = data.dateOfBirth;  // Prefill with the formatted date
+        // }
+        //dobcontroller.text = data.dateOfBirth;
         firstname.text = data.firstName ?? '';
         lastname.text = data.lastName ?? '';
         ssecuritynumber.text = data.SSNNbr ?? '';
@@ -167,13 +185,6 @@ class _generalFormState extends State<generalForm> {
       throw Exception('File not found');
     }
   }
-
-
-
-
-
-
-
 
   List<String> _suggestions = [];
   // @override
@@ -372,7 +383,7 @@ class _generalFormState extends State<generalForm> {
                                 : fileName != null
                                 ? Padding(
                               padding:
-                              const EdgeInsets.all(8.0),
+                              const EdgeInsets.only(top: 5),
                               child: Text(
                                   'File picked: $fileName',
                                   style: onlyFormDataStyle.customTextStyle(context)
@@ -607,7 +618,7 @@ class _generalFormState extends State<generalForm> {
                       ),
                       SizedBox(
                           height:
-                          MediaQuery.of(context).size.height / 30),
+                          MediaQuery.of(context).size.height / 29),
                       Text(
                         'DOB',
                         style: AllPopupHeadings.customTextStyle(context),
@@ -616,6 +627,7 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+                        readOnly: true,
                         controller: dobcontroller,
                         hintText: 'yyyy-mm-dd',
                         hintStyle: onlyFormDataStyle.customTextStyle(context),
@@ -636,6 +648,7 @@ class _generalFormState extends State<generalForm> {
                             if (pickedDate != null) {
                               dobcontroller.text =
                               "${pickedDate.toLocal()}".split(' ')[0];
+                           isDobSelected = true;
                             }
                           },
                         ),
@@ -643,89 +656,119 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(
                           height:
                           MediaQuery.of(context).size.height / 30),
-                      Stack(
-                        children :[
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Address',
-                                    style:AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height / 60),
-                              CustomTextFieldRegister(
-                                controller: address,
-                                hintText: 'Enter Address',
-                                hintStyle: onlyFormDataStyle.customTextStyle(context),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
-                                  }
-                                  return null;
-                                },
-                                height: 32,
-                              ),
-                              if (_addressDocError != null) // Display error if any
-                                Row(
-                                  children: [
-                                    Text(
-                                      _addressDocError!,
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: FontSize.s10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                            ],
-                          ),
-                        ]
+                      AddressInput(
+                        controller: address,
+                        onSuggestionSelected: (selectedSuggestion) {
+                          // Handle the selected suggestion here
+                          print("Selected suggestion: $selectedSuggestion");
+                        },
+                        onChanged: (String value) {
+                          // Validate when user types in the address field
+                          setState(() {
+                            if (value.isEmpty) {
+                              _addressDocError = 'Address cannot be empty';
+                            } else {
+                              _addressDocError = null; // Clear error if text is entered
+                            }
+                          });
+                        },
                       ),
-                      if (_suggestions.isNotEmpty)
-                        Container(
-                          height: 100,
-                          width: 320,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
+                      if (_addressDocError != null) // Display error if any
+                        Row(
+                          children: [
+                            Text(
+                              _addressDocError!,
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: FontSize.s10,
                               ),
-                            ],
-                          ),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: _suggestions.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(
-                                  _suggestions[index],
-                                  style: onlyFormDataStyle.customTextStyle(context),
-                                ),
-                                onTap: () {
-                                  FocusScope.of(context)
-                                      .unfocus(); // Dismiss the keyboard
-                                  String selectedSuggestion = _suggestions[index];
-                                  address.text = selectedSuggestion;
-
-                                  setState(() {
-                                    _suggestions.clear();
-                                    //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
-                                  });
-                                },
-                              );
-                            },
-                          ),
+                            ),
+                          ],
                         ),
+                      // Stack(
+                      //   children :[
+                      //     Column(
+                      //       children: [
+                      //         Row(
+                      //           children: [
+                      //             Text(
+                      //               'Address',
+                      //               style:AllPopupHeadings.customTextStyle(context),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //         SizedBox(
+                      //             height:
+                      //             MediaQuery.of(context).size.height / 60),
+                      //         CustomTextFieldRegister(
+                      //           controller: address,
+                      //           hintText: 'Enter Address',
+                      //           hintStyle: onlyFormDataStyle.customTextStyle(context),
+                      //           validator: (value) {
+                      //             if (value == null || value.isEmpty) {
+                      //               return 'Please enter some text';
+                      //             }
+                      //             return null;
+                      //           },
+                      //           height: 32,
+                      //         ),
+                      //         if (_addressDocError != null) // Display error if any
+                      //           Row(
+                      //             children: [
+                      //               Text(
+                      //                 _addressDocError!,
+                      //                 style: TextStyle(
+                      //                   color: Colors.red,
+                      //                   fontSize: FontSize.s10,
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //       ],
+                      //     ),
+                      //   ]
+                      // ),
+                      // if (_suggestions.isNotEmpty)
+                      //   Container(
+                      //     height: 100,
+                      //     width: 320,
+                      //     decoration: BoxDecoration(
+                      //       color: Colors.white,
+                      //       borderRadius: BorderRadius.circular(8),
+                      //       boxShadow: [
+                      //         BoxShadow(
+                      //           color: Colors.black26,
+                      //           blurRadius: 4,
+                      //           offset: Offset(0, 2),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //     child: ListView.builder(
+                      //       shrinkWrap: true,
+                      //       itemCount: _suggestions.length,
+                      //       itemBuilder: (context, index) {
+                      //         return ListTile(
+                      //           title: Text(
+                      //             _suggestions[index],
+                      //             style: onlyFormDataStyle.customTextStyle(context),
+                      //           ),
+                      //           onTap: () {
+                      //             FocusScope.of(context)
+                      //                 .unfocus(); // Dismiss the keyboard
+                      //             String selectedSuggestion = _suggestions[index];
+                      //             address.text = selectedSuggestion;
+                      //
+                      //             setState(() {
+                      //               _suggestions.clear();
+                      //               //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+                      //             });
+                      //           },
+                      //         );
+                      //       },
+                      //     ),
+                      //   ),
 
+                      ///
                       // SizedBox(
                       //     height:
                       //     MediaQuery.of(context).size.height / 30),
@@ -1079,15 +1122,34 @@ class _generalFormState extends State<generalForm> {
     //             width: 30,
     //           ),
 
-              CustomButton(
+              isLoading
+                  ? SizedBox(
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(
+                  color: ColorManager.blueprime,
+                ),
+              )  :CustomButton(
                 width: 117,
                 height: 30,
                 text: 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-    _validateForm();
-    if(_isFormValid) {
+
+                  String addressText = address.text;
+                  if (addressText.isEmpty) {
+                    setState(() {
+                      _addressDocError = 'Address cannot be empty';
+                    });
+                  }else {
+                    setState(() {
+                      _addressDocError = null; // Clear any previous error
+                    });
+                    // Proceed with form submission or other logic
+                    print("Address is valid: $addressText");
+                  }
+
       // Get the company and user IDs
       setState(() {
         isLoading = true; // Start loading
@@ -1197,11 +1259,12 @@ class _generalFormState extends State<generalForm> {
           },
         );
         _initializeFormWithPrefilledData();
+        widget.onSave();
       } else {
         await showDialog(
           context: context,
           builder: (BuildContext context) {
-            return AddSuccessPopup(
+            return AddFailePopup(
               message: 'Failed To Update User Data',
             );
           },
@@ -1213,17 +1276,17 @@ class _generalFormState extends State<generalForm> {
       setState(() {
         isLoading = false; // End loading
       });
-    }
+
     // Clear fields after saving
-    firstname.clear();
-    lastname.clear();
-    ssecuritynumber.clear();
-    phonenumber.clear();
-    personalemail.clear();
-    driverlicensenumb.clear();
-    address.clear();
-    dobcontroller.clear();
-    widget.onSave();
+    // firstname.clear();
+    // lastname.clear();
+    // ssecuritynumber.clear();
+    // phonenumber.clear();
+    // personalemail.clear();
+    // driverlicensenumb.clear();
+    // address.clear();
+    // dobcontroller.clear();
+
     },
 
                 child: Text(
@@ -1239,7 +1302,182 @@ class _generalFormState extends State<generalForm> {
   }
 }
 
+class AddressInput extends StatefulWidget {
+  final TextEditingController controller;
+  final Function(String)? onSuggestionSelected;
+  final Function(String) onChanged;// Callback to notify parent
+
+  AddressInput({required this.controller, this.onSuggestionSelected, required this.onChanged});
+
+  @override
+  _AddressInputState createState() => _AddressInputState();
+}
+
+class _AddressInputState extends State<AddressInput> {
+  List<String> _suggestions = [];
+  OverlayEntry? _overlayEntry;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onCountyNameChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onCountyNameChanged);
+    _removeOverlay();
+    super.dispose();
+  }
+
+  void _onCountyNameChanged() async {
+    final query = widget.controller.text;
+    if (query.isEmpty) {
+      _suggestions.clear();
+      _removeOverlay();
+      return;
+    }
+
+    final suggestions = await fetchSuggestions(query);
+    setState(() {
+      _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
+    });
+    _showOverlay();
+  }
+
+  void _showOverlay() {
+    _removeOverlay();
+
+    if (_suggestions.isEmpty) return;
+
+    final overlay = Overlay.of(context);
+    final renderBox = context.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero);
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Stack(
+        children:[
+          GestureDetector(
+            onTap: _removeOverlay,
+            child: Container(
+              color: Colors.transparent, // Make this transparent so it's invisible
+            ),
+          ),Positioned(
+          left: position.dx,
+          top: position.dy + renderBox.size.height,
+          width: 354,
+          child: Material(
+            elevation: 4.0,
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: _suggestions.length > 5 ? 80.0 : double.infinity,
+                ),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: _suggestions.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(
+                        _suggestions[index],
+                        style: TableSubHeading.customTextStyle(context),
+                      ),
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        widget.controller.text = _suggestions[index];
+                        _suggestions.clear();
+                        _removeOverlay();
+
+                        // Call the callback with the selected suggestion
+                        if (widget.onSuggestionSelected != null) {
+                          widget.onSuggestionSelected!(_suggestions[index]);
+                        }
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
+      ]),
+    );
+
+    overlay.insert(_overlayEntry!);
+  }
+
+  void _removeOverlay() {
+    if (_overlayEntry != null) {
+      _overlayEntry!.remove();
+      _overlayEntry = null;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return   Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              'Address',
+              style:AllPopupHeadings.customTextStyle(context),
+            ),
+          ],
+        ),
+        SizedBox(
+            height:
+            MediaQuery.of(context).size.height / 60),
+        CustomTextFieldRegister(
+          controller: widget.controller,
+          hintText: 'Enter Address',
+          hintStyle: onlyFormDataStyle.customTextStyle(context),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+            return null;
+          },
+          height: 32,
+          onChanged: widget.onChanged,
+        ),
+
+      ],
+    );
+  }
+}
 
 
 
 
+
+
+
+/////
+// onTap: () {
+// // Ensure the list is valid before proceeding
+// if (_suggestions.isNotEmpty && index < _suggestions.length) {
+// FocusScope.of(context).unfocus();
+// widget.controller.text = _suggestions[index];
+// setState(() {
+// _suggestions.clear(); // Clear suggestions after selecting one
+// });
+// // Call the callback with the selected suggestion
+// if (widget.onSuggestionSelected != null) {
+// widget.onSuggestionSelected!(_suggestions[index]);
+// }
+// }
+// }

@@ -12,6 +12,8 @@ import '../../../../../../../../../app/resources/establishment_resources/establi
 import '../../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
+import '../../../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../widgets/button_constant.dart';
 import '../../../../../../widgets/text_form_field_const.dart';
@@ -375,7 +377,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                     }
                   }
                   try {
-                    await addNewOrgDocumentPost(
+                 var response =  await addNewOrgDocumentPost(
                         context: context,
                         docName: nameDocController.text,
                         docTypeID: widget.docTypeId,
@@ -386,15 +388,24 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                         expiryReminder: selectedExpiryType.toString(),
                         idOfDoc: idDocController.text);
                     // await getNewOrgDocument(context);
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'Added Successfully',
-                        );
-                      },
-                    );
+                    if(response.statusCode == 200 || response.statusCode == 201) {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Added Successfully',
+                          );
+                        },
+                      );
+                    }
+                    if(response.statusCode == 400 || response.statusCode == 404){
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => const FourNotFourPopup(),
+                      );
+                    }
                   } finally {
                     setState(() {
                       loading = false;
@@ -476,9 +487,11 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
     nameDocController.text = widget.docName;
     if (widget.expiryType == AppConfig.scheduled) {
       selectedExpiryType = AppConfig.scheduled;
-    } else if (widget.expiryType == AppConfig.notApplicable) {
+    }
+    else if (widget.expiryType == AppConfig.notApplicable) {
       selectedExpiryType = AppConfig.notApplicable;
-    } else if (widget.expiryType == AppConfig.issuer) {
+    }
+    else if (widget.expiryType == AppConfig.issuer) {
       selectedExpiryType = AppConfig.issuer;
     }
 
@@ -531,15 +544,21 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
           text: AppString.name_of_the_document,
         ),
         if (_nameDocError != null) // Display error if any
-          Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Text(
-              _nameDocError!,
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: FontSize.s10,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 4.0, left: 12),
+                child: Text(
+                  _nameDocError!,
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: FontSize.s10,
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
 
         /// Type of the Document
@@ -805,7 +824,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                   ? nameDocController.text
                   : widget.docName;
 
-              await updateNewOrgDocumentPatch(
+            var response =  await updateNewOrgDocumentPatch(
                 context: context,
                 orgDocumentSetupid: widget.orgDocumentSetupid,
                 docTypeID: widget.docTypeId,
@@ -817,15 +836,31 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                 expiryReminder:  selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : widget.expiryType!,
                 idOfDoc: widget.idOfDoc,
               );
-              Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AddSuccessPopup(
-                    message: 'Edit Successfully',
-                  );
-                },
-              );
+              if(response.statusCode == 200 || response.statusCode == 201) {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddSuccessPopup(
+                      message: 'Edited Successfully',
+                    );
+                  },
+                );
+              }
+              if(response.statusCode == 400 || response.statusCode == 404){
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const FourNotFourPopup(),
+                );
+              }
+              else {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => FailedPopup(text: response.message),
+                );
+              }
             } finally {
               setState(() {
                 loading = false;

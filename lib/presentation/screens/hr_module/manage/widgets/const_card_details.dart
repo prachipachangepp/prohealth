@@ -14,9 +14,9 @@ class _CardDetailsState extends State<CardDetails> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: Container(
-        width: MediaQuery.of(context).size.width/2.17,
+        width: MediaQuery.of(context).size.width / 2.26,
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         decoration: BoxDecoration(
           boxShadow: [
@@ -30,14 +30,13 @@ class _CardDetailsState extends State<CardDetails> {
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
-       // height: MediaQuery.of(context).size.height/3.6,
+        // height: MediaQuery.of(context).size.height/3.6,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width / 95,
-            vertical: MediaQuery.of(context).size.height / 160,
-          ),
-          child: widget.childWidget
-        ),
+            padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width / 95,
+              vertical: MediaQuery.of(context).size.height / 160,
+            ),
+            child: widget.childWidget),
       ),
     );
   }
@@ -51,7 +50,15 @@ class DetailsFormate extends StatefulWidget {
   String? title;
   final Widget button;
   final Widget? titleRow;
-   DetailsFormate({super.key, this.titleRow,this.title,required this.row1Child1, required this.row1Child2, required this.row2Child1, required this.row2Child2, required this.button});
+  DetailsFormate(
+      {super.key,
+      this.titleRow,
+      this.title,
+      required this.row1Child1,
+      required this.row1Child2,
+      required this.row2Child1,
+      required this.row2Child2,
+      required this.button});
 
   @override
   State<DetailsFormate> createState() => _DetailsFormateState();
@@ -64,12 +71,14 @@ class _DetailsFormateState extends State<DetailsFormate> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        widget.titleRow == null ?
-        Text(
-            widget.title!,
-            // 'Employment #${snapshot.data![index].employmentId}',
-            style: BoxHeadingStyle.customTextStyle(context)) : widget.titleRow!,
-       SizedBox(height: AppSize.s10,),
+        widget.titleRow == null
+            ? Text(widget.title!,
+                // 'Employment #${snapshot.data![index].employmentId}',
+                style: BoxHeadingStyle.customTextStyle(context))
+            : widget.titleRow!,
+        SizedBox(
+          height: AppSize.s10,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -77,39 +86,40 @@ class _DetailsFormateState extends State<DetailsFormate> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: widget.row1Child1
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: widget.row1Child1),
+                SizedBox(
+                  width: 5,
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/55,),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: widget.row1Child2
-                ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: widget.row1Child2),
               ],
             ),
-          //  SizedBox(width: MediaQuery.of(context).size.width/30,),
+            //  SizedBox(width: MediaQuery.of(context).size.width/30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: widget.row2Child1
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: widget.row2Child1),
+                SizedBox(
+                  width: 5,
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/55,),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: widget.row2Child2
-                ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: widget.row2Child2),
               ],
             )
           ],
         ),
-        SizedBox(height: AppSize.s10,),
+        SizedBox(
+          height: AppSize.s10,
+        ),
         widget.button
       ],
     );
   }
 }
-

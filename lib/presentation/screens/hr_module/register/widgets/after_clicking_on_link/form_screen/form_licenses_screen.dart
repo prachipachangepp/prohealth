@@ -8,8 +8,11 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_licenses_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'package:shimmer/shimmer.dart';
@@ -103,8 +106,8 @@ class _LicensesScreenState extends State<LicensesScreen> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AddSuccessPopup(
-            message: 'Failed to update user data',
+          return AddFailePopup(
+            message: 'Failed to Save Licenses Document',
           );
         },
       );
@@ -235,7 +238,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
         Padding(
-          padding: const EdgeInsets.only(left: 150),
+          padding: const EdgeInsets.only(left: 160),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -302,50 +305,132 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 :CustomButton(
               width: 117,
               height: 30,
-              text:  'Save',
-              style:BlueButtonTextConst.customTextStyle(context),
+              text: 'Save',
+              style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
-
-
-                // Loop through each form and extract data to post
-
                 setState(() {
                   isLoading = true; // Start loading
                 });
+
+                bool documentSelected = false;  // Flag to check if a document is selected
+
                 for (var key in licenseFormKeys) {
-                  try{
+                  try {
                     final st = key.currentState!;
-                    await perfFormLinsence(
+
+                    if (st.isPrefill == false) {
+                      // Check if documentFile is selected
+                      if (st.finalPath == null || st.finalPath.isEmpty) {
+                        // If no document is selected, show a message and stop further execution
+                        await  showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return VendorSelectNoti(
+                              message:'Please Select A File',
+                            );
+                          },
+                        );
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(content: Text('Please select a file.')),
+                        // );
+                        setState(() {
+                          isLoading = false; // Stop loading
+                        });
+                        return;  // Exit the loop and method early
+                      } else {
+                        documentSelected = true; // Document is selected
+                      }
+
+                      await perfFormLinsence(
                         context: context,
                         licenseNumber: st.licensurenumber.text,
-                       country: st.selectedCountry.toString(),
-                       // country: st.controllercountry.text.toString(),
+                        country: st.selectedCountry.toString(),
                         employeeId: widget.employeeID,
                         expDate: st.controllerExpirationDate.text,
                         issueDate: st.controllerIssueDate.text,
                         licenseUrl: 'NA',
                         licensure: st.licensure.text,
                         org: st.org.text,
-                        documentType: 'NA',
+                        documentType: st.documentTypeName!,
                         documentFile: st.finalPath,
-                        documentName: st.fileName);
-                  }catch(e){
-                   print(e);
+                        documentName: st.fileName,
+                      );
+                    }
+                  } catch (e) {
+                    print(e);
                   }
-
                 }
-                setState(() {
-                  isLoading = false; // End loading
-                });
-                //licensure.clear();
-                widget.onSave();
+
+                // If a document is selected and everything goes fine, complete the process
+                if (documentSelected) {
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
+                  widget.onSave();
+                  _loadLicensesData();
+                }
               },
               child: Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
+
+            //     :CustomButton(
+            //   width: 117,
+            //   height: 30,
+            //   text:  'Save',
+            //   style:BlueButtonTextConst.customTextStyle(context),
+            //   borderRadius: 12,
+            //   onPressed: () async {
+            //
+            //
+            //     // Loop through each form and extract data to post
+            //
+            //     setState(() {
+            //       isLoading = true; // Start loading
+            //     });
+            //     for (var key in licenseFormKeys) {
+            //       try{
+            //
+            //         final st = key.currentState!;
+            //         if(st.isPrefill ==false){
+            //
+            //           await perfFormLinsence(
+            //               context: context,
+            //               licenseNumber: st.licensurenumber.text,
+            //               country: st.selectedCountry.toString(),
+            //               // country: st.controllercountry.text.toString(),
+            //               employeeId: widget.employeeID,
+            //               expDate: st.controllerExpirationDate.text,
+            //               issueDate: st.controllerIssueDate.text,
+            //               licenseUrl: 'NA',
+            //               licensure: st.licensure.text,
+            //               org: st.org.text,
+            //               documentType: st.documentTypeName!,
+            //               documentFile: st.finalPath,
+            //               documentName: st.fileName);
+            //         }
+            //
+            //
+            //       }catch(e){
+            //        print(e);
+            //       }
+            //
+            //     }
+            //     setState(() {
+            //       isLoading = false; // End loading
+            //     });
+            //     //licensure.clear();
+            //     widget.onSave();
+            //     _loadLicensesData();
+            //   },
+            //   child: Text(
+            //     'Save',
+            //     style: BlueButtonTextConst.customTextStyle(context),
+            //   ),
+            // ),
           ],
         ),
       ],
@@ -370,6 +455,7 @@ class licensesForm extends StatefulWidget {
 }
 
 class _licensesFormState extends State<licensesForm> {
+  bool isPrefill= true;
   TextEditingController firstName = TextEditingController();
   TextEditingController licensure = TextEditingController();
   TextEditingController org = TextEditingController();
@@ -383,6 +469,7 @@ class _licensesFormState extends State<licensesForm> {
   String? licenseUrl;
   int countryId =0;
   String? selectedCountry;
+  String? documentTypeName;
 
   final StreamController<List<AEClinicalReportingOffice>> Countrystream =
       StreamController<List<AEClinicalReportingOffice>>();
@@ -408,10 +495,11 @@ class _licensesFormState extends State<licensesForm> {
           licensurenumber.text = data.licenseNumber ?? '';
           controllerIssueDate.text = data.issueDate ?? '';
           controllerExpirationDate.text = data.expDate ?? '';
-          //selectedCountry = data.country ?? '';
+          selectedCountry = data.country ?? '';
           licenseIdIndex = data.licenseId ?? 0;
           //licenseUrl = data.licenseUrl;
            licenseUrl = data.licenseUrl.split('/').last;
+           documentTypeName = data.documentType;
         });
       }
     } catch (e) {
@@ -470,7 +558,11 @@ class _licensesFormState extends State<licensesForm> {
                       controller: licensure,
                       hintText: 'Enter Licensure / Certification',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
+                      height: 32,onChanged: (value){
+                      if(value.isNotEmpty){
+                        isPrefill= false;
+                      }
+                    },
                     ),
                     SizedBox(
                         height:
@@ -489,6 +581,11 @@ class _licensesFormState extends State<licensesForm> {
                       hintText: 'Enter Organization Name',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                     SizedBox(
                         height:
@@ -532,6 +629,11 @@ class _licensesFormState extends State<licensesForm> {
                       hintText: 'Enter Number',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -539,104 +641,134 @@ class _licensesFormState extends State<licensesForm> {
               SizedBox(
                   width: MediaQuery.of(context).size.width / 15),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Issue Date',
-                      style:AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            60),
-                    CustomTextFieldRegister(
-                      controller: controllerIssueDate,
-                      hintText: 'yyyy-mm-dd',
-                      hintStyle:onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.calendar_month_outlined,
-                          color: Color(0xff50B5E5),
-                          size: 16,
-                        ),
-                        onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                            DateFormat('yyyy-MM-dd')
-                                .format(pickedDate);
-                            controllerIssueDate.text =
-                                formattedDate;
+                child: Padding(
+                  padding: const EdgeInsets.only(top:20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                   // mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Issue Date',
+                        style:AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              60),
+                      CustomTextFieldRegister(
+                        controller: controllerIssueDate,
+                        hintText: 'yyyy-mm-dd',
+                        hintStyle:onlyFormDataStyle.customTextStyle(context),
+                        height: 32,
+                        onChanged: (value){
+                          if(value.isNotEmpty){
+                            isPrefill= false;
                           }
                         },
-                      ),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            100),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'If the licensure / certification will be recieved in future, enter the expected issuing date',
-                            style:onlyFormDataStyle.customTextStyle(context),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.calendar_month_outlined,
+                            color: Color(0xff50B5E5),
+                            size: 16,
                           ),
+                          onPressed: () async {
+                            DateTime? pickedDate =
+                            await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickedDate != null) {
+                              String formattedDate =
+                              DateFormat('yyyy-MM-dd')
+                                  .format(pickedDate);
+                              controllerIssueDate.text =
+                                  formattedDate;
+                            }
+                          },
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            100),
-                    Text(
-                      'Expiration Date',
-                      style: AllPopupHeadings.customTextStyle(context),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height /
-                            60),
-                    CustomTextFieldRegister(
-                      controller: controllerExpirationDate,
-                      hintText: 'yyyy-mm-dd',
-                      hintStyle: onlyFormDataStyle.customTextStyle(context),
-                      height: 32,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.calendar_month_outlined,
-                          color: Color(0xff50B5E5),
-                          size: 16,
-                        ),
-                        onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                            DateFormat('yyyy-MM-dd')
-                                .format(pickedDate);
-                            controllerExpirationDate.text =
-                                formattedDate;
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              100),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'If the licensure / certification will be recieved in future, enter the expected issuing date',
+                              style:onlyFormDataStyle.customTextStyle(context),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              40),
+                      Text(
+                        'Expiration Date',
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              60),
+                      CustomTextFieldRegister(
+                        controller: controllerExpirationDate,
+                        hintText: 'yyyy-mm-dd',
+                        hintStyle: onlyFormDataStyle.customTextStyle(context),
+                        height: 32,
+                        onChanged: (value){
+                          if(value.isNotEmpty){
+                            isPrefill= false;
                           }
                         },
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.calendar_month_outlined,
+                            color: Color(0xff50B5E5),
+                            size: 16,
+                          ),
+                          onPressed: () async {
+                            DateTime? pickedDate =
+                            await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickedDate != null) {
+                              String formattedDate =
+                              DateFormat('yyyy-MM-dd')
+                                  .format(pickedDate);
+                              controllerExpirationDate.text =
+                                  formattedDate;
+                            }
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 170)
-                  ],
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              40),
+                      Text(
+                        'Document type',
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height /
+                              60),
+                      StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
+                            return buildDropdownButtonDocumentType(context);
+                          },
+                          ),
+                      SizedBox(height: 97)
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -712,50 +844,55 @@ class _licensesFormState extends State<licensesForm> {
       ),
     );
   }
+
+
   Widget buildDropdownButton(BuildContext context) {
+    // Store prefilled country value (you can initialize it with null or fetch it dynamically)
+    String? prefilledCountry;
+
     return FutureBuilder<List<CountryGetData>>(
       future: getCountry(context: context),
       builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 7),
             child: Container(
               height: 31,
               width: 250,
-              decoration: BoxDecoration(
-                  color: ColorManager.white),
+              decoration: BoxDecoration(color: ColorManager.white),
             ),
           );
-
         } else if (snapshot.hasError) {
-          return  CustomDropdownTextField(
-            //width: MediaQuery.of(context).size.width / 5,
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
             headText: 'Country',
             items: ['Error'],
           );
         } else if (snapshot.hasData) {
           List<DropdownMenuItem<String>> dropDownList = [];
-          int degreeID = 0;
-          for(var i in snapshot.data!){
+          int countryId = 0;
+
+          // Populate the dropdown list from the fetched data
+          for (var i in snapshot.data!) {
             dropDownList.add(DropdownMenuItem<String>(
               child: Text(i.name),
               value: i.name,
             ));
           }
+
+          // Use the prefilled country if available, otherwise default to the first item
+          String initialValue = selectedCountry ?? dropDownList[0].value!;
+
           return Container(
             height: 32,
-            // margin: EdgeInsets.symmetric(horizontal: 20),
-            padding:
-            const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(
-                  color: const Color(0xff686464).withOpacity(0.5),
-                  width: 1), // Black border
-              borderRadius:
-              BorderRadius.circular(6), // Rounded corners
+                color: const Color(0xff686464).withOpacity(0.5),
+                width: 1, // Black border
+              ),
+              borderRadius: BorderRadius.circular(6), // Rounded corners
             ),
             child: DropdownButtonFormField<String>(
               focusColor: Colors.transparent,
@@ -763,21 +900,20 @@ class _licensesFormState extends State<licensesForm> {
                 Icons.arrow_drop_down_sharp,
                 color: Color(0xff686464),
               ),
-              decoration: InputDecoration.collapsed(hintText: ''),
+              decoration: const InputDecoration.collapsed(hintText: ''),
               items: dropDownList,
               onChanged: (newValue) {
-                for(var a in snapshot.data!){
-                  if(a.name == newValue){
+                isPrefill = false;
+                for (var a in snapshot.data!) {
+                  if (a.name == newValue) {
                     selectedCountry = a.name;
-                   // selectedCountry = dropDownList[0].value!;
                     countryId = a.countryId;
-                    print("country :: ${selectedCountry}");
-                    print("country :: ${countryId}");
-                    //empTypeId = docType;
+                    print("Country :: ${selectedCountry}");
+                    print("Country ID :: ${countryId}");
                   }
                 }
               },
-              value: dropDownList[0].value,
+              value: initialValue, // Use the prefilled value or default to the first item
               style: onlyFormDataStyle.customTextStyle(context),
             ),
           );
@@ -785,11 +921,267 @@ class _licensesFormState extends State<licensesForm> {
           return CustomDropdownTextField(
             // width: MediaQuery.of(context).size.width / 5,
             headText: 'Country',
-
             items: ['No Data'],
           );
         }
       },
     );
   }
+
+
+
+
+  ///
+/// ///
+
+
+  Widget buildDropdownButtonDocumentType(BuildContext context) {
+    // Store prefilled document type value (you can initialize it with null or fetch it dynamically)
+   // String? prefilledDocumentType;
+
+    return FutureBuilder<List<NewOrgDocument>>(
+      future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 7),
+            child: Container(
+              height: 31,
+              width: 250,
+              decoration: BoxDecoration(color: ColorManager.white),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
+            headText: 'Select Document',
+            items: ['Error'],
+          );
+        } else if (snapshot.hasData) {
+          List<DropdownMenuItem<String>> dropDownList = [];
+
+          // Populate the dropdown list from the fetched data
+          for (var i in snapshot.data!) {
+            dropDownList.add(DropdownMenuItem<String>(
+              child: Text(i.docName),
+              value: i.docName,
+            ));
+          }
+
+          // Use the prefilled document type if available, otherwise default to the first item
+          String initialValue = documentTypeName ?? dropDownList[0].value!;
+
+          return Container(
+            height: 32,
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: const Color(0xff686464).withOpacity(0.5),
+                width: 1, // Black border
+              ),
+              borderRadius: BorderRadius.circular(6), // Rounded corners
+            ),
+            child: DropdownButtonFormField<String>(
+              focusColor: Colors.transparent,
+              icon: const Icon(
+                Icons.arrow_drop_down_sharp,
+                color: Color(0xff686464),
+              ),
+              decoration: const InputDecoration.collapsed(hintText: ''),
+              items: dropDownList,
+              onChanged: (newValue) {
+                isPrefill = false;
+                for (var a in snapshot.data!) {
+                  if (a.docName == newValue) {
+                    documentTypeName = a.docName;
+                    print("Document Type :: ${documentTypeName}");
+                  }
+                }
+              },
+              value: initialValue, // Use the prefilled value or default to the first item
+              style: onlyFormDataStyle.customTextStyle(context),
+            ),
+          );
+        } else {
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
+            headText: 'Select Document',
+            items: ['No Data'],
+          );
+        }
+      },
+    );
+  }
+
+
+
+/// ////////
+
+  ///
+  ////
+  // Widget buildDropdownButton(BuildContext context) {
+  //   return FutureBuilder<List<CountryGetData>>(
+  //     future: getCountry(context: context),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState ==
+  //           ConnectionState.waiting) {
+  //         return Padding(
+  //           padding: const EdgeInsets.symmetric(
+  //               horizontal: 7),
+  //           child: Container(
+  //             height: 31,
+  //             width: 250,
+  //             decoration: BoxDecoration(
+  //                 color: ColorManager.white),
+  //           ),
+  //         );
+  //
+  //       } else if (snapshot.hasError) {
+  //         return  CustomDropdownTextField(
+  //           //width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Country',
+  //           items: ['Error'],
+  //         );
+  //       } else if (snapshot.hasData) {
+  //         List<DropdownMenuItem<String>> dropDownList = [];
+  //         int degreeID = 0;
+  //         for(var i in snapshot.data!){
+  //           dropDownList.add(DropdownMenuItem<String>(
+  //             child: Text(i.name),
+  //             value: i.name,
+  //           ));
+  //         }
+  //         return Container(
+  //           height: 32,
+  //           // margin: EdgeInsets.symmetric(horizontal: 20),
+  //           padding:
+  //           const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             border: Border.all(
+  //                 color: const Color(0xff686464).withOpacity(0.5),
+  //                 width: 1), // Black border
+  //             borderRadius:
+  //             BorderRadius.circular(6), // Rounded corners
+  //           ),
+  //           child: DropdownButtonFormField<String>(
+  //             focusColor: Colors.transparent,
+  //             icon: const Icon(
+  //               Icons.arrow_drop_down_sharp,
+  //               color: Color(0xff686464),
+  //             ),
+  //             decoration: InputDecoration.collapsed(hintText: ''),
+  //             items: dropDownList,
+  //             onChanged: (newValue) {
+  //               isPrefill =false;
+  //               for(var a in snapshot.data!){
+  //                 if(a.name == newValue){
+  //                   selectedCountry = a.name;
+  //                  // selectedCountry = dropDownList[0].value!;
+  //                   countryId = a.countryId;
+  //                   print("country :: ${selectedCountry}");
+  //                   print("country :: ${countryId}");
+  //                   //empTypeId = docType;
+  //                 }
+  //               }
+  //             },
+  //             value: dropDownList[0].value,
+  //             style: onlyFormDataStyle.customTextStyle(context),
+  //           ),
+  //         );
+  //       } else {
+  //         return CustomDropdownTextField(
+  //           // width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Country',
+  //
+  //           items: ['No Data'],
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
+  ////////////////
+  ///
+  // Widget buildDropdownButtonDocumentType(BuildContext context) {
+  //   return FutureBuilder<List<NewOrgDocument>>(
+  //     future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState ==
+  //           ConnectionState.waiting) {
+  //         return Padding(
+  //           padding: const EdgeInsets.symmetric(
+  //               horizontal: 7),
+  //           child: Container(
+  //             height: 31,
+  //             width: 250,
+  //             decoration: BoxDecoration(
+  //                 color: ColorManager.white),
+  //           ),
+  //         );
+  //
+  //       } else if (snapshot.hasError) {
+  //         return  CustomDropdownTextField(
+  //           //width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Select Document',
+  //           items: ['Error'],
+  //         );
+  //       } else if (snapshot.hasData) {
+  //         List<DropdownMenuItem<String>> dropDownList = [];
+  //
+  //         for(var i in snapshot.data!){
+  //           dropDownList.add(DropdownMenuItem<String>(
+  //             child: Text(i.docName),
+  //             value: i.docName,
+  //           ));
+  //         }
+  //         return Container(
+  //           height: 32,
+  //           // margin: EdgeInsets.symmetric(horizontal: 20),
+  //           padding:
+  //           const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             border: Border.all(
+  //                 color: const Color(0xff686464).withOpacity(0.5),
+  //                 width: 1), // Black border
+  //             borderRadius:
+  //             BorderRadius.circular(6), // Rounded corners
+  //           ),
+  //           child: DropdownButtonFormField<String>(
+  //             focusColor: Colors.transparent,
+  //             icon: const Icon(
+  //               Icons.arrow_drop_down_sharp,
+  //               color: Color(0xff686464),
+  //             ),
+  //             decoration: InputDecoration.collapsed(hintText: ''),
+  //             items: dropDownList,
+  //             onChanged: (newValue) {
+  //               isPrefill =false;
+  //               for(var a in snapshot.data!){
+  //                 if(a.docName == newValue){
+  //                   documentTypeName = a.docName;
+  //                   // selectedCountry = dropDownList[0].value!;
+  //                   // countryId = a.countryId;
+  //                   print("documentType :: ${documentTypeName}");
+  //                   // print("country :: ${countryId}");
+  //                   //empTypeId = docType;
+  //                 }
+  //               }
+  //             },
+  //             value: dropDownList[0].value,
+  //             style: onlyFormDataStyle.customTextStyle(context),
+  //           ),
+  //         );
+  //       } else {
+  //         return CustomDropdownTextField(
+  //           // width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Select Document',
+  //
+  //           items: ['No Data'],
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 }

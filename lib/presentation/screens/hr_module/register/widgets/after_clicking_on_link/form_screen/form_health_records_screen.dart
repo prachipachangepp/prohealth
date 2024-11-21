@@ -401,7 +401,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                     await showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AddSuccessPopup(
+                        return VendorSelectNoti(
                           message: 'Please Select File',
                         );
                       },
@@ -435,6 +435,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         }
 
                       }
+
                       await showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -449,11 +450,12 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                       //     backgroundColor: Colors.green,
                       //   ),
                       // );
+                      await  widget.onSave();
                     } catch (e) {
                       await showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AddSuccessPopup(
+                          return AddFailePopup(
                             message: 'Failed To Upload Document',
                           );
                         },
@@ -463,7 +465,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                   setState(() {
                     isLoading = false; // End loading
                   });
-                  widget.onSave();
+
                 },
                 child: Text(
                   'Save',

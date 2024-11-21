@@ -10,7 +10,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../app/resources/color.dart';
 import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/value_manager.dart';
-import '../../screens/home_module/home_screen.dart';
 import '../../screens/login_module/login/login_screen.dart';
 import '../widgets/const_appbar/controller.dart';
 
@@ -355,7 +354,8 @@ class _AppBarWebState extends State<AppBarWeb> {
                                             child: DropdownButton<String>(
                                               underline: Container(),
                                               icon: Padding(
-                                                padding: const EdgeInsets.only(top: 2),
+                                                padding: const EdgeInsets.only(
+                                                    top: 2),
                                                 child: Icon(
                                                   Icons.arrow_drop_down,
                                                   size: 17,
@@ -366,7 +366,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               hint: Text(
                                                 'Super User',
                                                 style: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize: 10,
                                                   fontWeight: FontWeight.w600,
                                                   color: Colors.white,
                                                 ),
@@ -382,7 +382,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                   child: Text(
                                                     value,
                                                     style: TextStyle(
-                                                      fontSize: 14,
+                                                      fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       color: _selectedValue ==
@@ -532,25 +532,36 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                     height: 30,
                                                     child: GestureDetector(
                                                       onTap: () {
-                                                        if (isLoggedIn) {  // Replace 'value' with 'isLoggedIn'
-                                                          print("User logged out");
+                                                        if (isLoggedIn) {
+                                                          // Replace 'value' with 'isLoggedIn'
+                                                          print(
+                                                              "User logged out");
                                                           showDialog(
                                                             context: context,
-                                                            builder: (context) => DeletePopup(
+                                                            builder:
+                                                                (context) =>
+                                                                    DeletePopup(
                                                               onCancel: () {
-                                                                Navigator.pop(context);
+                                                                Navigator.pop(
+                                                                    context);
                                                               },
                                                               onDelete: () {
-                                                                TokenManager.removeAccessToken();
-                                                                Navigator.pushNamedAndRemoveUntil(
+                                                                TokenManager
+                                                                    .removeAccessToken();
+                                                                Navigator
+                                                                    .pushNamedAndRemoveUntil(
                                                                   context,
-                                                                  LoginScreen.routeName,
-                                                                      (route) => false,
+                                                                  LoginScreen
+                                                                      .routeName,
+                                                                  (route) =>
+                                                                      false,
                                                                 );
                                                               },
-                                                              btnText: "Log Out",
+                                                              btnText:
+                                                                  "Log Out",
                                                               title: "Log Out",
-                                                              text: "Do you really want to logout?",
+                                                              text:
+                                                                  "Do you really want to logout?",
                                                             ),
                                                           );
                                                         }
@@ -606,7 +617,8 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: FontSize.s10,
-                                                fontWeight: FontWeightManager.regular,
+                                                fontWeight:
+                                                    FontWeightManager.regular,
                                               ),
                                             ),
                                           );

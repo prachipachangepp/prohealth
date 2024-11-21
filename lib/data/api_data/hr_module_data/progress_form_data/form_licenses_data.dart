@@ -1,14 +1,4 @@
-// "licenseId": 23,
-// "country": "Country3",
-// "employeeId": 77,
-// "expDate": "2024-07-19T05:59:02.929Z",
-// "issueDate": "2024-07-19T05:59:02.929Z",
-// "licenseUrl": "__",
-// "licensure": "DDL48",
-// "licenseNumber": "2525252",
-// "org": "RTO",
-// "documentType": "__",
-// "approved": true
+
 
 class LicensesDataForm {
   final int licenseId;

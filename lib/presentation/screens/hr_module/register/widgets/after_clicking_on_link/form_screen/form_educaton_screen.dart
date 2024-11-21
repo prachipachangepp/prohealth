@@ -93,7 +93,7 @@ class _EducationScreenState extends State<EducationScreen> {
 
   void addEducationForm() {
     setState(() {
-      educationFormKeys.add(GlobalKey<_EducationFormState>());
+      educationFormKeys.add(GlobalKey<_EducationFormState>( ));
     });
   }
 
@@ -204,51 +204,68 @@ class _EducationScreenState extends State<EducationScreen> {
                   color: ColorManager.blueprime,
                 ),
               )
-                  : CustomButton(
+
+
+                  :CustomButton(
                 width: 117,
                 height: 30,
                 text: 'Save',
-                style:  BlueButtonTextConst.customTextStyle(context),
+                style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-
                   // Loop through each form and extract data to post
                   for (var key in educationFormKeys) {
                     final st = key.currentState!;
-                    if (st.finalPath == null || st.finalPath!.isEmpty) {
-                      print("Loading");
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (BuildContext context) {
-                      //     return const VendorSelectNoti(
-                      //       message: 'Please Select File',
-                      //     );
-                      //   },
-                      // );
-                    } else {
-                      try {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        ApiDataRegister result =  await FormEducationManager().posteducationscreen(
-                            context,
-                            st.widget.employeeID,
-                            st.graduatetype.toString(),
-                            st.selectedDegree.toString(),
-                            st.majorsubject.text,
-                            st.city.text,
-                            st.collegeuniversity.text,
-                            st.phone.text,
-                            st.state.text,
-                            "USA",
-                            "2024-08-09");
-                        await uploadEducationDocument(
-                            context,
-                            result.educationId!,
-                            st.finalPath,
-                            st.fileName!
+
+                    try {
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      // Only execute the code if st.isPrefill is false
+                      if (st.isPrefill == false) {
+                        // Check if the file is selected
+                        if (st.finalPath == null || st.finalPath!.isEmpty) {
+                          // Show a message asking the user to select a file
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddFailePopup(
+                                message: 'Please Select A File',
+                              );
+                            },
+                          );
+                          setState(() {
+                            isLoading = false;
+                          });
+                          return; // Stop further execution if no file is selected
+                        }
+
+                        // Call the posteducationscreen API regardless of whether the file is selected
+                        ApiDataRegister result = await FormEducationManager().posteducationscreen(
+                          context,
+                          st.widget.employeeID,
+                          st.graduatetype.toString(),
+                          st.selectedDegree.toString(),
+                          st.majorsubject.text,
+                          st.city.text,
+                          st.collegeuniversity.text,
+                          st.phone.text,
+                          st.state.text,
+                          "USA",
+                          "2024-08-09",
                         );
-                        if(result.success){
+
+                        // If the file is selected, upload it
+                        await uploadEducationDocument(
+                          context,
+                          result.educationId!,
+                          st.finalPath,
+                          st.fileName!,
+                        );
+
+                        // If the API call is successful
+                        if (result.success) {
                           await showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -258,30 +275,118 @@ class _EducationScreenState extends State<EducationScreen> {
                             },
                           );
                         }
-
-
-                      } catch (e) {
-                        await  showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSuccessPopup(
-                              message: 'Failed To Update Education Data',
-                            );
-                          },
-                        );
                       }
+
+                    } catch (e) {
+                      // If an error occurs, show failure dialog
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddFailePopup(
+                            message: 'Failed To Save Education Data',
+                          );
+                        },
+                      );
                     }
+
+                    // Close the loading state and call onSave
+                    setState(() {
+                      isLoading = false;
+                    });
+
                   }
-                  setState(() {
-                    isLoading = false;
-                  });
                   widget.onSave();
+                  _loadEducationData();
                 },
                 child: Text(
                   'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
+
+              //     : CustomButton(
+              //   width: 117,
+              //   height: 30,
+              //   text: 'Save',
+              //   style:  BlueButtonTextConst.customTextStyle(context),
+              //   borderRadius: 12,
+              //   onPressed: () async {
+              //
+              //     // Loop through each form and extract data to post
+              //     for (var key in educationFormKeys) {
+              //
+              //       final st = key.currentState!;
+              //       if (st.finalPath == null || st.finalPath!.isEmpty) {
+              //         print("Loading");
+              //         // showDialog(
+              //         //   context: context,
+              //         //   builder: (BuildContext context) {
+              //         //     return const VendorSelectNoti(
+              //         //       message: 'Please Select File',
+              //         //     );
+              //         //   },
+              //         // );
+              //       } else {
+              //         try {
+              //           setState(() {
+              //             isLoading = true;
+              //           });
+              //           if(st.isPrefill ==false){
+              //             ApiDataRegister result =  await FormEducationManager().posteducationscreen(
+              //                 context,
+              //                 st.widget.employeeID,
+              //                 st.graduatetype.toString(),
+              //                 st.selectedDegree.toString(),
+              //                 st.majorsubject.text,
+              //                 st.city.text,
+              //                 st.collegeuniversity.text,
+              //                 st.phone.text,
+              //                 st.state.text,
+              //                 "USA",
+              //                 "2024-08-09");
+              //             await uploadEducationDocument(
+              //                 context,
+              //                 result.educationId!,
+              //                 st.finalPath,
+              //                 st.fileName!
+              //             );
+              //             if(result.success){
+              //               await showDialog(
+              //                 context: context,
+              //                 builder: (BuildContext context) {
+              //                   return AddSuccessPopup(
+              //                     message: 'Education Data Saved',
+              //                   );
+              //                 },
+              //               );
+              //             }
+              //           }
+              //
+              //
+              //
+              //         } catch (e) {
+              //           await  showDialog(
+              //             context: context,
+              //             builder: (BuildContext context) {
+              //               return AddFailePopup(
+              //                 message: 'Failed To Save Education Data',
+              //               );
+              //             },
+              //           );
+              //         }
+              //       }
+              //     }
+              //     setState(() {
+              //       isLoading = false;
+              //     });
+              //     widget.onSave();
+              //     _loadEducationData();
+              //   },
+              //   child: Text(
+              //     'Save',
+              //     style: BlueButtonTextConst.customTextStyle(context),
+              //   ),
+              // ),
             ],
           ),
         ],
@@ -299,11 +404,12 @@ class EducationForm extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
+
   const EducationForm(
       {Key? key,
         required this.onRemove,
         required this.index,
-        required this.employeeID, required this.isVisible})
+        required this.employeeID, required this.isVisible, })
       : super(key: key);
 
   @override
@@ -311,6 +417,7 @@ class EducationForm extends StatefulWidget {
 }
 
 class _EducationFormState extends State<EducationForm> {
+  bool isPrefill= true;
   TextEditingController collegeuniversity = TextEditingController();
   TextEditingController majorsubject = TextEditingController();
   TextEditingController phone = TextEditingController();
@@ -324,7 +431,7 @@ class _EducationFormState extends State<EducationForm> {
   int? educationIndex;
   int selectedDegreeId = 0;
 
-  String? graduatetype;
+  String? graduatetype='Yes';
   String? selectedDegree;
   String? docName;
 
@@ -350,7 +457,7 @@ class _EducationFormState extends State<EducationForm> {
           city.text = data.city ?? '';
           state.text = data.state ?? '';
           graduatetype = data.graduate ?? '';
-          // selectedDegree = data.degree ?? '';
+        selectedDegree = data.degree ?? '';
           educationIndex = data.educationID ?? 0;
           docName = data.docName ?? "--";
 
@@ -429,6 +536,7 @@ class _EducationFormState extends State<EducationForm> {
                                   onChanged: (value) {
                                     setState(() {
                                       graduatetype = value;
+                                      isPrefill =false;
                                     });
                                   },
                                 )),
@@ -440,6 +548,7 @@ class _EducationFormState extends State<EducationForm> {
                                 onChanged: (value) {
                                   setState(() {
                                     graduatetype = value;
+                                    isPrefill =false;
                                   });
                                 },
                               ),
@@ -472,6 +581,11 @@ class _EducationFormState extends State<EducationForm> {
                       hintText: 'Enter Subject',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -491,6 +605,11 @@ class _EducationFormState extends State<EducationForm> {
                       hintText: 'Enter Phone Number',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 30),
                     Text(
@@ -503,6 +622,11 @@ class _EducationFormState extends State<EducationForm> {
                       hintText: 'Enter City',
                       hintStyle:onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 45),
                     Text(
@@ -515,6 +639,11 @@ class _EducationFormState extends State<EducationForm> {
                       hintText: 'Enter State',
                       hintStyle: onlyFormDataStyle.customTextStyle(context),
                       height: 32,
+                      onChanged: (value){
+                        if(value.isNotEmpty){
+                          isPrefill= false;
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -539,8 +668,8 @@ class _EducationFormState extends State<EducationForm> {
                     ElevatedButton.icon(
                         onPressed: ()async {
                           FilePickerResult? result = await FilePicker.platform.pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: ['pdf']
+                              type: FileType.custom,
+                              allowedExtensions: ['pdf']
                           );
 
                           if (result != null) {
@@ -594,73 +723,77 @@ class _EducationFormState extends State<EducationForm> {
       ),
     );
   }
+
   Widget buildDropdownButton(BuildContext context) {
+    // Store prefilled degree value (you can initialize it with null or fetch it dynamically)
+   // String? prefilledDegree;
+
     return FutureBuilder<List<EduactionDegree>>(
       future: getDegreeDropDown(context),
       builder: (context, snapshot) {
-        if (snapshot.connectionState ==
-            ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 7),
             child: Container(
               height: 31,
               width: 250,
-              decoration: BoxDecoration(
-                  color: ColorManager.white),
+              decoration: BoxDecoration(color: ColorManager.white),
             ),
           );
-
         } else if (snapshot.hasError) {
-          return  CustomDropdownTextField(
-            //width: MediaQuery.of(context).size.width / 5,
-            items: ['Error'], headText: 'Degree',
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
+            items: ['Error'],
+            headText: 'Degree',
           );
         } else if (snapshot.hasData) {
           List<DropdownMenuItem<String>> dropDownList = [];
           int degreeID = 0;
-          for(var i in snapshot.data!){
+
+          // Populate the dropdown list from the fetched data
+          for (var i in snapshot.data!) {
             dropDownList.add(DropdownMenuItem<String>(
               child: Text(i.degree),
               value: i.degree,
             ));
           }
+
+          // If prefilledDegree is set, use it for the value of the dropdown
+          String initialValue = selectedDegree ?? dropDownList[0].value!;
+
           return StatefulBuilder(
             builder: (BuildContext context, void Function(void Function()) setState) {
               return Container(
                 height: 32,
-                // margin: EdgeInsets.symmetric(horizontal: 20),
-                padding:
-                const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
                       color: const Color(0xff686464).withOpacity(0.5),
                       width: 1), // Black border
-                  borderRadius:
-                  BorderRadius.circular(6), // Rounded corners
+                  borderRadius: BorderRadius.circular(6), // Rounded corners
                 ),
                 child: DropdownButtonFormField<String>(
-                    focusColor: Colors.transparent,
-                    icon: const Icon(
-                      Icons.arrow_drop_down_sharp,
-                      color: Color(0xff686464),
-                    ),
-                    decoration: const InputDecoration.collapsed(hintText: ''),
-                    items: dropDownList,
-                    onChanged: (newValue) {
-                      for(var a in snapshot.data!){
-                        if(a.degree == newValue){
-                          selectedDegree = a.degree;
-                          degreeID = a.degreeId;
-                          selectedDegreeId = degreeID;
-                          print("Degree :: ${selectedDegree}");
-                          //empTypeId = docType;
-                        }
+                  focusColor: Colors.transparent,
+                  icon: const Icon(
+                    Icons.arrow_drop_down_sharp,
+                    color: Color(0xff686464),
+                  ),
+                  decoration: const InputDecoration.collapsed(hintText: ''),
+                  items: dropDownList,
+                  onChanged: (newValue) {
+                    isPrefill = false;
+                    for (var a in snapshot.data!) {
+                      if (a.degree == newValue) {
+                        selectedDegree = a.degree;
+                        degreeID = a.degreeId;
+                        selectedDegreeId = degreeID;
+                        print("Degree :: ${selectedDegree}");
                       }
-                    },
-                    value: dropDownList[0].value,
-                    style: onlyFormDataStyle.customTextStyle(context)
+                    }
+                  },
+                  value: initialValue, // Use the prefilled value or the first item
+                  style: onlyFormDataStyle.customTextStyle(context),
                 ),
               );
             },
@@ -675,5 +808,94 @@ class _EducationFormState extends State<EducationForm> {
       },
     );
   }
+
+
+
+
+/////////
+  ///
+  // Widget buildDropdownButton(BuildContext context) {
+  //   return FutureBuilder<List<EduactionDegree>>(
+  //     future: getDegreeDropDown(context),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState ==
+  //           ConnectionState.waiting) {
+  //         return Padding(
+  //           padding: const EdgeInsets.symmetric(
+  //               horizontal: 7),
+  //           child: Container(
+  //             height: 31,
+  //             width: 250,
+  //             decoration: BoxDecoration(
+  //                 color: ColorManager.white),
+  //           ),
+  //         );
+  //
+  //       } else if (snapshot.hasError) {
+  //         return  CustomDropdownTextField(
+  //           //width: MediaQuery.of(context).size.width / 5,
+  //           items: ['Error'], headText: 'Degree',
+  //         );
+  //       } else if (snapshot.hasData) {
+  //         List<DropdownMenuItem<String>> dropDownList = [];
+  //         int degreeID = 0;
+  //         for(var i in snapshot.data!){
+  //           dropDownList.add(DropdownMenuItem<String>(
+  //             child: Text(i.degree),
+  //             value: i.degree,
+  //           ));
+  //         }
+  //         return StatefulBuilder(
+  //           builder: (BuildContext context, void Function(void Function()) setState) {
+  //             return Container(
+  //               height: 32,
+  //               // margin: EdgeInsets.symmetric(horizontal: 20),
+  //               padding:
+  //               const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //               decoration: BoxDecoration(
+  //                 color: Colors.white,
+  //                 border: Border.all(
+  //                     color: const Color(0xff686464).withOpacity(0.5),
+  //                     width: 1), // Black border
+  //                 borderRadius:
+  //                 BorderRadius.circular(6), // Rounded corners
+  //               ),
+  //               child: DropdownButtonFormField<String>(
+  //
+  //                   focusColor: Colors.transparent,
+  //                   icon: const Icon(
+  //                     Icons.arrow_drop_down_sharp,
+  //                     color: Color(0xff686464),
+  //                   ),
+  //                   decoration: const InputDecoration.collapsed(hintText: ''),
+  //                   items: dropDownList,
+  //                   onChanged: (newValue) {
+  //                     isPrefill =false;
+  //                     for(var a in snapshot.data!){
+  //                       if(a.degree == newValue){
+  //                         selectedDegree = a.degree;
+  //                         degreeID = a.degreeId;
+  //                         selectedDegreeId = degreeID;
+  //                         print("Degree :: ${selectedDegree}");
+  //                         //empTypeId = docType;
+  //                       }
+  //                     }
+  //                   },
+  //                   value: dropDownList[0].value,
+  //                   style: onlyFormDataStyle.customTextStyle(context)
+  //               ),
+  //             );
+  //           },
+  //         );
+  //       } else {
+  //         return CustomDropdownTextField(
+  //           // width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Zone',
+  //           items: ['No Data'],
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 }
 

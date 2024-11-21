@@ -127,7 +127,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                 return Center(
                   child: Text(
                     ErrorMessageString.noCounties,
-                    style: DocumentTypeDataStyle.customTextStyle(context)
+                    style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 );
               }

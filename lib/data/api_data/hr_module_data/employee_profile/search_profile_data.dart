@@ -158,12 +158,14 @@ class SearchByEmployeeIdProfileData{
   final String zone;
   final String race;
   final String expertise;
+  final double anualSkill;
   final double profileScorePercentage;
   final bool active;
   final String color;
 
   SearchByEmployeeIdProfileData({
     required this.active,
+    required this.anualSkill,
     this.employeeId,
     required this.color,
     required this.code,

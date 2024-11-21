@@ -15,6 +15,7 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/onboarding_verifyuser_manager.dart';
+import '../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../taxtfield_constant.dart';
 import 'on_boarding_welcome.dart';
 
@@ -75,9 +76,17 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
           },
         );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Authentication failed! Try again"),backgroundColor: ColorManager.red,),
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AddFailePopup(
+              message: "Incorrect OTP! Try again",
+            );
+          },
         );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text("Authentication failed! Try again"),backgroundColor: ColorManager.red,),
+        // );
         setState(() {
           _errorMessage = result.message;
         });

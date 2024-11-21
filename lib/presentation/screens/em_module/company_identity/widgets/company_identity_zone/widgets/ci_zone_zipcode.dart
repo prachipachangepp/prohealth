@@ -16,6 +16,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
@@ -148,11 +149,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                 return Center(
                   child: Text(
                     ErrorMessageString.noZipcode,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight:FontWeight.w500,
-                      fontSize: FontSize.s14,
-                      color: ColorManager.mediumgrey,
-                    ),
+                    style: AllNoDataAvailable.customTextStyle(context),
                   ),
                 );
               }
@@ -265,8 +262,8 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     if(snapshotPrefill.connectionState == ConnectionState.waiting){
                                                       return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
                                                     }
-                                                    // var countyName = snapshotPrefill.data!.countyName;
-                                                    // var cityName = snapshotPrefill.data!.city;
+                                                    var countyName = snapshotPrefill.data!.countyName;
+                                                    var zoneName = snapshotPrefill.data!.zoneName;
                                                     var zipCode = snapshotPrefill.data!.zipcode;
                                                     // var landmark = snapshotPrefill.data!.landmark;
                                                     var zoinId = snapshotPrefill.data!.zoneId;
@@ -278,6 +275,8 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     // cityController = TextEditingController(text: snapshotPrefill.data!.city.toString());
                                                     zipcodeController = TextEditingController(text: snapshotPrefill.data!.zipcode.toString());
                                                     return EditZipCodePopup(
+                                                      zoneName:zoneName,
+                                                      countyName:countyName,
                                                       title: 'Edit Zip Code',
                                                       // countynameController: countynameController,
                                                       officeId: widget.officeId,

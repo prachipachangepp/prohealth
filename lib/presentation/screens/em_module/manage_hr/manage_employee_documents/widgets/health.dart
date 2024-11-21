@@ -14,6 +14,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/emp_doc_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
@@ -96,8 +97,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                     return Center(
                       child: Text(ErrorMessageString.noEmpDocc,
                           //AppString.dataNotFound,
-                          style:
-                              DocumentTypeDataStyle.customTextStyle(context)),
+                          style: AllNoDataAvailable.customTextStyle(context),),
                     );
                   }
                   if (snapshot.hasData) {
@@ -160,13 +160,13 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                           flex: flexVal,
                                           child: Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 40.0),
+                                                left: 114.0),
                                             child: Text(
                                               employeedoc.idOfDocument,
                                               // snapshot.data![index].name.toString(),
                                               style: DocumentTypeDataStyle
                                                   .customTextStyle(context),
-                                              textAlign: TextAlign.center,
+                                              textAlign: TextAlign.start,
                                             ),
                                           ),
                                         ),
