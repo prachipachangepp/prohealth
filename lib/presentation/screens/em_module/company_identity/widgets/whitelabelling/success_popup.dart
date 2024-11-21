@@ -139,7 +139,7 @@ class _EditSuccessPopupState extends State<EditSuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: 35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -218,7 +218,7 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: 35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -303,7 +303,7 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: 35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -341,76 +341,6 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
     );
   }
 }
-
-class AddErrorPopup extends StatefulWidget {
-  final String message;
-  const AddErrorPopup({super.key, required this.message});
-
-  @override
-  State<AddErrorPopup> createState() => _AddErrorPopupState();
-}
-
-class _AddErrorPopupState extends State<AddErrorPopup> {
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        width: AppSize.s300,
-        height: AppSize.s150,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: ColorManager.bluebottom,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-              ),
-              height: 40,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      "Error",
-                      style:  PopupBlueBarText.customTextStyle(context),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: Icon(Icons.close, color: ColorManager.white),
-                  ),
-                ],
-              ),
-            ),
-            Spacer(),
-            Center(
-              child: Container(
-                height: AppSize.s50,
-                width: AppSize.s210,
-                child: Center(
-                  child: Text(widget.message == ""?'Something went wrong!':widget.message,textAlign: TextAlign.center,
-                    style:ConstTextFieldRegister.customTextStyle(context),),
-                ),
-              ),
-            ),
-            Spacer(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 
 
 class CountySuccessPopup extends StatefulWidget {
@@ -457,7 +387,7 @@ class _CountySuccessPopupState extends State<CountySuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: 35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -548,115 +478,27 @@ class _offerSuccessPopupState extends State<offerSuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      "Success",
-                      style:  PopupBlueBarText.customTextStyle(context),
+              height: 35,
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        "Success",
+                        style:  PopupBlueBarText.customTextStyle(context),
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      //Navigator.of(context).pop();
-                    },
-                    icon: Icon(Icons.close, color: ColorManager.white),
-                  ),
-                ],
-              ),
-            ),
-            Spacer(),
-            Center(
-              child: Container(
-                height: AppSize.s50,
-                width: AppSize.s210,
-                child: Center(
-                  child: Text(widget.message == ""?'Added Successfully \nThank You.':widget.message,textAlign: TextAlign.center,
-                    style:ConstTextFieldRegister.customTextStyle(context),),
-                ),
-              ),
-            ),
-            Spacer(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-
-
-////
-
-
-class AddFailePopup extends StatefulWidget {
-  final String message;
-
-  const AddFailePopup({super.key, required this.message});
-
-  @override
-  State<AddFailePopup> createState() => _AddFailePopupState();
-}
-
-class _AddFailePopupState extends State<AddFailePopup> {
-
-
-
-  @override
-  void initState() {
-    super.initState();
-
-    Timer(Duration(seconds: 3), () {
-      if (Navigator.of(context).canPop()) {
-        Navigator.of(context).pop();
-      }
-    });
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        width: AppSize.s300,
-        height: AppSize.s150,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: ColorManager.bluebottom,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-              ),
-              height: 40,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      "Failed",
-                      style:  PopupBlueBarText.customTextStyle(context),
+                    IconButton(
+                      onPressed: () {
+                        //Navigator.of(context).pop();
+                      },
+                      icon: Icon(Icons.close, color: ColorManager.white),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      //Navigator.of(context).pop();
-                    },
-                    icon: Icon(Icons.close, color: ColorManager.white),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Spacer(),
