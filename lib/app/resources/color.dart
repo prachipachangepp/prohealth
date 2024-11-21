@@ -91,6 +91,10 @@ class ColorManager {
   static Color empdoc = Color(0xFF16DBCC);
   ///output relative to input
   static Color relativeResult = Color(0xFFCBFFFF);
+
+  ///dashboard EM
+  static Color tabbarText = Color(0xFF008ABD);
+  static Color blueBorder = Color(0xFF2EA2D4);
 }
 
 extension HexColor on Color {

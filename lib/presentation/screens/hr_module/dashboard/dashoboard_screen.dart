@@ -496,7 +496,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 ),
                               ))),
                           const SizedBox(
-                            width: 15,
+                            width: AppSize.s15,
                           ),
                           Expanded(
                               flex: 1,
@@ -548,7 +548,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 ),
                               )),
                           const SizedBox(
-                            width: 15,
+                            width: AppSize.s15,
                           ),
                           Expanded(
                             flex: 2,
@@ -597,7 +597,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           )
                         ],
                       ),
-                      const SizedBox(height: 15,),
+                      const SizedBox(height: AppSize.s15,),
 
                       ///row 2
                       Row(
@@ -1001,7 +1001,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 15,),
+                      const SizedBox(height: AppSize.s15,),
 
                       ///row 3
                       Row(

@@ -434,8 +434,8 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                     await  showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'No File Selected',
+                        return VendorSelectNoti(
+                          message: 'Please Select File',
                         );
                       },
                     );

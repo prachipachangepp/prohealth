@@ -780,7 +780,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     await showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AddSuccessPopup(
+                          return VendorSelectNoti(
                             message: 'Please Select File',
                           );
                         },

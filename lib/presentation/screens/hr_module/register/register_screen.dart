@@ -132,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        //  mainAxisAlignment: MainAxisAlignment.start,
+        // Remove mainAxisAlignment if it's not needed
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,25 +145,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: Row(
                         children: [
                           InkWell(
-                              onTap: widget.onBackPressed,
-                              // widget.backButtonCallBack(true);
-                              // Navigator.pop(context);
-                              // _pageController.animateToPage(1,
-                              //     duration: Duration(milliseconds: 500),
-                              //     curve: Curves.ease);
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.arrow_back,
-                                    size: 20,
-                                    color: ColorManager.mediumgrey,
-                                  ),
-                                ],
-                              )),
+                            onTap: widget.onBackPressed,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.arrow_back,
+                                  size: 20,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               Column(
@@ -176,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          ///Enroll Button
+                          /// Enroll Button
                           Container(
                             height: AppSize.s30,
                             width: AppSize.s140,
@@ -189,17 +185,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   builder: (BuildContext context) {
                                     return CustomDialog(
                                       title: "Enroll User",
-                                      //userIdController: userIdController,
-                                      lastNameController:
-                                          newUserLastNameController,
+                                      lastNameController: newUserLastNameController,
                                       emailController: newUserEmailController,
-                                      firstNameController:
-                                          newUserFirstNameController,
-                                      // roleController: roleController,
-                                      passwordController:
-                                          newUserPasswordController,
+                                      firstNameController: newUserFirstNameController,
+                                      passwordController: newUserPasswordController,
                                       onCancel: () {
-                                        //widget.onRefresh();
                                         setState(() {
                                           fetchData();
                                         });
@@ -211,14 +201,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                             ),
                           ),
-
-                          SizedBox(
-                            width: 10,
-                          ),
+                          SizedBox(width: 10),
 
                           /// Select Dropdown button
                           buildDropdownButton(context),
-                          // const SizedBox(width: 50),
                         ],
                       ),
                     ),
@@ -227,7 +213,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ],
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Row(
+              children: [
+                Text('To open this form click here :', style: DocumentTypeDataStyle.customTextStyle(context)),
+                TextButton(
+                  onPressed: () async {
+                    const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  },
+                  child: Text(
+                    'https://prohealth.symmetry.care/register',
+                    style: RegisterLinkDataStyle.customTextStyle(context),
+                  ),
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: AppSize.s20),
+          // StreamBuilder to load and display user data
           StreamBuilder<List<RegisterDataCompID>>(
             stream: registerController.stream,
             builder: (context, snapshot) {
@@ -235,8 +244,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Center(
-                    child: CircularProgressIndicator(
-                        color: ColorManager.blueprime),
+                    child: CircularProgressIndicator(color: ColorManager.blueprime),
                   ),
                 );
               }
@@ -245,31 +253,221 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Center(
-                    child: Text(
-                      "No user available!",
-                      style: AllNoDataAvailable.customTextStyle(context),  ),
+                    child: Text("No user available!", style: AllNoDataAvailable.customTextStyle(context)),
                   ),
                 );
               }
-              return Wrap(
-                spacing: 10,
-                children: List.generate(snapshot.data!.length, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                        left: AppPadding.p10,
-                        right: AppPadding.p10,
-                        top: AppPadding.p5,
-                        bottom: AppPadding.p40),
-                    child: buildDataContainer(snapshot.data![index]),
-                  );
-                }),
+
+              return Padding(
+                padding: const EdgeInsets.all(16),
+                child: ListView.builder(
+                  shrinkWrap: true, // Ensures the ListView takes only the space it needs
+                  physics: NeverScrollableScrollPhysics(), // Disables scrolling inside the ListView, let SingleChildScrollView handle it
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: buildDatContainer(snapshot.data![index]),
+                    );
+                  },
+                ),
               );
             },
-          )
+          ),
         ],
       ),
     );
   }
+
+
+
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return SingleChildScrollView(
+  //     child: Column(
+  //       //  mainAxisAlignment: MainAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Column(
+  //               children: [
+  //                 Padding(
+  //                   padding: const EdgeInsets.only(left: 35),
+  //                   child: Container(
+  //                     child: Row(
+  //                       children: [
+  //                         InkWell(
+  //                             onTap: widget.onBackPressed,
+  //                             // widget.backButtonCallBack(true);
+  //                             // Navigator.pop(context);
+  //                             // _pageController.animateToPage(1,
+  //                             //     duration: Duration(milliseconds: 500),
+  //                             //     curve: Curves.ease);
+  //                             child: Row(
+  //                               children: [
+  //                                 Icon(
+  //                                   Icons.arrow_back,
+  //                                   size: 20,
+  //                                   color: ColorManager.mediumgrey,
+  //                                 ),
+  //                               ],
+  //                             )),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                 )
+  //               ],
+  //             ),
+  //             Column(
+  //               children: [
+  //                 Padding(
+  //                   padding: const EdgeInsets.only(right: 36.0),
+  //                   child: Container(
+  //                     width: 300,
+  //                     color: Colors.white,
+  //                     child: Row(
+  //                       mainAxisAlignment: MainAxisAlignment.start,
+  //                       children: [
+  //                         ///Enroll Button
+  //                         Container(
+  //                           height: AppSize.s30,
+  //                           width: AppSize.s140,
+  //                           child: CustomIconButton(
+  //                             icon: Icons.add,
+  //                             text: 'Enroll User',
+  //                             onPressed: () async {
+  //                               await showDialog(
+  //                                 context: context,
+  //                                 builder: (BuildContext context) {
+  //                                   return CustomDialog(
+  //                                     title: "Enroll User",
+  //                                     //userIdController: userIdController,
+  //                                     lastNameController:
+  //                                         newUserLastNameController,
+  //                                     emailController: newUserEmailController,
+  //                                     firstNameController:
+  //                                         newUserFirstNameController,
+  //                                     // roleController: roleController,
+  //                                     passwordController:
+  //                                         newUserPasswordController,
+  //                                     onCancel: () {
+  //                                       //widget.onRefresh();
+  //                                       setState(() {
+  //                                         fetchData();
+  //                                       });
+  //                                     },
+  //                                   );
+  //                                 },
+  //                               );
+  //                               setState(() {});
+  //                             },
+  //                           ),
+  //                         ),
+  //
+  //                         SizedBox(
+  //                           width: 10,
+  //                         ),
+  //
+  //                         /// Select Dropdown button
+  //                         buildDropdownButton(context),
+  //                         // const SizedBox(width: 50),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //         Padding(
+  //           padding: const EdgeInsets.only(left: 20),
+  //           child: Row(
+  //             children: [
+  //
+  //
+  //               Text('To open this form click here :',
+  //                   style:
+  //                   DocumentTypeDataStyle.customTextStyle(context)),
+  //              // SizedBox(width: MediaQuery.of(context).size.width / 20),
+  //               TextButton(
+  //                 onPressed: () async {
+  //                   //html.window.open('/onBordingWelcome',"_blank");
+  //                   // const url = "http://localhost:59589/#/onBordingWelcome";
+  //                   const url = "${AppConfig.deployment}/#/onBordingWelcome";
+  //                   //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+  //                   //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+  //                   if (await canLaunch(url)) {
+  //                     await launch(url);
+  //                   } else {
+  //                     throw 'Could not launch $url';
+  //                   }
+  //                 },
+  //                 child: Text(
+  //                 'https://prohealth.symmetry.care/register',
+  //                   style: RegisterLinkDataStyle.customTextStyle(
+  //                       context),
+  //                 ),
+  //               ),
+  //               // data.status == 'Notopen'
+  //               //     ? const Text('')
+  //               //     : InkWell(
+  //               //     onTap: () {
+  //               //       _copyToClipboard(
+  //               //           "${AppConfig.deployment}/#/onBordingWelcome");
+  //               //     },
+  //               //     child: Icon(
+  //               //       Icons.copy,
+  //               //       size: 15,
+  //               //       color: ColorManager.mediumgrey,
+  //               //     )),
+  //             ],
+  //           ),
+  //         ),
+  //         const SizedBox(height: AppSize.s20),
+  //         StreamBuilder<List<RegisterDataCompID>>(
+  //           stream: registerController.stream,
+  //           builder: (context, snapshot) {
+  //             if (snapshot.connectionState == ConnectionState.waiting) {
+  //               return Padding(
+  //                 padding: const EdgeInsets.symmetric(vertical: 150),
+  //                 child: Center(
+  //                   child: CircularProgressIndicator(
+  //                     color: ColorManager.blueprime,
+  //                   ),
+  //                 ),
+  //               );
+  //             }
+  //
+  //             if (!snapshot.hasData || snapshot.data!.isEmpty) {
+  //               return Padding(
+  //                 padding: const EdgeInsets.symmetric(vertical: 150),
+  //                 child: Center(
+  //                   child: Text(
+  //                     "No user available!",
+  //                     style: AllNoDataAvailable.customTextStyle(context),
+  //                   ),
+  //                 ),
+  //               );
+  //             }
+  //
+  //             // Replace Wrap with ListView.builder
+  //             return Expanded(
+  //               child: ListView.builder(
+  //                 itemCount: snapshot.data!.length,
+  //                 itemBuilder: (context, index) {
+  //                   return buildDatContainer(snapshot.data![index]);
+  //                 },
+  //               ),
+  //             );
+  //           },
+  //         )
+  //
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget buildDropdownButton(BuildContext context) {
     final Map<String, String> displayTextMap = {
@@ -485,8 +683,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                               onPressed: () async {
                                 //html.window.open('/onBordingWelcome',"_blank");
-                               const url = "http://localhost:51043/#/onBordingWelcome";
-                           // const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                               // const url = "http://localhost:59589/#/onBordingWelcome";
+                           const url = "${AppConfig.deployment}/#/onBordingWelcome";
                                 //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                                //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
                                 if (await canLaunch(url)) {
@@ -782,6 +980,805 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+
+
+
+
+  ////
+  Widget buildDatContainer(RegisterDataCompID data) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        // border: Border.all(
+        //   color: const Color(0xff51B5E6),
+        //   width: 0.5,
+        // ),
+        color: Colors.white,
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey
+                .withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      height: 80,
+
+      child: Column(
+       //mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ///status
+              Container(
+                  width: AppSize.s90,
+                  height: AppSize.s20,
+                  decoration: BoxDecoration(
+                    color:data.status == 'Opened'
+                        ? Color(0xff51B5E6)
+                        : data.status == 'Partial'
+                        ? Color(0xffCA8A04)
+                        : data.status == 'Completed'
+                        ? Color(0xffB4DB4C)
+                        : ColorManager.rednew,
+                    borderRadius: BorderRadius.only(
+                        topLeft:
+                        Radius.circular(12)),),
+                  child: Center(
+                    child:
+
+                    data.status == 'Notopen'
+                        ? Text(
+                      'Not Opened',
+                      textAlign: TextAlign.center,
+                      style: CustomTextStylesCommon.commonStyle(
+                          color: ColorManager.white,
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w600),
+                    ):Text(
+                        data.status,
+                        textAlign: TextAlign.center,
+                        style: CustomTextStylesCommon.commonStyle(
+                            color: ColorManager.white,
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w600)),
+                  )),
+            ],
+          ),
+          SizedBox(height: AppSize.s10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              // Expanded(
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Text(
+              //         data.firstName.capitalizeFirst!,
+              //         style: DefineWorkWeekStyle.customTextStyle(context),
+              //       ),
+              //       SizedBox(width: MediaQuery.of(context).size.width/70),
+              //       Text(
+              //         data.lastName.capitalizeFirst!,
+              //         style: DefineWorkWeekStyle.customTextStyle(context),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: CustomRowname(   text1: data.firstName.capitalizeFirst!,
+                    text2: data.lastName.capitalizeFirst!,),
+                ),
+              ), Expanded(
+                flex: 1,
+                child: CustomRownew(   text1: 'Role :',
+                  text2: data.role,),
+              ),
+              Expanded(
+                flex: 1,
+                child: CustomRownew(   text1: 'Email :',
+                  text2: data.email,),
+              ),
+              // Row(
+              //   children: [
+              //     Padding(
+              //       padding: const EdgeInsets.only(top: 2.0),
+              //       child: Icon(Icons.link,
+              //           size: 15, color: ColorManager.mediumgrey),
+              //     ),
+              //     SizedBox(width: MediaQuery.of(context).size.width / 40),
+              //     Text('Link',
+              //         style:
+              //         DocumentTypeDataStyle.customTextStyle(context)),
+              //     SizedBox(width: MediaQuery.of(context).size.width / 20),
+              //     data.status == 'Notopen'
+              //         ? const Text('')
+              //         : TextButton(
+              //       onPressed: () async {
+              //         //html.window.open('/onBordingWelcome',"_blank");
+              //         // const url = "http://localhost:59589/#/onBordingWelcome";
+              //         const url = "${AppConfig.deployment}/#/onBordingWelcome";
+              //         //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+              //         //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+              //         if (await canLaunch(url)) {
+              //           await launch(url);
+              //         } else {
+              //           throw 'Could not launch $url';
+              //         }
+              //       },
+              //       child: Text(
+              //         data.link!,
+              //         style: RegisterLinkDataStyle.customTextStyle(
+              //             context),
+              //       ),
+              //     ),
+              //     data.status == 'Notopen'
+              //         ? const Text('')
+              //         : InkWell(
+              //         onTap: () {
+              //           _copyToClipboard(
+              //               "${AppConfig.deployment}/#/onBordingWelcome");
+              //         },
+              //         child: Icon(
+              //           Icons.copy,
+              //           size: 15,
+              //           color: ColorManager.mediumgrey,
+              //         )),
+              //   ],
+              // ),
+              data.status == 'Notopen'
+                  ? Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: AppSize.s110,
+                    margin:
+                    const EdgeInsets.only(right: AppMargin.m5),
+                    child: CustomIconButton(
+                      text: AppString.enroll,
+                      onPressed: () async {
+                        List<AEClinicalDiscipline> passData =
+                        await HrAddEmplyClinicalDisciplinApi(
+                            context, 1);
+                        showDialog(
+                          context: context,
+                          builder: (_) => FutureBuilder<
+                              RegisterDataUserIDPrefill>(
+                            future: getRegisterEnrollPrefillUserId(
+                                context, data.userId),
+                            builder: (context, snapshotPrefill) {
+                              if (snapshotPrefill.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                      color: ColorManager.blueprime),
+                                );
+                              }
+                              var firstName = snapshotPrefill
+                                  .data!.firstName
+                                  .toString();
+                              firstNameController =
+                                  TextEditingController(
+                                      text: firstName);
+
+                              var lastName = snapshotPrefill
+                                  .data!.lastName
+                                  .toString();
+                              lastNameController =
+                                  TextEditingController(
+                                      text: lastName);
+
+                              var email = snapshotPrefill.data!.email
+                                  .toString();
+                              emailController =
+                                  TextEditingController(text: email);
+
+                              return RegisterEnrollPopup(
+                                employeeId: data.employeeId,
+                                firstName: firstNameController,
+                                lastName: lastNameController,
+                                email: emailController,
+                                userId: snapshotPrefill.data!.userId,
+                                role: snapshotPrefill.data!.role,
+                                status: snapshotPrefill.data!.status,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                onReferesh: () {
+                                  setState(() {
+                                    fetchData();
+                                  });
+                                },
+                                aEClinicalDiscipline: passData,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              )
+                  : const SizedBox(width: 10),
+              data.status == 'Partial'
+                  ? Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    width: AppSize.s110,
+                    margin:
+                    const EdgeInsets.only(right: AppMargin.m5),
+                    child: CustomIconButton(
+                      text: 'Activate',
+                      onPressed: () async {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ConfirmationPopup(
+                                loadingDuration: _isLoading,
+                                onCancel: () {
+                                  Navigator.pop(context);
+                                },
+                                onConfirm: () async {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+
+                                  try {
+                                    var response =
+                                    await changeStatusUserPatch(
+                                        context, data.employeeId);
+                                    fetchData();
+                                    Navigator.pop(context);
+                                  } catch (e) {
+                                    print(
+                                        "Error during Onboarding: $e");
+                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                    //   SnackBar(content: Text('Onboarding failed: $e')),
+                                    // );
+                                  } finally {
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                  }
+                                },
+                                title: 'Confirm Activation',
+                                containerText:
+                                'Do you really want to complete?',
+                              );
+                            });
+                      },
+                    ),
+                  )
+                ],
+              )
+                  : const SizedBox(width: 10),
+              data.status == 'Completed'
+                  ? Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    width: AppSize.s110,
+                    margin:
+                    const EdgeInsets.only(right: AppMargin.m5),
+                    child: CustomIconButton(
+                      text: 'Onboard',
+                      onPressed: () async {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ConfirmationPopup(
+                                loadingDuration: _isLoading,
+                                onCancel: () {
+                                  Navigator.pop(context);
+                                },
+                                onConfirm: () async {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+
+                                  try {
+                                    var response =
+                                    await onboardingUserPatch(
+                                        context, data.employeeId);
+                                    if (response.statusCode == 200 ||
+                                        response.statusCode == 201) {
+                                      // ScaffoldMessenger.of(context).showSnackBar(
+                                      //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+                                      // );
+                                      fetchData();
+                                      Navigator.pop(context);
+                                    } else {
+                                      // ScaffoldMessenger.of(context).showSnackBar(
+                                      //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+                                      // );
+                                      Navigator.pop(context);
+                                    }
+                                  } catch (e) {
+                                    print(
+                                        "Error during Onboarding: $e");
+                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                    //   SnackBar(content: Text('Onboarding failed: $e')),
+                                    // );
+                                  } finally {
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                  }
+                                },
+                                title: 'Confirm Onboarding',
+                                containerText:
+                                'Do you really want to onboard?',
+                              );
+                            });
+                      },
+                    ),
+                  )
+                ],
+              )
+                  : const SizedBox(width: 10),
+              data.status == 'Opened'
+                  ? Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    //color: Colors.red,
+                    height: AppSize.s30,
+                    // margin:
+                    // const EdgeInsets.only(right: AppMargin.m5),
+                    // child: CustomIconButton(
+                    //   text: 'Onboard',
+                    //   onPressed: () async {
+                    //     showDialog(
+                    //         context: context,
+                    //         builder: (BuildContext context) {
+                    //           return ConfirmationPopup(
+                    //             loadingDuration: _isLoading,
+                    //             onCancel: () {
+                    //               Navigator.pop(context);
+                    //             },
+                    //             onConfirm: () async {
+                    //               setState(() {
+                    //                 _isLoading = true;
+                    //               });
+                    //
+                    //               try {
+                    //                 var response =
+                    //                 await onboardingUserPatch(
+                    //                     context, data.employeeId);
+                    //                 if (response.statusCode == 200 ||
+                    //                     response.statusCode == 201) {
+                    //                   // ScaffoldMessenger.of(context).showSnackBar(
+                    //                   //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+                    //                   // );
+                    //                   fetchData();
+                    //                   Navigator.pop(context);
+                    //                 } else {
+                    //                   // ScaffoldMessenger.of(context).showSnackBar(
+                    //                   //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+                    //                   // );
+                    //                   Navigator.pop(context);
+                    //                 }
+                    //               } catch (e) {
+                    //                 print(
+                    //                     "Error during Onboarding: $e");
+                    //                 // ScaffoldMessenger.of(context).showSnackBar(
+                    //                 //   SnackBar(content: Text('Onboarding failed: $e')),
+                    //                 // );
+                    //               } finally {
+                    //                 setState(() {
+                    //                   _isLoading = false;
+                    //                 });
+                    //               }
+                    //             },
+                    //             title: 'Confirm Onboarding',
+                    //             containerText:
+                    //             'Do you really want to onboard?',
+                    //           );
+                    //         });
+                    //   },
+                    // ),
+                    width: 110,
+                    margin:
+                    const EdgeInsets.only(right: AppMargin.m5),
+                  )
+                ],
+              )
+                  : const SizedBox(width: 10),
+
+
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   crossAxisAlignment: CrossAxisAlignment.end,
+              //   children: [
+              //     data.status == 'Notopen'
+              //         ? Text(
+              //       'Not Opened',
+              //       style:
+              //       DocumentTypeDataStyle.customTextStyle(context),
+              //     )
+              //         : Text('Status',
+              //         style:
+              //         DocumentTypeDataStyle.customTextStyle(context)),
+              //     SizedBox(width: MediaQuery.of(context).size.width / 100),
+              //     data.status == 'Notopen'
+              //         ? const SizedBox(width: 10)
+              //         : Container(
+              //       width: 10.0,
+              //       height: 15.0,
+              //       decoration: BoxDecoration(
+              //         color: data.status == 'Opened'
+              //             ? const Color(0xff51B5E6)
+              //             : data.status == 'Partial'
+              //             ? const Color(0xffCA8A04)
+              //             : const Color(0xffB4DB4C),
+              //         shape: BoxShape.circle,
+              //       ),
+              //     ),
+              //     SizedBox(width: 5),
+              //     data.status == 'Notopen'
+              //         ? const SizedBox(width: 10)
+              //         : Text(data.status,
+              //         style: ConstTextFieldStyles.customTextStyle(
+              //           textColor: data.status == 'Opened'
+              //               ? Color(0xff51B5E6)
+              //               : data.status == 'Partial'
+              //               ? Color(0xffCA8A04)
+              //               : data.status == 'Completed'
+              //               ? Color(0xffB4DB4C)
+              //               : ColorManager.rednew,
+              //         )),
+              //   ],
+              // ),
+            ],
+          ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //     left: MediaQuery.of(context).size.width / 130,
+          //     top: MediaQuery.of(context).size.height / 120,
+          //   ),
+          //   child:
+          //   Column(
+          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       SizedBox(height: MediaQuery.of(context).size.height / 60),
+          //       CustomRow(
+          //         icon: Icons.email_outlined,
+          //         text1: 'Email',
+          //         text2: data.email,
+          //       ),
+          //       SizedBox(height: MediaQuery.of(context).size.height / 60),
+          //
+          //       ///link
+          //       Row(
+          //         children: [
+          //           Padding(
+          //             padding: const EdgeInsets.only(top: 2.0),
+          //             child: Icon(Icons.link,
+          //                 size: 15, color: ColorManager.mediumgrey),
+          //           ),
+          //           SizedBox(width: MediaQuery.of(context).size.width / 40),
+          //           Text('Link',
+          //               style:
+          //               DocumentTypeDataStyle.customTextStyle(context)),
+          //           SizedBox(width: MediaQuery.of(context).size.width / 20),
+          //           data.status == 'Notopen'
+          //               ? const Text('')
+          //               : TextButton(
+          //             onPressed: () async {
+          //               //html.window.open('/onBordingWelcome',"_blank");
+          //               // const url = "http://localhost:59589/#/onBordingWelcome";
+          //               const url = "${AppConfig.deployment}/#/onBordingWelcome";
+          //               //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+          //               //Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+          //               if (await canLaunch(url)) {
+          //                 await launch(url);
+          //               } else {
+          //                 throw 'Could not launch $url';
+          //               }
+          //             },
+          //             child: Text(
+          //               data.link!,
+          //               style: RegisterLinkDataStyle.customTextStyle(
+          //                   context),
+          //             ),
+          //           ),
+          //           data.status == 'Notopen'
+          //               ? const Text('')
+          //               : InkWell(
+          //               onTap: () {
+          //                 _copyToClipboard(
+          //                     "${AppConfig.deployment}/#/onBordingWelcome");
+          //               },
+          //               child: Icon(
+          //                 Icons.copy,
+          //                 size: 15,
+          //                 color: ColorManager.mediumgrey,
+          //               )),
+          //         ],
+          //       ),
+          //       data.status == 'Notopen'
+          //           ? Row(
+          //         mainAxisAlignment: MainAxisAlignment.end,
+          //         children: [
+          //           Container(
+          //             width: AppSize.s110,
+          //             margin:
+          //             const EdgeInsets.only(right: AppMargin.m5),
+          //             child: CustomIconButton(
+          //               text: AppString.enroll,
+          //               onPressed: () async {
+          //                 List<AEClinicalDiscipline> passData =
+          //                 await HrAddEmplyClinicalDisciplinApi(
+          //                     context, 1);
+          //                 showDialog(
+          //                   context: context,
+          //                   builder: (_) => FutureBuilder<
+          //                       RegisterDataUserIDPrefill>(
+          //                     future: getRegisterEnrollPrefillUserId(
+          //                         context, data.userId),
+          //                     builder: (context, snapshotPrefill) {
+          //                       if (snapshotPrefill.connectionState ==
+          //                           ConnectionState.waiting) {
+          //                         return Center(
+          //                           child: CircularProgressIndicator(
+          //                               color: ColorManager.blueprime),
+          //                         );
+          //                       }
+          //                       var firstName = snapshotPrefill
+          //                           .data!.firstName
+          //                           .toString();
+          //                       firstNameController =
+          //                           TextEditingController(
+          //                               text: firstName);
+          //
+          //                       var lastName = snapshotPrefill
+          //                           .data!.lastName
+          //                           .toString();
+          //                       lastNameController =
+          //                           TextEditingController(
+          //                               text: lastName);
+          //
+          //                       var email = snapshotPrefill.data!.email
+          //                           .toString();
+          //                       emailController =
+          //                           TextEditingController(text: email);
+          //
+          //                       return RegisterEnrollPopup(
+          //                         employeeId: data.employeeId,
+          //                         firstName: firstNameController,
+          //                         lastName: lastNameController,
+          //                         email: emailController,
+          //                         userId: snapshotPrefill.data!.userId,
+          //                         role: snapshotPrefill.data!.role,
+          //                         status: snapshotPrefill.data!.status,
+          //                         onPressed: () {
+          //                           Navigator.pop(context);
+          //                         },
+          //                         onReferesh: () {
+          //                           setState(() {
+          //                             fetchData();
+          //                           });
+          //                         },
+          //                         aEClinicalDiscipline: passData,
+          //                       );
+          //                     },
+          //                   ),
+          //                 );
+          //               },
+          //             ),
+          //           ),
+          //         ],
+          //       )
+          //           : const SizedBox(width: 10),
+          //       data.status == 'Partial'
+          //           ? Row(
+          //         mainAxisAlignment: MainAxisAlignment.end,
+          //         crossAxisAlignment: CrossAxisAlignment.end,
+          //         children: [
+          //           Container(
+          //             width: AppSize.s100,
+          //             margin:
+          //             const EdgeInsets.only(right: AppMargin.m5),
+          //             child: CustomIconButton(
+          //               text: 'Activate',
+          //               onPressed: () async {
+          //                 showDialog(
+          //                     context: context,
+          //                     builder: (BuildContext context) {
+          //                       return ConfirmationPopup(
+          //                         loadingDuration: _isLoading,
+          //                         onCancel: () {
+          //                           Navigator.pop(context);
+          //                         },
+          //                         onConfirm: () async {
+          //                           setState(() {
+          //                             _isLoading = true;
+          //                           });
+          //
+          //                           try {
+          //                             var response =
+          //                             await changeStatusUserPatch(
+          //                                 context, data.employeeId);
+          //                             fetchData();
+          //                             Navigator.pop(context);
+          //                           } catch (e) {
+          //                             print(
+          //                                 "Error during Onboarding: $e");
+          //                             // ScaffoldMessenger.of(context).showSnackBar(
+          //                             //   SnackBar(content: Text('Onboarding failed: $e')),
+          //                             // );
+          //                           } finally {
+          //                             setState(() {
+          //                               _isLoading = false;
+          //                             });
+          //                           }
+          //                         },
+          //                         title: 'Confirm Activation',
+          //                         containerText:
+          //                         'Do you really want to complete?',
+          //                       );
+          //                     });
+          //               },
+          //             ),
+          //           )
+          //         ],
+          //       )
+          //           : const SizedBox(width: 10),
+          //       data.status == 'Completed'
+          //           ? Row(
+          //         mainAxisAlignment: MainAxisAlignment.end,
+          //         crossAxisAlignment: CrossAxisAlignment.end,
+          //         children: [
+          //           Container(
+          //             width: AppSize.s100,
+          //             margin:
+          //             const EdgeInsets.only(right: AppMargin.m5),
+          //             child: CustomIconButton(
+          //               text: 'Onboard',
+          //               onPressed: () async {
+          //                 showDialog(
+          //                     context: context,
+          //                     builder: (BuildContext context) {
+          //                       return ConfirmationPopup(
+          //                         loadingDuration: _isLoading,
+          //                         onCancel: () {
+          //                           Navigator.pop(context);
+          //                         },
+          //                         onConfirm: () async {
+          //                           setState(() {
+          //                             _isLoading = true;
+          //                           });
+          //
+          //                           try {
+          //                             var response =
+          //                             await onboardingUserPatch(
+          //                                 context, data.employeeId);
+          //                             if (response.statusCode == 200 ||
+          //                                 response.statusCode == 201) {
+          //                               // ScaffoldMessenger.of(context).showSnackBar(
+          //                               //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+          //                               // );
+          //                               fetchData();
+          //                               Navigator.pop(context);
+          //                             } else {
+          //                               // ScaffoldMessenger.of(context).showSnackBar(
+          //                               //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+          //                               // );
+          //                               Navigator.pop(context);
+          //                             }
+          //                           } catch (e) {
+          //                             print(
+          //                                 "Error during Onboarding: $e");
+          //                             // ScaffoldMessenger.of(context).showSnackBar(
+          //                             //   SnackBar(content: Text('Onboarding failed: $e')),
+          //                             // );
+          //                           } finally {
+          //                             setState(() {
+          //                               _isLoading = false;
+          //                             });
+          //                           }
+          //                         },
+          //                         title: 'Confirm Onboarding',
+          //                         containerText:
+          //                         'Do you really want to onboard?',
+          //                       );
+          //                     });
+          //               },
+          //             ),
+          //           )
+          //         ],
+          //       )
+          //           : const SizedBox(width: 10),
+          //       data.status == 'Opened'
+          //           ? Row(
+          //         mainAxisAlignment: MainAxisAlignment.end,
+          //         crossAxisAlignment: CrossAxisAlignment.end,
+          //         children: [
+          //           Container(
+          //             color: Colors.red,
+          //             height: AppSize.s30,
+          //             // margin:
+          //             // const EdgeInsets.only(right: AppMargin.m5),
+          //             // child: CustomIconButton(
+          //             //   text: 'Onboard',
+          //             //   onPressed: () async {
+          //             //     showDialog(
+          //             //         context: context,
+          //             //         builder: (BuildContext context) {
+          //             //           return ConfirmationPopup(
+          //             //             loadingDuration: _isLoading,
+          //             //             onCancel: () {
+          //             //               Navigator.pop(context);
+          //             //             },
+          //             //             onConfirm: () async {
+          //             //               setState(() {
+          //             //                 _isLoading = true;
+          //             //               });
+          //             //
+          //             //               try {
+          //             //                 var response =
+          //             //                 await onboardingUserPatch(
+          //             //                     context, data.employeeId);
+          //             //                 if (response.statusCode == 200 ||
+          //             //                     response.statusCode == 201) {
+          //             //                   // ScaffoldMessenger.of(context).showSnackBar(
+          //             //                   //     SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+          //             //                   // );
+          //             //                   fetchData();
+          //             //                   Navigator.pop(context);
+          //             //                 } else {
+          //             //                   // ScaffoldMessenger.of(context).showSnackBar(
+          //             //                   //     SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+          //             //                   // );
+          //             //                   Navigator.pop(context);
+          //             //                 }
+          //             //               } catch (e) {
+          //             //                 print(
+          //             //                     "Error during Onboarding: $e");
+          //             //                 // ScaffoldMessenger.of(context).showSnackBar(
+          //             //                 //   SnackBar(content: Text('Onboarding failed: $e')),
+          //             //                 // );
+          //             //               } finally {
+          //             //                 setState(() {
+          //             //                   _isLoading = false;
+          //             //                 });
+          //             //               }
+          //             //             },
+          //             //             title: 'Confirm Onboarding',
+          //             //             containerText:
+          //             //             'Do you really want to onboard?',
+          //             //           );
+          //             //         });
+          //             //   },
+          //             // ),
+          //           )
+          //         ],
+          //       )
+          //           : const SizedBox(width: 10),
+          //     ],
+          //   ),
+          // ),
+        ],
+      ),
+    );
+  }
+////
 }
 
 ///dont delete
