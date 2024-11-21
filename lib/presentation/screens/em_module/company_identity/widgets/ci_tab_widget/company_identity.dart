@@ -603,6 +603,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                   //   },
                                                   // ),)
 
+
                                                   Padding(
                                                     padding: const EdgeInsets.only(bottom: 20),
                                                     child: Row(
