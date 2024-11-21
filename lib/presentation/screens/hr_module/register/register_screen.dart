@@ -174,7 +174,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     Row(
                       children: [
-                        Text('To open this form click here :', style: DocumentTypeDataStyle.customTextStyle(context)),
+                        Text(' To open this form click here :    ', style: DocumentTypeDataStyle.customTextStyle(context)),
+                        SizedBox(width: 5,),
                         TextButton(
                           onPressed: () async {
                              // const url = "http://localhost:63036/#/onBordingWelcome";
@@ -189,7 +190,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                           },
                           child: Text(
-                            'https://prohealth.symmetry.care/register',
+                              'https://prohealth.symmetry.care/register',
                             style: RegisterLinkDataStyle.customTextStyle(context),
                           ),
                         ),
@@ -1035,12 +1036,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: AppSize.s20,
                   decoration: BoxDecoration(
                     color:data.status == 'Opened'
-                        ? Color(0xff51B5E6)
+                        ? Color(0xff1696C8)
                         : data.status == 'Partial'
                         ? Color(0xffCA8A04)
                         : data.status == 'Completed'
-                        ? Color(0xffB4DB4C)
-                        : ColorManager.rednew,
+                        ? Color(0xff52A889)
+                        : Color(0xffC30404),
                     borderRadius: BorderRadius.only(
                         topLeft:
                         Radius.circular(12)),),
@@ -1423,7 +1424,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ],
                 ),
               ),
-SizedBox(width: 15,)
+SizedBox(width: 20,)
 
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.end,
