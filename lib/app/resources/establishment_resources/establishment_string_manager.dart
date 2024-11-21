@@ -107,7 +107,7 @@ class AppStringEM{
   static const String officeStartTime = 'Office Start Time';
   static const String officeEndTime = 'Office End Time';
   static const String endTime = 'Office End Time';
-  static const String startTime = 'Office End Time';
+  static const String startTime = 'Office Start Time';
 
   ///Emp doc
   static const String health = "Health";
