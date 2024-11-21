@@ -11,7 +11,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/manage_work_schedule.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/dashboard_main_button_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/dashboard/dashboard_main_button_screen.dart';
 import 'package:provider/provider.dart';
 import '../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../widgets/app_bar/app_bar.dart';
