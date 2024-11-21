@@ -399,13 +399,20 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                         },
                       );
                     }
-                    if(response.statusCode == 400 || response.statusCode == 404){
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => const FourNotFourPopup(),
-                      );
-                    }
+                else if(response.statusCode == 400 || response.statusCode == 404){
+                   Navigator.pop(context);
+                   showDialog(
+                     context: context,
+                     builder: (BuildContext context) => const FourNotFourPopup(),
+                   );
+                 }
+                 else {
+                   Navigator.pop(context);
+                   showDialog(
+                     context: context,
+                     builder: (BuildContext context) => FailedPopup(text: response.message),
+                   );
+                 }
                   } finally {
                     setState(() {
                       loading = false;
