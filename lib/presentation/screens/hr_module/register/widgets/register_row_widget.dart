@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../app/resources/theme_manager.dart';
 
 class CustomRow extends StatelessWidget {
   final IconData icon;
@@ -74,7 +75,7 @@ class CustomRownew extends StatelessWidget {
         Text(
             text2,
             textAlign: TextAlign.start,
-            style:DocumentTypeDataStyle.customTextStyle(context)
+            style:ThemeManagerDark.customTextStyle(context)
         ),
       ],
     );
@@ -109,7 +110,10 @@ class CustomRowname extends StatelessWidget {
             text1,
             style: DefineWorkWeekStyle.customTextStyle(context),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width/70),
+        SizedBox(
+          width: 5,
+        ),
+      //  SizedBox(width: MediaQuery.of(context).size.width/70),
         Text(
             text2,
             textAlign: TextAlign.start,
