@@ -607,7 +607,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                 builder: (BuildContext context) => FailedPopup(text: response.message),
                                                               );
                                                             }
-
                                                           },
                                                           shiftNameController:
                                                           shiftnameController,
