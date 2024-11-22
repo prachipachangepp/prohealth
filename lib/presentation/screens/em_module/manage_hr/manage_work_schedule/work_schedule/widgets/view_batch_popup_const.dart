@@ -303,7 +303,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                           StatefulBuilder(
                                                                             builder: (BuildContext context, void Function(void Function()) setState) {
                                                                               return DeletePopup(
-                                                                                  title: DeletePopupString.deleteholiday,
+                                                                                  title: "Delete Batch",
                                                                                   loadingDuration: _isLoading,
                                                                                   onCancel: () {
                                                                                     Navigator.pop(
