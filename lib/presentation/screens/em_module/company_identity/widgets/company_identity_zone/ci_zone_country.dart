@@ -6,6 +6,8 @@ import 'package:prohealth/app/resources/establishment_resources/establishment_st
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -235,8 +237,8 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                               countryName.toString(),
                                                               "37.0902°",
                                                               "95.7129°", widget.companyID, widget.officeId);
-                                                          Navigator.pop(context);
                                                           if(response.statusCode == 200 || response.statusCode == 201){
+                                                            Navigator.pop(context);
                                                             showDialog(
                                                               context: context,
                                                               builder: (BuildContext context) {
@@ -244,6 +246,19 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                                   message: 'County Edited Successfully',
                                                                 );
                                                               },
+                                                            );
+                                                          }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                            Navigator.pop(context);
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => const FourNotFourPopup(),
+                                                            );
+                                                          }
+                                                          else {
+                                                            Navigator.pop(context);
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => FailedPopup(text: response.message),
                                                             );
                                                           }
                                                           getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){

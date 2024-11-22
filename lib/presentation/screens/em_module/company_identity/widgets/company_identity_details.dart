@@ -14,6 +14,8 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -759,7 +761,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         height: AppSize.s30,
                         text: AppStringEM.save,
                         onPressed: () async {
-                          await patchCompanyOffice(
+                         var response = await patchCompanyOffice(
                               context,
                               widget.companyOfficeid,
                               widget.officeId,
@@ -778,14 +780,28 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               countryNameController.text);
 
                           widget.updateOfficeName(nameController.text);
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AddSuccessPopup(
-                                message: 'Edited successfully.',
-                              );
-                            },
-                          );
+                          if(response.statusCode == 200 || response.statusCode == 201){
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddSuccessPopup(
+                                  message: 'Edited successfully.',
+                                );
+                              },
+                            );
+                          }else if(response.statusCode == 400 || response.statusCode == 404){
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => const FourNotFourPopup(),
+                            );
+                          }
+                          else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => FailedPopup(text: response.message),
+                            );
+                          }
+
                         },
                       ),
                     ],

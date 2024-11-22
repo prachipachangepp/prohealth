@@ -12,6 +12,8 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/zone_m
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -665,8 +667,9 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
               _selectedLocation.longitude.toString(),
               "",
             );
-            Navigator.pop(context);
+
             if(response.statusCode == 200 || response.statusCode == 201){
+              Navigator.pop(context);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -674,6 +677,19 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                     message: 'Save Successfully',
                   );
                 },
+              );
+            }else if(response.statusCode == 400 || response.statusCode == 404){
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => const FourNotFourPopup(),
+              );
+            }
+            else {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => FailedPopup(text: response.message),
               );
             }
 
@@ -1525,8 +1541,9 @@ title: widget.title,
           // "37.0902°",
           // "95.7129°",
           "");
-      Navigator.pop(context);
+
       if(response.statusCode == 200 || response.statusCode == 201){
+        Navigator.pop(context);
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -1534,6 +1551,19 @@ title: widget.title,
               message: 'Zipcode Edited Successfully',
             );
           },
+        );
+      }else if(response.statusCode == 400 || response.statusCode == 404){
+        Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => const FourNotFourPopup(),
+        );
+      }
+      else {
+        Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => FailedPopup(text: response.message),
         );
       }
       setState(() {
