@@ -306,10 +306,10 @@ class _EducationScreenState extends State<EducationScreen> {
                       //     );
                       //   },
                       // );
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context) => const FourNotFourPopup(),
-                      );
+                      // await showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) => const FourNotFourPopup(),
+                      // );
                     }
 
                     // Close the loading state and call onSave
