@@ -11,6 +11,8 @@ import 'package:prohealth/app/services/api/repository/establishment_manager/esta
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -91,8 +93,9 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                   onPressed: () async{
                   var response = await addHolidaysPost(context,
                       holidayNameController.text, calenderController.text, 2024,);
-                  Navigator.pop(context);
+
                   if(response.statusCode == 200 || response.statusCode == 201){
+                    Navigator.pop(context);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -100,6 +103,20 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                           message: 'Holiday Added Successfully',
                         );
                       },
+                    );
+                  }
+                 else if(response.statusCode == 400 || response.statusCode == 404){
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => const FourNotFourPopup(),
+                    );
+                  }
+                  else {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => FailedPopup(text: response.message),
                     );
                   }
                   holidaysListGet(context).then((data) {
@@ -303,8 +320,8 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                         var response = await updateHolidays(context, defineData.holidayId,
                                                                             holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
                                                                             date == calenderController.text ? date! : calenderController.text, 2024,);
-                                                                        Navigator.pop(context);
                                                                         if(response.statusCode == 200 || response.statusCode == 201){
+                                                                          Navigator.pop(context);
                                                                           showDialog(
                                                                             context: context,
                                                                             builder: (BuildContext context) {
@@ -312,6 +329,19 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                                 message: 'Holiday Edited Successfully',
                                                                               );
                                                                             },
+                                                                          );
+                                                                        }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                                          Navigator.pop(context);
+                                                                          showDialog(
+                                                                            context: context,
+                                                                            builder: (BuildContext context) => const FourNotFourPopup(),
+                                                                          );
+                                                                        }
+                                                                        else {
+                                                                          Navigator.pop(context);
+                                                                          showDialog(
+                                                                            context: context,
+                                                                            builder: (BuildContext context) => FailedPopup(text: response.message),
                                                                           );
                                                                         }
                                                                         holidaysListGet(

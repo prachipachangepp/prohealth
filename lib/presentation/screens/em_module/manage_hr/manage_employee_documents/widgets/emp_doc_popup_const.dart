@@ -10,6 +10,8 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/org_do
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -321,7 +323,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                       }
                     }
 
-                    await addEmployeeDocSetup(
+                    var response = await addEmployeeDocSetup(
                       context: context,
                       docName: nameDocController.text,
                       expiryDate: "", //expiryDate,
@@ -331,21 +333,38 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                       expiryType: selectedExpiryType.toString(),
                       threshold: threshold, // Pass calculated or 0
                     );
+                    if(response.statusCode == 200 || response.statusCode == 201){
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Added Successfully',
+                          );
+                        },
+                      );
+                    }
+                    else if(response.statusCode == 400 || response.statusCode == 404){
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => const FourNotFourPopup(),
+                      );
+                    }
+                    else {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => FailedPopup(text: response.message),
+                      );
+                    }
 
                     print(nameDocController.text);
                     print(idDocController.text);
                     print(widget.Subdocid);
                     print(selectedExpiryType.toString());
 
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'Added Successfully',
-                        );
-                      },
-                    );
+
                     nameDocController.clear();
                     dateController.clear();
                   },
@@ -732,7 +751,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                     expiryDateToSend = null;
                   }
 
-                  await editEmployeeDocTypeSetupId(
+                  var response = await editEmployeeDocTypeSetupId(
                     // context,
                     // widget.empsetupId,
                     // widget.docname,
@@ -750,19 +769,36 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                     // idOfDocument:  idOfDocController.text, expiryType: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString(): widget.expiryType!,
                     threshold: threshold,
                   );
+                  if(response.statusCode == 200 || response.statusCode == 201){
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'Edited Successfully',
+                        );
+                      },
+                    );
+                  }
+                  else if(response.statusCode == 400 || response.statusCode == 404){
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => const FourNotFourPopup(),
+                    );
+                  }
+                  else {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => FailedPopup(text: response.message),
+                    );
+                  }
                 } finally {
                   setState(() {
                     _isLoading = false;
                   });
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddSuccessPopup(
-                        message: 'Edited Successfully',
-                      );
-                    },
-                  );
+
                 }
               }
             },

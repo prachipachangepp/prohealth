@@ -17,6 +17,8 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/view_batch_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -452,8 +454,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                     setState((){
                                                                                                       shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays);
                                                                                                     });
-                                                                                                    Navigator.pop(context);
+
                                                                                                     if(response.statusCode == 200 || response.statusCode == 201){
+                                                                                                      Navigator.pop(context);
                                                                                                       showDialog(
                                                                                                         context: context,
                                                                                                         builder: (BuildContext context) {
@@ -461,6 +464,19 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                             message: 'Batch Added Successfully',
                                                                                                           );
                                                                                                         },
+                                                                                                      );
+                                                                                                    }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                                                                      Navigator.pop(context);
+                                                                                                      showDialog(
+                                                                                                        context: context,
+                                                                                                        builder: (BuildContext context) => const FourNotFourPopup(),
+                                                                                                      );
+                                                                                                    }
+                                                                                                    else {
+                                                                                                      Navigator.pop(context);
+                                                                                                      showDialog(
+                                                                                                        context: context,
+                                                                                                        builder: (BuildContext context) => FailedPopup(text: response.message),
                                                                                                       );
                                                                                                     }
                                                                                                     startTimeController.clear();
@@ -576,6 +592,19 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                     message: 'Shift Added Successfully',
                                                                   );
                                                                 },
+                                                              );
+                                                            }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                              Navigator.pop(context);
+                                                              showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context) => const FourNotFourPopup(),
+                                                              );
+                                                            }
+                                                            else {
+                                                              Navigator.pop(context);
+                                                              showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context) => FailedPopup(text: response.message),
                                                               );
                                                             }
 

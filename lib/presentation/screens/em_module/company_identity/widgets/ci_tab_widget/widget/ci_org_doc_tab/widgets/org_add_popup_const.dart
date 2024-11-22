@@ -406,6 +406,13 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                         builder: (BuildContext context) => const FourNotFourPopup(),
                       );
                     }
+                    else {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => FailedPopup(text: response.message),
+                      );
+                    }
                   } finally {
                     setState(() {
                       loading = false;
