@@ -440,7 +440,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                     ),
                                                   ],
                                                 ):SizedBox(  height: 22,),
-                                                SizedBox(height: 5,),
+                                                SizedBox(height: 8,),
                                                 // Google Map Display
                                                 if (snapshot.data![index].lat !=
                                                     null)
@@ -558,7 +558,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                                         // color:Colors.red,
                                                                         width:200,
                                                                         child: Text(
-                                                                          _trimAddress(paginatedData[index].address.toString())    ,
+                                                                         paginatedData[index].address.toString() ,
                                                                           textAlign: TextAlign.end,
                                                                           style: TableSubHeading.customTextStyle(context),
                                                                         ),
@@ -604,7 +604,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
 
 
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 20),
+                                                  padding: const EdgeInsets.only(bottom: 13),
                                                   child: Row(
 
                                                     mainAxisAlignment: MainAxisAlignment.center,
