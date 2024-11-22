@@ -14,6 +14,8 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/const_appbar/controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
@@ -272,7 +274,7 @@ class _HrWidgetState extends State<HrWidget> {
                               containerColor: containerColors[1],
                               onAddPressed: () async {
                                 print('$deptId');
-                                await addEmployeeTypePost(context,
+                                var response = await addEmployeeTypePost(context,
                                     deptId,
                                     typeController.text,
                                     color,
@@ -281,16 +283,32 @@ class _HrWidgetState extends State<HrWidget> {
                                 getAllHrDeptWise(context,deptId).then((data){
                                   _controller.add(data);
                                 }).catchError((error){});
+                                if(response.statusCode == 200 || response.statusCode == 201){
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AddSuccessPopup(
+                                        message: 'Added Successfully',
+                                      );
+                                    },
+                                  );
+                                }else if(response.statusCode == 400 || response.statusCode == 404){
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => const FourNotFourPopup(),
+                                  );
+                                }
+                                else {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => FailedPopup(text: response.message),
+                                  );
+                                }
 
-                                Navigator.pop(context);
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AddSuccessPopup(
-                                      message: 'Added Successfully',
-                                    );
-                                  },
-                                );
+
                                 typeController.clear();
                                 shorthandController.clear();
                               },
@@ -702,7 +720,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                     containerColor: hrcontainerColors[index],
                                                                     onSavePressed: () async {
                                                                       print('Selected color ${snapshot.data!.color }');
-                                                                      await AllFromHrPatch(
+                                                                      var response = await AllFromHrPatch(
                                                                           context,
                                                                           snapshot.data!.empTypeId,
                                                                           snapshot.data!.deptId,
@@ -713,15 +731,31 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                       getAllHrDeptWise(context, widget.deptId).then((data) {
                                                                         _hrAllcontroller.add(data);
                                                                       }).catchError((error) {});
-                                                                      Navigator.pop(context);
-                                                                      showDialog(
-                                                                        context: context,
-                                                                        builder: (BuildContext context) {
-                                                                          return AddSuccessPopup(
-                                                                            message: 'Edit Successfully',
-                                                                          );
-                                                                        },
-                                                                      );
+                                                                      if(response.statusCode == 200 || response.statusCode == 201){
+                                                                        Navigator.pop(context);
+                                                                        showDialog(
+                                                                          context: context,
+                                                                          builder: (BuildContext context) {
+                                                                            return AddSuccessPopup(
+                                                                              message: 'Edit Successfully',
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                                        Navigator.pop(context);
+                                                                        showDialog(
+                                                                          context: context,
+                                                                          builder: (BuildContext context) => const FourNotFourPopup(),
+                                                                        );
+                                                                      }
+                                                                      else {
+                                                                        Navigator.pop(context);
+                                                                        showDialog(
+                                                                          context: context,
+                                                                          builder: (BuildContext context) => FailedPopup(text: response.message),
+                                                                        );
+                                                                      }
+
                                                                       typeController.clear();
                                                                       shorthandController.clear();
                                                                       seletedType = "Clinical";

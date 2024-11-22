@@ -20,6 +20,8 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -169,9 +171,10 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     isSelected ? "Currently Working" : endDateController.text ,
                                     emergencyMobileNumber.text,
                                     countryController.text);
-                                Navigator.pop(context);
+
                                 var approveResponse = await approveOnboardQualifyEmploymentPatch(context, response.employeementId!);
                                 if(approveResponse.statusCode == 200 || approveResponse.statusCode == 201){
+                                  Navigator.pop(context);
                                    showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -179,6 +182,19 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                         message: 'Employement Added Successfully',
                                       );
                                     },
+                                  );
+                                }else if(response.statusCode == 400 || response.statusCode == 404){
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => const FourNotFourPopup(),
+                                  );
+                                }
+                                else {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => FailedPopup(text: response.message),
                                   );
                                 }
 
@@ -476,8 +492,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                   country== countryController.text ?country.toString():countryController.text
                                                 // 'USA'
                                               );
-                                              Navigator.pop(context);
                                               if(response.statusCode == 200 || response.statusCode == 201){
+                                                Navigator.pop(context);
                                                  showDialog(
                                                   context: context,
                                                   builder: (BuildContext context) {
@@ -485,6 +501,19 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                       message: 'Employement Edited Successfully',
                                                     );
                                                   },
+                                                );
+                                              }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                Navigator.pop(context);
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) => const FourNotFourPopup(),
+                                                );
+                                              }
+                                              else {
+                                                Navigator.pop(context);
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) => FailedPopup(text: response.message),
                                                 );
                                               }
                                             }, checkBoxTile:  Container(

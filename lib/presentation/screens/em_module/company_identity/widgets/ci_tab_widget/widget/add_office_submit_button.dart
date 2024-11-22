@@ -15,6 +15,8 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/comp
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../widgets/dialogue_template.dart';
@@ -462,6 +464,19 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             message: 'Added Successfully',
                           );
                         },
+                      );
+                    }else if(response.statusCode == 400 || response.statusCode == 404){
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => const FourNotFourPopup(),
+                      );
+                    }
+                    else {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => FailedPopup(text: response.message),
                       );
                     }
 
