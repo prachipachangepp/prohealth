@@ -309,7 +309,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                     holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
                                                                     calenderController = TextEditingController(text: snapshotPrefill.data?.date);
                                                                     return AddHolidayPopup(
-                                                                      buttonWidth:  AppSize.s100,
+                                                                      buttonWidth:  AppSize.s120,
                                                                       btnTitle: "Save Changes",
                                                                       title: EditPopupString.editholiday,
                                                                       controller:

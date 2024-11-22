@@ -28,8 +28,8 @@ class HRModuleAEClinicalRepository {
   static String getAddEmplyReportingOffice(int companyID){
     return "$companyOffice$companyID";
   }
-  static String getAddEmplyZone(){
-    return "$zone";
+  static String getAddEmplyZone({required int companyId}){
+    return "$zone/zoneDropdownByCompany/$companyId";
   }
   static String getAddEmplyService(
       //{required int companyID}

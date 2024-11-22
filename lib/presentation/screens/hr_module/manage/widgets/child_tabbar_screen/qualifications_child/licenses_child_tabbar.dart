@@ -362,7 +362,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                         var licenseNumber = snapshotPrefill.data!.licenseNumber;
                                         numberIDController = TextEditingController(text: snapshotPrefill.data!.licenseNumber);
 
-                                        docNameEdit = snapshotPrefill.data!.org;
+                                        docNameEdit = snapshotPrefill.data!.documentType;
                                         var org = snapshotPrefill.data!.org;
                                         issuingOrganizationController = TextEditingController(text: snapshotPrefill.data!.org);
 
@@ -390,8 +390,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                                 licenseNumber == numberIDController.text ? licenseNumber.toString() : numberIDController.text,
                                                org == issuingOrganizationController.text ? org : issuingOrganizationController.text,
                                                 docNameEdit.toString());
-                                            Navigator.pop(context);
+
                                             if(response.statusCode == 200 || response.statusCode == 201){
+                                              Navigator.pop(context);
                                               showDialog(
                                                 context: context,
                                                 builder: (BuildContext context) {
@@ -399,6 +400,19 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                                     message: 'Licenses Edited Successfully',
                                                   );
                                                 },
+                                              );
+                                            }else if(response.statusCode == 400 || response.statusCode == 404){
+                                              // Navigator.pop(context);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => const FourNotFourPopup(),
+                                              );
+                                            }
+                                            else {
+                                              //Navigator.pop(context);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => FailedPopup(text: response.message),
                                               );
                                             }
                                           },
