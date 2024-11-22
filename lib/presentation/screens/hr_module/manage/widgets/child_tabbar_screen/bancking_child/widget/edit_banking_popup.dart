@@ -10,6 +10,8 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employee_banking_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
@@ -179,8 +181,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-
-
                         Text(
                           // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
                          'Bank',
@@ -554,6 +554,19 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                           message: 'Banking Added Successfully',
                                         );
                                       },
+                                    );
+                                  }else if(response.statusCode == 400 || response.statusCode == 404){
+                                    Navigator.pop(context);
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) => const FourNotFourPopup(),
+                                    );
+                                  }
+                                  else {
+                                    Navigator.pop(context);
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) => FailedPopup(text: response.message),
                                     );
                                   }
                                   setState(() {

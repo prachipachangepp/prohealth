@@ -9,6 +9,8 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/const_string.dart';
@@ -368,26 +370,43 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
               String finalVisitName = widget.nameOfDocumentController.text == originalName
                   ? originalName
                   : widget.nameOfDocumentController.text;
-              await updateVisitPatch(
+              var response = await updateVisitPatch(
                 context:context,
                 typeVisist: widget.visitId,//paginatedData[index].visitId,
                 visitType: finalVisitName,
                 eligibleClinical: selectedEditChipsId,
                 serviceId: widget.serviceNameSelected.text,
               );
+              if(response.statusCode == 200 || response.statusCode == 201){
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddSuccessPopup(
+                      message: 'Edit Successfully',
+                    );
+                  },
+                );
+              }
+              else if(response.statusCode == 400 || response.statusCode == 404){
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const FourNotFourPopup(),
+                );
+              }
+              else {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => FailedPopup(text: response.message),
+                );
+              }
             } finally {
               setState(() {
                 isLoading = false;
               });
-              Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AddSuccessPopup(
-                    message: 'Edit Successfully',
-                  );
-                },
-              );
+
               widget.idOfDocumentController.clear();
               widget.nameOfDocumentController.clear();
               editChipValues.clear();
@@ -1097,10 +1116,35 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     print(":::::${widget.nameOfDocumentController.text}");
                    // print(":::::${_selectedItem}");
 
-                    await addVisitPost(context:context,
+                   var response = await addVisitPost(context:context,
                         typeOfVisit: widget.nameOfDocumentController.text,
                         eligibleClinician: selectedEditChipsId,
                         serviceId: serviceId!);
+                    if(response.statusCode == 200 || response.statusCode == 201){
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Added Successfully',
+                          );
+                        },
+                      );
+                    }else if(response.statusCode == 400 || response.statusCode == 404){
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => const FourNotFourPopup(),
+                      );
+                    }
+                    else {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => FailedPopup(text: response.message),
+                      );
+                    }
+
                     selectedChipsId.clear();
                     selectedChips.clear();
                   //  nameOfDocumentController.clear();
@@ -1108,15 +1152,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     setState(() {
                       isLoading = false;
                     });
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'Added Successfully',
-                        );
-                      },
-                    );
+
                     widget.idOfDocumentController.clear();
                     widget.nameOfDocumentController.clear();
                   }

@@ -466,8 +466,9 @@ Future<List<AEClinicalZone>> HrAddEmplyClinicalZoneApi(
 ) async {
   List<AEClinicalZone> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
-        path: HRModuleAEClinicalRepository.getAddEmplyZone(
+        path: HRModuleAEClinicalRepository.getAddEmplyZone(companyId: companyId
             //   companyID: companyID, officeID:officeID, countyID: countyID,
             // pageNo: pageNo,
             // rowsNo: rowsNo,
@@ -476,12 +477,12 @@ Future<List<AEClinicalZone>> HrAddEmplyClinicalZoneApi(
       for (var item in response.data) {
         itemsList.add(
           AEClinicalZone(
-            county: item['county'],
-            countyID: item['county_id'],
+            // county: item['county'],
+            // countyID: item['county_id'],
             zoneID: item['zone_id'],
             zoneName: item['zoneName'],
-            zipCode: item['zipcodes'],
-            cities: item['cities'],
+            // zipCode: item['zipcodes'],
+            // cities: item['cities'],
           ),
         );
       }

@@ -10,6 +10,8 @@ import '../../../../../../../../app/resources/establishment_resources/establish_
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
+import '../../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/dialogue_template.dart';
 import '../../../../../../em_module/widgets/header_content_const.dart';
@@ -49,6 +51,8 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
   String? nameOfAdministeringError;
   String? address2Error;
   String? titleError;
+
+  String? _addressDocError;
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
@@ -378,56 +382,23 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       SizedBox(height: AppSize.s6),
-                      Stack(
-                        children :[Column(
-                          children: [
-                            SMTextFConst(
-                              controller: address2Controller,
-                              keyboardType: TextInputType.text,
-                              text: 'Provider Address',
-                            ),
-                          ],
-                        ),
-                  ]
-                      ),
-                      if (_suggestions.isNotEmpty)
-                        Container(
-                          height: 70,
-                          width: 354,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: _suggestions.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(
-                                  _suggestions[index],
-                                  style: TableSubHeading.customTextStyle(context),
-                                ),
-                                onTap: () {
-                                  FocusScope.of(context)
-                                      .unfocus(); // Dismiss the keyboard
-                                  String selectedSuggestion = _suggestions[index];
-                                  address2Controller.text = selectedSuggestion;
+                      // SMTextFConst(
+                      //   controller: address2Controller,
+                      //   keyboardType: TextInputType.text,
+                      //   text: 'Provider Address',
+                      // ),
+                      AddressInput(
+                        controller: address2Controller,
+                        onSuggestionSelected: (selectedSuggestion) {
+                          // Handle the selected suggestion here
+                          print("Selected suggestion: $selectedSuggestion");
+                        },
+                        onChanged: (String value) {
+                          // Validate when user types in the address field
 
-                                  setState(() {
-                                    _suggestions.clear();
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                        ),
+                        },
+                      ),
+
                       if (address2Error != null)
                         Text(
                           address2Error!,
@@ -746,6 +717,20 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                   employeeId: widget.employeeId,//widget.employeeID,
                   htmlFormTemplateId: fluVaccineDocument.fluVaccineDocumentId,)));
               }
+              else if(fluVaccineDocument.statusCode == 400 || fluVaccineDocument.statusCode == 404){
+                // Navigator.pop(context);
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const FourNotFourPopup(),
+                );
+              }
+              else {
+                // Navigator.pop(context);
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const FailedPopup(text: "Something Went Wrong"),
+                );
+              }
 
             }
 
@@ -757,5 +742,148 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
             }
           }
       ),);
+  }
+}
+
+
+
+
+
+class AddressInput extends StatefulWidget {
+  final TextEditingController controller;
+  final Function(String)? onSuggestionSelected;
+  final Function(String) onChanged;// Callback to notify parent
+
+  AddressInput({required this.controller, this.onSuggestionSelected, required this.onChanged});
+
+  @override
+  _AddressInputState createState() => _AddressInputState();
+}
+
+class _AddressInputState extends State<AddressInput> {
+  List<String> _suggestions = [];
+  OverlayEntry? _overlayEntry;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onCountyNameChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onCountyNameChanged);
+    _removeOverlay();
+    super.dispose();
+  }
+
+  void _onCountyNameChanged() async {
+    final query = widget.controller.text;
+    if (query.isEmpty) {
+      _suggestions.clear();
+      _removeOverlay();
+      return;
+    }
+
+    final suggestions = await fetchSuggestions(query);
+    setState(() {
+      _suggestions = suggestions.isNotEmpty && suggestions[0] != query ? suggestions : [];
+    });
+    _showOverlay();
+  }
+
+  void _showOverlay() {
+    _removeOverlay();
+
+    if (_suggestions.isEmpty) return;
+
+    final overlay = Overlay.of(context);
+    final renderBox = context.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero);
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Stack(
+          children:[
+            GestureDetector(
+              onTap: _removeOverlay,
+              child: Container(
+                color: Colors.transparent, // Make this transparent so it's invisible
+              ),
+            ),Positioned(
+              left: position.dx,
+              top: position.dy + renderBox.size.height,
+              width: 354,
+              child: Material(
+                elevation: 4.0,
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: _suggestions.length > 5 ? 80.0 : double.infinity,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: _suggestions.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            _suggestions[index],
+                            style: TableSubHeading.customTextStyle(context),
+                          ),
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            widget.controller.text = _suggestions[index];
+                            _suggestions.clear();
+                            _removeOverlay();
+
+                            // Call the callback with the selected suggestion
+                            if (widget.onSuggestionSelected != null) {
+                              widget.onSuggestionSelected!(_suggestions[index]);
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ]),
+    );
+
+    overlay.insert(_overlayEntry!);
+  }
+
+  void _removeOverlay() {
+    if (_overlayEntry != null) {
+      _overlayEntry!.remove();
+      _overlayEntry = null;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return   SMTextFConst(
+      controller:  widget.controller,
+      keyboardType: TextInputType.text,
+      text: 'Provider Address',
+    );
+    // return FirstSMTextFConst(
+    //   controller: widget.controller,
+    //   keyboardType: TextInputType.text,
+    //   text: AppString.addresss,
+    // );
   }
 }

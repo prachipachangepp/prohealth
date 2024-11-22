@@ -12,6 +12,8 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'dart:math';
 
@@ -20,6 +22,8 @@ import '../../../../../app/resources/establishment_resources/establishment_strin
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import '../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../widgets/error_popups/four_not_four_popup.dart';
 
 
 class CustomDialog extends StatefulWidget {
@@ -304,7 +308,7 @@ class _CustomDialogState extends State<CustomDialog> {
                 widget.passwordController.text,
               );
 
-              if (response.success) {
+              if (response.statusCode == 200 || response.statusCode == 201) {
                 widget.onCancel!();
                 widget.firstNameController.clear();
                 widget.lastNameController.clear();
@@ -320,29 +324,19 @@ class _CustomDialogState extends State<CustomDialog> {
                     );
                   },
                 );
-              } else {
+              }
+              // else if(response.statusCode == 400 || response.statusCode == 404){
+              //   // Navigator.pop(context);
+              //   await showDialog(
+              //     context: context,
+              //     builder: (BuildContext context) => const FourNotFourPopup(),
+              //   );
+              // }
+              else {
                 // Show error dialog if email is already used or other errors
-                showDialog(
+                await showDialog(
                   context: context,
-                  builder: (BuildContext context) {
-                    return DialogueTemplate(
-                      width: 300, // Adjust as needed
-                      height: 200,
-                      // Adjust as needed
-                      title: 'Error',
-                      body: [
-                        Text(
-                            response.message,
-                            style: TextStyle(fontSize: 16)),
-                      ],
-                      bottomButtons: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('OK'),
-                      ),
-                    );
-                  },
+                  builder: (BuildContext context) => FailedPopup(text: response.message),
                 );
               }
             }
@@ -703,31 +697,46 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   );
                 },
               );
-            } else {
-              // Show error dialog if email is already used or other errors
+            }
+            // if(response.statusCode == 400 || response.statusCode == 404){
+            //   Navigator.pop(context);
+            //   showDialog(
+            //     context: context,
+            //     builder: (BuildContext context) => const FourNotFourPopup(),
+            //   );
+            // }
+            else {
+              Navigator.pop(context);
               showDialog(
                 context: context,
-                builder: (BuildContext context) {
-                  return DialogueTemplate(
-                    width: 300, // Adjust as needed
-                    height: 200,
-                    // Adjust as needed
-                    title: 'Error',
-                    body: [
-                      Text(
-                          response.message,
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                    bottomButtons: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text('OK'),
-                    ),
-                  );
-                },
+                builder: (BuildContext context) => FailedPopup(text: response.message),
               );
             }
+            // else {
+            //   // Show error dialog if email is already used or other errors
+            //   showDialog(
+            //     context: context,
+            //     builder: (BuildContext context) {
+            //       return DialogueTemplate(
+            //         width: 300, // Adjust as needed
+            //         height: 200,
+            //         // Adjust as needed
+            //         title: 'Error',
+            //         body: [
+            //           Text(
+            //               response.message,
+            //               style: TextStyle(fontSize: 16)),
+            //         ],
+            //         bottomButtons: ElevatedButton(
+            //           onPressed: () {
+            //             Navigator.of(context).pop();
+            //           },
+            //           child: Text('OK'),
+            //         ),
+            //       );
+            //     },
+            //   );
+            // }
           }
         },
       ),
@@ -1146,9 +1155,9 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
           //         (error) {
           //       // Handle error
           //     });
-          Navigator.pop(
-              context);
+
           if(responce.statusCode == 200 || responce.statusCode == 201){
+            Navigator.pop(context);
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -1156,6 +1165,12 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                   message: 'User Edit Successfully',
                 );
               },
+            );
+          }else {
+            Navigator.pop(context);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => FailedPopup(text: responce.message),
             );
           }
           // firstNameController

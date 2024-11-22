@@ -20,6 +20,8 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/location_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -362,7 +364,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                           buttonTitle: AppStringEM.add,
                           title: 'Add County',
                           onSavePressed: () async {
-                            await addCounty(
+                            var response = await addCounty(
                                 context,
                                 countynameController.text,
                                 widget.stateName,
@@ -370,15 +372,31 @@ class _CiOrgDocumentState extends State<CiZone> {
                                 "37.0902°",
                                 "95.7129°",
                                 widget.officeId);
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'County Added Successfully',
-                                );
-                              },
-                            );
+                            if (response.statusCode == 200 ||
+                                response.statusCode == 201) {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddSuccessPopup(
+                                    message: 'County Added Successfully',
+                                  );
+                                },
+                              );
+                            }else if(response.statusCode == 400 || response.statusCode == 404){
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => const FourNotFourPopup(),
+                              );
+                            }
+                            else {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FailedPopup(text: response.message),
+                              );
+                            }
                           },
                           title1: 'County Name',
                           countynameController: countynameController,
@@ -417,8 +435,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                                 zoneNumberController.text,
                                 countySortId,
                                 widget.officeId);
-                            Navigator.pop(context);
+
                             if(response.statusCode == 200 || response.statusCode == 201){
+                              Navigator.pop(context);
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -426,6 +445,19 @@ class _CiOrgDocumentState extends State<CiZone> {
                                     message: 'Zone Added Successfully',
                                   );
                                 },
+                              );
+                            }else if(response.statusCode == 400 || response.statusCode == 404){
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => const FourNotFourPopup(),
+                              );
+                            }
+                            else {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FailedPopup(text: response.message),
                               );
                             }
                           },

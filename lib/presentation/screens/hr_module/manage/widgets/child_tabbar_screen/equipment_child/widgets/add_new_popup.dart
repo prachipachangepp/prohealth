@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -318,6 +320,19 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                     builder: (BuildContext context) {
                       return AddSuccessPopup(message: 'Equipment Added Successfully');
                     },
+                  );
+                }else if(response.statusCode == 400 || response.statusCode == 404){
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => const FourNotFourPopup(),
+                  );
+                }
+                else {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => FailedPopup(text: response.message),
                   );
                 }
                 print("::${idController.text}");

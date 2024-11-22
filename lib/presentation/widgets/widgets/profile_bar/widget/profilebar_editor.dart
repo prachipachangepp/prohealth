@@ -14,6 +14,8 @@ import 'package:prohealth/app/services/api/repository/hr_module_repository/manag
 import 'package:prohealth/data/api_data/hr_module_data/manage/gender_data.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profile_bar_editor_popup.dart';
 
@@ -494,6 +496,19 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                         }else{
                                                           print('Document Error');
                                                         }
+                                                      }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                       // Navigator.pop(context);
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) => const FourNotFourPopup(),
+                                                        );
+                                                      }
+                                                      else {
+                                                        //Navigator.pop(context);
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) => FailedPopup(text: response.message),
+                                                        );
                                                       }
                                                       widget.onCancel();
                                                       nameController.clear();

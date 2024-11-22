@@ -25,6 +25,8 @@ import '../../../../../../../data/api_data/api_data.dart';
 import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../../../../data/api_data/hr_module_data/onboarding_data/onboarding_qualification_data.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_education_data.dart';
+import '../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
@@ -242,7 +244,7 @@ class _EducationScreenState extends State<EducationScreen> {
                         }
 
                         // Call the posteducationscreen API regardless of whether the file is selected
-                        ApiDataRegister result = await FormEducationManager().posteducationscreen(
+                        ApiDataRegister response = await FormEducationManager().posteducationscreen(
                           context,
                           st.widget.employeeID,
                           st.graduatetype.toString(),
@@ -259,13 +261,13 @@ class _EducationScreenState extends State<EducationScreen> {
                         // If the file is selected, upload it
                         await uploadEducationDocument(
                           context,
-                          result.educationId!,
+                          response.educationId!,
                           st.finalPath,
                           st.fileName!,
                         );
 
                         // If the API call is successful
-                        if (result.success) {
+                        if (response.statusCode == 200 || response.statusCode == 201) {
                           await showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -274,19 +276,40 @@ class _EducationScreenState extends State<EducationScreen> {
                               );
                             },
                           );
+                          widget.onSave();
+                          _loadEducationData();
                         }
+                        else if(response.statusCode == 400 || response.statusCode == 404){
+                          // Navigator.pop(context);
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) => const FourNotFourPopup(),
+                          );
+                        }
+                        else {
+                          // Navigator.pop(context);
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) => FailedPopup(text: response.message),
+                          );
+                        }
+
                       }
 
                     } catch (e) {
                       // If an error occurs, show failure dialog
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddFailePopup(
-                            message: 'Failed To Save Education Data',
-                          );
-                        },
-                      );
+                      // await showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) {
+                      //     return AddFailePopup(
+                      //       message: 'Failed To Save Education Data',
+                      //     );
+                      //   },
+                      // );
+                      // await showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) => const FourNotFourPopup(),
+                      // );
                     }
 
                     // Close the loading state and call onSave
@@ -295,8 +318,7 @@ class _EducationScreenState extends State<EducationScreen> {
                     });
 
                   }
-                  widget.onSave();
-                  _loadEducationData();
+
                 },
                 child: Text(
                   'Save',

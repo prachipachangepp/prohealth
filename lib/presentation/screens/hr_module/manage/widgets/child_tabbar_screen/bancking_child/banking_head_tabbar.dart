@@ -12,6 +12,8 @@ import 'package:prohealth/data/api_data/hr_module_data/manage/employee_banking_d
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/bancking_child/widget/edit_banking_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
@@ -422,8 +424,19 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                                             );
                                                           },
                                                         );
-                                                      } else {
-                                                        print("Error");
+                                                      } else if(response.statusCode == 400 || response.statusCode == 404){
+                                                        Navigator.pop(context);
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) => const FourNotFourPopup(),
+                                                        );
+                                                      }
+                                                      else {
+                                                        Navigator.pop(context);
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) => FailedPopup(text: response.message),
+                                                        );
                                                       }
                                                     },
                                                   );
