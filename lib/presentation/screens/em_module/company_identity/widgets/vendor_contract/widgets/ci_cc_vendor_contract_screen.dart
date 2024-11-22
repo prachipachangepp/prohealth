@@ -15,6 +15,7 @@ import '../../../../../../../app/resources/establishment_resources/establishment
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
+import '../../../../../../widgets/app_clickable_widget.dart';
 import '../../../company_identity_screen.dart';
 import '../../error_pop_up.dart';
 import '../../upload_add_popup.dart';
@@ -145,7 +146,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                  flex: 1,
                  child: Container()),
               Expanded(
-                flex: 5,
+                flex: 6,
                 child: Container(
                   // color: Colors.greenAccent,
                   padding: EdgeInsets.only(top: AppPadding.p6),
@@ -300,50 +301,47 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: CustomIconButton(
-                    icon: CupertinoIcons.plus,
-                    text: "Add Document",
-                    onPressed: () async {
-                      String? selectedExpiryType = expiryType;
-                      calenderController.clear();
-                      docIdController.clear();
-                      docNamecontroller.clear();
-                      selectedExpiryType = "";
-                      int? selectedDocTypeId;
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return FutureBuilder<List<TypeofDocpopup>>(
-                                future: getTypeofDoc(
-                                    context, docTypeMetaIdVC, selectedSubDocId),
-                                builder: (contex, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Center(
-                                        child: CircularProgressIndicator());
-                                  }
-                                  if (snapshot.hasData) {
-                                    return UploadDocumentAddPopup(
-                                      loadingDuration: _isLoading,
-                                      title: 'Upload Document',
-                                      officeId: widget.officeId,
-                                      docTypeMetaIdCC: docTypeMetaIdVC,
-                                      selectedSubDocId: selectedSubDocId,
-                                      dataList: snapshot.data!, 
-                                      docTypeText:AppStringEM.vendorContracts,
-                                      subDocTypeText: getSubDocTypeTextVC(selectedSubDocId),
-                                    );
-                                  } else {
-                                    return ErrorPopUp(
-                                        title: "Received Error",
-                                        text: snapshot.error.toString());
-                                  }
-                                });
-                          });
-                    }),
-              ),
+              CustomIconButton(
+                  icon: CupertinoIcons.plus,
+                  text: "Add Document",
+                  onPressed: () async {
+                    String? selectedExpiryType = expiryType;
+                    calenderController.clear();
+                    docIdController.clear();
+                    docNamecontroller.clear();
+                    selectedExpiryType = "";
+                    int? selectedDocTypeId;
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return FutureBuilder<List<TypeofDocpopup>>(
+                              future: getTypeofDoc(
+                                  context, docTypeMetaIdVC, selectedSubDocId),
+                              builder: (contex, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (snapshot.hasData) {
+                                  return UploadDocumentAddPopup(
+                                    loadingDuration: _isLoading,
+                                    title: 'Upload Document',
+                                    officeId: widget.officeId,
+                                    docTypeMetaIdCC: docTypeMetaIdVC,
+                                    selectedSubDocId: selectedSubDocId,
+                                    dataList: snapshot.data!,
+                                    docTypeText:AppStringEM.vendorContracts,
+                                    subDocTypeText: getSubDocTypeTextVC(selectedSubDocId),
+                                  );
+                                } else {
+                                  return ErrorPopUp(
+                                      title: "Received Error",
+                                      text: snapshot.error.toString());
+                                }
+                              });
+                        });
+                  }),
             ],
           ),
         ),

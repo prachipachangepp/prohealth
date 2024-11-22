@@ -16,6 +16,8 @@ import '../../../../../../../app/services/api/managers/establishment_manager/com
 import '../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../../data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
+import '../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../company_identity_screen.dart';
@@ -277,35 +279,17 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return CustomPopup(
-                          title: 'Add Vendor',
+                        return AddVendorPopup(
                           namecontroller: vendorNameController,
-                          onPressed: () async {
-                            var response = await addVendors(
-                              context,
-                              widget.officeId,
-                              vendorNameController.text,
-                            );
-                            if(response.statusCode == 200 || response.statusCode == 201){
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AddSuccessPopup(message:'Added Successfully');
-                                },
-                              );
-                            }
-                            vendorNameController.clear();
-                          },
-                          buttontxt: AppStringEM.Add,
-                          successpopuptext: 'Added Successfully',
+                          officeID: widget.officeId,
                         );
                       },
                     );
                   }),
-                                )
+                )
                 : Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: CustomIconButtonConst(
+                     padding: const EdgeInsets.only(right: 10),
+                    child: CustomIconButtonConst(
                 width: 150,
                 icon: Icons.add,
                 text: "Add Doctype",
@@ -321,22 +305,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                           return ContractAddDialog(
                             selectedVendorId :selectedVendorId,
                             officeid:widget.officeId,
-
-
-
-                            // onSubmitPressed: () async {
-                            //   //if (selectedVendorId == 0) {
-                            //   await addVendorContract(
-                            //     context,
-                            //     selectedVendorId,
-                            //     contractNameController.text,
-                            //     selectedExpiryType!,
-                            //     widget.officeId,
-                            //     contractIdController.text,
-                            //     calenderController.text
-                            //   );
-                            // },
-
                             title: 'Add Contract',
                           );
                         },

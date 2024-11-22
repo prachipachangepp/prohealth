@@ -490,7 +490,7 @@ Future<ApiData> addOrgDocPPPost({
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: response.data['message']);
+          message: response.data['message'][0]);
     }
   } catch (e) {
     print("Error $e");
@@ -529,7 +529,7 @@ Future<ApiData> uploadDocumentsoffice({
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: response.data['message']);
+          message: response.data['message'][0]);
     }
   } catch (e) {
     print("Error $e");
@@ -586,7 +586,7 @@ Future<ApiData> updateOrgDoc({
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: response.data['message']);
+          message: response.data['message'][0]);
     }
   } catch (e) {
     print("Error $e");

@@ -17,9 +17,12 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
+import '../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../whitelabelling/success_popup.dart';
 
 class CiInsuranceVendor extends StatefulWidget {
   final String officeId;
@@ -206,27 +209,9 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                       var name = snapshotPrefill.data!.vendorName;
                                                                       nameController = TextEditingController(text: snapshotPrefill.data!.vendorName);
                                                                       return CustomPopup(
-                                                                          title: 'Edit Vendor',
-                                                                          namecontroller: nameController,
-                                                                           onPressed: () async{
-                                                                             setState(() {
-                                                                               _isLoading = true;
-                                                                             });
-                                                                             try {
-                                                                               //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
-                                                                               await patchCompanyVendor(
-                                                                                context,
-                                                                                vendorData.insuranceVendorId,
-                                                                                widget.officeId,
-                                                                                name == nameController.text ? name.toString() : nameController.text,
-                                                                               );
-                                                                             } finally {
-                                                                               setState(() {
-                                                                                 _isLoading = false;
-                                                                               });
-                                                                               Navigator.pop(context);
-                                                                             }
-                                                                            }, buttontxt: "Save", successpopuptext: 'Edited Successfully',
+                                                                          namecontroller: snapshotPrefill.data!.vendorName!,
+                                                                          insuranceVendorId:  vendorData.insuranceVendorId,
+                                                                          officeId: widget.officeId,
                                                                             );
                                                   
                                                                     }
