@@ -325,13 +325,13 @@ class _CustomDialogState extends State<CustomDialog> {
                   },
                 );
               }
-              else if(response.statusCode == 400 || response.statusCode == 404){
-                // Navigator.pop(context);
-                await showDialog(
-                  context: context,
-                  builder: (BuildContext context) => const FourNotFourPopup(),
-                );
-              }
+              // else if(response.statusCode == 400 || response.statusCode == 404){
+              //   // Navigator.pop(context);
+              //   await showDialog(
+              //     context: context,
+              //     builder: (BuildContext context) => const FourNotFourPopup(),
+              //   );
+              // }
               else {
                 // Show error dialog if email is already used or other errors
                 await showDialog(
