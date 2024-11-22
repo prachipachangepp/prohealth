@@ -24,6 +24,8 @@ import '../../../../../../../app/services/api/managers/hr_module_manager/add_emp
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
+import '../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
@@ -221,23 +223,23 @@ class _generalFormState extends State<generalForm> {
     }
   }
 
-  String? _addressDocError;
-  bool _isFormValid = true;
-  String? _validateTextField(String value, String fieldName) {
-    if (value.isEmpty) {
-      _isFormValid = false;
-      return "Please Enter $fieldName";
-    }
-    return null;
-  }
-  void _validateForm() {
-    setState(() {
-      _isFormValid = true;
-      _addressDocError =
-          _validateTextField(address.text, 'Address');
-      }
-    );
-  }
+   String? _addressDocError;
+  // bool _isFormValid = true;
+  // String? _validateTextField(String value, String fieldName) {
+  //   if (value.isEmpty) {
+  //     _isFormValid = false;
+  //     return "Please Enter $fieldName";
+  //   }
+  //   return null;
+  // }
+  // void _validateForm() {
+  //   setState(() {
+  //     _isFormValid = true;
+  //     _addressDocError =
+  //         _validateTextField(address.text, 'Address');
+  //     }
+  //   );
+  // }
 
 
   @override
@@ -1260,19 +1262,33 @@ class _generalFormState extends State<generalForm> {
         );
         _initializeFormWithPrefilledData();
         widget.onSave();
-      } else {
-        await showDialog(
+      }     else if(response.statusCode == 400 || response.statusCode == 404){
+       // Navigator.pop(context);
+       await showDialog(
           context: context,
-          builder: (BuildContext context) {
-            return AddFailePopup(
-              message: 'Failed To Update User Data',
-            );
-          },
+          builder: (BuildContext context) => const FourNotFourPopup(),
         );
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(content: Text("Failed to update user data")),
-        // );
       }
+      else {
+       // Navigator.pop(context);
+       await showDialog(
+          context: context,
+          builder: (BuildContext context) => FailedPopup(text: response.message),
+        );
+      }
+      // else {
+      //   await showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) {
+      //       return AddFailePopup(
+      //         message: 'Failed To Update User Data',
+      //       );
+      //     },
+      //   );
+      //   // ScaffoldMessenger.of(context).showSnackBar(
+      //   //   SnackBar(content: Text("Failed to update user data")),
+      //   // );
+      // }
       setState(() {
         isLoading = false; // End loading
       });

@@ -495,10 +495,9 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                       //     documentFile: finalPath,
                       //     documentName: 'Legal Document ID');
 
-                      await  showDialog(
-                        context: context,
+                      await  showDialog(context: context,
                         builder: (BuildContext context) {
-                          return AddSuccessPopup(
+                          return const AddSuccessPopup(
                             message: 'Document Uploaded Successfully',
                           );
                         },
@@ -509,7 +508,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                       await  showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AddFailePopup(
+                          return const AddFailePopup(
                             message: 'Failed To Upoad Document',
                           );
                         },

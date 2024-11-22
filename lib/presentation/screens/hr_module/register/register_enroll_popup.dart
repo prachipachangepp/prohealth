@@ -24,6 +24,8 @@ import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
+import '../../../widgets/error_popups/failed_popup.dart';
+import '../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -928,7 +930,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 widget.email.text,
                                 widget.userId
                                     .toString());
-                            ApiData result = await addEmpEnroll(
+                            ApiData response = await addEmpEnroll(
                               context: context,
                               employeeId: widget
                                   .employeeId,
@@ -967,7 +969,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               _isLoading = false;
                             });
                             widget.onReferesh();
-                            if (result.success) {
+                            if (response.statusCode == 200 || response.statusCode == 201) {
                               Navigator.pop(
                                   context);
                               Navigator.push(
@@ -976,7 +978,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                       builder: (
                                           context) =>
                                           OfferLetterScreen(
-                                            apiData: result,
+                                            apiData: response,
                                             employeeId: widget
                                                 .employeeId,
                                             email: widget
@@ -1009,8 +1011,19 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                               });
                                             }, depId: widget.depId,
                                           )));
-                            } else {
-                              print('Error');
+                            } else if(response.statusCode == 400 || response.statusCode == 404){
+                              // Navigator.pop(context);
+                              await showDialog(
+                                context: context,
+                                builder: (BuildContext context) => const FourNotFourPopup(),
+                              );
+                            }
+                            else {
+                              // Navigator.pop(context);
+                              await showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FailedPopup(text: response.message),
+                              );
                             }
                             print("${widget
                                 .employeeId}");

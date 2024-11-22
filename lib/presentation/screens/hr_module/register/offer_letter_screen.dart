@@ -23,6 +23,8 @@ import '../../../../app/resources/establishment_resources/establish_theme_manage
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
+import '../../../widgets/error_popups/failed_popup.dart';
+import '../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 class OfferLetterScreen extends StatefulWidget {
   final String email;
@@ -916,11 +918,29 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                         },
                                       );
                                     }
+                                    else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
+                                      // Navigator.pop(context);
+                                      await showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) => const FourNotFourPopup(),
+                                      );
+                                    }
+                                    else {
+                                      // Navigator.pop(context);
+                                      await showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
+                                      );
+                                    }
                                   } catch (e) {
                                     print("Error during enrollment: $e");
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('Enrollment failed: $e')),
+                                    await showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
                                     );
+                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                    //   SnackBar(content: Text('Enrollment failed: $e')),
+                                    // );
                                   } finally {
                                     // setState(() { _isLoading = false; });
                                   }

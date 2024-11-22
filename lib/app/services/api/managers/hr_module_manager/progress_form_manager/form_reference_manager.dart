@@ -5,6 +5,7 @@ import 'package:prohealth/app/services/api/api_offer.dart';
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/progress_form_data/form_reference_data.dart';
 import '../../../../../../presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../../../../presentation/widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
@@ -54,6 +55,10 @@ Future<ApiDataRegister> postreferencescreenData(
           success: true,
           message: response.statusMessage!);
     } else {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) => const FourNotFourPopup(),
+      );
       // await showDialog(
       //   context: context,
       //   builder: (BuildContext context) {
@@ -72,6 +77,7 @@ Future<ApiDataRegister> postreferencescreenData(
     print("Error $e");
     return ApiDataRegister(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+
   }
 }
 

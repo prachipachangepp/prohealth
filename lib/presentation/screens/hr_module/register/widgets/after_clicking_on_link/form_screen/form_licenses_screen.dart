@@ -28,6 +28,8 @@ import '../../../../../../../app/services/api/managers/hr_module_manager/manage_
 import '../../../../../../../data/api_data/api_data.dart';
 import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_licenses_data.dart';
+import '../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
@@ -69,7 +71,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
     required dynamic documentFile,
     required String documentName,
   }) async {
-    ApiDataRegister result = await postlicensesscreenData(
+    ApiDataRegister response = await postlicensesscreenData(
         context,
         country,
         employeeId,
@@ -83,17 +85,17 @@ class _LicensesScreenState extends State<LicensesScreen> {
     // setState(() {
     //   _isLoading = false;
     // });
-    print('LicenseId :: ${result.licenses!}');
+    print('LicenseId :: ${response.licenses!}');
     await uploadlinceses(
       context: context,
       employeeid: employeeId,
       documentFile: documentFile,
       documentName: documentName,
-      licensedId: result.licenses!,
+      licensedId: response.licenses!,
     );
 
 
-    if (result.success) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -102,16 +104,34 @@ class _LicensesScreenState extends State<LicensesScreen> {
           );
         },
       );
-    } else {
+      widget.onSave();
+      _loadLicensesData();
+    }
+    else if(response.statusCode == 400 || response.statusCode == 404){
+      // Navigator.pop(context);
       await showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AddFailePopup(
-            message: 'Failed to Save Licenses Document',
-          );
-        },
+        builder: (BuildContext context) => const FourNotFourPopup(),
       );
     }
+    else {
+      // Navigator.pop(context);
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) => FailedPopup(text: response.message),
+      );
+    }
+    // else {
+    //   await showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AddFailePopup(
+    //         message: 'Failed to Save Licenses Document',
+    //       );
+    //     },
+    //   );
+    // }
+
   }
 
   double textFieldWidth = 430;
@@ -367,8 +387,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   setState(() {
                     isLoading = false; // End loading
                   });
-                  widget.onSave();
-                  _loadLicensesData();
+
                 }
               },
               child: Text(
