@@ -583,8 +583,8 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                             }).catchError((error) {
                                                               // Handle error
                                                             });
-                                                            Navigator.pop(context);
                                                             if(response.statusCode == 200 || response.statusCode == 201){
+                                                              Navigator.pop(context);
                                                               showDialog(
                                                                 context: context,
                                                                 builder: (BuildContext context) {
