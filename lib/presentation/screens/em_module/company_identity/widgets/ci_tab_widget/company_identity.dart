@@ -1,33 +1,4 @@
-// import 'dart:async';
-// // import 'dart:nativewrappers/_internal/vm/lib/math_patch.dart';
-// import 'dart:math';
-// import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-// import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
-// import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-// import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
-// import 'package:prohealth/data/api_data/api_data.dart';
-// import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
-// import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
-// import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
-// import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/error_pop_up.dart';
-// import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
-// import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
-// import 'package:url_launcher/url_launcher_string.dart';
-// import '../../../../../../app/resources/color.dart';
-// import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-// import '../../../../../../app/resources/font_manager.dart';
-// import '../../../../../../app/resources/theme_manager.dart';
-// import '../../../../../../app/resources/value_manager.dart';
-// import '../../../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
-// import '../../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
-// import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
-// import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-// import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
-// import '../../../widgets/button_constant.dart';
-// import '../../../widgets/text_form_field_const.dart';
-// import '../company_identity_zone/widgets/location_screen.dart';
+
 
 import 'dart:async';
 // import 'dart:nativewrappers/_internal/vm/lib/math_patch.dart';
@@ -943,26 +914,37 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// import 'dart:async';
+// // import 'dart:nativewrappers/_internal/vm/lib/math_patch.dart';
+// import 'dart:math';
+// import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+// import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+// import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
+// import 'package:prohealth/data/api_data/api_data.dart';
+// import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
+// import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
+// import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
+// import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/error_pop_up.dart';
+// import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+// import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
+// import 'package:url_launcher/url_launcher_string.dart';
+// import '../../../../../../app/resources/color.dart';
+// import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+// import '../../../../../../app/resources/font_manager.dart';
+// import '../../../../../../app/resources/theme_manager.dart';
+// import '../../../../../../app/resources/value_manager.dart';
+// import '../../../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
+// import '../../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
+// import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
+// import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+// import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+// import '../../../widgets/button_constant.dart';
+// import '../../../widgets/text_form_field_const.dart';
+// import '../company_identity_zone/widgets/location_screen.dart';
+///
 // import '../company_identity_zone/widgets/zone_widgets_constants.dart';
 //
 // class CompanyIdentity extends StatefulWidget {
