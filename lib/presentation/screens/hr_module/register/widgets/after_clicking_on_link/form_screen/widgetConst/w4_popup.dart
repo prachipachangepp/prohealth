@@ -10,6 +10,8 @@ import '../../../../../../../../app/resources/establishment_resources/establishm
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import '../../../../../../../../data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
+import '../../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/dialogue_template.dart';
@@ -588,6 +590,20 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                 htmlFormData: wfourDocument.html,
                 employeeId: widget.employeeId,//widget.employeeID,
                 htmlFormTemplateId: wfourDocument.wFourDocumentId,)));
+            }
+            else if(wfourDocument.statusCode == 400 || wfourDocument.statusCode == 404){
+              // Navigator.pop(context);
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) => const FourNotFourPopup(),
+              );
+            }
+            else {
+              // Navigator.pop(context);
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) => const FailedPopup(text: "Something Went Wrong"),
+              );
             }
 
           }

@@ -20,6 +20,8 @@ import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_employment_data.dart';
+import '../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../taxtfield_constant.dart';
@@ -257,28 +259,50 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                           );
                         }
 
-
+if (response.statusCode==200 || response.statusCode == 201){
+  await  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AddSuccessPopup(
+        message: 'Employment Data Saved',
+      );
+    },
+  );
+  widget.onSave();
+  _loadEmploymentData();
+}
+else if(response.statusCode == 400 || response.statusCode == 404){
+  // Navigator.pop(context);
+  await showDialog(
+    context: context,
+    builder: (BuildContext context) => const FourNotFourPopup(),
+  );
+}
+else {
+  // Navigator.pop(context);
+  await showDialog(
+    context: context,
+    builder: (BuildContext context) => FailedPopup(text: response.message),
+  );
+}
                         // Show success message after saving the data
-                        await  showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSuccessPopup(
-                              message: 'Employment Data Saved',
-                            );
-                          },
-                        );
+
                       }
 
                     } catch (e) {
                       // Show failure message in case of an error
-                      await  showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddFailePopup(
-                            message: 'Failed To Save Employment Data',
-                          );
-                        },
-                      );
+                      // await  showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) {
+                      //     return AddFailePopup(
+                      //       message: 'Failed To Save Employment Data',
+                      //     );
+                      //   },
+                      // );
+                      // await showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) => const FourNotFourPopup(),
+                      // );
                       print(e);
                     }
                   }
@@ -286,8 +310,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                   setState(() {
                     isLoading = false; // End loading
                   });
-                  widget.onSave();
-                  _loadEmploymentData();
+
                 },
                 child: Text(
                   'Save',

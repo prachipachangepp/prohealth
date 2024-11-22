@@ -18,6 +18,7 @@ import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_banking_data.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
@@ -103,7 +104,7 @@ class _BankingScreenState extends State<BankingScreen> {
     required String documentName,
   }) async {
         try {
-          ApiDataRegister result = await postbankingscreenData(
+          ApiDataRegister response = await postbankingscreenData(
               context,
               employeeId,
               accountNumber,
@@ -119,11 +120,12 @@ class _BankingScreenState extends State<BankingScreen> {
           await uploadcheck(
               context: context,
               employeeid: employeeId,
-              empBankingId: result.banckingId!,
+              empBankingId: response.banckingId!,
               documentFile: documentFile,
               documentName: documentName);
-          print('BanckingId :::::: ${result.banckingId!}');
-          if(result.success){
+          print('BanckingId :::::: ${response.banckingId!}');
+
+          if(response.statusCode == 200 || response.statusCode == 201){
             await showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -134,7 +136,8 @@ class _BankingScreenState extends State<BankingScreen> {
             );
             await widget.onSave();
             _loadBankingData();
-          } else{
+          }
+          else{
             await showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -147,11 +150,7 @@ class _BankingScreenState extends State<BankingScreen> {
         } catch (e) {
           await showDialog(
             context: context,
-            builder: (BuildContext context) {
-              return AddFailePopup(
-                message: 'Failed To Save Banking Document',
-              );
-            },
+            builder: (BuildContext context) => const FourNotFourPopup(),
           );
         }
     }

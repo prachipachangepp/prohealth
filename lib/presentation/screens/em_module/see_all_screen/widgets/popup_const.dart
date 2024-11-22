@@ -20,6 +20,8 @@ import '../../../../../app/resources/establishment_resources/establishment_strin
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import '../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../widgets/error_popups/four_not_four_popup.dart';
 
 
 class CustomDialog extends StatefulWidget {
@@ -304,7 +306,7 @@ class _CustomDialogState extends State<CustomDialog> {
                 widget.passwordController.text,
               );
 
-              if (response.success) {
+              if (response.statusCode == 200 || response.statusCode == 201) {
                 widget.onCancel!();
                 widget.firstNameController.clear();
                 widget.lastNameController.clear();
@@ -320,29 +322,19 @@ class _CustomDialogState extends State<CustomDialog> {
                     );
                   },
                 );
-              } else {
-                // Show error dialog if email is already used or other errors
-                showDialog(
+              }
+              else if(response.statusCode == 400 || response.statusCode == 404){
+                // Navigator.pop(context);
+                await showDialog(
                   context: context,
-                  builder: (BuildContext context) {
-                    return DialogueTemplate(
-                      width: 300, // Adjust as needed
-                      height: 200,
-                      // Adjust as needed
-                      title: 'Error',
-                      body: [
-                        Text(
-                            response.message,
-                            style: TextStyle(fontSize: 16)),
-                      ],
-                      bottomButtons: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('OK'),
-                      ),
-                    );
-                  },
+                  builder: (BuildContext context) => const FourNotFourPopup(),
+                );
+              }
+              else {
+                // Show error dialog if email is already used or other errors
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) => FailedPopup(text: response.message),
                 );
               }
             }
