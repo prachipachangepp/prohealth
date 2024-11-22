@@ -14,6 +14,8 @@ import '../../../../../../../app/resources/common_resources/common_theme_const.d
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
+import '../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../widgets/dialogue_template.dart';
 import '../../../../widgets/header_content_const.dart';
@@ -45,7 +47,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
 
   bool loading = false;
   bool _isFormValid = true;
-  String selectedExpiryType = "";
+  String selectedExpiryType = AppConfig.scheduled;
 
   // Error messages for each text field
   String? _idDocError;
@@ -342,7 +344,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                     expiryDate = expiryDateController == AppConfig.issuer
                         ? datePicked!.toIso8601String() + "Z"
                         : null;
-                    await addVendorContract(
+                    var response = await addVendorContract(
                         context,
                         widget.selectedVendorId,
                         contractNmaeController.text,
@@ -351,15 +353,31 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                         widget.officeid,
                         contractIdController.text,
                         expiryDateController.text);
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CountySuccessPopup(
-                          message: 'Save Successfully',
-                        );
-                      },
-                    );
+                    if(response.statusCode == 200 || response.statusCode == 201) {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Added Successfully',
+                          );
+                        },
+                      );
+                    }
+                    else if(response.statusCode == 400 || response.statusCode == 404){
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => const FourNotFourPopup(),
+                      );
+                    }
+                    else {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => FailedPopup(text: response.message),
+                      );
+                    }
                   } finally {
                     setState(() {
                       loading = false;
