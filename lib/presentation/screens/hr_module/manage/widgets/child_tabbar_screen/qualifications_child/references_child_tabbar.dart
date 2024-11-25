@@ -565,12 +565,12 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                             ////////////////////
 
                                                           );
-                                                          Navigator.pop(
-                                                              context);
                                                           if (response.statusCode ==
                                                               200 ||
                                                               response.statusCode ==
                                                                   201) {
+                                                            Navigator.pop(
+                                                                context);
                                                             showDialog(
                                                               context: context,
                                                               builder:
@@ -582,16 +582,20 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                                 );
                                                               },
                                                             );
+                                                          }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                            Navigator.pop(context);
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => const FourNotFourPopup(),
+                                                            );
                                                           }
-                                                          getReferences(
-                                                              context, 5)
-                                                              .then((data) {
-                                                            referenceStreamController
-                                                                .add(data);
-                                                          }).catchError(
-                                                                  (error) {
-                                                                // Handle error
-                                                              });
+                                                          else {
+                                                            Navigator.pop(context);
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => FailedPopup(text: response.message),
+                                                            );
+                                                          }
                                                         },
                                                         title: 'Edit Reference',
                                                       );

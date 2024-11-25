@@ -187,6 +187,178 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
   }
 }
 
+// class CustomDropdownTextField extends StatefulWidget {
+//   final String? value;
+//   final List<String>? items;
+//   final List<DropdownMenuItem<String>>? dropDownMenuList;
+//   final String? hintText;
+//   final String headText;
+//   final void Function(String?)? onChanged;
+//   final double? width;
+//   final double? height;
+//   final String? initialValue;
+//
+//   const CustomDropdownTextField({
+//     Key? key,
+//     this.dropDownMenuList,
+//     required this.headText,
+//     this.value,
+//     this.items,
+//     this.onChanged,
+//     this.width,
+//     this.height,
+//     this.initialValue,
+//     this.hintText,
+//   }) : super(key: key);
+//
+//   @override
+//   _CustomDropdownTextFieldState createState() =>
+//       _CustomDropdownTextFieldState();
+// }
+//
+// class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
+//   late String? _selectedValue;
+//   OverlayEntry? _overlayEntry;
+//   final GlobalKey _dropdownKey = GlobalKey();
+//   bool _isDropdownOpen = false;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _selectedValue = widget.value ?? widget.initialValue;
+//   }
+//
+//   void _toggleDropdown() {
+//     if (_isDropdownOpen) {
+//       _closeDropdown();
+//     } else {
+//       _openDropdown();
+//     }
+//   }
+//
+//   void _openDropdown() {
+//     final RenderBox renderBox = _dropdownKey.currentContext!.findRenderObject() as RenderBox;
+//     final Offset offset = renderBox.localToGlobal(Offset.zero);
+//     final Size size = renderBox.size;
+//
+//     _overlayEntry = OverlayEntry(
+//       builder: (context) {
+//         return GestureDetector(
+//           behavior: HitTestBehavior.translucent,
+//           onTap: _closeDropdown, // Close dropdown when tapping outside
+//           child: Stack(
+//             children: [
+//               Positioned(
+//                 left: offset.dx,
+//                 top: offset.dy + size.height,
+//                 width: widget.width ?? size.width,
+//                 child: Material(
+//                   elevation: 4,
+//                   borderRadius: BorderRadius.circular(8),
+//                   child: Container(
+//                     constraints: BoxConstraints(
+//                       maxHeight: 200, // Show scroll for more than 5 items
+//                     ),
+//                     child: ListView.builder(
+//                       padding: EdgeInsets.zero,
+//                       shrinkWrap: true,
+//                       itemCount: widget.items?.length ?? widget.dropDownMenuList?.length ?? 0,
+//                       itemBuilder: (context, index) {
+//                         final item = widget.items != null
+//                             ? widget.items![index]
+//                             : widget.dropDownMenuList![index].value;
+//
+//                         return ListTile(
+//                           title: Text(
+//                             item!,
+//                             style: DocumentTypeDataStyle.customTextStyle(context),
+//                           ),
+//                           onTap: () {
+//                             setState(() {
+//                               _selectedValue = item;
+//                               _closeDropdown();
+//                             });
+//                             if (widget.onChanged != null) {
+//                               widget.onChanged!(item);
+//                             }
+//                           },
+//                         );
+//                       },
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         );
+//       },
+//     );
+//
+//     Overlay.of(context).insert(_overlayEntry!);
+//     setState(() {
+//       _isDropdownOpen = true;
+//     });
+//   }
+//
+//   void _closeDropdown() {
+//     _overlayEntry?.remove();
+//     _overlayEntry = null;
+//     setState(() {
+//       _isDropdownOpen = false;
+//     });
+//   }
+//
+//   @override
+//   void dispose() {
+//     _closeDropdown();
+//     super.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.only(left: 5.0, bottom: 2),
+//           child: Text(
+//             widget.headText,
+//             style: AllPopupHeadings.customTextStyle(context),
+//           ),
+//         ),
+//         SizedBox(
+//           width: AppSize.s250,
+//           height:  AppSize.s40,
+//           child: GestureDetector(
+//             onTap: _toggleDropdown,
+//             child: Padding(
+//               padding: const EdgeInsets.all(AppPadding.p5),
+//               child: Container(
+//                 key: _dropdownKey,
+//                 padding: const EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
+//                 decoration: BoxDecoration(
+//                   border: Border.all(color: Colors.grey),
+//                   borderRadius: BorderRadius.circular(4),
+//                 ),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     Text(
+//                       _selectedValue ?? widget.hintText ?? '',
+//                       style: DocumentTypeDataStyle.customTextStyle(context),
+//                     ),
+//                     Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
 ///
 ///
 class CustomTextFieldPhone extends StatelessWidget {
@@ -696,6 +868,79 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
   }
 }
 ///
+// class HRUManageDropdown extends StatefulWidget {
+//   final TextEditingController controller;
+//   final String? labelText;
+//   final String? hintText;
+//   final Color textColor;
+//   final TextStyle? labelStyle;
+//   final double labelFontSize;
+//   final List<String> items;
+//   final String? errorText;
+//   final ValueChanged<String>? onChanged;
+//
+//   HRUManageDropdown({
+//     Key? key,
+//     required this.controller,
+//     this.labelText,
+//     this.labelStyle,
+//     required this.labelFontSize,
+//     required this.items,
+//     this.errorText,
+//     this.onChanged,
+//     this.hintText,
+//     this.textColor = const Color(0xff686464),
+//   }) : super(key: key);
+//
+//   @override
+//   State<HRUManageDropdown> createState() => _HRUManageDropdownState();
+// }
+//
+// class _HRUManageDropdownState extends State<HRUManageDropdown> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: 354,
+//       height: 30,
+//       padding: EdgeInsets.symmetric(horizontal: 10),
+//       decoration: BoxDecoration(
+//         border: Border.all(
+//             color: ColorManager.containerBorderGrey, width: AppSize.s1),
+//         borderRadius: BorderRadius.circular(8),
+//       ),
+//       child: DropdownButtonFormField<String>(
+//           isDense: true, // Makes the dropdown more compact
+//           icon: Icon(Icons.arrow_drop_down,color: ColorManager.mediumgrey,size: IconSize.I18,),
+//           // Default dropdown icon
+//           style: TableSubHeading.customTextStyle(context),
+//           iconSize: 15, // Icon size
+//           value: widget.controller.text.isEmpty ? null : widget.controller.text,
+//           items: widget.items.map((item) {
+//             return DropdownMenuItem(
+//               value: item,
+//               child: Text(
+//                 item,
+//                 style: TableSubHeading.customTextStyle(context),
+//               ),
+//             );
+//           }).toList(),
+//           onChanged: (value) {
+//             setState(() {
+//               widget.controller.text = value!;
+//             });
+//             if (widget.onChanged != null) {
+//               widget.onChanged!(value!);
+//             }
+//           },
+//           decoration: InputDecoration(
+//             border: InputBorder.none,
+//             contentPadding: EdgeInsets.only(bottom: 20),
+//             hintStyle:  TableSubHeading.customTextStyle(context),)
+//       ),
+//     );
+//   }
+// }
+
 class HRUManageDropdown extends StatefulWidget {
   final TextEditingController controller;
   final String? labelText;
@@ -725,45 +970,133 @@ class HRUManageDropdown extends StatefulWidget {
 }
 
 class _HRUManageDropdownState extends State<HRUManageDropdown> {
+  final GlobalKey _dropdownKey = GlobalKey();
+  OverlayEntry? _overlayEntry;
+  bool _isDropdownOpen = false;
+
+  void _toggleDropdown() {
+    if (_isDropdownOpen) {
+      _closeDropdown();
+    } else {
+      _openDropdown();
+    }
+  }
+
+  void _openDropdown() {
+    final RenderBox renderBox = _dropdownKey.currentContext!.findRenderObject() as RenderBox;
+    final Offset offset = renderBox.localToGlobal(Offset.zero);
+    final Size size = renderBox.size;
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) {
+        return GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: _closeDropdown,
+          child: Stack(
+            children: [
+              Positioned(
+                left: offset.dx,
+                top: offset.dy + size.height,
+                width: size.width,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    constraints: BoxConstraints(
+                      maxHeight: 200, // Show scroll for more than 5 items
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: widget.items.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            widget.items[index],
+                            style: widget.labelStyle ?? TextStyle(fontSize: widget.labelFontSize),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              widget.controller.text = widget.items[index];
+                              _closeDropdown();
+                            });
+                            if (widget.onChanged != null) {
+                              widget.onChanged!(widget.items[index]);
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    Overlay.of(context)?.insert(_overlayEntry!);
+    setState(() {
+      _isDropdownOpen = true;
+    });
+  }
+
+  void _closeDropdown() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+    setState(() {
+      _isDropdownOpen = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    _closeDropdown();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 354,
-      height: 30,
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: ColorManager.containerBorderGrey, width: AppSize.s1),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: DropdownButtonFormField<String>(
-          isDense: true, // Makes the dropdown more compact
-          icon: Icon(Icons.arrow_drop_down,color: ColorManager.mediumgrey,size: IconSize.I18,),
-          // Default dropdown icon
-          style: TableSubHeading.customTextStyle(context),
-          iconSize: 15, // Icon size
-          value: widget.controller.text.isEmpty ? null : widget.controller.text,
-          items: widget.items.map((item) {
-            return DropdownMenuItem(
-              value: item,
+    return GestureDetector(
+      onTap: _toggleDropdown,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (widget.labelText != null)
+            Text(
+              widget.labelText!,
+              style: widget.labelStyle ?? TextStyle(fontSize: widget.labelFontSize),
+            ),
+          Container(
+            key: _dropdownKey,
+            width: 354,
+            height: 30,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.controller.text.isEmpty ? widget.hintText ?? '' : widget.controller.text,
+                  style: TableSubHeading.customTextStyle(context),
+                ),
+                Icon(Icons.arrow_drop_down, color: Colors.grey),
+              ],
+            ),
+          ),
+          if (widget.errorText != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
               child: Text(
-                item,
-                style: TableSubHeading.customTextStyle(context),
+                widget.errorText!,
+                style: TextStyle(color: Colors.red, fontSize: 12),
               ),
-            );
-          }).toList(),
-          onChanged: (value) {
-            setState(() {
-              widget.controller.text = value!;
-            });
-            if (widget.onChanged != null) {
-              widget.onChanged!(value!);
-            }
-          },
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.only(bottom: 20),
-            hintStyle:  TableSubHeading.customTextStyle(context),)
+            ),
+        ],
       ),
     );
   }

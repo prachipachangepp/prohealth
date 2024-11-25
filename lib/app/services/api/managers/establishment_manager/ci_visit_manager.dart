@@ -34,8 +34,8 @@ Future<List<CiVisit>> getVisit(
           try {
             clinicians.add(CiVisitList(
               empTypeId: clinical['employeeTypeId'],
-              eligibleClinician: clinical['eligibleClinician'],
-              color: clinical['color'],
+              eligibleClinician: clinical['eligibleClinician'] ?? "--",
+              color: clinical['color'] ?? "#FFFFFF",
             ));
           } catch (e) {}
         }
