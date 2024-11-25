@@ -191,7 +191,8 @@ class _ProfileBarState extends State<ProfileBar> {
     int itemsPerPage = 30;
     return Container(
       color: ColorManager.whitebluecolor.withOpacity(0.25),
-      width: double.maxFinite,
+      width: MediaQuery.of(context).size.width / 1,
+      // width: double.maxFinite,
       //  margin: EdgeInsets.only(right: 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -238,104 +239,99 @@ class _ProfileBarState extends State<ProfileBar> {
                     }
                   })
             ),
-            Material(
-              elevation: 4,
-              // borderRadius: BorderRadius.only(
-              //     bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
-              child: Container(
-                height: MediaQuery.of(context).size.height / 4,
-               // width:  double.maxFinite,
-                width: MediaQuery.of(context).size.width/1.049,
-                decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.only(
-                  //     bottomRight: Radius.circular(8),
-                  //     topRight: Radius.circular(8)),
-                  color: ColorManager.whitebluecolor.withOpacity(0.25),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSize.s10, vertical: AppSize.s10),
+            Flexible(
+              child: Material(
+                elevation: 4,
+                // borderRadius: BorderRadius.only(
+                //     bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 4,
+                 // width:  double.maxFinite,
+                 // width: MediaQuery.of(context).size.width/1.049,
+                  decoration: BoxDecoration(
+                    // borderRadius: BorderRadius.only(
+                    //     bottomRight: Radius.circular(8),
+                    //     topRight: Radius.circular(8)),
+                    color: ColorManager.whitebluecolor.withOpacity(0.25),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ///image
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 70,
-                              width: 70,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  // Circular avatar for the image or icon
-                                  ClipOval(
-                                    child: widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
-                                        widget.searchByEmployeeIdProfileData!.imgurl == null
-                                        ? Icon(
-                                      Icons.person,
-                                      color: ColorManager.white,
-                                      size: AppSize.s50,
-                                    )
-                                        : CachedNetworkImage(
-                                      imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
-                                      placeholder: (context, url) => CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) =>    CircleAvatar(child: Image.asset("images/profilepic.png"),),
-                                      fit: BoxFit.cover, // Ensure the image fits inside the circle
-                                      height: 67, // Adjust image height for proper fit
-                                      width: 67, // Adjust image width for proper fit
-                                    ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 70,
+                            width: 70,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                // Circular avatar for the image or icon
+                                ClipOval(
+                                  child: widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                      widget.searchByEmployeeIdProfileData!.imgurl == null
+                                      ? Icon(
+                                    Icons.person,
+                                    color: ColorManager.white,
+                                    size: AppSize.s50,
+                                  )
+                                      : CachedNetworkImage(
+                                    imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
+                                    placeholder: (context, url) => CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>    CircleAvatar(child: Image.asset("images/profilepic.png"),),
+                                    fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                    height: 67, // Adjust image height for proper fit
+                                    width: 67, // Adjust image width for proper fit
                                   ),
-                                  // Circular progress indicator around the image
-                                  SizedBox(
-                                    height: AppSize.s70,
-                                    width: AppSize.s70,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenF),
-                                      strokeWidth: 3,
-                                      value: widget.searchByEmployeeIdProfileData!.profileScorePercentage,
-                                    ),
+                                ),
+                                // Circular progress indicator around the image
+                                SizedBox(
+                                  height: AppSize.s70,
+                                  width: AppSize.s70,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenF),
+                                    strokeWidth: 3,
+                                    value: widget.searchByEmployeeIdProfileData!.profileScorePercentage,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          //  SizedBox(height: 15,),
-                            widget.searchByEmployeeIdProfileData!.active ? Text(
-                              "Active",
-                              style: ThemeManagerBlack.customTextStyle(context),
-                            ):Text(
-                              "Inactive",
-                              style: ThemeManagerBlack.customTextStyle(context),
-                            ),
-                           // SizedBox(height: 15,),
-                            FutureBuilder<ProfilePercentage>(
-                                future: getPercentage(
-                                    context,
-                                    widget.searchByEmployeeIdProfileData!.employeeId!),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return SizedBox();
-                                  }
-                                  return Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Annual Skills 0%",
-                                          style:
-                                          ProfileBarTextBoldStyle.customEditTextStyle(),
-                                        ),
-                                      ]);
-                                })
-                          ],
-                        ),
+                          ),
+                        //  SizedBox(height: 15,),
+                          widget.searchByEmployeeIdProfileData!.active ? Text(
+                            "Active",
+                            style: ThemeManagerBlack.customTextStyle(context),
+                          ):Text(
+                            "Inactive",
+                            style: ThemeManagerBlack.customTextStyle(context),
+                          ),
+                         // SizedBox(height: 15,),
+                          FutureBuilder<ProfilePercentage>(
+                              future: getPercentage(
+                                  context,
+                                  widget.searchByEmployeeIdProfileData!.employeeId!),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return SizedBox();
+                                }
+                                return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Annual Skills 0%",
+                                        style:
+                                        ProfileBarTextBoldStyle.customEditTextStyle(),
+                                      ),
+                                    ]);
+                              })
+                        ],
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
                       /////////////////////////////////////////////////////////////////////////////////////////////
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -387,7 +383,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                      ),
                                    ),
                                 ),
-
+                  
                                 Row(
                                   children: [
                                     Text(
@@ -404,7 +400,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                     ),
                                   ],
                                 ),
-
+                  
                                 Text(
                                   widget.searchByEmployeeIdProfileData!.zone,
                                   style: ProfileBarTextBoldStyle.customEditTextStyle(),
@@ -413,7 +409,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                   AppString.address,
                                   style: ThemeManagerDark.customTextStyle(context),
                                 ),
-
+                  
                                 Text(_trimAddress(widget.searchByEmployeeIdProfileData!.finalAddress),
                                     textAlign: TextAlign.start,
                                     style: ThemeManagerAddressPB.customTextStyle(context)),
@@ -422,11 +418,9 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
                         ],
                       ),
-
+                  
                       /////////////////////////////////////////////////////////////////////////////////////////////
-                      SizedBox(
-                        width: 40,
-                      ),
+                    //  SizedBox(width: MediaQuery.of(context).size.width/50),
                       Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
@@ -434,9 +428,9 @@ class _ProfileBarState extends State<ProfileBar> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: MyConstants.personalInfoTexts(context),
                           ),
-                          SizedBox(width: 20),
+                         // SizedBox(width: 20),
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 3.0),
+                            padding: const EdgeInsets.only(bottom: 3.0,left: 8),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -474,9 +468,7 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        width: 40,
-                      ),
+                    //  SizedBox(width: MediaQuery.of(context).size.width/50),
                       Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
@@ -487,9 +479,9 @@ class _ProfileBarState extends State<ProfileBar> {
                               children: MyConstantsColumn.personalInfoTexts(context),
                             ),
                           ),
-                          SizedBox(width: 20),
+                          //SizedBox(width: 20),
                           Padding(
-                            padding: const EdgeInsets.only(top: 4.0),
+                            padding: const EdgeInsets.only(top: 4,left: 8),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -580,7 +572,7 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
                         ],
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width/45,),
+                     // SizedBox(width: MediaQuery.of(context).size.width/50,),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -588,7 +580,7 @@ class _ProfileBarState extends State<ProfileBar> {
                           Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
 
@@ -604,750 +596,761 @@ class _ProfileBarState extends State<ProfileBar> {
                                           style: ThemeManagerDark.customTextStyle(context)),
                                     ],
                                   ),
-                                  SizedBox(width: MediaQuery.of(context).size.width/50,),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text("${widget.searchByEmployeeIdProfileData!.dateofHire} (${totalDateStamp ?? ''})",
-                                          style: ProfileBarTextBoldStyle.customEditTextStyle(),),
-                                      SizedBox(height: 10,),
-                                      Text('1.2', style: ProfileBarTextBoldStyle.customEditTextStyle(),),
-                                    ],
+                              //   SizedBox(width: 20),
+                                 // SizedBox(width: MediaQuery.of(context).size.width/50,),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("${widget.searchByEmployeeIdProfileData!.dateofHire} (${totalDateStamp ?? ''})",
+                                            style: ProfileBarTextBoldStyle.customEditTextStyle(),),
+                                        SizedBox(height: 10,),
+                                        Text('1.2', style: ProfileBarTextBoldStyle.customEditTextStyle(),),
+                                      ],
+                                    ),
                                   )
                                 ]),
                           ),
-                          FutureBuilder(
-                            future: fetchData(),
-                            builder: (BuildContext context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return SizedBox(height: 1, width: 1);
-                              }
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 5.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ///"Expired License"
-                                    ProfileBarClipConst(
-                                      onTap: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return ExpiredLicensePopup(
-                                                  title: 'Expired License',
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                      vertical: AppPadding.p3,
-                                                      horizontal: AppPadding.p20,
-                                                    ),
-                                                    child: SingleChildScrollView(
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment.start,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          Container(
-                                                            height: 30,
-                                                            decoration: BoxDecoration(
-                                                              color: Colors.grey,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(12),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .symmetric(
-                                                                      horizontal: 15),
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                children: [
-                                                                  Expanded(
-                                                                    child: Center(
-                                                                      child: Text(
-                                                                        'Sr No.',
-                                                                          style:ProfileBarNameLicenseStyle.customEditTextStyle()
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                                                  Expanded(
-                                                                    child: Center(
-                                                                      child: Text(
-                                                                          'Name Of License',
-                                                                          textAlign:
-                                                                              TextAlign
-                                                                                  .start,
-                                                                          style:ProfileBarNameLicenseStyle.customEditTextStyle()),
-                                                                    ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child: Center(
-                                                                      child: Text(
-                                                                          'Date',
-                                                                          textAlign:
-                                                                              TextAlign
-                                                                                  .start,
-                                                                          style:ProfileBarNameLicenseStyle.customEditTextStyle()),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
+                          SizedBox(height: 20,),
+                          Flexible(
+                            child: Column(
+                              children: [
+                                FutureBuilder(
+                                  future: fetchData(),
+                                  builder: (BuildContext context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return SizedBox(height: 1, width: 1);
+                                    }
+                                    return Padding(
+                                      padding: const EdgeInsets.only(bottom: 5.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ///"Expired License"
+                                          ProfileBarClipConst(
+                                            onTap: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return ExpiredLicensePopup(
+                                                        title: 'Expired License',
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets.symmetric(
+                                                            vertical: AppPadding.p3,
+                                                            horizontal: AppPadding.p20,
                                                           ),
-                                                          const SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          FutureBuilder<Map<String, List<LicensesData>>>(
-                                                              future: getLicenseStatusWise(
-                                                                  context,
-                                                                  widget
-                                                                      .searchByEmployeeIdProfileData!
-                                                                      .employeeId!),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                if (snapshot
-                                                                        .connectionState ==
-                                                                    ConnectionState
-                                                                        .waiting) {
-                                                                  return Center(
-                                                                    child: Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                          vertical:
-                                                                              150),
-                                                                      child:
-                                                                          CircularProgressIndicator(
-                                                                        color: ColorManager
-                                                                            .blueprime,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                                if (snapshot
-                                                                    .data!['Expired']!
-                                                                    .isEmpty) {
-                                                                  return Center(
-                                                                      child: Padding(
+                                                          child: SingleChildScrollView(
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment.start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                              children: [
+                                                                Container(
+                                                                  height: 30,
+                                                                  decoration: BoxDecoration(
+                                                                    color: Colors.grey,
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(12),
+                                                                  ),
+                                                                  child: Padding(
                                                                     padding:
                                                                         const EdgeInsets
                                                                             .symmetric(
-                                                                            vertical:
-                                                                                150),
-                                                                    child: Text(
-                                                                      AppString
-                                                                          .dataNotFound,
-                                                                      style: CustomTextStylesCommon.commonStyle(
-                                                                          fontWeight: FontWeight.w400,
-                                                                          fontSize:
-                                                                              FontSize
-                                                                                  .s14,
-                                                                          color: ColorManager
-                                                                              .mediumgrey),
+                                                                            horizontal: 15),
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceAround,
+                                                                      children: [
+                                                                        Expanded(
+                                                                          child: Center(
+                                                                            child: Text(
+                                                                              'Sr No.',
+                                                                                style:ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                                        Expanded(
+                                                                          child: Center(
+                                                                            child: Text(
+                                                                                'Name Of License',
+                                                                                textAlign:
+                                                                                    TextAlign
+                                                                                        .start,
+                                                                                style:ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                          ),
+                                                                        ),
+                                                                        Expanded(
+                                                                          child: Center(
+                                                                            child: Text(
+                                                                                'Date',
+                                                                                textAlign:
+                                                                                    TextAlign
+                                                                                        .start,
+                                                                                style:ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                          ),
+                                                                        ),
+                                                                      ],
                                                                     ),
-                                                                  ));
-                                                                }
-                                                                if (snapshot
-                                                                    .hasData) {
-                                                                  final expiredLicenses =
-                                                                      snapshot.data![
-                                                                          'Expired']!;
-                                                                  //final inactiveLicenses = snapshot.data!['Inactive']!;
-                                                                  return Container(
-                                                                    height: MediaQuery.of(
-                                                                                context)
-                                                                            .size
-                                                                            .height /
-                                                                        2,
-                                                                    child: ListView
-                                                                        .builder(
-                                                                            scrollDirection:
-                                                                                Axis
-                                                                                    .vertical,
-                                                                            itemCount:
-                                                                                expiredLicenses
-                                                                                    .length,
-                                                                            itemBuilder:
-                                                                                (context,
-                                                                                    index) {
-                                                                              expiredCount =
-                                                                                  expiredLicenses.length;
-                                                                              print(
-                                                                                  "Expired count :: ${expiredCount}");
-                                                                              int serialNumber = index +
-                                                                                  1 +
-                                                                                  (currentPage - 1) *
-                                                                                      itemsPerPage;
-                                                                              String formattedSerialNumber = serialNumber
-                                                                                  .toString()
-                                                                                  .padLeft(2,
-                                                                                      '0');
-                                                                              return Column(
-                                                                                crossAxisAlignment:
-                                                                                    CrossAxisAlignment.start,
-                                                                                children: [
-                                                                                  // SizedBox(height: 5),
-                                                                                  Padding(
-                                                                                    padding: const EdgeInsets.all(5),
-                                                                                    child: Container(
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: Colors.white,
-                                                                                          borderRadius: BorderRadius.circular(4),
-                                                                                          boxShadow: [
-                                                                                            BoxShadow(
-                                                                                              color: const Color(0xff000000).withOpacity(0.25),
-                                                                                              spreadRadius: 0,
-                                                                                              blurRadius: 4,
-                                                                                              offset: const Offset(0, 2),
-                                                                                            ),
-                                                                                          ],
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                FutureBuilder<Map<String, List<LicensesData>>>(
+                                                                    future: getLicenseStatusWise(
+                                                                        context,
+                                                                        widget
+                                                                            .searchByEmployeeIdProfileData!
+                                                                            .employeeId!),
+                                                                    builder: (context,
+                                                                        snapshot) {
+                                                                      if (snapshot
+                                                                              .connectionState ==
+                                                                          ConnectionState
+                                                                              .waiting) {
+                                                                        return Center(
+                                                                          child: Padding(
+                                                                            padding: const EdgeInsets
+                                                                                .symmetric(
+                                                                                vertical:
+                                                                                    150),
+                                                                            child:
+                                                                                CircularProgressIndicator(
+                                                                              color: ColorManager
+                                                                                  .blueprime,
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      }
+                                                                      if (snapshot
+                                                                          .data!['Expired']!
+                                                                          .isEmpty) {
+                                                                        return Center(
+                                                                            child: Padding(
+                                                                          padding:
+                                                                              const EdgeInsets
+                                                                                  .symmetric(
+                                                                                  vertical:
+                                                                                      150),
+                                                                          child: Text(
+                                                                            AppString
+                                                                                .dataNotFound,
+                                                                            style: CustomTextStylesCommon.commonStyle(
+                                                                                fontWeight: FontWeight.w400,
+                                                                                fontSize:
+                                                                                    FontSize
+                                                                                        .s14,
+                                                                                color: ColorManager
+                                                                                    .mediumgrey),
+                                                                          ),
+                                                                        ));
+                                                                      }
+                                                                      if (snapshot
+                                                                          .hasData) {
+                                                                        final expiredLicenses =
+                                                                            snapshot.data![
+                                                                                'Expired']!;
+                                                                        //final inactiveLicenses = snapshot.data!['Inactive']!;
+                                                                        return Container(
+                                                                          height: MediaQuery.of(
+                                                                                      context)
+                                                                                  .size
+                                                                                  .height /
+                                                                              2,
+                                                                          child: ListView
+                                                                              .builder(
+                                                                                  scrollDirection:
+                                                                                      Axis
+                                                                                          .vertical,
+                                                                                  itemCount:
+                                                                                      expiredLicenses
+                                                                                          .length,
+                                                                                  itemBuilder:
+                                                                                      (context,
+                                                                                          index) {
+                                                                                    expiredCount =
+                                                                                        expiredLicenses.length;
+                                                                                    print(
+                                                                                        "Expired count :: ${expiredCount}");
+                                                                                    int serialNumber = index +
+                                                                                        1 +
+                                                                                        (currentPage - 1) *
+                                                                                            itemsPerPage;
+                                                                                    String formattedSerialNumber = serialNumber
+                                                                                        .toString()
+                                                                                        .padLeft(2,
+                                                                                            '0');
+                                                                                    return Column(
+                                                                                      crossAxisAlignment:
+                                                                                          CrossAxisAlignment.start,
+                                                                                      children: [
+                                                                                        // SizedBox(height: 5),
+                                                                                        Padding(
+                                                                                          padding: const EdgeInsets.all(5),
+                                                                                          child: Container(
+                                                                                              decoration: BoxDecoration(
+                                                                                                color: Colors.white,
+                                                                                                borderRadius: BorderRadius.circular(4),
+                                                                                                boxShadow: [
+                                                                                                  BoxShadow(
+                                                                                                    color: const Color(0xff000000).withOpacity(0.25),
+                                                                                                    spreadRadius: 0,
+                                                                                                    blurRadius: 4,
+                                                                                                    offset: const Offset(0, 2),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                              height: 50,
+                                                                                              child: Padding(
+                                                                                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                                child: Row(
+                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                                  children: [
+                                                                                                    Expanded(
+                                                                                                      child: Center(
+                                                                                                        child: Text(
+                                                                                                          formattedSerialNumber,
+                                                                                                          // formattedSerialNumber,
+                                                                                                    style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    // Text(''),
+                                                                                                    Expanded(
+                                                                                                      child: Center(
+                                                                                                        child: Text(
+                                                                                                          expiredLicenses[index].org,
+                                                                                                            style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    Expanded(
+                                                                                                      child: Center(
+                                                                                                        child: Text(
+                                                                                                          expiredLicenses[index].issueDate,
+                                                                                                            style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              )),
                                                                                         ),
-                                                                                        height: 50,
-                                                                                        child: Padding(
-                                                                                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                                          child: Row(
-                                                                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                            children: [
-                                                                                              Expanded(
-                                                                                                child: Center(
-                                                                                                  child: Text(
-                                                                                                    formattedSerialNumber,
-                                                                                                    // formattedSerialNumber,
-                                                                                              style: ProfileBarNameLicenseStyle.customEditTextStyle()
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                              // Text(''),
-                                                                                              Expanded(
-                                                                                                child: Center(
-                                                                                                  child: Text(
-                                                                                                    expiredLicenses[index].org,
-                                                                                                      style: ProfileBarNameLicenseStyle.customEditTextStyle()
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                              Expanded(
-                                                                                                child: Center(
-                                                                                                  child: Text(
-                                                                                                    expiredLicenses[index].issueDate,
-                                                                                                      style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                      ],
+                                                                                    );
+                                                                                  }),
+                                                                        );
+                                                                      }
+                                                                      return Offstage();
+                                                                    }),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ));
+                                                  });
+                                            },
+                                            text: AppString.expiredlicense,
+                                            // containerColor: Colors.deepOrangeAccent,
+                                            containerColor: Color(0xffD16D6A),
+                                            textOval: expiredCount.toString(),
+                                          ),
+                                          SizedBox(
+                                              height:
+                                                  MediaQuery.of(context).size.height / 120),
+                                
+                                          ///"About To Expired License"
+                                          ProfileBarClipConst(
+                                              onTap: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return ExpiredLicensePopup(
+                                                          title: 'About To Expired License',
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets.symmetric(
+                                                              vertical: AppPadding.p3,
+                                                              horizontal: AppPadding.p20,
+                                                            ),
+                                                            child: SingleChildScrollView(
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                children: [
+                                                                  Container(
+                                                                    height: 30,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Colors.grey,
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .circular(12),
+                                                                    ),
+                                                                    child: Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .symmetric(
+                                                                              horizontal:
+                                                                                  15),
+                                                                      child: Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment
+                                                                                .spaceAround,
+                                                                        children: [
+                                                                          Expanded(
+                                                                            child: Center(
+                                                                              child: Text(
+                                                                                'Sr No.',
+                                                                                style:ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                                          Expanded(
+                                                                            child: Center(
+                                                                              child: Text(
+                                                                                  'Name Of License',
+                                                                                  textAlign:
+                                                                                      TextAlign
+                                                                                          .start,
+                                                                                  style: ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                            ),
+                                                                          ),
+                                                                          Expanded(
+                                                                            child: Center(
+                                                                              child: Text(
+                                                                                  'Date',
+                                                                                  textAlign:
+                                                                                      TextAlign
+                                                                                          .start,
+                                                                                  style: ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 10,
+                                                                  ),
+                                                                  FutureBuilder<
+                                                                          Map<
+                                                                              String,
+                                                                              List<
+                                                                                  LicensesData>>>(
+                                                                      future: getLicenseStatusWise(
+                                                                          context,
+                                                                          widget
+                                                                              .searchByEmployeeIdProfileData!
+                                                                              .employeeId!),
+                                                                      builder: (context,
+                                                                          snapshot) {
+                                                                        if (snapshot
+                                                                                .connectionState ==
+                                                                            ConnectionState
+                                                                                .waiting) {
+                                                                          return Center(
+                                                                            child: Padding(
+                                                                              padding: const EdgeInsets
+                                                                                  .symmetric(
+                                                                                  vertical:
+                                                                                      150),
+                                                                              child:
+                                                                                  CircularProgressIndicator(
+                                                                                color: ColorManager
+                                                                                    .blueprime,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                        if (snapshot
+                                                                            .data![
+                                                                                'About to Expire']!
+                                                                            .isEmpty) {
+                                                                          return Center(
+                                                                              child:
+                                                                                  Padding(
+                                                                            padding: const EdgeInsets
+                                                                                .symmetric(
+                                                                                vertical:
+                                                                                    150),
+                                                                            child: Text(
+                                                                              AppString
+                                                                                  .dataNotFound,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                  fontWeight:FontWeight.w500,
+                                                                                  fontSize:
+                                                                                      FontSize
+                                                                                          .s14,
+                                                                                  color: ColorManager
+                                                                                      .mediumgrey),
+                                                                            ),
+                                                                          ));
+                                                                        }
+                                                                        if (snapshot
+                                                                            .hasData) {
+                                                                          final aboutToExpiredLicenses =
+                                                                              snapshot.data![
+                                                                                  'About to Expire']!;
+                                                                          //final inactiveLicenses = snapshot.data!['Inactive']!;
+                                                                          return Container(
+                                                                            height: MediaQuery.of(
+                                                                                        context)
+                                                                                    .size
+                                                                                    .height /
+                                                                                2,
+                                                                            child: ListView
+                                                                                .builder(
+                                                                                    scrollDirection:
+                                                                                        Axis
+                                                                                            .vertical,
+                                                                                    itemCount:
+                                                                                        aboutToExpiredLicenses
+                                                                                            .length,
+                                                                                    itemBuilder:
+                                                                                        (context,
+                                                                                            index) {
+                                                                                      int serialNumber = index +
+                                                                                          1 +
+                                                                                          (currentPage - 1) * itemsPerPage;
+                                                                                      String
+                                                                                          formattedSerialNumber =
+                                                                                          serialNumber.toString().padLeft(2, '0');
+                                                                                      return Column(
+                                                                                        crossAxisAlignment:
+                                                                                            CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          // SizedBox(height: 5),
+                                                                                          Padding(
+                                                                                            padding: const EdgeInsets.all(5.0),
+                                                                                            child: Container(
+                                                                                                decoration: BoxDecoration(
+                                                                                                  color: Colors.white,
+                                                                                                  borderRadius: BorderRadius.circular(4),
+                                                                                                  boxShadow: [
+                                                                                                    BoxShadow(
+                                                                                                      color: const Color(0xff000000).withOpacity(0.25),
+                                                                                                      spreadRadius: 0,
+                                                                                                      blurRadius: 4,
+                                                                                                      offset: const Offset(0, 2),
                                                                                                     ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                                height: 50,
+                                                                                                child: Padding(
+                                                                                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                                  child: Row(
+                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                                    children: [
+                                                                                                      Expanded(
+                                                                                                        child: Center(
+                                                                                                          child: Text(
+                                                                                                            formattedSerialNumber,
+                                                                                                            // formattedSerialNumber,
+                                                                                                            style:AboutExpiredLStyle.customEditTextStyle()
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      // Text(''),
+                                                                                                      Expanded(
+                                                                                                        child: Center(
+                                                                                                          child: Text(
+                                                                                                            aboutToExpiredLicenses[index].org,
+                                                                                                            style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      Expanded(
+                                                                                                        child: Center(
+                                                                                                          child: Text(
+                                                                                                            aboutToExpiredLicenses[index].issueDate,
+                                                                                                            style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ],
                                                                                                   ),
-                                                                                              ),
-                                                                                            ],
+                                                                                                )),
                                                                                           ),
-                                                                                        )),
-                                                                                  ),
-                                                                                ],
-                                                                              );
-                                                                            }),
-                                                                  );
-                                                                }
-                                                                return Offstage();
-                                                              }),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ));
-                                            });
-                                      },
-                                      text: AppString.expiredlicense,
-                                      // containerColor: Colors.deepOrangeAccent,
-                                      containerColor: Color(0xffD16D6A),
-                                      textOval: expiredCount.toString(),
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height / 120),
-
-                                    ///"About To Expired License"
-                                    ProfileBarClipConst(
-                                        onTap: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return ExpiredLicensePopup(
-                                                    title: 'About To Expired License',
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.symmetric(
-                                                        vertical: AppPadding.p3,
-                                                        horizontal: AppPadding.p20,
-                                                      ),
-                                                      child: SingleChildScrollView(
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceEvenly,
-                                                          children: [
-                                                            Container(
-                                                              height: 30,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors.grey,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(12),
-                                                              ),
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .symmetric(
-                                                                        horizontal:
-                                                                            15),
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceAround,
-                                                                  children: [
-                                                                    Expanded(
-                                                                      child: Center(
-                                                                        child: Text(
-                                                                          'Sr No.',
-                                                                          style:ProfileBarNameLicenseStyle.customEditTextStyle()
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                                                    Expanded(
-                                                                      child: Center(
-                                                                        child: Text(
-                                                                            'Name Of License',
-                                                                            textAlign:
-                                                                                TextAlign
-                                                                                    .start,
-                                                                            style: ProfileBarNameLicenseStyle.customEditTextStyle()),
-                                                                      ),
-                                                                    ),
-                                                                    Expanded(
-                                                                      child: Center(
-                                                                        child: Text(
-                                                                            'Date',
-                                                                            textAlign:
-                                                                                TextAlign
-                                                                                    .start,
-                                                                            style: ProfileBarNameLicenseStyle.customEditTextStyle()),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
+                                                                                        ],
+                                                                                      );
+                                                                                    }),
+                                                                          );
+                                                                        }
+                                                                        return Offstage();
+                                                                      }),
+                                                                ],
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              height: 10,
+                                                          ));
+                                                    });
+                                              },
+                                              text: AppString.abouttoexpire,
+                                              // containerColor: Colors.orange,
+                                              containerColor: Color(0xffFEBD4D),
+                                              textOval: upToDateCount.toString()),
+                                          SizedBox(
+                                              height:
+                                                  MediaQuery.of(context).size.height / 120),
+                                
+                                          ///"Up To Date License"
+                                          ProfileBarClipConst(
+                                              onTap: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return ExpiredLicensePopup(
+                                                          title: 'Up To Date License',
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets.symmetric(
+                                                              vertical: AppPadding.p3,
+                                                              horizontal: AppPadding.p20,
                                                             ),
-                                                            FutureBuilder<
-                                                                    Map<
-                                                                        String,
-                                                                        List<
-                                                                            LicensesData>>>(
-                                                                future: getLicenseStatusWise(
-                                                                    context,
-                                                                    widget
-                                                                        .searchByEmployeeIdProfileData!
-                                                                        .employeeId!),
-                                                                builder: (context,
-                                                                    snapshot) {
-                                                                  if (snapshot
-                                                                          .connectionState ==
-                                                                      ConnectionState
-                                                                          .waiting) {
-                                                                    return Center(
-                                                                      child: Padding(
-                                                                        padding: const EdgeInsets
-                                                                            .symmetric(
-                                                                            vertical:
-                                                                                150),
-                                                                        child:
-                                                                            CircularProgressIndicator(
-                                                                          color: ColorManager
-                                                                              .blueprime,
-                                                                        ),
+                                                            child: SingleChildScrollView(
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                children: [
+                                                                  Container(
+                                                                    height: 30,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Colors.grey,
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .circular(12),
+                                                                    ),
+                                                                    child: Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .symmetric(
+                                                                              horizontal:
+                                                                                  15),
+                                                                      child: Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment
+                                                                                .spaceAround,
+                                                                        children: [
+                                                                          Expanded(
+                                                                            child: Center(
+                                                                              child: Text(
+                                                                                'Sr No.',
+                                                                                style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                                          Expanded(
+                                                                            child: Center(
+                                                                              child: Text(
+                                                                                  'Name Of License',
+                                                                                  textAlign:
+                                                                                      TextAlign
+                                                                                          .start,
+                                                                                  style: ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                            ),
+                                                                          ),
+                                                                          Expanded(
+                                                                            child: Center(
+                                                                              child: Text(
+                                                                                  'Date',
+                                                                                  textAlign:
+                                                                                      TextAlign
+                                                                                          .start,
+                                                                                  style: ProfileBarNameLicenseStyle.customEditTextStyle()),
+                                                                            ),
+                                                                          ),
+                                                                        ],
                                                                       ),
-                                                                    );
-                                                                  }
-                                                                  if (snapshot
-                                                                      .data![
-                                                                          'About to Expire']!
-                                                                      .isEmpty) {
-                                                                    return Center(
-                                                                        child:
-                                                                            Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                          vertical:
-                                                                              150),
-                                                                      child: Text(
-                                                                        AppString
-                                                                            .dataNotFound,
-                                                                        style: CustomTextStylesCommon.commonStyle(
-                                                                            fontWeight:FontWeight.w500,
-                                                                            fontSize:
-                                                                                FontSize
-                                                                                    .s14,
-                                                                            color: ColorManager
-                                                                                .mediumgrey),
-                                                                      ),
-                                                                    ));
-                                                                  }
-                                                                  if (snapshot
-                                                                      .hasData) {
-                                                                    final aboutToExpiredLicenses =
-                                                                        snapshot.data![
-                                                                            'About to Expire']!;
-                                                                    //final inactiveLicenses = snapshot.data!['Inactive']!;
-                                                                    return Container(
-                                                                      height: MediaQuery.of(
-                                                                                  context)
-                                                                              .size
-                                                                              .height /
-                                                                          2,
-                                                                      child: ListView
-                                                                          .builder(
-                                                                              scrollDirection:
-                                                                                  Axis
-                                                                                      .vertical,
-                                                                              itemCount:
-                                                                                  aboutToExpiredLicenses
-                                                                                      .length,
-                                                                              itemBuilder:
-                                                                                  (context,
-                                                                                      index) {
-                                                                                int serialNumber = index +
-                                                                                    1 +
-                                                                                    (currentPage - 1) * itemsPerPage;
-                                                                                String
-                                                                                    formattedSerialNumber =
-                                                                                    serialNumber.toString().padLeft(2, '0');
-                                                                                return Column(
-                                                                                  crossAxisAlignment:
-                                                                                      CrossAxisAlignment.start,
-                                                                                  children: [
-                                                                                    // SizedBox(height: 5),
-                                                                                    Padding(
-                                                                                      padding: const EdgeInsets.all(5.0),
-                                                                                      child: Container(
-                                                                                          decoration: BoxDecoration(
-                                                                                            color: Colors.white,
-                                                                                            borderRadius: BorderRadius.circular(4),
-                                                                                            boxShadow: [
-                                                                                              BoxShadow(
-                                                                                                color: const Color(0xff000000).withOpacity(0.25),
-                                                                                                spreadRadius: 0,
-                                                                                                blurRadius: 4,
-                                                                                                offset: const Offset(0, 2),
-                                                                                              ),
-                                                                                            ],
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 10,
+                                                                  ),
+                                                                  FutureBuilder<
+                                                                          Map<
+                                                                              String,
+                                                                              List<
+                                                                                  LicensesData>>>(
+                                                                      future: getLicenseStatusWise(
+                                                                          context,
+                                                                          widget
+                                                                              .searchByEmployeeIdProfileData!
+                                                                              .employeeId!),
+                                                                      builder: (context,
+                                                                          snapshot) {
+                                                                        if (snapshot
+                                                                                .connectionState ==
+                                                                            ConnectionState
+                                                                                .waiting) {
+                                                                          return Center(
+                                                                            child: Padding(
+                                                                              padding: const EdgeInsets
+                                                                                  .symmetric(
+                                                                                  vertical:
+                                                                                      150),
+                                                                              child:
+                                                                                  CircularProgressIndicator(
+                                                                                color: ColorManager
+                                                                                    .blueprime,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                        if (snapshot
+                                                                            .data![
+                                                                                'Upto date']!
+                                                                            .isEmpty) {
+                                                                          return Center(
+                                                                              child:
+                                                                                  Padding(
+                                                                            padding: const EdgeInsets
+                                                                                .symmetric(
+                                                                                vertical:
+                                                                                    150),
+                                                                            child: Text(
+                                                                              AppString
+                                                                                  .dataNotFound,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                  fontWeight:
+                                                                                      FontWeightManager
+                                                                                          .medium,
+                                                                                  fontSize:
+                                                                                      FontSize
+                                                                                          .s14,
+                                                                                  color: ColorManager
+                                                                                      .mediumgrey),
+                                                                            ),
+                                                                          ));
+                                                                        }
+                                                                        if (snapshot
+                                                                            .hasData) {
+                                                                          final upToDateLicenses =
+                                                                              snapshot.data![
+                                                                                  'Upto date']!;
+                                                                          //final inactiveLicenses = snapshot.data!['Inactive']!;
+                                                                          return Container(
+                                                                            height: MediaQuery.of(
+                                                                                        context)
+                                                                                    .size
+                                                                                    .height /
+                                                                                2,
+                                                                            child: ListView
+                                                                                .builder(
+                                                                                    scrollDirection:
+                                                                                        Axis
+                                                                                            .vertical,
+                                                                                    itemCount:
+                                                                                        upToDateLicenses
+                                                                                            .length,
+                                                                                    itemBuilder:
+                                                                                        (context,
+                                                                                            index) {
+                                                                                      int serialNumber = index +
+                                                                                          1 +
+                                                                                          (currentPage - 1) * itemsPerPage;
+                                                                                      String
+                                                                                          formattedSerialNumber =
+                                                                                          serialNumber.toString().padLeft(2, '0');
+                                                                                      return Column(
+                                                                                        crossAxisAlignment:
+                                                                                            CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          // SizedBox(height: 5),
+                                                                                          Padding(
+                                                                                            padding: const EdgeInsets.all(8.0),
+                                                                                            child: Container(
+                                                                                                decoration: BoxDecoration(
+                                                                                                  color: Colors.white,
+                                                                                                  borderRadius: BorderRadius.circular(4),
+                                                                                                  boxShadow: [
+                                                                                                    BoxShadow(
+                                                                                                      color: const Color(0xff000000).withOpacity(0.25),
+                                                                                                      spreadRadius: 0,
+                                                                                                      blurRadius: 4,
+                                                                                                      offset: const Offset(0, 2),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                                height: 50,
+                                                                                                child: Padding(
+                                                                                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                                  child: Row(
+                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                                    children: [
+                                                                                                      Expanded(
+                                                                                                        child: Center(
+                                                                                                          child: Text(
+                                                                                                            formattedSerialNumber,
+                                                                                                            // formattedSerialNumber,
+                                                                                                            style: ProfileBarZoneStyle.customEditTextStyle()
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      // Text(''),
+                                                                                                      Expanded(
+                                                                                                        child: Center(
+                                                                                                          child: Text(
+                                                                                                            upToDateLicenses[index].org,
+                                                                                                            style: ProfileBarZoneStyle.customEditTextStyle()
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      Expanded(
+                                                                                                        child: Center(
+                                                                                                          child: Text(
+                                                                                                            upToDateLicenses[index].issueDate,
+                                                                                                            style: ProfileBarZoneStyle.customEditTextStyle()
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                )),
                                                                                           ),
-                                                                                          height: 50,
-                                                                                          child: Padding(
-                                                                                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                                            child: Row(
-                                                                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                              children: [
-                                                                                                Expanded(
-                                                                                                  child: Center(
-                                                                                                    child: Text(
-                                                                                                      formattedSerialNumber,
-                                                                                                      // formattedSerialNumber,
-                                                                                                      style:AboutExpiredLStyle.customEditTextStyle()
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                // Text(''),
-                                                                                                Expanded(
-                                                                                                  child: Center(
-                                                                                                    child: Text(
-                                                                                                      aboutToExpiredLicenses[index].org,
-                                                                                                      style: AboutExpiredLStyle.customEditTextStyle()
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                Expanded(
-                                                                                                  child: Center(
-                                                                                                    child: Text(
-                                                                                                      aboutToExpiredLicenses[index].issueDate,
-                                                                                                      style: AboutExpiredLStyle.customEditTextStyle()
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          )),
-                                                                                    ),
-                                                                                  ],
-                                                                                );
-                                                                              }),
-                                                                    );
-                                                                  }
-                                                                  return Offstage();
-                                                                }),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ));
-                                              });
-                                        },
-                                        text: AppString.abouttoexpire,
-                                        // containerColor: Colors.orange,
-                                        containerColor: Color(0xffFEBD4D),
-                                        textOval: upToDateCount.toString()),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height / 120),
-
-                                    ///"Up To Date License"
-                                    ProfileBarClipConst(
-                                        onTap: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return ExpiredLicensePopup(
-                                                    title: 'Up To Date License',
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.symmetric(
-                                                        vertical: AppPadding.p3,
-                                                        horizontal: AppPadding.p20,
-                                                      ),
-                                                      child: SingleChildScrollView(
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceEvenly,
-                                                          children: [
-                                                            Container(
-                                                              height: 30,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors.grey,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(12),
-                                                              ),
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .symmetric(
-                                                                        horizontal:
-                                                                            15),
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceAround,
-                                                                  children: [
-                                                                    Expanded(
-                                                                      child: Center(
-                                                                        child: Text(
-                                                                          'Sr No.',
-                                                                          style: ProfileBarNameLicenseStyle.customEditTextStyle()
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                                                    Expanded(
-                                                                      child: Center(
-                                                                        child: Text(
-                                                                            'Name Of License',
-                                                                            textAlign:
-                                                                                TextAlign
-                                                                                    .start,
-                                                                            style: ProfileBarNameLicenseStyle.customEditTextStyle()),
-                                                                      ),
-                                                                    ),
-                                                                    Expanded(
-                                                                      child: Center(
-                                                                        child: Text(
-                                                                            'Date',
-                                                                            textAlign:
-                                                                                TextAlign
-                                                                                    .start,
-                                                                            style: ProfileBarNameLicenseStyle.customEditTextStyle()),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
+                                                                                        ],
+                                                                                      );
+                                                                                    }),
+                                                                          );
+                                                                        }
+                                                                        return Offstage();
+                                                                      }),
+                                                                ],
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              height: 10,
-                                                            ),
-                                                            FutureBuilder<
-                                                                    Map<
-                                                                        String,
-                                                                        List<
-                                                                            LicensesData>>>(
-                                                                future: getLicenseStatusWise(
-                                                                    context,
-                                                                    widget
-                                                                        .searchByEmployeeIdProfileData!
-                                                                        .employeeId!),
-                                                                builder: (context,
-                                                                    snapshot) {
-                                                                  if (snapshot
-                                                                          .connectionState ==
-                                                                      ConnectionState
-                                                                          .waiting) {
-                                                                    return Center(
-                                                                      child: Padding(
-                                                                        padding: const EdgeInsets
-                                                                            .symmetric(
-                                                                            vertical:
-                                                                                150),
-                                                                        child:
-                                                                            CircularProgressIndicator(
-                                                                          color: ColorManager
-                                                                              .blueprime,
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                  if (snapshot
-                                                                      .data![
-                                                                          'Upto date']!
-                                                                      .isEmpty) {
-                                                                    return Center(
-                                                                        child:
-                                                                            Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                          vertical:
-                                                                              150),
-                                                                      child: Text(
-                                                                        AppString
-                                                                            .dataNotFound,
-                                                                        style: CustomTextStylesCommon.commonStyle(
-                                                                            fontWeight:
-                                                                                FontWeightManager
-                                                                                    .medium,
-                                                                            fontSize:
-                                                                                FontSize
-                                                                                    .s14,
-                                                                            color: ColorManager
-                                                                                .mediumgrey),
-                                                                      ),
-                                                                    ));
-                                                                  }
-                                                                  if (snapshot
-                                                                      .hasData) {
-                                                                    final upToDateLicenses =
-                                                                        snapshot.data![
-                                                                            'Upto date']!;
-                                                                    //final inactiveLicenses = snapshot.data!['Inactive']!;
-                                                                    return Container(
-                                                                      height: MediaQuery.of(
-                                                                                  context)
-                                                                              .size
-                                                                              .height /
-                                                                          2,
-                                                                      child: ListView
-                                                                          .builder(
-                                                                              scrollDirection:
-                                                                                  Axis
-                                                                                      .vertical,
-                                                                              itemCount:
-                                                                                  upToDateLicenses
-                                                                                      .length,
-                                                                              itemBuilder:
-                                                                                  (context,
-                                                                                      index) {
-                                                                                int serialNumber = index +
-                                                                                    1 +
-                                                                                    (currentPage - 1) * itemsPerPage;
-                                                                                String
-                                                                                    formattedSerialNumber =
-                                                                                    serialNumber.toString().padLeft(2, '0');
-                                                                                return Column(
-                                                                                  crossAxisAlignment:
-                                                                                      CrossAxisAlignment.start,
-                                                                                  children: [
-                                                                                    // SizedBox(height: 5),
-                                                                                    Padding(
-                                                                                      padding: const EdgeInsets.all(8.0),
-                                                                                      child: Container(
-                                                                                          decoration: BoxDecoration(
-                                                                                            color: Colors.white,
-                                                                                            borderRadius: BorderRadius.circular(4),
-                                                                                            boxShadow: [
-                                                                                              BoxShadow(
-                                                                                                color: const Color(0xff000000).withOpacity(0.25),
-                                                                                                spreadRadius: 0,
-                                                                                                blurRadius: 4,
-                                                                                                offset: const Offset(0, 2),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                          height: 50,
-                                                                                          child: Padding(
-                                                                                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                                            child: Row(
-                                                                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                              children: [
-                                                                                                Expanded(
-                                                                                                  child: Center(
-                                                                                                    child: Text(
-                                                                                                      formattedSerialNumber,
-                                                                                                      // formattedSerialNumber,
-                                                                                                      style: ProfileBarZoneStyle.customEditTextStyle()
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                // Text(''),
-                                                                                                Expanded(
-                                                                                                  child: Center(
-                                                                                                    child: Text(
-                                                                                                      upToDateLicenses[index].org,
-                                                                                                      style: ProfileBarZoneStyle.customEditTextStyle()
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                Expanded(
-                                                                                                  child: Center(
-                                                                                                    child: Text(
-                                                                                                      upToDateLicenses[index].issueDate,
-                                                                                                      style: ProfileBarZoneStyle.customEditTextStyle()
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          )),
-                                                                                    ),
-                                                                                  ],
-                                                                                );
-                                                                              }),
-                                                                    );
-                                                                  }
-                                                                  return Offstage();
-                                                                }),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ));
-                                              });
-                                        },
-                                        text: AppString.uptodate,
-                                        // containerColor: Colors.lightGreen,
-                                        containerColor: Color(0xffB4DB4C),
-                                        textOval: aboutToCount.toString()),
-                                  ],
+                                                          ));
+                                                    });
+                                              },
+                                              text: AppString.uptodate,
+                                              // containerColor: Colors.lightGreen,
+                                              containerColor: Color(0xffB4DB4C),
+                                              textOval: aboutToCount.toString()),
+                                        ],
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
+                              ],
+                            ),
                           ),
                         ],
                       ),
