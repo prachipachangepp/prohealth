@@ -22,6 +22,7 @@ import '../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../company_identity_screen.dart';
 import '../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
 import '../../whitelabelling/success_popup.dart';
 import 'contract_add_dialog.dart';
 import 'custome_dialog.dart';
@@ -80,7 +81,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 50.0),
+                horizontal: MediaQuery.of(context).size.width / 60.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -205,124 +206,82 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                     return const SizedBox();
                   },
                 ),),
-
+                Expanded(
+                    flex: 2,
+                    child: Container()),
                 ///tabbar
                 Expanded(
-                  flex: 7,
+                  flex: 2,
                   child: Padding(
-                    padding: const EdgeInsets.only(right:150, top: AppPadding.p10),
-                    child: Container(
-                    // color: Colors.red,
-                      width: MediaQuery.of(context).size.width / 9.8,
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () => _selectButton(0,isAddButtonEnabled),
-                            child: Container(
-                              height: 40,
-                              width: MediaQuery.of(context).size.width / 12,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Vendor",
-                                      style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
-                                  ),
-                                  _selectedIndex == 0
-                                      ? Divider(
-                                          color: ColorManager.blueprime,
-                                          thickness: 2,
-                                        )
-                                      : Offstage()
-                                ],
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () => _selectButton(1),
-                            child: Container(
-                              height: 40,
-                              width: MediaQuery.of(context).size.width / 12,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Contract",
-                                      style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
-                                  ),
-                                  _selectedIndex == 1
-                                      ? Divider(
-                                          color: ColorManager.blueprime,
-                                          thickness: 2,
-                                        )
-                                      : Offstage()
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    padding: const EdgeInsets.only(top: AppPadding.p10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        EMTabbar(onTap: (int index){
+                          _selectButton(0);
+                        }, index: 0, grpIndex: _selectedIndex, heading: AppStringEM.vendor),
+                        EMTabbar(onTap: (int index){
+                          _selectButton(1);
+                        }, index: 1, grpIndex: _selectedIndex, heading: AppStringEM.contract),
+                      ],
                     ),
                   ),
                 ),
-
+                Expanded(
+                    flex: 3,
+                    child: Container()),
                 ///buttons
                 _selectedIndex == 0
-                ? Padding(
-                   padding: const EdgeInsets.only(right: 20),
-                 child: CustomIconButtonConst(
-                  width: 100,
-                  icon: Icons.add,
-                  text: "Add",
-                  onPressed: () {
-                    vendorNameController.clear();
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddVendorPopup(
-                          namecontroller: vendorNameController,
-                          officeID: widget.officeId,
-                        );
-                      },
-                    );
-                  }),
-                )
-                : Padding(
-                     padding: const EdgeInsets.only(right: 10),
-                    child: CustomIconButtonConst(
-                width: 150,
-                icon: Icons.add,
-                text: "Add Doctype",
-                onPressed:
-                isAddButtonEnabled
-                    ? () {
-                  //selectedExpiryType = expiryType;
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return StatefulBuilder(
-                        builder: (BuildContext context, void Function(void Function()) setState) {
-                          return ContractAddDialog(
-                            selectedVendorId :selectedVendorId,
-                            officeid:widget.officeId,
-                            title: 'Add Contract',
-                          );
-                        },
+                ? CustomIconButtonConst(
+                 width: 100,
+                 icon: Icons.add,
+                 text: "Add",
+                 onPressed: () {
+                   vendorNameController.clear();
+                   showDialog(
+                     context: context,
+                     builder: (BuildContext context) {
+                       return AddVendorPopup(
+                         namecontroller: vendorNameController,
+                         officeID: widget.officeId,
+                       );
+                     },
+                   );
+                 })
+                : CustomIconButtonConst(
+                                width: 150,
+                                icon: Icons.add,
+                                text: "Add Doctype",
+                                onPressed:
+                                isAddButtonEnabled
+                ? () {
+                                  //selectedExpiryType = expiryType;
+                                  showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) {
+                      return ContractAddDialog(
+                        selectedVendorId :selectedVendorId,
+                        officeid:widget.officeId,
+                        title: 'Add Contract',
                       );
                     },
                   );
-                }
-                    : () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return VendorSelectNoti(message: "No Vendor Added.",);
-                    },
-                  );
                 },
-                enabled: isAddButtonEnabled,
-                                  ),
-                                )
+                                  );
+                                }
+                : () {
+                                  showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return VendorSelectNoti(message: "No Vendor Added.",);
+                },
+                                  );
+                                },
+                                enabled: isAddButtonEnabled,
+                              )
 
               ],
             ),
@@ -331,7 +290,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 40),
+                  horizontal: MediaQuery.of(context).size.width / 60),
               child: NonScrollablePageView(
                 controller: _tabPageController,
                 onPageChanged: (index) {

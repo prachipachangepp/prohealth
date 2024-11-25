@@ -117,6 +117,8 @@ class AppStringEM{
   static const String acknowledgement = "Acknowledgement";
   static const String compensation = "Compensation";
   static const String performance = "Performance";
+  static const String vendor = "Vendor";
+  static const String contract = "Contract";
 }
 
 class ErrorMessageString{

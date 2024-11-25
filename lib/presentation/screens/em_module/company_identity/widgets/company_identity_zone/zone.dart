@@ -26,6 +26,7 @@ import '../../../../../../app/resources/establishment_resources/establishment_st
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../company_identity_screen.dart';
+import '../vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
 
 class CiZone extends StatefulWidget {
   final int companyID;
@@ -144,14 +145,14 @@ class _CiOrgDocumentState extends State<CiZone> {
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width / 50.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
+              _selectedIndex == 1
+                  ? Expanded(
                 flex: 2,
-                child: _selectedIndex == 1
-                    ? FutureBuilder<List<OfficeWiseCountyData>>(
-                  future: getCountyListOfficeIdWise(context: context, OfficeId: widget.officeId),
-                  builder: (context, snapshotZone) {
+                    child: FutureBuilder<List<OfficeWiseCountyData>>(
+                                      future: getCountyListOfficeIdWise(context: context, OfficeId: widget.officeId),
+                                      builder: (context, snapshotZone) {
                     if (snapshotZone.connectionState == ConnectionState.waiting) {
                       return Container(
                         width:  354,
@@ -233,342 +234,370 @@ class _CiOrgDocumentState extends State<CiZone> {
                       );
                     }
                     return const SizedBox();
-                  },
-                )
-                    : _selectedIndex == 0
-                    ?  Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+                                      },
+                                    ),
+                  )
+                  : _selectedIndex == 0
+                  ?  Expanded(
+                    flex: 3,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                     Text( AppStringLegalDocument.ZonesMsgHead,
                       style:  LegalDocumentPopupMessage.customTextStyle(context),),
-                  ],)
-                    : const SizedBox(width: 354),
-              ),
-
+                                      ],),
+                  )
+                  : Expanded(
+                  flex: 2,
+                  child: Container()),
+             _selectedIndex == 0
+                 ? Offstage()
+                 : _selectedIndex == 1
+                 ? Expanded(
+                  flex: 1,
+                  child: Container())
+                 : Expanded(
+                     flex: 1,
+                     child: Container()),
               ///tabbar
+              // Expanded(
+              //   flex: 5,
+              //   child: Padding(
+              //     padding: EdgeInsets.only(
+              //         right: MediaQuery.of(context).size.width / 6),
+              //     child: Container(
+              //      // color: Colors.greenAccent,
+              //       padding: const EdgeInsets.only(top: AppPadding.p10),
+              //       width: MediaQuery.of(context).size.width / 5.5,
+              //       height: 45,
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           InkWell(
+              //             onTap: () => _selectButton(0),
+              //             child: Container(
+              //               height: 40,
+              //               width: MediaQuery.of(context).size.width / 20,
+              //               child: Column(
+              //                 children: [
+              //                   Text(
+              //                     AppString.county,
+              //                     style: TransparentBgTabbar.customTextStyle(0, _selectedIndex),
+              //                     // style: GoogleFonts.firaSans(
+              //                     //   fontSize: 12,
+              //                     //   fontWeight: _selectedIndex == 0
+              //                     //       ? FontWeightManager.bold
+              //                     //       : FontWeightManager.regular,
+              //                     //   color: _selectedIndex == 0
+              //                     //       ? ColorManager.blueprime
+              //                     //       : ColorManager.mediumgrey,
+              //                     // ),
+              //                   ),
+              //                   _selectedIndex == 0
+              //                       ? Divider(
+              //                           color: ColorManager.blueprime,
+              //                           thickness: 2,
+              //                         )
+              //                       : const Offstage()
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //           const SizedBox(
+              //             width: 10,
+              //           ),
+              //           InkWell(
+              //             onTap: () => _selectButton(1),
+              //             child: Container(
+              //               height: 40,
+              //               width: MediaQuery.of(context).size.width / 20, //80,
+              //               child: Column(
+              //                 children: [
+              //                   Text(
+              //                     AppString.zone,
+              //                     style: TransparentBgTabbar.customTextStyle(1, _selectedIndex),
+              //                   ),
+              //                   _selectedIndex == 1
+              //                       ? Divider(
+              //                           color: ColorManager.blueprime,
+              //                           thickness: 2,
+              //                         )
+              //                       : const Offstage()
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //           const SizedBox(
+              //             width: 10,
+              //           ),
+              //           InkWell(
+              //             onTap: () => _selectButton(2),
+              //             child: Container(
+              //               height: 40,
+              //               width: MediaQuery.of(context).size.width / 20, // 80,
+              //               child: Column(
+              //                 children: [
+              //                   Text(
+              //                     AppString.zip_code,
+              //                     style: TransparentBgTabbar.customTextStyle(2, _selectedIndex),
+              //                   ),
+              //                   _selectedIndex == 2
+              //                       ? Divider(
+              //                           color: ColorManager.blueprime,
+              //                           thickness: 2,
+              //                         )
+              //                       : const Offstage()
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Expanded(
-                flex: 5,
+                flex: 3,
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width / 6),
-                  child: Container(
-                   // color: Colors.greenAccent,
-                    padding: const EdgeInsets.only(top: AppPadding.p10),
-                    width: MediaQuery.of(context).size.width / 5.5,
-                    height: 45,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () => _selectButton(0),
-                          child: Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width / 20,
-                            child: Column(
-                              children: [
-                                Text(
-                                  AppString.county,
-                                  style: TransparentBgTabbar.customTextStyle(0, _selectedIndex),
-                                  // style: GoogleFonts.firaSans(
-                                  //   fontSize: 12,
-                                  //   fontWeight: _selectedIndex == 0
-                                  //       ? FontWeightManager.bold
-                                  //       : FontWeightManager.regular,
-                                  //   color: _selectedIndex == 0
-                                  //       ? ColorManager.blueprime
-                                  //       : ColorManager.mediumgrey,
-                                  // ),
-                                ),
-                                _selectedIndex == 0
-                                    ? Divider(
-                                        color: ColorManager.blueprime,
-                                        thickness: 2,
-                                      )
-                                    : const Offstage()
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        InkWell(
-                          onTap: () => _selectButton(1),
-                          child: Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width / 20, //80,
-                            child: Column(
-                              children: [
-                                Text(
-                                  AppString.zone,
-                                  style: TransparentBgTabbar.customTextStyle(1, _selectedIndex),
-                                ),
-                                _selectedIndex == 1
-                                    ? Divider(
-                                        color: ColorManager.blueprime,
-                                        thickness: 2,
-                                      )
-                                    : const Offstage()
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        InkWell(
-                          onTap: () => _selectButton(2),
-                          child: Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width / 20, // 80,
-                            child: Column(
-                              children: [
-                                Text(
-                                  AppString.zip_code,
-                                  style: TransparentBgTabbar.customTextStyle(2, _selectedIndex),
-                                ),
-                                _selectedIndex == 2
-                                    ? Divider(
-                                        color: ColorManager.blueprime,
-                                        thickness: 2,
-                                      )
-                                    : const Offstage()
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      EMTabbar(onTap: (int index){
+                        _selectButton(0);
+                      }, index: 0, grpIndex: _selectedIndex, heading: AppString.county,),
+                      EMTabbar(onTap: (int index){
+                        _selectButton(1);
+                      }, index: 1, grpIndex: _selectedIndex, heading: AppString.zone,),
+                      EMTabbar(onTap: (int index){
+                        _selectButton(2);
+                      }, index: 2, grpIndex: _selectedIndex, heading: AppString.zip_code,),
+                    ],
                   ),
                 ),
               ),
 
+              Expanded(
+                  flex: 2,
+                  child: Container()),
               ///button
               _selectedIndex == 0
-              ? Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: CustomIconButtonConst(
-                width: 79,
-                icon: Icons.add,
-                text: AppStringEM.add,
-                onPressed: () {
-                  countynameController.clear();
-                  countyController.clear();
-                  stateController.clear();
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return CIZoneAddPopup(
-                          buttonTitle: AppStringEM.add,
-                          title: 'Add County',
-                          onSavePressed: () async {
-                            await addCounty(
-                                context,
-                                countynameController.text,
-                                widget.stateName,
-                                widget.countryName,
-                                "37.0902°",
-                                "95.7129°",
-                                widget.officeId);
-                            Navigator.pop(context);
+              ? CustomIconButtonConst(
+              width: 79,
+              icon: Icons.add,
+              text: AppStringEM.add,
+              onPressed: () {
+                countynameController.clear();
+                countyController.clear();
+                stateController.clear();
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return CIZoneAddPopup(
+                        buttonTitle: AppStringEM.add,
+                        title: 'Add County',
+                        onSavePressed: () async {
+                          await addCounty(
+                              context,
+                              countynameController.text,
+                              widget.stateName,
+                              widget.countryName,
+                              "37.0902°",
+                              "95.7129°",
+                              widget.officeId);
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(
+                                message: 'County Added Successfully',
+                              );
+                            },
+                          );
+                        },
+                        title1: 'County Name',
+                        countynameController: countynameController,
+                        // title2: 'Country Name',
+                        // zipcodeController: countyController,
+                        // title3: 'County Name',
+                        // mapController: countynameController,
+                      );
+                    });
+              })
+              : _selectedIndex == 1
+              ? CustomIconButtonConst(
+              width: 79,
+              icon: Icons.add,
+              text: AppStringEM.add,
+              onPressed: isAddButtonEnabled
+                  ? () {
+                //selectedExpiryType = expiryType;
+                zoneNumberController.clear();
+                print('County Name ${countynameController.text}');
+                print('County id ${countySortId}');
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AddZonePopup(
+                        countyNameController: countynameController,
+                        buttonTitle: AppStringEM.add,
+                        zoneNumberController: zoneNumberController,
+                        title: 'Add Zone',
+                        onSavePressed: () async {
+                          var response = await addZoneCountyData(
+                              context,
+                              zoneNumberController.text,
+                              countySortId,
+                              widget.officeId);
+                          Navigator.pop(context);
+                          if(response.statusCode == 200 || response.statusCode == 201){
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AddSuccessPopup(
-                                  message: 'County Added Successfully',
+                                  message: 'Zone Added Successfully',
                                 );
                               },
                             );
-                          },
-                          title1: 'County Name',
-                          countynameController: countynameController,
-                          // title2: 'Country Name',
-                          // zipcodeController: countyController,
-                          // title3: 'County Name',
-                          // mapController: countynameController,
-                        );
-                      });
-                }),
-                            )
-              : _selectedIndex == 1
-              ? Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: CustomIconButtonConst(
-                width: 79,
-                icon: Icons.add,
-                text: AppStringEM.add,
-                onPressed: isAddButtonEnabled
-                    ? () {
-                  //selectedExpiryType = expiryType;
-                  zoneNumberController.clear();
-                  print('County Name ${countynameController.text}');
-                  print('County id ${countySortId}');
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AddZonePopup(
-                          countyNameController: countynameController,
-                          buttonTitle: AppStringEM.add,
-                          zoneNumberController: zoneNumberController,
-                          title: 'Add Zone',
-                          onSavePressed: () async {
-                            var response = await addZoneCountyData(
-                                context,
-                                zoneNumberController.text,
-                                countySortId,
-                                widget.officeId);
-                            Navigator.pop(context);
-                            if(response.statusCode == 200 || response.statusCode == 201){
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AddSuccessPopup(
-                                    message: 'Zone Added Successfully',
-                                  );
-                                },
-                              );
-                            }
-                          },
-                          child: FutureBuilder<
-                              List<AllCountyGetList>>(
-                              future: getCountyZoneList(context),
-                              builder: (context, snapshotZone) {
-                                if (snapshotZone.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Container(
-                                    width: 354,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ColorManager
-                                              .containerBorderGrey,
-                                          width: AppSize.s1),
-                                      borderRadius:
-                                      BorderRadius.circular(4),
-                                    ),
-                                    child: const Text(
-                                      "",
-                                      //AppString.dataNotFound,
-                                    ),
-                                  );
-                                }
-                                if (snapshotZone.data!.isEmpty) {
-                                  return Container(
-                                    width: 354,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ColorManager
-                                              .containerBorderGrey,
-                                          width: AppSize.s1),
-                                      borderRadius:
-                                      BorderRadius.circular(4),
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets
-                                            .symmetric(
-                                            horizontal: 10),
-                                        child: Text(
-                                            ErrorMessageString
-                                                .noCounties,
-                                            //AppString.dataNotFound,
-                                            style: DocumentTypeDataStyle.customTextStyle(context)
-                                        ),
+                          }
+                        },
+                        child: FutureBuilder<
+                            List<AllCountyGetList>>(
+                            future: getCountyZoneList(context),
+                            builder: (context, snapshotZone) {
+                              if (snapshotZone.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Container(
+                                  width: 354,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: ColorManager
+                                            .containerBorderGrey,
+                                        width: AppSize.s1),
+                                    borderRadius:
+                                    BorderRadius.circular(4),
+                                  ),
+                                  child: const Text(
+                                    "",
+                                    //AppString.dataNotFound,
+                                  ),
+                                );
+                              }
+                              if (snapshotZone.data!.isEmpty) {
+                                return Container(
+                                  width: 354,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: ColorManager
+                                            .containerBorderGrey,
+                                        width: AppSize.s1),
+                                    borderRadius:
+                                    BorderRadius.circular(4),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets
+                                          .symmetric(
+                                          horizontal: 10),
+                                      child: Text(
+                                          ErrorMessageString
+                                              .noCounties,
+                                          //AppString.dataNotFound,
+                                          style: DocumentTypeDataStyle.customTextStyle(context)
                                       ),
                                     ),
-                                  );
-                                }
+                                  ),
+                                );
+                              }
 
-                                if (snapshotZone.hasData) {
-                                  List dropDown = [];
-                                  int docType = 0;
-                                  List<DropdownMenuItem<String>>
-                                  dropDownTypesList = [];
+                              if (snapshotZone.hasData) {
+                                List dropDown = [];
+                                int docType = 0;
+                                List<DropdownMenuItem<String>>
+                                dropDownTypesList = [];
+                                dropDownTypesList.add(
+                                    const DropdownMenuItem<String>(
+                                      child: Text('Select County'),
+                                      value: 'Select County',
+                                    ));
+                                for (var i in snapshotZone.data!) {
                                   dropDownTypesList.add(
-                                      const DropdownMenuItem<String>(
-                                        child: Text('Select County'),
-                                        value: 'Select County',
-                                      ));
-                                  for (var i in snapshotZone.data!) {
-                                    dropDownTypesList.add(
-                                      DropdownMenuItem<String>(
-                                        value: i.countyName,
-                                        child: Text(i.countyName),
-                                      ),
-                                    );
-                                  }
-                                  if (selectedCounty == null) {
-                                    selectedCounty = 'Select County';
-                                  }
-                                  print('County Id : ${countyId}');
-                                  return CICCDropdown(
-                                      initialValue:
-                                      dropDownTypesList[0].value,
-                                      onChange: (val) {
-                                        selectedCounty = val;
-                                        for (var a
-                                        in snapshotZone.data!) {
-                                          if (a.countyName == val) {
-                                            docType = a.countyId;
-                                            print(
-                                                "County id :: ${a.companyId}");
-                                            countyId = docType;
-                                          }
-                                        }
-                                        print(":::${docType}");
-                                        print(":::<>${countyId}");
-                                      },
-                                      items: dropDownTypesList);
+                                    DropdownMenuItem<String>(
+                                      value: i.countyName,
+                                      child: Text(i.countyName),
+                                    ),
+                                  );
                                 }
-                                return const SizedBox();
-                              }),
-                        );
-                      });
-                }
-                    : () {
-                  showDialog(
+                                if (selectedCounty == null) {
+                                  selectedCounty = 'Select County';
+                                }
+                                print('County Id : ${countyId}');
+                                return CICCDropdown(
+                                    initialValue:
+                                    dropDownTypesList[0].value,
+                                    onChange: (val) {
+                                      selectedCounty = val;
+                                      for (var a
+                                      in snapshotZone.data!) {
+                                        if (a.countyName == val) {
+                                          docType = a.countyId;
+                                          print(
+                                              "County id :: ${a.companyId}");
+                                          countyId = docType;
+                                        }
+                                      }
+                                      print(":::${docType}");
+                                      print(":::<>${countyId}");
+                                    },
+                                    items: dropDownTypesList);
+                              }
+                              return const SizedBox();
+                            }),
+                      );
+                    });
+              }
+                  : () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return VendorSelectNoti(message: "Select county first.",);
+                  },
+                );
+              },
+                            enabled: isAddButtonEnabled,)
+              : CustomIconButtonConst(
+              width: 79,
+              icon: Icons.add,
+              text: "Add",
+              onPressed: () {
+                countynameController.clear();
+                cityController.clear();
+                zipcodeController.clear();
+                showDialog(
                     context: context,
-                    builder: (BuildContext context) {
-                      return VendorSelectNoti(message: "Select county first.",);
-                    },
-                  );
-                },
-              enabled: isAddButtonEnabled,),
-                            )
-              : Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: CustomIconButtonConst(
-                width: 79,
-                icon: Icons.add,
-                text: "Add",
-                onPressed: () {
-                  countynameController.clear();
-                  cityController.clear();
-                  zipcodeController.clear();
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        print(
-                            "Location passed to dialog: $_location");
-                        return AddZipCodePopup(
-                          officeId: widget.officeId,
-                          title: 'Add Zip Code',
-                          countynameController: countynameController,
-                          zipcodeController: zipcodeController,
-                          onPickLocation: _pickLocation,
-                          onSavePressed: () async {
-                            setState(() {
-                              String latlong = _selectedLocation.latitude.toString();
-                            });
-                          },
-                          mapController: mapController,
-                          locationController: locationController,
-                        );
-                      });
-                }),
-                            ),
+                    builder: (context) {
+                      print(
+                          "Location passed to dialog: $_location");
+                      return AddZipCodePopup(
+                        officeId: widget.officeId,
+                        title: 'Add Zip Code',
+                        countynameController: countynameController,
+                        zipcodeController: zipcodeController,
+                        onPickLocation: _pickLocation,
+                        onSavePressed: () async {
+                          setState(() {
+                            String latlong = _selectedLocation.latitude.toString();
+                          });
+                        },
+                        mapController: mapController,
+                        locationController: locationController,
+                      );
+                    });
+              }),
 
             ],
           ),
