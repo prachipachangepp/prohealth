@@ -19,6 +19,7 @@ import '../../../../../../../data/api_data/establishment_data/ci_manage_button/n
 import '../../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../company_identity_screen.dart';
 import '../../upload_add_popup.dart';
+import '../../vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
 import '../ci_cc_adr.dart';
 import '../ci_cc_cap_reports.dart';
 import '../ci_cc_licence.dart';
@@ -142,226 +143,374 @@ class _CiCorporateComplianceScreenState
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: Container()),
-              ///tabbar
-              Expanded(
-                flex: 5,
-                child: Container(
-                // color: Colors.greenAccent,
-                  padding: EdgeInsets.only(top: AppPadding.p4),
-                  width: MediaQuery.of(context).size.width /1.3,
-                  height: AppSize.s60,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        child: Container(
-                          height: AppSize.s56,
-                          width: MediaQuery.of(context).size.width / 10,
-                          padding: EdgeInsets.symmetric(vertical: 4),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                _selectedIndex == 0 ? Colors.transparent : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                  AppStringEM.licenses,
-                                textAlign: TextAlign.center,
-                                  style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
-                                // style: GoogleFonts.firaSans(
-                                //   fontSize: FontSize.s12,
-                                //   fontWeight: _selectedIndex == 0
-                                //       ? FontWeightManager.bold
-                                //       : FontWeightManager.regular,
-                                //   color: _selectedIndex == 0
-                                //       ? ColorManager.blueprime
-                                //       : ColorManager.mediumgrey,
-                                // ),
-                              ),
-                              _selectedIndex == 0
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
-                          ),
-                        ),
-                        onTap: () => _selectButton(0),
-                      ),
-                      InkWell(
-                        child: Container(
-                          height: AppSize.s50,
-                          width: MediaQuery.of(context).size.width / 10,
-                          padding: EdgeInsets.symmetric(vertical: 4),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                _selectedIndex == 1 ? Colors.transparent : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                AppStringEM.ard,
-                                textAlign: TextAlign.center,
-                                  style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
-                              ),
-                              _selectedIndex == 1
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
-                          ),
-                        ),
-                        onTap: () => _selectButton(1),
-                      ),
-                      InkWell(
-                        child: Container(
-                          height: AppSize.s50,
-                          width: MediaQuery.of(context).size.width / 10,
-                          padding: EdgeInsets.symmetric(vertical: 4),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                _selectedIndex == 2 ? Colors.transparent : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                  AppStringEM.mcr,
-                                textAlign: TextAlign.center,
-                                  style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
-                              ),
-                              _selectedIndex == 2
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
-                          ),
-                        ),
-                        onTap: () => _selectButton(2),
-                      ),
-                      InkWell(
-                        child: Container(
-                          height: AppSize.s50,
-                          width: MediaQuery.of(context).size.width / 10,
-                          padding: EdgeInsets.symmetric(vertical: 4),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                _selectedIndex == 3 ? Colors.transparent : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                  AppStringEM.capReport,
-                                textAlign: TextAlign.center,
-                                  style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
-                              ),
-                              _selectedIndex == 3
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
-                          ),
-                        ),
-                        onTap: () => _selectButton(3),
-                      ),
-                      InkWell(
-                        child: Container(
-                          height: AppSize.s50,
-                          width: MediaQuery.of(context).size.width / 8,
-                          padding: EdgeInsets.symmetric(vertical: 4),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                _selectedIndex == 4 ? Colors.transparent : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                  AppStringEM.qbr,
-                                textAlign: TextAlign.center,
-                                  style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
-                              ),
-                              _selectedIndex == 4
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
-                          ),
-                        ),
-                        onTap: () => _selectButton(4),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Expanded(
+                flex: 1,
+                child: Container()),
+            ///tabbar
+            Expanded(
+              flex: 5,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    EMTabbar(onTap: (int index){
+                      _selectButton(0);
+                    }, index: 0, grpIndex: _selectedIndex, heading: AppStringEM.licenses),
+                    EMTabbar(onTap: (int index){
+                      _selectButton(1);
+                    }, index: 1, grpIndex: _selectedIndex, heading: AppStringEM.ard),
+                    EMTabbar(onTap: (int index){
+                      _selectButton(2);
+                    }, index: 2, grpIndex: _selectedIndex, heading: AppStringEM.mcr),
+                    EMTabbar(onTap: (int index){
+                      _selectButton(3);
+                    }, index: 3, grpIndex: _selectedIndex, heading: AppStringEM.capReport),
+                    EMTabbar(onTap: (int index){
+                      _selectButton(4);
+                    }, index: 4, grpIndex: _selectedIndex, heading: AppStringEM.qbr),
+                    //   InkWell(
+                    //     child: Container(
+                    //       height: AppSize.s56,
+                    //       width: MediaQuery.of(context).size.width / 12,
+                    //       padding: EdgeInsets.symmetric(vertical: 6),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color:
+                    //             _selectedIndex == 0 ? Colors.transparent : null,
+                    //       ),
+                    //       child: Column(
+                    //         children: [
+                    //           Text(
+                    //               AppStringEM.leases,
+                    //                textAlign: TextAlign.center,
+                    //               style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
+                    //           ),
+                    //           _selectedIndex == 0
+                    //               ? Divider(
+                    //                   color: ColorManager.blueprime,
+                    //                   thickness: 2,
+                    //                 )
+                    //               : Offstage()
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     onTap: () => _selectButton(0),
+                    //   ),
+                    //   InkWell(
+                    //     child: Container(
+                    //       height: 50,
+                    //       width: MediaQuery.of(context).size.width / 12,
+                    //       padding: EdgeInsets.symmetric(vertical: 6),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color:
+                    //             _selectedIndex == 1 ? Colors.transparent : null,
+                    //       ),
+                    //       child: Column(
+                    //         children: [
+                    //           Text(
+                    // AppStringEM.snf,
+                    // textAlign: TextAlign.center,
+                    // style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
+                    //
+                    //           ),
+                    //           _selectedIndex == 1
+                    //               ? Divider(
+                    //                   color: ColorManager.blueprime,
+                    //                   thickness: 2,
+                    //                 )
+                    //               : Offstage()
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     onTap: () => _selectButton(1),
+                    //   ),
+                    //   InkWell(
+                    //     child: Container(
+                    //       height: 50,
+                    //       width: MediaQuery.of(context).size.width / 12,
+                    //       padding: EdgeInsets.symmetric(vertical: 6),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color:
+                    //             _selectedIndex == 2 ? Colors.transparent : null,
+                    //       ),
+                    //       child: Column(
+                    //         children: [
+                    //           Text(
+                    //               AppStringEM.dme,
+                    //                textAlign: TextAlign.center,
+                    //               style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
+                    //           ),
+                    //           _selectedIndex == 2
+                    //               ? Divider(
+                    //                   color: ColorManager.blueprime,
+                    //                   thickness: 2,
+                    //                 )
+                    //               : Offstage()
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     onTap: () => _selectButton(2),
+                    //   ),
+                    //   InkWell(
+                    //     child: Container(
+                    //       height: 50,
+                    //       width: MediaQuery.of(context).size.width / 12,
+                    //       padding: EdgeInsets.symmetric(vertical: 6),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color:
+                    //             _selectedIndex == 3 ? Colors.transparent : null,
+                    //       ),
+                    //       child: Column(
+                    //         children: [
+                    //           Text(
+                    // AppStringEM.md,
+                    // textAlign: TextAlign.center,
+                    // style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
+                    //
+                    //           ),
+                    //           _selectedIndex == 3
+                    //               ? Divider(
+                    //                   color: ColorManager.blueprime,
+                    //                   thickness: 2,
+                    //                 )
+                    //               : Offstage()
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     onTap: () => _selectButton(3),
+                    //   ),
+                    //   InkWell(
+                    //     child: Container(
+                    //       height: 50,
+                    //       width: MediaQuery.of(context).size.width / 12,
+                    //       padding: EdgeInsets.symmetric(vertical: 6),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color:
+                    //             _selectedIndex == 4 ? Colors.transparent : null,
+                    //       ),
+                    //       child: Column(
+                    //         children: [
+                    //           Text(
+                    //               AppStringEM.misc,
+                    //               // textAlign: TextAlign.center,
+                    //               style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
+                    //           ),
+                    //           _selectedIndex == 4
+                    //               ? Divider(
+                    //                   color: ColorManager.blueprime,
+                    //                   thickness: 2,
+                    //                 )
+                    //               : Offstage()
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     onTap: () => _selectButton(4),
+                    //   ),
+                  ],
+                )
 
-             ///button
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5, right: 25),
-                child: CustomIconButton(
-                    icon: CupertinoIcons.plus,
-                    text: "Add Document",
-                    onPressed: () async {
-                      String? selectedExpiryType = expiryType;
-                      calenderController.clear();
-                      docIdController.clear();
-                      docNamecontroller.clear();
-                      selectedExpiryType = "";
-                      datePicked = null;
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return FutureBuilder<List<TypeofDocpopup>>(
-                                future: getTypeofDoc(
-                                    context, docTypeMetaIdCC, selectedSubDocId),
-                                builder: (contex, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Center(
-                                        child: CircularProgressIndicator());
-                                  }
-                                  if (snapshot.hasData) {
-                                    return UploadDocumentAddPopup(
-                                      loadingDuration: _isLoading,
-                                      title: 'Upload Document',
-                                      officeId: widget.officeId,
-                                      docTypeMetaIdCC: docTypeMetaIdCC,
-                                      selectedSubDocId: selectedSubDocId,
-                                      dataList: snapshot.data!,
-                                      docTypeText: AppStringEM.corporateAndComplianceDocuments,
-                                      subDocTypeText: getSubDocTypeText(selectedSubDocId),
-                                    );
-                                  } else {
-                                    return ErrorPopUp(
-                                        title: "Received Error",
-                                        text: snapshot.error.toString());
-                                  }
-                                });
-                          });
-                    }),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     InkWell(
+                //       child: Container(
+                //         height: AppSize.s56,
+                //         width: MediaQuery.of(context).size.width / 10,
+                //         padding: EdgeInsets.symmetric(vertical: 4),
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(20),
+                //           color:
+                //               _selectedIndex == 0 ? Colors.transparent : null,
+                //         ),
+                //         child: Column(
+                //           children: [
+                //             Text(
+                //                 AppStringEM.licenses,
+                //               textAlign: TextAlign.center,
+                //                 style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
+                //             ),
+                //             _selectedIndex == 0
+                //                 ? Divider(
+                //                     color: ColorManager.blueprime,
+                //                     thickness: 2,
+                //                   )
+                //                 : Offstage()
+                //           ],
+                //         ),
+                //       ),
+                //       onTap: () => _selectButton(0),
+                //     ),
+                //     InkWell(
+                //       child: Container(
+                //         height: AppSize.s50,
+                //         width: MediaQuery.of(context).size.width / 10,
+                //         padding: EdgeInsets.symmetric(vertical: 4),
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(20),
+                //           color: _selectedIndex == 1 ? Colors.transparent : null,
+                //         ),
+                //         child: Column(
+                //           children: [
+                //             Text(
+                //               AppStringEM.ard,
+                //               textAlign: TextAlign.center,
+                //                 style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
+                //             ),
+                //             _selectedIndex == 1
+                //                 ? Divider(
+                //                     color: ColorManager.blueprime,
+                //                     thickness: 2,
+                //                   )
+                //                 : Offstage()
+                //           ],
+                //         ),
+                //       ),
+                //       onTap: () => _selectButton(1),
+                //     ),
+                //     InkWell(
+                //       child: Container(
+                //         height: AppSize.s50,
+                //         width: MediaQuery.of(context).size.width / 10,
+                //         padding: EdgeInsets.symmetric(vertical: 4),
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(20),
+                //           color:
+                //               _selectedIndex == 2 ? Colors.transparent : null,
+                //         ),
+                //         child: Column(
+                //           children: [
+                //             Text(
+                //                 AppStringEM.mcr,
+                //               textAlign: TextAlign.center,
+                //                 style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
+                //             ),
+                //             _selectedIndex == 2
+                //                 ? Divider(
+                //                     color: ColorManager.blueprime,
+                //                     thickness: 2,
+                //                   )
+                //                 : Offstage()
+                //           ],
+                //         ),
+                //       ),
+                //       onTap: () => _selectButton(2),
+                //     ),
+                //     InkWell(
+                //       child: Container(
+                //         height: AppSize.s50,
+                //         width: MediaQuery.of(context).size.width / 10,
+                //         padding: EdgeInsets.symmetric(vertical: 4),
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(20),
+                //           color:
+                //               _selectedIndex == 3 ? Colors.transparent : null,
+                //         ),
+                //         child: Column(
+                //           children: [
+                //             Text(
+                //                 AppStringEM.capReport,
+                //               textAlign: TextAlign.center,
+                //                 style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
+                //             ),
+                //             _selectedIndex == 3
+                //                 ? Divider(
+                //                     color: ColorManager.blueprime,
+                //                     thickness: 2,
+                //                   )
+                //                 : Offstage()
+                //           ],
+                //         ),
+                //       ),
+                //       onTap: () => _selectButton(3),
+                //     ),
+                //     InkWell(
+                //       child: Container(
+                //         height: AppSize.s50,
+                //         width: MediaQuery.of(context).size.width / 8,
+                //         padding: EdgeInsets.symmetric(vertical: 4),
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(20),
+                //           color:
+                //               _selectedIndex == 4 ? Colors.transparent : null,
+                //         ),
+                //         child: Column(
+                //           children: [
+                //             Text(
+                //                 AppStringEM.qbr,
+                //               textAlign: TextAlign.center,
+                //                 style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
+                //             ),
+                //             _selectedIndex == 4
+                //                 ? Divider(
+                //                     color: ColorManager.blueprime,
+                //                     thickness: 2,
+                //                   )
+                //                 : Offstage()
+                //           ],
+                //         ),
+                //       ),
+                //       onTap: () => _selectButton(4),
+                //     ),
+                //   ],
+                // ),
               ),
-            ],
-          ),
+            ),
+
+           ///button
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5, right: 20),
+              child: CustomIconButton(
+                  icon: CupertinoIcons.plus,
+                  text: "Add Document",
+                  onPressed: () async {
+                    String? selectedExpiryType = expiryType;
+                    calenderController.clear();
+                    docIdController.clear();
+                    docNamecontroller.clear();
+                    selectedExpiryType = "";
+                    datePicked = null;
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return FutureBuilder<List<TypeofDocpopup>>(
+                              future: getTypeofDoc(
+                                  context, docTypeMetaIdCC, selectedSubDocId),
+                              builder: (contex, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                if (snapshot.hasData) {
+                                  return UploadDocumentAddPopup(
+                                    loadingDuration: _isLoading,
+                                    title: 'Upload Document',
+                                    officeId: widget.officeId,
+                                    docTypeMetaIdCC: docTypeMetaIdCC,
+                                    selectedSubDocId: selectedSubDocId,
+                                    dataList: snapshot.data!,
+                                    docTypeText: AppStringEM.corporateAndComplianceDocuments,
+                                    subDocTypeText: getSubDocTypeText(selectedSubDocId),
+                                  );
+                                } else {
+                                  return ErrorPopUp(
+                                      title: "Received Error",
+                                      text: snapshot.error.toString());
+                                }
+                              });
+                        });
+                  }),
+            ),
+          ],
         ),
         SizedBox(
           height: AppSize.s20,
@@ -369,7 +518,7 @@ class _CiCorporateComplianceScreenState
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 50),
+                horizontal: MediaQuery.of(context).size.width / 60),
             child: NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {
