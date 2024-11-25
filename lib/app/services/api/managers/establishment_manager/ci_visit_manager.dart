@@ -39,6 +39,7 @@ Future<List<CiVisit>> getVisit(
             ));
           } catch (e) {}
         }
+
         print("::Item${item}");
         itemsList.add(
           CiVisit(
