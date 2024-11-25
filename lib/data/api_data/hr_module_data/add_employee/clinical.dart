@@ -184,8 +184,8 @@ class AEClinicalZone {
   final int? countyID;
   final int? zoneID;
   final String? zoneName;
-  final String? zipCode;
-  final String? cities;
+  final int? companyId;
+  final String? officeId;
 
   AEClinicalZone(
       {this.success,
@@ -194,8 +194,8 @@ class AEClinicalZone {
       this.countyID,
       this.zoneID,
       this.zoneName,
-      this.zipCode,
-      this.cities});
+      this.companyId,
+      this.officeId});
 }
 
 class AEClinicalService {

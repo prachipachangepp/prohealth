@@ -293,7 +293,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
       },
     );
 
-    Overlay.of(context)?.insert(_overlayEntry!);
+    Overlay.of(context).insert(_overlayEntry!);
     setState(() {
       _isDropdownOpen = true;
     });
@@ -330,22 +330,25 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
           height:  AppSize.s40,
           child: GestureDetector(
             onTap: _toggleDropdown,
-            child: Container(
-              key: _dropdownKey,
-              padding: const EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    _selectedValue ?? widget.hintText ?? '',
-                    style: DocumentTypeDataStyle.customTextStyle(context),
-                  ),
-                  Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
-                ],
+            child: Padding(
+              padding: const EdgeInsets.all(AppPadding.p5),
+              child: Container(
+                key: _dropdownKey,
+                padding: const EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      _selectedValue ?? widget.hintText ?? '',
+                      style: DocumentTypeDataStyle.customTextStyle(context),
+                    ),
+                    Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+                  ],
+                ),
               ),
             ),
           ),
