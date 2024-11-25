@@ -124,7 +124,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                      padding: const EdgeInsets.only(left: 15, right: 20),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
