@@ -213,7 +213,7 @@ Future<ApiData> createUserPost(
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: 'Email ID is already used');
+          message: response.data['message'][0]);
     } else {
       print("Error 1");
       return ApiData(

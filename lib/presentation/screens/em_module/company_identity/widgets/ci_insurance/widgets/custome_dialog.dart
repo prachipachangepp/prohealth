@@ -4,36 +4,24 @@ import 'package:prohealth/app/resources/common_resources/common_theme_const.dart
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
+import '../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
+import '../../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/widgets/add_new_popup.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/dialogue_template.dart';
 import '../../../../widgets/text_form_field_const.dart';
 import '../../whitelabelling/success_popup.dart';
 
 class CustomPopup extends StatefulWidget {
-  final TextEditingController namecontroller;
-  // final TextEditingController? addressController;
-  // final TextEditingController? emailController;
-  // final TextEditingController? workemailController;
-  // final TextEditingController? phoneController;
-  // final TextEditingController? workPhoneController;
-  // final Widget? childZone;
-  // final Widget? childCity;
-  final VoidCallback onPressed;
-  final String title;
-  final String buttontxt;
-  final String successpopuptext;
+  final String namecontroller;
+  final String officeId;
+  final int insuranceVendorId;
   CustomPopup({
     Key? key,
-    required this.onPressed,
-    required this.title,
-    required this.namecontroller,
-    required this.buttontxt,
-    required this.successpopuptext,
-    // this.addressController,
-    // this.emailController, this.workemailController,
-    // this.phoneController, this.workPhoneController,
-    // this.childZone, this.childCity
+    required this.namecontroller,required this.insuranceVendorId, required this.officeId,
   }) : super(key: key);
 
   @override
@@ -41,6 +29,146 @@ class CustomPopup extends StatefulWidget {
 }
 
 class _CustomPopupState extends State<CustomPopup> {
+  TextEditingController nameController = TextEditingController();
+  bool _isNameValid = true;
+  String _nameErrorText = '';
+  bool _isLoading = false;
+  void _validateInputs() {
+    setState(() {
+      final nameText = nameController.text; // Use the controller's value
+
+      if (nameText.isEmpty) {
+        _isNameValid = false;
+        _nameErrorText = 'Please enter vendor name';
+      } else {
+        _isNameValid = true;
+        _nameErrorText = '';
+      }
+    });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = widget.namecontroller;
+    print(widget.namecontroller);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DialogueTemplate(
+        width: AppSize.s400,
+        height: AppSize.s250,
+          body: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppPadding.p3,
+                horizontal: AppPadding.p15,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FirstSMTextFConst(
+                    controller: nameController,
+                    keyboardType: TextInputType.text,
+                    text: 'Vendor Name',
+                  ),
+                  if (!_isNameValid) // Show error text if name is invalid
+                    Text(
+                      _nameErrorText,
+                      style: CommonErrorMsg.customTextStyle(context),
+                    ),
+
+                ],
+              ),
+            ),
+
+          ],
+        bottomButtons: CustomElevatedButton(
+          width: AppSize.s105,
+          height: AppSize.s30,
+          text: "Save",
+          onPressed: () async{
+            _validateInputs(); // Perform validation
+            if (_isNameValid) {
+              setState(() {
+                _isLoading = true;
+              });
+              try {
+                String updatedName;
+                if (nameController.text.isNotEmpty && nameController.text != widget.namecontroller) {
+                  updatedName = nameController.text;
+                } else {
+                  updatedName = widget.namecontroller;
+                }
+                var response =  await patchCompanyVendor(
+                  context,
+                  widget.insuranceVendorId,
+                  widget.officeId,
+                    updatedName
+                );
+                if(response.statusCode == 200 || response.statusCode == 201){
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddSuccessPopup(message:'Edited Successfully');
+                    },
+                  );
+                }
+                else if(response.statusCode == 400 || response.statusCode == 404){
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => const FourNotFourPopup(),
+                  );
+                }
+                else {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => FailedPopup(text: response.message),
+                  );
+                }
+              } catch (e) {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return FailedPopup(
+                      text: 'An error occurred. Please try again later.',
+                    );
+                  },
+                );
+              }finally {
+                setState(() {
+                  _isLoading = false;
+                });
+                // Navigator.pop(context);
+              }
+            }
+          },
+        ), title: 'Edit Vendor',
+
+    );
+  }
+}
+///add
+class AddVendorPopup extends StatefulWidget {
+  final TextEditingController namecontroller;
+  final String officeID;
+  AddVendorPopup({
+    Key? key,
+    required this.namecontroller,required this.officeID,
+  }) : super(key: key);
+
+  @override
+  State<AddVendorPopup> createState() => _AddVendorPopupState();
+}
+
+class _AddVendorPopupState extends State<AddVendorPopup> {
   bool _isNameValid = true;
   String _nameErrorText = '';
   void _validateInputs() {
@@ -60,54 +188,75 @@ class _CustomPopupState extends State<CustomPopup> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-        width: AppSize.s400,
-        height: AppSize.s250,
-          body: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p15,
+      width: AppSize.s400,
+      height: AppSize.s250,
+      body: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: AppPadding.p3,
+            horizontal: AppPadding.p15,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              FirstSMTextFConst(
+                controller: widget.namecontroller,
+                keyboardType: TextInputType.text,
+                text: 'Vendor Name',
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FirstSMTextFConst(
-                    controller: widget.namecontroller,
-                    keyboardType: TextInputType.text,
-                    text: 'Vendor Name',
-                  ),
-                  if (!_isNameValid) // Show error text if name is invalid
-                    Text(
-                      _nameErrorText,
-                      style:CommonErrorMsg.customTextStyle(context)
-                    ),
-                ],
-              ),
-            ),
+              if (!_isNameValid) // Show error text if name is invalid
+                Text(
+                    _nameErrorText,
+                    style:CommonErrorMsg.customTextStyle(context)
+                ),
+            ],
+          ),
+        ),
 
-          ],
-        bottomButtons: CustomElevatedButton(
-          width: AppSize.s105,
-          height: AppSize.s30,
-          text: widget.buttontxt,
-          onPressed: () {
-            _validateInputs(); // Perform validation
-            if (_isNameValid) {
-              widget.onPressed(); // Call the onPressed if validation passes
+      ],
+      bottomButtons: CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: AppStringEM.Add,
+        onPressed: () async {
+          _validateInputs(); // Perform validation
+          if (_isNameValid) {
+            var response = await addVendors(
+              context,
+              widget.officeID,
+              widget.namecontroller.text,
+            );
+            if(response.statusCode == 200 || response.statusCode == 201){
               Navigator.pop(context);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return CountySuccessPopup(
-                    message: 'Save Successfully',
-                  );
+                  return AddSuccessPopup(message:'Added Successfully');
                 },
               );
             }
-          },
-        ), title:widget.title,
+            else if(response.statusCode == 400 || response.statusCode == 404){
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => const FourNotFourPopup(),
+              );
+            }
+            else {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => FailedPopup(text: response.message),
+              );
+            }
+            nameController.clear();
+          }
+        },
+      ), title:'Add Vendor',
 
     );
   }
 }
+
+

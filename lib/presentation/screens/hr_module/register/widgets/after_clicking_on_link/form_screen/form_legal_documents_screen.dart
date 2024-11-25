@@ -32,6 +32,7 @@ import '../../../../../../../app/services/api/managers/hr_module_manager/manage_
 import '../../../../../../../app/services/api/managers/hr_module_manager/onboarding_manager/form_status_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 import '../../../../../../../data/api_data/hr_module_data/onboarding_data/form_status_data.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
@@ -823,14 +824,18 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                         }
 
                       } catch (e) {
-                        await  showDialog(
+                        await showDialog(
                           context: context,
-                          builder: (BuildContext context) {
-                            return const AddFailePopup(
-                              message: 'Failed To Upload Document',
-                            );
-                          },
+                          builder: (BuildContext context) => const FourNotFourPopup(),
                         );
+                        // await  showDialog(
+                        //   context: context,
+                        //   builder: (BuildContext context) {
+                        //     return const AddFailePopup(
+                        //       message: 'Failed To Upload Document',
+                        //     );
+                        //   },
+                        // );
                       }
                     }
                     setState(() {

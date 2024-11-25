@@ -16,9 +16,12 @@ import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/mana
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_pay_rates/widgets/custom_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/establishment_text_const/text_widget_const.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -682,7 +685,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                         fixedPayRatesController,
                                                                     onPressed:
                                                                         () async {
-                                                                      await updatePayRatesSetupPost(
+                                                                     var response = await updatePayRatesSetupPost(
                                                                           context:
                                                                               context,
                                                                           payratesId: finance
@@ -704,6 +707,30 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                           serviceId: snapshotPrefill
                                                                               .data!
                                                                               .serviceId);
+                                                                     if(response.statusCode == 200 || response.statusCode == 201){
+                                                                       Navigator.pop(context);
+                                                                       showDialog(
+                                                                         context: context,
+                                                                         builder: (BuildContext context) {
+                                                                           return const AddSuccessPopup(
+                                                                             message: 'Edit Successfully',
+                                                                           );
+                                                                         },
+                                                                       );
+                                                                     }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                                       Navigator.pop(context);
+                                                                       showDialog(
+                                                                         context: context,
+                                                                         builder: (BuildContext context) => const FourNotFourPopup(),
+                                                                       );
+                                                                     }
+                                                                     else {
+                                                                       Navigator.pop(context);
+                                                                       showDialog(
+                                                                         context: context,
+                                                                         builder: (BuildContext context) => FailedPopup(text: response.message),
+                                                                       );
+                                                                     }
 
                                                                       payRatesController
                                                                           .clear();

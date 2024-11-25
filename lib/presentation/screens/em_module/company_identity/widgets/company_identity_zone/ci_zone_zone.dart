@@ -7,6 +7,8 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/zone_m
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -306,6 +308,19 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                                message: 'Zone Edited Successfully',
                                                                              );
                                                                            },
+                                                                         );
+                                                                       }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                                         Navigator.pop(context);
+                                                                         showDialog(
+                                                                           context: context,
+                                                                           builder: (BuildContext context) => const FourNotFourPopup(),
+                                                                         );
+                                                                       }
+                                                                       else {
+                                                                         Navigator.pop(context);
+                                                                         showDialog(
+                                                                           context: context,
+                                                                           builder: (BuildContext context) => FailedPopup(text: response.message),
                                                                          );
                                                                        }
                                                                       },

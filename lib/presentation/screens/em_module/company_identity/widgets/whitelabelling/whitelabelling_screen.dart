@@ -841,6 +841,19 @@ void fetchData()async{
                           if(snapshot.connectionState == ConnectionState.waiting){
                             return Center(child: CircularProgressIndicator());
                           }
+                          if(snapshot.data!.logos.isEmpty){
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 100,
+                                  child: Center(
+                                    child: Text('No available logo!',style: DocumentTypeDataStyle.customTextStyle(context),),
+                                  )
+                                ),
+                              ],
+                            );
+                          }
                           if (snapshot.hasData) {
                             print("Image url ${snapshot.data!.logos[0].url}");
                             var data = snapshot.data!;

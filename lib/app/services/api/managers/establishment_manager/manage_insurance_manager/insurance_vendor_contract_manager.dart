@@ -34,7 +34,7 @@ Future<ApiData> addVendors(
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: response.data['message']);
+          message: response.data['message'][0]);
     }
   } catch (e) {
     print("Error $e");
@@ -108,7 +108,7 @@ Future<ApiData> patchCompanyVendor(
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: response.data['message']);
+          message: response.data['message'][0]);
     }
   } catch (e) {
     print("Error $e");
@@ -216,7 +216,7 @@ Future<ApiData> addVendorContract(
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: response.data['message']);
+          message: response.data['message'][0]);
     }
   } catch (e) {
     print("Error $e");
@@ -365,7 +365,7 @@ Future<ApiData> patchCompanyContract(
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: response.data['message']);
+          message: response.data['message'][0]);
     }
   } catch (e) {
     print("Error $e");

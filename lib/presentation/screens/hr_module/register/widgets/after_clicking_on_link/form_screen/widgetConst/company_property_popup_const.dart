@@ -8,6 +8,8 @@ import '../../../../../../../../app/resources/common_resources/common_theme_cons
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
 import 'form_screen_const.dart';
@@ -153,6 +155,21 @@ class _CompanyPropertySignPopupState extends State<CompanyPropertySignPopup> {
                     htmlFormTemplateId: returnOfCompanyProperty.returnOfCompanyPropertyId,)
                   ));
                 }
+                else if(returnOfCompanyProperty.statusCode == 400 || returnOfCompanyProperty.statusCode == 404){
+                  // Navigator.pop(context);
+                  await showDialog(
+                    context: context,
+                    builder: (BuildContext context) => const FourNotFourPopup(),
+                  );
+                }
+                else {
+                  // Navigator.pop(context);
+                  await showDialog(
+                    context: context,
+                    builder: (BuildContext context) => const FailedPopup(text: "Something Went Wrong"),
+                  );
+                }
+
               }
               finally {
                   setState(() {

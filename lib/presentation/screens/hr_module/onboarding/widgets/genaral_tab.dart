@@ -493,14 +493,15 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
 
   Color _getStatusColor(String? status) {
     switch (status) {
-      case 'Opened': // Mask "Enrolled" as "Opened"
+      case 'Opened':
       case 'Enrolled':
-        return const Color(0xff51B5E6);
+        return ColorManager.bluebottom;
       case 'Partial':
         return const Color(0xffCA8A04);
       case 'Completed':
+        return ColorManager.greenF;
       default:
-        return const Color(0xffB4DB4C);
+        return ColorManager.greenF;
     }
   }
 

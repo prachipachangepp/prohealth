@@ -17,6 +17,8 @@ import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/form_health_record_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_health_record_data.dart';
+import '../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
@@ -432,34 +434,51 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                             documentName: _fileNames[i],
                           );
                           print("Document Uploaded response ${response}");
+
+                          if (response.statusCode == 200 || response.statusCode == 201) {
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddSuccessPopup(
+                                  message: 'Document Uploaded Successfully',
+                                );
+                              },
+                            );
+                            await  widget.onSave();
+                           // _loadLicensesData();
+                          }
+                          else {
+                            // Navigator.pop(context);
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) => FailedPopup(text: "Failed To Upload Document"),
+                            );
+                          }
                         }
 
                       }
 
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddSuccessPopup(
-                            message: 'Document Uploaded Successfully',
-                          );
-                        },
-                      );
+
                       // ScaffoldMessenger.of(context).showSnackBar(
                       //   SnackBar(
                       //     content: Text('Document uploaded successfully!'),
                       //     backgroundColor: Colors.green,
                       //   ),
                       // );
-                      await  widget.onSave();
+
                     } catch (e) {
                       await showDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return AddFailePopup(
-                            message: 'Failed To Upload Document',
-                          );
-                        },
+                        builder: (BuildContext context) => const FourNotFourPopup(),
                       );
+                      // await showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) {
+                      //     return AddFailePopup(
+                      //       message: 'Failed To Upload Document',
+                      //     );
+                      //   },
+                      // );
                     }
                   }
                   setState(() {

@@ -17,6 +17,8 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
+import '../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
@@ -737,171 +739,269 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
               ),
             )
           : selectedRadio == "Pre-defined"
-              ? CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.add, // submit
-                  onPressed: () async {
-                    setState(() {
-                      isFileErrorVisible = !isFileSelected;
-                    });
+              ?CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: AppStringEM.add, // submit
+        onPressed: () async {
+          setState(() {
+            isFileErrorVisible = !isFileSelected;
+          });
 
-                    // Ensure the file is selected before proceeding
-                    if (!isFileSelected) {
-                      return;
-                    }
+          if (!isFileSelected) {
+            return;
+          }
 
-                    setState(() {
-                      load = true;
-                    });
+          setState(() {
+            load = true;
+          });
 
-                    try {
-                      String? expiryDate;
-                      if (expiryDateController.text.isEmpty) {
-                        expiryDate = null;
-                      } else {
-                        expiryDate = datePicked!.toIso8601String() + "Z";
-                      }
-                      ApiData response = await addOrgDocPPPost(
-                        context: context,
-                        orgDocumentSetupid: docTypeId,
-                        idOfDocument: documentTypeName,
-                        expiryDate: expiryDate,
-                        docCreated: DateTime.now().toIso8601String() + "Z",
-                        url: "url",
-                        officeId: widget.officeId,
-                        fileName: fileName,
+          try {
+            String? expiryDate;
+            if (expiryDateController.text.isEmpty) {
+              expiryDate = null;
+            } else {
+              expiryDate = datePicked!.toIso8601String() + "Z";
+            }
+
+            ApiData response = await addOrgDocPPPost(
+              context: context,
+              orgDocumentSetupid: docTypeId,
+              idOfDocument: documentTypeName,
+              expiryDate: expiryDate,
+              docCreated: DateTime.now().toIso8601String() + "Z",
+              url: "url",
+              officeId: widget.officeId,
+              fileName: fileName,
+            );
+
+            expiryDateController.clear();
+
+            if (response.statusCode == 200 || response.statusCode == 201) {
+              try {
+                var uploadDocNew = await uploadDocumentsoffice(
+                  context: context,
+                  documentFile: filePath,
+                  orgOfficeDocumentId: response.orgOfficeDocumentId!,
+                  fileName: fileName,
+                );
+
+                if (uploadDocNew.statusCode == 413) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddErrorPopup(
+                        message: 'Request entity too large! File size exceeds limit.',
                       );
-                      expiryDateController.clear();
-                      if (response.statusCode == 200 || response.statusCode == 201) {
-                      print("id >>>>>>>>>>>>>>>>>>>>>..... ${response.orgOfficeDocumentId}");
-                      var uploadDocNew =   await uploadDocumentsoffice(
-                          context: context,
-                          documentFile: filePath,
-                          orgOfficeDocumentId: response.orgOfficeDocumentId!,
-                          fileName: fileName,
-                        );
-                      if (uploadDocNew.statusCode == 413) {
-                        Navigator.pop(context);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddErrorPopup(
-                              message: 'Request entity to large!',
-                            );
-                          },
-                        );
-                      }
-                      }
-                    } finally {
-                      setState(() {
-                        // Navigator.pop(context);
-                        Navigator.pop(context);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CountySuccessPopup(
-                              message: 'Save Successfully',
-                            );
-                          },
-                        );
-
-                        load = false;
-                      });
-                    }
+                    },
+                  );
+                } else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CountySuccessPopup(
+                        message: 'Saved Successfully',
+                      );
+                    },
+                  );
+                } else {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return FailedPopup(
+                        text: 'Failed to upload document. Please edit upload again.',
+                      );
+                    },
+                  );
+                }
+              } catch (e) {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return FailedPopup(
+                      text: 'An error occurred during file upload. Check your connection or file size.',
+                    );
                   },
-                )
+                );
+              }
+            } else if (response.statusCode == 400 || response.statusCode == 404) {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => const FourNotFourPopup(),
+              );
+            } else {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return FailedPopup(
+                    text: response.message ?? 'An error occurred. Please try again.',
+                  );
+                },
+              );
+            }
+          } catch (e) {
+            Navigator.pop(context);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return FailedPopup(
+                  text: 'An error occurred. Please try again later.',
+                );
+              },
+            );
+          } finally {
+            setState(() {
+              load = false; // Ensure loader is turned off
+            });
+          }
+        },
+      )
               : CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.add, // submit
-                  onPressed: () async {
-                    _validateForm(); // Validate the form on button press
-                    if (!_isFormValid) {
-                      return; // Stop here if the form is not valid
-                      }
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: AppStringEM.add, // submit
+        onPressed: () async {
+          _validateForm();
+          if (!_isFormValid) {
+            return;
+          }
 
-                    if (!isFileSelected) {
-                      return;
-                    }
+          if (!isFileSelected) {
+            return;
+          }
 
-                    setState(() {
-                      load = true;
-                    });
+          setState(() {
+            load = true;
+          });
 
-                    try{
-                      String? expiryDate;
-                      if (expiryDateController.text.isEmpty) {
-                        expiryDate = null;
-                      } else {
-                        expiryDate = datePicked!.toIso8601String() + "Z";
-                      }
+          try {
+            String? expiryDate;
+            if (expiryDateController.text.isEmpty) {
+              expiryDate = null;
+            } else {
+              expiryDate = datePicked!.toIso8601String() + "Z";
+            }
 
-                      int threshold = 0;
-                      if (selectedExpiryType == AppConfig.scheduled &&
-                          daysController.text.isNotEmpty) {
-                        int enteredValue = int.parse(daysController.text);
-                        if (selectedYear == AppConfig.year) {
-                          threshold = enteredValue * 365;
-                        } else if (selectedYear == AppConfig.month) {
-                          threshold = enteredValue * 30;
-                        }
-                      }
-                      ApiData newResponse = await addOtherOfficeDocPost(
-                          context: context,
-                          docTypeid: widget.docTypeMetaIdCC,
-                          docSubTypeid: widget.selectedSubDocId == AppConfig.subDocId0 ? AppConfig.subDocId0 : widget.selectedSubDocId,
-                          documentName: nameDocController.text,
-                          expiryType: selectedExpiryType.toString(),
-                          threshold: threshold,
-                          expiryDate: expiryDate,
-                          expiryReminder: selectedExpiryType.toString(),
-                          idOfDoc: idDocController.text,
-                          docCreated: DateTime.now().toIso8601String() + "Z",
-                          fileName: fileName,
-                          url: 'url',
-                       officeId: widget.officeId);
-                      if (newResponse.statusCode == 200 || newResponse.statusCode == 201) {
-                        print("id >>>>>>>>>>>>>>>>>>>>>..... ${newResponse.orgOfficeDocumentId}");
-                       var uploadDocNew = await uploadDocumentsoffice(
-                          context: context,
-                          documentFile: filePath,
-                          fileName: fileName,
-                          orgOfficeDocumentId: newResponse.orgOfficeDocumentId!,
-                        );
-                        if (uploadDocNew.statusCode == 413) {
-                          Navigator.pop(context);
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AddErrorPopup(
-                                message: 'Request entity to large!',
-                              );
-                            },
-                          );
-                        }
-                      }
+            int threshold = 0;
+            if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
+              int enteredValue = int.parse(daysController.text);
+              if (selectedYear == AppConfig.year) {
+                threshold = enteredValue * 365;
+              } else if (selectedYear == AppConfig.month) {
+                threshold = enteredValue * 30;
+              }
+            }
 
-                    }
-                    finally {
-                      setState(() {
-                        // Navigator.pop(context);
-                        Navigator.pop(context);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CountySuccessPopup(
-                              message: 'Save Successfully',
-                            );
-                          },
-                        );
+            ApiData newResponse = await addOtherOfficeDocPost(
+              context: context,
+              docTypeid: widget.docTypeMetaIdCC,
+              docSubTypeid: widget.selectedSubDocId == AppConfig.subDocId0
+                  ? AppConfig.subDocId0
+                  : widget.selectedSubDocId,
+              documentName: nameDocController.text,
+              expiryType: selectedExpiryType.toString(),
+              threshold: threshold,
+              expiryDate: expiryDate,
+              expiryReminder: selectedExpiryType.toString(),
+              idOfDoc: idDocController.text,
+              docCreated: DateTime.now().toIso8601String() + "Z",
+              fileName: fileName,
+              url: 'url',
+              officeId: widget.officeId,
+            );
 
-                        load = false;
-                      });
-                    }
+            if (newResponse.statusCode == 200 || newResponse.statusCode == 201) {
+              try {
+                var uploadDocNew = await uploadDocumentsoffice(
+                  context: context,
+                  documentFile: filePath,
+                  fileName: fileName,
+                  orgOfficeDocumentId: newResponse.orgOfficeDocumentId!,
+                );
 
-                  }
-                ),
+                if (uploadDocNew.statusCode == 413) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddErrorPopup(
+                        message: 'Request entity too large! File size exceeds limit.',
+                      );
+                    },
+                  );
+                } else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CountySuccessPopup(
+                        message: 'Saved Successfully',
+                      );
+                    },
+                  );
+                } else {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return FailedPopup(
+                        text: 'Failed to upload document. Please edit upload again.',
+                      );
+                    },
+                  );
+                }
+              } catch (e) {
+                Navigator.pop(context); // Close the loader
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return FailedPopup(
+                      text: 'An error occurred during file upload. Check your connection or file size.',
+                    );
+                  },
+                );
+              }
+            } else if (newResponse.statusCode == 400 || newResponse.statusCode == 404) {
+              Navigator.pop(context); // Close the loader
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => const FourNotFourPopup(),
+              );
+            } else {
+              Navigator.pop(context); // Close the loader
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return FailedPopup(
+                    text: newResponse.message ?? 'An error occurred. Please try again.',
+                  );
+                },
+              );
+            }
+          } catch (e) {
+            Navigator.pop(context); // Close the loader
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return FailedPopup(
+                  text: 'An error occurred. Please try again later.',
+                );
+              },
+            );
+          } finally {
+            setState(() {
+              load = false; // Ensure loader is turned off
+            });
+          }
+        },
+      ),
+
       title: widget.title,
     );
   }
@@ -991,3 +1091,210 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
 //     ),
 //   ),
 // ),
+///predefine posy api button
+// CustomElevatedButton(
+//             width: AppSize.s105,
+//             height: AppSize.s30,
+//             text: AppStringEM.add, // submit
+//             onPressed: () async {
+//               setState(() {
+//                 isFileErrorVisible = !isFileSelected;
+//               });
+//
+//               // Ensure the file is selected before proceeding
+//               if (!isFileSelected) {
+//                 return;
+//               }
+//
+//               setState(() {
+//                 load = true;
+//               });
+//
+//               try {
+//                 String? expiryDate;
+//                 if (expiryDateController.text.isEmpty) {
+//                   expiryDate = null;
+//                 } else {
+//                   expiryDate = datePicked!.toIso8601String() + "Z";
+//                 }
+//                 ApiData response = await addOrgDocPPPost(
+//                   context: context,
+//                   orgDocumentSetupid: docTypeId,
+//                   idOfDocument: documentTypeName,
+//                   expiryDate: expiryDate,
+//                   docCreated: DateTime.now().toIso8601String() + "Z",
+//                   url: "url",
+//                   officeId: widget.officeId,
+//                   fileName: fileName,
+//                 );
+//                 expiryDateController.clear();
+//                 if (response.statusCode == 200 || response.statusCode == 201) {
+//                 print("id >>>>>>>>>>>>>>>>>>>>>..... ${response.orgOfficeDocumentId}");
+//                 var uploadDocNew =   await uploadDocumentsoffice(
+//                     context: context,
+//                     documentFile: filePath,
+//                     orgOfficeDocumentId: response.orgOfficeDocumentId!,
+//                     fileName: fileName,
+//                   );
+//                 // if (uploadDocNew.statusCode == 413) {
+//                 //   Navigator.pop(context);
+//                 //   showDialog(
+//                 //     context: context,
+//                 //     builder: (BuildContext context) {
+//                 //       return AddErrorPopup(
+//                 //         message: 'Request entity to large!',
+//                 //       );
+//                 //     },
+//                 //   );
+//                 // }
+//
+//                 if (uploadDocNew.statusCode == 413) {
+//                   Navigator.pop(context);
+//                   showDialog(
+//                     context: context,
+//                     builder: (BuildContext context) {
+//                       return AddErrorPopup(
+//                         message: 'Request entity too large!',
+//                       );
+//                     },
+//                   );
+//                 } else {
+//                   Navigator.pop(context);
+//                   showDialog(
+//                     context: context,
+//                     builder: (BuildContext context) {
+//                       return CountySuccessPopup(
+//                         message: 'Saved Successfully',
+//                       );
+//                     },
+//                   );
+//                 }
+//                 } else if (response.statusCode == 400 || response.statusCode == 404) {
+//                   Navigator.pop(context);
+//                   showDialog(
+//                     context: context,
+//                     builder: (BuildContext context) => const FourNotFourPopup(),
+//                   );
+//                 } else {
+//                   Navigator.pop(context);
+//                   showDialog(
+//                     context: context,
+//                     builder: (BuildContext context) {
+//                       return FailedPopup(
+//                         text: response.message,
+//                       );
+//                     },
+//                   );
+//                 }
+//               } finally {
+//                 setState(() {
+//                   // // Navigator.pop(context);
+//                   // Navigator.pop(context);
+//                   // showDialog(
+//                   //   context: context,
+//                   //   builder: (BuildContext context) {
+//                   //     return CountySuccessPopup(
+//                   //       message: 'Save Successfully',
+//                   //     );
+//                   //   },
+//                   // );
+//
+//                   load = false;
+//                 });
+//               }
+//             },
+//           )
+
+///other doc upload button
+
+// CustomElevatedButton(
+//             width: AppSize.s105,
+//             height: AppSize.s30,
+//             text: AppStringEM.add, // submit
+//             onPressed: () async {
+//               _validateForm(); // Validate the form on button press
+//               if (!_isFormValid) {
+//                 return; // Stop here if the form is not valid
+//                 }
+//
+//               if (!isFileSelected) {
+//                 return;
+//               }
+//
+//               setState(() {
+//                 load = true;
+//               });
+//
+//               try{
+//                 String? expiryDate;
+//                 if (expiryDateController.text.isEmpty) {
+//                   expiryDate = null;
+//                 } else {
+//                   expiryDate = datePicked!.toIso8601String() + "Z";
+//                 }
+//
+//                 int threshold = 0;
+//                 if (selectedExpiryType == AppConfig.scheduled &&
+//                     daysController.text.isNotEmpty) {
+//                   int enteredValue = int.parse(daysController.text);
+//                   if (selectedYear == AppConfig.year) {
+//                     threshold = enteredValue * 365;
+//                   } else if (selectedYear == AppConfig.month) {
+//                     threshold = enteredValue * 30;
+//                   }
+//                 }
+//                 ApiData newResponse = await addOtherOfficeDocPost(
+//                     context: context,
+//                     docTypeid: widget.docTypeMetaIdCC,
+//                     docSubTypeid: widget.selectedSubDocId == AppConfig.subDocId0 ? AppConfig.subDocId0 : widget.selectedSubDocId,
+//                     documentName: nameDocController.text,
+//                     expiryType: selectedExpiryType.toString(),
+//                     threshold: threshold,
+//                     expiryDate: expiryDate,
+//                     expiryReminder: selectedExpiryType.toString(),
+//                     idOfDoc: idDocController.text,
+//                     docCreated: DateTime.now().toIso8601String() + "Z",
+//                     fileName: fileName,
+//                     url: 'url',
+//                  officeId: widget.officeId);
+//                 if (newResponse.statusCode == 200 || newResponse.statusCode == 201) {
+//                   print("id >>>>>>>>>>>>>>>>>>>>>..... ${newResponse.orgOfficeDocumentId}");
+//                  var uploadDocNew = await uploadDocumentsoffice(
+//                     context: context,
+//                     documentFile: filePath,
+//                     fileName: fileName,
+//                     orgOfficeDocumentId: newResponse.orgOfficeDocumentId!,
+//                   );
+//                   if (uploadDocNew.statusCode == 413) {
+//                     Navigator.pop(context);
+//                     showDialog(
+//                       context: context,
+//                       builder: (BuildContext context) {
+//                         return AddErrorPopup(
+//                           message: 'Request entity to large!',
+//                         );
+//                       },
+//                     );
+//                   }
+//                 }
+//
+//               }
+//               finally {
+//                 setState(() {
+//                   // Navigator.pop(context);
+//                   Navigator.pop(context);
+//                   showDialog(
+//                     context: context,
+//                     builder: (BuildContext context) {
+//                       return CountySuccessPopup(
+//                         message: 'Save Successfully',
+//                       );
+//                     },
+//                   );
+//
+//                   load = false;
+//                 });
+//               }
+//
+//             }
+//           ),

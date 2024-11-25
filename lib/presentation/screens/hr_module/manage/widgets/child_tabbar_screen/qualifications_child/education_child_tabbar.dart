@@ -13,6 +13,8 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employ
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_education_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -163,6 +165,19 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                       message: 'Education Added Successfully',
                                     );
                                   },
+                                );
+                              }else if(response.statusCode == 400 || response.statusCode == 404){
+                                Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => const FourNotFourPopup(),
+                                );
+                              }
+                              else {
+                                Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => FailedPopup(text: response.message),
                                 );
                               }
                             },
@@ -417,6 +432,19 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                                     message: 'Education Edit Successfully',
                                                   );
                                                 },
+                                              );
+                                            }else if(response.statusCode == 400 || response.statusCode == 404){
+                                              Navigator.pop(context);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => const FourNotFourPopup(),
+                                              );
+                                            }
+                                            else {
+                                              Navigator.pop(context);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => FailedPopup(text: response.message),
                                               );
                                             }
                                             expiryType = '';

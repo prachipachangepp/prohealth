@@ -6,6 +6,8 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/ci_visit_manager.dart';
@@ -258,7 +260,7 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
               int perMile = int.parse(widget.perMilesController.text);
               String serviceTypeId = widget.serviceId;
               int fixedRate = int.parse(widget.fixPayRatesController.text);
-              await addPayrates(
+              var response = await addPayrates(
                 context,
                 widget.empTypeId,
                 rate,
@@ -267,15 +269,31 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                 serviceTypeId,
                 fixedRate,
               );
-              Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AddSuccessPopup(
-                    message: 'Added Successfully',
-                  );
-                },
-              );
+              if(response.statusCode == 200 || response.statusCode == 201){
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddSuccessPopup(
+                      message: 'Added Successfully',
+                    );
+                  },
+                );
+              }else if(response.statusCode == 400 || response.statusCode == 404){
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const FourNotFourPopup(),
+                );
+              }
+              else {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => FailedPopup(text: response.message),
+                );
+              }
+
             } catch (e) {
               print("Failed to add pay rates: $e");
             }

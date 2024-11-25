@@ -24,6 +24,8 @@ import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
+import '../../../widgets/error_popups/failed_popup.dart';
+import '../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -40,6 +42,7 @@ class RegisterEnrollPopup extends StatefulWidget {
   final String role;
   final String status;
   final int employeeId;
+  final int depId;
   //final int empId;
 
   // final TextEditingController position;
@@ -50,7 +53,11 @@ class RegisterEnrollPopup extends StatefulWidget {
     //required this.phone,
     required this.email,
     //required this.position,
-    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId, required this.aEClinicalDiscipline, required this.onReferesh,
+    required this.onPressed, required this.userId, required this.role,
+    required this.status, required this.employeeId,
+    required this.aEClinicalDiscipline,
+    required this.onReferesh,
+    required this.depId,
     //required this.empId,
   });
 
@@ -70,7 +77,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   int? _selectedItemIndex;
 
   int countyId =0;
-  var deptID = 1;
+  //var deptID = ;
   String reportingOfficeId ='';
   String specialityName = '';
   String clinicialName ='';
@@ -145,6 +152,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       employement: 'Full Time',
       clinicalName: clinicialName,
       soecalityName: speciality,
+      depId: widget.depId,
       onRefreshRegister: () {
         setState(() {});
       },
@@ -270,11 +278,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     ),
                     IconButton(
                       onPressed: () {
-                      Navigator.pop(context);
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
-                        // );
+                     Navigator.pop(context);
+                     //    Navigator.push(
+                     //      context,
+                     //      MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
+                     //    );
 
                       },
                       icon: Icon(Icons.close,color: ColorManager.white,),
@@ -475,17 +483,22 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: AppSize.s8,
                           ),
                           ///clinician
+                          //widget.role == AppConfig.clinicalId
                           FutureBuilder<List<AEClinicalDiscipline>>(
-                            future: HrAddEmplyClinicalDisciplinApi(context, deptID),
+                            future: HrAddEmplyClinicalDisciplinApi(context, widget.depId),
                             builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
                                 return CustomDropdownTextField(
-                                  headText: 'Clinician',
-                                  // width: textFieldWidth,
-                                  // height: textFieldHeight,
+                                  // Adjust headText based on depId
+                                  headText: widget.depId == AppConfig.clinicalId
+                                      ?'Select Clinical Type '
+                                      : widget.depId == AppConfig.salesId
+                                      ? 'Select Sales Type'
+                                      : widget.depId == AppConfig.AdministrationId
+                                      ? 'Select Admin Type'
+                                      : 'Unknown', // Default fallback if depId doesn't match any of the expected values
                                   items: [],
-                                 );
+                                );
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -493,7 +506,14 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   dropDownList.add(i.empType!);
                                 }
                                 return CustomDropdownTextField(
-                                  headText: 'Clinician',
+                                  // Adjust headText based on depId
+                                  headText: widget.depId == AppConfig.clinicalId
+                                      ?'Select Clinical Type '
+                                      : widget.depId == AppConfig.salesId
+                                      ? 'Select Sales Type'
+                                      : widget.depId == AppConfig.AdministrationId
+                                      ? 'Select Admin Type'
+                                      : 'Unknown', // Default fallback if depId doesn't match any of the expected values
                                   items: dropDownList,
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
@@ -502,7 +522,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                         clinicalId = a.employeeTypesId!;
                                         print("Dept ID'''''' ${clinicalId}");
                                         print("';';';''''''''Dept ID ${clinicialName}");
-                                        // int docType = a.employeeTypesId;
                                         // Do something with docType
                                       }
                                     }
@@ -513,6 +532,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               }
                             },
                           ),
+
                           SizedBox(
                             height: AppSize.s8,
                           ),
@@ -910,7 +930,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 widget.email.text,
                                 widget.userId
                                     .toString());
-                            ApiData result = await addEmpEnroll(
+                            ApiData response = await addEmpEnroll(
                               context: context,
                               employeeId: widget
                                   .employeeId,
@@ -925,7 +945,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   .text,
                               link: generatedURL,
                               status: widget.status,
-                              departmentId: clinicalId,
+                              departmentId: widget.depId,
                               position: position
                                   .text,
                               speciality: speciality
@@ -949,7 +969,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               _isLoading = false;
                             });
                             widget.onReferesh();
-                            if (result.success) {
+                            if (response.statusCode == 200 || response.statusCode == 201) {
                               Navigator.pop(
                                   context);
                               Navigator.push(
@@ -958,7 +978,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                       builder: (
                                           context) =>
                                           OfferLetterScreen(
-                                            apiData: result,
+                                            apiData: response,
                                             employeeId: widget
                                                 .employeeId,
                                             email: widget
@@ -989,10 +1009,21 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                               setState(() {
 
                                               });
-                                            },
+                                            }, depId: widget.depId,
                                           )));
-                            } else {
-                              print('Error');
+                            } else if(response.statusCode == 400 || response.statusCode == 404){
+                              // Navigator.pop(context);
+                              await showDialog(
+                                context: context,
+                                builder: (BuildContext context) => const FourNotFourPopup(),
+                              );
+                            }
+                            else {
+                              // Navigator.pop(context);
+                              await showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FailedPopup(text: response.message),
+                              );
                             }
                             print("${widget
                                 .employeeId}");

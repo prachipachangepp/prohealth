@@ -11,6 +11,8 @@ import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_we
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/add_batch_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -124,7 +126,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                      padding: const EdgeInsets.only(left: 15, right: 20),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
@@ -263,8 +265,9 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                   });
                                                                                   startTimeController.clear();
                                                                                   endTimeController.clear();
-                                                                                  Navigator.pop(context);
+
                                                                                  if(response.statusCode == 200 || response.statusCode == 201){
+                                                                                   Navigator.pop(context);
                                                                                    showDialog(
                                                                                      context: context,
                                                                                      builder: (BuildContext context) {
@@ -272,6 +275,19 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                          message: 'Batch Edited Successfully',
                                                                                        );
                                                                                      },
+                                                                                   );
+                                                                                 }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                                                   Navigator.pop(context);
+                                                                                   showDialog(
+                                                                                     context: context,
+                                                                                     builder: (BuildContext context) => const FourNotFourPopup(),
+                                                                                   );
+                                                                                 }
+                                                                                 else {
+                                                                                   Navigator.pop(context);
+                                                                                   showDialog(
+                                                                                     context: context,
+                                                                                     builder: (BuildContext context) => FailedPopup(text: response.message),
                                                                                    );
                                                                                  }
                                                                                 }, title: 'Edit Batches',
@@ -287,7 +303,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                           StatefulBuilder(
                                                                             builder: (BuildContext context, void Function(void Function()) setState) {
                                                                               return DeletePopup(
-                                                                                  title: DeletePopupString.deleteholiday,
+                                                                                  title: "Delete Batch",
                                                                                   loadingDuration: _isLoading,
                                                                                   onCancel: () {
                                                                                     Navigator.pop(

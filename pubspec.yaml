@@ -141,6 +141,7 @@ flutter:
     - images/hr_dashboard/
     - images/em_dashboard/
     - images/mobile_images/
+    - images/error/
     - images/tab_images/
     - web/icons/
   #   - images/a_dot_ham.jpeg

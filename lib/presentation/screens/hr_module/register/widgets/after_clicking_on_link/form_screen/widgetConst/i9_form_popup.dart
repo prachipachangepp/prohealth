@@ -10,6 +10,8 @@ import '../../../../../../../../app/resources/establishment_resources/establish_
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
+import '../../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/dialogue_template.dart';
@@ -461,6 +463,22 @@ class _INineSignPopupState extends State<INineSignPopup> {
                   ),
                 );
               }
+    else if(iNineDocument.statusCode == 400 || iNineDocument.statusCode == 404){
+    // Navigator.pop(context);
+    await showDialog(
+    context: context,
+    builder: (BuildContext context) => const FourNotFourPopup(),
+    );
+    }
+    else {
+    // Navigator.pop(context);
+    await showDialog(
+    context: context,
+    builder: (BuildContext context) => const FailedPopup(text: "Something Went Wrong"),
+    );
+    }
+
+
             } finally {
               setState(() {
                 loading = false;

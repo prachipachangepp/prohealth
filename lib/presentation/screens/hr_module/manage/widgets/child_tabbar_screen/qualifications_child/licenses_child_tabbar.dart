@@ -18,6 +18,8 @@ import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widge
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_licences_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_card_details.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
+import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
@@ -204,8 +206,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                var licenseResponse =  await approveOnboardQualifyLicensePatch(
                                     context,
                                     response.licenseId!);
-                                Navigator.pop(context);
+
                                 if(licenseResponse.statusCode == 200 || licenseResponse.statusCode == 201){
+                                  Navigator.pop(context);
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -213,6 +216,19 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                         message: 'Licenses Added Successfully',
                                       );
                                     },
+                                  );
+                                }else if(response.statusCode == 400 || response.statusCode == 404){
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => const FourNotFourPopup(),
+                                  );
+                                }
+                                else {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => FailedPopup(text: response.message),
                                   );
                                 }
                               },
@@ -346,7 +362,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                         var licenseNumber = snapshotPrefill.data!.licenseNumber;
                                         numberIDController = TextEditingController(text: snapshotPrefill.data!.licenseNumber);
 
-                                        docNameEdit = snapshotPrefill.data!.org;
+                                        docNameEdit = snapshotPrefill.data!.documentType;
                                         var org = snapshotPrefill.data!.org;
                                         issuingOrganizationController = TextEditingController(text: snapshotPrefill.data!.org);
 
@@ -374,8 +390,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                                 licenseNumber == numberIDController.text ? licenseNumber.toString() : numberIDController.text,
                                                org == issuingOrganizationController.text ? org : issuingOrganizationController.text,
                                                 docNameEdit.toString());
-                                            Navigator.pop(context);
+
                                             if(response.statusCode == 200 || response.statusCode == 201){
+                                              Navigator.pop(context);
                                               showDialog(
                                                 context: context,
                                                 builder: (BuildContext context) {
@@ -383,6 +400,19 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                                     message: 'Licenses Edited Successfully',
                                                   );
                                                 },
+                                              );
+                                            }else if(response.statusCode == 400 || response.statusCode == 404){
+                                              // Navigator.pop(context);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => const FourNotFourPopup(),
+                                              );
+                                            }
+                                            else {
+                                              //Navigator.pop(context);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => FailedPopup(text: response.message),
                                               );
                                             }
                                           },
