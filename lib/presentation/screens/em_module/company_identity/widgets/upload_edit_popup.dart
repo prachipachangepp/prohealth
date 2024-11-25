@@ -291,7 +291,6 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 )),
             Visibility(
               visible: showExpiryDateField,
-
               /// Conditionally display expiry date field
               child: HeaderContentConst(
                 heading: AppString.expiry_date,
@@ -446,7 +445,6 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                         ),
                     ],
                   )),
-
               // /// Type of the Document
               // HeaderContentConst(
               //   heading: AppString.type_of_the_document,
