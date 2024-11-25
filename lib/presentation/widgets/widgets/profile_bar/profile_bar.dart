@@ -613,11 +613,13 @@ class _ProfileBarState extends State<ProfileBar> {
                                   )
                                 ]),
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 25,),
                           Flexible(
                             child: Column(
                               children: [
-                                FutureBuilder(
+                                StatefulBuilder(builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return  FutureBuilder(
                                   future: fetchData(),
                                   builder: (BuildContext context, snapshot) {
                                     if (snapshot.connectionState ==
@@ -640,40 +642,40 @@ class _ProfileBarState extends State<ProfileBar> {
                                                         title: 'Expired License',
                                                         child: Padding(
                                                           padding:
-                                                              const EdgeInsets.symmetric(
+                                                          const EdgeInsets.symmetric(
                                                             vertical: AppPadding.p3,
                                                             horizontal: AppPadding.p20,
                                                           ),
                                                           child: SingleChildScrollView(
                                                             child: Column(
                                                               crossAxisAlignment:
-                                                                  CrossAxisAlignment.start,
+                                                              CrossAxisAlignment.start,
                                                               mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceEvenly,
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
                                                               children: [
                                                                 Container(
                                                                   height: 30,
                                                                   decoration: BoxDecoration(
                                                                     color: Colors.grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(12),
+                                                                    BorderRadius
+                                                                        .circular(12),
                                                                   ),
                                                                   child: Padding(
                                                                     padding:
-                                                                        const EdgeInsets
-                                                                            .symmetric(
-                                                                            horizontal: 15),
+                                                                    const EdgeInsets
+                                                                        .symmetric(
+                                                                        horizontal: 15),
                                                                     child: Row(
                                                                       mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceAround,
+                                                                      MainAxisAlignment
+                                                                          .spaceAround,
                                                                       children: [
                                                                         Expanded(
                                                                           child: Center(
                                                                             child: Text(
-                                                                              'Sr No.',
+                                                                                'Sr No.',
                                                                                 style:ProfileBarNameLicenseStyle.customEditTextStyle()
                                                                             ),
                                                                           ),
@@ -684,8 +686,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                             child: Text(
                                                                                 'Name Of License',
                                                                                 textAlign:
-                                                                                    TextAlign
-                                                                                        .start,
+                                                                                TextAlign
+                                                                                    .start,
                                                                                 style:ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                                           ),
                                                                         ),
@@ -694,8 +696,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                             child: Text(
                                                                                 'Date',
                                                                                 textAlign:
-                                                                                    TextAlign
-                                                                                        .start,
+                                                                                TextAlign
+                                                                                    .start,
                                                                                 style:ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                                           ),
                                                                         ),
@@ -715,7 +717,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                     builder: (context,
                                                                         snapshot) {
                                                                       if (snapshot
-                                                                              .connectionState ==
+                                                                          .connectionState ==
                                                                           ConnectionState
                                                                               .waiting) {
                                                                         return Center(
@@ -723,9 +725,9 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                             padding: const EdgeInsets
                                                                                 .symmetric(
                                                                                 vertical:
-                                                                                    150),
+                                                                                150),
                                                                             child:
-                                                                                CircularProgressIndicator(
+                                                                            CircularProgressIndicator(
                                                                               color: ColorManager
                                                                                   .blueprime,
                                                                             ),
@@ -737,118 +739,118 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                           .isEmpty) {
                                                                         return Center(
                                                                             child: Padding(
-                                                                          padding:
+                                                                              padding:
                                                                               const EdgeInsets
                                                                                   .symmetric(
                                                                                   vertical:
-                                                                                      150),
-                                                                          child: Text(
-                                                                            AppString
-                                                                                .dataNotFound,
-                                                                            style: CustomTextStylesCommon.commonStyle(
-                                                                                fontWeight: FontWeight.w400,
-                                                                                fontSize:
+                                                                                  150),
+                                                                              child: Text(
+                                                                                AppString
+                                                                                    .dataNotFound,
+                                                                                style: CustomTextStylesCommon.commonStyle(
+                                                                                    fontWeight: FontWeight.w400,
+                                                                                    fontSize:
                                                                                     FontSize
                                                                                         .s14,
-                                                                                color: ColorManager
-                                                                                    .mediumgrey),
-                                                                          ),
-                                                                        ));
+                                                                                    color: ColorManager
+                                                                                        .mediumgrey),
+                                                                              ),
+                                                                            ));
                                                                       }
                                                                       if (snapshot
                                                                           .hasData) {
                                                                         final expiredLicenses =
-                                                                            snapshot.data![
-                                                                                'Expired']!;
+                                                                        snapshot.data![
+                                                                        'Expired']!;
                                                                         //final inactiveLicenses = snapshot.data!['Inactive']!;
                                                                         return Container(
                                                                           height: MediaQuery.of(
-                                                                                      context)
-                                                                                  .size
-                                                                                  .height /
+                                                                              context)
+                                                                              .size
+                                                                              .height /
                                                                               2,
                                                                           child: ListView
                                                                               .builder(
-                                                                                  scrollDirection:
-                                                                                      Axis
-                                                                                          .vertical,
-                                                                                  itemCount:
-                                                                                      expiredLicenses
-                                                                                          .length,
-                                                                                  itemBuilder:
-                                                                                      (context,
-                                                                                          index) {
-                                                                                    expiredCount =
-                                                                                        expiredLicenses.length;
-                                                                                    print(
-                                                                                        "Expired count :: ${expiredCount}");
-                                                                                    int serialNumber = index +
-                                                                                        1 +
-                                                                                        (currentPage - 1) *
-                                                                                            itemsPerPage;
-                                                                                    String formattedSerialNumber = serialNumber
-                                                                                        .toString()
-                                                                                        .padLeft(2,
-                                                                                            '0');
-                                                                                    return Column(
-                                                                                      crossAxisAlignment:
-                                                                                          CrossAxisAlignment.start,
-                                                                                      children: [
-                                                                                        // SizedBox(height: 5),
-                                                                                        Padding(
-                                                                                          padding: const EdgeInsets.all(5),
-                                                                                          child: Container(
-                                                                                              decoration: BoxDecoration(
-                                                                                                color: Colors.white,
-                                                                                                borderRadius: BorderRadius.circular(4),
-                                                                                                boxShadow: [
-                                                                                                  BoxShadow(
-                                                                                                    color: const Color(0xff000000).withOpacity(0.25),
-                                                                                                    spreadRadius: 0,
-                                                                                                    blurRadius: 4,
-                                                                                                    offset: const Offset(0, 2),
-                                                                                                  ),
-                                                                                                ],
+                                                                              scrollDirection:
+                                                                              Axis
+                                                                                  .vertical,
+                                                                              itemCount:
+                                                                              expiredLicenses
+                                                                                  .length,
+                                                                              itemBuilder:
+                                                                                  (context,
+                                                                                  index) {
+                                                                                expiredCount =
+                                                                                    expiredLicenses.length;
+                                                                                print(
+                                                                                    "Expired count :: ${expiredCount}");
+                                                                                int serialNumber = index +
+                                                                                    1 +
+                                                                                    (currentPage - 1) *
+                                                                                        itemsPerPage;
+                                                                                String formattedSerialNumber = serialNumber
+                                                                                    .toString()
+                                                                                    .padLeft(2,
+                                                                                    '0');
+                                                                                return Column(
+                                                                                  crossAxisAlignment:
+                                                                                  CrossAxisAlignment.start,
+                                                                                  children: [
+                                                                                    // SizedBox(height: 5),
+                                                                                    Padding(
+                                                                                      padding: const EdgeInsets.all(5),
+                                                                                      child: Container(
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: Colors.white,
+                                                                                            borderRadius: BorderRadius.circular(4),
+                                                                                            boxShadow: [
+                                                                                              BoxShadow(
+                                                                                                color: const Color(0xff000000).withOpacity(0.25),
+                                                                                                spreadRadius: 0,
+                                                                                                blurRadius: 4,
+                                                                                                offset: const Offset(0, 2),
                                                                                               ),
-                                                                                              height: 50,
-                                                                                              child: Padding(
-                                                                                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                                                child: Row(
-                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                                  children: [
-                                                                                                    Expanded(
-                                                                                                      child: Center(
-                                                                                                        child: Text(
-                                                                                                          formattedSerialNumber,
-                                                                                                          // formattedSerialNumber,
-                                                                                                    style: ProfileBarNameLicenseStyle.customEditTextStyle()
-                                                                                                        ),
-                                                                                                      ),
+                                                                                            ],
+                                                                                          ),
+                                                                                          height: 50,
+                                                                                          child: Padding(
+                                                                                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                            child: Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                              children: [
+                                                                                                Expanded(
+                                                                                                  child: Center(
+                                                                                                    child: Text(
+                                                                                                        formattedSerialNumber,
+                                                                                                        // formattedSerialNumber,
+                                                                                                        style: ProfileBarNameLicenseStyle.customEditTextStyle()
                                                                                                     ),
-                                                                                                    // Text(''),
-                                                                                                    Expanded(
-                                                                                                      child: Center(
-                                                                                                        child: Text(
-                                                                                                          expiredLicenses[index].org,
-                                                                                                            style: ProfileBarNameLicenseStyle.customEditTextStyle()
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                    Expanded(
-                                                                                                      child: Center(
-                                                                                                        child: Text(
-                                                                                                          expiredLicenses[index].issueDate,
-                                                                                                            style: ProfileBarNameLicenseStyle.customEditTextStyle()
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                    ),
-                                                                                                  ],
+                                                                                                  ),
                                                                                                 ),
-                                                                                              )),
-                                                                                        ),
-                                                                                      ],
-                                                                                    );
-                                                                                  }),
+                                                                                                // Text(''),
+                                                                                                Expanded(
+                                                                                                  child: Center(
+                                                                                                    child: Text(
+                                                                                                        expiredLicenses[index].org,
+                                                                                                        style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                Expanded(
+                                                                                                  child: Center(
+                                                                                                    child: Text(
+                                                                                                        expiredLicenses[index].issueDate,
+                                                                                                        style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          )),
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                              }),
                                                                         );
                                                                       }
                                                                       return Offstage();
@@ -866,8 +868,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                           ),
                                           SizedBox(
                                               height:
-                                                  MediaQuery.of(context).size.height / 120),
-                                
+                                              MediaQuery.of(context).size.height / 120),
+
                                           ///"About To Expired License"
                                           ProfileBarClipConst(
                                               onTap: () {
@@ -878,44 +880,44 @@ class _ProfileBarState extends State<ProfileBar> {
                                                           title: 'About To Expired License',
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsets.symmetric(
+                                                            const EdgeInsets.symmetric(
                                                               vertical: AppPadding.p3,
                                                               horizontal: AppPadding.p20,
                                                             ),
                                                             child: SingleChildScrollView(
                                                               child: Column(
                                                                 crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
+                                                                CrossAxisAlignment
+                                                                    .start,
                                                                 mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
                                                                 children: [
                                                                   Container(
                                                                     height: 30,
                                                                     decoration:
-                                                                        BoxDecoration(
+                                                                    BoxDecoration(
                                                                       color: Colors.grey,
                                                                       borderRadius:
-                                                                          BorderRadius
-                                                                              .circular(12),
+                                                                      BorderRadius
+                                                                          .circular(12),
                                                                     ),
                                                                     child: Padding(
                                                                       padding:
-                                                                          const EdgeInsets
-                                                                              .symmetric(
-                                                                              horizontal:
-                                                                                  15),
+                                                                      const EdgeInsets
+                                                                          .symmetric(
+                                                                          horizontal:
+                                                                          15),
                                                                       child: Row(
                                                                         mainAxisAlignment:
-                                                                            MainAxisAlignment
-                                                                                .spaceAround,
+                                                                        MainAxisAlignment
+                                                                            .spaceAround,
                                                                         children: [
                                                                           Expanded(
                                                                             child: Center(
                                                                               child: Text(
-                                                                                'Sr No.',
-                                                                                style:ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                  'Sr No.',
+                                                                                  style:ProfileBarNameLicenseStyle.customEditTextStyle()
                                                                               ),
                                                                             ),
                                                                           ),
@@ -925,8 +927,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                               child: Text(
                                                                                   'Name Of License',
                                                                                   textAlign:
-                                                                                      TextAlign
-                                                                                          .start,
+                                                                                  TextAlign
+                                                                                      .start,
                                                                                   style: ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                                             ),
                                                                           ),
@@ -935,8 +937,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                               child: Text(
                                                                                   'Date',
                                                                                   textAlign:
-                                                                                      TextAlign
-                                                                                          .start,
+                                                                                  TextAlign
+                                                                                      .start,
                                                                                   style: ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                                             ),
                                                                           ),
@@ -948,10 +950,10 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                     height: 10,
                                                                   ),
                                                                   FutureBuilder<
-                                                                          Map<
-                                                                              String,
-                                                                              List<
-                                                                                  LicensesData>>>(
+                                                                      Map<
+                                                                          String,
+                                                                          List<
+                                                                              LicensesData>>>(
                                                                       future: getLicenseStatusWise(
                                                                           context,
                                                                           widget
@@ -960,7 +962,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                       builder: (context,
                                                                           snapshot) {
                                                                         if (snapshot
-                                                                                .connectionState ==
+                                                                            .connectionState ==
                                                                             ConnectionState
                                                                                 .waiting) {
                                                                           return Center(
@@ -968,9 +970,9 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                               padding: const EdgeInsets
                                                                                   .symmetric(
                                                                                   vertical:
-                                                                                      150),
+                                                                                  150),
                                                                               child:
-                                                                                  CircularProgressIndicator(
+                                                                              CircularProgressIndicator(
                                                                                 color: ColorManager
                                                                                     .blueprime,
                                                                               ),
@@ -979,116 +981,116 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                         }
                                                                         if (snapshot
                                                                             .data![
-                                                                                'About to Expire']!
+                                                                        'About to Expire']!
                                                                             .isEmpty) {
                                                                           return Center(
                                                                               child:
-                                                                                  Padding(
-                                                                            padding: const EdgeInsets
-                                                                                .symmetric(
-                                                                                vertical:
+                                                                              Padding(
+                                                                                padding: const EdgeInsets
+                                                                                    .symmetric(
+                                                                                    vertical:
                                                                                     150),
-                                                                            child: Text(
-                                                                              AppString
-                                                                                  .dataNotFound,
-                                                                              style: CustomTextStylesCommon.commonStyle(
-                                                                                  fontWeight:FontWeight.w500,
-                                                                                  fontSize:
+                                                                                child: Text(
+                                                                                  AppString
+                                                                                      .dataNotFound,
+                                                                                  style: CustomTextStylesCommon.commonStyle(
+                                                                                      fontWeight:FontWeight.w500,
+                                                                                      fontSize:
                                                                                       FontSize
                                                                                           .s14,
-                                                                                  color: ColorManager
-                                                                                      .mediumgrey),
-                                                                            ),
-                                                                          ));
+                                                                                      color: ColorManager
+                                                                                          .mediumgrey),
+                                                                                ),
+                                                                              ));
                                                                         }
                                                                         if (snapshot
                                                                             .hasData) {
                                                                           final aboutToExpiredLicenses =
-                                                                              snapshot.data![
-                                                                                  'About to Expire']!;
+                                                                          snapshot.data![
+                                                                          'About to Expire']!;
                                                                           //final inactiveLicenses = snapshot.data!['Inactive']!;
                                                                           return Container(
                                                                             height: MediaQuery.of(
-                                                                                        context)
-                                                                                    .size
-                                                                                    .height /
+                                                                                context)
+                                                                                .size
+                                                                                .height /
                                                                                 2,
                                                                             child: ListView
                                                                                 .builder(
-                                                                                    scrollDirection:
-                                                                                        Axis
-                                                                                            .vertical,
-                                                                                    itemCount:
-                                                                                        aboutToExpiredLicenses
-                                                                                            .length,
-                                                                                    itemBuilder:
-                                                                                        (context,
-                                                                                            index) {
-                                                                                      int serialNumber = index +
-                                                                                          1 +
-                                                                                          (currentPage - 1) * itemsPerPage;
-                                                                                      String
-                                                                                          formattedSerialNumber =
-                                                                                          serialNumber.toString().padLeft(2, '0');
-                                                                                      return Column(
-                                                                                        crossAxisAlignment:
-                                                                                            CrossAxisAlignment.start,
-                                                                                        children: [
-                                                                                          // SizedBox(height: 5),
-                                                                                          Padding(
-                                                                                            padding: const EdgeInsets.all(5.0),
-                                                                                            child: Container(
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: Colors.white,
-                                                                                                  borderRadius: BorderRadius.circular(4),
-                                                                                                  boxShadow: [
-                                                                                                    BoxShadow(
-                                                                                                      color: const Color(0xff000000).withOpacity(0.25),
-                                                                                                      spreadRadius: 0,
-                                                                                                      blurRadius: 4,
-                                                                                                      offset: const Offset(0, 2),
-                                                                                                    ),
-                                                                                                  ],
+                                                                                scrollDirection:
+                                                                                Axis
+                                                                                    .vertical,
+                                                                                itemCount:
+                                                                                aboutToExpiredLicenses
+                                                                                    .length,
+                                                                                itemBuilder:
+                                                                                    (context,
+                                                                                    index) {
+                                                                                  int serialNumber = index +
+                                                                                      1 +
+                                                                                      (currentPage - 1) * itemsPerPage;
+                                                                                  String
+                                                                                  formattedSerialNumber =
+                                                                                  serialNumber.toString().padLeft(2, '0');
+                                                                                  return Column(
+                                                                                    crossAxisAlignment:
+                                                                                    CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      // SizedBox(height: 5),
+                                                                                      Padding(
+                                                                                        padding: const EdgeInsets.all(5.0),
+                                                                                        child: Container(
+                                                                                            decoration: BoxDecoration(
+                                                                                              color: Colors.white,
+                                                                                              borderRadius: BorderRadius.circular(4),
+                                                                                              boxShadow: [
+                                                                                                BoxShadow(
+                                                                                                  color: const Color(0xff000000).withOpacity(0.25),
+                                                                                                  spreadRadius: 0,
+                                                                                                  blurRadius: 4,
+                                                                                                  offset: const Offset(0, 2),
                                                                                                 ),
-                                                                                                height: 50,
-                                                                                                child: Padding(
-                                                                                                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                                                  child: Row(
-                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                                    children: [
-                                                                                                      Expanded(
-                                                                                                        child: Center(
-                                                                                                          child: Text(
-                                                                                                            formattedSerialNumber,
-                                                                                                            // formattedSerialNumber,
-                                                                                                            style:AboutExpiredLStyle.customEditTextStyle()
-                                                                                                          ),
-                                                                                                        ),
+                                                                                              ],
+                                                                                            ),
+                                                                                            height: 50,
+                                                                                            child: Padding(
+                                                                                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                              child: Row(
+                                                                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                                children: [
+                                                                                                  Expanded(
+                                                                                                    child: Center(
+                                                                                                      child: Text(
+                                                                                                          formattedSerialNumber,
+                                                                                                          // formattedSerialNumber,
+                                                                                                          style:AboutExpiredLStyle.customEditTextStyle()
                                                                                                       ),
-                                                                                                      // Text(''),
-                                                                                                      Expanded(
-                                                                                                        child: Center(
-                                                                                                          child: Text(
-                                                                                                            aboutToExpiredLicenses[index].org,
-                                                                                                            style: AboutExpiredLStyle.customEditTextStyle()
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      Expanded(
-                                                                                                        child: Center(
-                                                                                                          child: Text(
-                                                                                                            aboutToExpiredLicenses[index].issueDate,
-                                                                                                            style: AboutExpiredLStyle.customEditTextStyle()
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ],
+                                                                                                    ),
                                                                                                   ),
-                                                                                                )),
-                                                                                          ),
-                                                                                        ],
-                                                                                      );
-                                                                                    }),
+                                                                                                  // Text(''),
+                                                                                                  Expanded(
+                                                                                                    child: Center(
+                                                                                                      child: Text(
+                                                                                                          aboutToExpiredLicenses[index].org,
+                                                                                                          style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Expanded(
+                                                                                                    child: Center(
+                                                                                                      child: Text(
+                                                                                                          aboutToExpiredLicenses[index].issueDate,
+                                                                                                          style: AboutExpiredLStyle.customEditTextStyle()
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            )),
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                }),
                                                                           );
                                                                         }
                                                                         return Offstage();
@@ -1105,8 +1107,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                               textOval: upToDateCount.toString()),
                                           SizedBox(
                                               height:
-                                                  MediaQuery.of(context).size.height / 120),
-                                
+                                              MediaQuery.of(context).size.height / 120),
+
                                           ///"Up To Date License"
                                           ProfileBarClipConst(
                                               onTap: () {
@@ -1117,44 +1119,44 @@ class _ProfileBarState extends State<ProfileBar> {
                                                           title: 'Up To Date License',
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsets.symmetric(
+                                                            const EdgeInsets.symmetric(
                                                               vertical: AppPadding.p3,
                                                               horizontal: AppPadding.p20,
                                                             ),
                                                             child: SingleChildScrollView(
                                                               child: Column(
                                                                 crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
+                                                                CrossAxisAlignment
+                                                                    .start,
                                                                 mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
                                                                 children: [
                                                                   Container(
                                                                     height: 30,
                                                                     decoration:
-                                                                        BoxDecoration(
+                                                                    BoxDecoration(
                                                                       color: Colors.grey,
                                                                       borderRadius:
-                                                                          BorderRadius
-                                                                              .circular(12),
+                                                                      BorderRadius
+                                                                          .circular(12),
                                                                     ),
                                                                     child: Padding(
                                                                       padding:
-                                                                          const EdgeInsets
-                                                                              .symmetric(
-                                                                              horizontal:
-                                                                                  15),
+                                                                      const EdgeInsets
+                                                                          .symmetric(
+                                                                          horizontal:
+                                                                          15),
                                                                       child: Row(
                                                                         mainAxisAlignment:
-                                                                            MainAxisAlignment
-                                                                                .spaceAround,
+                                                                        MainAxisAlignment
+                                                                            .spaceAround,
                                                                         children: [
                                                                           Expanded(
                                                                             child: Center(
                                                                               child: Text(
-                                                                                'Sr No.',
-                                                                                style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                  'Sr No.',
+                                                                                  style: ProfileBarNameLicenseStyle.customEditTextStyle()
                                                                               ),
                                                                             ),
                                                                           ),
@@ -1164,8 +1166,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                               child: Text(
                                                                                   'Name Of License',
                                                                                   textAlign:
-                                                                                      TextAlign
-                                                                                          .start,
+                                                                                  TextAlign
+                                                                                      .start,
                                                                                   style: ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                                             ),
                                                                           ),
@@ -1174,8 +1176,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                               child: Text(
                                                                                   'Date',
                                                                                   textAlign:
-                                                                                      TextAlign
-                                                                                          .start,
+                                                                                  TextAlign
+                                                                                      .start,
                                                                                   style: ProfileBarNameLicenseStyle.customEditTextStyle()),
                                                                             ),
                                                                           ),
@@ -1187,10 +1189,10 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                     height: 10,
                                                                   ),
                                                                   FutureBuilder<
-                                                                          Map<
-                                                                              String,
-                                                                              List<
-                                                                                  LicensesData>>>(
+                                                                      Map<
+                                                                          String,
+                                                                          List<
+                                                                              LicensesData>>>(
                                                                       future: getLicenseStatusWise(
                                                                           context,
                                                                           widget
@@ -1199,7 +1201,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                       builder: (context,
                                                                           snapshot) {
                                                                         if (snapshot
-                                                                                .connectionState ==
+                                                                            .connectionState ==
                                                                             ConnectionState
                                                                                 .waiting) {
                                                                           return Center(
@@ -1207,9 +1209,9 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                               padding: const EdgeInsets
                                                                                   .symmetric(
                                                                                   vertical:
-                                                                                      150),
+                                                                                  150),
                                                                               child:
-                                                                                  CircularProgressIndicator(
+                                                                              CircularProgressIndicator(
                                                                                 color: ColorManager
                                                                                     .blueprime,
                                                                               ),
@@ -1218,118 +1220,118 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                         }
                                                                         if (snapshot
                                                                             .data![
-                                                                                'Upto date']!
+                                                                        'Upto date']!
                                                                             .isEmpty) {
                                                                           return Center(
                                                                               child:
-                                                                                  Padding(
-                                                                            padding: const EdgeInsets
-                                                                                .symmetric(
-                                                                                vertical:
+                                                                              Padding(
+                                                                                padding: const EdgeInsets
+                                                                                    .symmetric(
+                                                                                    vertical:
                                                                                     150),
-                                                                            child: Text(
-                                                                              AppString
-                                                                                  .dataNotFound,
-                                                                              style: CustomTextStylesCommon.commonStyle(
-                                                                                  fontWeight:
+                                                                                child: Text(
+                                                                                  AppString
+                                                                                      .dataNotFound,
+                                                                                  style: CustomTextStylesCommon.commonStyle(
+                                                                                      fontWeight:
                                                                                       FontWeightManager
                                                                                           .medium,
-                                                                                  fontSize:
+                                                                                      fontSize:
                                                                                       FontSize
                                                                                           .s14,
-                                                                                  color: ColorManager
-                                                                                      .mediumgrey),
-                                                                            ),
-                                                                          ));
+                                                                                      color: ColorManager
+                                                                                          .mediumgrey),
+                                                                                ),
+                                                                              ));
                                                                         }
                                                                         if (snapshot
                                                                             .hasData) {
                                                                           final upToDateLicenses =
-                                                                              snapshot.data![
-                                                                                  'Upto date']!;
+                                                                          snapshot.data![
+                                                                          'Upto date']!;
                                                                           //final inactiveLicenses = snapshot.data!['Inactive']!;
                                                                           return Container(
                                                                             height: MediaQuery.of(
-                                                                                        context)
-                                                                                    .size
-                                                                                    .height /
+                                                                                context)
+                                                                                .size
+                                                                                .height /
                                                                                 2,
                                                                             child: ListView
                                                                                 .builder(
-                                                                                    scrollDirection:
-                                                                                        Axis
-                                                                                            .vertical,
-                                                                                    itemCount:
-                                                                                        upToDateLicenses
-                                                                                            .length,
-                                                                                    itemBuilder:
-                                                                                        (context,
-                                                                                            index) {
-                                                                                      int serialNumber = index +
-                                                                                          1 +
-                                                                                          (currentPage - 1) * itemsPerPage;
-                                                                                      String
-                                                                                          formattedSerialNumber =
-                                                                                          serialNumber.toString().padLeft(2, '0');
-                                                                                      return Column(
-                                                                                        crossAxisAlignment:
-                                                                                            CrossAxisAlignment.start,
-                                                                                        children: [
-                                                                                          // SizedBox(height: 5),
-                                                                                          Padding(
-                                                                                            padding: const EdgeInsets.all(8.0),
-                                                                                            child: Container(
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: Colors.white,
-                                                                                                  borderRadius: BorderRadius.circular(4),
-                                                                                                  boxShadow: [
-                                                                                                    BoxShadow(
-                                                                                                      color: const Color(0xff000000).withOpacity(0.25),
-                                                                                                      spreadRadius: 0,
-                                                                                                      blurRadius: 4,
-                                                                                                      offset: const Offset(0, 2),
-                                                                                                    ),
-                                                                                                  ],
+                                                                                scrollDirection:
+                                                                                Axis
+                                                                                    .vertical,
+                                                                                itemCount:
+                                                                                upToDateLicenses
+                                                                                    .length,
+                                                                                itemBuilder:
+                                                                                    (context,
+                                                                                    index) {
+                                                                                  int serialNumber = index +
+                                                                                      1 +
+                                                                                      (currentPage - 1) * itemsPerPage;
+                                                                                  String
+                                                                                  formattedSerialNumber =
+                                                                                  serialNumber.toString().padLeft(2, '0');
+                                                                                  return Column(
+                                                                                    crossAxisAlignment:
+                                                                                    CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      // SizedBox(height: 5),
+                                                                                      Padding(
+                                                                                        padding: const EdgeInsets.all(8.0),
+                                                                                        child: Container(
+                                                                                            decoration: BoxDecoration(
+                                                                                              color: Colors.white,
+                                                                                              borderRadius: BorderRadius.circular(4),
+                                                                                              boxShadow: [
+                                                                                                BoxShadow(
+                                                                                                  color: const Color(0xff000000).withOpacity(0.25),
+                                                                                                  spreadRadius: 0,
+                                                                                                  blurRadius: 4,
+                                                                                                  offset: const Offset(0, 2),
                                                                                                 ),
-                                                                                                height: 50,
-                                                                                                child: Padding(
-                                                                                                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                                                  child: Row(
-                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                                    children: [
-                                                                                                      Expanded(
-                                                                                                        child: Center(
-                                                                                                          child: Text(
-                                                                                                            formattedSerialNumber,
-                                                                                                            // formattedSerialNumber,
-                                                                                                            style: ProfileBarZoneStyle.customEditTextStyle()
-                                                                                                          ),
-                                                                                                        ),
+                                                                                              ],
+                                                                                            ),
+                                                                                            height: 50,
+                                                                                            child: Padding(
+                                                                                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                              child: Row(
+                                                                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                                children: [
+                                                                                                  Expanded(
+                                                                                                    child: Center(
+                                                                                                      child: Text(
+                                                                                                          formattedSerialNumber,
+                                                                                                          // formattedSerialNumber,
+                                                                                                          style: ProfileBarZoneStyle.customEditTextStyle()
                                                                                                       ),
-                                                                                                      // Text(''),
-                                                                                                      Expanded(
-                                                                                                        child: Center(
-                                                                                                          child: Text(
-                                                                                                            upToDateLicenses[index].org,
-                                                                                                            style: ProfileBarZoneStyle.customEditTextStyle()
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      Expanded(
-                                                                                                        child: Center(
-                                                                                                          child: Text(
-                                                                                                            upToDateLicenses[index].issueDate,
-                                                                                                            style: ProfileBarZoneStyle.customEditTextStyle()
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ],
+                                                                                                    ),
                                                                                                   ),
-                                                                                                )),
-                                                                                          ),
-                                                                                        ],
-                                                                                      );
-                                                                                    }),
+                                                                                                  // Text(''),
+                                                                                                  Expanded(
+                                                                                                    child: Center(
+                                                                                                      child: Text(
+                                                                                                          upToDateLicenses[index].org,
+                                                                                                          style: ProfileBarZoneStyle.customEditTextStyle()
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Expanded(
+                                                                                                    child: Center(
+                                                                                                      child: Text(
+                                                                                                          upToDateLicenses[index].issueDate,
+                                                                                                          style: ProfileBarZoneStyle.customEditTextStyle()
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            )),
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                }),
                                                                           );
                                                                         }
                                                                         return Offstage();
@@ -1348,6 +1350,9 @@ class _ProfileBarState extends State<ProfileBar> {
                                       ),
                                     );
                                   },
+                                );
+                                  },
+
                                 ),
                               ],
                             ),
