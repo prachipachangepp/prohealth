@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/profile_editor/profile_editor.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/clinical_licenses.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/form_status.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profilebar_editor.dart';
@@ -265,7 +267,8 @@ class _ManageScreenState extends State<ManageScreen> {
                                         vertical: 5,
                                       ),
                                       child: DefaultTabController(
-                                        length: 5,
+                                        length: widget
+                                            .searchByEmployeeIdProfileData!.departmentId == 1?6:5,
                                         child: Column(
                                           children: [
                                             Padding(
@@ -309,6 +312,9 @@ class _ManageScreenState extends State<ManageScreen> {
                                                     Tab(
                                                         text: AppStringHr
                                                             .formStatus),
+                                                    if(widget
+                                                        .searchByEmployeeIdProfileData!.departmentId == 1)
+                                                    Tab(text: AppStringHr.clinicalLicenses),
                                                   ],
                                                   dividerColor:
                                                       Colors.transparent,
@@ -402,6 +408,17 @@ class _ManageScreenState extends State<ManageScreen> {
                                                       ],
                                                     ),
                                                   ),
+                                                  widget
+                                                      .searchByEmployeeIdProfileData!.departmentId == 1 ? SingleChildScrollView(
+                                                    child: Column(
+                                                      children: [
+                                                        ClinicalLicensesDoc(
+                                                            employeeId: widget
+                                                                .searchByEmployeeIdProfileData!
+                                                                .employeeId!),
+                                                      ],
+                                                    ),
+                                                  ):Offstage()
                                                 ],
                                               ),
                                             ),

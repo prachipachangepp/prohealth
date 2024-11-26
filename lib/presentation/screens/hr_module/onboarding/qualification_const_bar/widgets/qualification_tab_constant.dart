@@ -14,9 +14,11 @@ class QualificationActionButtons extends StatelessWidget {
   final VoidCallback onRejectPressed;
   final VoidCallback onApprovePressed;
   final bool? approve;
+  final bool? isBackColor;
 
   QualificationActionButtons({super.key, required this.onRejectPressed,
     required this.onApprovePressed,this.approve,
+    this.isBackColor
     //required this.onChanged, required this.id
   });
 
@@ -61,15 +63,16 @@ class QualificationActionButtons extends StatelessWidget {
               child: ElevatedButton(
                         onPressed: onApprovePressed,
                         style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xff1696C8),
-              foregroundColor: Colors.white,
+              backgroundColor: isBackColor!?Colors.white:Color(0xff1696C8),
+              foregroundColor: isBackColor!?Color(0xff1696C8):Colors.white,
+              side: BorderSide(color: isBackColor!? Color(0xff1696C8):Colors.white),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
                         ),
                         child: Text(
               'Approve',
-              style: BlueButtonTextConst.customTextStyle(context),
+              style: isBackColor!? TransparentButtonTextConst.customTextStyle(context) : BlueButtonTextConst.customTextStyle(context),
                         ),
                       ),
             )
