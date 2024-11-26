@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/thank_you_screen.dart';
+import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../../app/services/token/token_manager.dart';
 import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../manage/widgets/top_row.dart';
@@ -14,6 +16,7 @@ import '../dropdown_const.dart';
 import 'constant_in_all.dart';
 import 'form_screen/form_acknowledgements_screen.dart';
 import 'form_screen/form_banking_screen.dart';
+import 'form_screen/form_clinical_license.dart';
 import 'form_screen/form_educaton_screen.dart';
 import 'form_screen/form_employment_screen.dart';
 import 'form_screen/form_general_Screen.dart';
@@ -23,10 +26,10 @@ import 'form_screen/form_licenses_screen.dart';
 import 'form_screen/form_reference_screen.dart';
 
 class MultiStepForm extends StatefulWidget {
-  //final int userID;
+  final int depID;
   final int employeeID;
 
-  const MultiStepForm({super.key, required this.employeeID, });
+  const MultiStepForm({super.key, required this.employeeID, required this.depID, });
   @override
   _MultiStepFormState createState() => _MultiStepFormState();
 }
@@ -282,248 +285,280 @@ SizedBox(),
       );
   }
 
-  List<Step> steps() => [
-    ///
-    Step(
-      state: _currentStep <= 0 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 0,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+  List<Step> steps() {
+    List<Step> stepsList =[
+      ///
+      Step(
+        state: _currentStep <= 0 ? StepState.editing : StepState.complete,
+        isActive: _currentStep >= 0,
+        title: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: Text(
+            'General',
+            style: formNameText.customTextStyle(context),
+          ),
         ),
-        child: Text(
-          'General',
-          style: formNameText.customTextStyle(context),
-        ),
-      ),
-      content: generalForm(context: context, employeeID: widget.employeeID, onSave:(){
-        // details.onStepContinue!();
-        setState(() {
-          _currentStep = _currentStep +1 ;
-        });
-      },
+        content: generalForm(context: context, employeeID: widget.employeeID, onSave:(){
+          // details.onStepContinue!();
+          setState(() {
+            _currentStep = _currentStep +1 ;
+          });
+        },
 
-      //   onBack: (){
-      //   setState(() {
-      //     _currentStep = _currentStep -1;
-      //   });
-      // },
-      ),
-    ),
-  ////////////////////////////
-    Step(
-      state: _currentStep <= 1 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 1,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'Employment',
-          style:  formNameText.customTextStyle(context),
+          //   onBack: (){
+          //   setState(() {
+          //     _currentStep = _currentStep -1;
+          //   });
+          // },
         ),
       ),
-      content: EmploymentScreen(context: context, employeeID: widget.employeeID,
-        onSave: (){
-          setState(() {
-             _currentStep = _currentStep +1 ;
-         });
-        },
-        onBack:(){
-         setState(() {
-           _currentStep = _currentStep -1;
-       });
-        },
-      ),
-    ),
-    /////////////////
-    Step(
-      state: _currentStep <= 2 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 2,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+      ////////////////////////////
+      Step(
+        state: _currentStep <= 1 ? StepState.editing : StepState.complete,
+        isActive: _currentStep >= 1,
+        title: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: Text(
+            'Employment',
+            style:  formNameText.customTextStyle(context),
+          ),
         ),
-        child: Text(
-          'Education',
-          style:  formNameText.customTextStyle(context),
-        ),
-      ),
-      content: EducationScreen(context: context, employeeID: widget.employeeID,
-        onSave: (){
-          setState(() {
-            _currentStep = _currentStep +1 ;
-          });
-        },
-        onBack:(){
-          setState(() {
-            _currentStep = _currentStep -1;
-          });
-        },
-      ),
-    ),
-    //////////////////
-    Step(
-      state: _currentStep <= 3 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 3,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'References',
-          style:  formNameText.customTextStyle(context),
+        content: EmploymentScreen(context: context, employeeID: widget.employeeID,
+          onSave: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
+          onBack:(){
+            setState(() {
+              _currentStep = _currentStep -1;
+            });
+          },
         ),
       ),
-      content: ReferencesScreen(context: context, employeeID: widget.employeeID,
-        onSave: (){
-          setState(() {
-            _currentStep = _currentStep +1 ;
-          });
-        },
-        onBack:(){
-          setState(() {
-            _currentStep = _currentStep -1;
-          });
-        },
-      ),
-    ),
-   ///////////////////
-    Step(
-      state: _currentStep <= 4 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 4,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+      /////////////////
+      Step(
+        state: _currentStep <= 2 ? StepState.editing : StepState.complete,
+        isActive: _currentStep >= 2,
+        title: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: Text(
+            'Education',
+            style:  formNameText.customTextStyle(context),
+          ),
         ),
-        child: Text(
-          'Licenses',
-          style: formNameText.customTextStyle(context),
-        ),
-      ),
-      content: LicensesScreen(context: context, employeeID: widget.employeeID,
-        onSave: (){
-          setState(() {
-            _currentStep = _currentStep +1 ;
-          });
-        },
-        onBack:(){
-          setState(() {
-            _currentStep = _currentStep -1;
-          });
-        },
-      ),
-    ),
-    /////////////
-    Step(
-      state: _currentStep <= 5 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 5,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'Banking',
-          style:  formNameText.customTextStyle(context),
+        content: EducationScreen(context: context, employeeID: widget.employeeID,
+          onSave: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
+          onBack:(){
+            setState(() {
+              _currentStep = _currentStep -1;
+            });
+          },
         ),
       ),
-      content: BankingScreen(context: context, employeeID: widget.employeeID,
-        onSave: (){
-          setState(() {
-            _currentStep = _currentStep +1 ;
-          });
-        },
-        onBack:(){
-          setState(() {
-            _currentStep = _currentStep -1;
-          });
-        },
-      ),
-    ),
-    Step(
-      state: _currentStep <= 6 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 6,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+      //////////////////
+      Step(
+        state: _currentStep <= 3 ? StepState.editing : StepState.complete,
+        isActive: _currentStep >= 3,
+        title: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: Text(
+            'References',
+            style:  formNameText.customTextStyle(context),
+          ),
         ),
-        child: Text(
-          'Health \nRecords',
-          style: formNameText.customTextStyle(context),
-        ),
-      ),
-      content: HealthRecordsScreen(context: context, employeeID: widget.employeeID,
-        onSave: (){
-          setState(() {
-            _currentStep = _currentStep +1 ;
-          });
-        },
-        onBack:(){
-          setState(() {
-            _currentStep = _currentStep -1;
-          });
-        },
-      ),
-    ),
-    Step(
-      state: _currentStep <= 7 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 7,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'Acknowledgements',
-          style: formNameText.customTextStyle(context),
+        content: ReferencesScreen(context: context, employeeID: widget.employeeID,
+          onSave: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
+          onBack:(){
+            setState(() {
+              _currentStep = _currentStep -1;
+            });
+          },
         ),
       ),
-      content: AcknowledgementsScreen(context: context, employeeID: widget.employeeID,
-        onSave: (){
-          setState(() {
-            _currentStep = _currentStep +1 ;
-          });
-        },
-        onBack:(){
-          setState(() {
-            _currentStep = _currentStep -1;
-          });
-        },
-      ),
-    ),
-    Step(
-      state: _currentStep <= 8 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 8,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+      ///////////////////
+      Step(
+        state: _currentStep <= 4 ? StepState.editing : StepState.complete,
+        isActive: _currentStep >= 4,
+        title: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: Text(
+            'Licenses',
+            style: formNameText.customTextStyle(context),
+          ),
         ),
-        child: Text(
-          'Legal \nDocuments',
-          style:  formNameText.customTextStyle(context),
+        content: LicensesScreen(context: context, employeeID: widget.employeeID,
+          onSave: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
+          onBack:(){
+            setState(() {
+              _currentStep = _currentStep -1;
+            });
+          },
         ),
       ),
-      content: LegalDocumentsScreen(context: context, employeeID: widget.employeeID,
-        onSave: (){
-          setState(() {
-            Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou()));
-          });
-        },
-        onBack:(){
-          setState(() {
-            _currentStep = _currentStep -1;
-          });
-        },
+      /////////////
+      if (widget.depID == AppConfig.clinicalId)
+      Step(
+        state: _currentStep <= 5 ? StepState.editing : StepState.complete,
+        isActive: _currentStep >= 5,
+        title: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: Text(
+            'Clinical\nLicense',
+            style: formNameText.customTextStyle(context),
+          ),
+        ),
+        content: Clinical_licenses(context: context, employeeID: widget.employeeID,
+          onSave: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
+          onBack:(){
+            setState(() {
+              _currentStep = _currentStep -1;
+            });
+          },
+        ),
       ),
-    ),
-  ];
+
+      ///////////
+      Step(
+        state: _currentStep <= 6 ? StepState.editing : StepState.complete,
+        isActive: _currentStep >= 6,
+        title: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: Text(
+            'Banking',
+            style:  formNameText.customTextStyle(context),
+          ),
+        ),
+        content: BankingScreen(context: context, employeeID: widget.employeeID,
+          onSave: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
+          onBack:(){
+            setState(() {
+              _currentStep = _currentStep -1;
+            });
+          },
+        ),
+      ),
+      Step(
+        state: _currentStep <= 7 ? StepState.editing : StepState.complete,
+        isActive: _currentStep >= 7,
+        title: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: Text(
+            'Health \nRecords',
+            style: formNameText.customTextStyle(context),
+          ),
+        ),
+        content: HealthRecordsScreen(context: context, employeeID: widget.employeeID,
+          onSave: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
+          onBack:(){
+            setState(() {
+              _currentStep = _currentStep -1;
+            });
+          },
+        ),
+      ),
+      Step(
+        state: _currentStep <= 8 ? StepState.editing : StepState.complete,
+        isActive: _currentStep >= 8,
+        title: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: Text(
+            'Acknowledgements',
+            style: formNameText.customTextStyle(context),
+          ),
+        ),
+        content: AcknowledgementsScreen(context: context, employeeID: widget.employeeID,
+          onSave: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
+          onBack:(){
+            setState(() {
+              _currentStep = _currentStep -1;
+            });
+          },
+        ),
+      ),
+      Step(
+        state: _currentStep <= 9 ? StepState.editing : StepState.complete,
+        isActive: _currentStep >= 9,
+        title: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: Text(
+            'Legal \nDocuments',
+            style:  formNameText.customTextStyle(context),
+          ),
+        ),
+        content: LegalDocumentsScreen(context: context, employeeID: widget.employeeID,
+          onSave: (){
+            setState(() {
+              Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou()));
+            });
+          },
+          onBack:(){
+            setState(() {
+              _currentStep = _currentStep -1;
+            });
+          },
+        ),
+      ),
+    ];
+    return stepsList;
+  }
 }
 

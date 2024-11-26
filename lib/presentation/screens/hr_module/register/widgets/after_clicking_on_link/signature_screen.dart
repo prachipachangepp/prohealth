@@ -25,7 +25,8 @@ typedef ImageCallback = void Function(Uint8List? image);
 class SignaturePage extends StatefulWidget {
   final Function(Uint8List?) onSignatureSelected;
   final int employeeId;
-  SignaturePage({required this.onSignatureSelected, required this.employeeId});
+  final int depID;
+  SignaturePage({required this.onSignatureSelected, required this.employeeId, required this.depID});
 
   @override
   _SignaturePageState createState() => _SignaturePageState();
@@ -377,7 +378,7 @@ class _SignaturePageState extends State<SignaturePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => OfferLetterDescriptionScreen(
-                            signatureBytes: _selectedImageBytes, employeeId: widget.employeeId,
+                            signatureBytes: _selectedImageBytes, employeeId: widget.employeeId, depID: widget.depID,
                           ),
                         ),
                       );

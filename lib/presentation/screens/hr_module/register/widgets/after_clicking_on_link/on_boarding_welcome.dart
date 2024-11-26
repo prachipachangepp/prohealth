@@ -168,9 +168,10 @@ class CustomTextField extends StatelessWidget {
 
 class OnBoardingCongratulation extends StatelessWidget {
   final int employeeId;
+  final int depID;
   const OnBoardingCongratulation({
     super.key,
-    required this.employeeId,
+    required this.employeeId, required this.depID,
   });
   @override
   Widget build(BuildContext context) {
@@ -267,7 +268,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MultiStepForm(
-                                    employeeID: employeeId,
+                                    employeeID: employeeId, depID: depID,
                                   )),
                         );
                       } else if (offerLetterData.statusCode == 200 ||
@@ -277,7 +278,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) =>
                                     OfferLetterDescriptionScreen(
-                                        employeeId: employeeId)));
+                                        employeeId: employeeId, depID: depID,)));
                       } else {
                         print("Something went wrong!");
                       }

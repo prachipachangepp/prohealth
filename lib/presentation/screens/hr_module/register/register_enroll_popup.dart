@@ -278,10 +278,10 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     ),
                     IconButton(
                       onPressed: () {
-                     Navigator.pop(context);
+                    Navigator.pop(context);
                      //    Navigator.push(
                      //      context,
-                     //      MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
+                     //      MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId, depID: 1,)),
                      //    );
 
                       },
