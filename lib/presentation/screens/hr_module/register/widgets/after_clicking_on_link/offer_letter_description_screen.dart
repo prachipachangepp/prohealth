@@ -23,8 +23,9 @@ import 'multi_step_form.dart';
 class OfferLetterDescriptionScreen extends StatefulWidget {
   final dynamic signatureBytes;
   final int employeeId;
+  final int depID;
 
-  OfferLetterDescriptionScreen({this.signatureBytes, required this.employeeId});
+  OfferLetterDescriptionScreen({this.signatureBytes, required this.employeeId, required this.depID});
 
   @override
   State<OfferLetterDescriptionScreen> createState() =>
@@ -202,7 +203,7 @@ class _OfferLetterDescriptionScreenState
                                   signatureBytes = selectedSignature;
                                 });
                               },
-                              employeeId: widget.employeeId,
+                              employeeId: widget.employeeId, depID: widget.depID,
                             ),
                           ),
                         );
@@ -287,7 +288,7 @@ class _OfferLetterDescriptionScreenState
                                                   builder: (context) =>
                                                       MultiStepForm(
                                                           employeeID: widget
-                                                              .employeeId),
+                                                              .employeeId, depID: widget.depID,),
                                                 ),
                                               );
                                             },
@@ -312,7 +313,7 @@ class _OfferLetterDescriptionScreenState
                                                   builder: (context) =>
                                                       MultiStepForm(
                                                           employeeID: widget
-                                                              .employeeId),
+                                                              .employeeId, depID: widget.depID,),
                                                 ),
                                               );
                                             },

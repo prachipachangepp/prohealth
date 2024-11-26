@@ -192,7 +192,7 @@ class ProfileBarLastColText {
     return TextStyle(
       fontSize: FontSize.s12,
       color: ColorManager.bluelight,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     );
   }
 }

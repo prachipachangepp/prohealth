@@ -203,10 +203,12 @@ class AuthManager {
         int companyID = response.data['user']['company_id'];
         String emailId = response.data['user']['email'];
         int userId = response.data['user']['userId'];
+        int departmentId = response.data['user']['departmentId'];
 
-        TokenManager.setAccessRegisterToken(token: accessToken, username: userName, companyId: companyID, emailId: emailId, userID: userId);
+        TokenManager.setAccessRegisterToken(token: accessToken, username: userName, companyId: companyID, emailId: emailId, userID: userId, depID: departmentId);
         // Navigator.pushNamed(context, HomeScreen.routeName);
 
+print("dep id ;;;;${ departmentId}");
         return ApiDataRegister(
             statusCode: response.statusCode!,
             success: true,

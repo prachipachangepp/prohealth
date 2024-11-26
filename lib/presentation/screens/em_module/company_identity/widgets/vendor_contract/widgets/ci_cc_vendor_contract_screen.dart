@@ -143,164 +143,180 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
              Expanded(
-                 flex: 1,
+                 flex: 2,
                  child: Container()),
               Expanded(
-                flex: 6,
-                child: Container(
-                  // color: Colors.greenAccent,
-                  padding: EdgeInsets.only(top: AppPadding.p6),
-                  width: MediaQuery.of(context).size.width / 1.7,
-                  height: AppSize.s60,
+                flex: 5,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InkWell(
-                        child: Container(
-                          height: AppSize.s56,
-                          width: MediaQuery.of(context).size.width / 12,
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                _selectedIndex == 0 ? Colors.transparent : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                  AppStringEM.leases,
-                                   textAlign: TextAlign.center,
-                                  style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
-                              ),
-                              _selectedIndex == 0
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
-                          ),
-                        ),
-                        onTap: () => _selectButton(0),
-                      ),
-                      InkWell(
-                        child: Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width / 12,
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                _selectedIndex == 1 ? Colors.transparent : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                    AppStringEM.snf,
-                    textAlign: TextAlign.center,
-                    style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
-
-                              ),
-                              _selectedIndex == 1
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
-                          ),
-                        ),
-                        onTap: () => _selectButton(1),
-                      ),
-                      InkWell(
-                        child: Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width / 12,
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                _selectedIndex == 2 ? Colors.transparent : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                  AppStringEM.dme,
-                                   textAlign: TextAlign.center,
-                                  style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
-                              ),
-                              _selectedIndex == 2
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
-                          ),
-                        ),
-                        onTap: () => _selectButton(2),
-                      ),
-                      InkWell(
-                        child: Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width / 12,
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                _selectedIndex == 3 ? Colors.transparent : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                    AppStringEM.md,
-                    textAlign: TextAlign.center,
-                    style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
-
-                              ),
-                              _selectedIndex == 3
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
-                          ),
-                        ),
-                        onTap: () => _selectButton(3),
-                      ),
-                      InkWell(
-                        child: Container(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width / 12,
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color:
-                                _selectedIndex == 4 ? Colors.transparent : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                  AppStringEM.misc,
-                                  // textAlign: TextAlign.center,
-                                  style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
-                              ),
-                              _selectedIndex == 4
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
-                          ),
-                        ),
-                        onTap: () => _selectButton(4),
-                      ),
+                      EMTabbar(onTap: (int index){
+                        _selectButton(0);
+                      }, index: 0, grpIndex: _selectedIndex, heading: AppStringEM.leases),
+                      EMTabbar(onTap: (int index){
+                        _selectButton(1);
+                      }, index: 1, grpIndex: _selectedIndex, heading: AppStringEM.snf),
+                      EMTabbar(onTap: (int index){
+                        _selectButton(2);
+                      }, index: 2, grpIndex: _selectedIndex, heading: AppStringEM.dme),
+                      EMTabbar(onTap: (int index){
+                        _selectButton(3);
+                      }, index: 3, grpIndex: _selectedIndex, heading: AppStringEM.md),
+                      EMTabbar(onTap: (int index){
+                        _selectButton(4);
+                      }, index: 4, grpIndex: _selectedIndex, heading: AppStringEM.misc),
+                    //   InkWell(
+                    //     child: Container(
+                    //       height: AppSize.s56,
+                    //       width: MediaQuery.of(context).size.width / 12,
+                    //       padding: EdgeInsets.symmetric(vertical: 6),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color:
+                    //             _selectedIndex == 0 ? Colors.transparent : null,
+                    //       ),
+                    //       child: Column(
+                    //         children: [
+                    //           Text(
+                    //               AppStringEM.leases,
+                    //                textAlign: TextAlign.center,
+                    //               style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
+                    //           ),
+                    //           _selectedIndex == 0
+                    //               ? Divider(
+                    //                   color: ColorManager.blueprime,
+                    //                   thickness: 2,
+                    //                 )
+                    //               : Offstage()
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     onTap: () => _selectButton(0),
+                    //   ),
+                    //   InkWell(
+                    //     child: Container(
+                    //       height: 50,
+                    //       width: MediaQuery.of(context).size.width / 12,
+                    //       padding: EdgeInsets.symmetric(vertical: 6),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color:
+                    //             _selectedIndex == 1 ? Colors.transparent : null,
+                    //       ),
+                    //       child: Column(
+                    //         children: [
+                    //           Text(
+                    // AppStringEM.snf,
+                    // textAlign: TextAlign.center,
+                    // style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
+                    //
+                    //           ),
+                    //           _selectedIndex == 1
+                    //               ? Divider(
+                    //                   color: ColorManager.blueprime,
+                    //                   thickness: 2,
+                    //                 )
+                    //               : Offstage()
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     onTap: () => _selectButton(1),
+                    //   ),
+                    //   InkWell(
+                    //     child: Container(
+                    //       height: 50,
+                    //       width: MediaQuery.of(context).size.width / 12,
+                    //       padding: EdgeInsets.symmetric(vertical: 6),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color:
+                    //             _selectedIndex == 2 ? Colors.transparent : null,
+                    //       ),
+                    //       child: Column(
+                    //         children: [
+                    //           Text(
+                    //               AppStringEM.dme,
+                    //                textAlign: TextAlign.center,
+                    //               style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
+                    //           ),
+                    //           _selectedIndex == 2
+                    //               ? Divider(
+                    //                   color: ColorManager.blueprime,
+                    //                   thickness: 2,
+                    //                 )
+                    //               : Offstage()
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     onTap: () => _selectButton(2),
+                    //   ),
+                    //   InkWell(
+                    //     child: Container(
+                    //       height: 50,
+                    //       width: MediaQuery.of(context).size.width / 12,
+                    //       padding: EdgeInsets.symmetric(vertical: 6),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color:
+                    //             _selectedIndex == 3 ? Colors.transparent : null,
+                    //       ),
+                    //       child: Column(
+                    //         children: [
+                    //           Text(
+                    // AppStringEM.md,
+                    // textAlign: TextAlign.center,
+                    // style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
+                    //
+                    //           ),
+                    //           _selectedIndex == 3
+                    //               ? Divider(
+                    //                   color: ColorManager.blueprime,
+                    //                   thickness: 2,
+                    //                 )
+                    //               : Offstage()
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     onTap: () => _selectButton(3),
+                    //   ),
+                    //   InkWell(
+                    //     child: Container(
+                    //       height: 50,
+                    //       width: MediaQuery.of(context).size.width / 12,
+                    //       padding: EdgeInsets.symmetric(vertical: 6),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         color:
+                    //             _selectedIndex == 4 ? Colors.transparent : null,
+                    //       ),
+                    //       child: Column(
+                    //         children: [
+                    //           Text(
+                    //               AppStringEM.misc,
+                    //               // textAlign: TextAlign.center,
+                    //               style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
+                    //           ),
+                    //           _selectedIndex == 4
+                    //               ? Divider(
+                    //                   color: ColorManager.blueprime,
+                    //                   thickness: 2,
+                    //                 )
+                    //               : Offstage()
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     onTap: () => _selectButton(4),
+                    //   ),
                     ],
                   ),
                 ),
               ),
+              Expanded(
+                  flex: 1,
+                  child: Container()),
               CustomIconButton(
                   icon: CupertinoIcons.plus,
                   text: "Add Document",
@@ -351,7 +367,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 50),
+                horizontal: MediaQuery.of(context).size.width / 60),
             child: NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {
@@ -396,6 +412,77 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
           ),
         )
       ],
+    );
+  }
+}
+
+///
+///
+///
+typedef void OnManuButtonTapCallBack(int index);
+
+class EMTabbar extends StatelessWidget {
+  const EMTabbar({
+    super.key,
+    required this.onTap,
+    required this.index,
+    required this.grpIndex,
+    required this.heading,
+  });
+
+  final OnManuButtonTapCallBack onTap;
+  final int index;
+  final int grpIndex;
+  final String heading;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppClickableWidget(
+      onTap: () {
+        onTap(index);
+      },
+      onHover: (bool val) {},
+      child: Column(
+        children: [
+          Text(
+            heading,
+            style: TextStyle(
+              fontSize: FontSize.s14,
+              fontWeight: grpIndex == index
+                  ? FontWeight.w700
+                  : FontWeight.w500,
+              color: grpIndex == index
+                  ? ColorManager.blueprime
+                  : ColorManager.mediumgrey,
+            ),
+          ),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final textPainter = TextPainter(
+                text: TextSpan(
+                  text: heading,
+                  style: TextStyle(
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                textDirection: TextDirection.ltr,
+              )..layout();
+
+              final textWidth = textPainter.size.width;
+
+              return Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                height: 2,
+                width: textWidth + 20, // Adjust padding around text
+                color: grpIndex == index
+                    ? ColorManager.blueprime
+                    : Colors.transparent,
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
