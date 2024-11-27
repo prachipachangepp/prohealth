@@ -31,6 +31,7 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
+import '../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../scheduler_model/textfield_dropdown_constant/schedular_textfield_const.dart';
@@ -783,14 +784,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                             });
                                                                             try {
                                                                               await deletePayRatesId(context, finance.payratesId);
+                                                                              Navigator.pop(context);
+                                                                              showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                             } finally {
                                                                               setState(() {
                                                                                 _isLoading = false;
                                                                               });
-                                                                              // companyPayratesGet(context).then((data) {
-                                                                              //   _payRatesController.add(data);
-                                                                              // }).catchError((error) {});
-                                                                              Navigator.pop(context);
                                                                             }
                                                                           });
                                                                     },

@@ -19,6 +19,7 @@ import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.
 
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../widgets/button_constant.dart';
 import 'checkbox_constant.dart';
 
@@ -353,96 +354,94 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                                           },
                                                                         );
 
-                                                                      }),
-                                                                  title:
-                                                                  'Edit Service',
-                                                                );
-                                                              }
-                                                          );
-                                                        });
-                                                  },
-                                                  icon: Icon(
-                                                      Icons
-                                                          .mode_edit_outline_outlined,
-                                                      size: 20,
-                                                      color: Colors.white),
-                                                ),
-                                                // SizedBox(width:2),
-                                                IconButton(
-                                                  splashColor:
-                                                  Colors.transparent,
-                                                  hoverColor:
-                                                  Colors.transparent,
-                                                  highlightColor:
-                                                  Colors.transparent,
-                                                  onPressed: () async {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          StatefulBuilder(
-                                                            builder: (BuildContext context, void Function(void Function()) setState) {
-                                                              return DeletePopup(
-                                                                  title: DeletePopupString.deleteholiday,
-                                                                  loadingDuration: _isLoading,
-                                                                  onCancel: () {
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  }, onDelete:
-                                                                  () async {
-                                                                setState(() {
-                                                                  _isLoading = true;
-                                                                });
-                                                                try {
-                                                                  await deleteService(
-                                                                      serviceDetail.officeServiceId);
-                                                                  //companyDetailGetAll(context, widget.officeId);
-                                                                } finally {
-                                                                  setState(() {
-                                                                    _isLoading = false;
-                                                                  });
-                                                                  Navigator.pop(context);
+                                                                        }),
+                                                                    title:
+                                                                    'Edit Service',
+                                                                  );
                                                                 }
-                                                              });
-                                                            },
-                                                          ),
-                                                    );
-                                                    // showDialog(
-                                                    //     context: context,
-                                                    //     builder: (context) =>
-                                                    //         DeletePopup(
-                                                    //             title:
-                                                    //                 'Delete Service',
-                                                    //             onCancel:
-                                                    //                 () {
-                                                    //               Navigator.pop(
-                                                    //                   context);
-                                                    //             },
-                                                    //             onDelete:
-                                                    //                 () async {
-                                                    //               await deleteService(
-                                                    //                   serviceDetail.officeServiceId);
-                                                    //               //companyDetailGetAll(context, widget.officeId);
-                                                    //               Navigator.pop(
-                                                    //                   context);
-                                                    //             }));
-                                                  },
-                                                  icon: Icon(
-                                                      Icons
-                                                          .delete_outline_outlined,
-                                                      size: 20,
-                                                      color:
-                                                      Colors.white),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        );
-                                      },
+                                                            );
+                                                          });
+                                                    },
+                                                    icon: Icon(
+                                                        Icons
+                                                            .mode_edit_outline_outlined,
+                                                        size: 20,
+                                                        color: Colors.white),
+                                                  ),
+                                                  // SizedBox(width:2),
+                                                  IconButton(
+                                                    splashColor:
+                                                    Colors.transparent,
+                                                    hoverColor:
+                                                    Colors.transparent,
+                                                    highlightColor:
+                                                    Colors.transparent,
+                                                    onPressed: () async {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            StatefulBuilder(
+                                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                return DeletePopup(
+                                                                    title: DeletePopupString.deleteholiday,
+                                                                    loadingDuration: _isLoading,
+                                                                    onCancel: () {
+                                                                      Navigator.pop(context);
+                                                                    }, onDelete:
+                                                                    () async {
+                                                                  setState(() {
+                                                                    _isLoading = true;
+                                                                  });
+                                                                  try {
+                                                                    await deleteService(serviceDetail.officeServiceId);
+                                                                    Navigator.pop(context);
+                                                                    showDialog(context: context, builder: (context) => DeleteSuccessPopup());
+                                                                  } finally {
+                                                                    setState(() {
+                                                                      _isLoading = false;
+                                                                    });
+                                                                  }
+                                                                });
+                                                              },
+                                                            ),
+                                                      );
+                                                      // showDialog(
+                                                      //     context: context,
+                                                      //     builder: (context) =>
+                                                      //         DeletePopup(
+                                                      //             title:
+                                                      //                 'Delete Service',
+                                                      //             onCancel:
+                                                      //                 () {
+                                                      //               Navigator.pop(
+                                                      //                   context);
+                                                      //             },
+                                                      //             onDelete:
+                                                      //                 () async {
+                                                      //               await deleteService(
+                                                      //                   serviceDetail.officeServiceId);
+                                                      //               //companyDetailGetAll(context, widget.officeId);
+                                                      //               Navigator.pop(
+                                                      //                   context);
+                                                      //             }));
+                                                    },
+                                                    icon: Icon(
+                                                        Icons
+                                                            .delete_outline_outlined,
+                                                        size: 20,
+                                                        color:
+                                                        Colors.white),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          );
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
 
                                   /// HCO number
                                   Padding(
