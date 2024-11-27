@@ -17,6 +17,7 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../widgets/error_popups/failed_popup.dart';
 import '../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -235,20 +236,13 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                         _isLoading = true;
                                                                       });
                                                                       try {
-                                                                        await deleteVendor(
-                                                                            context, vendorData.insuranceVendorId!);
-                                                                          companyVendorGet(context,widget.officeId,1,30).then((data) {
-                                                                            _companyVendor.add(data);
-                                                                          }).catchError((error) {
-                                                                            // Handle error
-                                                                          });
-                                                  
-                                                  
+                                                                        await deleteVendor(context, vendorData.insuranceVendorId!);
+                                                                        Navigator.pop(context);
+                                                                        showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                       } finally {
                                                                         setState(() {
                                                                           _isLoading = false;
                                                                         });
-                                                                        Navigator.pop(context);
                                                                       }
                                                                     });
                                                                   },

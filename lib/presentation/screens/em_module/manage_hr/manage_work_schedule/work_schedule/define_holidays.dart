@@ -18,6 +18,7 @@ import '../../../../../../app/resources/common_resources/common_theme_const.dart
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../data/api_data/establishment_data/work_schedule/work_week_data.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'widgets/add_holiday_popup_const.dart';
 
@@ -86,47 +87,49 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                   calenderController.clear();
               showDialog(context: context, builder: (BuildContext context){
                 return AddHolidayPopup(
-                  buttonWidth:  AppSize.s110,
-                  btnTitle: "Add holiday",
-                  title: AddPopupString.addNewHoliday,
-                  controller: holidayNameController,
-                  onPressed: () async{
-                  var response = await addHolidaysPost(context,
-                      holidayNameController.text, calenderController.text, 2024,);
-
-                  if(response.statusCode == 200 || response.statusCode == 201){
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(
-                          message: 'Holiday Added Successfully',
-                        );
-                      },
-                    );
-                  }
-                 else if(response.statusCode == 400 || response.statusCode == 404){
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => const FourNotFourPopup(),
-                    );
-                  }
-                  else {
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => FailedPopup(text: response.message),
-                    );
-                  }
-                  holidaysListGet(context).then((data) {
-                    _controller.add(data);
-                  }).catchError((error) {
-                    // Handle error
-                  });
-                }, calenderDateController: calenderController,);
+                //   buttonWidth:  AppSize.s110,
+                //   btnTitle: "Add holiday",
+                //   title: AddPopupString.addNewHoliday,
+                //   controller: holidayNameController,
+                //   onPressed: () async{
+                //   var response = await addHolidaysPost(context,
+                //       holidayNameController.text, calenderController.text, 2024,);
+                //
+                //   if(response.statusCode == 200 || response.statusCode == 201){
+                //     Navigator.pop(context);
+                //     showDialog(
+                //       context: context,
+                //       builder: (BuildContext context) {
+                //         return AddSuccessPopup(
+                //           message: 'Holiday Added Successfully',
+                //         );
+                //       },
+                //     );
+                //   }
+                //  else if(response.statusCode == 400 || response.statusCode == 404){
+                //     Navigator.pop(context);
+                //     showDialog(
+                //       context: context,
+                //       builder: (BuildContext context) => const FourNotFourPopup(),
+                //     );
+                //   }
+                //   else {
+                //     Navigator.pop(context);
+                //     showDialog(
+                //       context: context,
+                //       builder: (BuildContext context) => FailedPopup(text: response.message),
+                //     );
+                //   }
+                //   holidaysListGet(context).then((data) {
+                //     _controller.add(data);
+                //   }).catchError((error) {
+                //     // Handle error
+                //   });
+                // }, calenderDateController: calenderController,
+                );
               });
-            }),
+            }
+            ),
           ),
           SizedBox(
             height: 20,
@@ -188,8 +191,14 @@ class _DefineHolidaysState extends State<DefineHolidays> {
           ),
           Expanded(
             child: StreamBuilder<List<DefineHolidayData>>(
+
               stream: _controller.stream,
               builder: (context, snapshot) {
+                holidaysListGet(context).then((data) {
+                  _controller.add(data);
+                }).catchError((error) {
+                  // Handle error
+                });
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(
@@ -284,6 +293,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                 ),
                                               ),
                                               //  Text(''),
+                                              ///edit
                                               Expanded(
                                                 flex: flexVal,
                                                 child: Row(
@@ -304,58 +314,44 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                     if(snapshotPrefill.connectionState == ConnectionState.waiting){
                                                                       return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
                                                                     }
-                                                                    var holidayName = snapshotPrefill.data?.holidayName.toString();
-                                                                    var date = snapshotPrefill.data?.date;
                                                                     holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
                                                                     calenderController = TextEditingController(text: snapshotPrefill.data?.date);
-                                                                    return AddHolidayPopup(
-                                                                      buttonWidth:  AppSize.s130,
-                                                                      btnTitle: "Save Changes",
-                                                                      title: EditPopupString.editholiday,
-                                                                      controller:
-                                                                          holidayNameController,
-                                                                      calenderDateController:
-                                                                      calenderController,
-                                                                      onPressed: ()  async{
-                                                                        var response = await updateHolidays(context, defineData.holidayId,
-                                                                            holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
-                                                                            date == calenderController.text ? date! : calenderController.text, 2024,);
-                                                                        if(response.statusCode == 200 || response.statusCode == 201){
-                                                                          Navigator.pop(context);
-                                                                          showDialog(
-                                                                            context: context,
-                                                                            builder: (BuildContext context) {
-                                                                              return AddSuccessPopup(
-                                                                                message: 'Holiday Edited Successfully',
-                                                                              );
-                                                                            },
-                                                                          );
-                                                                        }else if(response.statusCode == 400 || response.statusCode == 404){
-                                                                          Navigator.pop(context);
-                                                                          showDialog(
-                                                                            context: context,
-                                                                            builder: (BuildContext context) => const FourNotFourPopup(),
-                                                                          );
-                                                                        }
-                                                                        else {
-                                                                          Navigator.pop(context);
-                                                                          showDialog(
-                                                                            context: context,
-                                                                            builder: (BuildContext context) => FailedPopup(text: response.message),
-                                                                          );
-                                                                        }
-                                                                        holidaysListGet(
-                                                                            context)
-                                                                            .then((data) {
-                                                                          _controller
-                                                                              .add(data);
-                                                                        }).catchError(
-                                                                                (error) {
-                                                                              // Handle error
-                                                                            });
-                                                                        holidayNameController.clear();
-                                                                        calenderController.clear();
-                                                                      },
+                                                                    return EditHolidayPopup(
+                                                                      holidayId: defineData.holidayId,
+                                                                      controller: holidayNameController,
+                                                                      calenderDateController: calenderController,
+                                                                      // onPressed: ()  async{
+                                                                      //   var response = await updateHolidays(context, defineData.holidayId,
+                                                                      //       holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
+                                                                      //       date == calenderController.text ? date! : calenderController.text, 2024,);
+                                                                      //   if(response.statusCode == 200 || response.statusCode == 201){
+                                                                      //     Navigator.pop(context);
+                                                                      //     showDialog(
+                                                                      //       context: context,
+                                                                      //       builder: (BuildContext context) {
+                                                                      //         return AddSuccessPopup(
+                                                                      //           message: 'Holiday Edited Successfully',
+                                                                      //         );
+                                                                      //       },
+                                                                      //     );
+                                                                      //   }
+                                                                      //   else if(response.statusCode == 400 || response.statusCode == 404){
+                                                                      //     Navigator.pop(context);
+                                                                      //     showDialog(
+                                                                      //       context: context,
+                                                                      //       builder: (BuildContext context) => const FourNotFourPopup(),
+                                                                      //     );
+                                                                      //   }
+                                                                      //   else {
+                                                                      //     Navigator.pop(context);
+                                                                      //     showDialog(
+                                                                      //       context: context,
+                                                                      //       builder: (BuildContext context) => FailedPopup(text: response.message),
+                                                                      //     );
+                                                                      //   }
+                                                                      //   holidayNameController.clear();
+                                                                      //   calenderController.clear();
+                                                                      // },
 
                                                                     );
                                                                   }
@@ -382,30 +378,19 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                                loadingDuration: _isLoading,
                                                                                onCancel: () {
                                                                                  Navigator.pop(context);
-                                                                               }, onDelete:
-                                                                               () async {
+                                                                               },
+                                                                               onDelete: () async {
                                                                              setState(() {
                                                                                _isLoading = true;
                                                                              });
                                                                              try {
-                                                                               await deleteHolidays(
-                                                                                   context,
-                                                                                   defineData.holidayId);
-                                                                               holidaysListGet(
-                                                                                   context)
-                                                                                   .then((data) {
-                                                                                 _controller
-                                                                                     .add(data);
-                                                                               }).catchError(
-                                                                                       (error) {
-                                                                                     // Handle error
-                                                                                   });
-
+                                                                               await deleteHolidays(context, defineData.holidayId);
+                                                                               Navigator.pop(context);
+                                                                               showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                              } finally {
                                                                                setState(() {
                                                                                  _isLoading = false;
                                                                                });
-                                                                               Navigator.pop(context);
                                                                              }
                                                                            });
                                                                          },

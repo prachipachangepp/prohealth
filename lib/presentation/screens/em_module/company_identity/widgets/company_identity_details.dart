@@ -19,6 +19,7 @@ import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.
 
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../widgets/button_constant.dart';
 import 'checkbox_constant.dart';
 
@@ -385,22 +386,20 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                                     title: DeletePopupString.deleteholiday,
                                                                     loadingDuration: _isLoading,
                                                                     onCancel: () {
-                                                                      Navigator.pop(
-                                                                          context);
+                                                                      Navigator.pop(context);
                                                                     }, onDelete:
                                                                     () async {
                                                                   setState(() {
                                                                     _isLoading = true;
                                                                   });
                                                                   try {
-                                                                    await deleteService(
-                                                                        serviceDetail.officeServiceId);
-                                                                    //companyDetailGetAll(context, widget.officeId);
+                                                                    await deleteService(serviceDetail.officeServiceId);
+                                                                    Navigator.pop(context);
+                                                                    showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                   } finally {
                                                                     setState(() {
                                                                       _isLoading = false;
                                                                     });
-                                                                    Navigator.pop(context);
                                                                   }
                                                                 });
                                                               },

@@ -17,6 +17,7 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
+import '../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../widgets/establishment_text_const/text_widget_const.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -567,24 +568,19 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                 setState(() {
                                                                   _isLoading = true;
                                                                 });
-                                                                try {
-                                                                  await deleteUser(
-                                                                      context,
-                                                                      user.userId);
-                                                                  getUser(context)
-                                                                      .then((data) {
-                                                                    _companyUsersList
-                                                                        .add(data);
-                                                                  }).catchError(
-                                                                          (error) {
+                                                                try {await deleteUser(context, user.userId);
+                                                                  getUser(context).then((data) {
+                                                                    _companyUsersList.add(data);
+                                                                  }).catchError((error) {
                                                                         // Handle error
-                                                                      });
+                                                                  });
+                                                                Navigator.pop(context);
+                                                                showDialog(context: context, builder: (context) => DeleteSuccessPopup());
 
                                                                 } finally {
                                                                   setState(() {
                                                                     _isLoading = false;
                                                                   });
-                                                                  Navigator.pop(context);
                                                                 }
                                                               });
                                                             },

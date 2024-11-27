@@ -22,6 +22,7 @@ import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.
 
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 
 class DefineWorkWeek extends StatefulWidget {
   const DefineWorkWeek({super.key});
@@ -520,19 +521,18 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                           });
                                                                                                           try {
                                                                                                             await deleteWorkWeekSiftSchedule(context: context, workWeekShiftId: snapshotShift.data![index].weekShiftScheduleId!);
-
                                                                                                               workWeekShiftScheduleGet(context, data.weekDays);
-
                                                                                                             workWeekScheduleGet(context).then((data) {
                                                                                                               workWeekController.add(data);
                                                                                                             }).catchError((error) {
                                                                                                               // Handle error
                                                                                                             });
+                                                                                                            Navigator.pop(context);
+                                                                                                            showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                                                           } finally {
                                                                                                             setState(() {
                                                                                                               _isLoading = false;
                                                                                                             });
-                                                                                                            Navigator.pop(context);
                                                                                                           }
                                                                                                         });
                                                                                                   },
