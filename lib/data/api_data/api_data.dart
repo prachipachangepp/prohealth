@@ -158,13 +158,17 @@ class ApiDataRegister {
   final int? educationId;
   final int? legalDocumentId;
   final int? employeeMentId;
+  final int? practitionerLicenceId;
+  final int? drivingLicenceId;
 
-  ApiDataRegister({
+  ApiDataRegister( {
     this.employeeMentId,
     this.educationId,
     this.legalDocumentId,
     this.banckingId,
     this.licenses,
+    this.practitionerLicenceId,
+    this.drivingLicenceId,
     required this.success,
     required this.statusCode,
     required this.message,

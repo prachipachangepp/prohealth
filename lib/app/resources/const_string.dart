@@ -303,6 +303,10 @@ class AppString {
 
   /// Api 404 Error
   static const String dataNotFound = "No Data!";
+
+  /// Clinical License
+  static const String noDrivingLicense = "Please upload driving license";
+  static const String noPractitionerLicense = "Please upload practioner license";
 }
 
 ///mobile screen constant
@@ -383,6 +387,8 @@ class AppStringLegalDocument {
 
   static const String popupMsgHead = "Kindly fill these following fields.";
   static const String ZonesMsgHead = "Kindly add county,zone and zipcodes.";
+
+
 
 
 }

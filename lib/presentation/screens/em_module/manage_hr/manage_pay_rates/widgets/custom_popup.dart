@@ -75,7 +75,7 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
     return DialogueTemplate(
 
         width: AppSize.s400,
-        height: AppSize.s450,
+        height: AppSize.s460,
         title: widget.title,
 
           body: [
@@ -151,6 +151,7 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                                     docAddVisitTypeId = a.visitType;
                                     print('empId ${a.visitId}');
                                   }
+
                                 }
                               },
                               items: dropDownZoneList,
@@ -339,11 +340,13 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
   // Error messages
   String? payRatesError;
   String? perMilesError;
+  String? perateError;
 
   void _validateAndSubmit() {
     setState(() {
-      payRatesError = widget.payRatesController.text.isEmpty ? 'Please enter a rate' : null;
+      payRatesError = widget.fixPayRatesController.text.isEmpty ? 'Please enter a fixed rate' : null;
       perMilesError = widget.perMilesController.text.isEmpty ? 'Please enter a per mile rate' : null;
+      perateError = widget.perMilesController.text.isEmpty ? 'Please enter a payrate' : null;
     });
 
     if (payRatesError == null && perMilesError == null) {
@@ -353,9 +356,10 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
           isLoading = false;
         });
         Navigator.pop(context);
-        widget.payRatesController.clear();
         widget.perMilesController.clear();
         widget.fixPayRatesController.clear();
+        widget.payRatesController.clear();
+
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -376,7 +380,7 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
     return DialogueTemplate(
 
         width: AppSize.s400,
-        height: AppSize.s450,
+        height: AppSize.s460,
         title: widget.title,
 
           body: [
@@ -406,9 +410,14 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
                         keyboardType: TextInputType.number,
                         text: 'Payrates',
                       ),
-                      SizedBox(height: 20,),
+                      if (perateError != null)
+                        Text(
+                          perateError!,
+                          style: TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      SizedBox(height: 17,),
                       Text("Out of Zone", style:  DefineWorkWeekStyle.customTextStyle(context),),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 17,),
                       //////////////
 
 
@@ -416,6 +425,7 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SMTextFConst(
                                 width: 150,
@@ -425,18 +435,16 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
                                 text: 'Fixed Rate',
                               ),
                               if (payRatesError != null)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 5,right: 35),
-                                  child: Text(
-                                    payRatesError!,
-                                    style: TextStyle(color: Colors.red, fontSize: 12),
-                                  ),
+                                Text(
+                                  payRatesError!,
+                                  style: TextStyle(color: Colors.red, fontSize: 12),
                                 ),
                             ],
                           ),
 
                           SizedBox(height: 20,),
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SMTextFConst(
                                 width: 150,
@@ -446,12 +454,9 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
                                 text: 'Per Mile',
                               ),
                               if (perMilesError != null)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: Text(
-                                    perMilesError!,
-                                    style: TextStyle(color: Colors.red, fontSize: 12),
-                                  ),
+                                Text(
+                                  perMilesError!,
+                                  style: TextStyle(color: Colors.red, fontSize: 12),
                                 ),
                             ],
                           ),

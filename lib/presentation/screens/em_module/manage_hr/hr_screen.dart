@@ -21,6 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import '../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../company_identity/widgets/whitelabelling/success_popup.dart';
@@ -811,12 +812,12 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                             (data) {_hrAllcontroller.add(data);
                                                                         }).catchError((error) {
                                                                     });
-
+                                                                    Navigator.pop(context);
+                                                                    showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                   } finally {
                                                                     setState(() {
                                                                       _isLoading = false;
                                                                     });
-                                                                    Navigator.pop(context);
                                                                   }
                                                                 }
                                                                );

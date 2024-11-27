@@ -18,6 +18,7 @@ import '../../../../../../app/resources/common_resources/common_theme_const.dart
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../upload_edit_popup.dart';
 
@@ -386,38 +387,23 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                               context: context,
                                                               builder: (context) =>
                                                                   StatefulBuilder(
-                                                                    builder: (BuildContext
-                                                                            context,
-                                                                        void Function(void Function())
-                                                                            setState) {
+                                                                    builder: (BuildContext context,
+                                                                        void Function(void Function())setState) {
                                                                       return DeletePopup(
-                                                                          title:
-                                                                          DeletePopupString.deleteLeases,
-                                                                          loadingDuration:
-                                                                              _isLoading,
-                                                                          onCancel:
-                                                                              () {
+                                                                          title: DeletePopupString.deleteLeases,
+                                                                          loadingDuration: _isLoading,
+                                                                          onCancel: () {
                                                                             Navigator.pop(context);
                                                                           },
-                                                                          onDelete:
-                                                                              () async {
+                                                                          onDelete: () async {
                                                                             setState(() {
                                                                               _isLoading = true;
                                                                             });
                                                                             try {
-                                                                              await deleteOrgDoc(
-                                                                                context: context,
-                                                                                orgDocId: leasesData.orgOfficeDocumentId,
+                                                                              await deleteOrgDoc(context: context, orgDocId: leasesData.orgOfficeDocumentId,
                                                                               );
-                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
-                                                                              setState(() async {
-                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, widget.officeId, AppConfig.subDocId6Leases, 1, 20).then((data) {
-                                                                                  vendorLeasesController.add(data);
-                                                                                }).catchError((error) {
-                                                                                  // Handle error
-                                                                                });
-                                                                                Navigator.pop(context);
-                                                                              });
+                                                                              Navigator.pop(context);
+                                                                              showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                             } finally {
                                                                               setState(() {
                                                                                 _isLoading = false;

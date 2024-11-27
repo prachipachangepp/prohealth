@@ -14,7 +14,7 @@ import '../manage/widgets/bottom_row.dart';
 
 class NewOnboardScreen extends StatefulWidget {
   final VoidCallback onBackPressed;
-  const NewOnboardScreen({super.key, required this.onBackPressed});
+  const NewOnboardScreen({super.key, required this.onBackPressed, });
 
   @override
   State<NewOnboardScreen> createState() => _NewOnboardScreenState();
@@ -26,13 +26,15 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
   int employeeIdCheck = 0;
   String employeeName = '';
   String imageUrl = '';
+  int departmentId = 0;
 
-  void _selectButton(int index, int employeeId, String name, String url) {
+  void _selectButton(int index, int employeeId, String name, String url, int deptId) {
     setState(() {
       _selectedIndex = index;
       employeeIdCheck = employeeId;
       employeeName = name;
       imageUrl = url;
+      departmentId = deptId;
     });
     _onboardPageController.animateToPage(
       index,
@@ -59,7 +61,7 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
       employeeId: employeeIdCheck,
       employeeName: employeeName,
       imageUrl: imageUrl,
-      backButtonCallBack: _handleBackButton, onBackPressed: widget.onBackPressed,
+      backButtonCallBack: _handleBackButton, onBackPressed: widget.onBackPressed, departmentId: departmentId,
     );
   }
 }
@@ -69,6 +71,7 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
 typedef BackButtonCallBack = void Function(bool val);
 
 class OnboardingTabManage extends StatefulWidget {
+  final int departmentId;
   final PageController managePageController;
   final int selectedIndex;
   final int employeeId;
@@ -76,9 +79,9 @@ class OnboardingTabManage extends StatefulWidget {
   final String imageUrl;
   final BackButtonCallBack backButtonCallBack;
   final VoidCallback onBackPressed;
-  final void Function(int,int, String, String) selectButton;
+  final void Function(int,int, String, String, int) selectButton;
   OnboardingTabManage({super.key, required this.managePageController, required this.selectedIndex, required this.selectButton,
-    required this.employeeId, required this.employeeName,required this.backButtonCallBack, required this.onBackPressed, required this.imageUrl,
+    required this.employeeId, required this.employeeName,required this.backButtonCallBack, required this.onBackPressed, required this.imageUrl, required this.departmentId,
   });
 
   @override
@@ -244,7 +247,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                           ),
                                         ),
                                       ),
-                                      onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName,widget.imageUrl),  //onTap: () => widget.selectButton(entry.key),
+                                      onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName,widget.imageUrl,widget.departmentId),  //onTap: () => widget.selectButton(entry.key),
                                     ),
                                   )
                                       .toList(),
@@ -287,7 +290,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
               physics: NeverScrollableScrollPhysics(),
               children: [
                 OnboardingGeneral(selectButton: widget.selectButton, goBackButtion: widget.onBackPressed),
-                OnboardingQualification(employeeId: widget.employeeId,),
+                OnboardingQualification(employeeId: widget.employeeId, departmentId: widget.departmentId,),
                 Banking(employeeId: widget.employeeId,),
                 HealthRecord(employeeId: widget.employeeId,),
                 Acknowledgement(employeeId: widget.employeeId,),

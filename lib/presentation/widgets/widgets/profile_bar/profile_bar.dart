@@ -823,7 +823,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                     child: Text(
                                                                                                         formattedSerialNumber,
                                                                                                         // formattedSerialNumber,
-                                                                                                        style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                                        style: AboutExpiredLStyle .customEditTextStyle()
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
@@ -832,7 +832,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                   child: Center(
                                                                                                     child: Text(
                                                                                                         expiredLicenses[index].org,
-                                                                                                        style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                                        style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
@@ -840,7 +840,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                   child: Center(
                                                                                                     child: Text(
                                                                                                         expiredLicenses[index].issueDate,
-                                                                                                        style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                                                                                                        style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                     ),
                                                                                                   ),
                                                                                                 ),
@@ -1304,7 +1304,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                       child: Text(
                                                                                                           formattedSerialNumber,
                                                                                                           // formattedSerialNumber,
-                                                                                                          style: ProfileBarZoneStyle.customEditTextStyle()
+                                                                                                          style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                       ),
                                                                                                     ),
                                                                                                   ),
@@ -1313,7 +1313,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                     child: Center(
                                                                                                       child: Text(
                                                                                                           upToDateLicenses[index].org,
-                                                                                                          style: ProfileBarZoneStyle.customEditTextStyle()
+                                                                                                          style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                       ),
                                                                                                     ),
                                                                                                   ),
@@ -1321,7 +1321,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                     child: Center(
                                                                                                       child: Text(
                                                                                                           upToDateLicenses[index].issueDate,
-                                                                                                          style: ProfileBarZoneStyle.customEditTextStyle()
+                                                                                                          style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                       ),
                                                                                                     ),
                                                                                                   ),

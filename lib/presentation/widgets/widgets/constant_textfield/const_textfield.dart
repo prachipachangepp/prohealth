@@ -217,7 +217,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
 // }
 //
 // class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
-//   late String? _selectedValue;
+//   String? _selectedValue;
 //   OverlayEntry? _overlayEntry;
 //   final GlobalKey _dropdownKey = GlobalKey();
 //   bool _isDropdownOpen = false;

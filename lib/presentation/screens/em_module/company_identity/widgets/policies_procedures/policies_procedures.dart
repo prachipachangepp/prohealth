@@ -5,8 +5,6 @@ import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/manage_history_version.dart';
@@ -14,8 +12,8 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
-import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../error_pop_up.dart';
@@ -465,46 +463,17 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                         await deleteOrgDoc(
                                                                             context: context,
                                                                             orgDocId: policiesdata.orgOfficeDocumentId);
-                                                                        await getListMCorporateCompliancefetch(context,
-                                                                            AppConfig.corporateAndCompliance, widget.officeId,
-                                                                            AppConfig.subDocId1Licenses, 1, 20).then((data) {
-                                                                          _controller.add(data);
-                                                                        }).catchError((error) {
-                                                                          // Handle error
-                                                                        });
+                                                                        Navigator.pop(context);
+                                                                        showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                       } finally {
                                                                         setState(() {
                                                                           _isLoading = false;
                                                                         });
-                                                                        Navigator.pop(context);
                                                                       }
                                                                     });
                                                                   },
 
                                                                 ));
-                                                            // showDialog(context: context,
-                                                            //     builder: (context) =>
-                                                            //         DeletePopup(
-                                                            //             title: DeletePopupString.deletePolicy,
-                                                            //             onCancel:
-                                                            //                 () {
-                                                            //               Navigator.pop(context);
-                                                            //             },
-                                                            //             onDelete: () {
-                                                            //               Navigator.pop(context);
-                                                            //               setState(() async {
-                                                            //                 await deleteOrgDoc(
-                                                            //                     context: context,
-                                                            //                     orgDocId: policiesdata.orgOfficeDocumentId);
-                                                            //                 // await deleteManageCorporate(context,
-                                                            //                 //     policiesdata.docId);
-                                                            //                 await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId1Licenses, 1, 20).then((data) {
-                                                            //                   _controller.add(data);
-                                                            //                 }).catchError((error) {
-                                                            //                   // Handle error
-                                                            //                 });
-                                                            //               });
-                                                            //             }));
                                                           },
                                                           icon: Icon(
                                                             Icons

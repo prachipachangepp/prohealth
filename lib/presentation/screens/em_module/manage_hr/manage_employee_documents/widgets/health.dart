@@ -16,6 +16,7 @@ import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagina
 
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class HealthEmpDoc extends StatefulWidget {
@@ -400,21 +401,13 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                           try {
                                                           await employeedoctypeSetupIdDelete(
                                                           context, employeedoc.employeeDocTypesetupId);
-                                                          getEmployeeDoc(context, widget.metaDocID, 1, 20)
-                                                              .then((data) {
-                                                          _controller
-                                                              .add(
-                                                          data);
-                                                          }).catchError(
-                                                          (error) {
-                                                          // Handle error
-                                                          });
+                                                          Navigator.pop(context);
+                                                          showDialog(context: context, builder: (context) => DeleteSuccessPopup());
 
                                                           } finally {
                                                           setState(() {
                                                           _isLoading = false;
                                                           });
-                                                          Navigator.pop(context);
                                                           }
                                                           });
                                                         },

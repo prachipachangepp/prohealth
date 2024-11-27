@@ -5,6 +5,7 @@ import 'package:prohealth/app/resources/common_resources/common_theme_const.dart
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../widgets/button_constant.dart';
@@ -110,173 +111,118 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
+    return DialogueTemplate(
         height: 370,
         width: AppSize.s350,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Form(
+        body: [Form(
           key: _formKey,
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.bluebottom,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: AppPadding.p15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FirstSMTextFConst(
+                      controller: widget.typeController,
+                      keyboardType: TextInputType.text,
+                      text: 'Employee Type',
+
+                    ),
+                    if (_typeError != null)
+                      Text(
+                        _typeError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                  ],
                 ),
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                SizedBox(height: AppSize.s16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CapitalSMTextFConst(
+                      controller: widget.abbreviationController,
+                      keyboardType: TextInputType.streetAddress,
+                      text: AppStringEM.abbrevation,
+                    ),
+                    if (_abbreviationError != null)
+                      Text(
+                        _abbreviationError!,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                  ],
+                ),
+                SizedBox(height: AppSize.s16),
+                Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
+                      padding: const EdgeInsets.only(left: 3.0),
                       child: Text(
-                        widget.title,
-                        style: TableHeading.customTextStyle(context)
+                        AppStringEM.color,
+                        style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.close, color: ColorManager.white,),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: AppPadding.p3, horizontal: AppPadding.p25),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(height: AppSize.s10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FirstSMTextFConst(
-                          controller: widget.typeController,
-                          keyboardType: TextInputType.text,
-                          text: 'Employee Type',
-
+                    SizedBox(width: AppSize.s25),
+                    Container(
+                      padding: EdgeInsets.all(2),
+                      width: 62,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(2),
+                        border: Border.all(
+                          width: 1,
+                          color: Color(0xffE9E9E9),
                         ),
-                        if (_typeError != null)
-                          Text(
-                            _typeError!,
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
-                      ],
-                    ),
-
-
-              /////////////////////////////////////////////////////////////////////
-                    SizedBox(height: AppSize.s16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CapitalSMTextFConst(
-                          controller: widget.abbreviationController,
-                          keyboardType: TextInputType.streetAddress,
-                          text: AppStringEM.abbrevation,
-                        ),
-                        if (_abbreviationError != null)
-                          Text(
-                            _abbreviationError!,
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
-                      ],
-                    ),
-                    // SizedBox(height: AppSize.s16),
-                    // Column(
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     Text(
-                    //       'Type of Employee',
-                    //       style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
-                    //     ),
-                    //     SizedBox(height: 5),
-                    //     widget.child!,
-                    //   ],
-                    // ),
-                    SizedBox(height: AppSize.s16),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 3.0),
-                          child: Text(
-                            AppStringEM.color,
-                            style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
-                          ),
-                        ),
-                        SizedBox(width: AppSize.s25),
-                        Container(
-                          padding: EdgeInsets.all(2),
-                          width: 62,
-                          height: 22,
+                      ),
+                      child: GestureDetector(
+                        onTap: _openColorPicker,
+                        child: Container(
+                          width: 60,
+                          height: 20,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(2),
+                            color: _selectedColors[0],
                             border: Border.all(
                               width: 1,
-                              color: Color(0xffE9E9E9),
-                            ),
-                          ),
-                          child: GestureDetector(
-                            onTap: _openColorPicker,
-                            child: Container(
-                              width: 60,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                color: _selectedColors[0],
-                                border: Border.all(
-                                  width: 1,
-                                  color: _selectedColors[0],
-                                ),
-                              ),
+                              color: _selectedColors[0],
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.width / 30),
-                    Center(
-                      child: isLoading
-                          ? SizedBox(
-                        height: 25,
-                        width: 25,
-                        child: CircularProgressIndicator(color: ColorManager.blueprime),
-                      )
-                          : CustomElevatedButton(
-                        width: AppSize.s105,
-                        height: AppSize.s30,
-                        text: 'Add',
-                        onPressed: () async {
-                          _validateFields();
-                          if (_typeError == null && _abbreviationError == null) {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            await widget.onAddPressed();
-                            setState(() {
-                              isLoading = false;
-                            });
-                          }
-                        },
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
+
+              ],
+            ),
           ),
-        ),
+        ),],
+      bottomButtons: isLoading
+          ? SizedBox(
+        height: 25,
+        width: 25,
+        child: CircularProgressIndicator(color: ColorManager.blueprime),
+      )
+          : CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: 'Add',
+        onPressed: () async {
+          _validateFields();
+          if (_typeError == null && _abbreviationError == null) {
+            setState(() {
+              isLoading = true;
+            });
+            await widget.onAddPressed();
+            setState(() {
+              isLoading = false;
+            });
+          }
+        },
       ),
+      title: widget.title,
+
     );
   }
 }
