@@ -84,7 +84,7 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
               child: StreamBuilder<List<ClinicalLicenseDataModel>>(
                 stream: drivingLicenseController.stream,
                 builder: (context,snapshot) {
-                  getDrivingLicenseRecord(context,316,"yes")
+                  getDrivingLicenseRecord(context,widget.employeeId,"yes")
                       .then((data) {
                     drivingLicenseController.add(data);
                   }).catchError((error) {
@@ -262,9 +262,9 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
                                           });
                                           try{
                                              await deleteDrivingLicense(context,drivingLicense.drivingLicenseId.toString());
-                                             setState((){
-                                               getDrivingLicenseRecord(context,316,"no");
-                                             });
+                                             // setState((){
+                                             //   getDrivingLicenseRecord(context,316,"no");
+                                             // });
                                           }finally{
                                             setState(() {
                                               _isLoading = false;
@@ -325,7 +325,7 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
               child: StreamBuilder<List<PractitionerLicenseDataModel>>(
                 stream: practitionerLicenseController.stream,
                 builder: (context,snapshot) {
-                  getPractitionerLicenseRecord(context,316,"yes")
+                  getPractitionerLicenseRecord(context,widget.employeeId,"yes")
                       .then((data) {
                   practitionerLicenseController.add(data);
                   }).catchError((error) {
@@ -501,9 +501,9 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
                                           });
                                           try{
                                              await deletePractitionerLicense(context,practionerlicense.practitionerLicenceId.toString());
-                                             setState((){
-                                               getPractitionerLicenseRecord(context,316,"no");
-                                             });
+                                             // setState((){
+                                             //   getPractitionerLicenseRecord(context,316,"no");
+                                             // });
 
                                           }finally{
                                             setState(() {

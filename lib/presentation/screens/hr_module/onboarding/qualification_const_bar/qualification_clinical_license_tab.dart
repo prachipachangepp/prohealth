@@ -55,7 +55,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FutureBuilder<List<ClinicalLicenseDataModel>>(
-                  future:  getDrivingLicenseRecord(context,316,"no"),
+                  future:  getDrivingLicenseRecord(context,widget.employeeId,"no"),
                   builder: (context,snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return SizedBox();
@@ -113,7 +113,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                       return RejectDialog(onYesPressed: () async {
                                         await singleDrivingLicenseRejectPatch(context,snapshot.data![0].drivingLicenseId);
                                         setState((){
-                                          getDrivingLicenseRecord(context,316,"no");
+                                          getDrivingLicenseRecord(context,widget.employeeId,"no");
                                         });
 
                                         //fetchDrivingLicense();
@@ -128,7 +128,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                       return ApproveDialog(onYesPressed: () async {
                                         await singleDrivingLicenseApprovePatch(context,snapshot.data![0].drivingLicenseId);
                                         setState((){
-                                          getDrivingLicenseRecord(context,316,"no");
+                                          getDrivingLicenseRecord(context,widget.employeeId,"no");
                                         });
                                         Navigator.of(context)
                                             .pop();
@@ -195,7 +195,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FutureBuilder(
-                  future: getPractitionerLicenseRecord(context,316,"no"),
+                  future: getPractitionerLicenseRecord(context,widget.employeeId,"no"),
                   builder: (context, snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return SizedBox();
@@ -253,7 +253,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                         return RejectDialog(onYesPressed: () async {
                                           await singlePractitionerLicenseRejectPatch(context,snapshot.data![0].practitionerLicenceId);
                                           setState((){
-                                            getPractitionerLicenseRecord(context,316,"no");
+                                            getPractitionerLicenseRecord(context,widget.employeeId,"no");
                                           });
                                           //fetchDrivingLicense();
                                           Navigator.of(context)
@@ -269,7 +269,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                       return ApproveDialog(onYesPressed: () async {
                                         await singlePractitionerLicenseApprovePatch(context,snapshot.data![0].practitionerLicenceId);
                                         setState((){
-                                          getPractitionerLicenseRecord(context,316,"no");
+                                          getPractitionerLicenseRecord(context,widget.employeeId,"no");
                                         });
 
                                         Navigator.of(context)
