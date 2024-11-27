@@ -13,7 +13,7 @@ Future<Map<String, List<LicensesData>>> getLicenseStatusWise(
     DateTime dateTime = DateTime.parse(isoDate);
 
     // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('MM-dd-yyyy');
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
