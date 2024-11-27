@@ -55,7 +55,7 @@ class QualificationActionButtons extends StatelessWidget {
             color: ColorManager.mediumgrey,
           ),
         )
-            : Offstage(),
+            : SizedBox(width: AppSize.s90),
         SizedBox(width: MediaQuery.of(context).size.width / 75),
         approve == false
             ? Container(
@@ -86,7 +86,7 @@ class QualificationActionButtons extends StatelessWidget {
             color: ColorManager.blueprime,
           ),
         )
-            : Offstage(),
+            : SizedBox(width: AppSize.s90),
       ],
     );
   }

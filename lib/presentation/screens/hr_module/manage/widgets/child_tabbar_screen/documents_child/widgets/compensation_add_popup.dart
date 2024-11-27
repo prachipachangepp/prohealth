@@ -583,8 +583,10 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/clinical_licenses_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/clinical_license_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
@@ -1480,15 +1482,17 @@ class ClinicalLicensesAddPopup extends StatefulWidget {
   bool? loadingDuration;
   // final String officeId;
   // final int docTypeMetaIdCC;
-  // final List<EmployeeDocSetupModal> dataList;
+  final String licenseName;
+   ClinicalLicensePrefillDataModel? drivingList;
+  PractitionerLicensePreFillDataModel? practionerData;
+  final String docId;
   //final int selectedSubDocId;
   final int employeeId;
   final double? height;
   final Widget? uploadField;
   dynamic filePath;
   String? fileName;
-   ClinicalLicensesAddPopup({super.key, required this.title,required this.employeeId, this.height, this.uploadField});
-
+  ClinicalLicensesAddPopup({super.key, this.practionerData,required this.title,required this.employeeId, this.height, this.uploadField,  this.drivingList, required this.docId, required this.licenseName,});
   @override
   State<ClinicalLicensesAddPopup> createState() => _ClinicalLicensesAddPopupState();
 }
@@ -1500,6 +1504,16 @@ class _ClinicalLicensesAddPopupState extends State<ClinicalLicensesAddPopup> {
   dynamic filePath;
   String fileName = '';
   bool load = false;
+  @override
+  void initState() {
+    super.initState();
+    widget.licenseName == "Driving License"?
+    expiryDateController = TextEditingController(text: widget.drivingList!.expDate) :
+    expiryDateController = TextEditingController(text: widget.practionerData!.expDate);
+    widget.licenseName == "Driving License"?
+    fileName = widget.drivingList!.fileName :
+    fileName = widget.practionerData!.fileName;
+  }
 
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -1695,25 +1709,39 @@ class _ClinicalLicensesAddPopupState extends State<ClinicalLicensesAddPopup> {
               } else {
                 expiryDate = datePicked!.toIso8601String() + "Z";
               }
-              // var response = await uploadDocuments(
-              //   context: context,
-              //   employeeDocumentMetaId: documentMetaDataId,
-              //   employeeDocumentTypeSetupId: documentSetupId,
-              //   employeeId: widget.employeeId,
-              //   documentName: fileName,
-              //   documentFile: filePath,
-              //   expiryDate: expiryDate,
-              // );
+              var response = widget.licenseName == 'Driving License'? await patchDrivingLicense(
+                  context: context,
+                  docId: widget.docId,
+                  employeeId: widget.drivingList!.employeeId,
+                  idOfDocument: widget.drivingList!.idOFDocument,
+                  expiryDate: expiryDateController.text,
+                  createdAt: widget.drivingList!.createdAt,
+                  url: widget.drivingList!.url,
+                  officeId: widget.drivingList!.officeId,
+                  fileName: fileName,
+                  approved: widget.drivingList!.approve!
+              ):await patchPractitionerLicense(
+                  context: context,
+                  docId: widget.docId,
+                  employeeId: widget.practionerData!.employeeId,
+                  idOfDocument: widget.practionerData!.idOFDocument,
+                  expiryDate: expiryDateController.text,
+                  createdAt: widget.practionerData!.createdAt,
+                  url: widget.practionerData!.url,
+                  officeId: widget.practionerData!.officeId,
+                  fileName: fileName,
+                  approved: widget.practionerData!.approve!
+              );
               // var result = await singleBatchApproveOnboardAckHealthPatch(context, response.documentId!);
-              // if (result.statusCode == 200 || result.statusCode == 201) {
-              //   Navigator.pop(context);
-              //   showDialog(
-              //     context: context,
-              //     builder: (BuildContext context) {
-              //       return AddSuccessPopup(message: 'Document Uploaded Successfully');
-              //     },
-              //   );
-              // }
+              if (response.statusCode == 200 || response.statusCode == 201) {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddSuccessPopup(message: 'License Uploaded Successfully');
+                  },
+                );
+              }
               // if (response.statusCode == 413) {
               //   Navigator.pop(context);
               //   showDialog(
