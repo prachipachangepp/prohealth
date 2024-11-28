@@ -34,7 +34,7 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   // List<String> _bottomTitle = ['Sat','Sun','Mon','Tue','Wed','Thu','Fri'];
 
-  /// Bar Column chart data
+  /// Bar Column chart data output ratio
   final List<ComboChartData> CombochartData = <ComboChartData>[
     ComboChartData('Sat', 50, 30),
     ComboChartData('Sun', 40, 25),
@@ -147,23 +147,23 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   ];
 
   /// TrackBall chart
-  late TrackballBehavior _trackballBehavior;
-  final List<TrackBallChartData> data = <TrackBallChartData>[
-    TrackBallChartData('John', 15, 60),
-    TrackBallChartData('Eva', 20, 55),
-    TrackBallChartData('Ana', 25, 48),
-    TrackBallChartData('Rio', 21, 57),
-    TrackBallChartData('Jenie', 13, 62),
-    TrackBallChartData('Roy', 18, 64),
-    TrackBallChartData('Jeh', 24, 57),
-  ];
+  // late TrackballBehavior _trackballBehavior;
+  // final List<TrackBallChartData> data = <TrackBallChartData>[
+  //   TrackBallChartData('John', 15, 60),
+  //   TrackBallChartData('Eva', 20, 55),
+  //   TrackBallChartData('Ana', 25, 48),
+  //   TrackBallChartData('Rio', 21, 57),
+  //   TrackBallChartData('Jenie', 13, 62),
+  //   TrackBallChartData('Roy', 18, 64),
+  //   TrackBallChartData('Jeh', 24, 57),
+  // ];
   @override
   void initState() {
     super.initState();
-    _trackballBehavior = TrackballBehavior(
-      enable: true,
-        tooltipDisplayMode: TrackballDisplayMode.groupAllPoints
-    );
+    // _trackballBehavior = TrackballBehavior(
+    //   enable: true,
+    //     tooltipDisplayMode: TrackballDisplayMode.groupAllPoints
+    // );
     // _list.add(DataModel(key:"0",value: "10"));
     // _list.add(DataModel(key:"10%",value: "6"));
     // _list.add(DataModel(key:"20%",value: "8"));
@@ -415,102 +415,127 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           Expanded(
                               flex: 4,
                               child: HrDashboadGraphContainer(
-                                  child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "Output Relative to Input",
-                                                textAlign: TextAlign.center,
-                                                style: GraphHeadingHRDashboard
-                                                    .customTextStyle(context),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(children: [
-                                            TextCircleConst(text: 'Work Hours', circleColor: ColorManager.emptenure,textColor: ColorManager.blackForLoginTexts,),
-                                            SizedBox(width:5),
-                                            TextCircleConst(text: 'Result', circleColor: ColorManager.relativeResult, textColor: ColorManager.blackForLoginTexts,),
-                                          ],),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                width: 125,
-                                                height: 20,
-                                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
-                                                  borderRadius: BorderRadius.circular(6),
-                                                  color: Colors.transparent, // Ensure opacity 0 effect
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "Output Relative to Input",
+                                                  textAlign: TextAlign.center,
+                                                  style: GraphHeadingHRDashboard
+                                                      .customTextStyle(context),
                                                 ),
-                                                child: StatefulBuilder(
-                                                  builder: (BuildContext context,
-                                                     void Function(void Function()) setState) {
-                                                    return DropdownButtonHideUnderline(
-                                                      child: DropdownButton<
-                                                          String>(
-                                                        value: selectedValue,
-                                                        icon: const Icon(Icons
-                                                            .arrow_drop_down),
-                                                        iconSize: IconSize.I16,
-                                                        isExpanded: true,
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 10),
-                                                        items: items.map((
-                                                            String value) {
-                                                          return DropdownMenuItem<
-                                                              String>(
-                                                            value: value,
-                                                            child: Text(value),
-                                                          );
-                                                        }).toList(),
-                                                        onChanged: (newValue) {
-                                                          setState(() {
-                                                            selectedValue =
-                                                            newValue!;
-                                                          });
-                                                        },
-                                                      ),
-                                                    );
-                                                  }
-                                                ),
-                                              )
-                                            ],
-                                          )
-                                        ],
+                                              ],
+                                            ),
+                                            Row(children: [
+                                              TextCircleConst(text: 'Work Hours', circleColor: ColorManager.emptenure,textColor: ColorManager.blackForLoginTexts,),
+                                              SizedBox(width:5),
+                                              TextCircleConst(text: 'Result', circleColor: ColorManager.relativeResult, textColor: ColorManager.blackForLoginTexts,),
+                                            ],),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  width: 125,
+                                                  height: 20,
+                                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
+                                                    borderRadius: BorderRadius.circular(6),
+                                                    color: Colors.transparent, // Ensure opacity 0 effect
+                                                  ),
+                                                  child: StatefulBuilder(
+                                                    builder: (BuildContext context,
+                                                       void Function(void Function()) setState) {
+                                                      return DropdownButtonHideUnderline(
+                                                        child: DropdownButton<
+                                                            String>(
+                                                          value: selectedValue,
+                                                          icon: const Icon(Icons
+                                                              .arrow_drop_down),
+                                                          iconSize: IconSize.I16,
+                                                          isExpanded: true,
+                                                          style: TextStyle(
+                                                              color: Colors.black,
+                                                              fontSize: 10),
+                                                          items: items.map((
+                                                              String value) {
+                                                            return DropdownMenuItem<
+                                                                String>(
+                                                              value: value,
+                                                              child: Text(value),
+                                                            );
+                                                          }).toList(),
+                                                          onChanged: (newValue) {
+                                                            setState(() {
+                                                              selectedValue =
+                                                              newValue!;
+                                                            });
+                                                          },
+                                                        ),
+                                                      );
+                                                    }
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Container(
+                                      Container(
                                         height: 200,
                                         child: SfCartesianChart(
-                                            backgroundColor: ColorManager.white,
-                                            primaryXAxis: CategoryAxis(),
-                                            series: <CartesianSeries>[
-                                              ColumnSeries<ComboChartData,
-                                                      String>(
-                                                  color: ColorManager.relativeResult,
-                                                  dataSource: CombochartData,
-                                                  xValueMapper: (ComboChartData data, _) => data.x,
-                                                  yValueMapper: (ComboChartData data, _) => data.y),
-                                              ColumnSeries<ComboChartData, String>(
-                                                  color: ColorManager.emptenure,
-                                                  dataSource: CombochartData,
-                                                  xValueMapper: (ComboChartData data, _) => data.x,
-                                                  yValueMapper: (ComboChartData data, _) => data.y1),
-                                            ])
+                                          backgroundColor: ColorManager.white,
+                                          primaryXAxis: CategoryAxis(),
+                                          primaryYAxis: NumericAxis(
+                                            axisLabelFormatter: (AxisLabelRenderDetails details) {
+                                              // Appends '%' symbol to the Y-axis labels
+                                              return ChartAxisLabel('${details.text}%', details.textStyle);
+                                            },
+                                          ),
+                                          series: <CartesianSeries>[
+                                            ColumnSeries<ComboChartData, String>(
+                                              color: ColorManager.emptenure,
+                                              dataSource: CombochartData,
+                                              xValueMapper: (ComboChartData data, _) => data.x,
+                                              yValueMapper: (ComboChartData data, _) => data.y,
+                                            ),
+                                            ColumnSeries<ComboChartData, String>(
+                                              color: ColorManager.relativeResult,
+                                              dataSource: CombochartData,
+                                              xValueMapper: (ComboChartData data, _) => data.x,
+                                              yValueMapper: (ComboChartData data, _) => data.y1,
+                                            ),
+                                          ],
                                         ),
-                                  ],
-                                ),
-                              ))),
+                                      ),
+
+                                      // Container(
+                                      //     height: 200,
+                                      //     child: SfCartesianChart(
+                                      //         backgroundColor: ColorManager.white,
+                                      //         primaryXAxis: CategoryAxis(),
+                                      //         series: <CartesianSeries>[
+                                      //           ColumnSeries<ComboChartData,
+                                      //                   String>(
+                                      //               color: ColorManager.emptenure,
+                                      //               dataSource: CombochartData,
+                                      //               xValueMapper: (ComboChartData data, _) => data.x,
+                                      //               yValueMapper: (ComboChartData data, _) => data.y),
+                                      //           ColumnSeries<ComboChartData, String>(
+                                      //               color: ColorManager.relativeResult,
+                                      //               dataSource: CombochartData,
+                                      //               xValueMapper: (ComboChartData data, _) => data.x,
+                                      //               yValueMapper: (ComboChartData data, _) => data.y1),
+                                      //         ])
+                                      //     ),
+                                    ],
+                                  ))),
                           const SizedBox(width: AppSize.s15,),
                           ///diverity
                           Expanded(
@@ -1060,55 +1085,59 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           Expanded(
                             flex: 2,
                             child: HrDashboadGraphContainer(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Incident and violation tracking",
-                                      textAlign: TextAlign.start,
-                                      style: GraphHeadingHRDashboard.customTextStyle(context),
-                                    ),
-                                    Container(
-                                      height: 200,
-                                      child: SfCartesianChart(
-                                        // primaryYAxis: NumericAxis(
-                                        //   axisLabelFormatter: (AxisLabelRenderDetails details) {
-                                        //     // Format the y-axis label to append '%'
-                                        //     return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: 12));
-                                        //   },
-                                        // ),
-                                          series: <CartesianSeries>[
-                                            SplineAreaSeries<ChartAreaData, int>(
-                                                color: ColorManager.incidentBlue.withOpacity(0.2),
-                                                borderColor: ColorManager.incidentBlue,
-                                                borderWidth: 2,
-                                                dataSource: AreachartData,
-                                                xValueMapper: (ChartAreaData data, _) => data.x,
-                                                yValueMapper: (ChartAreaData data, _) => data.y
-                                            ),
-                                            SplineAreaSeries<ChartAreaData, int>(
-                                              color: ColorManager.incidentskin.withOpacity(0.3),
-                                              borderColor: ColorManager.incidentskin,
-                                              borderWidth: 2,
-                                              dataSource: AreachartData,
-                                              yValueMapper: (ChartAreaData data, _) => data.y1,
-                                              xValueMapper: (ChartAreaData data, _) => data.x,
-                                            ),
-                                          ]
-                                      ),
-                                    ),
-                                    SizedBox(height: 5,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        TextCircleConst(text: "Safety Incidents", circleColor: ColorManager.incidentBlue, textColor: ColorManager.black,),
-                                        TextCircleConst(text:  "Policy Breaches", circleColor: ColorManager.incidentskin, textColor: ColorManager.black)
+                                        Text(
+                                          "Incident and violation tracking",
+                                          textAlign: TextAlign.start,
+                                          style: GraphHeadingHRDashboard.customTextStyle(context),
+                                        ),
                                       ],
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 200,
+                                    child: SfCartesianChart(
+                                      primaryXAxis: NumericAxis(
+                                        isVisible: false,
+                                      ),
+                                      primaryYAxis: NumericAxis(
+                                        isVisible: false,
+                                      ),
+                                      series: <CartesianSeries>[
+                                        SplineAreaSeries<ChartAreaData, int>(
+                                          color: ColorManager.incidentBlue.withOpacity(0.2),
+                                          borderColor: ColorManager.incidentBlue,
+                                          borderWidth: 2,
+                                          dataSource: AreachartData,
+                                          xValueMapper: (ChartAreaData data, _) => data.x,
+                                          yValueMapper: (ChartAreaData data, _) => data.y,
+                                        ),
+                                        SplineAreaSeries<ChartAreaData, int>(
+                                          color: ColorManager.incidentskin.withOpacity(0.3),
+                                          borderColor: ColorManager.incidentskin,
+                                          borderWidth: 2,
+                                          dataSource: AreachartData,
+                                          yValueMapper: (ChartAreaData data, _) => data.y1,
+                                          xValueMapper: (ChartAreaData data, _) => data.x,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      TextCircleConst(text: "Safety Incidents", circleColor: ColorManager.incidentBlue, textColor: ColorManager.black,),
+                                      TextCircleConst(text:  "Policy Breaches", circleColor: ColorManager.incidentskin, textColor: ColorManager.black)
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
                           ),

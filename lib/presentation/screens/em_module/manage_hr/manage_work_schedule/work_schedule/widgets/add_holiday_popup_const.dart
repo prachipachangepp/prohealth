@@ -352,7 +352,7 @@ class _EditHolidayPopupState extends State<EditHolidayPopup> {
           : CustomElevatedButton(
         width: AppSize.s130,
         height: AppSize.s30,
-        text: "Save Changes",
+        text: "Save",
         onPressed: () async {
           if (widget.controller.text.isEmpty) {
             setState(() {
