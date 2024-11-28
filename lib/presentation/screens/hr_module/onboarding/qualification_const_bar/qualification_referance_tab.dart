@@ -168,6 +168,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     QualificationActionButtons(
+                      isBackColor: false,
                       approve: snapshot.data![index].approve,
                       onRejectPressed: () async {
                         showDialog(

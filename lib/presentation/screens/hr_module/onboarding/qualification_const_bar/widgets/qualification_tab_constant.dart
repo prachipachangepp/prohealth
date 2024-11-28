@@ -65,7 +65,7 @@ class QualificationActionButtons extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
               backgroundColor: isBackColor!?Colors.white:Color(0xff1696C8),
               foregroundColor: isBackColor!?Color(0xff1696C8):Colors.white,
-              side: BorderSide(color: isBackColor!? Color(0xff1696C8):Colors.white),
+              side: BorderSide(color: isBackColor!? Color(0xff1696C8):Color(0xff1696C8)),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
