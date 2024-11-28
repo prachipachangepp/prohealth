@@ -9,6 +9,7 @@ class AppStringHr{
   static String addVaccination = "Health Record";
   static String others = "Others";
   static String formStatus = "Form Status";
+  static String clinicalLicenses = "Clinical Licenses";
   static String qualification = "Qualifications";
   static String documents = "Documents";
   static String bankings = "Banking";

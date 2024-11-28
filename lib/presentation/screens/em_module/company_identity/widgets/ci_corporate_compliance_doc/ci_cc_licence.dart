@@ -12,6 +12,7 @@ import '../../../../../../app/resources/establishment_resources/establishment_st
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -313,14 +314,8 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                                 context: context,
                                                                                 orgDocId: manageCCLicence.orgOfficeDocumentId,
                                                                               );
-                                                                              setState(() async {
-                                                                                await getListMCorporateCompliancefetch(context, AppConfig.corporateAndCompliance, widget.officeId, AppConfig.subDocId1Licenses, 1, 20).then((data) {
-                                                                                  lisenceController.add(data);
-                                                                                }).catchError((error) {
-                                                                                  // Handle error
-                                                                                });
-                                                                                Navigator.pop(context);
-                                                                              });
+                                                                              Navigator.pop(context);
+                                                                              showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                             } finally {
                                                                               setState(() {
                                                                                 _isLoading = false;

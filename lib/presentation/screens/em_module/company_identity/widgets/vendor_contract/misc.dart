@@ -17,6 +17,7 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../upload_edit_popup.dart';
@@ -405,15 +406,8 @@ class _CiMiscState extends State<CiMisc> {
                                                                                 context: context,
                                                                                 orgDocId: dataMISC.orgOfficeDocumentId,
                                                                               );
-                                                                              // await deleteManageCorporate(context, manageCCLicence.docId);
-                                                                              setState(() async {
-                                                                                getListMCorporateCompliancefetch(context, AppConfig.vendorContracts, widget.officeId, AppConfig.subDocId10MISC, 1, 20).then((data) {
-                                                                                  vendorMISCController.add(data);
-                                                                                }).catchError((error) {
-                                                                                  // Handle error
-                                                                                });
-                                                                                Navigator.pop(context);
-                                                                              });
+                                                                              Navigator.pop(context);
+                                                                              showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                             } finally {
                                                                               setState(() {
                                                                                 _isLoading = false;

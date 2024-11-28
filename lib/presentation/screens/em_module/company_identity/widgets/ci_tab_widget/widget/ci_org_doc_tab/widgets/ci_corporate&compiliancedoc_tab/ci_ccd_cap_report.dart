@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/new_org_doc.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../../app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
-import '../../../../../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import '../../../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
-import '../../../../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
-import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../../../../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../files_constant-widget.dart';
 import '../heading_constant_widget.dart';
 import '../org_add_popup_const.dart';
@@ -123,18 +123,13 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                         _isLoading = true;
                       });
                       try {
-                        await deleteNewOrgDoc(
-                            context, doc.orgDocumentSetupid);
-                        getNewOrgDocfetch(context,AppConfig.corporateAndCompliance,AppConfig.subDocId4CapReport,1,50).then((data) {
-                          _controller.add(data);
-                        }).catchError((error) {
-                          // Handle error
-                        });
+                        await deleteNewOrgDoc(context, doc.orgDocumentSetupid);
+                        Navigator.pop(context);
+                        showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                       } finally {
                         setState(() {
                           _isLoading = false;
                         });
-                        Navigator.pop(context);
                       }
                     });
                   },

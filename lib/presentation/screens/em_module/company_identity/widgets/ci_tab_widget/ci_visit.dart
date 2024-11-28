@@ -21,6 +21,7 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -478,12 +479,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                               }).catchError((error) {
                                                                                 // Handle error
                                                                               });
-
+                                                                              Navigator.pop(context);
+                                                                              showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                                             } finally {
                                                                               setState(() {
                                                                                 _isLoading = false;
                                                                               });
-                                                                              Navigator.pop(context);
                                                                             }
                                                                           }
 

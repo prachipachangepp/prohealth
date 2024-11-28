@@ -16,6 +16,7 @@ import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../widgets/error_popups/delete_success_popup.dart';
 
 class ViewBatchesPopup extends StatefulWidget {
   final String shiftName;
@@ -91,6 +92,11 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                   StreamBuilder<List<ShiftBachesData>>(
                       stream: workWeekShiftBatchesController.stream,
                       builder: (context, snapshot) {
+                        shiftBatchesGet(context,widget.shiftName,widget.weekName).then((data) {
+                          workWeekShiftBatchesController.add(data);
+                        }).catchError((error) {
+                          // Handle error
+                        });
                         if(snapshot.connectionState == ConnectionState.waiting){
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 150),
@@ -315,17 +321,13 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                 });
                                                                                 try {
                                                                                   await deleteShiftBatch(context, snapshot.data![index].shiftBatchScheduleId);
-                                                                                  shiftBatchesGet(context,widget.shiftName,widget.weekName).then((data) {
-                                                                                    workWeekShiftBatchesController.add(data);
-                                                                                  }).catchError((error) {
-                                                                                    // Handle error
-                                                                                  });
+                                                                                  Navigator.pop(context);
+                                                                                  showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                       
                                                                                 } finally {
                                                                                   setState(() {
                                                                                     _isLoading = false;
                                                                                   });
-                                                                                  Navigator.pop(context);
                                                                                 }
                                                                               });
                                                                             },
