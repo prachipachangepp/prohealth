@@ -70,14 +70,11 @@ class _DeletePopupState extends State<DeletePopup> {
                       // ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical:5),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.close,color: ColorManager.white,),
-                    ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
                   ),
                 ],
               ),
