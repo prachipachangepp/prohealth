@@ -95,19 +95,21 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
     _url = "";
     showExpiryDateField;
   }
-
+  bool fileAbove20Mb = false;
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
     );
-
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
     if (result != null) {
       setState(() {
         filePath = result.files.first.bytes;
         fileName = result.files.first.name;
         isFileSelected = true;
         isFileErrorVisible = false;
+        fileAbove20Mb = !isAbove20MB;
       });
     }
   }
@@ -763,84 +765,93 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             } else {
               expiryDate = datePicked!.toIso8601String() + "Z";
             }
-
-            ApiData response = await addOrgDocPPPost(
-              context: context,
-              orgDocumentSetupid: docTypeId,
-              idOfDocument: documentTypeName,
-              expiryDate: expiryDate,
-              docCreated: DateTime.now().toIso8601String() + "Z",
-              url: "url",
-              officeId: widget.officeId,
-              fileName: fileName,
-            );
-
-            expiryDateController.clear();
-
-            if (response.statusCode == 200 || response.statusCode == 201) {
-              try {
-                var uploadDocNew = await uploadDocumentsoffice(
-                  context: context,
-                  documentFile: filePath,
-                  orgOfficeDocumentId: response.orgOfficeDocumentId!,
-                  fileName: fileName,
-                );
-
-                if (uploadDocNew.statusCode == 413) {
-                  Navigator.pop(context);
-                  showDialog(
+            if(fileAbove20Mb){
+              ApiData response = await addOrgDocPPPost(
+                context: context,
+                orgDocumentSetupid: docTypeId,
+                idOfDocument: documentTypeName,
+                expiryDate: expiryDate,
+                docCreated: DateTime.now().toIso8601String() + "Z",
+                url: "url",
+                officeId: widget.officeId,
+                fileName: fileName,
+              );
+              expiryDateController.clear();
+              if (response.statusCode == 200 || response.statusCode == 201) {
+                try {
+                  var uploadDocNew = await uploadDocumentsoffice(
                     context: context,
-                    builder: (BuildContext context) {
-                      return AddErrorPopup(
-                        message: 'Request entity too large! File size exceeds limit.',
-                      );
-                    },
+                    documentFile: filePath,
+                    orgOfficeDocumentId: response.orgOfficeDocumentId!,
+                    fileName: fileName,
                   );
-                } else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CountySuccessPopup(
-                        message: 'Saved Successfully',
-                      );
-                    },
-                  );
-                } else {
+
+                  if (uploadDocNew.statusCode == 413) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'Request entity too large! File size exceeds limit.',
+                        );
+                      },
+                    );
+                  } else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CountySuccessPopup(
+                          message: 'Saved Successfully',
+                        );
+                      },
+                    );
+                  } else {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return FailedPopup(
+                          text: 'Failed to upload document. Please edit upload again.',
+                        );
+                      },
+                    );
+                  }
+                } catch (e) {
                   Navigator.pop(context);
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return FailedPopup(
-                        text: 'Failed to upload document. Please edit upload again.',
+                        text: 'An error occurred during file upload. Check your connection or file size.',
                       );
                     },
                   );
                 }
-              } catch (e) {
+              } else if (response.statusCode == 400 || response.statusCode == 404) {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const FourNotFourPopup(),
+                );
+              } else {
                 Navigator.pop(context);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return FailedPopup(
-                      text: 'An error occurred during file upload. Check your connection or file size.',
+                      text: response.message ?? 'An error occurred. Please try again.',
                     );
                   },
                 );
               }
-            } else if (response.statusCode == 400 || response.statusCode == 404) {
-              Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => const FourNotFourPopup(),
-              );
-            } else {
+            }else{
               Navigator.pop(context);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return FailedPopup(
-                    text: response.message ?? 'An error occurred. Please try again.',
+                  return AddErrorPopup(
+                    message: 'Request entity to large!',
                   );
                 },
               );

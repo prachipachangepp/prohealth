@@ -327,12 +327,13 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
                 builder: (context,snapshot) {
                   getPractitionerLicenseRecord(context,widget.employeeId,"yes")
                       .then((data) {
+
                   practitionerLicenseController.add(data);
                   }).catchError((error) {
                   // Handle error
                   });
                   if(snapshot.connectionState == ConnectionState.waiting){
-                    return SizedBox();
+                    return Center(child: SizedBox(height:25,width:25,child: CircularProgressIndicator(color: ColorManager.blueprime,)),);
                   }
                   if(snapshot.data!.isEmpty){
                     return Center(
