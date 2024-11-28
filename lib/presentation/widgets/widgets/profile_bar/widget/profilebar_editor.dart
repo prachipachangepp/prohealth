@@ -584,9 +584,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                         child: HRUManageDropdown(
                                                           controller: TextEditingController(text: ''),
                                                          // labelText: 'Select Employee Type',
-                                                          labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                            color: Color(0xff575757),
-                                                            fontWeight: FontWeight.w500,),
+                                                         //  labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                         //    color: Color(0xff575757),
+                                                         //    fontWeight: FontWeight.w500,),
                                                           labelFontSize: 12,
                                                           items: [], // Empty while loading
                                                         ),
@@ -596,9 +596,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       return HRUManageDropdown(
                                                         controller: TextEditingController(text: ''),
                                                         //labelText: 'Select Employee Type',
-                                                        labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                          color: ColorManager.mediumgrey,
-                                                          fontWeight: FontWeight.w500,),
+                                                        // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                        //   color: ColorManager.mediumgrey,
+                                                        //   fontWeight: FontWeight.w500,),
                                                         labelFontSize: 12,
                                                         items: [],
                                                       );
@@ -618,9 +618,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       return HRUManageDropdown(
                                                         controller: TextEditingController(text: profileData.employeType),
                                                        // labelText: "Select Employee Type",
-                                                        labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                          color: ColorManager.mediumgrey,
-                                                          fontWeight: FontWeight.w500,),
+                                                       //  labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                       //    color: ColorManager.mediumgrey,
+                                                       //    fontWeight: FontWeight.w500,),
                                                         labelFontSize: 12,
                                                         items: dropDownEmployeeTypes,
                                                         onChanged: (val) {
@@ -662,9 +662,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                             controller: TextEditingController(
                                                                 text: ''),
                                                             //labelText: 'Select Department',
-                                                            labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                              color: Color(0xff575757),
-                                                              fontWeight: FontWeight.w500,),
+                                                            // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                            //   color: Color(0xff575757),
+                                                            //   fontWeight: FontWeight.w500,),
                                                             labelFontSize: 12,
                                                             items:  dropDownServiceList,
 
@@ -709,9 +709,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                         controller: TextEditingController(
                                                             text: profileData.department),
                                                         //labelText: "Select Department",
-                                                        labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                          color: const Color(0xff575757),
-                                                          fontWeight: FontWeight.w500,),
+                                                        // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                        //   color: const Color(0xff575757),
+                                                        //   fontWeight: FontWeight.w500,),
                                                         labelFontSize: 12,
                                                         items: dropDownServiceList,
                                                         onChanged: (val) {
@@ -781,9 +781,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                         controller: TextEditingController(text: ''),
                                                         items: ['item 1', 'item 2'],
                                                         // labelText: 'Reporting Office',
-                                                        labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                          color: const Color(0xff575757),
-                                                          fontWeight: FontWeight.w400,),
+                                                        // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                        //   color: const Color(0xff575757),
+                                                        //   fontWeight: FontWeight.w400,),
                                                         // GoogleFonts.firaSans(
                                                         //   fontSize: 12,
                                                         //   color: Color(0xff575757),
@@ -799,11 +799,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       }
                                                       return HRUManageDropdown(
                                                         hintText: "Gender",
-                                                        labelStyle: const TextStyle(
-                                                          fontSize: 12,
-                                                          color: Color(0xff575757),
-                                                          fontWeight: FontWeight.w400,
-                                                        ),
+                                                        // labelStyle: const TextStyle(
+                                                        //   fontSize: 12,
+                                                        //   color: Color(0xff575757),
+                                                        //   fontWeight: FontWeight.w400,
+                                                        // ),
                                                         labelFontSize: 12,
                                                         items: dropDownList,
                                                         onChanged: (newValue) {
@@ -915,7 +915,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                         hintText: 'Select Service',
                                                         controller: TextEditingController(text: ''),
                                                         // labelText: 'Select Service',
-                                                        labelStyle: TextStyle(fontSize: 14),
+                                                        // labelStyle: TextStyle(fontSize: 14),
                                                         items: [], labelFontSize: 12,
                                                       );
                                                     }
@@ -936,7 +936,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                               .firstWhere((service) => service.serviceName == val);
                                                           selectedServiceId = selectedService.serviceName;
                                                           print('Selected Service ID: ${selectedService.serviceId}');
-                                                        }, labelStyle:  const TextStyle(fontSize: 14),labelFontSize: 12 ,
+                                                        },
+                                                        // labelStyle:  const TextStyle(fontSize: 14),
+                                                        labelFontSize: 12 ,
                                                       );
                                                     }
 
@@ -965,9 +967,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                         controller: TextEditingController(text:""),
                                                         items: ['item 1', 'item 2'],
                                                         // labelText: 'Reporting Office',
-                                                        labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                          color: const Color(0xff575757),
-                                                          fontWeight: FontWeight.w400,),
+                                                        // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                                        //   color: const Color(0xff575757),
+                                                        //   fontWeight: FontWeight.w400,),
                                                         // GoogleFonts.firaSans(
                                                         //   fontSize: 12,
                                                         //   color: Color(0xff575757),
@@ -983,11 +985,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       }
                                                       return HRUManageDropdown(
                                                         hintText: "Reporting Office",
-                                                        labelStyle: const TextStyle(
-                                                          fontSize: 12,
-                                                          color: Color(0xff575757),
-                                                          fontWeight: FontWeight.w400,
-                                                        ),
+                                                        // labelStyle: const TextStyle(
+                                                        //   fontSize: 12,
+                                                        //   color: Color(0xff575757),
+                                                        //   fontWeight: FontWeight.w400,
+                                                        // ),
                                                         labelFontSize: 12,
                                                         items: dropDownList,
                                                         onChanged: (newValue) {

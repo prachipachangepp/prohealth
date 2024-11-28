@@ -946,7 +946,7 @@ class HRUManageDropdown extends StatefulWidget {
   final String? labelText;
   final String? hintText;
   final Color textColor;
-  final TextStyle? labelStyle;
+ // final TextStyle? labelStyle;
   final double labelFontSize;
   final List<String> items;
   final String? errorText;
@@ -956,7 +956,7 @@ class HRUManageDropdown extends StatefulWidget {
     Key? key,
     required this.controller,
     this.labelText,
-    this.labelStyle,
+    //this.labelStyle,
     required this.labelFontSize,
     required this.items,
     this.errorText,
@@ -1002,6 +1002,7 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
                   elevation: 4,
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
+                    //color: Colors.white,
                     constraints: BoxConstraints(
                       maxHeight: 200, // Show scroll for more than 5 items
                     ),
@@ -1013,7 +1014,13 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
                         return ListTile(
                           title: Text(
                             widget.items[index],
-                            style: widget.labelStyle ?? TextStyle(fontSize: widget.labelFontSize),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: FontSize.s13,
+                              color: ColorManager.mediumgrey,
+                              decoration: TextDecoration.none,
+                            ),
+                            //style:TableSubHeading.customTextStyle(context),
                           ),
                           onTap: () {
                             setState(() {
@@ -1066,7 +1073,8 @@ class _HRUManageDropdownState extends State<HRUManageDropdown> {
           if (widget.labelText != null)
             Text(
               widget.labelText!,
-              style: widget.labelStyle ?? TextStyle(fontSize: widget.labelFontSize),
+            //  style: widget.labelStyle ?? TextStyle(fontSize: widget.labelFontSize),
+               style:TableSubHeading.customTextStyle(context),
             ),
           Container(
             key: _dropdownKey,

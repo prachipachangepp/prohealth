@@ -340,19 +340,10 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
             } else {
               expiryDate = datePicked!.toIso8601String() + "Z";
             }
+            print("$fileAbove20Mb");
 
             try {
               if(fileAbove20Mb){
-                Navigator.pop(context);
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AddErrorPopup(
-                      message: 'Request entity to large!',
-                    );
-                  },
-                );
-              }else{
                 var response = await uploadDocuments(
                   context: context,
                   employeeDocumentMetaId: documentMetaDataId,
@@ -385,6 +376,18 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                     },
                   );
                 }
+
+              }
+              else {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddErrorPopup(
+                      message: 'Request entity to large!',
+                    );
+                  },
+                );
               }
 
             } finally {

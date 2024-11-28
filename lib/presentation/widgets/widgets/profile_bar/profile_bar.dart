@@ -613,7 +613,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                   )
                                 ]),
                           ),
-                          SizedBox(height: 25,),
+                          SizedBox(height: 30,),
                           Flexible(
                             child: Column(
                               children: [
@@ -1404,8 +1404,8 @@ class ProfileBarNameLicenseStyle {
 class AboutExpiredLStyle{
   static TextStyle customEditTextStyle() {
     return TextStyle(
-      fontSize: 11,
-      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
       color: const Color(0xff686464),
       decoration: TextDecoration.none,
     );

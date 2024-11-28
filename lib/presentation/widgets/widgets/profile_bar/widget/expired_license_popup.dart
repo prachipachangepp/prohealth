@@ -7,6 +7,8 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/profile_bar.dart';
 
+import '../../../../../app/resources/common_resources/common_theme_const.dart';
+
 class ExpiredLicensePopup extends StatefulWidget {
   final String title;
   final Widget child;
@@ -42,11 +44,10 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8, horizontal: 20),
+                    padding: const EdgeInsets.only(left: 26),
                     child: Text(
                       widget.title,
-                      style: ProfileBarNameLicenseStyle.customEditTextStyle()
+                      style: PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
@@ -56,7 +57,7 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
                     icon: Icon(
                       Icons.close,
                       color: ColorManager.white,
-                      size: 16,
+                      //size: 16,
                     ),
                   ),
                 ],
