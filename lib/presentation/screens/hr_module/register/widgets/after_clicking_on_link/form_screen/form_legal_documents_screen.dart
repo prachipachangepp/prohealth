@@ -811,6 +811,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                               );
                             },
                           );
+                          await widget.onSave();
                         }else{
                           await showDialog(
                             context: context,
@@ -841,7 +842,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     setState(() {
                       isLoading = false;
                     });
-                    widget.onSave();
+
                   },
                   child: Text(
                     'Save',

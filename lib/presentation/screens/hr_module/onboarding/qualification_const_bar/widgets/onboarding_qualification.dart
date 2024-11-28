@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/qualificatin_emloyment_tab.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/qualification_clinical_license_tab.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/qualification_license_tab.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/qualification_referance_tab.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/onboarding_qualification.dart';
@@ -85,6 +86,28 @@ class OnBoardingQualificationLicense extends StatelessWidget {
           return Column(
             children: [
               QualificationLicense(employeeId: employeeId,),
+              SizedBox(
+                height: AppSize.s8,
+              )
+            ],
+          );
+        });
+  }
+}
+
+class OnBoardingQualificationGeneralLicenses extends StatelessWidget {
+  final int employeeId;
+  const OnBoardingQualificationGeneralLicenses({super.key, required this.employeeId});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              QualificationGeneralLicenses(employeeId: employeeId,),
               SizedBox(
                 height: AppSize.s8,
               )

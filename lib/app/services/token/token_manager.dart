@@ -45,7 +45,7 @@ class TokenManager {
     sharedPreferences.setString("email", email);
   }
 
-  static void setAccessRegisterToken({required String token, required String username, required int companyId, required String emailId, required int userID}) async {
+  static void setAccessRegisterToken({required String token, required String username, required int companyId, required String emailId, required int userID ,required int depID}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     print('userNameRegister set $username');
     print("accessTokenRegister Token to set $token");
@@ -58,6 +58,13 @@ class TokenManager {
     sharedPreferences.setInt("companyIdRegister", companyId);
     sharedPreferences.setString("emailIdRegistered", emailId);
     sharedPreferences.setInt("userID", userID);
+    sharedPreferences.setInt("departmentId", depID);
+  }
+
+  static Future<int> getdepIdRegister() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    int? depIdRegistered = sharedPreferences.getInt("departmentId");
+    return depIdRegistered ?? 0;
   }
 
   static Future<int> getCompanyIdRegister() async {

@@ -15,6 +15,7 @@ import '../../../../../../app/resources/establishment_resources/establish_theme_
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
+import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -258,11 +259,12 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                               });
                                                               try {
                                                                 await deleteContract(context, contract.insuranceVendorContracId);
+                                                                Navigator.pop(context);
+                                                                showDialog(context: context, builder: (context) => DeleteSuccessPopup());
                                                               } finally {
                                                                 setState(() {
                                                                   _isLoading = false;
                                                                 });
-                                                                Navigator.pop(context);
                                                               }
                                                             });
                                                           },

@@ -11,7 +11,8 @@ import '../qualification_const_bar/widgets/onboarding_qualification.dart';
 class OnboardingQualification extends StatefulWidget {
   late QualificationTabBarController controller;
   final int employeeId;
-  OnboardingQualification({required this.employeeId});
+  final int departmentId;
+  OnboardingQualification({required this.employeeId, required this.departmentId});
   @override
   State<OnboardingQualification> createState() =>
       _OnboardingQualificationState();
@@ -78,6 +79,14 @@ class _OnboardingQualificationState extends State<OnboardingQualification> {
                           index: 3,
                           grpIndex: _selectedIndex,
                           heading: "License"),
+
+                     widget.departmentId == 1 ? UpperMenuButtons(
+                          onTap: (int index) {
+                            _selectButton(index);
+                          },
+                          index: 4,
+                          grpIndex: _selectedIndex,
+                          heading: "Clinical Licenses"):Offstage(),
                     ],
                   ),
                   // _selectedIndex == 0
@@ -137,6 +146,7 @@ class _OnboardingQualificationState extends State<OnboardingQualification> {
                               OnBoardingQualificationEducation(employeeId: widget.employeeId,),
                               OnBoardingQualificationReference(employeeId: widget.employeeId,),
                               OnBoardingQualificationLicense(employeeId: widget.employeeId,),
+               widget.departmentId == 1? OnBoardingQualificationGeneralLicenses(employeeId:widget.employeeId):Offstage()
               ],
             ),
           ),

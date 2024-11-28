@@ -139,8 +139,8 @@ Future<VisitListDataPrefill> getVisitListPrefill(
             (response.data['eligibleClinician'] as List<dynamic>?)?.map((item) {
                   return EligibleClinician(
                       employeeTypeId: item['employeeTypeId'],
-                      eligibleClinician: item['eligibleClinician'],
-                      color: item['color']);
+                      eligibleClinician: item['eligibleClinician']?? "--",
+                      color: item['color']?? "#FFFFFF",);
                 }).toList() ??
                 [],
       );
