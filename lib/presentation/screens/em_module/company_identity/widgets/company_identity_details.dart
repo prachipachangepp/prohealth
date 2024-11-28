@@ -592,7 +592,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                       ],
                     ),
                   ),
-
                   Container(
                     height: AppSize.s367,
                     decoration: BoxDecoration(
