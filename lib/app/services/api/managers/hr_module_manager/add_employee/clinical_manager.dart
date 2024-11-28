@@ -477,12 +477,12 @@ Future<List<AEClinicalZone>> HrAddEmplyClinicalZoneApi(
       for (var item in response.data) {
         itemsList.add(
           AEClinicalZone(
-            // county: item['county'],
-            // countyID: item['county_id'],
+            county: item['countyName'],
+            countyID: item['county_id'],
             zoneID: item['zone_id'],
             zoneName: item['zoneName'],
-            // zipCode: item['zipcodes'],
-            // cities: item['cities'],
+            companyId: item['companyId'],
+            officeId: item['officeId'],
           ),
         );
       }

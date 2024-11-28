@@ -33,7 +33,7 @@ TextEditingController calenderController = TextEditingController();
 class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
   bool isLoading = false;
   String typeName = '';
-  String inventoryName = '';
+  String? inventoryName;
   int inventoryId = 0;
   bool _isFormValid = true;
   String? _idDocError;
@@ -140,6 +140,15 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                       List dropDown = [];
                       int docType = 0;
                       List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                      if (inventoryName == null) {
+                        inventoryName =
+                        'Select Device';
+                        dropDownMenuItems.add(
+                            const DropdownMenuItem<String>(
+                              child: Text('Select Device'),
+                              value: 'Select Device',
+                            ));
+                      }
                       for (var i in snapshot.data!) {
                         dropDownMenuItems.add(
                           DropdownMenuItem<String>(
@@ -308,7 +317,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                   inventoryId,
                   calenderController.text,
                   widget.employeeId,
-                  inventoryName,
+                  inventoryName!,
                   idController.text,
                   // typeName,
                   nameController.text,

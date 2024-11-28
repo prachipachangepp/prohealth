@@ -466,7 +466,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     child: Center(
                                                       child: Text(
                                                         "Edit",
-                                                        style: TextStyle(fontSize: FontSize.s14),
+                                                        style: TextStyle(fontSize: FontSize.s14,fontWeight:FontWeight.w500),
                                                       ),
                                                     ),
                                                   ),
@@ -634,7 +634,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     child: Center(
                                                       child: Text(
                                                         AppString.delete,
-                                                        style: TextStyle(fontSize: FontSize.s14),
+                                                        style: TextStyle(fontSize: FontSize.s14,fontWeight:FontWeight.w500),
                                                       ),
                                                     ),
                                                   ),

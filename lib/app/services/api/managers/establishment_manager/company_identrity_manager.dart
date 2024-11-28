@@ -194,6 +194,51 @@ Future<ApiData> addNewOffice(
 }
 
 ///Get Company by office list by company
+// Future<List<CompanyIdentityModel>> companyOfficeListGet(
+//     BuildContext context, int pageNo, int rowsNo) async {
+//   List<CompanyIdentityModel> itemsList = [];
+//   try {
+//     final companyId = await TokenManager.getCompanyId();
+//     final response = await Api(context).get(
+//         path: EstablishmentManagerRepository.companyOfficeListGet(
+//             pageNo: pageNo, rowsNo: rowsNo, companyId: companyId));
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("ResponseList:::::${itemsList}");
+//       for (var item in response.data["OfficeList"]) {
+//         itemsList.add(CompanyIdentityModel(
+//           pageNo: pageNo,
+//           rowsNo: rowsNo,
+//           sucess: true,
+//           message: response.statusMessage!,
+//           officeName: item['name'],
+//           companyId: companyId,
+//           address: item['address'],
+//           officeId: item['office_id'],
+//           companyOfficeId: item['company_Office_id'],
+//           cityName: item['city']??"",
+//           stateName: item['state']??"",
+//           countryName: item['country']??"",
+//           lat: item['lat']??"37.7749",
+//           long: item['lng']??"-122.4194",
+//           isHeadOffice:item['isHeadOffice']??false
+//         ));
+//       }
+//       // print("ResponseList:::::${itemsList}");
+//       itemsList.sort((a, b) => b.isHeadOffice ? 1 : (a.isHeadOffice ? -1 : 0));
+//     } else {
+//       print('Api Error');
+//       //return itemsList;
+//     }
+//     // print("Response:::::${response}");
+//     return itemsList;
+//   } catch (e) {
+//     print("Error $e");
+//     return itemsList;
+//   }
+// }
+
+
+
 Future<List<CompanyIdentityModel>> companyOfficeListGet(
     BuildContext context, int pageNo, int rowsNo) async {
   List<CompanyIdentityModel> itemsList = [];
@@ -215,27 +260,37 @@ Future<List<CompanyIdentityModel>> companyOfficeListGet(
           address: item['address'],
           officeId: item['office_id'],
           companyOfficeId: item['company_Office_id'],
-          cityName: item['city']??"",
-          stateName: item['state']??"",
-          countryName: item['country']??"",
-          lat: item['lat']??"37.7749",
-          long: item['lng']??"-122.4194",
-          isHeadOffice:item['isHeadOffice']??false
+          cityName: item['city'] ?? "",
+          stateName: item['state'] ?? "",
+          countryName: item['country'] ?? "",
+          lat: item['lat'] ?? "37.7749",
+          long: item['lng'] ?? "-122.4194",
+          isHeadOffice: item['isHeadOffice'] ?? false,
         ));
       }
-      // print("ResponseList:::::${itemsList}");
-      itemsList.sort((a, b) => b.isHeadOffice ? 1 : (a.isHeadOffice ? -1 : 0));
+
+      // Sort first by head office, then by companyOfficeId in descending order
+      itemsList.sort((a, b) {
+        if (a.isHeadOffice && !b.isHeadOffice) {
+          return -1; // a (head office) comes before b
+        } else if (!a.isHeadOffice && b.isHeadOffice) {
+          return 1; // b (head office) comes before a
+        } else {
+          return b.companyOfficeId.compareTo(a.companyOfficeId); // Sort by companyOfficeId in descending order
+        }
+      });
+
     } else {
       print('Api Error');
       //return itemsList;
     }
-    // print("Response:::::${response}");
     return itemsList;
   } catch (e) {
     print("Error $e");
     return itemsList;
   }
 }
+
 
 ///Get company office list
 Future<List<CompanyOfficeListData>> getCompanyOfficeList(

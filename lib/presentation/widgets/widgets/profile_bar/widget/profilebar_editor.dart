@@ -583,7 +583,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                         alignment: Alignment.center,
                                                         child: HRUManageDropdown(
                                                           controller: TextEditingController(text: ''),
-                                                          labelText: 'Select Employee Type',
+                                                         // labelText: 'Select Employee Type',
                                                           labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                                             color: Color(0xff575757),
                                                             fontWeight: FontWeight.w500,),
@@ -595,7 +595,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     if (snapshot.hasData && snapshot.data!.isEmpty) {
                                                       return HRUManageDropdown(
                                                         controller: TextEditingController(text: ''),
-                                                        labelText: 'Select Employee Type',
+                                                        //labelText: 'Select Employee Type',
                                                         labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                                           color: ColorManager.mediumgrey,
                                                           fontWeight: FontWeight.w500,),
@@ -617,7 +617,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
                                                       return HRUManageDropdown(
                                                         controller: TextEditingController(text: profileData.employeType),
-                                                        labelText: "Select Employee Type",
+                                                       // labelText: "Select Employee Type",
                                                         labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                                           color: ColorManager.mediumgrey,
                                                           fontWeight: FontWeight.w500,),
@@ -661,7 +661,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                           HRUManageDropdown(
                                                             controller: TextEditingController(
                                                                 text: ''),
-                                                            labelText: 'Select Department',
+                                                            //labelText: 'Select Department',
                                                             labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                                               color: Color(0xff575757),
                                                               fontWeight: FontWeight.w500,),
@@ -708,7 +708,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                       return HRUManageDropdown(
                                                         controller: TextEditingController(
                                                             text: profileData.department),
-                                                        labelText: "Select Department",
+                                                        //labelText: "Select Department",
                                                         labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
                                                           color: const Color(0xff575757),
                                                           fontWeight: FontWeight.w500,),
