@@ -562,7 +562,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                   );
                 }
               }
-
               serviceRows.add(Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
