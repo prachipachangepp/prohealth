@@ -88,4 +88,36 @@ class HeadingFormStyle {
     );
   }
 }
-///
+/// hr dashboard
+class TableHeadHRDashboard {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s14p,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+class TableDataHRDashboard {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s15,
+      fontWeight: FontWeight.w400,
+      color: ColorManager.dashListviewData,
+      decoration: TextDecoration.none,
+    );
+  }
+}
+
+///graph heading
+class GraphHeadingHRDashboard {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w700,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}

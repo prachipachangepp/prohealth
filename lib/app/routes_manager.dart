@@ -3,7 +3,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/compan
 import 'package:prohealth/presentation/screens/em_module/manage_hr/hr_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/responsive_screen_em.dart';
 import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/dashboard_main_button_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/dashboard/dashboard_main_button_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
 import 'package:prohealth/presentation/screens/login_module/forget_pass_verification/forget_pass_verification.dart';

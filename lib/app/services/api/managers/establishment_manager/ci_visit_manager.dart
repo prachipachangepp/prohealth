@@ -35,10 +35,11 @@ Future<List<CiVisit>> getVisit(
             clinicians.add(CiVisitList(
               empTypeId: clinical['employeeTypeId'],
               eligibleClinician: clinical['eligibleClinician'] ?? "--",
-              color: clinical['color'] ?? "#FFFFFF",
+              color: clinical['color'] ?? '#FFFFFF',
             ));
           } catch (e) {}
         }
+
         print("::Item${item}");
         itemsList.add(
           CiVisit(
