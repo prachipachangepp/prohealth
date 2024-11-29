@@ -166,6 +166,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
 
 
                     QualificationActionButtons(
+                      isBackColor: false,
                       approve: snapshot.data![index].approved,
                       onRejectPressed: () async {
                         showDialog(

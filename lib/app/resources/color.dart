@@ -60,6 +60,43 @@ class ColorManager {
   static Color sidebarcolor = HexColor.fromHex('d3dde8');
   static Color appbarcolor = HexColor.fromHex('#1E56A0');
   static Color buttongridecolor = HexColor.fromHex('#D6E4F0');
+
+  ///Dashboard Hr
+  static Color ContainerBorder = Color(0xFFDEEBFD);
+  static Color purpleBlack = Color(0xFF7886A9);
+  static Color pink = Color(0xFFEE61CF);
+  static Color blueDash = Color(0xff3786F1);
+  static Color incidentBlue = Color(0xff344BFD);
+  static Color incidentskin = Color(0xffF4A79D);
+
+
+  static Color skini = Color(0xFFFFA8A8);
+  static Color purple = Color(0xFFC0FE233).withOpacity(0.2);
+  static Color barChartBlue = Color(0xFFCBFFFF);
+  static Color pieChartGreen = Color(0xFFBAEDBD);
+  static Color pieChartBBlue = Color(0xFF527FB9);
+  static Color pieChartBlue = Color(0xFF95A4FC);
+  static Color pieChartpurple = Color(0xFFAFB7FF);
+  static Color pieChartFpurple = Color(0xFFDFE2FF);
+  static Color pieChartYellow = Color(0xFFD2F55C);
+  static Color pieChartFYellow = Color(0xFFEBF9BB);
+  static Color pieChartNBlue = Color(0xFF59A9F4);
+  static Color dashBlueHead = Color(0xFFDCF0FA);
+  static Color dashBlueHeadBottom = Color(0xFF1EA0F1);
+  static Color dashListviewData = Color(0xFF718EBF);
+  static Color dashListviewDataPink = Color(0xFFFFE0EB);
+  static Color dashDivider = Color(0xFFE9E9E9);
+  ///emp tenure doc
+  static Color emptenure = Color(0xFF579EBA);
+  static Color empdoc = Color(0xFF16DBCC);
+  ///output relative to input
+  static Color relativeResult = Color(0xFFCBFFFF);
+  static Color greenGraph = Color(0xFF448569);
+
+  ///dashboard EM
+  static Color tabbarText = Color(0xFF008ABD);
+  static Color blueBorder = Color(0xFF2EA2D4);
+  static Color blueBorderText = Color(0xFF579EBA);
 }
 
 extension HexColor on Color {
@@ -71,8 +108,6 @@ extension HexColor on Color {
     return Color(int.parse(hexColorString, radix: 16));
   }
 }
-
-
 
 class IconColorManager{
   static Color red = Color(0xffD93D3D);

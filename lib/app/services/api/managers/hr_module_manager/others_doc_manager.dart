@@ -84,6 +84,45 @@ Future<ApiData> uploadOtherDoc({
   }
 }
 
+/// Upload other doc Patch
+Future<ApiData> patchUploadOtherDoc({
+  required BuildContext context,
+  required int otherDocId,
+  required dynamic documentFile,
+  required String documentName
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).patch(
+      path:ManageReposotory.uploadOthersDoc(otherDocumentid: otherDocId,),
+      data: {
+        'base64String':documents,
+        'file_name':documentName,
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(" Other doc Uploaded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
 /// get other doc
 Future<List<OthersDocModel>> getOthersData(
 {required BuildContext context, required int employeeId}) async {

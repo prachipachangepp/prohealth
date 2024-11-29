@@ -39,6 +39,35 @@ class AppStringHr{
   static String inventoryid = "Id of the Inventory";
   static String docName = "Name of the Document";
 
+  ///dashboard
+  static String empName = "Employee Name";
+  static String expDVisa = "Expiry Date for\nVisa";
+  static String expDPermit = "Expiry Date for Work\nPermits";
+  static String expDLicense = "Expiry Date for\nLicense";
+  static String expDTrain = "Expiry Date for Training\nCertificate";
+  static String avgSickDay = "Average Sick\nDays";
+  static String viewDetails = "View Details";
+  static String back = "Back";
+  ///dashboard view details popup
+  static String name = "Name";
+  static String empType = "Employee Type";
+  static String address = "Address";
+  static String age = "Age";
+  static String gender = "Gender";
+  static String ssn = "Social Security No.";
+  static String phone = "Phone Number";
+  static String personal = "Personal Number";
+  static String work = "Work Number";
+  static String email = "Personal Email";
+  static String workEmail = "Work Email";
+  static String zone = "Zone";
+  static String speciality = "Speciality";
+  static String service = "Service";
+  static String reportingOffice = "Reporting Office";
+  static String summary = "Summary";
+  static String hireDate = "Hire Date";
+  static String pta = "PTA";
+
 }
 
 class ValidationMessage{

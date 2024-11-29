@@ -84,6 +84,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   String _url = "";
   bool hasAttemptedSave = false;
   bool isFormSubmitted = false;
+  bool fileAbove20Mb = false;
   // bool load = false;
   // bool showExpiryDateField = false;
   TextEditingController expiryDateController = TextEditingController();
@@ -110,10 +111,13 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
       type: FileType.custom,
       allowedExtensions: ['pdf'],
     );
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
     if (result != null) {
       setState(() {
         filePath = result.files.first.bytes;
         fileName = result.files.first.name;
+        fileAbove20Mb = !isAbove20MB;
       });
     }
   }
@@ -338,28 +342,40 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
             }
 
             try {
-              var response = await uploadDocuments(
-                context: context,
-                employeeDocumentMetaId: documentMetaDataId,
-                employeeDocumentTypeSetupId: documentSetupId,
-                employeeId: widget.employeeId,
-                documentName: fileName,
-                documentFile: filePath,
-                expiryDate: expiryDate,
-              );
-              var result = await singleBatchApproveOnboardAckHealthPatch(context, response.documentId!);
-              if (result.statusCode == 200 || result.statusCode == 201) {
-                Navigator.pop(context);
-                showDialog(
+              if(fileAbove20Mb){
+                var response = await uploadDocuments(
                   context: context,
-                  builder: (BuildContext context) {
-                    return AddSuccessPopup(
-                      message: 'Document Uploaded Successfully',
-                    );
-                  },
+                  employeeDocumentMetaId: documentMetaDataId,
+                  employeeDocumentTypeSetupId: documentSetupId,
+                  employeeId: widget.employeeId,
+                  documentName: fileName,
+                  documentFile: filePath,
+                  expiryDate: expiryDate,
                 );
-              }
-              if (response.statusCode == 413) {
+                var result = await singleBatchApproveOnboardAckHealthPatch(context, response.documentId!);
+                if (result.statusCode == 200 || result.statusCode == 201) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddSuccessPopup(
+                        message: 'Document Uploaded Successfully',
+                      );
+                    },
+                  );
+                }
+                if (response.statusCode == 413) {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddErrorPopup(
+                        message: 'Request entity to large!',
+                      );
+                    },
+                  );
+                }
+              }else{
                 Navigator.pop(context);
                 showDialog(
                   context: context,
@@ -370,6 +386,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                   },
                 );
               }
+
             } finally {
               setState(() {
                 load = false;

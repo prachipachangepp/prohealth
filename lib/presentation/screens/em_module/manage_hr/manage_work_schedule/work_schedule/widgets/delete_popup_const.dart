@@ -55,6 +55,7 @@ class _DeletePopupState extends State<DeletePopup> {
               height: 35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0),
@@ -99,7 +100,7 @@ class _DeletePopupState extends State<DeletePopup> {
             ),
             Spacer(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: AppPadding.p24),

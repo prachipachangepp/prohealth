@@ -52,37 +52,14 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
   //
   Uint8List? finalPathPl;
   String? fileNamePl;
-  ////////////////////////////////////
-  // Future<void> _handleFileUploadDL() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //       type: FileType.custom,
-  //       allowedExtensions: ['pdf']
-  //   );
-  //
-  //   if (result != null) {
-  //     final file = result.files.first;
-  //     setState(() {
-  //       fileNameDl = file.name;
-  //       finalPathDl = file.bytes;
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _handleFileUploadPL() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //       type: FileType.custom,
-  //       allowedExtensions: ['pdf']
-  //   );
-  //
-  //   if (result != null) {
-  //     final file = result.files.first;
-  //     setState(() {
-  //       fileNamePl = file.name;
-  //       finalPathPl = file.bytes;
-  //     });
-  //   }
-  // }
 
+  String _trimSummery(String address) {
+    const int maxLength = 16;
+    if (address.length > maxLength) {
+      return '${address.substring(0, maxLength)}...';
+    }
+    return address;
+  }
   TextEditingController expirydatecontrollerdl = TextEditingController();
   TextEditingController expirydatecontrollerpl = TextEditingController();
 
@@ -103,7 +80,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
-              'Kindly Upload The Driving Licenses And Practitioner Licenses Compulsory',
+              'Kindly Upload The Driving License And Practitioner License Compulsory',
               textAlign: TextAlign.center,
               style: ZoneDataStyle.customTextStyle(context),
             ),
@@ -296,7 +273,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                                   const EdgeInsets
                                                                       .all(8.0),
                                                               child: Text(
-                                                                '$fileNameDl',
+                                                                _trimSummery('$fileNameDl'),
                                                                 style: onlyFormDataStyle
                                                                     .customTextStyle(
                                                                         context),
@@ -376,7 +353,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '  Expiry Date',
+                                          'Expiry Date',
                                           style: onlyFormDataStyle
                                               .customTextStyle(context),
                                         ),
@@ -513,7 +490,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                                   const EdgeInsets
                                                                       .all(8.0),
                                                               child: Text(
-                                                                '$fileNamePl',
+                                                                _trimSummery('$fileNamePl'),   //'$fileNamePl',
                                                                 style: onlyFormDataStyle
                                                                     .customTextStyle(
                                                                         context),
