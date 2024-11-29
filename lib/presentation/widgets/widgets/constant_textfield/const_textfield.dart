@@ -90,103 +90,6 @@ class CustomTextField extends StatelessWidget {
 
 ///drop down text field
 ///todo prachi
-class CustomDropdownTextField extends StatefulWidget {
-  final String? value;
-  final List<String>? items;
-  final List<DropdownMenuItem<String>>? dropDownMenuList;
-  final String? hintText;
-  final String headText;
-  final void Function(String?)? onChanged;
-  final double? width;
-  final double? height;
-  final String? initialValue;
-
-  const CustomDropdownTextField({
-    Key? key,
-    this.dropDownMenuList,
-    required this.headText,
-    this.value,
-    this.items,
-    this.onChanged,
-    this.width,
-    this.height,
-    this.initialValue,
-    this.hintText,
-  }) : super(key: key);
-
-  @override
-  _CustomDropdownTextFieldState createState() =>
-      _CustomDropdownTextFieldState();
-}
-
-class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
-  late String? _selectedValue;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedValue = widget.value;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 5.0,bottom: 2),
-          child: Text(widget.headText,style: AllPopupHeadings.customTextStyle(context),),
-        ),
-        SizedBox(
-          width: AppSize.s250,
-          height: AppSize.s40,
-          child: Padding(
-            padding: const EdgeInsets.all(AppPadding.p5),
-            child: DropdownButtonFormField<String>(
-              icon:
-              Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey),
-              ),
-              value: _selectedValue,
-              items: widget.dropDownMenuList == null
-                  ? widget.items!.map((String value) {
-                return DropdownMenuItem<String>(
-
-                  value: value,
-                  child: Text(
-                    value,
-                    style:DocumentTypeDataStyle.customTextStyle(context),
-                  ),
-                );
-              }).toList()
-                  : widget.dropDownMenuList,
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedValue = newValue;
-                });
-                if (widget.onChanged != null) {
-                  widget.onChanged!(newValue);
-                }
-              },
-              isExpanded: true,
-              decoration: InputDecoration(
-                hoverColor: ColorManager.white,
-                contentPadding: EdgeInsets.only(
-                    bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: ColorManager.black),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 // class CustomDropdownTextField extends StatefulWidget {
 //   final String? value;
 //   final List<String>? items;
@@ -217,101 +120,12 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
 // }
 //
 // class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
-//   String? _selectedValue;
-//   OverlayEntry? _overlayEntry;
-//   final GlobalKey _dropdownKey = GlobalKey();
-//   bool _isDropdownOpen = false;
+//   late String? _selectedValue;
 //
 //   @override
 //   void initState() {
 //     super.initState();
-//     _selectedValue = widget.value ?? widget.initialValue;
-//   }
-//
-//   void _toggleDropdown() {
-//     if (_isDropdownOpen) {
-//       _closeDropdown();
-//     } else {
-//       _openDropdown();
-//     }
-//   }
-//
-//   void _openDropdown() {
-//     final RenderBox renderBox = _dropdownKey.currentContext!.findRenderObject() as RenderBox;
-//     final Offset offset = renderBox.localToGlobal(Offset.zero);
-//     final Size size = renderBox.size;
-//
-//     _overlayEntry = OverlayEntry(
-//       builder: (context) {
-//         return GestureDetector(
-//           behavior: HitTestBehavior.translucent,
-//           onTap: _closeDropdown, // Close dropdown when tapping outside
-//           child: Stack(
-//             children: [
-//               Positioned(
-//                 left: offset.dx,
-//                 top: offset.dy + size.height,
-//                 width: widget.width ?? size.width,
-//                 child: Material(
-//                   elevation: 4,
-//                   borderRadius: BorderRadius.circular(8),
-//                   child: Container(
-//                     constraints: BoxConstraints(
-//                       maxHeight: 200, // Show scroll for more than 5 items
-//                     ),
-//                     child: ListView.builder(
-//                       padding: EdgeInsets.zero,
-//                       shrinkWrap: true,
-//                       itemCount: widget.items?.length ?? widget.dropDownMenuList?.length ?? 0,
-//                       itemBuilder: (context, index) {
-//                         final item = widget.items != null
-//                             ? widget.items![index]
-//                             : widget.dropDownMenuList![index].value;
-//
-//                         return ListTile(
-//                           title: Text(
-//                             item!,
-//                             style: DocumentTypeDataStyle.customTextStyle(context),
-//                           ),
-//                           onTap: () {
-//                             setState(() {
-//                               _selectedValue = item;
-//                               _closeDropdown();
-//                             });
-//                             if (widget.onChanged != null) {
-//                               widget.onChanged!(item);
-//                             }
-//                           },
-//                         );
-//                       },
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         );
-//       },
-//     );
-//
-//     Overlay.of(context).insert(_overlayEntry!);
-//     setState(() {
-//       _isDropdownOpen = true;
-//     });
-//   }
-//
-//   void _closeDropdown() {
-//     _overlayEntry?.remove();
-//     _overlayEntry = null;
-//     setState(() {
-//       _isDropdownOpen = false;
-//     });
-//   }
-//
-//   @override
-//   void dispose() {
-//     _closeDropdown();
-//     super.dispose();
+//     _selectedValue = widget.value;
 //   }
 //
 //   @override
@@ -320,35 +134,49 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
 //       crossAxisAlignment: CrossAxisAlignment.start,
 //       children: [
 //         Padding(
-//           padding: const EdgeInsets.only(left: 5.0, bottom: 2),
-//           child: Text(
-//             widget.headText,
-//             style: AllPopupHeadings.customTextStyle(context),
-//           ),
+//           padding: const EdgeInsets.only(left: 5.0,bottom: 2),
+//           child: Text(widget.headText,style: AllPopupHeadings.customTextStyle(context),),
 //         ),
 //         SizedBox(
 //           width: AppSize.s250,
-//           height:  AppSize.s40,
-//           child: GestureDetector(
-//             onTap: _toggleDropdown,
-//             child: Padding(
-//               padding: const EdgeInsets.all(AppPadding.p5),
-//               child: Container(
-//                 key: _dropdownKey,
-//                 padding: const EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
-//                 decoration: BoxDecoration(
-//                   border: Border.all(color: Colors.grey),
-//                   borderRadius: BorderRadius.circular(4),
-//                 ),
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Text(
-//                       _selectedValue ?? widget.hintText ?? '',
-//                       style: DocumentTypeDataStyle.customTextStyle(context),
-//                     ),
-//                     Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
-//                   ],
+//           height: AppSize.s40,
+//           child: Padding(
+//             padding: const EdgeInsets.all(AppPadding.p5),
+//             child: DropdownButtonFormField<String>(
+//               icon:
+//               Padding(
+//                 padding: const EdgeInsets.only(right: 5),
+//                 child: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.mediumgrey),
+//               ),
+//               value: _selectedValue,
+//               items: widget.dropDownMenuList == null
+//                   ? widget.items!.map((String value) {
+//                 return DropdownMenuItem<String>(
+//
+//                   value: value,
+//                   child: Text(
+//                     value,
+//                     style:DocumentTypeDataStyle.customTextStyle(context),
+//                   ),
+//                 );
+//               }).toList()
+//                   : widget.dropDownMenuList,
+//               onChanged: (newValue) {
+//                 setState(() {
+//                   _selectedValue = newValue;
+//                 });
+//                 if (widget.onChanged != null) {
+//                   widget.onChanged!(newValue);
+//                 }
+//               },
+//               isExpanded: true,
+//               decoration: InputDecoration(
+//                 hoverColor: ColorManager.white,
+//                 contentPadding: EdgeInsets.only(
+//                     bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
+//                 border: OutlineInputBorder(),
+//                 focusedBorder: OutlineInputBorder(
+//                   borderSide: BorderSide(color: ColorManager.black),
 //                 ),
 //               ),
 //             ),
@@ -358,6 +186,198 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
 //     );
 //   }
 // }
+
+class CustomDropdownTextField extends StatefulWidget
+{
+  final String? value;
+  final List<String>? items;
+  final List<DropdownMenuItem<String>>? dropDownMenuList;
+  final String? hintText;
+  final String headText;
+  final void Function(String?)? onChanged;
+  final double? width;
+  final double? height;
+  final String? initialValue;
+
+  const CustomDropdownTextField({
+    Key? key,
+    this.dropDownMenuList,
+    required this.headText,
+    this.value,
+    this.items,
+    this.onChanged,
+    this.width,
+    this.height,
+    this.initialValue,
+    this.hintText,
+  }) : super(key: key);
+
+  @override
+  _CustomDropdownTextFieldState createState() =>
+      _CustomDropdownTextFieldState();
+}
+
+class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
+  String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.value ?? widget.initialValue;
+  }
+
+  void _showDropdownDialog() async {
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+    final result = await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Positioned(
+              left: offset.dx,
+              top: offset.dy + size.height,
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  width: widget.width ?? size.width,
+                  constraints: BoxConstraints(
+                    maxHeight: 250, // Restrict height for scroll
+                  ),
+                  child: Scrollbar(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: widget.items?.length ?? widget.dropDownMenuList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final item = widget.items != null
+                            ? widget.items![index]
+                            : widget.dropDownMenuList![index].value;
+                        return ListTile(
+                          title: Text(
+                            item!,
+                            style: DocumentTypeDataStyle.customTextStyle(context),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pop(item);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result != null) {
+      setState(() {
+        _selectedValue = result;
+        widget.onChanged?.call(result);
+      });
+    }
+  }
+
+  // void _showDropdownDialog() {
+  //   final RenderBox renderBox = context.findRenderObject() as RenderBox;
+  //   final offset = renderBox.localToGlobal(Offset.zero);
+  //   final size = renderBox.size;
+  //
+  //   showDialog(
+  //     context: context,
+  //     barrierColor: Colors.transparent,
+  //     builder: (BuildContext context) {
+  //       return Stack(
+  //         children: [
+  //           Positioned(
+  //             left: offset.dx,
+  //             top: offset.dy + size.height,
+  //             child: Material(
+  //               elevation: 4,
+  //               borderRadius: BorderRadius.circular(4),
+  //               child: Container(
+  //                 width: widget.width ?? size.width,
+  //                 constraints: BoxConstraints(
+  //                   maxHeight: 250, // Limit height for scrolling
+  //                 ),
+  //                 child: Scrollbar(
+  //                   child: ListView.builder(
+  //
+  //                     shrinkWrap: true,
+  //                     children: widget.dropDownMenuList!.map((DropdownMenuItem<String> item) {
+  //                       return ListTile(
+  //                         title: Text(
+  //                           item.value ?? '',
+  //                           style: DocumentTypeDataStyle.customTextStyle(context),
+  //                         ),
+  //                         onTap: () {
+  //                           setState(() {
+  //                             _selectedValue = item.value;
+  //                             widget.onChanged?.call(item.value!);
+  //                           });
+  //                           Navigator.pop(context);
+  //                         },
+  //                       );
+  //                     }).toList(),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0, bottom: 2),
+          child: Text(
+            widget.headText,
+            style: AllPopupHeadings.customTextStyle(context),
+          ),
+        ),
+        SizedBox(
+          width: AppSize.s250,
+          height: AppSize.s40,
+          child: GestureDetector(
+            onTap: _showDropdownDialog,
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Container(
+                padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      _selectedValue ?? widget.hintText ?? 'Select',
+                      style: DocumentTypeDataStyle.customTextStyle(context),
+                    ),
+                    Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 
 ///
 ///
