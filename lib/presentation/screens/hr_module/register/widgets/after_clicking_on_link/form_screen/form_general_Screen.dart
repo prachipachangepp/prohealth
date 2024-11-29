@@ -578,7 +578,7 @@ class _generalFormState extends State<generalForm> {
                           MediaQuery.of(context).size.height / 60),
                       StatefulBuilder(
                         builder: (BuildContext context, void Function(void Function()) setState) { return  Container(
-                          width: 400,
+                         // width: 400,
                           child: Row(
                             mainAxisAlignment:
                             MainAxisAlignment.spaceBetween,
@@ -1021,9 +1021,10 @@ class _generalFormState extends State<generalForm> {
                                 children: [
                                   Column(
                                     children: [
+
                                       CustomRadioListTile(
-                                        title: 'Black or African American',
-                                        value: 'Black or African American',
+                                        title: 'Hispanic or Latino',
+                                        value: 'Hispanic or Latino',
                                         groupValue: racetype,
                                         onChanged: (value) {
                                           setState(() {
@@ -1057,8 +1058,8 @@ class _generalFormState extends State<generalForm> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   CustomRadioListTile(
-                                    title: 'Hispanic or Latino',
-                                    value: 'Hispanic or Latino',
+                                    title: 'Black or African American',
+                                    value: 'Black or African American',
                                     groupValue: racetype,
                                     onChanged: (value) {
                                       setState(() {
@@ -1066,6 +1067,16 @@ class _generalFormState extends State<generalForm> {
                                       });
                                     },
                                   ),
+                                  // CustomRadioListTile(
+                                  //   title: 'Hispanic or Latino',
+                                  //   value: 'Hispanic or Latino',
+                                  //   groupValue: racetype,
+                                  //   onChanged: (value) {
+                                  //     setState(() {
+                                  //       racetype = value;
+                                  //     });
+                                  //   },
+                                  // ),
                                   const SizedBox(
                                     width: 5,
                                   ),

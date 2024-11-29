@@ -147,14 +147,15 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                           //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                                           Expanded(
                                             child: Center(
-                                              child: Text( AppStringEM.startTime,
+                                              child: Text( 'Start Time',         //AppStringEM.startTime,
                                                   textAlign: TextAlign.start,
                                                   style: TableHeading.customTextStyle(context)),
                                             ),
                                           ),
                                           Expanded(
                                             child: Center(
-                                              child: Text( AppStringEM.endTime,textAlign: TextAlign.start,
+                                              child: Text(   "End Time",       //AppStringEM.endTime,
+                                                  textAlign: TextAlign.start,
                                                   style: TableHeading.customTextStyle(context)),
                                             ),
                                           ),
