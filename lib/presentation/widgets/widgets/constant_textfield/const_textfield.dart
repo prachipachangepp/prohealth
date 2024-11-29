@@ -459,6 +459,202 @@ class CustomTextFieldPhone extends StatelessWidget {
 
 
 
+// class CustomDropdownTextFieldwidh extends StatefulWidget
+// {
+//   final String? value;
+//   final List<String>? items;
+//   final List<DropdownMenuItem<String>>? dropDownMenuList;
+//   final String? hintText;
+//   final String headText;
+//   final void Function(String?)? onChanged;
+//   final double? width;
+//   final double? widthone;
+//   final double? height;
+//   final String? initialValue;
+//
+//   const CustomDropdownTextFieldwidh({
+//     Key? key,
+//     this.dropDownMenuList,
+//     required this.headText,
+//     this.value,
+//     this.items,
+//     this.onChanged,
+//     this.width,
+//     this.widthone,
+//     this.height,
+//     this.initialValue,
+//     this.hintText,
+//   }) : super(key: key);
+//
+//   @override
+//   _CustomDropdownTextFieldwidhState createState() =>
+//       _CustomDropdownTextFieldwidhState();
+// }
+//
+// class _CustomDropdownTextFieldwidhState extends State<CustomDropdownTextFieldwidh> {
+//   String? _selectedValue;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _selectedValue = widget.value ?? widget.initialValue;
+//   }
+//
+//   void _showDropdownDialog() async {
+//     final RenderBox renderBox = context.findRenderObject() as RenderBox;
+//     final offset = renderBox.localToGlobal(Offset.zero);
+//     final size = renderBox.size;
+//     final result = await showDialog<String>(
+//       context: context,
+//       barrierColor: Colors.transparent,
+//       builder: (BuildContext context) {
+//         return Stack(
+//           children: [
+//             Positioned(
+//               left: offset.dx,
+//               top: offset.dy + size.height,
+//               child: Material(
+//                 elevation: 4,
+//                 borderRadius: BorderRadius.circular(4),
+//                 child: Container(
+//                   width: widget.width ?? size.width,
+//                   constraints: BoxConstraints(
+//                     maxHeight: 250, // Restrict height for scroll
+//                   ),
+//                   child: Scrollbar(
+//                     child: ListView.builder(
+//                       shrinkWrap: true,
+//                       itemCount: widget.items?.length ?? widget.dropDownMenuList?.length ?? 0,
+//                       itemBuilder: (context, index) {
+//                         final item = widget.items != null
+//                             ? widget.items![index]
+//                             : widget.dropDownMenuList![index].value;
+//                         return ListTile(
+//                           title: Text(
+//                             item!,
+//                             style: DocumentTypeDataStyle.customTextStyle(context),
+//                           ),
+//                           onTap: () {
+//                             Navigator.of(context).pop(item);
+//                           },
+//                         );
+//                       },
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//
+//     if (result != null) {
+//       setState(() {
+//         _selectedValue = result;
+//         widget.onChanged?.call(result);
+//       });
+//     }
+//   }
+//
+//   // void _showDropdownDialog() {
+//   //   final RenderBox renderBox = context.findRenderObject() as RenderBox;
+//   //   final offset = renderBox.localToGlobal(Offset.zero);
+//   //   final size = renderBox.size;
+//   //
+//   //   showDialog(
+//   //     context: context,
+//   //     barrierColor: Colors.transparent,
+//   //     builder: (BuildContext context) {
+//   //       return Stack(
+//   //         children: [
+//   //           Positioned(
+//   //             left: offset.dx,
+//   //             top: offset.dy + size.height,
+//   //             child: Material(
+//   //               elevation: 4,
+//   //               borderRadius: BorderRadius.circular(4),
+//   //               child: Container(
+//   //                 width: widget.width ?? size.width,
+//   //                 constraints: BoxConstraints(
+//   //                   maxHeight: 250, // Limit height for scrolling
+//   //                 ),
+//   //                 child: Scrollbar(
+//   //                   child: ListView.builder(
+//   //
+//   //                     shrinkWrap: true,
+//   //                     children: widget.dropDownMenuList!.map((DropdownMenuItem<String> item) {
+//   //                       return ListTile(
+//   //                         title: Text(
+//   //                           item.value ?? '',
+//   //                           style: DocumentTypeDataStyle.customTextStyle(context),
+//   //                         ),
+//   //                         onTap: () {
+//   //                           setState(() {
+//   //                             _selectedValue = item.value;
+//   //                             widget.onChanged?.call(item.value!);
+//   //                           });
+//   //                           Navigator.pop(context);
+//   //                         },
+//   //                       );
+//   //                     }).toList(),
+//   //                   ),
+//   //                 ),
+//   //               ),
+//   //             ),
+//   //           ),
+//   //         ],
+//   //       );
+//   //     },
+//   //   );
+//   // }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.only(left: 5.0, bottom: 2),
+//           child: Text(
+//             widget.headText,
+//             style: AllPopupHeadings.customTextStyle(context),
+//           ),
+//         ),
+//         SizedBox(
+//          // width: widget.widthone,
+//           height: AppSize.s40,
+//           child: GestureDetector(
+//             onTap: _showDropdownDialog,
+//             child: Padding(
+//               padding: const EdgeInsets.all(5),
+//               child: Container(
+//                 padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
+//                 decoration: BoxDecoration(
+//                   border: Border.all(color: Colors.grey),
+//                   borderRadius: BorderRadius.circular(4),
+//                 ),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     Text(
+//                       _selectedValue ?? widget.hintText ?? 'Select',
+//                       style: DocumentTypeDataStyle.customTextStyle(context),
+//                     ),
+//                     Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+
+
 
 
 
