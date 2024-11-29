@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -155,3 +156,69 @@ class EMDashboardAllBlueSideContainer extends StatelessWidget {
       child: child,);
   }
 }
+
+class BlueBorderContainerConst extends StatelessWidget {
+  final IconData imageTile;
+  final String headText;
+  final String subText;
+  final String bottomText;
+  const BlueBorderContainerConst({super.key, required this.imageTile, required this.headText, required this.subText, required this.bottomText});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Column(children: [
+              SizedBox(height: 10,),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  color: ColorManager.bluebottom,
+                  child: Icon(imageTile,color: ColorManager.white,size: 24,)
+                  // Image.asset(
+                  //   imageTile, // Replace with your image path
+                  //   fit: BoxFit.cover,
+                  // ),
+                ),
+              )
+            ],),
+            SizedBox(width: 25,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(subText,
+                  style: CustomTextStylesCommon.commonStyle(fontSize: 30,
+                      color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(headText,
+                    style: CustomTextStylesCommon.commonStyle(fontSize: 16,
+                        color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),),
+                ],
+              ),
+
+            ],)
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(bottomText,
+              textAlign: TextAlign.end,
+              style: CustomTextStylesCommon.commonStyle(
+                fontSize: FontSize.s10,
+                color: ColorManager.mediumgrey,
+              ),)
+          ],),
+      ],
+    );
+  }
+}
+
