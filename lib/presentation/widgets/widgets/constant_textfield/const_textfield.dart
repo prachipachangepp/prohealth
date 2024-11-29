@@ -232,6 +232,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
     final size = renderBox.size;
     final result = await showDialog<String>(
       context: context,
+      barrierColor: Colors.transparent,
       builder: (BuildContext context) {
         return Stack(
           children: [
