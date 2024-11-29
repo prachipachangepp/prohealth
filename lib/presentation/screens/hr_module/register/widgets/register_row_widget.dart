@@ -72,10 +72,12 @@ class CustomRownew extends StatelessWidget {
             style:DocumentTypeDataStyle.customTextStyle(context)
         ),
         SizedBox(width: MediaQuery.of(context).size.width/70),
-        Text(
-            text2,
-            textAlign: TextAlign.start,
-            style:ThemeManagerDark.customTextStyle(context)
+        Flexible(
+          child: Text(
+              text2,
+              textAlign: TextAlign.start,
+              style:ThemeManagerDark.customTextStyle(context)
+          ),
         ),
       ],
     );
