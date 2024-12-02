@@ -600,24 +600,13 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                     (value) {},
                                                               );
                                                             }
-                                                            if (snapshot
-                                                                .hasData) {
+                                                            if (snapshot.hasData) {
                                                               {
-                                                                List<DropdownMenuItem<
-                                                                            String>>
-                                                                    dropDownList =
-                                                                    [];
-                                                                for (var i
-                                                                    in snapshot
-                                                                        .data!) {
-                                                                  dropDownList.add(
-                                                                      DropdownMenuItem<
-                                                                          String>(
-                                                                    child: Text(
-                                                                      i.name,
-                                                                      style: SearchDropdownConst
-                                                                          .customTextStyle(
-                                                                              context),
+                                                                List<DropdownMenuItem<String>>dropDownList = [];
+                                                                for (var i in snapshot.data!) {
+                                                                  dropDownList.add(DropdownMenuItem<String>(
+                                                                    child: Text(i.name,
+                                                                      style: SearchDropdownConst.customTextStyle(context),
                                                                     ),
                                                                     value: i.name,
                                                                   ));
@@ -626,53 +615,23 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 //     .map((zone) => zone.zoneName ?? '')
                                                                 //     .toList();
                                                                 return Container(
-                                                                  height: 31,
+//height: 31,
                                                                   width: 170,
 
-                                                                  // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color: const Color(
-                                                                                0xff686464)
-                                                                            .withOpacity(
-                                                                                0.5),
-                                                                        width:
-                                                                            1), // Black border
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                6), // Rounded corners
-                                                                  ),
-                                                                  child:
-                                                                      DropdownButtonFormField<
-                                                                          String>(
-                                                                        focusColor: Colors.transparent,
-                                                                        icon: Icon(
-                                                                      Icons.arrow_drop_down_sharp,
-                                                                      color: ColorManager.mediumgrey,
-                                                                        ),
-                                                                        decoration: const InputDecoration.collapsed(hintText: ''),
-                                                                        items: dropDownList,
-                                                                        onChanged: (newValue) {for (var a
-                                                                          in snapshot.data!) {
-                                                                        if (a.name == newValue) {
-                                                                          reportingOfficeId =a.name;
-                                                                          isReportingOfficeId = true;
-                                                                          print(
-                                                                              'Office Name : ${reportingOfficeId}');
-                                                                          //empTypeId = docType;
-                                                                        }
+                                                                  child:  CustomDropdownTextFieldwidh(
+                                                                    dropDownMenuList: dropDownList,
+                                                                    onChanged: (newValue) {for (var a
+                                                                    in snapshot.data!) {
+                                                                      if (a.name == newValue) {
+                                                                        reportingOfficeId =a.name;
+                                                                        isReportingOfficeId = true;
+                                                                        print(
+                                                                            'Office Name : ${reportingOfficeId}');
+                                                                        //empTypeId = docType;
                                                                       }
-                                                                      },
-                                                                        value: dropDownList[0].value,
-                                                                        style: SearchDropdownConst
-                                                                        .customTextStyle(
-                                                                            context),
-                                                                      ),
+                                                                    }
+                                                                    },
+                                                                  ),
                                                                 );
                                                               }
                                                             } else {
@@ -684,17 +643,13 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
 
                                                         avabilityWidget: Row(
                                                           children: [
-                                                            Center(
-                                                              child:
-                                                                  PatientCustomDropDown(
+                                                            Container( width: 170,
+                                                              child: CustomDropdownTextFieldwidh(
                                                                 items: [
                                                                   'Full Time',
                                                                   'Part Time'
                                                                 ],
-                                                                labelText:
-                                                                    'Availability',
-                                                                value:
-                                                                    'Full Time',
+
                                                                 // labelStyle: SearchDropdownConst.customTextStyle(context),
                                                                 onChanged:
                                                                     (value) {
@@ -713,147 +668,138 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                         ),
                                                         licensesWidget: Row(
                                                           children: [
-                                                            Center(
-                                                              child:
-                                                                  PatientCustomDropDown(
-                                                                items: [
+                                                            Container(
+                                                              // height: 31,
+                                                              width: 170,
+                                                              // margin: EdgeInsets.symmetric(horizontal: 20),
+                                                              child: CustomDropdownTextFieldwidh(
+                                                                items:[
                                                                   'Expired',
-                                                                  'About to Expire',
-                                                                  'Upto date'
-                                                                ],
-                                                                labelText:
-                                                                    'License Status',
-                                                                value: 'Expired',
-                                                                onChanged:
-                                                                    (value) {
+                                                                          'About to Expire',
+                                                                          'Upto date'],
+                                                                onChanged: (value) {
                                                                   setState(() {
-                                                                    dropdownLicenseStatus =
-                                                                        value!;
-                                                                    isDropdownLicenseStatus =
-                                                                        true;
-                                                                    print(
-                                                                        "License Status :: ${dropdownLicenseStatus}");
+                                                                    dropdownLicenseStatus = value!;
+                                                                    isDropdownLicenseStatus = true;
+                                                                    print("License Status :: ${dropdownLicenseStatus}");
                                                                   });
                                                                 },
-                                                              ),
+                                                              ) ,
+
                                                             ),
                                                           ],
                                                         ),
+                                                        // Row(
+                                                        //   children: [
+                                                        //     Center(
+                                                        //       child:
+                                                        //           PatientCustomDropDown(
+                                                        //         items: [
+                                                        //           'Expired',
+                                                        //           'About to Expire',
+                                                        //           'Upto date'
+                                                        //         ],
+                                                        //         labelText: 'License Status',
+                                                        //         value: 'Expired',
+                                                        //         onChanged: (value) {
+                                                        //           setState(() {
+                                                        //             dropdownLicenseStatus = value!;
+                                                        //             isDropdownLicenseStatus = true;
+                                                        //             print("License Status :: ${dropdownLicenseStatus}");
+                                                        //           });
+                                                        //         },
+                                                        //       ),
+                                                        //     ),
+                                                        //   ],
+                                                        // ),
                                                         zoneDropDown: FutureBuilder<List<SortByZoneData>>(
                                                           future:
                                                           PayRateZoneDropdown(
                                                             context,
                                                           ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            if (snapshot
-                                                                .connectionState ==
-                                                                ConnectionState.waiting) {
+                                                          builder: (context, snapshot) {
+                                                            if (snapshot.connectionState == ConnectionState.waiting) {
                                                               return PatientCustomDropDown(
                                                                 items: ['Zone'],
                                                                 labelText: '',
                                                                 value: 'Zone',
-                                                                onChanged:
-                                                                    (value) {},
+                                                                onChanged: (value) {},
                                                               );
-                                                            } else if (snapshot
-                                                                .hasData) {
-                                                              List<
-                                                                  DropdownMenuItem<
-                                                                      String>>
-                                                              dropDownList =
-                                                              [];
+                                                            } else if (snapshot.hasData) {
+                                                              List<DropdownMenuItem<String>>dropDownList = [];
                                                               int zoneId = 0;
                                                               for (var i
-                                                              in snapshot
-                                                                  .data!) {
-                                                                dropDownList.add(
-                                                                    DropdownMenuItem<
-                                                                        String>(
+                                                              in snapshot.data!) {
+                                                                dropDownList.add(DropdownMenuItem<String>(
                                                                       child: Text(
                                                                         i.zoneName,
-                                                                        style: SearchDropdownConst
-                                                                            .customTextStyle(
-                                                                            context),
+                                                                        style: SearchDropdownConst.customTextStyle(context),
                                                                       ),
-                                                                      value:
-                                                                      i.zoneName,
+                                                                      value: i.zoneName,
                                                                     ));
                                                               }
-                                                              // snapshot.data!
-                                                              //     .map((zone) => zone.zoneName ?? '')
-                                                              //     .toList();
+
                                                               print("Zone: ");
                                                               return Container(
-                                                                height: 31,
+                                                               // height: 31,
                                                                 width: 170,
                                                                 // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                                padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    vertical:
-                                                                    5,
-                                                                    horizontal:
-                                                                    4),
-                                                                decoration:
-                                                                BoxDecoration(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  border: Border.all(
-                                                                      color: const Color(
-                                                                          0xff686464)
-                                                                          .withOpacity(
-                                                                          0.5),
-                                                                      width:
-                                                                      1), // Black border
-                                                                  borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                      6), // Rounded corners
-                                                                ),
-                                                                child: DropdownButtonFormField<
-                                                                    String>(
-                                                                    focusColor: Colors
-                                                                        .transparent,
-                                                                    icon:
-                                                                    const Icon(
-                                                                      Icons
-                                                                          .arrow_drop_down_sharp,
-                                                                      color: Color(
-                                                                          0xff686464),
-                                                                    ),
-                                                                    decoration: const InputDecoration
-                                                                        .collapsed(
-                                                                        hintText:
-                                                                        ''),
-                                                                    items:
-                                                                    dropDownList,
-                                                                    onChanged:
-                                                                        (newValue) {
-                                                                      for (var a
-                                                                      in snapshot
-                                                                          .data!) {
-                                                                        if (a.zoneName ==
-                                                                            newValue) {
-                                                                          zoneId =
-                                                                              a.zoneId;
-                                                                          selectedZoneId =
-                                                                              zoneId;
-                                                                          isZoneSelected =
-                                                                          true;
-                                                                          print(
-                                                                              "Zone id :: ${selectedZoneId}");
-                                                                          //empTypeId = docType;
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    value:
-                                                                    dropDownList[
-                                                                    0]
-                                                                        .value,
-                                                                    style: DropdownItemStyle
-                                                                        .customTextStyle(
-                                                                        context)),
+                                                               child: CustomDropdownTextFieldwidh(
+                                                                 dropDownMenuList: dropDownList,
+                                                                 onChanged: (newValue) {
+                                                                   for (var a in snapshot.data!) {
+                                                                     if (a.zoneName == newValue) {
+                                                                       zoneId = a.zoneId;
+                                                                       selectedZoneId = zoneId;
+                                                                       isZoneSelected = true;
+                                                                       print("Zone id :: ${selectedZoneId}");
+                                                                       //empTypeId = docType;
+                                                                     }
+                                                                   }
+                                                                 },
+                                                               ) ,
+                                                                // child: DropdownButtonFormField<String>(
+                                                                //     focusColor: Colors
+                                                                //         .transparent,
+                                                                //     icon:
+                                                                //     const Icon(
+                                                                //       Icons
+                                                                //           .arrow_drop_down_sharp,
+                                                                //       color: Color(
+                                                                //           0xff686464),
+                                                                //     ),
+                                                                //     decoration: const InputDecoration
+                                                                //         .collapsed(
+                                                                //         hintText:
+                                                                //         ''),
+                                                                //     items:
+                                                                //     dropDownList,
+                                                                //     onChanged:
+                                                                //         (newValue) {
+                                                                //       for (var a
+                                                                //       in snapshot
+                                                                //           .data!) {
+                                                                //         if (a.zoneName ==
+                                                                //             newValue) {
+                                                                //           zoneId =
+                                                                //               a.zoneId;
+                                                                //           selectedZoneId =
+                                                                //               zoneId;
+                                                                //           isZoneSelected =
+                                                                //           true;
+                                                                //           print(
+                                                                //               "Zone id :: ${selectedZoneId}");
+                                                                //           //empTypeId = docType;
+                                                                //         }
+                                                                //       }
+                                                                //     },
+                                                                //     value:
+                                                                //     dropDownList[
+                                                                //     0]
+                                                                //         .value,
+                                                                //     style: DropdownItemStyle
+                                                                //         .customTextStyle(
+                                                                //         context)),
                                                               );
                                                             } else {
                                                               return CustomDropdownTextField(

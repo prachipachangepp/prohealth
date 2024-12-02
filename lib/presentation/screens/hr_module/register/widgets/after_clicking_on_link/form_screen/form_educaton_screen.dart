@@ -781,43 +781,61 @@ class _EducationFormState extends State<EducationForm> {
           }
 
           // If prefilledDegree is set, use it for the value of the dropdown
-          String initialValue = selectedDegree ?? dropDownList[0].value!;
+          String initialValue = selectedDegree ?? "Select";
 
           return StatefulBuilder(
             builder: (BuildContext context, void Function(void Function()) setState) {
-              return Container(
-                height: 32,
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                      color: const Color(0xff686464).withOpacity(0.5),
-                      width: 1), // Black border
-                  borderRadius: BorderRadius.circular(6), // Rounded corners
-                ),
-                child: DropdownButtonFormField<String>(
-                  focusColor: Colors.transparent,
-                  icon: const Icon(
-                    Icons.arrow_drop_down_sharp,
-                    color: Color(0xff686464),
-                  ),
-                  decoration: const InputDecoration.collapsed(hintText: ''),
-                  items: dropDownList,
-                  onChanged: (newValue) {
-                    isPrefill = false;
-                    for (var a in snapshot.data!) {
-                      if (a.degree == newValue) {
-                        selectedDegree = a.degree;
-                        degreeID = a.degreeId;
-                        selectedDegreeId = degreeID;
-                        print("Degree :: ${selectedDegree}");
-                      }
+
+              return CustomDropdownTextFieldwidh(
+                dropDownMenuList: dropDownList,
+                onChanged: (newValue) {
+                  isPrefill = false;
+                  for (var a in snapshot.data!) {
+                    if (a.degree == newValue) {
+                      selectedDegree = a.degree;
+                      degreeID = a.degreeId;
+                      selectedDegreeId = degreeID;
+                      print("Degree :: ${selectedDegree}");
                     }
-                  },
-                  value: initialValue, // Use the prefilled value or the first item
-                  style: onlyFormDataStyle.customTextStyle(context),
-                ),
+                  }
+                },
+                hintText: initialValue,
+                height: 31,
               );
+
+              // return Container(
+              //   height: 32,
+              //   padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     border: Border.all(
+              //         color: const Color(0xff686464).withOpacity(0.5),
+              //         width: 1), // Black border
+              //     borderRadius: BorderRadius.circular(6), // Rounded corners
+              //   ),
+              //   child: DropdownButtonFormField<String>(
+              //     focusColor: Colors.transparent,
+              //     icon: const Icon(
+              //       Icons.arrow_drop_down_sharp,
+              //       color: Color(0xff686464),
+              //     ),
+              //     decoration: const InputDecoration.collapsed(hintText: ''),
+              //     items: dropDownList,
+              //     onChanged: (newValue) {
+              //       isPrefill = false;
+              //       for (var a in snapshot.data!) {
+              //         if (a.degree == newValue) {
+              //           selectedDegree = a.degree;
+              //           degreeID = a.degreeId;
+              //           selectedDegreeId = degreeID;
+              //           print("Degree :: ${selectedDegree}");
+              //         }
+              //       }
+              //     },
+              //     value: initialValue, // Use the prefilled value or the first item
+              //     style: onlyFormDataStyle.customTextStyle(context),
+              //   ),
+              // );
             },
           );
         } else {

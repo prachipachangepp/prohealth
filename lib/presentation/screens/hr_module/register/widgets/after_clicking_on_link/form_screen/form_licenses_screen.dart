@@ -625,9 +625,99 @@ class _licensesFormState extends State<licensesForm> {
                     //
                     // ),
                     StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) { return  Container(
-                        height: 32,
-                        child: buildDropdownButton(context),
+                      builder: (BuildContext context, void Function(void Function()) setState) { return  FutureBuilder<List<CountryGetData>>(
+                        future: getCountry(context: context),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 7),
+                              child: Container(
+                                height: 31,
+                                width: 250,
+                                decoration: BoxDecoration(color: ColorManager.white),
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            return CustomDropdownTextField(
+                              // width: MediaQuery.of(context).size.width / 5,
+                              headText: 'Country',
+                              items: ['Error'],
+                            );
+                          } else if (snapshot.hasData) {
+                            List<DropdownMenuItem<String>> dropDownList = [];
+                            int countryId = 0;
+
+                            // Populate the dropdown list from the fetched data
+                            for (var i in snapshot.data!) {
+                              dropDownList.add(DropdownMenuItem<String>(
+                                child: Text(i.name),
+                                value: i.name,
+                              ));
+                            }
+
+                            // Use the prefilled country if available, otherwise default to the first item
+                            String initialValue = selectedCountry ?? "Select";
+
+
+                            return CustomDropdownTextFieldwidh(
+                              dropDownMenuList: dropDownList,
+                              onChanged: (newValue) {
+                                isPrefill = false;
+                                for (var a in snapshot.data!) {
+                                  if (a.name == newValue) {
+                                    selectedCountry = a.name;
+                                    countryId = a.countryId;
+                                    print("Country :: ${selectedCountry}");
+                                    print("Country ID :: ${countryId}");
+                                  }
+                                }
+                              },
+                              hintText: initialValue,
+                           height: 31,
+                            );
+
+                            // return Container(
+                            //   height: 32,
+                            //   padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                            //   decoration: BoxDecoration(
+                            //     color: Colors.white,
+                            //     border: Border.all(
+                            //       color: const Color(0xff686464).withOpacity(0.5),
+                            //       width: 1, // Black border
+                            //     ),
+                            //     borderRadius: BorderRadius.circular(6), // Rounded corners
+                            //   ),
+                            //   child: DropdownButtonFormField<String>(
+                            //     focusColor: Colors.transparent,
+                            //     icon: const Icon(
+                            //       Icons.arrow_drop_down_sharp,
+                            //       color: Color(0xff686464),
+                            //     ),
+                            //     decoration: const InputDecoration.collapsed(hintText: ''),
+                            //     items: dropDownList,
+                            //     onChanged: (newValue) {
+                            //       isPrefill = false;
+                            //       for (var a in snapshot.data!) {
+                            //         if (a.name == newValue) {
+                            //           selectedCountry = a.name;
+                            //           countryId = a.countryId;
+                            //           print("Country :: ${selectedCountry}");
+                            //           print("Country ID :: ${countryId}");
+                            //         }
+                            //       }
+                            //     },
+                            //     value: initialValue, // Use the prefilled value or default to the first item
+                            //     style: onlyFormDataStyle.customTextStyle(context),
+                            //   ),
+                            // );
+                          } else {
+                            return CustomDropdownTextField(
+                              // width: MediaQuery.of(context).size.width / 5,
+                              headText: 'Country',
+                              items: ['No Data'],
+                            );
+                          }
+                        },
                       ); },
 
                     ),
@@ -782,7 +872,72 @@ class _licensesFormState extends State<licensesForm> {
                               60),
                       StatefulBuilder(
                           builder: (BuildContext context, void Function(void Function()) setState) {
-                            return buildDropdownButtonDocumentType(context);
+                            return FutureBuilder<List<NewOrgDocument>>(
+                              future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 7),
+                                    child: Container(
+                                      height: 31,
+                                      width: 250,
+                                      decoration: BoxDecoration(color: ColorManager.white),
+                                    ),
+                                  );
+                                } else if (snapshot.hasError ||snapshot.data ==null ) {
+                                 return Container(
+                                   width:  285,
+                                   height: 30,
+                                   // padding: EdgeInsets.symmetric(horizontal: 20),
+                                   decoration: BoxDecoration(
+                                     // color: Colors.red,
+                                     border: Border.all(
+                                         color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                     borderRadius: BorderRadius.circular(4),
+                                   ),
+                                   child: Center(
+                                     child: Text('No Data Available',
+                                       style: DocumentTypeDataStyle.customTextStyle(context),),
+                                   ),
+                                 );
+                                } else if (snapshot.hasData) {
+
+                                  List<DropdownMenuItem<String>> dropDownList = [];
+
+                                  // Populate the dropdown list from the fetched data
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(DropdownMenuItem<String>(
+                                      child: Text(i.docName),
+                                      value: i.docName,
+                                    ));
+                                  }
+
+                                  // Use the prefilled document type if available, otherwise default to the first item
+                                  String initialValue = documentTypeName ?? "Select";
+                                  return CustomDropdownTextFieldwidh(
+                                    dropDownMenuList: dropDownList,
+                                    onChanged: (newValue) {
+                                      isPrefill = false;
+                                      for (var a in snapshot.data!) {
+                                        if (a.docName == newValue) {
+                                          documentTypeName = a.docName;
+                                          print("Document Type :: ${documentTypeName}");
+                                        }
+                                      }
+                                    },
+                                    hintText: initialValue,
+                                    height: 31,
+                                  );
+
+                                } else {
+                                  return CustomDropdownTextField(
+                                    // width: MediaQuery.of(context).size.width / 5,
+                                    headText: 'Select Document',
+                                    items: ['No Data'],
+                                  );
+                                }
+                              },
+                            );
                           },
                           ),
                       SizedBox(height: 97)
@@ -865,87 +1020,87 @@ class _licensesFormState extends State<licensesForm> {
   }
 
 
-  Widget buildDropdownButton(BuildContext context) {
-    // Store prefilled country value (you can initialize it with null or fetch it dynamically)
-    String? prefilledCountry;
-
-    return FutureBuilder<List<CountryGetData>>(
-      future: getCountry(context: context),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 7),
-            child: Container(
-              height: 31,
-              width: 250,
-              decoration: BoxDecoration(color: ColorManager.white),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return CustomDropdownTextField(
-            // width: MediaQuery.of(context).size.width / 5,
-            headText: 'Country',
-            items: ['Error'],
-          );
-        } else if (snapshot.hasData) {
-          List<DropdownMenuItem<String>> dropDownList = [];
-          int countryId = 0;
-
-          // Populate the dropdown list from the fetched data
-          for (var i in snapshot.data!) {
-            dropDownList.add(DropdownMenuItem<String>(
-              child: Text(i.name),
-              value: i.name,
-            ));
-          }
-
-          // Use the prefilled country if available, otherwise default to the first item
-          String initialValue = selectedCountry ?? dropDownList[0].value!;
-
-          return Container(
-            height: 32,
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: const Color(0xff686464).withOpacity(0.5),
-                width: 1, // Black border
-              ),
-              borderRadius: BorderRadius.circular(6), // Rounded corners
-            ),
-            child: DropdownButtonFormField<String>(
-              focusColor: Colors.transparent,
-              icon: const Icon(
-                Icons.arrow_drop_down_sharp,
-                color: Color(0xff686464),
-              ),
-              decoration: const InputDecoration.collapsed(hintText: ''),
-              items: dropDownList,
-              onChanged: (newValue) {
-                isPrefill = false;
-                for (var a in snapshot.data!) {
-                  if (a.name == newValue) {
-                    selectedCountry = a.name;
-                    countryId = a.countryId;
-                    print("Country :: ${selectedCountry}");
-                    print("Country ID :: ${countryId}");
-                  }
-                }
-              },
-              value: initialValue, // Use the prefilled value or default to the first item
-              style: onlyFormDataStyle.customTextStyle(context),
-            ),
-          );
-        } else {
-          return CustomDropdownTextField(
-            // width: MediaQuery.of(context).size.width / 5,
-            headText: 'Country',
-            items: ['No Data'],
-          );
-        }
-      },
-    );
-  }
+  // Widget buildDropdownButton(BuildContext context) {
+  //   // Store prefilled country value (you can initialize it with null or fetch it dynamically)
+  //   String? prefilledCountry;
+  //
+  //   return FutureBuilder<List<CountryGetData>>(
+  //     future: getCountry(context: context),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState == ConnectionState.waiting) {
+  //         return Padding(
+  //           padding: const EdgeInsets.symmetric(horizontal: 7),
+  //           child: Container(
+  //             height: 31,
+  //             width: 250,
+  //             decoration: BoxDecoration(color: ColorManager.white),
+  //           ),
+  //         );
+  //       } else if (snapshot.hasError) {
+  //         return CustomDropdownTextField(
+  //           // width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Country',
+  //           items: ['Error'],
+  //         );
+  //       } else if (snapshot.hasData) {
+  //         List<DropdownMenuItem<String>> dropDownList = [];
+  //         int countryId = 0;
+  //
+  //         // Populate the dropdown list from the fetched data
+  //         for (var i in snapshot.data!) {
+  //           dropDownList.add(DropdownMenuItem<String>(
+  //             child: Text(i.name),
+  //             value: i.name,
+  //           ));
+  //         }
+  //
+  //         // Use the prefilled country if available, otherwise default to the first item
+  //         String initialValue = selectedCountry ?? dropDownList[0].value!;
+  //
+  //         return Container(
+  //           height: 32,
+  //           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             border: Border.all(
+  //               color: const Color(0xff686464).withOpacity(0.5),
+  //               width: 1, // Black border
+  //             ),
+  //             borderRadius: BorderRadius.circular(6), // Rounded corners
+  //           ),
+  //           child: DropdownButtonFormField<String>(
+  //             focusColor: Colors.transparent,
+  //             icon: const Icon(
+  //               Icons.arrow_drop_down_sharp,
+  //               color: Color(0xff686464),
+  //             ),
+  //             decoration: const InputDecoration.collapsed(hintText: ''),
+  //             items: dropDownList,
+  //             onChanged: (newValue) {
+  //               isPrefill = false;
+  //               for (var a in snapshot.data!) {
+  //                 if (a.name == newValue) {
+  //                   selectedCountry = a.name;
+  //                   countryId = a.countryId;
+  //                   print("Country :: ${selectedCountry}");
+  //                   print("Country ID :: ${countryId}");
+  //                 }
+  //               }
+  //             },
+  //             value: initialValue, // Use the prefilled value or default to the first item
+  //             style: onlyFormDataStyle.customTextStyle(context),
+  //           ),
+  //         );
+  //       } else {
+  //         return CustomDropdownTextField(
+  //           // width: MediaQuery.of(context).size.width / 5,
+  //           headText: 'Country',
+  //           items: ['No Data'],
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 
 
 
@@ -954,84 +1109,65 @@ class _licensesFormState extends State<licensesForm> {
 /// ///
 
 
-  Widget buildDropdownButtonDocumentType(BuildContext context) {
-    // Store prefilled document type value (you can initialize it with null or fetch it dynamically)
-   // String? prefilledDocumentType;
-
-    return FutureBuilder<List<NewOrgDocument>>(
-      future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 7),
-            child: Container(
-              height: 31,
-              width: 250,
-              decoration: BoxDecoration(color: ColorManager.white),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return CustomDropdownTextField(
-            // width: MediaQuery.of(context).size.width / 5,
-            headText: 'Select Document',
-            items: ['Error'],
-          );
-        } else if (snapshot.hasData) {
-          List<DropdownMenuItem<String>> dropDownList = [];
-
-          // Populate the dropdown list from the fetched data
-          for (var i in snapshot.data!) {
-            dropDownList.add(DropdownMenuItem<String>(
-              child: Text(i.docName),
-              value: i.docName,
-            ));
-          }
-
-          // Use the prefilled document type if available, otherwise default to the first item
-          String initialValue = documentTypeName ?? dropDownList[0].value!;
-
-          return Container(
-            height: 32,
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: const Color(0xff686464).withOpacity(0.5),
-                width: 1, // Black border
-              ),
-              borderRadius: BorderRadius.circular(6), // Rounded corners
-            ),
-            child: DropdownButtonFormField<String>(
-              focusColor: Colors.transparent,
-              icon: const Icon(
-                Icons.arrow_drop_down_sharp,
-                color: Color(0xff686464),
-              ),
-              decoration: const InputDecoration.collapsed(hintText: ''),
-              items: dropDownList,
-              onChanged: (newValue) {
-                isPrefill = false;
-                for (var a in snapshot.data!) {
-                  if (a.docName == newValue) {
-                    documentTypeName = a.docName;
-                    print("Document Type :: ${documentTypeName}");
-                  }
-                }
-              },
-              value: initialValue, // Use the prefilled value or default to the first item
-              style: onlyFormDataStyle.customTextStyle(context),
-            ),
-          );
-        } else {
-          return CustomDropdownTextField(
-            // width: MediaQuery.of(context).size.width / 5,
-            headText: 'Select Document',
-            items: ['No Data'],
-          );
-        }
-      },
-    );
-  }
+//   Widget buildDropdownButtonDocumentType(BuildContext context) {
+//     // Store prefilled document type value (you can initialize it with null or fetch it dynamically)
+//    // String? prefilledDocumentType;
+//
+//     return FutureBuilder<List<NewOrgDocument>>(
+//       future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
+//       builder: (context, snapshot) {
+//         if (snapshot.connectionState == ConnectionState.waiting) {
+//           return Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 7),
+//             child: Container(
+//               height: 31,
+//               width: 250,
+//               decoration: BoxDecoration(color: ColorManager.white),
+//             ),
+//           );
+//         } else if (snapshot.hasError) {
+//           return CustomDropdownTextField(
+//             // width: MediaQuery.of(context).size.width / 5,
+//             headText: 'Select Document',
+//             items: ['Error'],
+//           );
+//         } else if (snapshot.hasData) {
+//
+//           List<DropdownMenuItem<String>> dropDownList = [];
+//
+//           // Populate the dropdown list from the fetched data
+//           for (var i in snapshot.data!) {
+//             dropDownList.add(DropdownMenuItem<String>(
+//               child: Text(i.docName),
+//               value: i.docName,
+//             ));
+//           }
+//
+//           // Use the prefilled document type if available, otherwise default to the first item
+//           String initialValue = documentTypeName ?? dropDownList[0].value!;
+// return CustomDropdownTextFieldwidh(headText: 'Select Document',
+// dropDownMenuList: dropDownList,
+//   onChanged: (newValue) {
+//     isPrefill = false;
+//     for (var a in snapshot.data!) {
+//       if (a.docName == newValue) {
+//         documentTypeName = a.docName;
+//         print("Document Type :: ${documentTypeName}");
+//       }
+//     }
+//   },
+// );
+//
+//         } else {
+//           return CustomDropdownTextField(
+//             // width: MediaQuery.of(context).size.width / 5,
+//             headText: 'Select Document',
+//             items: ['No Data'],
+//           );
+//         }
+//       },
+//     );
+//   }
 
 
 
