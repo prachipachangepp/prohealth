@@ -306,7 +306,7 @@ class AppString {
 
   /// Clinical License
   static const String noDrivingLicense = "Please upload driving license";
-  static const String noPractitionerLicense = "Please upload practioner license";
+  static const String noPractitionerLicense = "Please upload practitioner license";
 }
 
 ///mobile screen constant

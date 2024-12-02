@@ -10,6 +10,7 @@ import '../../../../../../../app/resources/establishment_resources/establish_the
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_reference_data.dart';
+import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
@@ -211,7 +212,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
 
                   if(st.isPrefill ==false){
 
-                    await postreferencescreenData(
+                   var response = await postreferencescreenData(
                         context,
                         st.lengthofassociation.text,
                         "__",
@@ -222,6 +223,20 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                         st.name.text,
                         st.knowthisperson.text,
                         st.titleposition.text);
+                    if (response.statusCode == 200 || response.statusCode == 201){
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(
+                            message: 'Reference Data Saved',
+                          );
+                        },
+                      );
+                      await  widget.onSave();
+                      _loadEducationData();
+                    }
+
+
                   }
                   setState(() {
                     isLoading = false; // End loading
@@ -229,8 +244,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
 
                 }
 
-                await  widget.onSave();
-                _loadEducationData();
+
 
                 lengthofassociation.clear();
                 companyorganization.clear();

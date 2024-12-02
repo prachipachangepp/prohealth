@@ -227,7 +227,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                     child: Image.asset('images/Vector.png')),
                                 SizedBox(width: AppSize.s30),
                                 Text(
-                                  "Practioner License",
+                                  "Practitioner License",
                                   style: AknowledgementStyleNormal.customTextStyle(context),
                                 ),
                               ],

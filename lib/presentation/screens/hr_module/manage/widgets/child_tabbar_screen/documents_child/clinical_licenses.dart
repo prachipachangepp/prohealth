@@ -91,7 +91,7 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
                     // Handle error
                   });
                   if(snapshot.connectionState == ConnectionState.waiting){
-                    return SizedBox();
+                    return Center(child: SizedBox(height:25,width:25,child: CircularProgressIndicator(color: ColorManager.blueprime,)),);
                   }
                   if(snapshot.data!.isEmpty){
                     return Center(
@@ -391,7 +391,7 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Practioner License',
+                                Text('Practitioner License',
                                     style:AknowledgementStyleConst.customTextStyle(context)),
                                 SizedBox(height: 5,),
                                 Text("Expiry Date: ${snapshot.data![0].expDate}",
@@ -431,11 +431,11 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
                                             return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
                                           }
                                           return ClinicalLicensesAddPopup(
-                                            title: 'Edit Practioner Licenses',
+                                            title: 'Edit Practitioner Licenses',
                                             employeeId: widget.employeeId,
                                             practionerData: snapshotPrefill.data!,
                                             docId: practionerlicense.practitionerLicenceId.toString(),
-                                            licenseName: 'Practioner Licenses',
+                                            licenseName: 'Practitioner Licenses',
                                           );
                                         }
                                       );
@@ -493,7 +493,7 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
                                       builder: (BuildContext context, void Function(void Function()) setState) {
                                         return DeletePopup(
                                           loadingDuration: _isLoading,
-                                          title: 'Delete Practioner License',
+                                          title: 'Delete Practitioner License',
                                           onCancel: (){
                                             Navigator.pop(context);
                                           }, onDelete: () async{
