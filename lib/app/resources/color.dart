@@ -76,6 +76,7 @@ class ColorManager {
   static Color pieChartGreen = Color(0xFFBAEDBD);
   static Color pieChartBBlue = Color(0xFF527FB9);
   static Color pieChartBlue = Color(0xFF95A4FC);
+  static Color pieChartfGrey = Color(0xFFD0E2EA);
   static Color pieChartpurple = Color(0xFFAFB7FF);
   static Color pieChartFpurple = Color(0xFFDFE2FF);
   static Color pieChartYellow = Color(0xFFD2F55C);
@@ -89,14 +90,20 @@ class ColorManager {
   ///emp tenure doc
   static Color emptenure = Color(0xFF579EBA);
   static Color empdoc = Color(0xFF16DBCC);
+
   ///output relative to input
   static Color relativeResult = Color(0xFFCBFFFF);
+  static Color ClinicianRatio = Color(0xFF3BB4EF);
   static Color greenGraph = Color(0xFF448569);
 
   ///dashboard EM
   static Color tabbarText = Color(0xFF008ABD);
   static Color blueBorder = Color(0xFF2EA2D4);
+  static Color blueKeyGraph = Color(0xFF62B9DE);
   static Color blueBorderText = Color(0xFF579EBA);
+  static Color EMCyan = Color(0xFF16DBCC);
+  static Color EMDCyan = Color(0xFF219CCC).withOpacity(0.8);
+  static Color EMred = Color(0xFFC65B79);
 }
 
 extension HexColor on Color {
