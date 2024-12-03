@@ -58,7 +58,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                   future:  getDrivingLicenseRecord(context,widget.employeeId,"no"),
                   builder: (context,snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
-                      return SizedBox();
+                      return Center(child: SizedBox(height:25,width:25,child: CircularProgressIndicator(color: ColorManager.blueprime,)),);
                     }
                     if(snapshot.data!.isEmpty){
                       return Center(
@@ -85,7 +85,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                           color: ColorManager.faintGrey),
                                     ),
                                     child: Image.asset('images/Vector.png')),
-                                SizedBox(width: AppSize.s30),
+                                SizedBox(width: AppSize.s32),
                                 Text(
                                   "Driving License",
                                   style: AknowledgementStyleNormal
@@ -198,7 +198,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                   future: getPractitionerLicenseRecord(context,widget.employeeId,"no"),
                   builder: (context, snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
-                      return SizedBox();
+                      return Center(child: SizedBox(height:25,width:25,child: CircularProgressIndicator(color: ColorManager.blueprime,)),);
                     }
                     if(snapshot.data!.isEmpty){
                       return Center(
@@ -213,7 +213,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                           children: [
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                     width: 62,
@@ -225,7 +225,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                           color: ColorManager.faintGrey),
                                     ),
                                     child: Image.asset('images/Vector.png')),
-                                SizedBox(width: AppSize.s30),
+                               // SizedBox(width: AppSize.s30),
                                 Text(
                                   "Practitioner License",
                                   style: AknowledgementStyleNormal.customTextStyle(context),
@@ -234,11 +234,9 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                             ),
                             Row(
                               children: [
-                                Text('Expiry Date', style: AknowledgementStyleNormal
-                                    .customTextStyle(context)),
-                                SizedBox(width: AppSize.s20),
-                                Text(snapshot.data![0].expDate, style: AknowledgementStyleConst
-                                    .customTextStyle(context)),
+                                Text('Expiry Date', style: AknowledgementStyleNormal.customTextStyle(context)),
+                             //   SizedBox(width: AppSize.s20),
+                                Text(snapshot.data![0].expDate, style: AknowledgementStyleConst.customTextStyle(context)),
                               ],
                             ),
 
