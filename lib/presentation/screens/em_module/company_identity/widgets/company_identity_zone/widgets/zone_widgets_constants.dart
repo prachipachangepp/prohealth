@@ -422,15 +422,15 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             //   child: Text('Select County'),
                             //   value: 'Select County',
                             // ));
-                            if (selectedZipCodeCounty == null) {
-                              selectedZipCodeCounty =
-                              'Select County';
-                              dropDownTypesList.add(
-                                  const DropdownMenuItem<String>(
-                                    child: Text('Select County'),
-                                    value: 'Select County',
-                                  ));
-                            }
+                            // if (selectedZipCodeCounty == null) {
+                            //   selectedZipCodeCounty =
+                            //   'Select County';
+                            //   dropDownTypesList.add(
+                            //       const DropdownMenuItem<String>(
+                            //         child: Text('Select County'),
+                            //         value: 'Select County',
+                            //       ));
+                            // }
                             for (var i in snapshotZone.data!) {
                               dropDownTypesList.add(
                                 DropdownMenuItem<String>(
@@ -442,8 +442,8 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
 
                            // countyId = snapshotZone.data![0].countyId;
                             return CICCDropdown(
-                                initialValue:
-                                dropDownTypesList[0].value,
+                                initialValue:"Select County",
+                                //dropDownTypesList[0].value,
                                 onChange: (val) {
                                   selectedZipCodeCounty = val;
                                   for (var a
@@ -546,14 +546,14 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                 ),
                               );
                             }
-                            if (selectedZipCodeZone == null) {
+                            // if (selectedZipCodeZone == null) {
                               selectedZipCodeZone =
                                   snapshotZone.data![0].zoneName;
-                            }
+                            // }
                             docZoneId = snapshotZone.data![0].zoneId;
                             return CICCDropdown(
-                                initialValue:
-                                dropDownTypesList[0].value,
+                                initialValue:selectedZipCodeZone,
+                                // dropDownTypesList[0].value,
                                 onChange: (val) {
                                   selectedZipCodeZone = val;
                                   for (var a

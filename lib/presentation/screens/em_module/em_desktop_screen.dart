@@ -172,6 +172,7 @@ class EMDesktopScreen extends StatelessWidget {
                               width: 170,
                               items: [
                                 DropdownMenuItem<String>(
+                                  enabled:false,
                                   value: 'Select a Module',
                                   child: Text(
                                     'Select a Module',
@@ -185,6 +186,7 @@ class EMDesktopScreen extends StatelessWidget {
                                   ),
                                 ),
                                 DropdownMenuItem<String>(
+                                  enabled:false,
                                   value: 'User Management',
                                   child: Text(
                                     'User Management',
@@ -239,6 +241,7 @@ class EMDesktopScreen extends StatelessWidget {
 
                                 ///clinical
                                 DropdownMenuItem<String>(
+                                  enabled:false,
                                   value: 'Clinical',
                                   child: Text(
                                     'Clinical',
@@ -271,6 +274,7 @@ class EMDesktopScreen extends StatelessWidget {
 
                                 ///hr
                                 DropdownMenuItem<String>(
+                                  enabled:false,
                                   value: 'HR',
                                   child: Text(
                                     'HR',
@@ -345,6 +349,7 @@ class EMDesktopScreen extends StatelessWidget {
 
                                 ///finance
                                 DropdownMenuItem<String>(
+                                  enabled:false,
                                   value: 'Finance',
                                   child: Text(
                                     'Finance',
@@ -378,6 +383,7 @@ class EMDesktopScreen extends StatelessWidget {
                                 ///org doc
                                 ///finance
                                 DropdownMenuItem<String>(
+                                  enabled:false,
                                   value: 'Org Document',
                                   child: Text(
                                     'Org Document',

@@ -184,9 +184,9 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 children: [
                   HeaderContentConst(
                     heading: AppString.type_of_the_document,
-                    content: CICCDropdown(
+                    content:  CICCDropdown(
                       width: 354,
-                      initialValue: "Select",
+                      initialValue: dropDownMenuItems.isEmpty ? "No available documents":"Select",
                       onChange: (val) {
                         setState(() {
                           showExpiryDateField = false;
