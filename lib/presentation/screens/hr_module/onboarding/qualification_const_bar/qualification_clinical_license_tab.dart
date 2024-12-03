@@ -85,7 +85,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                           color: ColorManager.faintGrey),
                                     ),
                                     child: Image.asset('images/Vector.png')),
-                                SizedBox(width: AppSize.s32),
+                                SizedBox(width: AppSize.s30),
                                 Text(
                                   "Driving License",
                                   style: AknowledgementStyleNormal
@@ -93,6 +93,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                 ),
                               ],
                             ),
+                           Text("     "),
                             Row(
                               children: [
                                 Text('Expiry Date', style: AknowledgementStyleNormal
@@ -102,7 +103,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                     .customTextStyle(context)),
                               ],
                             ),
-
+                            Text("     "),
                             Row(
                               children: [
                                 QualificationActionButtons( approve: snapshot.data![0].approve ,onRejectPressed: () {
@@ -225,21 +226,22 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                           color: ColorManager.faintGrey),
                                     ),
                                     child: Image.asset('images/Vector.png')),
-                               // SizedBox(width: AppSize.s30),
+                                SizedBox(width: AppSize.s30),
                                 Text(
                                   "Practitioner License",
                                   style: AknowledgementStyleNormal.customTextStyle(context),
                                 ),
                               ],
                             ),
+                            Text(""),
                             Row(
                               children: [
                                 Text('Expiry Date', style: AknowledgementStyleNormal.customTextStyle(context)),
-                             //   SizedBox(width: AppSize.s20),
+                            SizedBox(width: AppSize.s20),
                                 Text(snapshot.data![0].expDate, style: AknowledgementStyleConst.customTextStyle(context)),
                               ],
                             ),
-
+                            Text("     "),
                             Row(
                               children: [
                                 QualificationActionButtons( approve: snapshot.data![0].approve ,
