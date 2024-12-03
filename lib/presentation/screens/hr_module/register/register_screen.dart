@@ -178,8 +178,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(width: 5,),
                         TextButton(
                           onPressed: () async {
-                          const url = "http://localhost:61485/#/onBordingWelcome";
-//const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                          // const url = "http://localhost:53372/#/onBordingWelcome";
+                           const url = "${AppConfig.deployment}/#/onBordingWelcome";
                             //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                       //     Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
                             //const url = "${AppConfig.deployment}/#/onBordingWelcome";
