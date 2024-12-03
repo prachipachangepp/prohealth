@@ -73,6 +73,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
   var finalPath;
   // PlatformFile? fileName;
 
+  bool fileAbove20Mb = false;
   Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
     // Get the directory to save the file.
     final blob = html.Blob(bytes);
@@ -284,6 +285,8 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                                 type: FileType.custom,
                                                 allowedExtensions: ['pdf']
                                             );
+                                            final fileSize = result?.files.first.size; // File size in bytes
+                                            final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                             if (result != null) {
                                               try {
                                                 Uint8List? bytes = result.files.first.bytes;
@@ -300,11 +303,13 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                                     } else {
                                                       finalPaths[index] = bytes;
                                                     }
+                                                    fileAbove20Mb = !isAbove20MB;
                                                   });
                                                 }
                                               } catch (e) {
                                                 print(e);
                                               }
+
                                             }
 
                                           },
@@ -416,75 +421,89 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                     //   ),
                     // );
                   } else {
-                    try {
+                    if (fileAbove20Mb) {
+                      try {
+                        // Loop through each form and extract data to post
 
-                      // Loop through each form and extract data to post
-
-                      setState(() {
-                        isLoading = true; // Start loading
-                      });
-                      for (int i = 0; i < finalPaths.length; i++) {
-                        if (finalPaths[i] != null) {
-                          var response =  await uploadDocuments(
-                            context: context,
-                            employeeDocumentMetaId: AppConfig.empdocumentTypeMetaDataId,
-                            employeeDocumentTypeSetupId: docSetupId[i],
-                            employeeId: widget.employeeID,
-                            documentFile: finalPaths[i]!,
-                            documentName: _fileNames[i],
-                          );
-                          print("Document Uploaded response ${response}");
-
-                          if (response.statusCode == 200 || response.statusCode == 201) {
-                            await showDialog(
+                        setState(() {
+                          isLoading = true; // Start loading
+                        });
+                        for (int i = 0; i < finalPaths.length; i++) {
+                          if (finalPaths[i] != null) {
+                            var response = await uploadDocuments(
                               context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'Document Uploaded Successfully',
-                                );
-                              },
+                              employeeDocumentMetaId: AppConfig
+                                  .empdocumentTypeMetaDataId,
+                              employeeDocumentTypeSetupId: docSetupId[i],
+                              employeeId: widget.employeeID,
+                              documentFile: finalPaths[i]!,
+                              documentName: _fileNames[i],
                             );
-                            await  widget.onSave();
-                           // _loadLicensesData();
-                          }
-                          else {
-                            // Navigator.pop(context);
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) => FailedPopup(text: "Failed To Upload Document"),
-                            );
+                            print("Document Uploaded response ${response}");
+
+                            if (response.statusCode == 200 || response
+                                .statusCode == 201) {
+                              await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddSuccessPopup(
+                                    message: 'Document Uploaded Successfully',
+                                  );
+                                },
+                              );
+                              await widget.onSave();
+                              // _loadLicensesData();
+                            }
+                            else {
+                              // Navigator.pop(context);
+                              await showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    FailedPopup(
+                                        text: "Failed To Upload Document"),
+                              );
+                            }
                           }
                         }
 
+
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: Text('Document uploaded successfully!'),
+                        //     backgroundColor: Colors.green,
+                        //   ),
+                        // );
+
+                      } catch (e) {
+                        await showDialog(
+                          context: context,
+                          builder: (
+                              BuildContext context) => const FourNotFourPopup(),
+                        );
+                        // await showDialog(
+                        //   context: context,
+                        //   builder: (BuildContext context) {
+                        //     return AddFailePopup(
+                        //       message: 'Failed To Upload Document',
+                        //     );
+                        //   },
+                        // );
                       }
-
-
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //   SnackBar(
-                      //     content: Text('Document uploaded successfully!'),
-                      //     backgroundColor: Colors.green,
-                      //   ),
-                      // );
-
-                    } catch (e) {
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context) => const FourNotFourPopup(),
-                      );
-                      // await showDialog(
-                      //   context: context,
-                      //   builder: (BuildContext context) {
-                      //     return AddFailePopup(
-                      //       message: 'Failed To Upload Document',
-                      //     );
-                      //   },
-                      // );
                     }
+                    else{
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddErrorPopup(
+                            message: 'File is too large!',
+                          );
+                        },
+                      );
+                    }
+                    setState(() {
+                      isLoading = false; // End loading
+                    });
                   }
-                  setState(() {
-                    isLoading = false; // End loading
-                  });
-
                 },
                 child: Text(
                   'Save',

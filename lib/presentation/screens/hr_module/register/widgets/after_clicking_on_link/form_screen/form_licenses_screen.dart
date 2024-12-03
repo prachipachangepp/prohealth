@@ -333,7 +333,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   isLoading = true; // Start loading
                 });
 
-                bool documentSelected = false;  // Flag to check if a document is selected
+                // Flag to check if a document is selected
 
                 for (var key in licenseFormKeys) {
                   try {
@@ -343,11 +343,11 @@ class _LicensesScreenState extends State<LicensesScreen> {
                       // Check if documentFile is selected
                       if (st.finalPath == null || st.finalPath.isEmpty) {
                         // If no document is selected, show a message and stop further execution
-                        await  showDialog(
+                        await showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return VendorSelectNoti(
-                              message:'Please Select A File',
+                              message: 'Please Select A File',
                             );
                           },
                         );
@@ -357,25 +357,34 @@ class _LicensesScreenState extends State<LicensesScreen> {
                         setState(() {
                           isLoading = false; // Stop loading
                         });
-                        return;  // Exit the loop and method early
-                      } else {
-                        documentSelected = true; // Document is selected
+                        return; // Exit the loop and method early
                       }
-
-                      await perfFormLinsence(
-                        context: context,
-                        licenseNumber: st.licensurenumber.text,
-                        country: st.selectedCountry.toString(),
-                        employeeId: widget.employeeID,
-                        expDate: st.controllerExpirationDate.text,
-                        issueDate: st.controllerIssueDate.text,
-                        licenseUrl: 'NA',
-                        licensure: st.licensure.text,
-                        org: st.org.text,
-                        documentType: st.documentTypeName!,
-                        documentFile: st.finalPath,
-                        documentName: st.fileName,
-                      );
+                      if (st.fileAbove20Mb) {
+                        await perfFormLinsence(
+                          context: context,
+                          licenseNumber: st.licensurenumber.text,
+                          country: st.selectedCountry.toString(),
+                          employeeId: widget.employeeID,
+                          expDate: st.controllerExpirationDate.text,
+                          issueDate: st.controllerIssueDate.text,
+                          licenseUrl: 'NA',
+                          licensure: st.licensure.text,
+                          org: st.org.text,
+                          documentType: st.documentTypeName!,
+                          documentFile: st.finalPath,
+                          documentName: st.fileName,
+                        );
+                      }
+                      else{
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddErrorPopup(
+                              message: 'File is too large!',
+                            );
+                          },
+                        );
+                      }
                     }
                   } catch (e) {
                     print(e);
@@ -383,12 +392,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 }
 
                 // If a document is selected and everything goes fine, complete the process
-                if (documentSelected) {
-                  setState(() {
-                    isLoading = false; // End loading
-                  });
 
-                }
               },
               child: Text(
                 'Save',
@@ -492,6 +496,8 @@ class _licensesFormState extends State<licensesForm> {
 
   final StreamController<List<AEClinicalReportingOffice>> Countrystream =
       StreamController<List<AEClinicalReportingOffice>>();
+
+  bool fileAbove20Mb = false;
   void initState() {
     super.initState();
     HrAddEmplyClinicalReportingOfficeApi(context, 11).then((data) {
@@ -969,12 +975,14 @@ class _licensesFormState extends State<licensesForm> {
                               type: FileType.custom,
                               allowedExtensions: ['pdf']
                           );
-
+                          final fileSize = result?.files.first.size; // File size in bytes
+                          final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                           if (result != null) {
                             final file = result.files.first;
                             setState(() {
                               fileName = file.name;
                               finalPath = file.bytes;
+                              fileAbove20Mb = !isAbove20MB;
                             });
                           }
                         },

@@ -226,71 +226,71 @@ class _EducationScreenState extends State<EducationScreen> {
 
                       // Only execute the code if st.isPrefill is false
                       if (st.isPrefill == false) {
-                        // Check if the file is selected
-                        if (st.finalPath == null || st.finalPath!.isEmpty) {
-                          // Show a message asking the user to select a file
-                          await showDialog(
+
+                          // Check if the file is selected
+                          if (st.finalPath == null || st.finalPath!.isEmpty) {
+                            // Show a message asking the user to select a file
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const AddFailePopup(
+                                  message: 'Please Select A File',
+                                );
+                              },
+                            );
+                            setState(() {
+                              isLoading = false;
+                            });
+                            return; // Stop further execution if no file is selected
+                          }
+                          if(st.fileAbove20Mb) {
+                          // Call the posteducationscreen API regardless of whether the file is selected
+                          ApiDataRegister response = await FormEducationManager()
+                              .posteducationscreen(
+                            context,
+                            st.widget.employeeID,
+                            st.graduatetype.toString(),
+                            st.selectedDegree.toString(),
+                            st.majorsubject.text,
+                            st.city.text,
+                            st.collegeuniversity.text,
+                            st.phone.text,
+                            st.state.text,
+                            "USA",
+                            "2024-08-09",
+                          );
+
+                          // If the file is selected, upload it
+                          await uploadEducationDocument(
+                            context,
+                            response.educationId!,
+                            st.finalPath,
+                            st.fileName!,
+                          );
+
+                          // If the API call is successful
+                          if (response.statusCode == 200 ||
+                              response.statusCode == 201) {
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddSuccessPopup(
+                                  message: 'Education Data Saved',
+                                );
+                              },
+                            );
+                            widget.onSave();
+                            _loadEducationData();
+                          }
+                        }
+                        else{
+                          showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return AddFailePopup(
-                                message: 'Please Select A File',
+                              return AddErrorPopup(
+                                message: 'File is too large!',
                               );
                             },
-                          );
-                          setState(() {
-                            isLoading = false;
-                          });
-                          return; // Stop further execution if no file is selected
-                        }
-
-                        // Call the posteducationscreen API regardless of whether the file is selected
-                        ApiDataRegister response = await FormEducationManager().posteducationscreen(
-                          context,
-                          st.widget.employeeID,
-                          st.graduatetype.toString(),
-                          st.selectedDegree.toString(),
-                          st.majorsubject.text,
-                          st.city.text,
-                          st.collegeuniversity.text,
-                          st.phone.text,
-                          st.state.text,
-                          "USA",
-                          "2024-08-09",
-                        );
-
-                        // If the file is selected, upload it
-                        await uploadEducationDocument(
-                          context,
-                          response.educationId!,
-                          st.finalPath,
-                          st.fileName!,
-                        );
-
-                        // If the API call is successful
-                        if (response.statusCode == 200 || response.statusCode == 201) {
-                          await showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AddSuccessPopup(
-                                message: 'Education Data Saved',
-                              );
-                            },
-                          );
-                          widget.onSave();
-                          _loadEducationData();
-                        }
-                        else if(response.statusCode == 400 || response.statusCode == 404){
-                          // Navigator.pop(context);
-                          await showDialog(
-                            context: context,
-                            builder: (BuildContext context) => const FourNotFourPopup(),
-                          );
-                        }
-                        else {
-                          // Navigator.pop(context);
-                          await showDialog(
-                            context: context,
-                            builder: (BuildContext context) => FailedPopup(text: response.message),
                           );
                         }
 
@@ -298,14 +298,14 @@ class _EducationScreenState extends State<EducationScreen> {
 
                     } catch (e) {
                       // If an error occurs, show failure dialog
-                      // await showDialog(
-                      //   context: context,
-                      //   builder: (BuildContext context) {
-                      //     return AddFailePopup(
-                      //       message: 'Failed To Save Education Data',
-                      //     );
-                      //   },
-                      // );
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddFailePopup(
+                            message: 'Failed To Save Education Data',
+                          );
+                        },
+                      );
                       // await showDialog(
                       //   context: context,
                       //   builder: (BuildContext context) => const FourNotFourPopup(),
@@ -459,6 +459,8 @@ class _EducationFormState extends State<EducationForm> {
 
   final StreamController<List<AEClinicalDiscipline>> Degreestream =
   StreamController<List<AEClinicalDiscipline>>();
+
+  bool fileAbove20Mb = false;
   void initState() {
     super.initState();
     HrAddEmplyClinicalDisciplinApi(context, 1).then((data) {
@@ -693,12 +695,14 @@ class _EducationFormState extends State<EducationForm> {
                               type: FileType.custom,
                               allowedExtensions: ['pdf']
                           );
-
+                          final fileSize = result?.files.first.size; // File size in bytes
+                          final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                           if (result != null) {
                             final file = result.files.first;
                             setState(() {
                               fileName = file.name;
                               finalPath = file.bytes;
+                              fileAbove20Mb = !isAbove20MB;
                             });
                           }
                         },
