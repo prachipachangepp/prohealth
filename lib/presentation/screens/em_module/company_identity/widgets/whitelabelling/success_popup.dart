@@ -442,7 +442,7 @@ class _AddErrorPopupState extends State<AddErrorPopup> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 4), () {
       if (Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
       }

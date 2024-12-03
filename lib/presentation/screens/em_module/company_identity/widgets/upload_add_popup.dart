@@ -851,7 +851,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 context: context,
                 builder: (BuildContext context) {
                   return AddErrorPopup(
-                    message: 'Request entity to large!',
+                    message: 'File is too large!',
                   );
                 },
               );

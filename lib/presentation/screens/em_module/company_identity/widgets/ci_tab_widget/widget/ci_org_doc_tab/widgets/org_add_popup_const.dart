@@ -854,7 +854,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
                   },
                 );
               }
-              if(response.statusCode == 400 || response.statusCode == 404){
+              else if(response.statusCode == 400 || response.statusCode == 404){
                 Navigator.pop(context);
                 showDialog(
                   context: context,
