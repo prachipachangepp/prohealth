@@ -210,7 +210,7 @@ class BlueBgTabButton extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: selectedIndex == index
-                ? ColorManager.bluebottom
+                ? ColorManager.blueKeyGraph
                 : Colors.transparent,
           ),
           child: Text(

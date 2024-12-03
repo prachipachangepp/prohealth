@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/general_setting_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
@@ -155,9 +156,99 @@ class GeneralSettingScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
+                          SizedBox(height: 10,),
                           Text("                 Encryption Key Rotation Schedule                ",
                           style: CustomTextStylesCommon.commonStyle(fontSize: 24,
-                              color:ColorManager.mediumgrey,fontWeight: FontWeight.w700),)
+                              color:ColorManager.mediumgrey,fontWeight: FontWeight.w700),),
+                          Stack(
+                            alignment: Alignment.center,
+                            children:[
+                              Container(
+                              //width: 450,
+                              height: 450,
+                              child: PieChart(
+                                PieChartData(
+                                  sections: [
+                                    PieChartSectionData(
+                                      color: ColorManager.blueKeyGraph,
+                                      value: 20,
+                                      title: '01\nGeneration',
+                                      titleStyle:  TextStyle(
+                                          fontSize: 10, fontWeight: FontWeight.bold, color: ColorManager.white),
+                                      radius: 100,
+                                    ),
+                                    PieChartSectionData(
+                                      color: ColorManager.blueKeyGraph,
+                                      value: 20,
+                                      title: '02\nDistribution',
+                                      titleStyle:  TextStyle(
+                                          fontSize: 10, fontWeight: FontWeight.bold, color: ColorManager.white),
+                                      radius: 100,
+                                    ),
+                                    PieChartSectionData(
+                                      color: ColorManager.blueKeyGraph,
+                                      value: 20,
+                                      title: '03\nUse',
+                                      titleStyle:  TextStyle(
+                                          fontSize: 10, fontWeight: FontWeight.bold, color: ColorManager.white),
+                                      radius: 100,
+                                    ),
+                                    PieChartSectionData(
+                                      color: ColorManager.blueKeyGraph,
+                                      value: 20,
+                                      title: '04\nStorage',
+                                      titleStyle:  TextStyle(
+                                          fontSize: 10, fontWeight: FontWeight.bold, color: ColorManager.white),
+                                      radius: 100,
+                                    ),
+                                    PieChartSectionData(
+                                      color: ColorManager.blueKeyGraph,
+                                      value: 20,
+                                      title: '05\nRotation',
+                                      titleStyle:  TextStyle(
+                                          fontSize: 10, fontWeight: FontWeight.bold, color: ColorManager.white),
+                                      radius: 100,
+                                    ),
+                                    PieChartSectionData(
+                                      color: ColorManager.blueKeyGraph,
+                                      value: 20,
+                                      title: '06\nBackup\nRecovery',
+                                      titleStyle:  TextStyle(
+                                          fontSize: 10, fontWeight: FontWeight.bold, color: ColorManager.white),
+                                      radius: 100,
+                                    ),
+                                    PieChartSectionData(
+                                      color: ColorManager.blueKeyGraph,
+                                      value: 20,
+                                      title: '07\nRevocation',
+                                      titleStyle:  TextStyle(
+                                          fontSize: 10, fontWeight: FontWeight.bold, color: ColorManager.white),
+                                      radius: 100,
+                                    ),
+
+                                  ],
+                                  centerSpaceRadius: 100,
+                                  centerSpaceColor: Colors.white,
+                                  sectionsSpace: 2,
+                                  borderData: FlBorderData(show: true),
+                                  startDegreeOffset: -90,
+                                ),
+                              ),
+                            ),
+                              Positioned(
+                                  child: Container(
+                                    width: 80,
+                                    height: 80,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: AssetImage('images/em_dashboard/dashboard_key.png'), // Replace with your image path
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),),
+                            ]
+                          ),
                         ],
                       ),),
                   ],

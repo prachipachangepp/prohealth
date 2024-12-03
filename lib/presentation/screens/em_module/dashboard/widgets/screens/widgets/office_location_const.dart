@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/font_manager.dart';
@@ -265,20 +266,137 @@ class GraphMenuConst extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        Text(text,style: CustomTextStylesCommon.commonStyle(
+            color: textColor ?? ColorManager.dashListviewData,
+            fontSize: FontSize.s12,
+            fontWeight: FontWeight.w500),),
+        SizedBox(width: 10,),
         Container(
           width: 10.0,
-          height: 15.0,
+          height: 10.0,
           decoration: BoxDecoration(
             color: squareColor,
             shape: BoxShape.rectangle,
           ),
         ),
-        SizedBox(width: 10,),
-        Text(text,style: CustomTextStylesCommon.commonStyle(
-            color: textColor ?? ColorManager.dashListviewData,
-            fontSize: FontSize.s12,
-            fontWeight: FontWeight.w500),)
+
       ],
     );
+  }
+}
+
+///popup
+class OfficeLocationPopup extends StatelessWidget {
+  const OfficeLocationPopup({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DialogueTemplate(width: 600, height: 450,
+        body: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('No of Offices',style: CustomTextStylesCommon.commonStyle(
+                        color: ColorManager.mediumgrey,
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeight.w700)),
+                    Row(children: [
+                      Text('Attendance Ratio',style: CustomTextStylesCommon.commonStyle(
+                          color: ColorManager.mediumgrey,
+                          fontSize: FontSize.s14,
+                          fontWeight: FontWeight.w700)),
+                      SizedBox(width: 20,),
+                      Icon(Icons.calendar_today,color: ColorManager.bluebottom,size: 20,)
+                    ],)
+                  ],),
+                SizedBox(height: 10,),
+                Container(
+                  height: 255,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: 15,
+                    itemBuilder: (context, index) {
+                      //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                      // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                      // EmployeeDocumentModal employeedoc = paginatedData[index];
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            height: AppSize.s44,
+                            padding: EdgeInsets.only(left: AppPadding.p20),
+                            //margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
+                            decoration: BoxDecoration(
+                              color: ColorManager.white,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(width: 1, color: Color(0xFFE9E9E9)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: ColorManager.black.withOpacity(0.1),
+                                  spreadRadius: 0,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex:1,
+                                  child: Text(
+                                    "Office 1",
+                                    textAlign: TextAlign.start,
+                                    style: CustomTextStylesCommon.commonStyle(
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w400,
+                                      color: ColorManager.black,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex:2,
+                                  child:  LinearProgressIndicator(
+                                    backgroundColor: ColorManager.grey,
+                                    color: ColorManager.pieChartYellow,
+                                    value: 55/100,//.totalVal/100
+                                  )
+                                ),
+                                SizedBox(width: 20,),
+                                Expanded(
+                                  flex:1,
+                                  child: Text(
+                                    "55%",
+                                    textAlign: TextAlign.start,
+                                    style: CustomTextStylesCommon.commonStyle(
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w400,
+                                      color: ColorManager.black,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),)
+              ],
+            ),
+          )
+
+        ],
+        bottomButtons: Offstage(),
+        title: "Average Daily Attendance per Office");
   }
 }

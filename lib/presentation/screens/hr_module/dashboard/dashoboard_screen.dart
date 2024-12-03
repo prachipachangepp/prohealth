@@ -122,15 +122,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
 
   /// Spline chart data
-  final List<ChartData> chartData = [
-    ChartData(2012, 40),
-    ChartData(2014, 35),
-    ChartData(2016, 60),
-    ChartData(2018, 20),
-    ChartData(2020, 10),
-    ChartData(2022, 34),
-    ChartData(2024, 40)
-  ];
+  // final List<ChartData> chartData = [
+  //   ChartData(2012, 40),
+  //   ChartData(2014, 35),
+  //   ChartData(2016, 60),
+  //   ChartData(2018, 20),
+  //   ChartData(2020, 10),
+  //   ChartData(2022, 34),
+  //   ChartData(2024, 40)
+  // ];
 
   /// Area chart
   final List<ChartAreaData> AreachartData = <ChartAreaData>[
