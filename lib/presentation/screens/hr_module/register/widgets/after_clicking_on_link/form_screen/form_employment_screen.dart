@@ -231,69 +231,34 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
 
                     try {
 
-                      if(state.isPrefill ==false ){
-                        if(state.fileAbove20Mb) {
-                          // Post employment screen data
-                          var response = await postemploymentscreenData(
-                            context,
-                            state.widget.employeeID,
-                            state.employerController.text,
-                            state.cityController.text,
-                            state.reasonForLeavingController.text,
-                            state.supervisorNameController.text,
-                            state.supervisorMobileNumberController.text,
-                            state.finalPositionController.text,
-                            state.startDateController.text,
-                            state.isChecked ? "Currently Working" : state
-                                .endDateController.text,
-                            "NA",
-                            "United States Of America",
+                      if(state.isPrefill ==false){
+                        // Post employment screen data
+                        var response = await postemploymentscreenData(
+                          context,
+                          state.widget.employeeID,
+                          state.employerController.text,
+                          state.cityController.text,
+                          state.reasonForLeavingController.text,
+                          state.supervisorNameController.text,
+                          state.supervisorMobileNumberController.text,
+                          state.finalPositionController.text,
+                          state.startDateController.text,
+                          state.isChecked ? "Currently Working" : state.endDateController.text,
+                          "NA",
+                          "United States Of America",
+                        );
+
+
+                        // Check if the file name is not null before uploading the resume
+                        if (state.fileName != null) {
+                         var uploadResponse =  await uploadEmployeeResume(
+                            context: context,
+                            employeementId: response.employeeMentId!,
+                            documentFile: state.finalPath!,
+                            documentName: state.fileName!,
                           );
-
-
-                          // Check if the file name is not null before uploading the resume
-                          if (state.fileName != null) {
-                            await uploadEmployeeResume(
-                              context: context,
-                              employeementId: response.employeeMentId!,
-                              documentFile: state.finalPath!,
-                              documentName: state.fileName!,
-                            );
-                          }
-
-                          if (response.statusCode == 200 ||
-                              response.statusCode == 201) {
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'Employment Data Saved',
-                                );
-                              },
-                            );
-                            widget.onSave();
-                            _loadEmploymentData();
-                          }
-                          else if (response.statusCode == 400 ||
-                              response.statusCode == 404) {
-                            // Navigator.pop(context);
-                            await showDialog(
-                              context: context,
-                              builder: (
-                                  BuildContext context) => const FourNotFourPopup(),
-                            );
-                          }
-                          else {
-                            // Navigator.pop(context);
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  FailedPopup(text: response.message),
-                            );
-                          }
-                          // Show success message after saving the data
-                        }
-                        else{
+                        if (uploadResponse.statusCode == 413) {
+                          Navigator.pop(context);
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -302,7 +267,39 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                               );
                             },
                           );
+                        }else{
+
                         }
+                        }
+
+if (response.statusCode==200 || response.statusCode == 201){
+  await  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AddSuccessPopup(
+        message: 'Employment Data Saved',
+      );
+    },
+  );
+  widget.onSave();
+  _loadEmploymentData();
+}
+else if(response.statusCode == 400 || response.statusCode == 404){
+  // Navigator.pop(context);
+  await showDialog(
+    context: context,
+    builder: (BuildContext context) => const FourNotFourPopup(),
+  );
+}
+else {
+  // Navigator.pop(context);
+  await showDialog(
+    context: context,
+    builder: (BuildContext context) => FailedPopup(text: response.message),
+  );
+}
+                        // Show success message after saving the data
+
                       }
 
                     } catch (e) {
@@ -517,19 +514,15 @@ class _EmploymentFormState extends State<EmploymentForm> {
         type: FileType.custom,
         allowedExtensions: ['pdf']
     );
-    final fileSize = result?.files.first.size; // File size in bytes
-    final isAbove20MB = fileSize! > (20 * 1024 * 1024);
+
     if (result != null) {
       final file = result.files.first;
       setState(() {
         fileName = file.name;
         finalPath = file.bytes;
-        fileAbove20Mb = !isAbove20MB;
       });
     }
   }
-
-  bool fileAbove20Mb = false;
 
   @override
   Widget build(BuildContext context) {

@@ -52,6 +52,8 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
   //
   Uint8List? finalPathPl;
   String? fileNamePl;
+  bool dLFileAbove20Mb = false;
+  bool pLFileAbove20Mb = false;
 
   String _trimSummery(String address) {
     const int maxLength = 16;
@@ -233,11 +235,14 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                         if (result != null) {
                                                           final file = result
                                                               .files.first;
+                                                          final fileSize = result.files.first.size; // File size in bytes
+                                                          final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                                           setState(() {
                                                             fileNameDl =
                                                                 file.name;
                                                             finalPathDl =
                                                                 file.bytes;
+                                                            dLFileAbove20Mb = !isAbove20MB;
                                                           });
                                                         }
                                                       },
@@ -453,11 +458,14 @@ SizedBox(height: 15,),
                                                         if (result != null) {
                                                           final file = result
                                                               .files.first;
+                                                          final fileSize = result.files.first.size; // File size in bytes
+                                                          final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                                           setState(() {
                                                             fileNamePl =
                                                                 file.name;
                                                             finalPathPl =
                                                                 file.bytes;
+                                                            pLFileAbove20Mb = isAbove20MB;
                                                           });
                                                         }
                                                       },
@@ -611,51 +619,66 @@ SizedBox(height: 15,),
 
                   try {
                     // Post Driving License Data
-                    var response = await postDrivinglicenseData(
-                      context,
-                      expirydatecontrollerdl.text,
-                      '',
-                      widget.employeeID,
-                      '',
-                      fileNameDl!,
-                    );
+                    if(dLFileAbove20Mb && pLFileAbove20Mb){
+                      var response = await postDrivinglicenseData(
+                        context,
+                        expirydatecontrollerdl.text,
+                        '',
+                        widget.employeeID,
+                        '',
+                        fileNameDl!,
+                      );
 
-                    // Upload Driving License Document
-                    await uploadDocumentsDL(
-                      context: context,
-                      drivingLicenceId: response.drivingLicenceId!,
-                      documentFile: finalPathDl!,
-                      documentName: fileNameDl!,
-                    );
+                      // Upload Driving License Document
+                      var uploadResponseDL =  await uploadDocumentsDL(
+                        context: context,
+                        drivingLicenceId: response.drivingLicenceId!,
+                        documentFile: finalPathDl!,
+                        documentName: fileNameDl!,
+                      );
 
-                    // Post Practitioner License Data
-                    var responsePL = await postpractitionerLicenseData(
-                      context,
-                      expirydatecontrollerpl.text,
-                      '',
-                      widget.employeeID,
-                      '',
-                      fileNamePl!,
-                    );
+                      // Post Practitioner License Data
+                      var responsePL = await postpractitionerLicenseData(
+                        context,
+                        expirydatecontrollerpl.text,
+                        '',
+                        widget.employeeID,
+                        '',
+                        fileNamePl!,
+                      );
 
-                    // Upload Practitioner License Document
-                    await uploadDocumentsPL(
-                      context: context,
-                      practitionerLicenceId: responsePL.practitionerLicenceId!,
-                      documentFile: finalPathPl!,
-                      documentName: fileNamePl!,
-                    );
-
-                    // Show success popup
-                    await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const AddSuccessPopup(
-                          message: 'Clinical License Data Saved',
+                      // Upload Practitioner License Document
+                      var uploadResponsePL = await uploadDocumentsPL(
+                        context: context,
+                        practitionerLicenceId: responsePL.practitionerLicenceId!,
+                        documentFile: finalPathPl!,
+                        documentName: fileNamePl!,
+                      );
+                      if(response.statusCode == 200 ||response.statusCode == 200 &&
+                          uploadResponseDL.statusCode == 200 || uploadResponseDL.statusCode == 201 &&
+                         responsePL.statusCode == 200 || responsePL.statusCode == 201 &&
+                          uploadResponsePL.statusCode == 200 ||uploadResponsePL.statusCode == 201 ){
+                         showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const AddSuccessPopup(
+                              message: 'Clinical License Data Saved',
+                            );
+                          },
                         );
-                      },
-                    );
-                    await widget.onSave();
+                         // Show success popup
+                        await widget.onSave();
+                      }
+                    }else{
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddErrorPopup(
+                            message: 'File is too large!',
+                          );
+                        },
+                      );
+                    }
                   } catch (e) {
                     // Show error popup if something goes wrong
                     await showDialog(

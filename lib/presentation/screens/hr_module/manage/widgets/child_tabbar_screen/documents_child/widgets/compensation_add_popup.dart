@@ -903,7 +903,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                       context: context,
                       builder: (BuildContext context) {
                         return AddErrorPopup(
-                          message: 'Request entity to large!',
+                          message: 'File is too large!',
                         );
                       },
                     );
@@ -1242,7 +1242,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                       context: context,
                       builder: (BuildContext context) {
                         return AddErrorPopup(
-                          message: 'Request entity to large!',
+                          message: 'File is too large!',
                         );
                       },
                     );

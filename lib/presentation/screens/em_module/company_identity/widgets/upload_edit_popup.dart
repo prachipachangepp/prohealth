@@ -840,7 +840,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                       context: context,
                       builder: (BuildContext context) {
                         return AddErrorPopup(
-                          message: 'Request entity to large!',
+                          message: 'File is too large!',
                         );
                       },
                     );
@@ -872,11 +872,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               Navigator.pop(context);
               showDialog(
                 context: context,
-                builder: (BuildContext context) {
-                  return FailedPopup(
-                    text: response.message ?? 'Failed to update document. Please try again.',
-                  );
-                },
+                builder: (BuildContext context) => FailedPopup(text: response.message),
               );
             }
           } catch (e) {
