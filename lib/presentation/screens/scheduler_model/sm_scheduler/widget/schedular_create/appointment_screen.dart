@@ -406,6 +406,7 @@ class SummaryRowConst extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
     return Padding(
       padding:
           const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p10),
