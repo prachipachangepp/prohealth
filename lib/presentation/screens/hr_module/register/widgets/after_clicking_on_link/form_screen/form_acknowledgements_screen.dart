@@ -44,6 +44,8 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
   final StreamController<List<HREmployeeDocumentModal>> acknowledgements = StreamController<List<HREmployeeDocumentModal>>();
 
   bool isLoading = false;
+
+  bool fileAbove20Mb = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -305,6 +307,8 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                                                     type: FileType.custom,
                                                     allowedExtensions: ['pdf']
                                                 );
+                                                final fileSize = result?.files.first.size; // File size in bytes
+                                                final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                                 if (result != null) {
                                                   try {
                                                     Uint8List? bytes = result.files.first.bytes;
@@ -321,6 +325,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                                                         } else {
                                                           finalPaths[index] = bytes;
                                                         }
+                                                        fileAbove20Mb = !isAbove20MB;
                                                       });
                                                     }
                                                   } catch (e) {
@@ -429,100 +434,110 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                 onPressed: () async {
 
 
-                  if (finalPaths == null || finalPaths.isEmpty) {
-                    // if (finalPath == null || finalPath.isEmpty) {
-                    await  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return VendorSelectNoti(
-                          message: 'Please Select File',
-                        );
-                      },
-                    );
+    if (finalPaths == null || finalPaths.isEmpty) {
+    // if (finalPath == null || finalPath.isEmpty) {
+    await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+    return VendorSelectNoti(
+    message: 'Please Select File',
+    );
+    },
+    );
 
-                    //    ScaffoldMessenger.of(context).showSnackBar(
-                    //      const SnackBar(
-                    //        content: Text(
-                    //            'No file selected. Please select a file to upload.'),
-                    //        backgroundColor: Colors.red,
-                    //      ),
-                    //    );
-                  } else {
-                    try {
+    //    ScaffoldMessenger.of(context).showSnackBar(
+    //      const SnackBar(
+    //        content: Text(
+    //            'No file selected. Please select a file to upload.'),
+    //        backgroundColor: Colors.red,
+    //      ),
+    //    );
+    } else {
+    if (fileAbove20Mb) {
+    try {
 
-                      // Loop through each form and extract data to post
+    // Loop through each form and extract data to post
 
-                      setState(() {
-                        isLoading = true; // Start loading
-                      });
+    setState(() {
+    isLoading = true; // Start loading
+    });
 
-                      for (int i = 0; i < finalPaths.length; i++) {
-                        if (finalPaths[i] != null) {
-                          await uploadDocuments(
-                            context: context,
-                            employeeDocumentMetaId: AppConfig.employeeDocumentTypeMetaDataId,
-                            employeeDocumentTypeSetupId: docSetupId[i],
-                            employeeId: widget.employeeID,
-                            documentFile: finalPaths[i]!,
-                            documentName: _fileNames[i],
-                          );
-                        }
-                      }
-
-
-                      ////
-                      // for (int i = 0; i < finalPath.length; i++) {
-                      //   if (finalPath[i] != null) {
-                      //     await uploadDocuments(
-                      //       context: context,
-                      //       employeeDocumentMetaId: 10,
-                      //       employeeDocumentTypeSetupId: 48,
-                      //       employeeId: widget.employeeID,
-                      //       documentFile: finalPath[i]!,
-                      //       documentName: _fileNames[i],
-                      //     );
-                      //   }
-                      // }
+    for (int i = 0; i < finalPaths.length; i++) {
+    if (finalPaths[i] != null) {
+    await uploadDocuments(
+    context: context,
+    employeeDocumentMetaId: AppConfig.employeeDocumentTypeMetaDataId,
+    employeeDocumentTypeSetupId: docSetupId[i],
+    employeeId: widget.employeeID,
+    documentFile: finalPaths[i]!,
+    documentName: _fileNames[i],
+    );
+    }
+    }
 
 
-
-                      ///api
-                      // await uploadDocuments(
-                      //     context: context,
-                      //     employeeDocumentMetaId: 10,
-                      //     employeeDocumentTypeSetupId: 48,
-                      //     employeeId: widget.employeeID,
-                      //     documentFile: finalPath,
-                      //     documentName: 'Legal Document ID');
-
-                      await  showDialog(context: context,
-                        builder: (BuildContext context) {
-                          return const AddSuccessPopup(
-                            message: 'Document Uploaded Successfully',
-                          );
-                        },
-                      );
-                      await  widget.onSave();
-                    } catch (e) {
-
-                      await  showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const AddFailePopup(
-                            message: 'Failed To Upoad Document',
-                          );
-                        },
-                      );
-
-                    }
-
-                  }
-                  setState(() {
-                    isLoading = false; // End loading
-                  });
+    ////
+    // for (int i = 0; i < finalPath.length; i++) {
+    //   if (finalPath[i] != null) {
+    //     await uploadDocuments(
+    //       context: context,
+    //       employeeDocumentMetaId: 10,
+    //       employeeDocumentTypeSetupId: 48,
+    //       employeeId: widget.employeeID,
+    //       documentFile: finalPath[i]!,
+    //       documentName: _fileNames[i],
+    //     );
+    //   }
+    // }
 
 
-                },
+    ///api
+    // await uploadDocuments(
+    //     context: context,
+    //     employeeDocumentMetaId: 10,
+    //     employeeDocumentTypeSetupId: 48,
+    //     employeeId: widget.employeeID,
+    //     documentFile: finalPath,
+    //     documentName: 'Legal Document ID');
+
+    await showDialog(context: context,
+    builder: (BuildContext context) {
+    return const AddSuccessPopup(
+    message: 'Document Uploaded Successfully',
+    );
+    },
+    );
+    await widget.onSave();
+    } catch (e) {
+
+    await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+    return const AddFailePopup(
+    message: 'Failed To Upoad Document',
+    );
+    },
+    );
+
+    }
+
+    }  else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AddErrorPopup(
+            message: 'File is too large!',
+          );
+        },
+      );
+    }
+    setState(() {
+    isLoading = false; // End loading
+    });
+
+}
+    },
+
                 child:  Text(
                   'Save',
                   style: BlueButtonTextConst.customTextStyle(context),

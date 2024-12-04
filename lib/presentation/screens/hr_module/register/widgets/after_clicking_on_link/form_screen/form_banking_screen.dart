@@ -264,7 +264,7 @@ class _BankingScreenState extends State<BankingScreen> {
                   isLoading = true;
                 });
 
-                bool documentSelected = false;  // Flag to check if a document is selected
+                // Flag to check if a document is selected
 
                 // Loop through bankingFormKeys
                 for (var key in bankingFormKeys) {
@@ -286,9 +286,9 @@ class _BankingScreenState extends State<BankingScreen> {
                           isLoading = false; // Stop loading
                         });
                         return;  // Exit the loop and method early
-                      } else {
-                        documentSelected = true; // Document is selected
                       }
+
+                      if(st.fileAbove20Mb){
 
                       // Print values before calling perfFormBanckingData
                       print(':::::::Saving Banking Data:::::::::::::');
@@ -319,17 +319,24 @@ class _BankingScreenState extends State<BankingScreen> {
                         documentName: st.fileName,
                       );
                     }
+                      else{
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddErrorPopup(
+                              message: 'File is too large!',
+                            );
+                          },
+                        );
+                      }
+                    }
                   } catch (e) {
                     print('Error: $e');
                   }
                 }
 
                 // If a document is selected and everything goes fine, complete the process
-                if (documentSelected) {
-                  setState(() {
-                    isLoading = false; // End loading
-                  });
-                }
+
 
                 // You can also call any post-save actions here
                // widget.onSave();
@@ -472,7 +479,7 @@ class _BankingFormState extends State<BankingForm> {
   List<String> _fileNames = [];
   bool _loading = false;
 
-
+  bool fileAbove20Mb = false;
   Future<void> _initializeFormWithPrefilledData() async {
     try {
       List<BankingDataForm> prefilledData = await getBankingForm(context, widget.employeeID);
@@ -801,12 +808,15 @@ class _BankingFormState extends State<BankingForm> {
                                           type: FileType.custom,
                                           allowedExtensions: ['pdf']
                                       );
+                                      final fileSize = result?.files.first.size; // File size in bytes
+                                      final isAbove20MB = fileSize! > (20 * 1024 * 1024);
 
                                       if (result != null) {
                                         final file = result.files.first;
                                         setState(() {
                                           fileName = file.name;
                                           finalPath = file.bytes;
+                                          fileAbove20Mb = !isAbove20MB;
                                         });
                                       }
                                     },

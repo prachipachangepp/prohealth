@@ -24,6 +24,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/manage/qualification_licenses.dart';
 import '../../custom_icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
@@ -126,8 +127,14 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                       );
                     }
                     if (snapshot.data!.isEmpty) {
-                      return Center(
-                          child: Offstage()
+                      return Container(
+                        width: 200,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Center(child: Text("No licenses available",style: DocumentTypeDataStyle.customTextStyle(context),)),
                       );
                     }
                     if(snapshot.hasData){
@@ -246,8 +253,14 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
 
                                     }
                                     if (snapshot.data!.isEmpty) {
-                                      return Center(
-                                          child: Offstage()
+                                        return Container(
+                                        width: 200,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey, width: 1),
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                        child: Center(child: Text("No licenses available",style: DocumentTypeDataStyle.customTextStyle(context),)),
                                       );
                                     }
                                     if(snapshot.hasData){

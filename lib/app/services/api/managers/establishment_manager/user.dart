@@ -213,7 +213,7 @@ Future<ApiData> createUserPost(
       return ApiData(
           statusCode: response.statusCode!,
           success: false,
-          message: response.data['message'][0]);
+          message: response.data['message']);
     } else {
       print("Error 1");
       return ApiData(

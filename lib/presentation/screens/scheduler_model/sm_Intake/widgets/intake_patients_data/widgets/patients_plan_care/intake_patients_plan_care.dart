@@ -129,12 +129,12 @@ class _IntakePlanCareScreenState extends State<IntakePlanCareScreen> {
                           height: 200,
                           // width: 200,
                           child: Text('Error: ${snapshot.error}'));
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    } else if (snapshot.data!.isEmpty) {
                       return Container(
                           height: 200,
                           // width: 200,
                           child: Text('No data available'));
-                    } else {
+                    } else if(snapshot.hasData){
 
                       List<String> abbreviations = snapshot.data!
                           .map((data) => data.abbrivation)
@@ -152,6 +152,8 @@ class _IntakePlanCareScreenState extends State<IntakePlanCareScreen> {
                           });
                         },
                       );
+                    } else {
+                      return SizedBox();
                     }
                   },
                 ),
@@ -447,7 +449,8 @@ class _CustomDropDownPOCState extends State<CustomDropDownPOC> {
   Widget build(BuildContext context) {
     return Container(
       height: 31, // Customize height if needed
-      child: DropdownButtonFormField<String>(
+      child:
+      DropdownButtonFormField<String>(
         iconEnabledColor: Color(0xff50B5E5),
         iconDisabledColor: Color(0xff50B5E5),
         dropdownColor: Colors.white,
@@ -500,9 +503,68 @@ class _CustomDropDownPOCState extends State<CustomDropDownPOC> {
           );
         }).toList(),
         onChanged: widget.onChanged,
-        value: widget.value,
+        value: widget.items.contains(widget.value) ? widget.value : null, // Ensure valid value
         isExpanded: true,
-      ),
+      )
+
+      ///
+
+      // DropdownButtonFormField<String>(
+      //   iconEnabledColor: Color(0xff50B5E5),
+      //   iconDisabledColor: Color(0xff50B5E5),
+      //   dropdownColor: Colors.white,
+      //   decoration: InputDecoration(
+      //     labelText: widget.labelText,
+      //     hintText: widget.hintText,
+      //     hintStyle: widget.hintStyle ?? GoogleFonts.firaSans(
+      //       fontSize: 12,
+      //       fontWeight: FontWeight.w400,
+      //       color: Color(0xff575757),
+      //     ),
+      //     labelStyle: GoogleFonts.firaSans(
+      //       fontSize: 10,
+      //       fontWeight: FontWeight.w400,
+      //       color: Color(0xff575757),
+      //     ),
+      //     fillColor: Colors.white,
+      //     filled: true,
+      //     enabledBorder: OutlineInputBorder(
+      //       borderRadius: BorderRadius.circular(5.0),
+      //       borderSide: BorderSide(
+      //         color: Color(0xffB1B1B1),
+      //       ),
+      //     ),
+      //     focusedBorder: OutlineInputBorder(
+      //       borderRadius: BorderRadius.circular(5.0),
+      //       borderSide: BorderSide(
+      //         color: Color(0xffB1B1B1),
+      //       ),
+      //     ),
+      //     border: OutlineInputBorder(
+      //       borderRadius: BorderRadius.circular(5.0),
+      //       borderSide: BorderSide(
+      //         color: Color(0xffB1B1B1),
+      //       ),
+      //     ),
+      //     contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+      //   ),
+      //   items: widget.items.map((String value) {
+      //     return DropdownMenuItem<String>(
+      //       value: value,
+      //       child: Text(
+      //         value,
+      //         style: GoogleFonts.firaSans(
+      //           fontSize: 12,
+      //           fontWeight: FontWeight.w400,
+      //           color: Color(0xff575757),
+      //         ),
+      //       ),
+      //     );
+      //   }).toList(),
+      //   onChanged: widget.onChanged,
+      //   value: widget.value,
+      //   isExpanded: true,
+      // ),
     );
   }
 }

@@ -171,6 +171,8 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     QualificationActionButtons(
+
+                      isBackColor: false,
                       approve: snapshot.data![index].approve,
                       onRejectPressed: () async {
                         showDialog(

@@ -140,19 +140,10 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                       List dropDown = [];
                       int docType = 0;
                       List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                      if (inventoryName == null) {
-                        inventoryName =
-                        'Select Device';
-                        dropDownMenuItems.add(
-                            const DropdownMenuItem<String>(
-                              child: Text('Select Device'),
-                              value: 'Select Device',
-                            ));
-                      }
+
                       for (var i in snapshot.data!) {
                         dropDownMenuItems.add(
-                          DropdownMenuItem<String>(
-                            child: Text(i.name),
+                          DropdownMenuItem<String>(child: Text(i.name),
                             value: i.name,
                           ),
                         );
@@ -162,7 +153,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                       // print('Inventory name abcd ${inventoryName}');
                       //  print('Inventory Id abcd ${inventoryId}');
                       return CICCDropdown(
-                          initialValue: dropDownMenuItems[0].value,
+
                           onChange: (val) {
                             for (var a in snapshot.data!) {
                               if (a.name == val) {

@@ -52,37 +52,16 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
   //
   Uint8List? finalPathPl;
   String? fileNamePl;
-  ////////////////////////////////////
-  // Future<void> _handleFileUploadDL() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //       type: FileType.custom,
-  //       allowedExtensions: ['pdf']
-  //   );
-  //
-  //   if (result != null) {
-  //     final file = result.files.first;
-  //     setState(() {
-  //       fileNameDl = file.name;
-  //       finalPathDl = file.bytes;
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _handleFileUploadPL() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //       type: FileType.custom,
-  //       allowedExtensions: ['pdf']
-  //   );
-  //
-  //   if (result != null) {
-  //     final file = result.files.first;
-  //     setState(() {
-  //       fileNamePl = file.name;
-  //       finalPathPl = file.bytes;
-  //     });
-  //   }
-  // }
+  bool dLFileAbove20Mb = false;
+  bool pLFileAbove20Mb = false;
 
+  String _trimSummery(String address) {
+    const int maxLength = 16;
+    if (address.length > maxLength) {
+      return '${address.substring(0, maxLength)}...';
+    }
+    return address;
+  }
   TextEditingController expirydatecontrollerdl = TextEditingController();
   TextEditingController expirydatecontrollerpl = TextEditingController();
 
@@ -103,20 +82,21 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
-              'Kindly Upload The Driving Licenses And Practitioner Licenses Compulsory',
+              'Kindly Upload The Driving License And Practitioner License Compulsory',
               textAlign: TextAlign.center,
               style: ZoneDataStyle.customTextStyle(context),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Container(
-              height: 500,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 150, vertical: 10),
-                    child: Container(
+          Padding(
+            padding:  const EdgeInsets.symmetric(
+                horizontal: 160, vertical: 15),
+            child: Container(
+             // color: Colors.cyanAccent,
+               // height: 500,
+                child: Column(
+                  children: [
+                    Container(
                       height: 120,
                       decoration: BoxDecoration(
                         color: ColorManager.white,
@@ -131,87 +111,93 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                         ],
                         border: Border.all(color: const Color(0xffB1B1B1)),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Driving License',
-                                      // document.docName,
-                                      style: AllPopupHeadings.customTextStyle(
-                                          context),
-                                    ),
-                                  ],
-                                ),
-                                // SizedBox(height: 8),
-                                Row(
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Expiry Date',
-                                          style: onlyFormDataStyle
-                                              .customTextStyle(context),
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        CustomTextFieldRegister(
-                                          width: 200,
-                                          controller: expirydatecontrollerdl,
-                                          hintText: 'yyyy-mm-dd',
-                                          hintStyle: onlyFormDataStyle
-                                              .customTextStyle(context),
-                                          height: 30,
-                                          suffixIcon: IconButton(
-                                            icon: Icon(
-                                              Icons.calendar_month_outlined,
-                                              color: Color(0xff50B5E5),
-                                              size: 16,
-                                            ),
-                                            onPressed: () async {
-                                              DateTime? pickedDate =
-                                                  await showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(2000),
-                                                lastDate: DateTime(2101),
-                                              );
-                                              if (pickedDate != null) {
-                                                expirydatecontrollerdl.text =
-                                                    "${pickedDate.toLocal()}"
-                                                        .split(' ')[0];
-                                              }
-                                            },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20,top: 10,bottom: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Driving License',
+                                        // document.docName,
+                                        style: AllPopupHeadings.customTextStyle(
+                                            context),
+                                      ),
+                                    ],
+                                  ),
+                                  // SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Expiry Date',
+                                            style: onlyFormDataStyle
+                                                .customTextStyle(context),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                          SizedBox(
+                                            height: 4,
+                                          ),
+                                          CustomTextFieldRegister(
+                                            width: 200,
+                                            controller: expirydatecontrollerdl,
+                                            hintText: 'yyyy-mm-dd',
+                                            hintStyle: onlyFormDataStyle
+                                                .customTextStyle(context),
+                                            height: 30,
+                                            suffixIcon: IconButton(
+                                              icon: Icon(
+                                                Icons.calendar_month_outlined,
+                                                color: Color(0xff50B5E5),
+                                                size: 16,
+                                              ),
+                                              onPressed: () async {
+                                                DateTime? pickedDate =
+                                                    await showDatePicker(
+                                                  context: context,
+                                                  initialDate: DateTime.now(),
+                                                  firstDate: DateTime(2000),
+                                                  lastDate: DateTime(2101),
+                                                );
+                                                if (pickedDate != null) {
+                                                  expirydatecontrollerdl.text =
+                                                      "${pickedDate.toLocal()}"
+                                                          .split(' ')[0];
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                            // SizedBox(width: 20),
-                            Column(
+                          ),
+                          // SizedBox(width: 20),
+                          Flexible(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Row(
                                   children: [
-                                    Text(
-                                      'Upload Immunization records in pdf, jpg or png  format',
-                                      style: onlyFormDataStyle
-                                          .customTextStyle(context),
+                                    Flexible(
+                                      child: Text(
+                                        'Upload Immunization records in pdf, jpg or png  format',
+                                        style: onlyFormDataStyle
+                                            .customTextStyle(context),
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8),
@@ -245,15 +231,18 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                                     allowedExtensions: [
                                                               'pdf'
                                                             ]);
-
+                            
                                                         if (result != null) {
                                                           final file = result
                                                               .files.first;
+                                                          final fileSize = result.files.first.size; // File size in bytes
+                                                          final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                                           setState(() {
                                                             fileNameDl =
                                                                 file.name;
                                                             finalPathDl =
                                                                 file.bytes;
+                                                            dLFileAbove20Mb = !isAbove20MB;
                                                           });
                                                         }
                                                       },
@@ -296,7 +285,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                                   const EdgeInsets
                                                                       .all(8.0),
                                                               child: Text(
-                                                                '$fileNameDl',
+                                                                _trimSummery('$fileNameDl'),
                                                                 style: onlyFormDataStyle
                                                                     .customTextStyle(
                                                                         context),
@@ -323,17 +312,14 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                   ],
                                 ),
                               ],
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                  /////////////////////////////////
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 150, vertical: 10),
-                    child: Container(
+                    /////////////////////////////////
+SizedBox(height: 15,),
+                    Container(
                       height: 120,
                       decoration: BoxDecoration(
                         color: ColorManager.white,
@@ -348,87 +334,93 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                         ],
                         border: Border.all(color: const Color(0xffB1B1B1)),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Practitioner License',
-                                      // document.docName,
-                                      style: AllPopupHeadings.customTextStyle(
-                                          context),
-                                    ),
-                                  ],
-                                ),
-                                // SizedBox(height: 8),
-                                Row(
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '  Expiry Date',
-                                          style: onlyFormDataStyle
-                                              .customTextStyle(context),
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        CustomTextFieldRegister(
-                                          width: 200,
-                                          controller: expirydatecontrollerpl,
-                                          hintText: 'yyyy-mm-dd',
-                                          hintStyle: onlyFormDataStyle
-                                              .customTextStyle(context),
-                                          height: 30,
-                                          suffixIcon: IconButton(
-                                            icon: Icon(
-                                              Icons.calendar_month_outlined,
-                                              color: Color(0xff50B5E5),
-                                              size: 16,
-                                            ),
-                                            onPressed: () async {
-                                              DateTime? pickedDate =
-                                                  await showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(2000),
-                                                lastDate: DateTime(2101),
-                                              );
-                                              if (pickedDate != null) {
-                                                expirydatecontrollerpl.text =
-                                                    "${pickedDate.toLocal()}"
-                                                        .split(' ')[0];
-                                              }
-                                            },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20,top: 10,bottom: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Practitioner License',
+                                        // document.docName,
+                                        style: AllPopupHeadings.customTextStyle(
+                                            context),
+                                      ),
+                                    ],
+                                  ),
+                                  // SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Expiry Date',
+                                            style: onlyFormDataStyle
+                                                .customTextStyle(context),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                          SizedBox(
+                                            height: 4,
+                                          ),
+                                          CustomTextFieldRegister(
+                                            width: 200,
+                                            controller: expirydatecontrollerpl,
+                                            hintText: 'yyyy-mm-dd',
+                                            hintStyle: onlyFormDataStyle
+                                                .customTextStyle(context),
+                                            height: 30,
+                                            suffixIcon: IconButton(
+                                              icon: Icon(
+                                                Icons.calendar_month_outlined,
+                                                color: Color(0xff50B5E5),
+                                                size: 16,
+                                              ),
+                                              onPressed: () async {
+                                                DateTime? pickedDate =
+                                                await showDatePicker(
+                                                  context: context,
+                                                  initialDate: DateTime.now(),
+                                                  firstDate: DateTime(2000),
+                                                  lastDate: DateTime(2101),
+                                                );
+                                                if (pickedDate != null) {
+                                                  expirydatecontrollerpl.text =
+                                                  "${pickedDate.toLocal()}"
+                                                      .split(' ')[0];
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                            // SizedBox(width: 20),
-                            Column(
+                          ),
+                          // SizedBox(width: 20),
+                          Flexible(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Row(
                                   children: [
-                                    Text(
-                                      'Upload Immunization records in pdf, jpg or png  format',
-                                      style: onlyFormDataStyle
-                                          .customTextStyle(context),
+                                    Flexible(
+                                      child: Text(
+                                        'Upload Immunization records in pdf, jpg or png  format',
+                                        style: onlyFormDataStyle
+                                            .customTextStyle(context),
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8),
@@ -442,35 +434,38 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                     color: const Color(
                                                         0xffB1B1B1)),
                                                 borderRadius:
-                                                    BorderRadius.circular(8),
+                                                BorderRadius.circular(8),
                                               ),
                                               child: Row(
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
+                                                    const EdgeInsets.all(
+                                                        8.0),
                                                     child: ElevatedButton(
                                                       onPressed: () async {
                                                         FilePickerResult?
-                                                            result =
-                                                            await FilePicker
-                                                                .platform
-                                                                .pickFiles(
-                                                                    type: FileType
-                                                                        .custom,
-                                                                    allowedExtensions: [
+                                                        result =
+                                                        await FilePicker
+                                                            .platform
+                                                            .pickFiles(
+                                                            type: FileType
+                                                                .custom,
+                                                            allowedExtensions: [
                                                               'pdf'
                                                             ]);
 
                                                         if (result != null) {
                                                           final file = result
                                                               .files.first;
+                                                          final fileSize = result.files.first.size; // File size in bytes
+                                                          final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                                           setState(() {
                                                             fileNamePl =
                                                                 file.name;
                                                             finalPathPl =
                                                                 file.bytes;
+                                                            pLFileAbove20Mb = isAbove20MB;
                                                           });
                                                         }
                                                       },
@@ -478,18 +473,18 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                         "Choose File",
                                                         style: onlyFormDataStyle
                                                             .customTextStyle(
-                                                                context),
+                                                            context),
                                                       ),
                                                       style: ElevatedButton
                                                           .styleFrom(
                                                         backgroundColor:
-                                                            Color(0xffD9D9D9),
+                                                        Color(0xffD9D9D9),
                                                         shape:
-                                                            RoundedRectangleBorder(
+                                                        RoundedRectangleBorder(
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
+                                                          BorderRadius
+                                                              .circular(
+                                                              8.0),
                                                         ),
                                                       ),
                                                     ),
@@ -497,39 +492,39 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                   // If a file is picked, display the file name, otherwise show 'No file selected'
                                                   _loading
                                                       ? SizedBox(
-                                                          width: 25,
-                                                          height: 25,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            color: ColorManager
-                                                                .blueprime,
-                                                          ),
-                                                        )
+                                                    width: 25,
+                                                    height: 25,
+                                                    child:
+                                                    CircularProgressIndicator(
+                                                      color: ColorManager
+                                                          .blueprime,
+                                                    ),
+                                                  )
                                                       : (fileNamePl != null &&
-                                                              fileNamePl!
-                                                                  .isNotEmpty)
-                                                          ? Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Text(
-                                                                '$fileNamePl',
-                                                                style: onlyFormDataStyle
-                                                                    .customTextStyle(
-                                                                        context),
-                                                              ),
-                                                            )
-                                                          : Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Text(
-                                                                'No file chosen',
-                                                                style: onlyFormDataStyle
-                                                                    .customTextStyle(
-                                                                        context),
-                                                              ),
-                                                            ),
+                                                      fileNamePl!
+                                                          .isNotEmpty)
+                                                      ? Padding(
+                                                    padding:
+                                                    const EdgeInsets
+                                                        .all(8.0),
+                                                    child: Text(
+                                                      _trimSummery('$fileNamePl'),
+                                                      style: onlyFormDataStyle
+                                                          .customTextStyle(
+                                                          context),
+                                                    ),
+                                                  )
+                                                      : Padding(
+                                                    padding:
+                                                    const EdgeInsets
+                                                        .all(8.0),
+                                                    child: Text(
+                                                      'No file chosen',
+                                                      style: onlyFormDataStyle
+                                                          .customTextStyle(
+                                                          context),
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -540,14 +535,18 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                   ],
                                 ),
                               ],
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              )),
+
+
+
+                  ],
+                )),
+          ),
+          SizedBox(height: 10,),
           /////////////////////////
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -580,83 +579,206 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
               const SizedBox(
                 width: 30,
               ),
+
+
+
+
               isLoading
                   ? SizedBox(
-                      height: 25,
-                      width: 25,
-                      child: CircularProgressIndicator(
-                        color: ColorManager.blueprime,
-                      ),
-                    )
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(
+                  color: ColorManager.blueprime,
+                ),
+              )
                   : CustomButton(
-                      width: 117,
-                      height: 30,
-                      text: 'Save',
-                      style: BlueButtonTextConst.customTextStyle(context),
-                      borderRadius: 12,
-                      onPressed: () async {
-                        setState(() {
-                          isLoading = true; // Start loading
-                        });
-
-    try {
-      var response = await postDrivinglicenseData(
-        context,
-        expirydatecontrollerdl.text,
-        '',
-        widget.employeeID,
-        '',
-        fileNameDl!,
-      );
-      await uploadDocumentsDL(
-          context: context,
-          drivingLicenceId: response.drivingLicenceId!,
-          documentFile: finalPathDl!,
-          documentName: fileNameDl!);
-
-      var responsePL = await postpractitionerLicenseData(
-        context,
-        expirydatecontrollerpl.text,
-        '',
-        widget.employeeID,
-        '',
-        fileNamePl!,
-      );
-      await uploadDocumentsPL(
-          context: context,
-          practitionerLicenceId:
-          responsePL.practitionerLicenceId!,
-          documentFile: finalPathPl!,
-          documentName: fileNamePl!);
-
-
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const AddSuccessPopup(
-            message: 'Clinical License Data Saved',
-          );
-        },
-      );
-      await widget.onSave();
-    }
-    catch(e){
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
-      );
-    }
-                        setState(() {
-                          isLoading = false; // End loading
-                        });
-
+                width: 117,
+                height: 30,
+                text: 'Save',
+                style: BlueButtonTextConst.customTextStyle(context),
+                borderRadius: 12,
+                onPressed: () async {
+                  // Check if both documents are uploaded
+                  if (fileNameDl == null || fileNameDl!.isEmpty || fileNamePl == null || fileNamePl!.isEmpty) {
+                    // Show error message if any document is missing
+                    await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const AddFailePopup(
+                          message: "Both Documents Are Required.",
+                          //text: "Both Driving License and Practitioner License documents are required.",
+                        );
                       },
+                    );
+                    return; // Exit early if validation fails
+                  }
 
-                      child: Text(
-                        'Save',
-                        style: BlueButtonTextConst.customTextStyle(context),
-                      ),
-                    ),
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
+
+                  try {
+                    // Post Driving License Data
+                    if(dLFileAbove20Mb && pLFileAbove20Mb){
+                      var response = await postDrivinglicenseData(
+                        context,
+                        expirydatecontrollerdl.text,
+                        '',
+                        widget.employeeID,
+                        '',
+                        fileNameDl!,
+                      );
+
+                      // Upload Driving License Document
+                      var uploadResponseDL =  await uploadDocumentsDL(
+                        context: context,
+                        drivingLicenceId: response.drivingLicenceId!,
+                        documentFile: finalPathDl!,
+                        documentName: fileNameDl!,
+                      );
+
+                      // Post Practitioner License Data
+                      var responsePL = await postpractitionerLicenseData(
+                        context,
+                        expirydatecontrollerpl.text,
+                        '',
+                        widget.employeeID,
+                        '',
+                        fileNamePl!,
+                      );
+
+                      // Upload Practitioner License Document
+                      var uploadResponsePL = await uploadDocumentsPL(
+                        context: context,
+                        practitionerLicenceId: responsePL.practitionerLicenceId!,
+                        documentFile: finalPathPl!,
+                        documentName: fileNamePl!,
+                      );
+                      if(response.statusCode == 200 ||response.statusCode == 200 &&
+                          uploadResponseDL.statusCode == 200 || uploadResponseDL.statusCode == 201 &&
+                         responsePL.statusCode == 200 || responsePL.statusCode == 201 &&
+                          uploadResponsePL.statusCode == 200 ||uploadResponsePL.statusCode == 201 ){
+                         showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const AddSuccessPopup(
+                              message: 'Clinical License Data Saved',
+                            );
+                          },
+                        );
+                         // Show success popup
+                        await widget.onSave();
+                      }
+                    }else{
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddErrorPopup(
+                            message: 'File is too large!',
+                          );
+                        },
+                      );
+                    }
+                  } catch (e) {
+                    // Show error popup if something goes wrong
+                    await showDialog(
+                      context: context,
+                      builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+                    );
+                  }
+
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
+                },
+                child: Text(
+                  'Save',
+                  style: BlueButtonTextConst.customTextStyle(context),
+                ),
+              ),
+
+
+
+
+
+    //
+    //           isLoading
+    //               ? SizedBox(
+    //                   height: 25,
+    //                   width: 25,
+    //                   child: CircularProgressIndicator(
+    //                     color: ColorManager.blueprime,
+    //                   ),
+    //                 )
+    //               : CustomButton(
+    //                   width: 117,
+    //                   height: 30,
+    //                   text: 'Save',
+    //                   style: BlueButtonTextConst.customTextStyle(context),
+    //                   borderRadius: 12,
+    //                   onPressed: () async {
+    //                     setState(() {
+    //                       isLoading = true; // Start loading
+    //                     });
+    //
+    // try {
+    //   var response = await postDrivinglicenseData(
+    //     context,
+    //     expirydatecontrollerdl.text,
+    //     '',
+    //     widget.employeeID,
+    //     '',
+    //     fileNameDl!,
+    //   );
+    //   await uploadDocumentsDL(
+    //       context: context,
+    //       drivingLicenceId: response.drivingLicenceId!,
+    //       documentFile: finalPathDl!,
+    //       documentName: fileNameDl!);
+    //
+    //   var responsePL = await postpractitionerLicenseData(
+    //     context,
+    //     expirydatecontrollerpl.text,
+    //     '',
+    //     widget.employeeID,
+    //     '',
+    //     fileNamePl!,
+    //   );
+    //   await uploadDocumentsPL(
+    //       context: context,
+    //       practitionerLicenceId:
+    //       responsePL.practitionerLicenceId!,
+    //       documentFile: finalPathPl!,
+    //       documentName: fileNamePl!);
+    //
+    //
+    //   await showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return const AddSuccessPopup(
+    //         message: 'Clinical License Data Saved',
+    //       );
+    //     },
+    //   );
+    //   await widget.onSave();
+    // }
+    // catch(e){
+    //   await showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+    //   );
+    // }
+    //                     setState(() {
+    //                       isLoading = false; // End loading
+    //                     });
+    //
+    //                   },
+    //
+    //                   child: Text(
+    //                     'Save',
+    //                     style: BlueButtonTextConst.customTextStyle(context),
+    //                   ),
+    //                 ),
             ],
           ),
         ],

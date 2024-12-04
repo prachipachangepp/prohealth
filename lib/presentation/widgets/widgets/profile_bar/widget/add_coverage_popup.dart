@@ -103,12 +103,12 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                           return const Text("Error fetching counties");
                         } else if (snapshot.hasData) {
                           countyDropDownList.clear();
-                          countyDropDownList.add(
-                            DropdownMenuItem<String>(
-                              child: Text('Select County'),
-                              value: 'Select County',
-                            ),
-                          );
+                          // countyDropDownList.add(
+                          //   DropdownMenuItem<String>(
+                          //     child: Text('Select County'),
+                          //     value: 'Select County',
+                          //   ),
+                          // );
                           for (var county in snapshot.data!) {
                             countyDropDownList.add(
                               DropdownMenuItem<String>(
@@ -129,6 +129,7 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                                     items: countyDropDownList,
                                     initialValue: selectedCounty,
                                     width: 354,
+
                                     onChange: (newValue) async {
                                       setState(() {
                                         selectedCounty = newValue;

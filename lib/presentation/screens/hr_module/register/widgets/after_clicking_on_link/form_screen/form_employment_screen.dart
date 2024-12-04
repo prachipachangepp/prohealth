@@ -251,12 +251,25 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
 
                         // Check if the file name is not null before uploading the resume
                         if (state.fileName != null) {
-                          await uploadEmployeeResume(
+                         var uploadResponse =  await uploadEmployeeResume(
                             context: context,
                             employeementId: response.employeeMentId!,
                             documentFile: state.finalPath!,
                             documentName: state.fileName!,
                           );
+                        if (uploadResponse.statusCode == 413) {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddErrorPopup(
+                                message: 'File is too large!',
+                              );
+                            },
+                          );
+                        }else{
+
+                        }
                         }
 
 if (response.statusCode==200 || response.statusCode == 201){

@@ -272,9 +272,11 @@ class _ManageScreenState extends State<ManageScreen> {
                                         child: Column(
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 322.0,
-                                                  right: 305,
+                                              padding:  EdgeInsets.only(
+                                                  left: widget
+                                                      .searchByEmployeeIdProfileData!.departmentId == 1 ? 310:322.0,
+                                                  right: widget
+                                                      .searchByEmployeeIdProfileData!.departmentId == 1 ?290:305,
                                                   top: 5),
                                               child: Container(
                                                 decoration: BoxDecoration(

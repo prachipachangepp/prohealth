@@ -85,16 +85,20 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
   String? _idDocError;
   String? _nameDocError;
   String? _expiryTypeError;
+  bool fileAbove20Mb = false;
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
         type: FileType.custom,
         allowedExtensions: ['pdf']);
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
     if (result != null) {
       setState(() {
         fileIsPicked = true;
         filePath = result.files.first.bytes;
         fileName = result.files.first.name;
+        fileAbove20Mb = !isAbove20MB;
       });
     }
   }
@@ -792,55 +796,67 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               expiryDate: expiryDate,
               docCreatedat: DateTime.now().toIso8601String() + "Z",
               url: widget.url,
-              fileName: fileIsPicked ? fileName : widget.fileName,
+              fileName: (fileIsPicked && fileAbove20Mb) ? fileName : widget.fileName,
               officeid: widget.officeId,
             );
 
             if (response.statusCode == 200 || response.statusCode == 201) {
               if (fileIsPicked) {
                 // Step 2: Upload Document
-                var uploadDocNew = await uploadDocumentsoffice(
-                  context: context,
-                  documentFile: filePath,
-                  fileName: fileName,
-                  orgOfficeDocumentId: response.orgOfficeDocumentId!,
-                );
-
-                if (uploadDocNew.statusCode == 413) {
-                  setState(() {
-                    loading = false;
-                  });
+                if(fileAbove20Mb){
+                  var uploadDocNew = await uploadDocumentsoffice(
+                    context: context,
+                    documentFile: filePath,
+                    fileName: fileName,
+                    orgOfficeDocumentId: response.orgOfficeDocumentId!,
+                  );
+                  if (uploadDocNew.statusCode == 413) {
+                    setState(() {
+                      loading = false;
+                    });
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'Request entity too large! File size exceeds limit.',
+                        );
+                      },
+                    );
+                    return; // Exit further execution
+                  } else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CountySuccessPopup(
+                          message: 'Document updated and file uploaded successfully!',
+                        );
+                      },
+                    );
+                  } else {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'File is too large!',
+                        );
+                      },
+                    );
+                  }
+                }else{
                   Navigator.pop(context);
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AddErrorPopup(
-                        message: 'Request entity too large! File size exceeds limit.',
-                      );
-                    },
-                  );
-                  return; // Exit further execution
-                } else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CountySuccessPopup(
-                        message: 'Document updated and file uploaded successfully!',
-                      );
-                    },
-                  );
-                } else {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return FailedPopup(
-                        text: 'Failed to upload file. File size exceeds limit.',
+                        message: 'Request entity to large!',
                       );
                     },
                   );
                 }
+
               } else {
                 Navigator.pop(context);
                 showDialog(
@@ -856,11 +872,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               Navigator.pop(context);
               showDialog(
                 context: context,
-                builder: (BuildContext context) {
-                  return FailedPopup(
-                    text: response.message ?? 'Failed to update document. Please try again.',
-                  );
-                },
+                builder: (BuildContext context) => FailedPopup(text: response.message),
               );
             }
           } catch (e) {

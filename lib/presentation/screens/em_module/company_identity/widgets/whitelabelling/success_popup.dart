@@ -439,6 +439,16 @@ class AddErrorPopup extends StatefulWidget {
 
 class _AddErrorPopupState extends State<AddErrorPopup> {
   @override
+  void initState() {
+    super.initState();
+
+    Timer(Duration(seconds: 4), () {
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
@@ -472,7 +482,7 @@ class _AddErrorPopupState extends State<AddErrorPopup> {
                   ),
                   IconButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      //Navigator.of(context).pop();
                     },
                     icon: Icon(Icons.close, color: ColorManager.white),
                   ),

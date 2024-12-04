@@ -143,24 +143,24 @@ class ViewDetailsPopup extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        _launchEmail('pardeshisaloni22@gmail.com');
+                        _launchEmail('abc@gmail.com');
                       },
                       child: ViewDetailsRowConst(
                         isUnderlined: true,
                         color: ColorManager.bluebottom,
                         headText: AppStringHr.email,
-                        dataText: 'pardeshisaloni22@gmail.com',
+                        dataText: 'abc@gmail.com',
                       ),
                     ),
                     GestureDetector(
                       onTap: () {
-                        _launchEmail('saloni.dev@symmetry.care');
+                        _launchEmail('abc@gmail.com');
                       },
                       child: ViewDetailsRowConst(
                         isUnderlined: true,
                         color: ColorManager.bluebottom,
                         headText: AppStringHr.email,
-                        dataText: 'saloni.dev@symmetry.care',
+                        dataText: 'abc@gmail.com',
                       ),
                     ),
                     ViewDetailsRowConst(isUnderlined: false, headText: AppStringHr.zone, dataText: 'ProHealth, San Jose Z4',),

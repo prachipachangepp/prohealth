@@ -61,6 +61,8 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
   final int itemsPerPage = 10;
   final int totalPages = 5;
 
+  bool fileAbove20Mb = false;
+
   void onPageNumberPressed(int pageNumber) {
     setState(() {
       currentPage = pageNumber;
@@ -417,6 +419,8 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                             allowedExtensions: ['pdf'],
                             allowMultiple: false, // Ensure only one file is selected
                           );
+                          final fileSize = result?.files.first.size; // File size in bytes
+                          final isAbove20MB = fileSize! > (20 * 1024 * 1024);
 
                           if (result != null) {
                             try {
@@ -443,7 +447,9 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
 
                               // Update the UI to indicate the file has been uploaded
                               setState(() {
-                                _documentUploaded = true; // Indicate the document was uploaded
+                                _documentUploaded = true;
+                                fileAbove20Mb = !isAbove20MB;
+                                // Indicate the document was uploaded
                               });
                             } catch (e) {
                               print('Error picking file: $e');
@@ -791,54 +797,70 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       setState(() {
                         isLoading = true;
                       });
-                      try {
-                        ApiDataRegister result = await legalDocumentAdd(context: context,
-                            employeeId: widget.employeeID,
-                            documentName: fileName,
-                            docUrl: '',
-                            officeId: '');
-                        var response = await uploadLegalDocumentBase64(context: context,
-                            employeeLegalDocumentId: result.legalDocumentId!,
-                            documentFile: finalPath
-                        );
+                      if (fileAbove20Mb) {
+                        try {
+                          ApiDataRegister result = await legalDocumentAdd(
+                              context: context,
+                              employeeId: widget.employeeID,
+                              documentName: fileName,
+                              docUrl: '',
+                              officeId: '');
+                          var response = await uploadLegalDocumentBase64(
+                              context: context,
+                              employeeLegalDocumentId: result.legalDocumentId!,
+                              documentFile: finalPath
+                          );
 
-                        if(response.statusCode == 201 || response.statusCode == 200){
+                          if (response.statusCode == 201 ||
+                              response.statusCode == 200) {
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const AddSuccessPopup(
+                                  message: 'Document Uploaded Successfully',
+                                );
+                              },
+                            );
+                            await widget.onSave();
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const AddFailePopup(
+                                  message: 'Failed To Upload Document',
+                                );
+                              },
+                            );
+                            print('Document upload Error');
+                          }
+                        } catch (e) {
                           await showDialog(
                             context: context,
-                            builder: (BuildContext context) {
-                              return const AddSuccessPopup(
-                                message: 'Document Uploaded Successfully',
-                              );
-                            },
+                            builder: (
+                                BuildContext context) => const FourNotFourPopup(),
                           );
-                          await widget.onSave();
-                        }else{
-                          await showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const AddFailePopup(
-                                message: 'Failed To Upload Document',
-                              );
-                            },
-                          );
-                          print('Document upload Error');
+                          // await  showDialog(
+                          //   context: context,
+                          //   builder: (BuildContext context) {
+                          //     return const AddFailePopup(
+                          //       message: 'Failed To Upload Document',
+                          //     );
+                          //   },
+                          // );
                         }
-
-                      } catch (e) {
-                        await showDialog(
+                      }
+                      else{
+                        showDialog(
                           context: context,
-                          builder: (BuildContext context) => const FourNotFourPopup(),
+                          builder: (BuildContext context) {
+                            return AddErrorPopup(
+                              message: 'File is too large!',
+                            );
+                          },
                         );
-                        // await  showDialog(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return const AddFailePopup(
-                        //       message: 'Failed To Upload Document',
-                        //     );
-                        //   },
-                        // );
                       }
                     }
+
                     setState(() {
                       isLoading = false;
                     });

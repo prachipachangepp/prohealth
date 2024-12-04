@@ -670,15 +670,19 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
   }
 
   bool fileIsPicked = false;
+  bool fileAbove20Mb = false;
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['pdf']);
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
     if (result != null) {
       setState(() {
         fileIsPicked = true;
         filePath = result.files.first.bytes;
         fileName = result.files.first.name;
+        fileAbove20Mb = !isAbove20MB;
       });
     }
   }
@@ -844,9 +848,10 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
           setState(() {
             loading = true;
           });
+          String? validateExpDate = expiryDateController.text;
           String? expiryDate;
           expiryDate = widget.selectedExpiryType == AppConfig.issuer
-              ? datePicked!.toIso8601String()+"Z"
+              ? validateExpDate == expiryDateController.text ? widget.expiryDate : datePicked!.toIso8601String()+"Z"
               : null;
           try{
             var updatedResponse = await patchEmployeeDocuments(
@@ -871,26 +876,43 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                 },
               );
               if (fileIsPicked) {
-                var response = await patchEmployeeBase64Documents(
-                    context: context,
-                    employeeDocumentId: widget.empDocumentId,
-                    expiryDate: expiryDate,
-                    employeeDocumentMetaId: widget.docMetaDataId,
-                    employeeDocumentTypeSetupId: widget.docSetupId,
-                    employeeId: widget.employeeId,
-                    documentName: fileName,
-                    documentFile: filePath);
-                if (response.statusCode == 200 || response.statusCode == 201) {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddSuccessPopup(
-                        message: 'Document Edited Successfully',
-                      );
-                    },
-                  );
-                } else if (response.statusCode == 413) {
+                if(fileAbove20Mb){
+                  var response = await patchEmployeeBase64Documents(
+                      context: context,
+                      employeeDocumentId: widget.empDocumentId,
+                      expiryDate: expiryDate,
+                      employeeDocumentMetaId: widget.docMetaDataId,
+                      employeeDocumentTypeSetupId: widget.docSetupId,
+                      employeeId: widget.employeeId,
+                      documentName: fileName,
+                      documentFile: filePath);
+                  if (response.statusCode == 200 || response.statusCode == 201) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(
+                          message: 'Document Edited Successfully',
+                        );
+                      },
+                    );
+                  }
+                  else if (response.statusCode == 413) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'File is too large!',
+                        );
+                      },
+                    );
+                  }
+                  else {
+                    Navigator.pop(context);
+                    print('Error');
+                  }
+                }else{
                   Navigator.pop(context);
                   showDialog(
                     context: context,
@@ -901,10 +923,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
                     },
                   );
                 }
-                else {
-                  Navigator.pop(context);
-                  print('Error');
-                }
+
               } else {
                 Navigator.pop(context);
                 showDialog(
@@ -976,6 +995,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
   String _url = "";
   bool showExpiryDateField = false;
   TextEditingController expiryDateController = TextEditingController();
+  bool fileAbove20Mb = false;
 
   bool load = false;
   DateTime? datePicked;
@@ -999,10 +1019,13 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
       type: FileType.custom,
       allowedExtensions: ['pdf'],
     );
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
     if (result != null) {
       setState(() {
         filePath = result.files.first.bytes;
         fileName = result.files.first.name;
+        fileAbove20Mb = !isAbove20MB;
       });
     }
   }
@@ -1193,26 +1216,38 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                 } else {
                   expiryDate = datePicked!.toIso8601String() + "Z";
                 }
-                var response = await uploadDocuments(
-                  context: context,
-                  employeeDocumentMetaId: documentMetaDataId,
-                  employeeDocumentTypeSetupId: documentSetupId,
-                  employeeId: widget.employeeId,
-                  documentName: fileName,
-                  documentFile: filePath,
-                  expiryDate: expiryDate,
-                );
-                var result = await singleBatchApproveOnboardAckHealthPatch(context, response.documentId!);
-                if (result.statusCode == 200 || result.statusCode == 201) {
-                  Navigator.pop(context);
-                  showDialog(
+                if(fileAbove20Mb){
+                  var response = await uploadDocuments(
                     context: context,
-                    builder: (BuildContext context) {
-                      return AddSuccessPopup(message: 'Document Uploaded Successfully');
-                    },
+                    employeeDocumentMetaId: documentMetaDataId,
+                    employeeDocumentTypeSetupId: documentSetupId,
+                    employeeId: widget.employeeId,
+                    documentName: fileName,
+                    documentFile: filePath,
+                    expiryDate: expiryDate,
                   );
-                }
-                if (response.statusCode == 413) {
+                  var result = await singleBatchApproveOnboardAckHealthPatch(context, response.documentId!);
+                  if (result.statusCode == 200 || result.statusCode == 201) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(message: 'Document Uploaded Successfully');
+                      },
+                    );
+                  }
+                  if (response.statusCode == 413) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'File is too large!',
+                        );
+                      },
+                    );
+                  }
+                }else{
                   Navigator.pop(context);
                   showDialog(
                     context: context,
@@ -1223,6 +1258,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                     },
                   );
                 }
+
                 setState(() {
                   load = true;
                 });

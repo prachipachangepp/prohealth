@@ -58,7 +58,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                   future:  getDrivingLicenseRecord(context,widget.employeeId,"no"),
                   builder: (context,snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
-                      return SizedBox();
+                      return Center(child: SizedBox(height:25,width:25,child: CircularProgressIndicator(color: ColorManager.blueprime,)),);
                     }
                     if(snapshot.data!.isEmpty){
                       return Center(
@@ -93,6 +93,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                 ),
                               ],
                             ),
+                           Text("     "),
                             Row(
                               children: [
                                 Text('Expiry Date', style: AknowledgementStyleNormal
@@ -102,7 +103,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                     .customTextStyle(context)),
                               ],
                             ),
-
+                            Text("     "),
                             Row(
                               children: [
                                 QualificationActionButtons( approve: snapshot.data![0].approve ,onRejectPressed: () {
@@ -198,7 +199,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                   future: getPractitionerLicenseRecord(context,widget.employeeId,"no"),
                   builder: (context, snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
-                      return SizedBox();
+                      return Center(child: SizedBox(height:25,width:25,child: CircularProgressIndicator(color: ColorManager.blueprime,)),);
                     }
                     if(snapshot.data!.isEmpty){
                       return Center(
@@ -213,7 +214,7 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                           children: [
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                     width: 62,
@@ -227,21 +228,20 @@ class _QualificationGeneralLicensesState extends State<QualificationGeneralLicen
                                     child: Image.asset('images/Vector.png')),
                                 SizedBox(width: AppSize.s30),
                                 Text(
-                                  "Practioner License",
+                                  "Practitioner License",
                                   style: AknowledgementStyleNormal.customTextStyle(context),
                                 ),
                               ],
                             ),
+                            Text(""),
                             Row(
                               children: [
-                                Text('Expiry Date', style: AknowledgementStyleNormal
-                                    .customTextStyle(context)),
-                                SizedBox(width: AppSize.s20),
-                                Text(snapshot.data![0].expDate, style: AknowledgementStyleConst
-                                    .customTextStyle(context)),
+                                Text('Expiry Date', style: AknowledgementStyleNormal.customTextStyle(context)),
+                            SizedBox(width: AppSize.s20),
+                                Text(snapshot.data![0].expDate, style: AknowledgementStyleConst.customTextStyle(context)),
                               ],
                             ),
-
+                            Text("     "),
                             Row(
                               children: [
                                 QualificationActionButtons( approve: snapshot.data![0].approve ,

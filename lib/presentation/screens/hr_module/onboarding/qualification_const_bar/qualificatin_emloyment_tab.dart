@@ -169,6 +169,7 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     QualificationActionButtons(
+                      isBackColor: false,
                       approve: snapshot.data![index].approve,
                       onRejectPressed: () async {
                         showDialog(

@@ -384,7 +384,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           SizedBox(
                             height: 30,
                             width: 300,
-                            child: CustomDropdownFormField(
+                            child: CustomDropdownTextFieldwidh(
                               hintText: 'Salaried',
                               // Conditionally show "Per Visit" in the dropdown if depId is not salesId or AdministrationId
                               items: widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId
@@ -1218,7 +1218,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                             return Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 7),
                               child: Container(
-                                height: 31,
+                                height: 32,
                                 width: 250,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -1238,15 +1238,15 @@ class _DynamciContainerState extends State<DynamciContainer> {
                             dropDownList.clear();
 
                             // Add the default "Select" item
-                            dropDownList.add( DropdownMenuItem<String>(
-                              child: Text('Select County',style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: FontSize.s12,
-                                color: ColorManager.mediumgrey,
-                                decoration: TextDecoration.none,
-                              ),),
-                              value: 'Select County',
-                            ));
+                            // dropDownList.add( DropdownMenuItem<String>(
+                            //   child: Text('Select County',style: TextStyle(
+                            //     fontWeight: FontWeight.w500,
+                            //     fontSize: FontSize.s12,
+                            //     color: ColorManager.mediumgrey,
+                            //     decoration: TextDecoration.none,
+                            //   ),),
+                            //   value: 'Select County',
+                            // ));
 
                             // Populate dropdown list with counties
                             for (var i in snapshot.data!) {
@@ -1257,29 +1257,52 @@ class _DynamciContainerState extends State<DynamciContainer> {
                             }
 
                             // Set initial selectedCounty if not already set
-                            if (selectedCounty == null) {
-                              selectedCounty = 'Select County';
-                            }
+                            // if (selectedCounty == null) {
+                            //   selectedCounty = 'Select County';
+                            // }
 
                             return StatefulBuilder(
                               builder: (BuildContext context, StateSetter setState) {
                                 return Container(
-                                  height: 31,
+                                 // height: 31,
                                   width: 250,
-                                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: DropdownButtonFormField<String>(
-                                    focusColor: Colors.transparent,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down_sharp,
-                                      color: Color(0xff686464),
-                                    ),
-                                    decoration: const InputDecoration.collapsed(hintText: ''),
-                                    items: dropDownList,
+                                  //padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                  // decoration: BoxDecoration(
+                                  //   color: Colors.white,
+                                  //   border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                  //   borderRadius: BorderRadius.circular(6),
+                                  // ),
+                                  // child: DropdownButtonFormField<String>(
+                                  //   focusColor: Colors.transparent,
+                                  //   icon: const Icon(
+                                  //     Icons.arrow_drop_down_sharp,
+                                  //     color: Color(0xff686464),
+                                  //   ),
+                                  //   decoration: const InputDecoration.collapsed(hintText: ''),
+                                  //   items: dropDownList,
+                                  //   onChanged: (newValue) {
+                                  //     setState(() {
+                                  //       selectedCounty = newValue;
+                                  //       for (var a in snapshot.data!) {
+                                  //         if (a.countyName == newValue) {
+                                  //           selectedCountyId = a.countyId;
+                                  //           print("County Id :: ${selectedCountyId}");
+                                  //           // Perform other actions if needed
+                                  //         }
+                                  //       }
+                                  //     });
+                                  //   },
+                                  //   value: selectedCounty,
+                                  //   style: TextStyle(
+                                  //     fontWeight: FontWeight.w500,
+                                  //     fontSize: FontSize.s12,
+                                  //     color: ColorManager.mediumgrey,
+                                  //     decoration: TextDecoration.none,
+                                  //   ),
+                                  // ),
+
+                                  child: CustomDropdownTextFieldwidh(
+                                    dropDownMenuList: dropDownList,
                                     onChanged: (newValue) {
                                       setState(() {
                                         selectedCounty = newValue;
@@ -1292,13 +1315,9 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                         }
                                       });
                                     },
-                                    value: selectedCounty,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: FontSize.s12,
-                                      color: ColorManager.mediumgrey,
-                                      decoration: TextDecoration.none,
-                                    ),
+                                   // hintText: initialValue,
+                                    height: 32,
+
                                   ),
                                 );
                               },
@@ -1330,7 +1349,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                             if (snapshotZone.connectionState == ConnectionState.waiting) {
                               return Container(
                                 width: 250,
-                                height: 31,
+                                height: 32,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
@@ -1345,7 +1364,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                             if (snapshotZone.data!.isEmpty) {
                               return Container(
                                 width: 250,
-                                height: 31,
+                                height: 32,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
@@ -1381,51 +1400,69 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                   ),
                                 );
                               }
-                              if (selectedZipCodeZone == null) {
-                                selectedZipCodeZone =
-                                    snapshotZone.data![0].zoneName;
-                              }
+                              // if (selectedZipCodeZone == null) {
+                              //   selectedZipCodeZone =
+                              //       snapshotZone.data![0].zoneName;
+                              // }
                               docZoneId = snapshotZone.data![0].zone_id;
                               return StatefulBuilder(
                                 builder: (BuildContext context, StateSetter setState) {
                                   return Container(
-                                    height: 31,
+                                  //  height: 31,
                                     width: 250,
-                                    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    child: DropdownButtonFormField<String>(
-                                      focusColor: Colors.transparent,
-                                      icon: const Icon(
-                                        Icons.arrow_drop_down_sharp,
-                                        color: Color(0xff686464),
-                                      ),
-                                      decoration: const InputDecoration.collapsed(hintText: ''),
-                                      items: dropDownTypesList,
+                                  //  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                    // decoration: BoxDecoration(
+                                    //   color: Colors.white,
+                                    //   border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                    //   borderRadius: BorderRadius.circular(6),
+                                    // ),
+                                    // child: DropdownButtonFormField<String>(
+                                    //   focusColor: Colors.transparent,
+                                    //   icon: const Icon(
+                                    //     Icons.arrow_drop_down_sharp,
+                                    //     color: Color(0xff686464),
+                                    //   ),
+                                    //   decoration: const InputDecoration.collapsed(hintText: ''),
+                                    //   items: dropDownTypesList,
+                                    //   onChanged: (newValue) {
+                                    //     setState(() {
+                                    //       for (var a
+                                    //                 in snapshotZone.data!) {
+                                    //                   if (a.zoneName == newValue) {
+                                    //                     docType = a.zone_id;
+                                    //                     print(
+                                    //                         "ZONE id :: ${a.zone_id}");
+                                    //                     docZoneId = docType;
+                                    //                   }
+                                    //                 }
+                                    //     });
+                                    //   },
+                                    //  // value: selectedZone,
+                                    //   style: TextStyle(
+                                    //     fontWeight: FontWeight.w500,
+                                    //     fontSize: FontSize.s12,
+                                    //     color: ColorManager.mediumgrey,
+                                    //     decoration: TextDecoration.none,
+                                    //   ),
+                                    // ),
+
+                                    child:CustomDropdownTextFieldwidh(
+                                      dropDownMenuList: dropDownTypesList,
                                       onChanged: (newValue) {
                                         setState(() {
                                           for (var a
-                                                    in snapshotZone.data!) {
-                                                      if (a.zoneName == newValue) {
-                                                        docType = a.zone_id;
-                                                        print(
-                                                            "ZONE id :: ${a.zone_id}");
-                                                        docZoneId = docType;
-                                                      }
-                                                    }
+                                          in snapshotZone.data!) {
+                                            if (a.zoneName == newValue) {
+                                              docType = a.zone_id;
+                                              print(
+                                                  "ZONE id :: ${a.zone_id}");
+                                              docZoneId = docType;
+                                            }
+                                          }
                                         });
                                       },
-                                     // value: selectedZone,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: FontSize.s12,
-                                        color: ColorManager.mediumgrey,
-                                        decoration: TextDecoration.none,
-                                      ),
-                                    ),
+                                      height: 32,
+                                    ) ,
                                   );
                                 },
                               );

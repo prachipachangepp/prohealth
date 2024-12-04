@@ -38,14 +38,14 @@ Future<ApiDataRegister> postreferencescreenData(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("reference Added");
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AddSuccessPopup(
-            message: 'Reference Data Saved',
-          );
-        },
-      );
+      // await showDialog(
+      //   context: context,
+      //   builder: (BuildContext context) {
+      //     return AddSuccessPopup(
+      //       message: 'Reference Data Saved',
+      //     );
+      //   },
+      // );
       // ScaffoldMessenger.of(context).showSnackBar(
       //   SnackBar(content: Text("Reference data saved"),backgroundColor: Colors.green,),
       // );

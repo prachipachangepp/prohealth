@@ -107,6 +107,14 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
       });
     }
   }
+  String? _typeError;
+  String? _abbreviationError;
+  void _validateFields() {
+    setState(() {
+      _typeError = widget.typeController.text.isEmpty ? 'Please Enter Employee Type' : null;
+      _abbreviationError = widget.shorthandController.text.isEmpty ? 'Please Enter Abbreviation' : null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,19 +128,19 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
           child: Form(
             key: _formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 FirstSMTextFConst(
                   controller: widget.typeController,
                   keyboardType: TextInputType.text,
                   text: 'Type',
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Type';
-                    }
-                    return null;
-                  },
                 ),
+                if (_typeError != null)
+                  Text(
+                    _typeError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
                 SizedBox(
                   height: AppSize.s16,
                 ),
@@ -140,14 +148,12 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                   controller: widget.shorthandController,
                   keyboardType: TextInputType.streetAddress,
                   text: 'Abbreviation',
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Enter Abbreviation';
-                    }
-                    return null;
-                  },
                 ),
-
+                if (_abbreviationError != null)
+                  Text(
+                    _abbreviationError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
                 SizedBox(
                   height: AppSize.s16,
                 ),
@@ -203,7 +209,8 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
         height: AppSize.s30,
         text: AppStringEM.save,
         onPressed: () async {
-          if (_formKey.currentState!.validate()) {
+          _validateFields();
+          if (_typeError == null && _abbreviationError == null) {
             setState(() {
               isLoading = true;
             });
