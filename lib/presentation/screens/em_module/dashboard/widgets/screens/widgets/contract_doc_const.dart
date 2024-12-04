@@ -1,8 +1,10 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-
+import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
+import '../../../../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
@@ -14,9 +16,9 @@ class ContractDocConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EMDashboardContainerConst(
-        height: 150,
+        height: AppSize.s150,
         child: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
+          padding: const EdgeInsets.only(left: AppPadding.p30),
           child:
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Column(
@@ -24,23 +26,16 @@ class ContractDocConst extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hello',
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: 23,
-                      color: ColorManager.bluebottom,
-                      fontWeight: FontWeight.w700),
+                  EmDashboardStringManager.hello,
+                  style: EmDashHelloText.customTextStyle(context)
                 ),
-                Text(
-                  '“Securing Your Success,\nOne Document at a Time.”',
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: 14,
-                      color: ColorManager.mediumgrey,
-                      fontWeight: FontWeight.w400),
+                Text(EmDashboardStringManager.securingSuccess,
+                  style: EmDashHelloSubText.customTextStyle(context)
                 ),
               ],
             ),
             SizedBox(
-              width: 20,
+              width: AppSize.s20,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -112,26 +107,16 @@ class AuditPrepTimeOffice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Sr. No.",
+                      EmDashboardStringManager.srNo,
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 40.0),
                       child: Text(
                         "Office Name",
                         textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                     ),
                     Padding(
@@ -139,23 +124,13 @@ class AuditPrepTimeOffice extends StatelessWidget {
                       child: Text(
                         "Audit",
                         textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                     ),
                     Text(
                       "Time",
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                   ],
                 ),
@@ -208,11 +183,7 @@ class AuditPrepTimeOffice extends StatelessWidget {
                                 child: Text(
                                   "01",
                                   textAlign: TextAlign.start,
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w400,
-                                    color: ColorManager.black,
-                                  ),
+                                  style: EmDashListviewDataText.customTextStyle(context),
                                 ),
                               ),
                               Expanded(
@@ -220,11 +191,7 @@ class AuditPrepTimeOffice extends StatelessWidget {
                                 child: Text(
                                   "Office 1",
                                   textAlign: TextAlign.start,
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w400,
-                                    color: ColorManager.black,
-                                  ),
+                                  style: EmDashListviewDataText.customTextStyle(context),
                                 ),
                               ),
                               Expanded(
@@ -232,11 +199,7 @@ class AuditPrepTimeOffice extends StatelessWidget {
                                 child: Text(
                                   "Audit 1",
                                   textAlign: TextAlign.center,
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w400,
-                                    color: ColorManager.black,
-                                  ),
+                                  style: EmDashListviewDataText.customTextStyle(context),
                                 ),
                               ),
                               Expanded(
@@ -244,11 +207,7 @@ class AuditPrepTimeOffice extends StatelessWidget {
                                 child: Text(
                                   "10:00:00 AM",
                                   textAlign: TextAlign.center,
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w400,
-                                    color: ColorManager.black,
-                                  ),
+                                  style: EmDashListviewDataText.customTextStyle(context),
                                 ),
                               ),
                             ],
@@ -320,22 +279,12 @@ class AvgComRatingOffice extends StatelessWidget {
               Text(
                 "No. of Offices",
                 textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: FontSize.s12,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.mediumgrey,
-                  decoration: TextDecoration.none,
-                ),
+                style: EmDashListviewHeadText.customTextStyle(context),
               ),
               Text(
                 "Compliance Rating",
                 textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: FontSize.s12,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.mediumgrey,
-                  decoration: TextDecoration.none,
-                ),
+                style: EmDashListviewHeadText.customTextStyle(context),
               ),
             ],
           ),
@@ -365,11 +314,7 @@ class AvgComRatingOffice extends StatelessWidget {
                           child: Text(
                             "Office 1",
                             textAlign: TextAlign.start,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.black,
-                            ),
+                            style: EmDashListviewDataText.customTextStyle(context),
                           ),
                         ),
                         Expanded(flex:1 ,child: Container()),
@@ -392,11 +337,7 @@ class AvgComRatingOffice extends StatelessWidget {
                           Text(
                             "5",
                             textAlign: TextAlign.center,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.black,
-                            ),)
+                            style: EmDashListviewDataText.customTextStyle(context),)
                             ],
                           ),
                         ),
@@ -481,37 +422,22 @@ class AuditDates extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Sr. No.",
+                      EmDashboardStringManager.srNo,
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 30.0),
                       child: Text(
                         "Audit",
                         textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                     ),
                     Text(
                       "Dates",
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                   ],
                 ),
@@ -548,11 +474,7 @@ class AuditDates extends StatelessWidget {
                               child: Text(
                                 "01",
                                 textAlign: TextAlign.start,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                             Expanded(
@@ -560,11 +482,7 @@ class AuditDates extends StatelessWidget {
                               child: Text(
                                 "Next Scheduled Gov. Date",
                                 textAlign: TextAlign.start,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                             Expanded(
@@ -574,11 +492,7 @@ class AuditDates extends StatelessWidget {
                                   Text(
                                     "27-08-2025",
                                     textAlign: TextAlign.center,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                   SizedBox(width: 15),
                                   IconButton(
@@ -670,37 +584,22 @@ class UpcomingCpmDeadlines extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Sr. No.",
+                      EmDashboardStringManager.srNo,
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0),
                       child: Text(
                         "Offices",
                         textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                     ),
                     Text(
                       "Compliance Deadline",
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                   ],
                 ),
@@ -737,11 +636,7 @@ class UpcomingCpmDeadlines extends StatelessWidget {
                               child: Text(
                                 "01",
                                 textAlign: TextAlign.start,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                             Expanded(
@@ -749,11 +644,7 @@ class UpcomingCpmDeadlines extends StatelessWidget {
                               child: Text(
                                 "Office 1",
                                 textAlign: TextAlign.start,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                             Expanded(
@@ -763,11 +654,7 @@ class UpcomingCpmDeadlines extends StatelessWidget {
                                   Text(
                                     "27-08-2025",
                                     textAlign: TextAlign.center,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                   SizedBox(width: 15),
                                   IconButton(
@@ -861,42 +748,25 @@ class OfficeExpiringComDoc extends StatelessWidget {
                     Text(
                       "Office Name",
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                     Text(
                       "Status",
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
-                    Text(
-                      "Certificate",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 40.0),
+                      child: Text(
+                        "Certificate",
+                        textAlign: TextAlign.end,
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                     ),
                     Text(
                       "+Add Document",
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                   ],
                 ),
@@ -945,11 +815,7 @@ class OfficeExpiringComDoc extends StatelessWidget {
                                     Text(
                                       "Office 1",
                                       textAlign: TextAlign.start,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.black,
-                                      ),
+                                      style: EmDashListviewDataText.customTextStyle(context),
                                     ),
                                   ],
                                 ),
@@ -963,38 +829,52 @@ class OfficeExpiringComDoc extends StatelessWidget {
                                       width: 10.0,
                                       height: 15.0,
                                       decoration: BoxDecoration(
-                                        color: ColorManager.EMred,
+                                        color: ColorManager.EMred, //add condition with color EMgreen
                                         shape: BoxShape.circle,
                                       ),
                                     ),
                                     SizedBox(width: 10,),
-                                    Text('Partially Completed',style: CustomTextStylesCommon.commonStyle(
-                                        color: ColorManager.black,
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w500),)
+                                    Text('Partially Completed', // add condition with Fully Completed
+                                      style:EmDashListviewDataText.customTextStyle(context),)
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: 60,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1,color: ColorManager.EMred),
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: ColorManager.EMred.withOpacity(0.1)
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Expired",
-                                    textAlign: TextAlign.center,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.EMred,
+                              Padding(
+                                padding: const EdgeInsets.only(right: 30.0),
+                                child: Container(
+                                  width: 60,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 1,color: ColorManager.EMred),
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: ColorManager.EMred.withOpacity(0.1)
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Expired",
+                                      textAlign: TextAlign.center,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w400,
+                                        color: ColorManager.EMred,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
+                              ///apply with condition
+                              // Container(
+                              //   width: 60,
+                              //   height: 35,
+                              //   decoration: BoxDecoration(
+                              //     border: Border.all(width: 1,color: ColorManager.EMgreen),
+                              //       borderRadius: BorderRadius.circular(8),
+                              //       color: ColorManager.EMgreen.withOpacity(0.1)
+                              //   ),
+                              //   child: Center(
+                              //     child: Icon(FontAwesomeIcons.fileInvoice,color: ColorManager.EMgreen,),
+                              //   ),
+                              // ),
                               Expanded(child: Container()),
                               ElevatedButton.icon(
                                 onPressed: () async{
@@ -1090,37 +970,22 @@ class AverageTimeAuditFindings extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Sr. No.",
+                      EmDashboardStringManager.srNo,
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 60.0),
                       child: Text(
                         "Audit",
                         textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                     ),
                     Text(
                       "Time",
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
+                      style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                   ],
                 ),
@@ -1157,11 +1022,7 @@ class AverageTimeAuditFindings extends StatelessWidget {
                               child: Text(
                                 "01",
                                 textAlign: TextAlign.start,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                             Expanded(
@@ -1169,11 +1030,7 @@ class AverageTimeAuditFindings extends StatelessWidget {
                               child: Text(
                                 "Audit 1",
                                 textAlign: TextAlign.start,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                             Expanded(
@@ -1181,11 +1038,7 @@ class AverageTimeAuditFindings extends StatelessWidget {
                               child: Text(
                                 "10:00:00 AM",
                                 textAlign: TextAlign.center,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                           ],
@@ -1215,7 +1068,7 @@ class ContractUploadDocPopup extends StatelessWidget {
     return Dialog(
       backgroundColor: ColorManager.white,
       child: Container(
-        width: 80.0,
+        width: 60.0,
         height: 250.0,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -1230,7 +1083,7 @@ class ContractUploadDocPopup extends StatelessWidget {
               textAlign: TextAlign.center,
               style: CustomTextStylesCommon.commonStyle(
                 fontSize: FontSize.s16,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
                 color: ColorManager.mediumgrey,
               ),
             ),
@@ -1246,12 +1099,39 @@ class ContractUploadDocPopup extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey, style: BorderStyle.solid),
-                ),
+                height: 70,
+                child: DottedBorder(
+                  padding: EdgeInsets.all(8),
+                    borderType: BorderType.RRect,
+                    radius: Radius.circular(20),
+                    dashPattern: [10, 10],
+                    color: Colors.grey,
+                    strokeWidth: 2,
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          radius: 15,
+                          backgroundColor: ColorManager.bluebottom,
+                          child: Icon(Icons.add,color: ColorManager.white,size: 18,),
+                        ),
+                        Text(
+                          "Upload document",
+                          textAlign: TextAlign.center,
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                      ],
+                    )
               ),
+            )),
+            CustomElevatedButton(
+              width: AppSize.s130,
+              height: AppSize.s30,
+              text: "Save",
+              onPressed: () async{},
             )
           ],
         ),

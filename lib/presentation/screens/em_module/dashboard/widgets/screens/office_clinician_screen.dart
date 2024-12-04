@@ -49,7 +49,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             toY: 90,
             width: 30,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
-            color: Colors.greenAccent,
+            color: ColorManager.pieChartGreen,
             backDrawRodData: BackgroundBarChartRodData(
               show: true,
               toY: 100,
@@ -66,7 +66,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             toY: 80,
             width: 30,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
-            color: Colors.blueAccent,
+            color: ColorManager.pieChartBlue,
             backDrawRodData: BackgroundBarChartRodData(
               show: true,
               toY: 100,
@@ -83,7 +83,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             toY: 100,
             width: 30,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
-            color: Colors.orangeAccent,
+            color: Color(0xFFFEBD4D),
             backDrawRodData: BackgroundBarChartRodData(
               show: true,
               toY: 100,
@@ -100,7 +100,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             toY: 75,
             width: 30,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
-            color: Colors.purpleAccent,//Color(0xFF77AC4)
+            color: Color(0xFFC77AC4),
             backDrawRodData: BackgroundBarChartRodData(
               show: true,
               toY: 100,
@@ -147,7 +147,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             Expanded(
                 flex: 2,
                 child: EMDashboardContainerBBorderConst(
-                  child: LinearCardWidget(headingText: 'Clinician Time Off', totalCount: '07:00:00 pm', totalValue: 100,icon: CupertinoIcons.clock_fill,),)),
+                  child: LinearCardWidget(headingText: 'Clinician Time Off\n  ', totalCount: '07:00:00 pm', totalValue: 100,icon: CupertinoIcons.clock_fill,),)),
           ],),
         SizedBox(height: AppSize.s15,),
         ///2nd row

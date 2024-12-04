@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 
+import '../../../../../../../app/resources/theme_manager.dart';
+
 class LinearCardWidget extends StatelessWidget {
   final String headingText;
   final String totalCount;
@@ -20,19 +22,18 @@ class LinearCardWidget extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(headingText,style: TextStyle(fontSize: 15,fontWeight:FontWeight.w500,color: ColorManager.mediumgrey,),),
-                  SizedBox(height: 15,),
-                  Text(totalCount,style: TextStyle(fontSize: 20,color: ColorManager.blueprime),)
+                  Text(headingText,style: CustomTextStylesCommon.commonStyle(
+                      fontSize: 16,
+                      color: ColorManager.mediumgrey,
+                      fontWeight: FontWeight.w500),),
+                SizedBox(height: 15,),
+                  Text(totalCount,style: TextStyle(fontSize: 20,color: ColorManager.blueprime,fontWeight: FontWeight.w700),)
                 ],
               ),
-              CircleAvatar(
-                backgroundColor: ColorManager.white,
-                radius: 30,
-                child: Icon(icon,color: ColorManager.bluebottom,size: 34,),
-              )
+              Icon(icon,color: ColorManager.bluebottom,size: 40,)
             ],
-
           ),
           LinearProgressIndicator(
             backgroundColor: ColorManager.white,

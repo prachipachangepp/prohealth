@@ -209,4 +209,5 @@ class AppSize {
 class IconSize{
   static const double I16 = 16;
   static const double I18 = 18;
+  static const double I24 = 24;
 }

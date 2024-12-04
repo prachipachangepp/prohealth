@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../widgets/app_clickable_widget.dart';
 
@@ -199,8 +200,7 @@ class BlueBorderContainerConst extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(headText,
-                    style: CustomTextStylesCommon.commonStyle(fontSize: 16,
-                        color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),),
+                    style: EmDashText.customTextStyle(context),),
                 ],
               ),
 

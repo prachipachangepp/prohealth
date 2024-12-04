@@ -1,5 +1,4 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -33,12 +32,13 @@ class OfficeLocationScreen extends StatelessWidget {
               Expanded(
                   flex: 2,
                   child: EMDashboardContainerBBorderConst(
-                    child: LinearCardWidget(headingText: 'Total Number Of Office', totalCount: '10', totalValue: 10,icon: CupertinoIcons.building_2_fill,),)),
+                    child: LinearCardWidget(headingText: 'Total Number Of Office\n ', totalCount: '10', totalValue: 10,icon: Icons.business//CupertinoIcons.building_2_fill,
+                    ),)),
               SizedBox(width: AppSize.s15,),
               Expanded(
                   flex: 2,
                   child: EMDashboardContainerBBorderConst(
-                    child: LinearCardWidget(headingText: 'Office Occupancy rate', totalCount: '4', totalValue:4,icon: FontAwesomeIcons.hospitalUser//FontAwesomeIcons.userDoctor,
+                    child: LinearCardWidget(headingText: 'Office Occupancy rate\n ', totalCount: '04', totalValue:4,icon: FontAwesomeIcons.hospitalUser//FontAwesomeIcons.userDoctor,
                     ),)),
               SizedBox(width: AppSize.s15,),
               Expanded(
@@ -178,9 +178,9 @@ class OfficeLocationScreen extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         SizedBox(height: 100,),
-                                        GraphMenuConst(text: 'Onsite Staff  ', squareColor: ColorManager.pieChartGreen,),
+                                        GraphMenuConst(text: 'Onsite Staff  ', squareColor: ColorManager.pieChartGreen,textColor: ColorManager.mediumgrey,),
                                         SizedBox(height: 10,),
-                                        GraphMenuConst(text: 'Remote Staff', squareColor: ColorManager.pieChartBlue,),
+                                        GraphMenuConst(text: 'Remote Staff', squareColor: ColorManager.pieChartBlue,textColor: ColorManager.mediumgrey,),
 
                                       ],
                                     ),
@@ -196,7 +196,7 @@ class OfficeLocationScreen extends StatelessWidget {
                                             PieChartData(
                                               sections: [
                                                 PieChartSectionData(
-                                                  color: ColorManager.pieChartGreen,
+                                                  color: ColorManager.pieChartBlue,
                                                   value: 60,
                                                   title: '65%',
                                                   titleStyle:  TextStyle(
@@ -204,7 +204,7 @@ class OfficeLocationScreen extends StatelessWidget {
                                                   radius: 75,
                                                 ),
                                                 PieChartSectionData(
-                                                  color: ColorManager.pieChartBlue,
+                                                  color: ColorManager.pieChartGreen,
                                                   value: 40,
                                                   title: '35%',
                                                   titleStyle:  TextStyle(

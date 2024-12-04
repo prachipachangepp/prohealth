@@ -23,10 +23,10 @@ class ContractDocAuditingScreen extends StatefulWidget {
 class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
   int? _hoverIndex;
   final List<Map<String, dynamic>> _data = [
-    {'label': 'A', 'value': 40, 'color': Colors.blue},
-    {'label': 'B', 'value': 30, 'color': Colors.orange},
-    {'label': 'C', 'value': 20, 'color': Colors.green},
-    {'label': 'D', 'value': 10, 'color': Colors.red},
+    {'label': '3-5 hrs\n', 'value': 25, 'color': ColorManager.blueprime.withOpacity(0.5)},
+    {'label': 'Less than\n1 hrs\n', 'value': 20, 'color': ColorManager.EMFYellow},
+    {'label': '1-3 hrs\n', 'value': 35, 'color': ColorManager.pieChartGreen},
+    {'label': 'More\nthan\n5 hrs\n', 'value': 15, 'color': ColorManager.pieChartBlue},
   ];
 
   ///line graph
@@ -47,12 +47,12 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
   ];
 
   List<ChartedDataLine> chartedDataline = [
-    ChartedDataLine(10000, 200000),
-    ChartedDataLine(11000, 400000),
+    ChartedDataLine(10000, 100000),
+    ChartedDataLine(11000, 200000),
     ChartedDataLine(12000, 700000),
-    ChartedDataLine(13000, 300000),
+    ChartedDataLine(13000, 150000),
     ChartedDataLine(14000, 500000),
-    ChartedDataLine(14000, 200000),
+    ChartedDataLine(15000, 200000),
   ];
   List<ChartedDataLine> chartedDatalineNew = [
     ChartedDataLine(10000, 100000),
@@ -60,7 +60,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
     ChartedDataLine(12000, 200000),
     ChartedDataLine(13000, 150000),
     ChartedDataLine(14000, 100000),
-    ChartedDataLine(14000, 50000),
+    ChartedDataLine(15000, 50000),
   ];
 
   String selectedValue = "Daily";
@@ -126,10 +126,16 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                                     child: Icon(Icons.file_copy_outlined,color: ColorManager.white,),
                                   ),
                                   SizedBox(width: 20,),
-                                  Text("Contracts Expring Soon",style: TextStyle(fontSize: 14,fontWeight:FontWeight.w600,color: ColorManager.mediumgrey,),),
+                                  Text("Contracts Expring Soon",style: CustomTextStylesCommon.commonStyle(
+                                      fontSize: 15,
+                                      color: ColorManager.mediumgrey,
+                                      fontWeight: FontWeight.w500),),
                                 ],
                               ),
-                              Text("Next 30 Days",style: TextStyle(fontSize: 12,color: ColorManager.red,fontWeight: FontWeight.w500),),
+                              Text("Next 30 Days",style: CustomTextStylesCommon.commonStyle(
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.EMbrightred,
+                                  fontWeight: FontWeight.w600),),
                             ]
                         ),
                       ),),
@@ -141,7 +147,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         onTap: (){
                           showDialog(context: context, builder: (context) => ContractDocPenaltyPopup());
                         },
-                        child: LinearCardWidget(headingText: 'Audit Penalty Amounts', totalCount: '\$1000', totalValue: 80,icon: Icons.dangerous_outlined,)),)),
+                        child: LinearCardWidget(headingText: 'Audit Penalty Amounts\n ', totalCount: '\$1000', totalValue: 80,icon: Icons.dangerous_outlined,)),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
@@ -159,65 +165,125 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
             ///3rd row
             Row(children: [
               Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: EMDashboardContainerConst(child:
-                    MouseRegion(
-                      onHover: (event) {
-                        // Hover logic will need to be computed based on the position of the mouse.
-                        // For now, this will simulate hover functionality.
-                      },
-                      onExit: (_) {
-                        setState(() {
-                          _hoverIndex =
-                          null; // Reset hover index when the pointer leaves.
-                        });
-                      },
-                      child: SizedBox(
-                        height: 300,
-                        child: PieChart(
-                          PieChartData(
-                            sections: _data.asMap().entries.map((entry) {
-                              int index = entry.key;
-                              var item = entry.value;
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Average Time to Complete Internal Audit",
+                        style: CustomTextStylesCommon.commonStyle(
+                            fontSize: 16,
+                            color: ColorManager.mediumgrey,
+                            fontWeight: FontWeight.w700),),
+                        MouseRegion(
+                          onHover: (event) {
+                            // Hover logic handled by pieTouchData
+                          },
+                          onExit: (_) {
+                            setState(() {
+                              _hoverIndex = null; // Reset hover index when the pointer leaves
+                            });
+                          },
+                          child: SizedBox(
+                            height: 200,
+                            child: PieChart(
+                              PieChartData(
+                                sections: _data.asMap().entries.map((entry) {
+                                  int index = entry.key;
+                                  var item = entry.value;
 
-                              bool isHovered = _hoverIndex == index;
+                                  bool isHovered = _hoverIndex == index;
 
-                              return PieChartSectionData(
-                                color: item['color'],
-                                value: item['value'].toDouble(),
-                                title: isHovered
-                                    ? '${item['label']} (${(item['value'] / total * 100).toStringAsFixed(1)}%)'
-                                    : '',
-                                radius: isHovered ? 80 : 70,
-                                titleStyle: TextStyle(
-                                  fontSize: isHovered ? 16 : 0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  return PieChartSectionData(
+                                    color: item['color'],
+                                    value: item['value'].toDouble(),
+                                    // Always show the label; append percentage when hovered
+                                    title: isHovered
+                                        ? '${item['label']} (${(item['value'] / total * 100).toStringAsFixed(1)}%)'
+                                        : item['label'],
+                                    radius: isHovered ? 60 : 50,
+                                    titleStyle: TextStyle(
+                                      fontSize: isHovered ? 12 : 10, // Slightly larger when hovered
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.mediumgrey,
+                                    ),
+                                  );
+                                }).toList(),
+                                pieTouchData: PieTouchData(
+                                  touchCallback: (event, pieTouchResponse) {
+                                    setState(() {
+                                      _hoverIndex = pieTouchResponse?.touchedSection?.touchedSectionIndex;
+                                    });
+                                  },
                                 ),
-                              );
-                            }).toList(),
-                            pieTouchData: PieTouchData(
-                              touchCallback: (event, pieTouchResponse) {
-                                if (pieTouchResponse?.touchedSection != null) {
-                                  setState(() {
-                                    _hoverIndex = pieTouchResponse!
-                                        .touchedSection!.touchedSectionIndex;
-                                  });
-                                }
-                              },
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        // MouseRegion(
+                        //   onHover: (event) {
+                        //     // Hover logic will need to be computed based on the position of the mouse.
+                        //     // For now, this will simulate hover functionality.
+                        //   },
+                        //   onExit: (_) {
+                        //     setState(() {
+                        //       _hoverIndex =
+                        //       null; // Reset hover index when the pointer leaves.
+                        //     });
+                        //   },
+                        //   child: SizedBox(
+                        //     height: 200,
+                        //     child: PieChart(
+                        //       PieChartData(
+                        //         sections: _data.asMap().entries.map((entry) {
+                        //           int index = entry.key;
+                        //           var item = entry.value;
+                        //
+                        //           bool isHovered = _hoverIndex == index;
+                        //
+                        //           return PieChartSectionData(
+                        //             color: item['color'],
+                        //             value: item['value'].toDouble(),
+                        //             title: isHovered
+                        //                 ? '${item['label']} (${(item['value'] / total * 100).toStringAsFixed(1)}%)'
+                        //                 : '',
+                        //             radius: isHovered ? 60 : 50,
+                        //             titleStyle: TextStyle(
+                        //               fontSize: isHovered ? 10 : 0,
+                        //               fontWeight: FontWeight.w600,
+                        //               color: ColorManager.mediumgrey,
+                        //             ),
+                        //           );
+                        //         }).toList(),
+                        //         pieTouchData: PieTouchData(
+                        //           touchCallback: (event, pieTouchResponse) {
+                        //             if (pieTouchResponse?.touchedSection != null) {
+                        //               setState(() {
+                        //                 _hoverIndex = pieTouchResponse!
+                        //                     .touchedSection!.touchedSectionIndex;
+                        //               });
+                        //             }
+                        //           },
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        Text("14:30:00 pm",
+                          style: CustomTextStylesCommon.commonStyle(
+                              fontSize: 18,
+                              color: ColorManager.blueprime,
+                              fontWeight: FontWeight.w700),),
+                      ],
                     ),
                   )),
               SizedBox(width: AppSize.s15,),
               Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: EMDashboardContainerConst(child: AuditPrepTimeOffice())),
               SizedBox(width: AppSize.s15,),
               Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: EMDashboardContainerConst(child: AvgComRatingOffice())),
             ],),
             SizedBox(height: AppSize.s15,),
@@ -238,8 +304,8 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         ),
                       ),
                       Container(
-                        height: 200,
-                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        height: 240,
+                        padding: EdgeInsets.symmetric(horizontal: 10),
                         child: SfCartesianChart(
                           primaryXAxis: NumericAxis(
                             title: AxisTitle(text: ""),

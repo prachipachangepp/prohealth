@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
+import '../../../../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
@@ -13,9 +15,9 @@ class OfficeClinicianConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EMDashboardContainerConst(
-        height: 150,
+        height: AppSize.s150,
         child: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
+          padding: const EdgeInsets.only(left: AppPadding.p30),
           child:
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Column(
@@ -23,23 +25,16 @@ class OfficeClinicianConst extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hello',
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: 23,
-                      color: ColorManager.bluebottom,
-                      fontWeight: FontWeight.w700),
+                 EmDashboardStringManager.hello,
+                  style: EmDashHelloText.customTextStyle(context)
                 ),
-                Text(
-                  '“ Enjoy Your life, We’ll Be Here to\nSave it.”',
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: 14,
-                      color: ColorManager.mediumgrey,
-                      fontWeight: FontWeight.w400),
+                Text(EmDashboardStringManager.enjoyLife,
+                  style:EmDashHelloSubText.customTextStyle(context)
                 ),
               ],
             ),
             SizedBox(
-              width: 20,
+              width: AppSize.s20,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -113,60 +108,35 @@ class AverageClinicianListview extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Sr. No.",
+                        EmDashboardStringManager.srNo,
                         textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 30.0),
                         child: Text(
                           "Clinician Name",
                           textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
+                          style: EmDashListviewHeadText.customTextStyle(context),
                         ),
                       ),
                       Text(
                         "Tenure (YRS)",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 10.0),
                         child: Text(
                           "Start Year",
                           textAlign: TextAlign.end,
-                          style: TextStyle(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
+                          style: EmDashListviewHeadText.customTextStyle(context),
                         ),
                       ),
                       Text(
                         "Order Quantity",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -225,11 +195,7 @@ class AverageClinicianListview extends StatelessWidget {
                                   child: Text(
                                     "01",
                                     textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                                 Expanded(
@@ -237,11 +203,7 @@ class AverageClinicianListview extends StatelessWidget {
                                   child: Text(
                                     "Clinician 1",
                                     textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                                 Expanded(
@@ -249,11 +211,7 @@ class AverageClinicianListview extends StatelessWidget {
                                   child: Text(
                                     "5",
                                     textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                                 Expanded(
@@ -261,11 +219,7 @@ class AverageClinicianListview extends StatelessWidget {
                                   child: Text(
                                     "2019",
                                     textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                                 Expanded(
@@ -273,11 +227,7 @@ class AverageClinicianListview extends StatelessWidget {
                                   child: Text(
                                     "100",
                                     textAlign: TextAlign.center,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                               ],
@@ -387,12 +337,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                 Text(
                   "No. of Offices",
                   textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration.none,
-                  ),
+                  style: EmDashListviewHeadText.customTextStyle(context),
                 ),
                Expanded(flex:1 ,child: Container()),
                 Padding(
@@ -400,12 +345,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                   child: Text(
                     "Ratio",
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: EmDashListviewHeadText.customTextStyle(context),
                   ),
                 ),
                 SizedBox(width: 30,),
@@ -414,12 +354,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                   child: Text(
                     "Count",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: EmDashListviewHeadText.customTextStyle(context),
                   ),
                 ),
               ],
@@ -465,11 +400,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                             child: Text(
                               "Office 1",
                               textAlign: TextAlign.start,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.black,
-                              ),
+                              style: EmDashListviewDataText.customTextStyle(context),
                             ),
                           ),
                           Expanded(
@@ -488,11 +419,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                             child: Text(
                               "55%",
                               textAlign: TextAlign.center,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.black,
-                              ),
+                              style: EmDashListviewDataText.customTextStyle(context),
                             ),
                           ),
                           Expanded(
@@ -500,11 +427,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                             child: Text(
                               "1000",
                               textAlign: TextAlign.center,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.black,
-                              ),
+                              style: EmDashListviewDataText.customTextStyle(context),
                             ),
                           ),
                         ],
@@ -649,11 +572,7 @@ class OfficeClinicianPopup extends StatelessWidget {
                               child: Text(
                                 "Customer ${index + 1}",
                                 textAlign: TextAlign.start,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                             Expanded(
@@ -675,11 +594,7 @@ class OfficeClinicianPopup extends StatelessWidget {
                               child: Text(
                                 "5",
                                 textAlign: TextAlign.center,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                           ],
