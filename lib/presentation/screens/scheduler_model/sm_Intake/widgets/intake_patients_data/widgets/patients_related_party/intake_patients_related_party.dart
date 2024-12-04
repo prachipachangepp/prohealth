@@ -165,12 +165,14 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           Flexible(
                               child: SchedularTextField(
                                   controller: ctlrEmgContact,
-                                  labelText: 'Emergency Contact')),
+                                  labelText: 'Emergency Contact',
+                                  phoneField:true)),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
                                   controller: ctlrTelphoneNo,
-                                  labelText: 'Telephone Number')),
+                                  labelText: 'Telephone Number',
+                                  phoneField:true)),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                             child:FutureBuilder<List<RelationshipData>>(
@@ -838,7 +840,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  controller: ctlrPhoneNo, labelText: 'Phone')),
+                                  controller: ctlrPhoneNo, labelText: 'Phone',phoneField:true)),
                         ],
                       ),
                       SizedBox(height: AppSize.s16),

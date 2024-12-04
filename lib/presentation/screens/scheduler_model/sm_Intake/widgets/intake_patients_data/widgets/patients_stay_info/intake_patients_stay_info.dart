@@ -295,7 +295,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             Flexible(
                 child: SchedularTextField(
                   controller: ctlrPhone,
-                    labelText: 'Phone')
+                    labelText: 'Phone',phoneField:true)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
@@ -805,7 +805,8 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
-                    labelText: AppString.phone
+                    labelText: "Phone No",
+                    phoneField:true
                 )
             ),
           ],
