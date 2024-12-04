@@ -629,6 +629,19 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+                        onTap:() async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1901),
+                            lastDate: DateTime(2101),
+                          );
+                          if (pickedDate != null) {
+                            dobcontroller.text =
+                            "${pickedDate.toLocal()}".split(' ')[0];
+                            isDobSelected = true;
+                          }
+                        } ,
                         readOnly: true,
                         controller: dobcontroller,
                         hintText: 'yyyy-mm-dd',
