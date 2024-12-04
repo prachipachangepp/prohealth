@@ -1215,11 +1215,45 @@ class ContractUploadDocPopup extends StatelessWidget {
     return Dialog(
       backgroundColor: ColorManager.white,
       child: Container(
-        width: 100.0,
-        height: 150.0,
+        width: 80.0,
+        height: 250.0,
         decoration: BoxDecoration(
           color: ColorManager.white,
          borderRadius: BorderRadius.circular(12)
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "Upload document",
+              textAlign: TextAlign.center,
+              style: CustomTextStylesCommon.commonStyle(
+                fontSize: FontSize.s16,
+                fontWeight: FontWeight.w600,
+                color: ColorManager.mediumgrey,
+              ),
+            ),
+            Text(
+              "Don’t forget to upload\nyour document",
+              textAlign: TextAlign.center,
+              style: CustomTextStylesCommon.commonStyle(
+                fontSize: FontSize.s14,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.mediumgrey,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Container(
+                height: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey, style: BorderStyle.solid),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

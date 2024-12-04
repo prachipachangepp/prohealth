@@ -157,7 +157,7 @@ class GeneralSettingScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           SizedBox(height: 10,),
-                          Text("                 Encryption Key Rotation Schedule                ",
+                          Text(" Encryption Key Rotation Schedule ",
                           style: CustomTextStylesCommon.commonStyle(fontSize: 24,
                               color:ColorManager.mediumgrey,fontWeight: FontWeight.w700),),
                           Stack(

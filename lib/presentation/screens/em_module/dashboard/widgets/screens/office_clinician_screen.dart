@@ -100,7 +100,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             toY: 75,
             width: 30,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
-            color: Colors.purpleAccent,
+            color: Colors.purpleAccent,//Color(0xFF77AC4)
             backDrawRodData: BackgroundBarChartRodData(
               show: true,
               toY: 100,

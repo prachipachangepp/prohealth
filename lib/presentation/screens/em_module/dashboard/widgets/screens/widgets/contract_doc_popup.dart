@@ -244,3 +244,76 @@ class ContractDocPenaltyPopup extends StatelessWidget {
         bottomButtons: Container(), title: "Audit Penalty Amounts");
   }
 }
+
+///big popup
+class FullScreenPopup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Row(children: [
+          //   Icon(Icons.cancel_outlined)
+          // ],),
+        RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w800,
+            color: ColorManager.mediumgrey,
+          ),
+          children: [
+            TextSpan(text: "You have "),
+            TextSpan(
+              text: "30 ",
+              style: TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.w800,
+                color: ColorManager.bluebottom,
+              ),
+            ),
+            TextSpan(text: "days remaining before your contract expires."),
+          ],
+        ),
+      ),
+          SizedBox(height: 20),
+          Text(
+            "Your Auto-Renew is OFF\nYour subscription will NOT automatically renew",
+            style: TextStyle(fontSize: 20, color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 30),
+          ElevatedButton(
+            onPressed: () {
+              // Add your auto-renew logic here
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xFFFF0000),
+              shadowColor: ColorManager.mediumgrey,
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            ),
+            child: Text(
+              "TURN AUTO-RENEW ON",
+              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 11),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              "go back",
+              style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  color: ColorManager.blueprime),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

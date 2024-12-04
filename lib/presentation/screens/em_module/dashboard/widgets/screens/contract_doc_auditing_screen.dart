@@ -104,29 +104,37 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
               children: [
                 Expanded(
                     flex: 4,
-                    child: EMDashboardAllBlueSideContainer(child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children:[
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 30,
-                                      backgroundColor: ColorManager.blueBorder,
-                                      child: Icon(Icons.file_copy_outlined,color: ColorManager.white,),
-                                    ),
-                                    SizedBox(width: 20,),
-                                    Text("Contracts Expring Soon",style: TextStyle(fontSize: 14,fontWeight:FontWeight.w600,color: ColorManager.mediumgrey,),),
-                                  ],
-                                ),
-                                Text("Next 30 Days",style: TextStyle(fontSize: 12,color: ColorManager.red),),
-                              ]
-                          ),
-                        )
-                    ),)),
+                    child: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => FullScreenPopup(),
+                        );
+                      },
+                      child: EMDashboardAllBlueSideContainer(child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children:[
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: ColorManager.blueBorder,
+                                    child: Icon(Icons.file_copy_outlined,color: ColorManager.white,),
+                                  ),
+                                  SizedBox(width: 20,),
+                                  Text("Contracts Expring Soon",style: TextStyle(fontSize: 14,fontWeight:FontWeight.w600,color: ColorManager.mediumgrey,),),
+                                ],
+                              ),
+                              Text("Next 30 Days",style: TextStyle(fontSize: 12,color: ColorManager.red,fontWeight: FontWeight.w500),),
+                            ]
+                        ),
+                      ),),
+                    )),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,

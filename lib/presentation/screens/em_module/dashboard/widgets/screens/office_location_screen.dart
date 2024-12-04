@@ -38,7 +38,8 @@ class OfficeLocationScreen extends StatelessWidget {
               Expanded(
                   flex: 2,
                   child: EMDashboardContainerBBorderConst(
-                    child: LinearCardWidget(headingText: 'Office Occupancy rate', totalCount: '4', totalValue:4,icon: FontAwesomeIcons.userDoctor,),)),
+                    child: LinearCardWidget(headingText: 'Office Occupancy rate', totalCount: '4', totalValue:4,icon: FontAwesomeIcons.hospitalUser//FontAwesomeIcons.userDoctor,
+                    ),)),
               SizedBox(width: AppSize.s15,),
               Expanded(
                   flex: 2,
@@ -47,7 +48,7 @@ class OfficeLocationScreen extends StatelessWidget {
                         onTap: (){
                           showDialog(context: context, builder: (context) => OfficeLocationPopup());
                         },
-                        child: LinearCardWidget(headingText: 'Average Daily Attendance\nper Office', totalCount: '100%', totalValue: 100,icon: Icons.calendar_today_outlined,)),)),
+                        child: LinearCardWidget(headingText: 'Average Daily Attendance\nper Office', totalCount: '100%', totalValue: 100,icon: FontAwesomeIcons.calendarCheck,)),)),
             ],),
           SizedBox(height: AppSize.s15,),
           ///2nd row
