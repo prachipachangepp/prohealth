@@ -9,7 +9,6 @@ import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/scree
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/contract_doc_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/data_file.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../hr_module/dashboard/widgets/hr_dashboard_const.dart';
