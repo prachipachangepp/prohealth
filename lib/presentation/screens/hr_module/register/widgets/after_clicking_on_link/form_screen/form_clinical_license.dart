@@ -222,26 +222,17 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                     child: ElevatedButton(
                                                       onPressed: () async {
                                                         FilePickerResult?
-                                                            result =
-                                                            await FilePicker
-                                                                .platform
-                                                                .pickFiles(
-                                                                    type: FileType
-                                                                        .custom,
-                                                                    allowedExtensions: [
-                                                              'pdf'
-                                                            ]);
-                            
+                                                            result = await FilePicker.platform.pickFiles(
+                                                            type: FileType.custom,
+                                                            allowedExtensions: ['pdf']
+                                                            );
+                                                        final fileSize = result?.files.first.size;
+                                                        final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                                         if (result != null) {
-                                                          final file = result
-                                                              .files.first;
-                                                          final fileSize = result.files.first.size; // File size in bytes
-                                                          final isAbove20MB = fileSize! > (20 * 1024 * 1024);
+                                                          final file = result.files.first;
                                                           setState(() {
-                                                            fileNameDl =
-                                                                file.name;
-                                                            finalPathDl =
-                                                                file.bytes;
+                                                            fileNameDl = file.name;
+                                                            finalPathDl = file.bytes;
                                                             dLFileAbove20Mb = !isAbove20MB;
                                                           });
                                                         }
@@ -277,18 +268,11 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                                 .blueprime,
                                                           ),
                                                         )
-                                                      : (fileNameDl != null &&
-                                                              fileNameDl!
-                                                                  .isNotEmpty)
-                                                          ? Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
+                                                      : (fileNameDl != null && fileNameDl!.isNotEmpty)
+                                                          ? Padding(padding: const EdgeInsets.all(8.0),
                                                               child: Text(
                                                                 _trimSummery('$fileNameDl'),
-                                                                style: onlyFormDataStyle
-                                                                    .customTextStyle(
-                                                                        context),
+                                                                style: onlyFormDataStyle.customTextStyle(context),
                                                               ),
                                                             )
                                                           : Padding(
@@ -297,9 +281,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                                       .all(8.0),
                                                               child: Text(
                                                                 'No file chosen',
-                                                                style: onlyFormDataStyle
-                                                                    .customTextStyle(
-                                                                        context),
+                                                                style: onlyFormDataStyle.customTextStyle(context),
                                                               ),
                                                             ),
                                                 ],
@@ -446,26 +428,19 @@ SizedBox(height: 15,),
                                                       onPressed: () async {
                                                         FilePickerResult?
                                                         result =
-                                                        await FilePicker
-                                                            .platform
-                                                            .pickFiles(
-                                                            type: FileType
-                                                                .custom,
+                                                        await FilePicker.platform.pickFiles(
+                                                            type: FileType.custom,
                                                             allowedExtensions: [
                                                               'pdf'
                                                             ]);
-
+                                                        final fileSize = result?.files.first.size; // File size in bytes
+                                                        final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                                         if (result != null) {
-                                                          final file = result
-                                                              .files.first;
-                                                          final fileSize = result.files.first.size; // File size in bytes
-                                                          final isAbove20MB = fileSize! > (20 * 1024 * 1024);
+                                                          final file = result.files.first;
                                                           setState(() {
-                                                            fileNamePl =
-                                                                file.name;
-                                                            finalPathPl =
-                                                                file.bytes;
-                                                            pLFileAbove20Mb = isAbove20MB;
+                                                            fileNamePl = file.name;
+                                                            finalPathPl = file.bytes;
+                                                            pLFileAbove20Mb = !isAbove20MB;
                                                           });
                                                         }
                                                       },
@@ -612,14 +587,16 @@ SizedBox(height: 15,),
                     );
                     return; // Exit early if validation fails
                   }
+                  print("........${dLFileAbove20Mb}");
+                  print("........${pLFileAbove20Mb}");
+                  if(dLFileAbove20Mb && pLFileAbove20Mb){
+                    setState(() {
+                      isLoading = true; // Start loading
+                    });
 
-                  setState(() {
-                    isLoading = true; // Start loading
-                  });
+                    try {
+                      // Post Driving License Data
 
-                  try {
-                    // Post Driving License Data
-                    if(dLFileAbove20Mb && pLFileAbove20Mb){
                       var response = await postDrivinglicenseData(
                         context,
                         expirydatecontrollerdl.text,
@@ -656,9 +633,9 @@ SizedBox(height: 15,),
                       );
                       if(response.statusCode == 200 ||response.statusCode == 200 &&
                           uploadResponseDL.statusCode == 200 || uploadResponseDL.statusCode == 201 &&
-                         responsePL.statusCode == 200 || responsePL.statusCode == 201 &&
+                          responsePL.statusCode == 200 || responsePL.statusCode == 201 &&
                           uploadResponsePL.statusCode == 200 ||uploadResponsePL.statusCode == 201 ){
-                         showDialog(
+                        showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return const AddSuccessPopup(
@@ -666,30 +643,34 @@ SizedBox(height: 15,),
                             );
                           },
                         );
-                         // Show success popup
+                        // Show success popup
                         await widget.onSave();
                       }
-                    }else{
-                      showDialog(
+
+                    } catch (e) {
+                      // Show error popup if something goes wrong
+                      await showDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return AddErrorPopup(
-                            message: 'File is too large!',
-                          );
-                        },
+                        builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
                       );
                     }
-                  } catch (e) {
-                    // Show error popup if something goes wrong
-                    await showDialog(
+
+                    setState(() {
+                      isLoading = false; // End loading
+                    });
+
+                  }
+                  else{
+                    showDialog(
                       context: context,
-                      builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'File is too large!',
+                        );
+                      },
                     );
                   }
 
-                  setState(() {
-                    isLoading = false; // End loading
-                  });
                 },
                 child: Text(
                   'Save',

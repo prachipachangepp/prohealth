@@ -260,9 +260,7 @@ class _BankingScreenState extends State<BankingScreen> {
               borderRadius: 12,
               onPressed: () async {
                 // Start loading state
-                setState(() {
-                  isLoading = true;
-                });
+
 
                 // Flag to check if a document is selected
 
@@ -282,14 +280,14 @@ class _BankingScreenState extends State<BankingScreen> {
                             );
                           },
                         );
-                        setState(() {
-                          isLoading = false; // Stop loading
-                        });
+
                         return;  // Exit the loop and method early
                       }
 
                       if(st.fileAbove20Mb){
-
+                        setState(() {
+                          isLoading = true;
+                        });
                       // Print values before calling perfFormBanckingData
                       print(':::::::Saving Banking Data:::::::::::::');
                       print('Employee ID: ${widget.employeeID}');
@@ -318,6 +316,10 @@ class _BankingScreenState extends State<BankingScreen> {
                         documentFile: st.finalPath,
                         documentName: st.fileName,
                       );
+
+                        setState(() {
+                          isLoading = false; // Stop loading
+                        });
                     }
                       else{
                         showDialog(

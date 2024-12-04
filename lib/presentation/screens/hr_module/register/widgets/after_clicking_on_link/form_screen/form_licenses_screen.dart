@@ -329,9 +329,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
               style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
-                setState(() {
-                  isLoading = true; // Start loading
-                });
+
 
                 // Flag to check if a document is selected
 
@@ -354,12 +352,14 @@ class _LicensesScreenState extends State<LicensesScreen> {
                         // ScaffoldMessenger.of(context).showSnackBar(
                         //   SnackBar(content: Text('Please select a file.')),
                         // );
-                        setState(() {
-                          isLoading = false; // Stop loading
-                        });
+
                         return; // Exit the loop and method early
                       }
                       if (st.fileAbove20Mb) {
+
+                        setState(() {
+                          isLoading = true; // Start loading
+                        });
                         await perfFormLinsence(
                           context: context,
                           licenseNumber: st.licensurenumber.text,
@@ -374,6 +374,10 @@ class _LicensesScreenState extends State<LicensesScreen> {
                           documentFile: st.finalPath,
                           documentName: st.fileName,
                         );
+                        setState(() {
+                          isLoading = false; // Stop loading
+                        });
+
                       }
                       else{
                         showDialog(
