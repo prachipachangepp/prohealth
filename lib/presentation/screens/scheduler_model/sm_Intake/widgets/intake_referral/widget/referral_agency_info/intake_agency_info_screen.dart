@@ -355,7 +355,8 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                             child:
                                 SchedularTextField(
                                     controller: ctlrPhone,
-                                    labelText: AppString.phone)),
+                                    labelText: AppString.phone,
+                                    phoneField:true)),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child:

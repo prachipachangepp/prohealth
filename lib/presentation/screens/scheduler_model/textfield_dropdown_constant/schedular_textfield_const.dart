@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../app/resources/color.dart';
 
@@ -16,9 +18,11 @@ class SchedularTextField extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final double? width;
   final ValueChanged<String>? onChanged;
+  bool? phoneField;
 
-  const SchedularTextField({
+   SchedularTextField({
     Key? key,
+    this.phoneField = false,
     required this.labelText,
     this.initialValue,
     this.controller,
@@ -51,22 +55,17 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
-      height: 25.38,
+      height: 30,
       child: TextFormField(
         textCapitalization: TextCapitalization.sentences,
         controller: _controller,
-        style: GoogleFonts.firaSans(
-          fontSize: FontSize.s14,
-          fontWeight: FontWeightManager.regular,
-          color: ColorManager.black,
-        ),
+        cursorHeight: 17,
+        style: DocumentTypeDataStyle.customTextStyle(context),
         cursorColor: ColorManager.black,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
           labelText: widget.labelText,
-          labelStyle: GoogleFonts.firaSans(
-            fontSize: FontSize.s10,
-            color: ColorManager.greylight,
-          ),
+          labelStyle:  DocumentTypeDataStyle.customTextStyle(context),
           border: const OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: ColorManager.containerBorderGrey),
@@ -94,6 +93,9 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
           // Do not show any icon if suffixIcon is null
       ),
         validator: widget.validator,
+        inputFormatters: widget.phoneField! ? [
+          PhoneNumberInputFormatter()
+        ]: [],
       )
     );
   }

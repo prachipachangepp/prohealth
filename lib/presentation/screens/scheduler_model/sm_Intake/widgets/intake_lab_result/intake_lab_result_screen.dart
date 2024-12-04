@@ -120,7 +120,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                       docType: namecontroller.text,
                                       name: namecontroller.text,
                                       docUrl: "url",
-                                      createdAt: DateTime.now(),
+                                      createdAt: DateTime.now().toIso8601String() + 'Z',
                                       expDate: "2024-08-16T09:39:48.030Z",
                                     );
                                     if(response.statusCode == 200 ||response.statusCode == 201 ){

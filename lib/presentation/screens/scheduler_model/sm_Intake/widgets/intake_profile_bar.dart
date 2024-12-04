@@ -112,7 +112,7 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                         style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.regular,
-                            color: ColorManager.textPrimaryColor),
+                            color: ColorManager.textPrimaryColor,),
                       ),
                       Text(AppString.email,
                         style: GoogleFonts.firaSans(

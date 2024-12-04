@@ -310,12 +310,14 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           Flexible(
                               child: SchedularTextField(
                                   controller: widget.ctlrPrimeNo,
-                                  labelText: AppString.primary_phone_number)),
+                                  labelText: AppString.primary_phone_number,
+                                  phoneField:true)),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
                                   controller: widget.ctlrSecNo,
-                                  labelText: AppString.secondary_phone_number)),
+                                  labelText: AppString.secondary_phone_number,
+                                  phoneField:true)),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(

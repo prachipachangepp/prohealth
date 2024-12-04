@@ -121,28 +121,28 @@ StreamController<SchedularData>();
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Zone',
+                                'Zone :',
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
                                     fontWeight: FontWeightManager.regular,
                                     color: ColorManager.textPrimaryColor),
                               ),
                               Text(
-                                'Expertise',
+                                'Expertise :',
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
                                     fontWeight: FontWeightManager.regular,
                                     color: ColorManager.textPrimaryColor),
                               ),
                               Text(
-                                'Current Location',
+                                'Current Location :',
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
                                     fontWeight: FontWeightManager.regular,
                                     color: ColorManager.textPrimaryColor),
                               ),
                               Text(
-                                'Total patients',
+                                'Total patients :',
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
                                     fontWeight: FontWeightManager.regular,
@@ -230,7 +230,7 @@ StreamController<SchedularData>();
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Summary',
+                              'Summary :',
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s10,
                                 fontWeight: FontWeightManager.medium,
@@ -254,21 +254,21 @@ StreamController<SchedularData>();
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SummaryRowConst(
-                                      title: 'Visits', count1: '${snapshot.data!.summary.visit}', count2: '${snapshot.data!.summary.visit}'),
+                                      title: 'Visits :', count1: '${snapshot.data!.summary.visit}', count2: '${snapshot.data!.summary.visit}'),
                                   SummaryRowConst(
-                                      title: 'Travel',
+                                      title: 'Travel :',
                                       count1: snapshot.data!.summary.travel,
                                       count2: '--'),
                                   SummaryRowConst(
-                                      title: 'Earning',
+                                      title: 'Earning :',
                                       count1: '\$${snapshot.data!.summary.earning}',
                                       count2: '\$--'),
                                   SummaryRowConst(
-                                      title: 'Total OAISIS', count1: '${snapshot.data!.summary.totalQAISIS}', count2: '${snapshot.data!.summary.totalQAISIS}'),
+                                      title: 'Total OAISIS :', count1: '${snapshot.data!.summary.totalQAISIS}', count2: '${snapshot.data!.summary.totalQAISIS}'),
                                   SummaryRowConst(
-                                      title: 'Rescheduled', count1: '${snapshot.data!.summary.rescheduled}', count2: '${snapshot.data!.summary.rescheduled}'),
+                                      title: 'Rescheduled :', count1: '${snapshot.data!.summary.rescheduled}', count2: '${snapshot.data!.summary.rescheduled}'),
                                   SummaryRowConst(
-                                      title: 'Reassigned', count1: '${snapshot.data!.summary.reAssigned}', count2: '${snapshot.data!.summary.reAssigned}')
+                                      title: 'Reassigned :', count1: '${snapshot.data!.summary.reAssigned}', count2: '${snapshot.data!.summary.reAssigned}')
                                 ],
                               ),
                             )
@@ -306,11 +306,11 @@ StreamController<SchedularData>();
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   ComplianceRowConst(
-                                    title: 'Missed Visits',
+                                    title: 'Missed Visits :',
                                     count1: '${snapshot.data!.compliance.missedVisit}',
                                   ),
                                   ComplianceRowConst(
-                                    title: 'OAISIS Forms License',
+                                    title: 'OAISIS Forms License :',
                                     count1: '${snapshot.data!.compliance.qaisisForms}',
                                   )
                                 ],

@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
@@ -13,7 +14,9 @@ import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_da
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/sm_data/patient_data/patient_data_compliance.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
@@ -64,14 +67,18 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
   int docTypeId = 0;
   String? documentTypeName;
   dynamic filePath;
-  String? selectedDocType;
+  String selectedDocType = "Select Document";
   String fileName ='';
+  bool fileAbove20Mb = false;
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024);
     if (result != null) {
       setState(() {
         filePath = result.files.first.bytes;
         fileName = result.files.first.name;
+        fileAbove20Mb = !isAbove20MB;
         print('File path ${filePath}');
         print('File name ${fileName}');
       });
@@ -79,7 +86,18 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
   }
   String? selectedExpiryType;
   bool _isLoading =false;
-
+  String? _nameDocError;
+  String? _selectDocError;
+  String? _selectExpTypeError ;
+  String? _uploadDocError;
+  void _validateFields() {
+    setState(() {
+      _nameDocError = widget.nameDocController.text.isEmpty ? 'Please Enter Document Name' : null;
+      _selectDocError = selectedDocType == "Select Document" ? 'Please Select Document' : null;
+      _selectExpTypeError = selectedExpiryType == null ? 'Please select expiry type': null;
+      _uploadDocError = fileName == '' ? 'Please upload document':null;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -146,6 +164,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
           children: [
             SizedBox(height: 10),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -231,53 +250,68 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     }
                   },
                 ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppString.name_of_the_document,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.textPrimaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5),
-                ///name of doc
-                Container(
-                  height: AppSize.s30,
-                  child: TextFormField(
-                    cursorColor: Colors.black,
-                    cursorHeight: 18,
-                    controller: widget.nameDocController,
-                    style: GoogleFonts.firaSans(
-                      fontSize: AppSize.s12,
-                      fontWeight: FontWeightManager.regular,
-                      color: ColorManager.greylight,
-                    ),
-                    textAlignVertical: TextAlignVertical.center,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorManager.containerBorderGrey,
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorManager.containerBorderGrey,
-                          width: 1.0,
-                        ),
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                    ),
+                if (_selectDocError != null)
+                  Text(
+                    _selectDocError!,
+                    style: CommonErrorMsg.customTextStyle(context),
                   ),
+                SizedBox(height: 10),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       AppString.name_of_the_document,
+                //       style: GoogleFonts.firaSans(
+                //         fontSize: FontSize.s14,
+                //         fontWeight: FontWeightManager.bold,
+                //         color: ColorManager.textPrimaryColor,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(height: 5),
+                ///name of doc
+                // Container(
+                //   height: AppSize.s30,
+                //   child: TextFormField(
+                //     cursorColor: Colors.black,
+                //     cursorHeight: 18,
+                //     controller: widget.nameDocController,
+                //     style: GoogleFonts.firaSans(
+                //       fontSize: AppSize.s12,
+                //       fontWeight: FontWeightManager.regular,
+                //       color: ColorManager.greylight,
+                //     ),
+                //     textAlignVertical: TextAlignVertical.center,
+                //     decoration: InputDecoration(
+                //       border: OutlineInputBorder(),
+                //       enabledBorder: OutlineInputBorder(
+                //         borderSide: BorderSide(
+                //           color: ColorManager.containerBorderGrey,
+                //           width: 1.0,
+                //         ),
+                //       ),
+                //       focusedBorder: OutlineInputBorder(
+                //         borderSide: BorderSide(
+                //           color: ColorManager.containerBorderGrey,
+                //           width: 1.0,
+                //         ),
+                //       ),
+                //       contentPadding:
+                //           EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                //     ),
+                //   ),
+                // ),
+                SMTextFConst(
+                  controller: widget.nameDocController,
+                  keyboardType: TextInputType.text,
+                  text:  AppString.name_of_the_document,
                 ),
+                if (_nameDocError != null)
+                  Text(
+                    _nameDocError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
                 SizedBox(height: 10),
 
                 StatefulBuilder(
@@ -328,6 +362,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                               },
                               title: 'Issuer Expiry',
                             ),
+                            if (_selectExpTypeError != null)
+                              Text(
+                                _selectExpTypeError!,
+                                style: CommonErrorMsg.customTextStyle(context),
+                              ),
                           ],
                         ),
                         SizedBox(height: 10,),
@@ -385,7 +424,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                                           BorderRadius.circular(
                                               8),
                                         ),
-                                        hintText: 'mm-dd-yyyy',
+                                        hintText: 'yyyy-MM-dd',
                                         hintStyle:
                                         GoogleFonts.firaSans(
                                           fontSize: FontSize.s14,
@@ -423,7 +462,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                                         );
                                         if (pickedDate != null) {
                                           widget.calenderController.text =
-                                              DateFormat('MM-dd-yyyy')
+                                              DateFormat('yyyy-MM-dd')
                                                   .format(pickedDate);
                                         }
                                       },
@@ -509,6 +548,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
             },
           ),
         ),
+                if (_uploadDocError != null)
+                  Text(
+                    _uploadDocError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
 
               ],
             ),
@@ -532,45 +576,72 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                         text: AppStringEM.save,
                         onPressed: () async {
                           print('File path on pressed ${filePath}');
-                          setState(() {
-                            _isLoading = true;
-                          });
-                          String expiryTypeToSend =
-                          selectedExpiryType == "Not Applicable"
-                              ? "--"
-                              : widget.calenderController.text;
-                          try {
-                            ApiData response =  await addLabReport(
-                              context: context,
-                              patientId: widget.patientId!,
-                              docTypeId: 1,
-                              docType: widget.nameDocController.text,
-                              name: widget.nameDocController.text,
-                              docUrl: "url",
-                              createdAt: DateTime.now(),
-                              expDate: "2024-08-16T09:39:48.030Z",
-                            );
-                            if(response.statusCode == 200 ||response.statusCode == 201 ){
-                              await uploadDocumentsLabReport(
+                          _validateFields();
+                          if(_uploadDocError == null && _selectDocError == null &&
+                              _selectDocError == null && _selectExpTypeError == null){
+                            if(fileAbove20Mb){
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              String expiryTypeToSend =
+                              selectedExpiryType == "Not Applicable"
+                                  ? "--"
+                                  : widget.calenderController.text;
+                              try {
+                                ApiData response =  await addLabReport(
                                   context: context,
-                                  documentFile: filePath,
-                                  labReportId: response.labReportId!);
+                                  patientId: widget.patientId!,
+                                  docTypeId: docTypeId,
+                                  docType: widget.nameDocController.text,
+                                  name: widget.nameDocController.text,
+                                  docUrl: "url",
+                                  createdAt: DateTime.now().toIso8601String() + "Z",
+                                  expDate: widget.calenderController.text.isEmpty ? null : "${widget.calenderController.text}T00:00:00Z",
+                                );
+                                if(response.statusCode == 200 ||response.statusCode == 201 ){
+                                  await uploadDocumentsLabReport(
+                                      context: context,
+                                      documentFile: filePath,
+                                      labReportId: response.labReportId!);
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AddSuccessPopup(
+                                        message: 'Record Added Successfully',
+                                      );
+                                    },
+                                  );
+                                }
+                                print("DocName${widget.nameDocController.text}");
+                                //GetLabReport(context, 1);
+                                //Navigator.pop(context);
+                                setState(() {
+                                  selectedExpiryType = '';
+                                  fileName ='';
+                                  widget.calenderController.clear();
+                                  //docIdController.clear();
+                                  widget.nameDocController.clear();
+                                });
+                              } finally {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                              }
+                            }else{
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddErrorPopup(
+                                    message: 'File is too large!',
+                                  );
+                                },
+                              );
                             }
-                            print("DocName${widget.nameDocController.text}");
-                            //GetLabReport(context, 1);
-                            Navigator.pop(context);
-                            setState(() {
-                              selectedExpiryType = '';
-                              fileName ='';
-                              widget.calenderController.clear();
-                              //docIdController.clear();
-                              widget.nameDocController.clear();
-                            });
-                          } finally {
-                            setState(() {
-                              _isLoading = false;
-                            });
+
                           }
+
                         },
                       ),
               ),

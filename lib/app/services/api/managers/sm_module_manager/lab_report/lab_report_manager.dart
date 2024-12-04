@@ -82,19 +82,18 @@ Future<ApiData> addLabReport(
     required String docType,
     required String name,
     required String docUrl,
-    required DateTime createdAt,
-    required String expDate}) async {
+    required String createdAt,
+    required String? expDate}) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var formatedDate = DateFormat('yyyy-MM-dd');
-    var actualCurrentDate = formatedDate.format(createdAt);
     var data = {
       "patientId": patientId,
       "docTypeId": docTypeId,
       "docType": docType,
       "name": name,
       "docUrl": docUrl,
-      "createdAt": actualCurrentDate,
+      "createdAt": createdAt,
       "expDate": expDate
     };
     print(' Post lab report $data');
@@ -105,7 +104,7 @@ Future<ApiData> addLabReport(
       "docType": docType,
       "name": name,
       "docUrl": docUrl,
-      "createdAt": "${actualCurrentDate}T00:00:00Z",
+      "createdAt": createdAt,
       "expDate": expDate
     });
     print('Lab Report Add ::::$response ');

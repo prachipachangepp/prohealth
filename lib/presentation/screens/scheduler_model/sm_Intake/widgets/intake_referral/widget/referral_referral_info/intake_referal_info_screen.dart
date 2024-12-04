@@ -164,6 +164,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                             child: SchedularTextField(
                               controller: ctlrphone ,
                               labelText: "Phone",
+                                phoneField:true
 
                             )
                         ),
