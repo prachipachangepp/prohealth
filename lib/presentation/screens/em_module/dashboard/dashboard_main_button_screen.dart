@@ -1,33 +1,13 @@
-// import 'package:flutter/material.dart';
-// import 'package:prohealth/app/resources/screen_route_name.dart';
-//
-// class DashboardMainButtonScreen extends StatelessWidget {
-//   static const String routeName = RouteStrings.emMainDashboard;
-//   const DashboardMainButtonScreen({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         child: Image.asset(
-//           'images/EMDASHBOARD.jpg',
-//           fit: BoxFit.contain,
-//         ));
-//   }
-// }
-
-
-///created by saloni dont delete
 ///dashboard use
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/em_dashboard_const.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/contract_doc_auditing_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/general_setting_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/office_clinician_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/office_location_screen.dart';
-
 import '../../../../app/resources/value_manager.dart';
-import '../company_identity/widgets/ci_tab_widget/widget/upper_menu_buttons.dart';
 
 class DashboardMainButtonScreen extends StatefulWidget {
   static const String routeName = RouteStrings.emMainDashboard;
@@ -71,14 +51,14 @@ class _DashboardMainButtonScreenState extends State<DashboardMainButtonScreen> {
                     },
                     index: 0,
                     grpIndex: _selectedIndex,
-                    heading: "General Settings & Security"),
+                    heading: EmDashboardStringManager.generalSetting),
                 EMDashboardMenuButtons(
                     onTap: (int index) {
                       _selectButton(index);
                     },
                     index: 1,
                     grpIndex: _selectedIndex,
-                    heading: "Office Location"),
+                    heading: EmDashboardStringManager.OfficeLocation),
                 SizedBox(width: 10,),
                 EMDashboardMenuButtons(
                     onTap: (int index) {
@@ -86,14 +66,14 @@ class _DashboardMainButtonScreenState extends State<DashboardMainButtonScreen> {
                     },
                     index: 2,
                     grpIndex: _selectedIndex,
-                    heading: "Office & Clinician"),
+                    heading: EmDashboardStringManager.OfficeClinician),
                 EMDashboardMenuButtons(
                     onTap: (int index) {
                       _selectButton(index);
                     },
                     index: 3,
                     grpIndex: _selectedIndex,
-                    heading: "Contracts, Documents & Auditing"),
+                    heading: EmDashboardStringManager.ContractDoc),
               ],
             ),
           ),
@@ -144,3 +124,21 @@ class NonScrollablePageView extends StatelessWidget {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// import 'package:prohealth/app/resources/screen_route_name.dart';
+//
+// class DashboardMainButtonScreen extends StatelessWidget {
+//   static const String routeName = RouteStrings.emMainDashboard;
+//   const DashboardMainButtonScreen({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//         child: Image.asset(
+//           'images/EMDASHBOARD.jpg',
+//           fit: BoxFit.contain,
+//         ));
+//   }
+// }
+

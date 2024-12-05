@@ -1,12 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/const_linear_widget.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/office_location_const.dart';
-
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
+import '../../../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
@@ -33,12 +33,14 @@ class OfficeLocationScreen extends StatelessWidget {
               Expanded(
                   flex: 2,
                   child: EMDashboardContainerBBorderConst(
-                    child: LinearCardWidget(headingText: 'Total Number Of Office', totalCount: '10', totalValue: 10,icon: CupertinoIcons.building_2_fill,),)),
+                    child: LinearCardWidget(headingText: EmDashboardStringManager.totaloffice, totalCount: '10', totalValue: 10,icon: Icons.business//CupertinoIcons.building_2_fill,
+                    ),)),
               SizedBox(width: AppSize.s15,),
               Expanded(
                   flex: 2,
                   child: EMDashboardContainerBBorderConst(
-                    child: LinearCardWidget(headingText: 'Office Occupancy rate', totalCount: '4', totalValue:4,icon: FontAwesomeIcons.userDoctor,),)),
+                    child: LinearCardWidget(headingText: EmDashboardStringManager.occupancyrate, totalCount: '04', totalValue:4,icon: FontAwesomeIcons.hospitalUser//FontAwesomeIcons.userDoctor,
+                    ),)),
               SizedBox(width: AppSize.s15,),
               Expanded(
                   flex: 2,
@@ -47,7 +49,7 @@ class OfficeLocationScreen extends StatelessWidget {
                         onTap: (){
                           showDialog(context: context, builder: (context) => OfficeLocationPopup());
                         },
-                        child: LinearCardWidget(headingText: 'Average Daily Attendance\nper Office', totalCount: '100%', totalValue: 100,icon: Icons.calendar_today_outlined,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.dailyattendance, totalCount: '100%', totalValue: 100,icon: FontAwesomeIcons.calendarCheck,)),)),
             ],),
           SizedBox(height: AppSize.s15,),
           ///2nd row
@@ -55,21 +57,19 @@ class OfficeLocationScreen extends StatelessWidget {
             Expanded(
                 flex: 3,
                 child: EMDashboardContainerConst(
-                    height: 600,
+                    height: AppSize.s600,
                     child: Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(AppPadding.p10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Average Distance between Office',style: CustomTextStylesCommon.commonStyle(
-                              color: ColorManager.mediumgrey,
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w700)),
+                          Text(EmDashboardStringManager.avgdistance,
+                              style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
                             child: Container(
-                              height: 420,// Adjust the height as needed
+                              height: AppSize.s420,// Adjust the height as needed
                                child: GoogleMap(
                                 initialCameraPosition:
                                 CameraPosition(
@@ -95,10 +95,7 @@ class OfficeLocationScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Text('1 hr ( 30 km )',style: CustomTextStylesCommon.commonStyle(
-                              color: ColorManager.mediumgrey,
-                              fontSize: FontSize.s16,
-                              fontWeight: FontWeight.w700)),
+                          Text('1 hr ( 30 km )',style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                         ],
                       ),
                     ),)),
@@ -108,32 +105,25 @@ class OfficeLocationScreen extends StatelessWidget {
               child: Column(children: [
                 ///listview
                 EMDashboardContainerBBorderConst(
-                    height: 240,
+                    height: AppSize.s240,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Office Equipment Inventory',style: CustomTextStylesCommon.commonStyle(
-                                color: ColorManager.mediumgrey,
-                                fontSize: FontSize.s16,
-                                fontWeight: FontWeight.w700)),
+                            Text(EmDashboardStringManager.equipmentInventory,
+                                style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                             GestureDetector(
                               onTap: () {},
                               child: Text(
-                                "View More",
+                                EmDashboardStringManager.viewMore,
                                 textAlign: TextAlign.end,
-                                style: TextStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w600,
-                                  color: ColorManager.bluebottom,
-                                  decoration: TextDecoration.underline,
-                                ),
+                                style: EmDashViewMoreText.customTextStyle(context),
                               ),
                             ),
                           ],),
-                        SizedBox(height: 10,),
+                        SizedBox(height: AppSize.s10,),
                         OfficeEquipmentHead(),
                         OfficeEquipmentData()
                       ],
@@ -147,9 +137,9 @@ class OfficeLocationScreen extends StatelessWidget {
                     Expanded(
                       flex:3,
                       child: EMDashboardContainerBBorderConst(
-                          height: 340,
+                          height: AppSize.s340,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 10.0,right: 20),
+                            padding: const EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p20),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -157,17 +147,11 @@ class OfficeLocationScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                  Text("Onsite Staff",
-                                  style: CustomTextStylesCommon.commonStyle(
-                                      color: ColorManager.black,
-                                      fontSize: FontSize.s16,
-                                      fontWeight: FontWeight.w600),),
-                                  SizedBox(width: 70,),
-                                  Text("Remote Staff",
-                                  style: CustomTextStylesCommon.commonStyle(
-                                      color: ColorManager.black,
-                                      fontSize: FontSize.s16,
-                                      fontWeight: FontWeight.w600),),
+                                  Text(EmDashboardStringManager.onsiteStaff,
+                                  style: EmDashstaffText.customTextStyle(context),),
+                                  SizedBox(width: AppSize.s70,),
+                                  Text(EmDashboardStringManager.remoteStaff,
+                                  style: EmDashstaffText.customTextStyle(context)),
                                 ],),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -176,26 +160,26 @@ class OfficeLocationScreen extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        SizedBox(height: 100,),
-                                        GraphMenuConst(text: 'Onsite Staff  ', squareColor: ColorManager.pieChartGreen,),
-                                        SizedBox(height: 10,),
-                                        GraphMenuConst(text: 'Remote Staff', squareColor: ColorManager.pieChartBlue,),
+                                        SizedBox(height: AppSize.s100,),
+                                        GraphMenuConst(text: EmDashboardStringManager.onsiteStaff, squareColor: ColorManager.pieChartGreen,textColor: ColorManager.mediumgrey,),
+                                        SizedBox(height: AppSize.s10,),
+                                        GraphMenuConst(text: EmDashboardStringManager.remoteStaff, squareColor: ColorManager.pieChartBlue,textColor: ColorManager.mediumgrey,),
 
                                       ],
                                     ),
-                                    SizedBox(width: 40,),
+                                    SizedBox(width: AppSize.s40,),
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          width: 250,
-                                          height: 250,
+                                          width: AppSize.s250,
+                                          height: AppSize.s250,
                                           child: PieChart(
                                             PieChartData(
                                               sections: [
                                                 PieChartSectionData(
-                                                  color: ColorManager.pieChartGreen,
+                                                  color: ColorManager.pieChartBlue,
                                                   value: 60,
                                                   title: '65%',
                                                   titleStyle:  TextStyle(
@@ -203,7 +187,7 @@ class OfficeLocationScreen extends StatelessWidget {
                                                   radius: 75,
                                                 ),
                                                 PieChartSectionData(
-                                                  color: ColorManager.pieChartBlue,
+                                                  color: ColorManager.pieChartGreen,
                                                   value: 40,
                                                   title: '35%',
                                                   titleStyle:  TextStyle(
@@ -227,11 +211,11 @@ class OfficeLocationScreen extends StatelessWidget {
                             ),
                           )),
                     ),
-                    SizedBox(width: 15,),
+                    SizedBox(width: AppSize.s15,),
                     Expanded(
                       flex:2,
                       child: EMDashboardContainerBBorderConst(
-                          height: 170,
+                          height: AppSize.s170,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -242,14 +226,9 @@ class OfficeLocationScreen extends StatelessWidget {
                                 GestureDetector(
                                   onTap: () {},
                                   child: Text(
-                                    "View More",
+                                    EmDashboardStringManager.viewMore,
                                     textAlign: TextAlign.end,
-                                    style: TextStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w600,
-                                      color: ColorManager.bluebottom,
-                                      decoration: TextDecoration.underline,
-                                    ),
+                                    style: EmDashViewMoreText.customTextStyle(context),
                                   ),
                                 ),
                               ],),
@@ -257,38 +236,30 @@ class OfficeLocationScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                Text('Offices by service Availability',style: CustomTextStylesCommon.commonStyle(
-                                    color: ColorManager.mediumgrey,
-                                    fontSize: FontSize.s16,
-                                    fontWeight: FontWeight.w700)),
+                                Text(EmDashboardStringManager.serviceAvailability,
+                                    style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                               ],),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                 Column(children: [
-                                  Icon(Icons.home,color: ColorManager.bluebottom,size: 30,),
-                                  SizedBox(height: 8,),
-                                  Text("Home",style: CustomTextStylesCommon.commonStyle(
-                                      color: ColorManager.mediumgrey,
-                                      fontSize: FontSize.s14,
-                                      fontWeight: FontWeight.w400))
+                                  Icon(Icons.home,color: ColorManager.bluebottom,size: IconSize.I30,),
+                                  SizedBox(height: AppSize.s8,),
+                                  Text(EmDashboardStringManager.home,
+                                      style: EmDashHelloSubText.customTextStyle(context))
                                 ],),
                                 Column(children: [
-                                  Icon(Icons.local_hospital,color: ColorManager.bluebottom,size: 30,),
-                                  SizedBox(height: 8,),
-                                  Text("Health",style: CustomTextStylesCommon.commonStyle(
-                                      color: ColorManager.mediumgrey,
-                                      fontSize: FontSize.s14,
-                                      fontWeight: FontWeight.w400))
+                                  Icon(Icons.local_hospital,color: ColorManager.bluebottom,size: IconSize.I30,),
+                                  SizedBox(height: AppSize.s8,),
+                                  Text(EmDashboardStringManager.health,
+                                      style: EmDashHelloSubText.customTextStyle(context))
                                 ],),
                                 Column(children: [
-                                  Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: 30,),
-                                  SizedBox(height: 8,),
-                                  Text("Hospice",style: CustomTextStylesCommon.commonStyle(
-                                      color: ColorManager.mediumgrey,
-                                      fontSize: FontSize.s14,
-                                      fontWeight: FontWeight.w400))
+                                  Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I30,),
+                                  SizedBox(height: AppSize.s8,),
+                                  Text(EmDashboardStringManager.hospice,
+                                      style: EmDashHelloSubText.customTextStyle(context))
                                 ],),
                               ],),
                             ],

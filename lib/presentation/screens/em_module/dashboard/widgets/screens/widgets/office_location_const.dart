@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
+import '../../../../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
@@ -14,9 +17,9 @@ class OfficeLocationConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EMDashboardContainerConst(
-        height: 150,
+        height: AppSize.s150,
         child: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
+          padding: const EdgeInsets.only(left: AppPadding.p30),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Column(
@@ -24,23 +27,16 @@ class OfficeLocationConst extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hello',
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: 23,
-                      color: ColorManager.bluebottom,
-                      fontWeight: FontWeight.w700),
+                  EmDashboardStringManager.hello,
+                  style: EmDashHelloText.customTextStyle(context)
                 ),
-                Text(
-                  '“Locate, Elevate, Participate.”',
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: 14,
-                      color: ColorManager.mediumgrey,
-                      fontWeight: FontWeight.w400),
+                Text(EmDashboardStringManager.locateElvtP,
+                  style: EmDashHelloSubText.customTextStyle(context)
                 ),
               ],
             ),
             SizedBox(
-              width: 20,
+              width: AppSize.s20,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -67,7 +63,7 @@ class OfficeEquipmentHead extends StatelessWidget {
     return Container(
       height: AppSize.s30,
       // margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
-      padding: EdgeInsets.only(left: 10,right: 10),
+      padding: EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p10),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -84,60 +80,35 @@ class OfficeEquipmentHead extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Sr. No.",
+           EmDashboardStringManager.srNo,
             textAlign: TextAlign.start,
-            style: TextStyle(
-              fontSize: FontSize.s12,
-              fontWeight: FontWeight.w700,
-              color: ColorManager.mediumgrey,
-              decoration: TextDecoration.none,
-            ),
+            style: EmDashListviewHeadText.customTextStyle(context),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 70.0),
+            padding: const EdgeInsets.only(right: AppPadding.p70),
             child: Text(
-              "Equipment Name",
+              EmDashboardStringManager.eqipmentName,
               textAlign: TextAlign.start,
-              style: TextStyle(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.mediumgrey,
-                decoration: TextDecoration.none,
-              ),
+              style: EmDashListviewHeadText.customTextStyle(context),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 60.0),
+            padding: const EdgeInsets.only(right: AppPadding.p60),
             child: Text(
-              "Category",
+              EmDashboardStringManager.category ,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.mediumgrey,
-                decoration: TextDecoration.none,
-              ),
+              style: EmDashListviewHeadText.customTextStyle(context),
             ),
           ),
           Text(
-            "Quantity on Hand",
+            EmDashboardStringManager.quantityHand,
             textAlign: TextAlign.end,
-            style: TextStyle(
-              fontSize: FontSize.s12,
-              fontWeight: FontWeight.w700,
-              color: ColorManager.mediumgrey,
-              decoration: TextDecoration.none,
-            ),
+            style: EmDashListviewHeadText.customTextStyle(context),
           ),
           Text(
-            "Order Quantity",
+            EmDashboardStringManager.orderQuantity,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: FontSize.s12,
-              fontWeight: FontWeight.w700,
-              color: ColorManager.mediumgrey,
-              decoration: TextDecoration.none,
-            ),
+            style: EmDashListviewHeadText.customTextStyle(context),
           ),
         ],
       ),
@@ -189,11 +160,7 @@ class OfficeEquipmentData extends StatelessWidget {
                       child: Text(
                         "1",
                         textAlign: TextAlign.start,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: ColorManager.black,
-                        ),
+                        style: EmDashListviewDataText.customTextStyle(context),
                       ),
                     ),
                     Expanded(
@@ -201,11 +168,7 @@ class OfficeEquipmentData extends StatelessWidget {
                       child: Text(
                         "Equipment",
                         textAlign: TextAlign.start,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: ColorManager.black,
-                        ),
+                        style: EmDashListviewDataText.customTextStyle(context),
                       ),
                     ),
                     Expanded(
@@ -213,11 +176,7 @@ class OfficeEquipmentData extends StatelessWidget {
                       child: Text(
                         "Supplies",
                         textAlign: TextAlign.start,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: ColorManager.black,
-                        ),
+                        style: EmDashListviewDataText.customTextStyle(context),
                       ),
                     ),
                     Expanded(
@@ -225,11 +184,7 @@ class OfficeEquipmentData extends StatelessWidget {
                       child: Text(
                         "100",
                         textAlign: TextAlign.start,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: ColorManager.black,
-                        ),
+                        style: EmDashListviewDataText.customTextStyle(context),
                       ),
                     ),
                     Expanded(
@@ -237,11 +192,7 @@ class OfficeEquipmentData extends StatelessWidget {
                       child: Text(
                         "100",
                         textAlign: TextAlign.center,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: ColorManager.black,
-                        ),
+                        style: EmDashListviewDataText.customTextStyle(context),
                       ),
                     ),
                   ],
@@ -270,10 +221,10 @@ class GraphMenuConst extends StatelessWidget {
             color: textColor ?? ColorManager.dashListviewData,
             fontSize: FontSize.s12,
             fontWeight: FontWeight.w500),),
-        SizedBox(width: 10,),
+        SizedBox(width: AppSize.s10,),
         Container(
-          width: 10.0,
-          height: 10.0,
+          width: AppSize.s10,
+          height: AppSize.s10,
           decoration: BoxDecoration(
             color: squareColor,
             shape: BoxShape.rectangle,
@@ -291,10 +242,11 @@ class OfficeLocationPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DialogueTemplate(width: 600, height: 450,
+    return DialogueTemplate(
+        width: AppSize.s600, height: AppSize.s450,
         body: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -303,22 +255,18 @@ class OfficeLocationPopup extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('No of Offices',style: CustomTextStylesCommon.commonStyle(
-                        color: ColorManager.mediumgrey,
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeight.w700)),
+                    Text(EmDashboardStringManager.NoOfOffice,
+                        style: AllPopupHeadings.customTextStyle(context)),
                     Row(children: [
-                      Text('Attendance Ratio',style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.mediumgrey,
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700)),
-                      SizedBox(width: 20,),
-                      Icon(Icons.calendar_today,color: ColorManager.bluebottom,size: 20,)
+                      Text(EmDashboardStringManager.attendanceRatio,
+                          style: AllPopupHeadings.customTextStyle(context)),
+                      SizedBox(width: AppSize.s20),
+                      Icon(Icons.calendar_today,color: ColorManager.bluebottom,size: IconSize.I20,)
                     ],)
                   ],),
-                SizedBox(height: 10,),
+                SizedBox(height: AppSize.s10,),
                 Container(
-                  height: 255,
+                  height: AppSize.s255,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: 15,
@@ -329,7 +277,7 @@ class OfficeLocationPopup extends StatelessWidget {
                       return Column(
                         children: [
                           SizedBox(
-                            height: 10,
+                            height: AppSize.s10,
                           ),
                           Container(
                             height: AppSize.s44,
@@ -356,11 +304,7 @@ class OfficeLocationPopup extends StatelessWidget {
                                   child: Text(
                                     "Office 1",
                                     textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                                 Expanded(
@@ -371,17 +315,13 @@ class OfficeLocationPopup extends StatelessWidget {
                                     value: 55/100,//.totalVal/100
                                   )
                                 ),
-                                SizedBox(width: 20,),
+                                SizedBox(width: AppSize.s20,),
                                 Expanded(
                                   flex:1,
                                   child: Text(
                                     "55%",
                                     textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                               ],
@@ -397,6 +337,6 @@ class OfficeLocationPopup extends StatelessWidget {
 
         ],
         bottomButtons: Offstage(),
-        title: "Average Daily Attendance per Office");
+        title: EmDashboardStringManager.attendancePopupHead);
   }
 }
