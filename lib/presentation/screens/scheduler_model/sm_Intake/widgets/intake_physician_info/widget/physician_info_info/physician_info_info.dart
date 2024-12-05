@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
+import '../../../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
+import '../../../../../widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../../../../../widgets/constant_widgets/textfield_constant.dart';
 
 class PhysicianInfoInfoScreen extends StatefulWidget {
@@ -70,7 +73,10 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
       body: Center(
         child: SingleChildScrollView(
           child: Column(
+
             children: [
+
+
               SizedBox(height: AppSize.s10),
               Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -163,82 +169,98 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                                     color: ColorManager.blueprime,),);
                               }
                               if (snapshot.hasData) {
-                                List<String> dropDownList = [];
+                                List<DropdownMenuItem<String>> dropDownList = [];
+
+
                                 for (var i in snapshot.data!) {
-                                  dropDownList.add(i.cityName!);
+                                  dropDownList.add(DropdownMenuItem<String>(
+                                    child: Text(i.cityName!),
+                                    value: i.cityName,
+                                  ));
                                 }
 
-                                return SizedBox(
-                                  height: 27,
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: InputDecoration(
-                                      labelText: 'City',
-                                      labelStyle: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.greylight,
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: ColorManager
-                                                .containerBorderGrey),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(4.0),
-                                        borderSide: const BorderSide(
-                                            color: Colors.grey),
-                                      ),
-                                      contentPadding:
-                                      const EdgeInsets.symmetric(
-                                        //   //  vertical: 5,
-                                          horizontal: 12),
-                                    ),
-                                    // value: selectedCountry,
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: const Color(0xff686464),
-                                    ),
 
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.cityName == newValue) {
-                                          selectedCitypr = a.cityName!;
-                                          //country = a
-                                          // int? docType = a.companyOfficeID;
-                                        }
-                                      }
-                                    },
-                                    items: dropDownList.map((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: Color(0xff575757),
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                );
+return CustomDropdownTextFieldsm(
+    dropDownMenuList: dropDownList,
+    onChanged: (newValue) {
+      for (var a in snapshot.data!) {
+        if (a.cityName == newValue) {
+          selectedCitypr = a.cityName!;
+          //country = a
+          // int? docType = a.companyOfficeID;
+        }
+      }
+    }, headText: 'City',
+);
+                                // return SizedBox(
+                                //   height: 27,
+                                //   child: DropdownButtonFormField<String>(
+                                //     decoration: InputDecoration(
+                                //       labelText: 'City',
+                                //       labelStyle: GoogleFonts.firaSans(
+                                //         fontSize: 10.0,
+                                //         fontWeight: FontWeight.w400,
+                                //         color: ColorManager.greylight,
+                                //       ),
+                                //       focusedBorder: OutlineInputBorder(
+                                //         borderSide: BorderSide(
+                                //             color: ColorManager
+                                //                 .containerBorderGrey),
+                                //       ),
+                                //       border: OutlineInputBorder(
+                                //         borderRadius:
+                                //         BorderRadius.circular(4.0),
+                                //         borderSide: const BorderSide(
+                                //             color: Colors.grey),
+                                //       ),
+                                //       contentPadding:
+                                //       const EdgeInsets.symmetric(
+                                //         //   //  vertical: 5,
+                                //           horizontal: 12),
+                                //     ),
+                                //     // value: selectedCountry,
+                                //     icon: Icon(
+                                //       Icons.arrow_drop_down,
+                                //       color: ColorManager.blueprime,
+                                //     ),
+                                //     iconSize: 24,
+                                //     elevation: 16,
+                                //     style: GoogleFonts.firaSans(
+                                //       fontSize: 10.0,
+                                //       fontWeight: FontWeight.w400,
+                                //       color: const Color(0xff686464),
+                                //     ),
+                                //
+                                //     onChanged: (newValue) {
+                                //       for (var a in snapshot.data!) {
+                                //         if (a.cityName == newValue) {
+                                //           selectedCitypr = a.cityName!;
+                                //           //country = a
+                                //           // int? docType = a.companyOfficeID;
+                                //         }
+                                //       }
+                                //     },
+                                //     items: dropDownList.map((String value) {
+                                //       return DropdownMenuItem<String>(
+                                //         value: value,
+                                //         child: Text(
+                                //           value,
+                                //           style: GoogleFonts.firaSans(
+                                //             fontSize: 12,
+                                //             color: Color(0xff575757),
+                                //             fontWeight: FontWeight.w400,
+                                //           ),
+                                //         ),
+                                //       );
+                                //     }).toList(),
+                                //   ),
+                                // );
                               } else {
                                 return const Offstage();
                               }
                             },
                           ),
-                            // child: SchedularTextField(
-                            //   controller: prCity,
-                            //     labelText: AppString.city)
+
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
@@ -254,91 +276,94 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                                     color: ColorManager.blueprime,),);
                               }
                               if (snapshot.hasData) {
-                                List<String> dropDownList = [];
+                                // List<String> dropDownList = [];
+                                // for (var i in snapshot.data!) {
+                                //   dropDownList.add(i.name!);
+                                // }
+
+                                List<DropdownMenuItem<String>> dropDownList = [];
+
+
                                 for (var i in snapshot.data!) {
-                                  dropDownList.add(i.name!);
+                                  dropDownList.add(DropdownMenuItem<String>(
+                                    child: Text(i.name!!),
+                                    value: i.name!,
+                                  ));
                                 }
 
-                                 return SizedBox(
-                                  height: 27,
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: InputDecoration(
-                                       labelText: 'State',
-                                      labelStyle: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.greylight,
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(4.0),
-                                        borderSide: const BorderSide(
-                                            color: Colors.grey),
-                                      ),
-                                      contentPadding:
-                                      const EdgeInsets.symmetric(
-                                        //   //  vertical: 5,
-                                          horizontal: 12),
-                                    ),
-                                    // value: selectedCountry,
-                                    icon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: const Color(0xff686464),
-                                    ),
-
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.name == newValue) {
-                                          selectedStatepr = a.name!;
-                                          //country = a
-                                          // int? docType = a.companyOfficeID;
-                                        }
+                                return CustomDropdownTextFieldsm(
+                                  dropDownMenuList:dropDownList,
+                                  onChanged: (newValue) {
+                                    for (var a in snapshot.data!) {
+                                      if (a.name == newValue) {
+                                        selectedStatepr = a.name!;
+                                        //country = a
+                                        // int? docType = a.companyOfficeID;
                                       }
-                                    },
-                                    items: dropDownList.map((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: Color(0xff575757),
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
+                                    }
+                                  }, headText: 'State',
                                 );
-                                // return SchedularDropdown(
-                                //   labelText: 'State',
-                                //   // labelStyle: GoogleFonts.firaSans(
-                                //   //   fontSize: 12,
-                                //   //   color: Color(0xff575757),
-                                //   //   fontWeight: FontWeight.w400,
-                                //   // ),
-                                //   // labelFontSize: 12,
-                                //   items: dropDownList,
-                                //   onChanged: (newValue) {
-                                //     for (var a in snapshot.data!) {
-                                //       if (a.name == newValue) {
-                                //         selectedStatepr = a.name!;
-                                //         // stateId = a.stateId!;
-                                //         //  print("Dept ID ${stateId}");
-                                //         // int docType = a.employeeTypesId;
-                                //         // Do something with docType
+
+                                //  return SizedBox(
+                                //   height: 27,
+                                //   child: DropdownButtonFormField<String>(
+                                //     decoration: InputDecoration(
+                                //        labelText: 'State',
+                                //       labelStyle: GoogleFonts.firaSans(
+                                //         fontSize: 10.0,
+                                //         fontWeight: FontWeight.w400,
+                                //         color: ColorManager.greylight,
+                                //       ),
+                                //       focusedBorder: OutlineInputBorder(
+                                //         borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+                                //       ),
+                                //       border: OutlineInputBorder(
+                                //         borderRadius:
+                                //         BorderRadius.circular(4.0),
+                                //         borderSide: const BorderSide(
+                                //             color: Colors.grey),
+                                //       ),
+                                //       contentPadding:
+                                //       const EdgeInsets.symmetric(
+                                //         //   //  vertical: 5,
+                                //           horizontal: 12),
+                                //     ),
+                                //     // value: selectedCountry,
+                                //     icon: Icon(Icons.arrow_drop_down,
+                                //       color: ColorManager.blueprime),
+                                //     iconSize: 24,
+                                //     elevation: 16,
+                                //     style: GoogleFonts.firaSans(
+                                //       fontSize: 10.0,
+                                //       fontWeight: FontWeight.w400,
+                                //       color: const Color(0xff686464),
+                                //     ),
+                                //
+                                //     onChanged: (newValue) {
+                                //       for (var a in snapshot.data!) {
+                                //         if (a.name == newValue) {
+                                //           selectedStatepr = a.name!;
+                                //           //country = a
+                                //           // int? docType = a.companyOfficeID;
+                                //         }
                                 //       }
-                                //     }
-                                //   },
+                                //     },
+                                //     items: dropDownList.map((String value) {
+                                //       return DropdownMenuItem<String>(
+                                //         value: value,
+                                //         child: Text(
+                                //           value,
+                                //           style: GoogleFonts.firaSans(
+                                //             fontSize: 12,
+                                //             color: Color(0xff575757),
+                                //             fontWeight: FontWeight.w400,
+                                //           ),
+                                //         ),
+                                //       );
+                                //     }).toList(),
+                                //   ),
                                 // );
+
                               } else {
                                 return const Offstage();
                               }
@@ -464,83 +489,100 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                                     color: ColorManager.blueprime,),);
                               }
                               if (snapshot.hasData) {
-                                List<String> dropDownList = [];
+                                List<DropdownMenuItem<String>> dropDownList = [];
+
+
                                 for (var i in snapshot.data!) {
-                                  dropDownList.add(i.cityName!);
+                                  dropDownList.add(DropdownMenuItem<String>(
+                                    child: Text(i.cityName!),
+                                    value: i.cityName,
+                                  ));
                                 }
 
-                                return SizedBox(
-                                  height: 27,
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: InputDecoration(
-                                      labelText: 'City',
-                                      labelStyle: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.greylight,
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: ColorManager
-                                                .containerBorderGrey),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(4.0),
-                                        borderSide: const BorderSide(
-                                            color: Colors.grey),
-                                      ),
-                                      contentPadding:
-                                      const EdgeInsets.symmetric(
-                                        //   //  vertical: 5,
-                                          horizontal: 12),
-                                    ),
-                                    // value: selectedCountry,
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: const Color(0xff686464),
-                                    ),
 
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.cityName == newValue) {
-                                          selectedCityff = a.cityName!;
-                                          //country = a
-                                          // int? docType = a.companyOfficeID;
-                                        }
+                                return CustomDropdownTextFieldsm(
+                                  dropDownMenuList: dropDownList,
+                                  onChanged: (newValue) {
+                                    for (var a in snapshot.data!) {
+                                      if (a.cityName == newValue) {
+                                        selectedCityff = a.cityName!;
+                                        //country = a
+                                        // int? docType = a.companyOfficeID;
                                       }
-                                    },
-                                    items: dropDownList.map((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: Color(0xff575757),
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
+                                    }
+                                  }, headText: 'City',
                                 );
+
+                                // return SizedBox(
+                                //   height: 27,
+                                //   child: DropdownButtonFormField<String>(
+                                //     decoration: InputDecoration(
+                                //       labelText: 'City',
+                                //       labelStyle: GoogleFonts.firaSans(
+                                //         fontSize: 10.0,
+                                //         fontWeight: FontWeight.w400,
+                                //         color: ColorManager.greylight,
+                                //       ),
+                                //       focusedBorder: OutlineInputBorder(
+                                //         borderSide: BorderSide(
+                                //             color: ColorManager
+                                //                 .containerBorderGrey),
+                                //       ),
+                                //       border: OutlineInputBorder(
+                                //         borderRadius:
+                                //         BorderRadius.circular(4.0),
+                                //         borderSide: const BorderSide(
+                                //             color: Colors.grey),
+                                //       ),
+                                //       contentPadding:
+                                //       const EdgeInsets.symmetric(
+                                //         //   //  vertical: 5,
+                                //           horizontal: 12),
+                                //     ),
+                                //     // value: selectedCountry,
+                                //     icon: Icon(
+                                //       Icons.arrow_drop_down,
+                                //       color: ColorManager.blueprime,
+                                //     ),
+                                //     iconSize: 24,
+                                //     elevation: 16,
+                                //     style: GoogleFonts.firaSans(
+                                //       fontSize: 10.0,
+                                //       fontWeight: FontWeight.w400,
+                                //       color: const Color(0xff686464),
+                                //     ),
+                                //
+                                //     onChanged: (newValue) {
+                                //       for (var a in snapshot.data!) {
+                                //         if (a.cityName == newValue) {
+                                //           selectedCityff = a.cityName!;
+                                //           //country = a
+                                //           // int? docType = a.companyOfficeID;
+                                //         }
+                                //       }
+                                //     },
+                                //     items: dropDownList.map((String value) {
+                                //       return DropdownMenuItem<String>(
+                                //         value: value,
+                                //         child: Text(
+                                //           value,
+                                //           style: GoogleFonts.firaSans(
+                                //             fontSize: 12,
+                                //             color: Color(0xff575757),
+                                //             fontWeight: FontWeight.w400,
+                                //           ),
+                                //         ),
+                                //       );
+                                //     }).toList(),
+                                //   ),
+                                // );
                               } else {
                                 return const Offstage();
                               }
                             },
                           ),
 
-                            // child: SchedularTextField(
-                            //   controller: ffCity,
-                            //     labelText: AppString.city)
+
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
@@ -556,91 +598,89 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                                     color: ColorManager.blueprime,),);
                               }
                               if (snapshot.hasData) {
-                                List<String> dropDownList = [];
+                                List<DropdownMenuItem<String>> dropDownList = [];
+
+
                                 for (var i in snapshot.data!) {
-                                  dropDownList.add(i.name!);
+                                  dropDownList.add(DropdownMenuItem<String>(
+                                    child: Text(i.name!!),
+                                    value: i.name!,
+                                  ));
                                 }
 
-                                return SizedBox(
-                                  height: 27,
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: InputDecoration(
-                                      labelText: 'State',
-                                      labelStyle: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.greylight,
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(4.0),
-                                        borderSide: const BorderSide(
-                                            color: Colors.grey),
-                                      ),
-                                      contentPadding:
-                                      const EdgeInsets.symmetric(
-                                        //   //  vertical: 5,
-                                          horizontal: 12),
-                                    ),
-                                    // value: selectedCountry,
-                                    icon: Icon(Icons.arrow_drop_down,
-                                        color: ColorManager.blueprime),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: const Color(0xff686464),
-                                    ),
-
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.name == newValue) {
-                                          selectedStateff = a.name!;
-                                          //country = a
-                                          // int? docType = a.companyOfficeID;
-                                        }
+                                return CustomDropdownTextFieldsm(
+                                  dropDownMenuList:dropDownList,
+                                  onChanged: (newValue) {
+                                    for (var a in snapshot.data!) {
+                                      if (a.name == newValue) {
+                                        selectedStateff = a.name!;
+                                        //country = a
+                                        // int? docType = a.companyOfficeID;
                                       }
-                                    },
-                                    items: dropDownList.map((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: Color(0xff575757),
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
+                                    }
+                                  }, headText: 'State',
                                 );
-                                // return SchedularDropdown(
-                                //   labelText: 'State',
-                                //   // labelStyle: GoogleFonts.firaSans(
-                                //   //   fontSize: 12,
-                                //   //   color: Color(0xff575757),
-                                //   //   fontWeight: FontWeight.w400,
-                                //   // ),
-                                //   // labelFontSize: 12,
-                                //   items: dropDownList,
-                                //   onChanged: (newValue) {
-                                //     for (var a in snapshot.data!) {
-                                //       if (a.name == newValue) {
-                                //         selectedStatepr = a.name!;
-                                //         // stateId = a.stateId!;
-                                //         //  print("Dept ID ${stateId}");
-                                //         // int docType = a.employeeTypesId;
-                                //         // Do something with docType
+
+                                // return SizedBox(
+                                //   height: 27,
+                                //   child: DropdownButtonFormField<String>(
+                                //     decoration: InputDecoration(
+                                //       labelText: 'State',
+                                //       labelStyle: GoogleFonts.firaSans(
+                                //         fontSize: 10.0,
+                                //         fontWeight: FontWeight.w400,
+                                //         color: ColorManager.greylight,
+                                //       ),
+                                //       focusedBorder: OutlineInputBorder(
+                                //         borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+                                //       ),
+                                //       border: OutlineInputBorder(
+                                //         borderRadius:
+                                //         BorderRadius.circular(4.0),
+                                //         borderSide: const BorderSide(
+                                //             color: Colors.grey),
+                                //       ),
+                                //       contentPadding:
+                                //       const EdgeInsets.symmetric(
+                                //         //   //  vertical: 5,
+                                //           horizontal: 12),
+                                //     ),
+                                //     // value: selectedCountry,
+                                //     icon: Icon(Icons.arrow_drop_down,
+                                //         color: ColorManager.blueprime),
+                                //     iconSize: 24,
+                                //     elevation: 16,
+                                //     style: GoogleFonts.firaSans(
+                                //       fontSize: 10.0,
+                                //       fontWeight: FontWeight.w400,
+                                //       color: const Color(0xff686464),
+                                //     ),
+                                //
+                                //     onChanged: (newValue) {
+                                //       for (var a in snapshot.data!) {
+                                //         if (a.name == newValue) {
+                                //           selectedStateff = a.name!;
+                                //           //country = a
+                                //           // int? docType = a.companyOfficeID;
+                                //         }
                                 //       }
-                                //     }
-                                //   },
+                                //     },
+                                //     items: dropDownList.map((String value) {
+                                //       return DropdownMenuItem<String>(
+                                //         value: value,
+                                //         child: Text(
+                                //           value,
+                                //           style: GoogleFonts.firaSans(
+                                //             fontSize: 12,
+                                //             color: Color(0xff575757),
+                                //             fontWeight: FontWeight.w400,
+                                //           ),
+                                //         ),
+                                //       );
+                                //     }).toList(),
+                                //   ),
                                 // );
+
                               } else {
                                 return const Offstage();
                               }
@@ -688,80 +728,84 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 80.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // Text('Status Completed',
-                    //   style: GoogleFonts.firaSans(
-                    //       decoration: TextDecoration.none,
-                    //       fontSize: FontSize.s14,
-                    //       fontWeight: FontWeightManager.bold,
-                    //       color: ColorManager.greenDark
-                    //   ),
-                    // ),
-                    // SizedBox(width: 15,),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final companyId = await TokenManager.getCompanyId();
-                        await postPhysicianInfoScreen(
-                          context,
-                          widget.patientId,
-                          companyId,
-                          primaryPhysician.text,
-                          prFirstName.text,
-                          prLastName.text,
-                          prPECOSStatus.text,
-                          prUPINNbr.text,
-                          prNPINbr.text,
-                          prStreet.text,
-                          prSuiteApt.text,
-                          selectedCitypr.toString(),
-                          selectedStatepr.toString(),
-                          prZipcode.text,
-                          prPhone.text,
-                          prFax.text,
-                          prProtocol.text,
-                          contractFFPhysician.text,
-                          ffFirstName.text,
-                          ffLastName.text,
-                          ffPECOSStatus.text,
-                          ffUPINNbr.text,
-                          ffNPINbr.text,
-                          ffStreet.text,
-                          ffSuiteApt.text,
-                          selectedCityff.toString(),
-                          selectedStateff.toString(),
-                          ffZipcode.text,
-                          ffPhone.text,
-                          ffFax.text,
-                          ffProtocol.text,
-                        );
+              SizedBox(height:AppSize.s35),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  Container(
+                    //color: Colors.white,
+                    width: 117,
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: (){
+                       // widget.onBack();
                       },
-                      child: Text(
-                        AppString.save,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.white,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 25,
-                          vertical: 10,
-                        ),
-                        backgroundColor: ColorManager.blueprime,
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                        elevation: 5,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
+                          side: BorderSide(
+                            color: ColorManager.bluebottom,
+                            width: 1,
+                          ),
+                        ),),
+                      child: Text('Cancel',
+                        style: TransparentButtonTextConst.customTextStyle(context),
+                      ),),
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+
+                  CustomButton(
+                    width: 117,
+                    height: 30,
+                    onPressed: () async {
+                      final companyId = await TokenManager.getCompanyId();
+                      await postPhysicianInfoScreen(
+                        context,
+                        widget.patientId,
+                        companyId,
+                        primaryPhysician.text,
+                        prFirstName.text,
+                        prLastName.text,
+                        prPECOSStatus.text,
+                        prUPINNbr.text,
+                        prNPINbr.text,
+                        prStreet.text,
+                        prSuiteApt.text,
+                        selectedCitypr.toString(),
+                        selectedStatepr.toString(),
+                        prZipcode.text,
+                        prPhone.text,
+                        prFax.text,
+                        prProtocol.text,
+                        contractFFPhysician.text,
+                        ffFirstName.text,
+                        ffLastName.text,
+                        ffPECOSStatus.text,
+                        ffUPINNbr.text,
+                        ffNPINbr.text,
+                        ffStreet.text,
+                        ffSuiteApt.text,
+                        selectedCityff.toString(),
+                        selectedStateff.toString(),
+                        ffZipcode.text,
+                        ffPhone.text,
+                        ffFax.text,
+                        ffProtocol.text,
+                      );
+                    },
+                    child: Text(
+                      AppString.save,
+                      style:  BlueButtonTextConst.customTextStyle(context),
                     ),
-                  ],
-                ),
+
+                  ),
+                ],
               ),
-              SizedBox(height: 19.5),
+              SizedBox(height:AppSize.s10),
             ],
           ),
         ),
