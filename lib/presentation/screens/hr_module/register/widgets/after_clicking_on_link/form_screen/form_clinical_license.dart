@@ -30,10 +30,10 @@ class Clinical_licenses extends StatefulWidget {
   final Function onBack;
   const Clinical_licenses(
       {super.key,
-      required this.employeeID,
-      required this.onSave,
-      required this.onBack,
-      required this.context});
+        required this.employeeID,
+        required this.onSave,
+        required this.onBack,
+        required this.context});
 
   final BuildContext context;
   @override
@@ -42,7 +42,7 @@ class Clinical_licenses extends StatefulWidget {
 
 class _Clinical_licensesState extends State<Clinical_licenses> {
   final StreamController<List<HREmployeeDocumentModal>> healthrecord =
-      StreamController<List<HREmployeeDocumentModal>>();
+  StreamController<List<HREmployeeDocumentModal>>();
 
   bool _loading = false;
   bool isLoading = false;
@@ -92,8 +92,8 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
             padding:  const EdgeInsets.symmetric(
                 horizontal: 160, vertical: 15),
             child: Container(
-             // color: Colors.cyanAccent,
-               // height: 500,
+              // color: Colors.cyanAccent,
+              // height: 500,
                 child: Column(
                   children: [
                     Container(
@@ -137,7 +137,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                     children: [
                                       Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Expiry Date',
@@ -162,7 +162,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                               ),
                                               onPressed: () async {
                                                 DateTime? pickedDate =
-                                                    await showDatePicker(
+                                                await showDatePicker(
                                                   context: context,
                                                   initialDate: DateTime.now(),
                                                   firstDate: DateTime(2000),
@@ -170,8 +170,8 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                 );
                                                 if (pickedDate != null) {
                                                   expirydatecontrollerdl.text =
-                                                      "${pickedDate.toLocal()}"
-                                                          .split(' ')[0];
+                                                  "${pickedDate.toLocal()}"
+                                                      .split(' ')[0];
                                                 }
                                               },
                                             ),
@@ -211,21 +211,21 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                     color: const Color(
                                                         0xffB1B1B1)),
                                                 borderRadius:
-                                                    BorderRadius.circular(8),
+                                                BorderRadius.circular(8),
                                               ),
                                               child: Row(
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
+                                                    const EdgeInsets.all(
+                                                        8.0),
                                                     child: ElevatedButton(
                                                       onPressed: () async {
                                                         FilePickerResult?
-                                                            result = await FilePicker.platform.pickFiles(
+                                                        result = await FilePicker.platform.pickFiles(
                                                             type: FileType.custom,
                                                             allowedExtensions: ['pdf']
-                                                            );
+                                                        );
                                                         final fileSize = result?.files.first.size;
                                                         final isAbove20MB = fileSize! > (20 * 1024 * 1024);
                                                         if (result != null) {
@@ -241,18 +241,18 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                         "Choose File",
                                                         style: onlyFormDataStyle
                                                             .customTextStyle(
-                                                                context),
+                                                            context),
                                                       ),
                                                       style: ElevatedButton
                                                           .styleFrom(
                                                         backgroundColor:
-                                                            Color(0xffD9D9D9),
+                                                        Color(0xffD9D9D9),
                                                         shape:
-                                                            RoundedRectangleBorder(
+                                                        RoundedRectangleBorder(
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
+                                                          BorderRadius
+                                                              .circular(
+                                                              8.0),
                                                         ),
                                                       ),
                                                     ),
@@ -260,30 +260,30 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                                   // If a file is picked, display the file name, otherwise show 'No file selected'
                                                   _loading
                                                       ? SizedBox(
-                                                          width: 25,
-                                                          height: 25,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            color: ColorManager
-                                                                .blueprime,
-                                                          ),
-                                                        )
+                                                    width: 25,
+                                                    height: 25,
+                                                    child:
+                                                    CircularProgressIndicator(
+                                                      color: ColorManager
+                                                          .blueprime,
+                                                    ),
+                                                  )
                                                       : (fileNameDl != null && fileNameDl!.isNotEmpty)
-                                                          ? Padding(padding: const EdgeInsets.all(8.0),
-                                                              child: Text(
-                                                                _trimSummery('$fileNameDl'),
-                                                                style: onlyFormDataStyle.customTextStyle(context),
-                                                              ),
-                                                            )
-                                                          : Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Text(
-                                                                'No file chosen',
-                                                                style: onlyFormDataStyle.customTextStyle(context),
-                                                              ),
-                                                            ),
+                                                      ? Padding(padding: const EdgeInsets.all(8.0),
+                                                    child: Text(
+                                                      _trimSummery('$fileNameDl'),
+                                                      style: onlyFormDataStyle.customTextStyle(context),
+                                                    ),
+                                                  )
+                                                      : Padding(
+                                                    padding:
+                                                    const EdgeInsets
+                                                        .all(8.0),
+                                                    child: Text(
+                                                      'No file chosen',
+                                                      style: onlyFormDataStyle.customTextStyle(context),
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -300,7 +300,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                       ),
                     ),
                     /////////////////////////////////
-SizedBox(height: 15,),
+                    SizedBox(height: 15,),
                     Container(
                       height: 120,
                       decoration: BoxDecoration(
@@ -682,84 +682,84 @@ SizedBox(height: 15,),
 
 
 
-    //
-    //           isLoading
-    //               ? SizedBox(
-    //                   height: 25,
-    //                   width: 25,
-    //                   child: CircularProgressIndicator(
-    //                     color: ColorManager.blueprime,
-    //                   ),
-    //                 )
-    //               : CustomButton(
-    //                   width: 117,
-    //                   height: 30,
-    //                   text: 'Save',
-    //                   style: BlueButtonTextConst.customTextStyle(context),
-    //                   borderRadius: 12,
-    //                   onPressed: () async {
-    //                     setState(() {
-    //                       isLoading = true; // Start loading
-    //                     });
-    //
-    // try {
-    //   var response = await postDrivinglicenseData(
-    //     context,
-    //     expirydatecontrollerdl.text,
-    //     '',
-    //     widget.employeeID,
-    //     '',
-    //     fileNameDl!,
-    //   );
-    //   await uploadDocumentsDL(
-    //       context: context,
-    //       drivingLicenceId: response.drivingLicenceId!,
-    //       documentFile: finalPathDl!,
-    //       documentName: fileNameDl!);
-    //
-    //   var responsePL = await postpractitionerLicenseData(
-    //     context,
-    //     expirydatecontrollerpl.text,
-    //     '',
-    //     widget.employeeID,
-    //     '',
-    //     fileNamePl!,
-    //   );
-    //   await uploadDocumentsPL(
-    //       context: context,
-    //       practitionerLicenceId:
-    //       responsePL.practitionerLicenceId!,
-    //       documentFile: finalPathPl!,
-    //       documentName: fileNamePl!);
-    //
-    //
-    //   await showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return const AddSuccessPopup(
-    //         message: 'Clinical License Data Saved',
-    //       );
-    //     },
-    //   );
-    //   await widget.onSave();
-    // }
-    // catch(e){
-    //   await showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
-    //   );
-    // }
-    //                     setState(() {
-    //                       isLoading = false; // End loading
-    //                     });
-    //
-    //                   },
-    //
-    //                   child: Text(
-    //                     'Save',
-    //                     style: BlueButtonTextConst.customTextStyle(context),
-    //                   ),
-    //                 ),
+              //
+              //           isLoading
+              //               ? SizedBox(
+              //                   height: 25,
+              //                   width: 25,
+              //                   child: CircularProgressIndicator(
+              //                     color: ColorManager.blueprime,
+              //                   ),
+              //                 )
+              //               : CustomButton(
+              //                   width: 117,
+              //                   height: 30,
+              //                   text: 'Save',
+              //                   style: BlueButtonTextConst.customTextStyle(context),
+              //                   borderRadius: 12,
+              //                   onPressed: () async {
+              //                     setState(() {
+              //                       isLoading = true; // Start loading
+              //                     });
+              //
+              // try {
+              //   var response = await postDrivinglicenseData(
+              //     context,
+              //     expirydatecontrollerdl.text,
+              //     '',
+              //     widget.employeeID,
+              //     '',
+              //     fileNameDl!,
+              //   );
+              //   await uploadDocumentsDL(
+              //       context: context,
+              //       drivingLicenceId: response.drivingLicenceId!,
+              //       documentFile: finalPathDl!,
+              //       documentName: fileNameDl!);
+              //
+              //   var responsePL = await postpractitionerLicenseData(
+              //     context,
+              //     expirydatecontrollerpl.text,
+              //     '',
+              //     widget.employeeID,
+              //     '',
+              //     fileNamePl!,
+              //   );
+              //   await uploadDocumentsPL(
+              //       context: context,
+              //       practitionerLicenceId:
+              //       responsePL.practitionerLicenceId!,
+              //       documentFile: finalPathPl!,
+              //       documentName: fileNamePl!);
+              //
+              //
+              //   await showDialog(
+              //     context: context,
+              //     builder: (BuildContext context) {
+              //       return const AddSuccessPopup(
+              //         message: 'Clinical License Data Saved',
+              //       );
+              //     },
+              //   );
+              //   await widget.onSave();
+              // }
+              // catch(e){
+              //   await showDialog(
+              //     context: context,
+              //     builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+              //   );
+              // }
+              //                     setState(() {
+              //                       isLoading = false; // End loading
+              //                     });
+              //
+              //                   },
+              //
+              //                   child: Text(
+              //                     'Save',
+              //                     style: BlueButtonTextConst.customTextStyle(context),
+              //                   ),
+              //                 ),
             ],
           ),
         ],
