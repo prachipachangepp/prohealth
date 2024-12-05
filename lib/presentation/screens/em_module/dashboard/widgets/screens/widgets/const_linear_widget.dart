@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
-
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 
 class LinearCardWidget extends StatelessWidget {
@@ -13,7 +14,7 @@ class LinearCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8,vertical: AppPadding.p8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -24,15 +25,16 @@ class LinearCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(headingText,style: CustomTextStylesCommon.commonStyle(
-                      fontSize: 16,
+                  Text(headingText,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontSize: FontSize.s16,
                       color: ColorManager.mediumgrey,
                       fontWeight: FontWeight.w500),),
-                SizedBox(height: 15,),
-                  Text(totalCount,style: TextStyle(fontSize: 20,color: ColorManager.blueprime,fontWeight: FontWeight.w700),)
+                SizedBox(height: AppSize.s15,),
+                  Text(totalCount,style: TextStyle(fontSize: FontSize.s20,color: ColorManager.blueprime,fontWeight: FontWeight.w700),)
                 ],
               ),
-              Icon(icon,color: ColorManager.bluebottom,size: 40,)
+              Icon(icon,color: ColorManager.bluebottom,size: IconSize.I40,)
             ],
           ),
           LinearProgressIndicator(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -84,28 +85,28 @@ class OfficeEquipmentHead extends StatelessWidget {
             style: EmDashListviewHeadText.customTextStyle(context),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 70.0),
+            padding: const EdgeInsets.only(right: AppPadding.p70),
             child: Text(
-              "Equipment Name",
+              EmDashboardStringManager.eqipmentName,
               textAlign: TextAlign.start,
               style: EmDashListviewHeadText.customTextStyle(context),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 60.0),
+            padding: const EdgeInsets.only(right: AppPadding.p60),
             child: Text(
-              "Category",
+              EmDashboardStringManager.category ,
               textAlign: TextAlign.center,
               style: EmDashListviewHeadText.customTextStyle(context),
             ),
           ),
           Text(
-            "Quantity on Hand",
+            EmDashboardStringManager.quantityHand,
             textAlign: TextAlign.end,
             style: EmDashListviewHeadText.customTextStyle(context),
           ),
           Text(
-            "Order Quantity",
+            EmDashboardStringManager.orderQuantity,
             textAlign: TextAlign.center,
             style: EmDashListviewHeadText.customTextStyle(context),
           ),
@@ -220,10 +221,10 @@ class GraphMenuConst extends StatelessWidget {
             color: textColor ?? ColorManager.dashListviewData,
             fontSize: FontSize.s12,
             fontWeight: FontWeight.w500),),
-        SizedBox(width: 10,),
+        SizedBox(width: AppSize.s10,),
         Container(
-          width: 10.0,
-          height: 10.0,
+          width: AppSize.s10,
+          height: AppSize.s10,
           decoration: BoxDecoration(
             color: squareColor,
             shape: BoxShape.rectangle,
@@ -241,10 +242,11 @@ class OfficeLocationPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DialogueTemplate(width: 600, height: 450,
+    return DialogueTemplate(
+        width: AppSize.s600, height: AppSize.s450,
         body: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -253,22 +255,18 @@ class OfficeLocationPopup extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('No of Offices',style: CustomTextStylesCommon.commonStyle(
-                        color: ColorManager.mediumgrey,
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeight.w700)),
+                    Text(EmDashboardStringManager.NoOfOffice,
+                        style: AllPopupHeadings.customTextStyle(context)),
                     Row(children: [
-                      Text('Attendance Ratio',style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.mediumgrey,
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700)),
-                      SizedBox(width: 20,),
-                      Icon(Icons.calendar_today,color: ColorManager.bluebottom,size: 20,)
+                      Text(EmDashboardStringManager.attendanceRatio,
+                          style: AllPopupHeadings.customTextStyle(context)),
+                      SizedBox(width: AppSize.s20),
+                      Icon(Icons.calendar_today,color: ColorManager.bluebottom,size: IconSize.I20,)
                     ],)
                   ],),
-                SizedBox(height: 10,),
+                SizedBox(height: AppSize.s10,),
                 Container(
-                  height: 255,
+                  height: AppSize.s255,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: 15,
@@ -279,7 +277,7 @@ class OfficeLocationPopup extends StatelessWidget {
                       return Column(
                         children: [
                           SizedBox(
-                            height: 10,
+                            height: AppSize.s10,
                           ),
                           Container(
                             height: AppSize.s44,
@@ -317,7 +315,7 @@ class OfficeLocationPopup extends StatelessWidget {
                                     value: 55/100,//.totalVal/100
                                   )
                                 ),
-                                SizedBox(width: 20,),
+                                SizedBox(width: AppSize.s20,),
                                 Expanded(
                                   flex:1,
                                   child: Text(
@@ -339,6 +337,6 @@ class OfficeLocationPopup extends StatelessWidget {
 
         ],
         bottomButtons: Offstage(),
-        title: "Average Daily Attendance per Office");
+        title: EmDashboardStringManager.attendancePopupHead);
   }
 }

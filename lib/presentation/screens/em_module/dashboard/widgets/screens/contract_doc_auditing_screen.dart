@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/em_dashboard_const.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/const_linear_widget.dart';
@@ -9,6 +10,7 @@ import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/scree
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/contract_doc_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/data_file.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../hr_module/dashboard/widgets/hr_dashboard_const.dart';
@@ -83,7 +85,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
-                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: 'Total Number Of Active\nContracts', totalCount: '12', totalValue: 12,icon: Icons.save_as_outlined,),)),
+                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.activeContract, totalCount: '12', totalValue: 12,icon: Icons.save_as_outlined,),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
@@ -91,11 +93,11 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         onTap: (){
                           showDialog(context: context, builder: (context) => ContractDocAuditPopup());
                         },
-                        child: LinearCardWidget(headingText: 'Number Of Random\nAufits Passed', totalCount: '20', totalValue: 20,icon: Icons.arrow_circle_right_outlined,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.randomaudits, totalCount: '20', totalValue: 20,icon: Icons.arrow_circle_right_outlined,)),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
-                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: 'Number of Non-Compliant\nOffices', totalCount: '02', totalValue: 2,icon: CupertinoIcons.building_2_fill,),)),
+                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.nonCompliant, totalCount: '02', totalValue: 2,icon: CupertinoIcons.building_2_fill,),)),
               ],),
             SizedBox(height: AppSize.s15,),
             ///2nd row
@@ -113,7 +115,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         );
                       },
                       child: EMDashboardAllBlueSideContainer(child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -125,11 +127,8 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                                     backgroundColor: ColorManager.blueBorder,
                                     child: Icon(Icons.file_copy_outlined,color: ColorManager.white,),
                                   ),
-                                  SizedBox(width: 20,),
-                                  Text("Contracts Expring Soon",style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: 15,
-                                      color: ColorManager.mediumgrey,
-                                      fontWeight: FontWeight.w500),),
+                                  SizedBox(width: AppSize.s20,),
+                                  Text(EmDashboardStringManager.contractexpiresoon,style: EmDashText.customTextStyle(context),),
                                 ],
                               ),
                               Text("Next 30 Days",style: CustomTextStylesCommon.commonStyle(
@@ -147,11 +146,11 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         onTap: (){
                           showDialog(context: context, builder: (context) => ContractDocPenaltyPopup());
                         },
-                        child: LinearCardWidget(headingText: 'Audit Penalty Amounts\n ', totalCount: '\$1000', totalValue: 80,icon: Icons.dangerous_outlined,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.AuditPenaltyAmt, totalCount: '\$1000', totalValue: 80,icon: Icons.dangerous_outlined,)),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
-                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: 'Compliance Incident\nReporting Rate', totalCount: '04', totalValue: 30,icon: Icons.lock_person_outlined,),)),
+                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.complianceIncidentRR, totalCount: '04', totalValue: 30,icon: Icons.lock_person_outlined,),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
@@ -159,7 +158,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         onTap: (){
                           showDialog(context: context, builder: (context) => ContractDocAuditPopup());
                         },
-                        child: LinearCardWidget(headingText: 'Number Of Government\nAudits Passed', totalCount: '20', totalValue: 20,icon: Icons.arrow_circle_right_outlined,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.govmtAuditPass, totalCount: '20', totalValue: 20,icon: Icons.arrow_circle_right_outlined,)),)),
               ],),
             SizedBox(height: AppSize.s15,),
             ///3rd row
@@ -170,11 +169,8 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Average Time to Complete Internal Audit",
-                        style: CustomTextStylesCommon.commonStyle(
-                            fontSize: 16,
-                            color: ColorManager.mediumgrey,
-                            fontWeight: FontWeight.w700),),
+                        Text(EmDashboardStringManager.avgtimecompleteInternalAudit,
+                        style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                         MouseRegion(
                           onHover: (event) {
                             // Hover logic handled by pieTouchData
@@ -185,7 +181,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                             });
                           },
                           child: SizedBox(
-                            height: 200,
+                            height: AppSize.s200,
                             child: PieChart(
                               PieChartData(
                                 sections: _data.asMap().entries.map((entry) {
@@ -271,7 +267,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         // ),
                         Text("14:30:00 pm",
                           style: CustomTextStylesCommon.commonStyle(
-                              fontSize: 18,
+                              fontSize: FontSize.s18,
                               color: ColorManager.blueprime,
                               fontWeight: FontWeight.w700),),
                       ],
@@ -296,16 +292,12 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        "Compliance Audit Frequency per Location",
-                        style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.mediumgrey,
-                          fontSize: FontSize.s16,
-                          fontWeight: FontWeight.w700,
-                        ),
+                       EmDashboardStringManager.complianceAuditFreqLocation,
+                        style: EmDashContainerHeadTextStyle.customTextStyle(context)
                       ),
                       Container(
-                        height: 240,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        height: AppSize.s240,
+                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                         child: SfCartesianChart(
                           primaryXAxis: NumericAxis(
                             title: AxisTitle(text: ""),
@@ -315,7 +307,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                             axisLabelFormatter: (AxisLabelRenderDetails details) {
                               return ChartAxisLabel(
                                 '${details.value.toInt()}',
-                                TextStyle(fontSize: 12),
+                                TextStyle(fontSize: FontSize.s12),
                               );
                             },
                             majorGridLines: MajorGridLines(width: 0.5),
@@ -353,16 +345,12 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                       child: Column(
                         children: [
                         Text(
-                        "Percentage Of Offices With 100%\nCompliance score",
+                        EmDashboardStringManager.perOfficeComplianceScore,
                         textAlign: TextAlign.center,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s16,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                        ),),
+                        style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                           Container(
-                            height: 200,
-                            width: 180,
+                            height: AppSize.s200,
+                            width: AppSize.s181,
                             alignment: Alignment.center,
                             child: Stack(
                               alignment: Alignment.center,
@@ -404,8 +392,8 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                                   ),
                                 ),
                                 Container(
-                                  height: 60,
-                                  width: 60,
+                                  height: AppSize.s60,
+                                  width: AppSize.s60,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
@@ -431,33 +419,29 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
               Expanded(
                   flex: 4,
                   child: EMDashboardContainerConst(
-                    height: 500,
+                    height: AppSize.s500,
                     child: OfficeExpiringComDoc(),)),
               SizedBox(width: AppSize.s15,),
               Expanded(
                 flex: 3,
                 child: Column(children: [
                   EMDashboardContainerConst(
-                      height: 240,
+                      height: AppSize.s240,
                       child: UpcomingCpmDeadlines()),
                   SizedBox(height: AppPadding.p20,),
                   EMDashboardContainerConst(
-                    height: 240,
+                    height: AppSize.s240,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          "Compliance Document Update Frequency",
-                          style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s16,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          EmDashboardStringManager.comDocUpdtFreq,
+                          style: EmDashContainerHeadTextStyle.customTextStyle(context)
                         ),
                         Container(
-                          height: 190,
-                          padding: EdgeInsets.symmetric(horizontal: 100),
+                          height: AppSize.s190,
+                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p100),
                           child: SfCartesianChart(
                             primaryXAxis: NumericAxis(
                               title: AxisTitle(text: ""),
@@ -467,7 +451,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                               axisLabelFormatter: (AxisLabelRenderDetails details) {
                                 return ChartAxisLabel(
                                   '${details.value.toInt()}',
-                                  TextStyle(fontSize: 12),
+                                  TextStyle(fontSize: FontSize.s12),
                                 );
                               },
                               majorGridLines: MajorGridLines(width: 0.5),
@@ -511,15 +495,15 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 30),
+                      padding: const EdgeInsets.only(right: AppPadding.p30),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                         Container(
-                          width: 125,
-                          height: 20,
-                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          width: AppSize.s125,
+                          height: AppSize.s20,
+                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
                           decoration: BoxDecoration(
                             border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
                             borderRadius: BorderRadius.circular(6),
@@ -538,7 +522,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                                     isExpanded: true,
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 10),
+                                        fontSize: FontSize.s10),
                                     items: items.map((
                                         String value) {
                                       return DropdownMenuItem<
@@ -562,32 +546,29 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                     ),
                     SizedBox(height: 10,),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0,right: 30),
+                      padding: const EdgeInsets.only(left: AppPadding.p8,right: AppPadding.p30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Contracts Price Increase Percentage Since Previous",
-                            style:  CustomTextStylesCommon.commonStyle(
-                                color: ColorManager.mediumgrey,
-                                fontSize: FontSize.s16,
-                                fontWeight: FontWeight.w700),),
+                          Text(EmDashboardStringManager.conPriceIncPer,
+                            style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                           Row(children: [
                             TextCircleConst(text: 'Latest', circleColor: ColorManager.EMDCyan,textColor: ColorManager.blackForLoginTexts,),
-                            SizedBox(width:5),
+                            SizedBox(width:AppSize.s5),
                             TextCircleConst(text: 'Previous', circleColor: ColorManager.EMCyan, textColor: ColorManager.blackForLoginTexts,),
                           ],),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: AppSize.s10,),
                     Container(
-                  height: 210,
+                  height: AppSize.s210,
                   child: SfCartesianChart(
                       primaryYAxis: NumericAxis(
                         axisLabelFormatter: (AxisLabelRenderDetails details) {
                           // Format the y-axis label to append '%'
-                          return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: 12));
+                          return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: FontSize.s12));
                         },
                       ),
                       series: <CartesianSeries>[

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/common_resources/em_dashboard_theme.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
-
 import '../../../../../../../app/resources/color.dart';
-import '../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 
 class ContractDocAuditPopup extends StatelessWidget {
@@ -11,57 +11,43 @@ class ContractDocAuditPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DialogueTemplate(width: 600,
-        height: 450, body: [
-          SizedBox(height: 10,),
+    return DialogueTemplate(
+        width: AppSize.s600,
+        height: AppSize.s450, body: [
+          SizedBox(height: AppSize.s10,),
           Container(
             height: AppSize.s30,
-            padding: EdgeInsets.only(left: 15,right: 25),
+            padding: EdgeInsets.only(left: AppPadding.p15,right: AppPadding.p25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "No. of Offices",
+                  EmDashboardStringManager.NoOfOffice,
                   textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration.none,
-                  ),
+                  style: EmDashListviewHeadText.customTextStyle(context)
                 ),
                 //Expanded(flex:1 ,child: Container()),
                 Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
+                  padding: const EdgeInsets.only(left: AppPadding.p60),
                   child: Text(
-                    "Status",
+                      EmDashboardStringManager.status,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: EmDashListviewHeadText.customTextStyle(context)
                   ),
                 ),
                 //SizedBox(width: 30,),
                 Text(
-                  "Random Number",
+                    EmDashboardStringManager.randomNum ,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration.none,
-                  ),
+                  style: EmDashListviewHeadText.customTextStyle(context)
                 ),
               ],
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: AppSize.s10,),
           Container(
-            height: 260,
-            padding: EdgeInsets.only(left: 25,),
+            height: AppSize.s260,
+            padding: EdgeInsets.only(left: AppPadding.p25,),
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: 15,
@@ -72,7 +58,7 @@ class ContractDocAuditPopup extends StatelessWidget {
                 return Column(
                   children: [
                     SizedBox(
-                      height: 10,
+                      height: AppSize.s10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,11 +68,7 @@ class ContractDocAuditPopup extends StatelessWidget {
                           child: Text(
                             "Audit 1",
                             textAlign: TextAlign.start,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.black,
-                            ),
+                            style: EmDashListviewDataText.customTextStyle(context)
                           ),
                         ),
 
@@ -95,11 +77,7 @@ class ContractDocAuditPopup extends StatelessWidget {
                           child: Text(
                             "Pass",
                             textAlign: TextAlign.center,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.black,
-                            ),
+                            style: EmDashListviewDataText.customTextStyle(context)
                           ),
                         ),
                         Expanded(
@@ -107,11 +85,7 @@ class ContractDocAuditPopup extends StatelessWidget {
                           child: Text(
                             "0.12587",
                             textAlign: TextAlign.center,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.black,
-                            ),
+                            style: EmDashListviewDataText.customTextStyle(context)
                           ),
                         ),
                       ],
@@ -121,7 +95,7 @@ class ContractDocAuditPopup extends StatelessWidget {
               },
             ),)
         ],
-        bottomButtons: Container(), title: "Random Audit Passed");
+        bottomButtons: Container(), title: EmDashboardStringManager.randompass);
   }
 }
 
@@ -131,57 +105,42 @@ class ContractDocPenaltyPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DialogueTemplate(width: 600,
-        height: 450, body: [
-          SizedBox(height: 10,),
+    return DialogueTemplate(width: AppSize.s600,
+        height: AppSize.s450, body: [
+          SizedBox(height: AppSize.s10,),
           Container(
             height: AppSize.s30,
-            padding: EdgeInsets.only(left: 15,right: 25),
+            padding: EdgeInsets.only(left: AppPadding.p15,right: AppPadding.p25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "No. of Offices",
+                    EmDashboardStringManager.NoOfOffice,
                   textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration.none,
-                  ),
+                  style: EmDashListviewHeadText.customTextStyle(context)
                 ),
                 //Expanded(flex:1 ,child: Container()),
                 Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
+                  padding: const EdgeInsets.only(left: AppPadding.p50),
                   child: Text(
-                    "Date",
+                      EmDashboardStringManager.date,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: EmDashListviewHeadText.customTextStyle(context)
                   ),
                 ),
                 //SizedBox(width: 30,),
                 Text(
-                  "Penalty Amount",
+                    EmDashboardStringManager.penaltyAmt,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration.none,
-                  ),
+                  style: EmDashListviewHeadText.customTextStyle(context)
                 ),
               ],
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: AppSize.s10,),
           Container(
-            height: 260,
-            padding: EdgeInsets.only(left: 25,),
+            height: AppSize.s260,
+            padding: EdgeInsets.only(left: AppPadding.p25,),
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: 15,
@@ -192,7 +151,7 @@ class ContractDocPenaltyPopup extends StatelessWidget {
                 return Column(
                   children: [
                     SizedBox(
-                      height: 10,
+                      height: AppSize.s10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -202,11 +161,7 @@ class ContractDocPenaltyPopup extends StatelessWidget {
                           child: Text(
                             "Audit 1",
                             textAlign: TextAlign.start,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.black,
-                            ),
+                            style: EmDashListviewDataText.customTextStyle(context)
                           ),
                         ),
 
@@ -215,11 +170,7 @@ class ContractDocPenaltyPopup extends StatelessWidget {
                           child: Text(
                             "27-07-2025",
                             textAlign: TextAlign.center,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.black,
-                            ),
+                            style: EmDashListviewDataText.customTextStyle(context)
                           ),
                         ),
                         Expanded(
@@ -227,11 +178,7 @@ class ContractDocPenaltyPopup extends StatelessWidget {
                           child: Text(
                             r"$500",
                             textAlign: TextAlign.center,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.black,
-                            ),
+                            style: EmDashListviewDataText.customTextStyle(context)
                           ),
                         ),
                       ],
@@ -241,7 +188,7 @@ class ContractDocPenaltyPopup extends StatelessWidget {
               },
             ),)
         ],
-        bottomButtons: Container(), title: "Audit Penalty Amounts");
+        bottomButtons: Container(), title: EmDashboardStringManager.AuditpenaltyAmt);
   }
 }
 
@@ -258,7 +205,7 @@ class FullScreenPopup extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(AppPadding.p20),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -269,7 +216,7 @@ class FullScreenPopup extends StatelessWidget {
                 icon: Icon(Icons.close,))
             ],),
           ),
-        SizedBox(height: 200,),
+        SizedBox(height: AppSize.s200,),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -291,7 +238,7 @@ class FullScreenPopup extends StatelessWidget {
                     TextSpan(
                       text: "30 ",
                       style: TextStyle(
-                        fontSize: 36,
+                        fontSize: FontSize.s30,
                         fontWeight: FontWeight.w800,
                         color: ColorManager.bluebottom,
                       ),
@@ -300,13 +247,13 @@ class FullScreenPopup extends StatelessWidget {
                   ],
                 ),
               ),
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSize.s20),
                   Text(
                     "Your Auto-Renew is OFF\nYour subscription will NOT automatically renew",
-                    style: TextStyle(fontSize: 20, color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: FontSize.s20, color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: AppSize.s30),
                   ElevatedButton(
                     onPressed: () {
                       // Add your auto-renew logic here
@@ -315,23 +262,21 @@ class FullScreenPopup extends StatelessWidget {
                       backgroundColor: ColorManager.EMbrightred,
                       shadowColor: ColorManager.mediumgrey,
                       elevation: 6,
-                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p40, vertical: AppPadding.p15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12), // Adjust the radius for a more circular shape
                       ),
                     ),
                     child: Text(
                       "TURN AUTO-RENEW ON",
-                      style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 11),
+                      style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: FontSize.s12),
                     ),
                   ),
                   TextButton(
                     onPressed: () => Navigator.pop(context),
                     child: Text(
                       "go back",
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: ColorManager.blueprime),
+                      style: EmDashViewMoreText.customTextStyle(context),
                     ),
                   ),
                 ],

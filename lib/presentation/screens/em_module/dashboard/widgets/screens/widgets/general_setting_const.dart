@@ -90,10 +90,7 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                       ),
                       SizedBox(width: AppSize.s30,),
                       Text(EmDashboardStringManager.userRole,
-                        style: CustomTextStylesCommon.commonStyle(
-                            fontSize: FontSize.s16,
-                            color: ColorManager.mediumgrey,
-                            fontWeight: FontWeight.w400),),
+                        style: EmDashText.customTextStyle(context),),
                     ],
                   ),
 

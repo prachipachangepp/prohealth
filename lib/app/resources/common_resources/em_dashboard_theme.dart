@@ -84,7 +84,31 @@ class EmDashListviewDataText{
     return TextStyle(
         fontSize: FontSize.s12,
         color:ColorManager.black,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w500,
         decoration: TextDecoration.none);
+  }
+}
+
+///view more text
+class EmDashViewMoreText{
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s12,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.bluebottom,
+      decoration: TextDecoration.underline,
+    );
+  }
+}
+
+///remote staff
+class EmDashstaffText{
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s16,
+      fontWeight: FontWeight.w600,
+      color: ColorManager.black,
+      decoration: TextDecoration.none,
+    );
   }
 }

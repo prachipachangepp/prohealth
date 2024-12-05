@@ -13,7 +13,6 @@ class ChartData {
 }
 
 ///line graph doc auditing
-
 class ChartDataLine {
   ChartDataLine(this.x, this.y);
   final int x;

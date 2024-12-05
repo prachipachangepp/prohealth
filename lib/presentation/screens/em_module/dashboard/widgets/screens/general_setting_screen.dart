@@ -164,7 +164,7 @@ class GeneralSettingScreen extends StatelessWidget {
                             children:[
                               Container(
                               //width: 450,
-                              height: 450,
+                              height: AppSize.s450,
                               child: PieChart(
                                 PieChartData(
                                   sections: [
