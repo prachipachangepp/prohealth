@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../widgets/app_clickable_widget.dart';
 
@@ -87,7 +88,7 @@ class EMDashboardContainerConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? 300,
+      height: height ?? AppSize.s300,
       padding: EdgeInsets.all(AppPadding.p10),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -115,8 +116,8 @@ class EMDashboardContainerBBorderConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? 130,
-      padding: EdgeInsets.all(10),
+      height: height ?? AppSize.s130,
+      padding: EdgeInsets.all(AppPadding.p10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -146,8 +147,8 @@ class EMDashboardAllBlueSideContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? 110,
-      padding: EdgeInsets.all(10),
+      height: height ?? AppSize.s110,
+      padding: EdgeInsets.all(AppPadding.p10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -171,14 +172,14 @@ class BlueBorderContainerConst extends StatelessWidget {
         Row(
           children: [
             Column(children: [
-              SizedBox(height: 10,),
+              SizedBox(height: AppSize.s10,),
               ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: AppSize.s50,
+                  height: AppSize.s50,
                   color: ColorManager.bluebottom,
-                  child: Icon(imageTile,color: ColorManager.white,size: 24,)
+                  child: Icon(imageTile,color: ColorManager.white,size: IconSize.I24,)
                   // Image.asset(
                   //   imageTile, // Replace with your image path
                   //   fit: BoxFit.cover,
@@ -186,21 +187,20 @@ class BlueBorderContainerConst extends StatelessWidget {
                 ),
               )
             ],),
-            SizedBox(width: 25,),
+            SizedBox(width: AppSize.s25,),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(subText,
-                  style: CustomTextStylesCommon.commonStyle(fontSize: 30,
+                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s28,
                       color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(headText,
-                    style: CustomTextStylesCommon.commonStyle(fontSize: 16,
-                        color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),),
+                    style: EmDashText.customTextStyle(context),),
                 ],
               ),
 

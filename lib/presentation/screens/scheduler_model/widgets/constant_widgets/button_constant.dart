@@ -5,7 +5,7 @@
 // import '../../../../../app/resources/font_manager.dart';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -28,17 +28,8 @@ class SchedularIconButtonConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? MediaQuery.of(context).size.width / 15, //11
-      decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x40000000),
-            offset: Offset(0, 2),
-            blurRadius: 4,
-          ),
-        ],
-        borderRadius: BorderRadius.circular(12),
-      ),
+
+
       child: ElevatedButton.icon(
         onPressed: onPressed,
         icon: icon != null
@@ -46,9 +37,9 @@ class SchedularIconButtonConst extends StatelessWidget {
             : SizedBox.shrink(),
         label: Text(
           text!,
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: AppSize.s12,
-            fontWeight: FontWeightManager.bold,
+            fontWeight: FontWeight.w500,
             color: ColorManager.white,
           ),
         ),

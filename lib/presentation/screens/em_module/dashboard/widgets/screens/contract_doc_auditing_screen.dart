@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/em_dashboard_const.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/const_linear_widget.dart';
@@ -9,7 +10,7 @@ import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/scree
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/contract_doc_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/data_file.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../hr_module/dashboard/widgets/hr_dashboard_const.dart';
@@ -24,10 +25,10 @@ class ContractDocAuditingScreen extends StatefulWidget {
 class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
   int? _hoverIndex;
   final List<Map<String, dynamic>> _data = [
-    {'label': 'A', 'value': 40, 'color': Colors.blue},
-    {'label': 'B', 'value': 30, 'color': Colors.orange},
-    {'label': 'C', 'value': 20, 'color': Colors.green},
-    {'label': 'D', 'value': 10, 'color': Colors.red},
+    {'label': '3-5 hrs\n', 'value': 25, 'color': ColorManager.blueprime.withOpacity(0.5)},
+    {'label': 'Less than\n1 hrs\n', 'value': 20, 'color': ColorManager.EMFYellow},
+    {'label': '1-3 hrs\n', 'value': 35, 'color': ColorManager.pieChartGreen},
+    {'label': 'More\nthan\n5 hrs\n', 'value': 15, 'color': ColorManager.pieChartBlue},
   ];
 
   ///line graph
@@ -48,12 +49,12 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
   ];
 
   List<ChartedDataLine> chartedDataline = [
-    ChartedDataLine(10000, 200000),
-    ChartedDataLine(11000, 400000),
+    ChartedDataLine(10000, 100000),
+    ChartedDataLine(11000, 200000),
     ChartedDataLine(12000, 700000),
-    ChartedDataLine(13000, 300000),
+    ChartedDataLine(13000, 150000),
     ChartedDataLine(14000, 500000),
-    ChartedDataLine(14000, 200000),
+    ChartedDataLine(15000, 200000),
   ];
   List<ChartedDataLine> chartedDatalineNew = [
     ChartedDataLine(10000, 100000),
@@ -61,7 +62,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
     ChartedDataLine(12000, 200000),
     ChartedDataLine(13000, 150000),
     ChartedDataLine(14000, 100000),
-    ChartedDataLine(14000, 50000),
+    ChartedDataLine(15000, 50000),
   ];
 
   String selectedValue = "Daily";
@@ -84,7 +85,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
-                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: 'Total Number Of Active\nContracts', totalCount: '12', totalValue: 12,icon: Icons.save_as_outlined,),)),
+                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.activeContract, totalCount: '12', totalValue: 12,icon: Icons.save_as_outlined,),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
@@ -92,11 +93,11 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         onTap: (){
                           showDialog(context: context, builder: (context) => ContractDocAuditPopup());
                         },
-                        child: LinearCardWidget(headingText: 'Number Of Random\nAufits Passed', totalCount: '20', totalValue: 20,icon: Icons.arrow_circle_right_outlined,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.randomaudits, totalCount: '20', totalValue: 20,icon: Icons.arrow_circle_right_outlined,)),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
-                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: 'Number of Non-Compliant\nOffices', totalCount: '02', totalValue: 2,icon: CupertinoIcons.building_2_fill,),)),
+                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.nonCompliant, totalCount: '02', totalValue: 2,icon: CupertinoIcons.building_2_fill,),)),
               ],),
             SizedBox(height: AppSize.s15,),
             ///2nd row
@@ -104,29 +105,40 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
               children: [
                 Expanded(
                     flex: 4,
-                    child: EMDashboardAllBlueSideContainer(child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children:[
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 30,
-                                      backgroundColor: ColorManager.blueBorder,
-                                      child: Icon(Icons.file_copy_outlined,color: ColorManager.white,),
-                                    ),
-                                    SizedBox(width: 20,),
-                                    Text("Contracts Expring Soon",style: TextStyle(fontSize: 14,fontWeight:FontWeight.w600,color: ColorManager.mediumgrey,),),
-                                  ],
-                                ),
-                                Text("Next 30 Days",style: TextStyle(fontSize: 12,color: ColorManager.red),),
-                              ]
-                          ),
-                        )
-                    ),)),
+                    child: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => FullScreenPopup(),
+                        );
+                      },
+                      child: EMDashboardAllBlueSideContainer(child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children:[
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: ColorManager.blueBorder,
+                                    child: Icon(Icons.file_copy_outlined,color: ColorManager.white,),
+                                  ),
+                                  SizedBox(width: AppSize.s20,),
+                                  Text(EmDashboardStringManager.contractexpiresoon,style: EmDashText.customTextStyle(context),),
+                                ],
+                              ),
+                              Text("Next 30 Days",style: CustomTextStylesCommon.commonStyle(
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.EMbrightred,
+                                  fontWeight: FontWeight.w600),),
+                            ]
+                        ),
+                      ),),
+                    )),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
@@ -134,11 +146,11 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         onTap: (){
                           showDialog(context: context, builder: (context) => ContractDocPenaltyPopup());
                         },
-                        child: LinearCardWidget(headingText: 'Audit Penalty Amounts', totalCount: '\$1000', totalValue: 80,icon: Icons.dangerous_outlined,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.AuditPenaltyAmt, totalCount: '\$1000', totalValue: 80,icon: Icons.dangerous_outlined,)),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
-                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: 'Compliance Incident\nReporting Rate', totalCount: '04', totalValue: 30,icon: Icons.lock_person_outlined,),)),
+                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.complianceIncidentRR, totalCount: '04', totalValue: 30,icon: Icons.lock_person_outlined,),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
@@ -146,71 +158,128 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         onTap: (){
                           showDialog(context: context, builder: (context) => ContractDocAuditPopup());
                         },
-                        child: LinearCardWidget(headingText: 'Number Of Government\nAudits Passed', totalCount: '20', totalValue: 20,icon: Icons.arrow_circle_right_outlined,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.govmtAuditPass, totalCount: '20', totalValue: 20,icon: Icons.arrow_circle_right_outlined,)),)),
               ],),
             SizedBox(height: AppSize.s15,),
             ///3rd row
             Row(children: [
               Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: EMDashboardContainerConst(child:
-                    MouseRegion(
-                      onHover: (event) {
-                        // Hover logic will need to be computed based on the position of the mouse.
-                        // For now, this will simulate hover functionality.
-                      },
-                      onExit: (_) {
-                        setState(() {
-                          _hoverIndex =
-                          null; // Reset hover index when the pointer leaves.
-                        });
-                      },
-                      child: SizedBox(
-                        height: 300,
-                        child: PieChart(
-                          PieChartData(
-                            sections: _data.asMap().entries.map((entry) {
-                              int index = entry.key;
-                              var item = entry.value;
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(EmDashboardStringManager.avgtimecompleteInternalAudit,
+                        style: EmDashContainerHeadTextStyle.customTextStyle(context)),
+                        MouseRegion(
+                          onHover: (event) {
+                            // Hover logic handled by pieTouchData
+                          },
+                          onExit: (_) {
+                            setState(() {
+                              _hoverIndex = null; // Reset hover index when the pointer leaves
+                            });
+                          },
+                          child: SizedBox(
+                            height: AppSize.s200,
+                            child: PieChart(
+                              PieChartData(
+                                sections: _data.asMap().entries.map((entry) {
+                                  int index = entry.key;
+                                  var item = entry.value;
 
-                              bool isHovered = _hoverIndex == index;
+                                  bool isHovered = _hoverIndex == index;
 
-                              return PieChartSectionData(
-                                color: item['color'],
-                                value: item['value'].toDouble(),
-                                title: isHovered
-                                    ? '${item['label']} (${(item['value'] / total * 100).toStringAsFixed(1)}%)'
-                                    : '',
-                                radius: isHovered ? 80 : 70,
-                                titleStyle: TextStyle(
-                                  fontSize: isHovered ? 16 : 0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  return PieChartSectionData(
+                                    color: item['color'],
+                                    value: item['value'].toDouble(),
+                                    // Always show the label; append percentage when hovered
+                                    title: isHovered
+                                        ? '${item['label']} (${(item['value'] / total * 100).toStringAsFixed(1)}%)'
+                                        : item['label'],
+                                    radius: isHovered ? 60 : 50,
+                                    titleStyle: TextStyle(
+                                      fontSize: isHovered ? 12 : 10, // Slightly larger when hovered
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.mediumgrey,
+                                    ),
+                                  );
+                                }).toList(),
+                                pieTouchData: PieTouchData(
+                                  touchCallback: (event, pieTouchResponse) {
+                                    setState(() {
+                                      _hoverIndex = pieTouchResponse?.touchedSection?.touchedSectionIndex;
+                                    });
+                                  },
                                 ),
-                              );
-                            }).toList(),
-                            pieTouchData: PieTouchData(
-                              touchCallback: (event, pieTouchResponse) {
-                                if (pieTouchResponse?.touchedSection != null) {
-                                  setState(() {
-                                    _hoverIndex = pieTouchResponse!
-                                        .touchedSection!.touchedSectionIndex;
-                                  });
-                                }
-                              },
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        // MouseRegion(
+                        //   onHover: (event) {
+                        //     // Hover logic will need to be computed based on the position of the mouse.
+                        //     // For now, this will simulate hover functionality.
+                        //   },
+                        //   onExit: (_) {
+                        //     setState(() {
+                        //       _hoverIndex =
+                        //       null; // Reset hover index when the pointer leaves.
+                        //     });
+                        //   },
+                        //   child: SizedBox(
+                        //     height: 200,
+                        //     child: PieChart(
+                        //       PieChartData(
+                        //         sections: _data.asMap().entries.map((entry) {
+                        //           int index = entry.key;
+                        //           var item = entry.value;
+                        //
+                        //           bool isHovered = _hoverIndex == index;
+                        //
+                        //           return PieChartSectionData(
+                        //             color: item['color'],
+                        //             value: item['value'].toDouble(),
+                        //             title: isHovered
+                        //                 ? '${item['label']} (${(item['value'] / total * 100).toStringAsFixed(1)}%)'
+                        //                 : '',
+                        //             radius: isHovered ? 60 : 50,
+                        //             titleStyle: TextStyle(
+                        //               fontSize: isHovered ? 10 : 0,
+                        //               fontWeight: FontWeight.w600,
+                        //               color: ColorManager.mediumgrey,
+                        //             ),
+                        //           );
+                        //         }).toList(),
+                        //         pieTouchData: PieTouchData(
+                        //           touchCallback: (event, pieTouchResponse) {
+                        //             if (pieTouchResponse?.touchedSection != null) {
+                        //               setState(() {
+                        //                 _hoverIndex = pieTouchResponse!
+                        //                     .touchedSection!.touchedSectionIndex;
+                        //               });
+                        //             }
+                        //           },
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        Text("14:30:00 pm",
+                          style: CustomTextStylesCommon.commonStyle(
+                              fontSize: FontSize.s18,
+                              color: ColorManager.blueprime,
+                              fontWeight: FontWeight.w700),),
+                      ],
                     ),
                   )),
               SizedBox(width: AppSize.s15,),
               Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: EMDashboardContainerConst(child: AuditPrepTimeOffice())),
               SizedBox(width: AppSize.s15,),
               Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: EMDashboardContainerConst(child: AvgComRatingOffice())),
             ],),
             SizedBox(height: AppSize.s15,),
@@ -223,16 +292,12 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        "Compliance Audit Frequency per Location",
-                        style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.mediumgrey,
-                          fontSize: FontSize.s16,
-                          fontWeight: FontWeight.w700,
-                        ),
+                       EmDashboardStringManager.complianceAuditFreqLocation,
+                        style: EmDashContainerHeadTextStyle.customTextStyle(context)
                       ),
                       Container(
-                        height: 200,
-                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        height: AppSize.s240,
+                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                         child: SfCartesianChart(
                           primaryXAxis: NumericAxis(
                             title: AxisTitle(text: ""),
@@ -242,7 +307,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                             axisLabelFormatter: (AxisLabelRenderDetails details) {
                               return ChartAxisLabel(
                                 '${details.value.toInt()}',
-                                TextStyle(fontSize: 12),
+                                TextStyle(fontSize: FontSize.s12),
                               );
                             },
                             majorGridLines: MajorGridLines(width: 0.5),
@@ -280,16 +345,12 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                       child: Column(
                         children: [
                         Text(
-                        "Percentage Of Offices With 100%\nCompliance score",
+                        EmDashboardStringManager.perOfficeComplianceScore,
                         textAlign: TextAlign.center,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontSize: FontSize.s16,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                        ),),
+                        style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                           Container(
-                            height: 200,
-                            width: 180,
+                            height: AppSize.s200,
+                            width: AppSize.s181,
                             alignment: Alignment.center,
                             child: Stack(
                               alignment: Alignment.center,
@@ -331,8 +392,8 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                                   ),
                                 ),
                                 Container(
-                                  height: 60,
-                                  width: 60,
+                                  height: AppSize.s60,
+                                  width: AppSize.s60,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
@@ -358,33 +419,29 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
               Expanded(
                   flex: 4,
                   child: EMDashboardContainerConst(
-                    height: 500,
+                    height: AppSize.s500,
                     child: OfficeExpiringComDoc(),)),
               SizedBox(width: AppSize.s15,),
               Expanded(
                 flex: 3,
                 child: Column(children: [
                   EMDashboardContainerConst(
-                      height: 240,
+                      height: AppSize.s240,
                       child: UpcomingCpmDeadlines()),
                   SizedBox(height: AppPadding.p20,),
                   EMDashboardContainerConst(
-                    height: 240,
+                    height: AppSize.s240,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          "Compliance Document Update Frequency",
-                          style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s16,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          EmDashboardStringManager.comDocUpdtFreq,
+                          style: EmDashContainerHeadTextStyle.customTextStyle(context)
                         ),
                         Container(
-                          height: 190,
-                          padding: EdgeInsets.symmetric(horizontal: 100),
+                          height: AppSize.s190,
+                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p100),
                           child: SfCartesianChart(
                             primaryXAxis: NumericAxis(
                               title: AxisTitle(text: ""),
@@ -394,7 +451,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                               axisLabelFormatter: (AxisLabelRenderDetails details) {
                                 return ChartAxisLabel(
                                   '${details.value.toInt()}',
-                                  TextStyle(fontSize: 12),
+                                  TextStyle(fontSize: FontSize.s12),
                                 );
                               },
                               majorGridLines: MajorGridLines(width: 0.5),
@@ -438,15 +495,15 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 30),
+                      padding: const EdgeInsets.only(right: AppPadding.p30),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                         Container(
-                          width: 125,
-                          height: 20,
-                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          width: AppSize.s125,
+                          height: AppSize.s20,
+                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
                           decoration: BoxDecoration(
                             border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
                             borderRadius: BorderRadius.circular(6),
@@ -465,7 +522,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                                     isExpanded: true,
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 10),
+                                        fontSize: FontSize.s10),
                                     items: items.map((
                                         String value) {
                                       return DropdownMenuItem<
@@ -489,32 +546,29 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                     ),
                     SizedBox(height: 10,),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0,right: 30),
+                      padding: const EdgeInsets.only(left: AppPadding.p8,right: AppPadding.p30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Contracts Price Increase Percentage Since Previous",
-                            style:  CustomTextStylesCommon.commonStyle(
-                                color: ColorManager.mediumgrey,
-                                fontSize: FontSize.s16,
-                                fontWeight: FontWeight.w700),),
+                          Text(EmDashboardStringManager.conPriceIncPer,
+                            style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                           Row(children: [
                             TextCircleConst(text: 'Latest', circleColor: ColorManager.EMDCyan,textColor: ColorManager.blackForLoginTexts,),
-                            SizedBox(width:5),
+                            SizedBox(width:AppSize.s5),
                             TextCircleConst(text: 'Previous', circleColor: ColorManager.EMCyan, textColor: ColorManager.blackForLoginTexts,),
                           ],),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: AppSize.s10,),
                     Container(
-                  height: 210,
+                  height: AppSize.s210,
                   child: SfCartesianChart(
                       primaryYAxis: NumericAxis(
                         axisLabelFormatter: (AxisLabelRenderDetails details) {
                           // Format the y-axis label to append '%'
-                          return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: 12));
+                          return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: FontSize.s12));
                         },
                       ),
                       series: <CartesianSeries>[

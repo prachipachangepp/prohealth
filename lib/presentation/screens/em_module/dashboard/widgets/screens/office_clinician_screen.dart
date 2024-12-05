@@ -1,6 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/const_linear_widget.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/data_file.dart';
@@ -8,8 +10,7 @@ import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/scree
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../../../../../app/resources/color.dart';
-import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../em_dashboard_const.dart';
 
 class OfficeClinicianScreen extends StatefulWidget {
@@ -49,7 +50,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             toY: 90,
             width: 30,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
-            color: Colors.greenAccent,
+            color: ColorManager.pieChartGreen,
             backDrawRodData: BackgroundBarChartRodData(
               show: true,
               toY: 100,
@@ -66,7 +67,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             toY: 80,
             width: 30,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
-            color: Colors.blueAccent,
+            color: ColorManager.pieChartBlue,
             backDrawRodData: BackgroundBarChartRodData(
               show: true,
               toY: 100,
@@ -83,7 +84,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             toY: 100,
             width: 30,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
-            color: Colors.orangeAccent,
+            color: Color(0xFFFEBD4D),
             backDrawRodData: BackgroundBarChartRodData(
               show: true,
               toY: 100,
@@ -100,7 +101,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             toY: 75,
             width: 30,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
-            color: Colors.purpleAccent,
+            color: Color(0xFFC77AC4),
             backDrawRodData: BackgroundBarChartRodData(
               show: true,
               toY: 100,
@@ -137,17 +138,17 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                       onTap: (){
                         showDialog(context: context, builder: (context) => OfficeClinicianPopup());
                       },
-                      child: LinearCardWidget(headingText: 'Office Customer\nSatisfaction rating', totalCount: '04', totalValue: 04,icon: CupertinoIcons.bag_badge_plus,)),)),
+                      child: LinearCardWidget(headingText: EmDashboardStringManager.customerSatisfaction, totalCount: '04', totalValue: 04,icon: CupertinoIcons.bag_badge_plus,)),)),
             SizedBox(width: AppSize.s15,),
             Expanded(
                 flex: 2,
                 child: EMDashboardContainerBBorderConst(
-                  child: LinearCardWidget(headingText: 'Continuing Education\nCredits', totalCount: '30', totalValue: 30,icon: Icons.cast_for_education,),)),
+                  child: LinearCardWidget(headingText: EmDashboardStringManager.continueEduCredit, totalCount: '30', totalValue: 30,icon: Icons.cast_for_education,),)),
             SizedBox(width: AppSize.s15,),
             Expanded(
                 flex: 2,
                 child: EMDashboardContainerBBorderConst(
-                  child: LinearCardWidget(headingText: 'Clinician Time Off', totalCount: '07:00:00 pm', totalValue: 100,icon: CupertinoIcons.clock_fill,),)),
+                  child: LinearCardWidget(headingText: EmDashboardStringManager.clinicianTimeOff, totalCount: '07:00:00 pm', totalValue: 100,icon: CupertinoIcons.clock_fill,),)),
           ],),
         SizedBox(height: AppSize.s15,),
         ///2nd row
@@ -161,14 +162,11 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Clinicians to Patient ratio by Service type',
-                        style: CustomTextStylesCommon.commonStyle(
-                            fontSize: 14,
-                            color: ColorManager.mediumgrey,
-                            fontWeight: FontWeight.w700),
+                        EmDashboardStringManager.clinicianPatientRatio,
+                        style: EmDashContainerHeadTextStyle.customTextStyle(context),
                       ),
                       Container(
-                        height: 200,
+                        height: AppSize.s200,
                         child: SfCartesianChart(
                           backgroundColor: ColorManager.white,
                           primaryXAxis: CategoryAxis(),
@@ -200,7 +198,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
           Expanded(
               flex: 6,
               child: EMDashboardContainerBBorderConst(
-                height: 300,
+                height:AppSize.s300,
                   child: Column(
                     children: [
                      AverageClinicianListview()
@@ -216,20 +214,17 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p40),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Number of clinician working overtime",
-                           style:  CustomTextStylesCommon.commonStyle(
-                                color: ColorManager.mediumgrey,
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w700),),
+                          Text(EmDashboardStringManager.clinicianOvertime,
+                           style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                           Container(
-                            width: 125,
-                            height: 20,
-                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            width:AppSize.s125,
+                            height: AppSize.s20,
+                            padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
                             decoration: BoxDecoration(
                               border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
                               borderRadius: BorderRadius.circular(6),
@@ -272,7 +267,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                       ),
                     ),
                     Container(
-                    height: 210,
+                    height: AppSize.s210,
                     child: SfCartesianChart(
                         primaryYAxis: NumericAxis(
                           axisLabelFormatter: (AxisLabelRenderDetails details) {
@@ -305,7 +300,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
           Expanded(
               flex: 4,
               child: Container(
-                height: 300,
+                height: AppSize.s300,
                 decoration: BoxDecoration(
                   color: Color(0xFFE7F6F8),
                   borderRadius: BorderRadius.circular(14),
@@ -323,14 +318,11 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('Average Clinician Score',
-                  style:  CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.mediumgrey,
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeight.w700),),
+                  Text(EmDashboardStringManager.avgclinScore,
+                  style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                   Container(
-                    height: 200,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    height: AppSize.s200,
+                    padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
                     child: BarChart(
                       BarChartData(
                         baselineY:2 ,
@@ -376,24 +368,21 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: Text("Average Office Clinician\nto patient ratio",
-                    style:  CustomTextStylesCommon.commonStyle(
-                        color: ColorManager.mediumgrey,
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeight.w700),),
+                    padding: const EdgeInsets.only(left: AppPadding.p15),
+                    child: Text(EmDashboardStringManager.avgOfficeclinratio,
+                    style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                   ),
                   Center(
                     child: Container(
-                      height: 200,
-                      padding: EdgeInsets.only(left: 15),
+                      height: AppSize.s200,
+                      padding: EdgeInsets.only(left: AppPadding.p15),
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
                           // Outer Circle
                           SizedBox(
-                            width: 160,
-                            height: 160,
+                            width: AppSize.s160,
+                            height: AppSize.s160,
                             child: PieChart(
                               PieChartData(
                                 sections: [
@@ -418,8 +407,8 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                           ),
                           // Inner Circle
                           SizedBox(
-                            width: 100,
-                            height: 100,
+                            width: AppSize.s100,
+                            height: AppSize.s100,
                             child: PieChart(
                               PieChartData(
                                 sections: [
@@ -450,46 +439,36 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        width: 10.0,
-                        height: 15.0,
+                        width: AppSize.s10,
+                        height: AppSize.s15,
                         decoration: BoxDecoration(
                           color: ColorManager.pieChartGreen,
                           shape: BoxShape.circle,
                         ),
                       ),
-                      SizedBox(width: 10,),
-                      Text("Patients",style: CustomTextStylesCommon.commonStyle(
-                          color:  ColorManager.mediumgrey,
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w500),),
-                      SizedBox(width: 10,),
-                      Text("3225+",style: CustomTextStylesCommon.commonStyle(
-                          color:  ColorManager.mediumgrey,
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w500),)
+                      SizedBox(width: AppSize.s10,),
+                      Text("Patients",
+                        style: NumberTExtFieldLegalDoc.customTextStyle(context),),
+                      SizedBox(width: AppSize.s10,),
+                      Text("3225+",style: NumberTExtFieldLegalDoc.customTextStyle(context),)
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        width: 10.0,
-                        height: 15.0,
+                        width: AppSize.s10,
+                        height: AppSize.s15,
                         decoration: BoxDecoration(
                           color: ColorManager.pieChartfGrey,
                           shape: BoxShape.circle,
                         ),
                       ),
-                      SizedBox(width: 10,),
-                      Text("Clinicians",style: CustomTextStylesCommon.commonStyle(
-                          color:  ColorManager.mediumgrey,
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w500),),
-                      SizedBox(width: 10,),
-                      Text("309+",style: CustomTextStylesCommon.commonStyle(
-                          color:  ColorManager.mediumgrey,
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w500),)
+                      SizedBox(width: AppSize.s10,),
+                      Text("Clinicians",
+                        style: NumberTExtFieldLegalDoc.customTextStyle(context),),
+                      SizedBox(width: AppSize.s10,),
+                      Text("309+",style: NumberTExtFieldLegalDoc.customTextStyle(context),)
                     ],
                   ),
 
@@ -502,16 +481,13 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
               child: EMDashboardContainerConst(child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('Clinician Attendance Rate by office',
-                      style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.mediumgrey,
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeight.w700)),
+                  Text(EmDashboardStringManager.clinAttendanceRate,
+                      style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                   Row(
                     children: [
                       Container(
-                        height: 200,
-                        width: 200,
+                        height: AppSize.s200,
+                        width: AppSize.s200,
                       // color: Colors.red,
                         child: PieChart(
                           PieChartData(
@@ -580,13 +556,11 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('Office with Longest Average\nPatient Visit Duration',style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.mediumgrey,
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeight.w700)),
+                  Text(EmDashboardStringManager.longavgvisit,
+                      style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                   Container(
-                    height:190,
-                    width:250,
+                    height:AppSize.s190,
+                    width: AppSize.s250,
                    // color: Colors.pink,
                     child:SfRadialGauge(
                       axes: <RadialAxis>[

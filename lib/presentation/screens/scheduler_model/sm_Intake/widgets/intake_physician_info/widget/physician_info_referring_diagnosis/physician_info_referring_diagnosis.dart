@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -10,6 +11,8 @@ import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/referral_diagonsis_manager.dart';
 import '../../../../../../../../data/api_data/api_data.dart';
+import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../widgets/constant_widgets/button_constant.dart';
 
@@ -77,135 +80,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
       child: Column(
         children: [
           ///button save api done
-          Padding(
-            padding: const EdgeInsets.only(right: 40),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    try {
-                      ApiData response = await postRDoneScreen(
-                        context,
-                        widget.patientId,
-                        codestatusA.toString(),
-                        codestatusB.toString(),
-                        paidhelp.text,
-                        comments.text,
-                        DSummarycont.text,
-                      );
 
-                      for (var key in referenceFormKeys) {
-                        final st = key.currentState;
-                        await postRDTWOScreen(
-                          context,
-                          widget.patientId,
-                          response.rDignosisId!,
-                    //  " title",
-                       "Secondary Diagnosis", // titleController.text,
-                          st!.prdescription.text,
-                          st!.prcode.text,
-                          st!.prdate.text,
-                        );
-                      }
-
-                      for (var key in allergiesFormKeys) {
-                        final st = key.currentState;
-                        await postRDThreeScreen(
-                          context,
-                          widget.patientId,
-                          response.rDignosisId!,
-                          st!.allergiesController.text,
-                          st!.startEffectiveDate.text,
-                        );
-                      }
-
-                      // Optionally show a success message
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text('All API calls were successful!')),
-                      );
-                    } catch (error) {
-                      // Handle the error appropriately
-                      print('Error during API calls: $error');
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('An error occurred: $error')),
-                      );
-                    }
-                  },
-                  // onPressed: () async {
-                  //   await postRDoneScreen(
-                  //       context,
-                  //       1,
-                  //       codestatusA.toString(),
-                  //       codestatusB.toString(),
-                  //       paidhelp.text,
-                  //       comments.text,
-                  //       DSummarycont.text);
-                  //final List<Map<String, dynamic>> dataForPostRDTWOScreen = [
-                  //                       {
-                  //                         'param1': 1,
-                  //                     'param2': 1,
-                  //                     'param3': 'Primary Diagnosis',
-                  //                     'param4': descriptionController.text,
-                  //                     'param5': icdCodeController.text,
-                  //                     'param6': pdDateController.text,
-                  //                   },
-                  //                     ];
-                  //                       for (var data in dataForPostRDTWOScreen) {
-                  //                         await postRDTWOScreen(
-                  //                           context,
-                  //                           data['param1'],
-                  //                           data['param2'],
-                  //                           data['param3'],
-                  //                           data['param4'],
-                  //                           data['param5'],
-                  //                           data['param6'],
-                  //                         );
-                  //                       }
-                  //   await postRDTWOScreen(
-                  //       context,
-                  //       1,
-                  //       1,
-                  //       "Primary Diagnosis", // titleController.text,
-                  //       descriptionController.text,
-                  //       icdCodeController.text,
-                  //       pdDateController.text);
-                  //
-                  //
-                  //   await postRDThreeScreen(
-                  //     context,
-                  //     1,
-                  //     3,
-                  //     allergiesController.text,
-                  //     startEffectiveDate.text
-                  //   );
-                  //
-                  //
-                  // },
-                  child: Text(
-                    AppString.save,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.white,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 25,
-                      vertical: 10,
-                    ),
-                    backgroundColor: ColorManager.blueprime,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           SizedBox(height: MediaQuery.of(context).size.height / 60),
 
           Padding(
@@ -220,8 +95,17 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
               child: Padding(
                 padding: EdgeInsets.only(left: 39.0, right: 40, top: 35.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     ///Diagnosis Summary textfield
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Text(
+                        'Diagnosis Summary',
+                        style: AllPopupHeadings.customTextStyle(context),
+                      ),
+                    ),
                     Container(
                       height: AppSize.s88,
                       child: TextFormField(
@@ -229,11 +113,8 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                         maxLines: 3,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
-                          labelText: 'Diagnosis Summary',
-                          labelStyle: GoogleFonts.firaSans(
-                              fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.regular,
-                              color: ColorManager.greylight),
+                          //labelText: 'Diagnosis Summary',
+                          labelStyle: DocumentTypeDataStyle.customTextStyle(context),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide: BorderSide(
@@ -277,8 +158,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 80.0),
                                   child: Text(
                                     'Title',
-                                    style: TableHeading.customTextStyle(
-                                        context),
+                                    style: TableHeading.customTextStyle(context),
                                   ),
                                 ),
                               ),
@@ -288,8 +168,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 5.0),
                                   child: Text(
                                     'Description',
-                                    style: TableHeading.customTextStyle(
-                                        context),
+                                    style: TableHeading.customTextStyle(context),
                                   ),
                                 ),
                               ),
@@ -297,8 +176,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                 flex: 3,
                                 child: Text(
                                   'ICD Code',
-                                  style: TableHeading.customTextStyle(
-                                      context),
+                                  style: TableHeading.customTextStyle(context),
                                 ),
                               ),
                               Expanded(
@@ -307,8 +185,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 25.0),
                                   child: Text(
                                     AppString.date,
-                                    style: TableHeading.customTextStyle(
-                                        context),
+                                    style: TableHeading.customTextStyle(context),
                                   ),
                                 ),
                               ),
@@ -332,10 +209,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                       child: Text(
 
                                         '  Primary Diagnosis   ',
-                                        style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s10,
-                                            fontWeight:
-                                                FontWeightManager.regular),
+                                        style: DocumentTypeDataStyle.customTextStyle(context),
                                       ),
                                     ),
                                   ],
@@ -354,7 +228,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                               7,
                                           child: SchedularTextField(
                                             controller: descriptionController,
-                                            labelText: 'pr 1',
+                                            labelText: '',
                                           ),
                                         ),
                                         SizedBox(
@@ -369,7 +243,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                                 7,
                                             child: SchedularTextField(
                                               controller: icdCodeController,
-                                              labelText: 'pr 2',
+                                              labelText: '',
                                             )),
                                         SizedBox(
                                             width: MediaQuery.of(context)
@@ -384,11 +258,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                           child: SchedularTextField(
                                               controller: pdDateController,
                                               labelText: '',
-                                              suffixIcon: Icon(
-                                                Icons.calendar_month_outlined,
-                                                color: ColorManager.blueprime,
-                                                size: 18,
-                                              )),
+                                              showDatePicker:true),
                                         ),
                                       ],
                                     ),
@@ -466,11 +336,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               Expanded(
                                 flex: 9,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 274.0),
+                                  padding: const EdgeInsets.only(left: 300.0),
                                   child: Text(
                                     'Allergies',
-                                    style: TableHeading.customTextStyle(
-                                        context),
+                                    style: TableHeading.customTextStyle(context),
                                   ),
                                 ),
                               ),
@@ -480,8 +349,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   padding: const EdgeInsets.only(left: 5.0),
                                   child: Text(
                                     'Start Effective Date',
-                                    style: TableHeading.customTextStyle(
-                                        context),
+                                    style: TableHeading.customTextStyle(context),
                                   ),
                                 ),
                               ),
@@ -642,115 +510,137 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                     ///code status
                     Row(
                       children: [
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Code Status',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.greylight),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: AppPadding.p80),
-                              child: Row(
+                        Padding(
+                          padding: const EdgeInsets.only(left: 50),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
-                                  Radio<String>(
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      'Code Status',
+                                      style: AllPopupHeadings.customTextStyle(context),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  CustomRadioListTile(
+                                    title:'Male',
                                     value: 'Male',
                                     groupValue: codestatusA,
-                                    onChanged: (value) =>
-                                        setState(() => codestatusA = value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        codestatusA = value;
+                                      });
+                                    },
                                   ),
-                                  Text(AppString.male,
-                                      style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeightManager.regular,
-                                          color: ColorManager.greylight)),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          45),
-                                  Radio<String>(
+                                  CustomRadioListTile(
+                                    title:'Female',
                                     value: 'Female',
                                     groupValue: codestatusA,
-                                    onChanged: (value) =>
-                                        setState(() => codestatusA = value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        codestatusA = value;
+                                      });
+                                    },
                                   ),
-                                  Text(AppString.female,
-                                      style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeightManager.regular,
-                                          color: ColorManager.greylight)),
+
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width / 80),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Code Status',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.regular),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: AppPadding.p180),
-                              child: Row(
+                        SizedBox(width: MediaQuery.of(context).size.width / 50),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 100),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
-                                  Radio<String>(
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      'Code Status',
+                                      style: AllPopupHeadings.customTextStyle(context),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  CustomRadioListTile(
+                                    title:'Alone',
                                     value: 'Alone',
                                     groupValue: codestatusB,
-                                    onChanged: (value) =>
-                                        setState(() => codestatusB = value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        codestatusB = value;
+                                      });
+                                    },
                                   ),
-                                  Text('Alone',
-                                      style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeightManager.regular,
-                                          color: ColorManager.greylight)),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          45),
-                                  Radio<String>(
+                                  CustomRadioListTile(
+                                    title:'Spouse',
                                     value: 'Spouse',
                                     groupValue: codestatusB,
-                                    onChanged: (value) =>
-                                        setState(() => codestatusB = value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        codestatusB = value;
+                                      });
+                                    },
                                   ),
-                                  Text('Spouse',
-                                      style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeightManager.regular,
-                                          color: ColorManager.greylight)),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          45),
-                                  Radio<String>(
+                                  CustomRadioListTile(
+                                    title:'Other',
                                     value: 'Other',
                                     groupValue: codestatusB,
-                                    onChanged: (value) =>
-                                        setState(() => codestatusB = value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        codestatusB = value;
+                                      });
+                                    },
                                   ),
-                                  Text(AppString.other,
-                                      style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeightManager.regular,
-                                          color: ColorManager.greylight)),
+
+                                  // Radio<String>(
+                                  //   value: 'Alone',
+                                  //   groupValue: codestatusB,
+                                  //   onChanged: (value) =>
+                                  //       setState(() => codestatusB = value),
+                                  // ),
+                                  // Text('Alone',
+                                  //     style:DocumentTypeDataStyle.customTextStyle(context),),
+                                  // SizedBox(
+                                  //     width: MediaQuery.of(context).size.width /
+                                  //         45),
+                                  // Radio<String>(
+                                  //   value: 'Spouse',
+                                  //   groupValue: codestatusB,
+                                  //   onChanged: (value) =>
+                                  //       setState(() => codestatusB = value),
+                                  // ),
+                                  // Text('Spouse',
+                                  //     style:DocumentTypeDataStyle.customTextStyle(context),),
+                                  // SizedBox(
+                                  //     width: MediaQuery.of(context).size.width /
+                                  //         45),
+                                  // Radio<String>(
+                                  //   value: 'Other',
+                                  //   groupValue: codestatusB,
+                                  //   onChanged: (value) =>
+                                  //       setState(() => codestatusB = value),
+                                  //   splashRadius: 0,
+                                  //   focusColor: Colors.transparent,
+                                  //   hoverColor: Colors.transparent,
+                                  // ),
+                                  // Text(AppString.other,
+                                  //     style: DocumentTypeDataStyle.customTextStyle(context),),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Spacer(),
                         Padding(
@@ -779,54 +669,203 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 40),
                         ////////
-                        Container(
-                          height: AppSize.s54,
-                          width: MediaQuery.of(context).size.width / 1.4,
-                          child: TextFormField(
-                            controller: comments,
-                            cursorColor: ColorManager.black,
-                            decoration: InputDecoration(
-                              labelText: AppString.comment,
-                              labelStyle: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s10,
-                                  fontWeight: FontWeightManager.regular,
-                                  color: ColorManager.greylight),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1.0,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1.0,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1.0,
-                                ),
+                        Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 5),
+                              child: Text(
+    AppString.comment,
+                                style: AllPopupHeadings.customTextStyle(context),
                               ),
                             ),
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeightManager.regular,
-                              color: ColorManager.black,
+                            Container(
+                              height: AppSize.s54,
+                              width: MediaQuery.of(context).size.width / 1.4,
+                              child: TextFormField(
+                                controller: comments,
+                                cursorColor: ColorManager.black,
+                                decoration: InputDecoration(
+                                  // labelText: AppString.comment,
+                                  // labelStyle: DocumentTypeDataStyle.customTextStyle(context)
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                ),
+                                style: DocumentTypeDataStyle.customTextStyle(context)
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(height:AppSize.s15),
                   ],
                 ),
               ),
             ),
           ),
+          SizedBox(height:AppSize.s35),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              Container(
+                //color: Colors.white,
+                width: 117,
+                height: 30,
+                child: ElevatedButton(
+                  onPressed: (){
+                    // widget.onBack();
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(
+                        color: ColorManager.bluebottom,
+                        width: 1,
+                      ),
+                    ),),
+                  child: Text('Cancel',
+                    style: TransparentButtonTextConst.customTextStyle(context),
+                  ),),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+
+              CustomButton(
+                width: 117,
+                height: 30,
+                onPressed: () async {
+                  try {
+                    ApiData response = await postRDoneScreen(
+                      context,
+                      widget.patientId,
+                      codestatusA.toString(),
+                      codestatusB.toString(),
+                      paidhelp.text,
+                      comments.text,
+                      DSummarycont.text,
+                    );
+
+                    for (var key in referenceFormKeys) {
+                      final st = key.currentState;
+                      await postRDTWOScreen(
+                        context,
+                        widget.patientId,
+                        response.rDignosisId!,
+                        //  " title",
+                        "Secondary Diagnosis", // titleController.text,
+                        st!.prdescription.text,
+                        st!.prcode.text,
+                        st!.prdate.text,
+                      );
+                    }
+
+                    for (var key in allergiesFormKeys) {
+                      final st = key.currentState;
+                      await postRDThreeScreen(
+                        context,
+                        widget.patientId,
+                        response.rDignosisId!,
+                        st!.allergiesController.text,
+                        st!.startEffectiveDate.text,
+                      );
+                    }
+
+                    // Optionally show a success message
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text('All API calls were successful!')),
+                    );
+                  } catch (error) {
+                    // Handle the error appropriately
+                    print('Error during API calls: $error');
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('An error occurred: $error')),
+                    );
+                  }
+                },
+                // onPressed: () async {
+                //   await postRDoneScreen(
+                //       context,
+                //       1,
+                //       codestatusA.toString(),
+                //       codestatusB.toString(),
+                //       paidhelp.text,
+                //       comments.text,
+                //       DSummarycont.text);
+                //final List<Map<String, dynamic>> dataForPostRDTWOScreen = [
+                //                       {
+                //                         'param1': 1,
+                //                     'param2': 1,
+                //                     'param3': 'Primary Diagnosis',
+                //                     'param4': descriptionController.text,
+                //                     'param5': icdCodeController.text,
+                //                     'param6': pdDateController.text,
+                //                   },
+                //                     ];
+                //                       for (var data in dataForPostRDTWOScreen) {
+                //                         await postRDTWOScreen(
+                //                           context,
+                //                           data['param1'],
+                //                           data['param2'],
+                //                           data['param3'],
+                //                           data['param4'],
+                //                           data['param5'],
+                //                           data['param6'],
+                //                         );
+                //                       }
+                //   await postRDTWOScreen(
+                //       context,
+                //       1,
+                //       1,
+                //       "Primary Diagnosis", // titleController.text,
+                //       descriptionController.text,
+                //       icdCodeController.text,
+                //       pdDateController.text);
+                //
+                //
+                //   await postRDThreeScreen(
+                //     context,
+                //     1,
+                //     3,
+                //     allergiesController.text,
+                //     startEffectiveDate.text
+                //   );
+                //
+                //
+                // },
+                child: Text(
+                  AppString.save,
+                  style: BlueButtonTextConst.customTextStyle(context),
+                ),
+
+              ),
+            ],
+          ),
+          SizedBox(height:AppSize.s10),
         ],
       ),
     );
@@ -864,9 +903,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                     child: Text(
 
                       'Secondary Diagnosis',
-                      style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.regular),
+                      style: DocumentTypeDataStyle.customTextStyle(context),
                     ),
                   ),
                 ],
@@ -880,7 +917,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                         width: MediaQuery.of(context).size.width / 7,
                         child: SchedularTextField(
                           controller: prdescription,
-                          labelText: 'pr 1',
+                          labelText: '',
                         ),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width / 15),
@@ -888,7 +925,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                           width: MediaQuery.of(context).size.width / 7,
                           child: SchedularTextField(
                             controller: prcode,
-                            labelText: 'pr 2',
+                            labelText: '',
                           )),
                       SizedBox(width: MediaQuery.of(context).size.width / 15),
                       Container(
@@ -896,11 +933,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                         child: SchedularTextField(
                             controller: prdate,
                             labelText: '',
-                            suffixIcon: Icon(
-                              Icons.calendar_month_outlined,
-                              color: ColorManager.blueprime,
-                              size: 18,
-                            )),
+                            showDatePicker:true),
                       ),
                     ],
                   ),
@@ -938,12 +971,13 @@ class _allergiesState extends State<allergies> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 50.0),
                 child: Container(
-                  height: AppSize.s25,
+                  height: AppSize.s30,
                   width: MediaQuery.of(context).size.width / 2.5,
                   child: TextFormField(
                     controller: allergiesController,
                     cursorColor: ColorManager.black,
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
                         borderSide: BorderSide(
@@ -966,11 +1000,7 @@ class _allergiesState extends State<allergies> {
                         ),
                       ),
                     ),
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.regular,
-                      color: ColorManager.black,
-                    ),
+                    style: DocumentTypeDataStyle.customTextStyle(context),
                   ),
                 ),
               ),
@@ -981,11 +1011,7 @@ class _allergiesState extends State<allergies> {
               child: SchedularTextField(
                   controller: startEffectiveDate,
                   labelText: '',
-                  suffixIcon: Icon(
-                    Icons.calendar_month_outlined,
-                    color: ColorManager.blueprime,
-                    size: 18,
-                  )),
+                  showDatePicker:true),
             ),
           ],
         ),

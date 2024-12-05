@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/common_resources/em_dashboard_theme.dart';
+import 'package:prohealth/app/resources/establishment_resources/em_dashboard_string_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -13,9 +16,9 @@ class GeneralSettingConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  EMDashboardContainerConst(
-        height: 150,
+        height: AppSize.s150,
         child: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
+          padding: const EdgeInsets.only(left: AppPadding.p30),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -23,13 +26,12 @@ class GeneralSettingConst extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Hello',style: CustomTextStylesCommon.commonStyle(fontSize: 23,
-                        color:ColorManager.bluebottom,fontWeight: FontWeight.w700),),
-                    Text('"Empower Your Privacy with Precision Settings"',
-                      style: CustomTextStylesCommon.commonStyle(fontSize: 14,
-                          color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),),
+                    Text(EmDashboardStringManager.hello,
+                      style: EmDashHelloText.customTextStyle(context)),
+                    Text(EmDashboardStringManager.empowerprivacy,
+                      style: EmDashHelloSubText.customTextStyle(context),),
                   ],),
-                SizedBox(width: 20,),
+                SizedBox(width: AppSize.s20,),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -62,9 +64,9 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
   @override
   Widget build(BuildContext context) {
     return EMDashboardAllBlueSideContainer(
-        height: 150,
+        height: AppSize.s150,
         child: Padding(
-          padding: const EdgeInsets.only(left: 25.0,top: 10,right: 8),
+          padding: const EdgeInsets.only(left: AppPadding.p25,top: AppPadding.p10,right: AppPadding.p8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -76,23 +78,19 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: Container(
-                            width: 50,
-                            height: 50,
+                            width: AppSize.s50,
+                            height: AppSize.s50,
                             color: ColorManager.bluebottom,
-                            child: Icon(Icons.lock_clock, color: ColorManager
-                                .white, size: 24,)
+                            child: Icon(Icons.lock_clock, color: ColorManager.white, size: IconSize.I24,)
                           // Image.asset(
                           //   imageTile, // Replace with your image path
                           //   fit: BoxFit.cover,
                           // ),
                         ),
                       ),
-                      SizedBox(width: 30,),
-                      Text("User Password Expiry Status",
-                        style: CustomTextStylesCommon.commonStyle(
-                            fontSize: 16,
-                            color: ColorManager.mediumgrey,
-                            fontWeight: FontWeight.w400),),
+                      SizedBox(width: AppSize.s30,),
+                      Text(EmDashboardStringManager.userRole,
+                        style: EmDashText.customTextStyle(context),),
                     ],
                   ),
 
@@ -116,7 +114,7 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                         child: Text(
                           "08",
                           style: CustomTextStylesCommon.commonStyle(
-                            fontSize: 30,
+                            fontSize: FontSize.s30,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -125,7 +123,7 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                   ),
                 ],),
               Padding(
-                padding: const EdgeInsets.only(left: 70.0,),
+                padding: const EdgeInsets.only(left: AppPadding.p70,),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -133,7 +131,7 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                     BlueBgTabButton(
                       index: 0,
                       selectedIndex: _selectedIndex,
-                      text: "Admin",
+                      text: EmDashboardStringManager.admin,
                       onTap: (int index) {
                         _selectButton(index);
                       },
@@ -149,7 +147,7 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                     BlueBgTabButton(
                       index: 2,
                       selectedIndex: _selectedIndex,
-                      text: "Clinicians",
+                      text: EmDashboardStringManager.clinician,
                       onTap: (int index) {
                         _selectButton(index);
                       },
@@ -157,7 +155,7 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                     BlueBgTabButton(
                       index: 3,
                       selectedIndex: _selectedIndex,
-                      text: "Patients",
+                      text: EmDashboardStringManager.patients,
                       onTap: (int index) {
                         _selectButton(index);
                       },
@@ -165,7 +163,7 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                     BlueBgTabButton(
                       index: 4,
                       selectedIndex: _selectedIndex,
-                      text: "Physicians",
+                      text: EmDashboardStringManager.physician,
                       onTap: (int index) {
                         _selectButton(index);
                       },
@@ -204,9 +202,9 @@ class BlueBgTabButton extends StatelessWidget {
       hoverColor: Colors.transparent,
       onTap: () => onTap(index),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0), // Optional spacing
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8), // Optional spacing
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+          padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: selectedIndex == index

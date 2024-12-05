@@ -11,6 +11,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_related_party/intake_patients_related_party.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_stay_info/intake_patients_stay_info.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_profile_bar.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
@@ -457,7 +458,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         return SchedularTextField(
                           controller: dummyCtrl,
                           labelText: 'Status',
-                          suffixIcon: Icon(Icons.arrow_drop_down, color: ColorManager.blueprime),
+
                         );
                       }
                       // if (snapshot.hasData) {
@@ -518,50 +519,19 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       //     }).toList(),
                       //   );
                       if (snapshot.hasData) {
-                        List<String> statusList = [];
+                        List<DropdownMenuItem<String>> dropDownList = [];
                         for (var i in snapshot.data!) {
-                          statusList.add(i.patientStatus);
+                          dropDownList.add(DropdownMenuItem<String>(
+                            child: Text(i.patientStatus!),
+                            value: i.patientStatus,
+                          ));
                         }
+                        // List<String> statusList = [];
+                        // for (var i in snapshot.data!) {
+                        //   statusList.add(i.patientStatus);
+                        // }
 
-                        return SizedBox(
-                          height: 27,
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              labelText: 'Status',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.greylight,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ColorManager
-                                        .containerBorderGrey),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(4.0),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey),
-                              ),
-                              contentPadding:
-                              const EdgeInsets.symmetric(
-                                //   //  vertical: 5,
-                                  horizontal: 12),
-                            ),
-                            // value: selectedCountry,
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff686464),
-                            ),
-
+                        return CustomDropdownTextFieldsm(headText: 'Status',dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
                                 if (a.patientStatus == newValue) {
@@ -570,22 +540,8 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                                   // int? docType = a.companyOfficeID;
                                 }
                               }
-                            },
-                            items: statusList.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        );
+                            });
+
                       } else {
                         return const Offstage();
                       }
@@ -747,55 +703,18 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         return SchedularTextField(
                           width: 350,
                           controller: dummyCtrl,
-                          labelText: 'State',
-                          suffixIcon: Icon(Icons.arrow_drop_down,
-                            color: ColorManager.blueprime,),);
+                          labelText: 'State');
                       }
                       if (snapshot.hasData) {
-                        List<String> dropDownList = [];
+                        List<DropdownMenuItem<String>> dropDownList = [];
                         for (var i in snapshot.data!) {
-                          dropDownList.add(i.name);
+                          dropDownList.add(DropdownMenuItem<String>(
+                            child: Text(i.name!),
+                            value: i.name,
+                          ));
                         }
 
-                        return SizedBox(
-                          height: 27,
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              labelText: 'State',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.greylight,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ColorManager
-                                        .containerBorderGrey),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(4.0),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey),
-                              ),
-                              contentPadding:
-                              const EdgeInsets.symmetric(
-                                //   //  vertical: 5,
-                                  horizontal: 12),
-                            ),
-                            // value: selectedCountry,
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff686464),
-                            ),
-
+                        return CustomDropdownTextFieldsm(headText: 'State',dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
                                 if (a.name == newValue) {
@@ -804,22 +723,8 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                                   // int? docType = a.companyOfficeID;
                                 }
                               }
-                            },
-                            items: dropDownList.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        );
+                            });
+
                       } else {
                         return const Offstage();
                       }
@@ -832,55 +737,18 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                           ConnectionState.waiting) {
                         return SchedularTextField(
                           controller: dummyCtrl,
-                          labelText: 'County',
-                          suffixIcon: Icon(Icons.arrow_drop_down,
-                            color: ColorManager.blueprime,),);
+                          labelText: 'County');
                       }
                       if (snapshot.hasData) {
-                        List<String> dropDownList = [];
+                        List<DropdownMenuItem<String>> dropDownList = [];
                         for (var i in snapshot.data!) {
-                          dropDownList.add(i.name!);
+                          dropDownList.add(DropdownMenuItem<String>(
+                            child: Text(i.name!),
+                            value: i.name,
+                          ));
                         }
 
-                        return SizedBox(
-                          height: 27,
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              labelText: 'Country',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.greylight,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ColorManager
-                                        .containerBorderGrey),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(4.0),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey),
-                              ),
-                              contentPadding:
-                              const EdgeInsets.symmetric(
-                                //   //  vertical: 5,
-                                  horizontal: 12),
-                            ),
-                            // value: selectedCountry,
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff686464),
-                            ),
-
+                        return CustomDropdownTextFieldsm(headText: 'Country',dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
                                 if (a.name == newValue) {
@@ -889,22 +757,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                                   // int? docType = a.companyOfficeID;
                                 }
                               }
-                            },
-                            items: dropDownList.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        );
+                            });
                       } else {
                         return const Offstage();
                       }
@@ -919,54 +772,18 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                           width: 500,
                           controller: dummyCtrl,
                           labelText: 'Religion',
-                          suffixIcon: Icon(Icons.arrow_drop_down,
-                            color: ColorManager.blueprime,),);
+                          );
                       }
                       if (snapshot.hasData) {
-                        List<String> dropDownList = [];
+                        List<DropdownMenuItem<String>> dropDownList = [];
                         for (var i in snapshot.data!) {
-                          dropDownList.add(i.religion!);
+                          dropDownList.add(DropdownMenuItem<String>(
+                            child: Text(i.religion!),
+                            value: i.religion,
+                          ));
                         }
 
-                        return SizedBox(
-                          height: 27,
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              labelText: 'Religion',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.greylight,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ColorManager
-                                        .containerBorderGrey),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(4.0),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey),
-                              ),
-                              contentPadding:
-                              const EdgeInsets.symmetric(
-                                //   //  vertical: 5,
-                                  horizontal: 12),
-                            ),
-                            // value: selectedCountry,
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff686464),
-                            ),
-
+                        return CustomDropdownTextFieldsm(headText: 'Religion',dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
                                 if (a.religion == newValue) {
@@ -975,22 +792,8 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                                   // int? docType = a.companyOfficeID;
                                 }
                               }
-                            },
-                            items: dropDownList.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        );
+                            });
+
                       } else {
                         return const Offstage();
                       }
@@ -1005,54 +808,18 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                           width: 400,
                           controller: dummyCtrl,
                           labelText: 'City',
-                          suffixIcon: Icon(Icons.arrow_drop_down,
-                            color: ColorManager.blueprime,),);
+                         );
                       }
                       if (snapshot.hasData) {
-                        List<String> dropDownList = [];
+                        List<DropdownMenuItem<String>> dropDownList = [];
                         for (var i in snapshot.data!) {
-                          dropDownList.add(i.cityName);
+                          dropDownList.add(DropdownMenuItem<String>(
+                            child: Text(i.cityName!),
+                            value: i.cityName,
+                          ));
                         }
 
-                        return SizedBox(
-                          height: 27,
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              labelText: 'City',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.greylight,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ColorManager
-                                        .containerBorderGrey),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(4.0),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey),
-                              ),
-                              contentPadding:
-                              const EdgeInsets.symmetric(
-                                //   //  vertical: 5,
-                                  horizontal: 12),
-                            ),
-                            // value: selectedCountry,
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff686464),
-                            ),
-
+                        return CustomDropdownTextFieldsm(headText: 'City',dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
                                 if (a.cityName == newValue) {
@@ -1061,22 +828,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                                   // int? docType = a.companyOfficeID;
                                 }
                               }
-                            },
-                            items: dropDownList.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        );
+                            });
                       } else {
                         return const Offstage();
                       }
@@ -1089,55 +841,18 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                           ConnectionState.waiting) {
                         return SchedularTextField(
                           controller: dummyCtrl,
-                          labelText: 'Race',
-                          suffixIcon: Icon(Icons.arrow_drop_down,
-                            color: ColorManager.blueprime,),);
+                          labelText: 'Race');
                       }
                       if (snapshot.hasData) {
-                        List<String> dropDownList = [];
+                        List<DropdownMenuItem<String>> dropDownList = [];
                         for (var i in snapshot.data!) {
-                          dropDownList.add(i.race!);
+                          dropDownList.add(DropdownMenuItem<String>(
+                            child: Text(i.race!),
+                            value: i.race,
+                          ));
                         }
 
-                        return SizedBox(
-                          height: 27,
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              labelText: 'Race  / Ethnicity',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.greylight,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ColorManager
-                                        .containerBorderGrey),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(4.0),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey),
-                              ),
-                              contentPadding:
-                              const EdgeInsets.symmetric(
-                                //   //  vertical: 5,
-                                  horizontal: 12),
-                            ),
-                            // value: selectedCountry,
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff686464),
-                            ),
-
+                        return CustomDropdownTextFieldsm(headText: 'Race  / Ethnicity',dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
                                 if (a.race == newValue) {
@@ -1146,22 +861,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                                   // int? docType = a.companyOfficeID;
                                 }
                               }
-                            },
-                            items: dropDownList.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        );
+                            });
                       } else {
                         return const Offstage();
                       }
@@ -1174,55 +874,19 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                           ConnectionState.waiting) {
                         return SchedularTextField(
                           controller: dummyCtrl,
-                          labelText: 'Child',
-                          suffixIcon: Icon(Icons.arrow_drop_down,
-                            color: ColorManager.blueprime,),);
+                          labelText: 'Language Spoken',
+                          );
                       }
                       if (snapshot.hasData) {
-                        List<String> dropDownList = [];
+                        List<DropdownMenuItem<String>> dropDownList = [];
                         for (var i in snapshot.data!) {
-                          dropDownList.add(i.languageSpoken!);
+                          dropDownList.add(DropdownMenuItem<String>(
+                            child: Text(i.languageSpoken!),
+                            value: i.languageSpoken,
+                          ));
                         }
 
-                        return SizedBox(
-                          height: 27,
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              labelText: 'Language Spoken',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.greylight,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ColorManager
-                                        .containerBorderGrey),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(4.0),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey),
-                              ),
-                              contentPadding:
-                              const EdgeInsets.symmetric(
-                                //   //  vertical: 5,
-                                  horizontal: 12),
-                            ),
-                            // value: selectedCountry,
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff686464),
-                            ),
-
+                        return CustomDropdownTextFieldsm(headText: 'Language Spoken',dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
                                 if (a.languageSpoken == newValue) {
@@ -1231,22 +895,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                                   // int? docType = a.companyOfficeID;
                                 }
                               }
-                            },
-                            items: dropDownList.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        );
+                            });
                       } else {
                         return const Offstage();
                       }
@@ -1260,54 +909,18 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         return SchedularTextField(
                           controller: dummyCtrl,
                           labelText: 'Marital Status',
-                          suffixIcon: Icon(Icons.arrow_drop_down,
-                            color: ColorManager.blueprime,),);
+                          );
                       }
                       if (snapshot.hasData) {
-                        List<String> dropDownList = [];
+                        List<DropdownMenuItem<String>> dropDownList = [];
                         for (var i in snapshot.data!) {
-                          dropDownList.add(i.maritalStatus!);
+                          dropDownList.add(DropdownMenuItem<String>(
+                            child: Text(i.maritalStatus),
+                            value: i.maritalStatus,
+                          ));
                         }
 
-                        return SizedBox(
-                          height: 27,
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              labelText: 'Marital Status',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.greylight,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: ColorManager
-                                        .containerBorderGrey),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.circular(4.0),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey),
-                              ),
-                              contentPadding:
-                              const EdgeInsets.symmetric(
-                                //   //  vertical: 5,
-                                  horizontal: 12),
-                            ),
-                            // value: selectedCountry,
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff686464),
-                            ),
-
+                        return CustomDropdownTextFieldsm(headText: 'Marital Status',dropDownMenuList: dropDownList,
                             onChanged: (newValue) {
                               for (var a in snapshot.data!) {
                                 if (a.maritalStatus == newValue) {
@@ -1317,22 +930,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                                   // int? docType = a.companyOfficeID;
                                 }
                               }
-                            },
-                            items: dropDownList.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        );
+                            });
                       } else {
                         return const Offstage();
                       }

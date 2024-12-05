@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
-
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
+import '../../../../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
@@ -13,9 +15,9 @@ class OfficeClinicianConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EMDashboardContainerConst(
-        height: 150,
+        height: AppSize.s150,
         child: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
+          padding: const EdgeInsets.only(left: AppPadding.p30),
           child:
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Column(
@@ -23,23 +25,16 @@ class OfficeClinicianConst extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hello',
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: 23,
-                      color: ColorManager.bluebottom,
-                      fontWeight: FontWeight.w700),
+                 EmDashboardStringManager.hello,
+                  style: EmDashHelloText.customTextStyle(context)
                 ),
-                Text(
-                  '“ Enjoy Your life, We’ll Be Here to\nSave it.”',
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontSize: 14,
-                      color: ColorManager.mediumgrey,
-                      fontWeight: FontWeight.w400),
+                Text(EmDashboardStringManager.enjoyLife,
+                  style:EmDashHelloSubText.customTextStyle(context)
                 ),
               ],
             ),
             SizedBox(
-              width: 20,
+              width: AppSize.s20,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -64,27 +59,20 @@ class AverageClinicianListview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Average Clinicians Tenure per Office',style: CustomTextStylesCommon.commonStyle(
-                  color: ColorManager.mediumgrey,
-                  fontSize: FontSize.s16,
-                  fontWeight: FontWeight.w700)),
+              Text(EmDashboardStringManager.avgTenureOffice,
+                  style: EmDashContainerHeadTextStyle.customTextStyle(context)),
               GestureDetector(
                 onTap: () {},
                 child: Text(
-                  "View More",
+                  EmDashboardStringManager.viewMore,
                   textAlign: TextAlign.end,
-                  style: TextStyle(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w600,
-                    color: ColorManager.bluebottom,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: EmDashViewMoreText.customTextStyle(context),
                 ),
               ),
             ],),
@@ -96,7 +84,7 @@ class AverageClinicianListview extends StatelessWidget {
                 child: Container(
                   height: AppSize.s30,
                   // margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
-                  padding: EdgeInsets.only(left: 10,right: 12),
+                  padding: EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p12),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -113,60 +101,35 @@ class AverageClinicianListview extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Sr. No.",
+                        EmDashboardStringManager.srNo,
                         textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 30.0),
+                        padding: const EdgeInsets.only(right:AppPadding.p30),
                         child: Text(
-                          "Clinician Name",
+                          EmDashboardStringManager.clinicianName,
                           textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
+                          style: EmDashListviewHeadText.customTextStyle(context),
                         ),
                       ),
                       Text(
-                        "Tenure (YRS)",
+                        EmDashboardStringManager.tenure,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 10.0),
+                        padding: const EdgeInsets.only(right: AppPadding.p10),
                         child: Text(
-                          "Start Year",
+                          EmDashboardStringManager.startYear,
                           textAlign: TextAlign.end,
-                          style: TextStyle(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
+                          style: EmDashListviewHeadText.customTextStyle(context),
                         ),
                       ),
                       Text(
-                        "Order Quantity",
+                        EmDashboardStringManager.orderQuantity,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                        style: EmDashListviewHeadText.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -198,7 +161,7 @@ class AverageClinicianListview extends StatelessWidget {
                       return Column(
                         children: [
                           SizedBox(
-                            height: 10,
+                            height: AppSize.s10,
                           ),
                           Container(
                             height: AppSize.s44,
@@ -225,11 +188,7 @@ class AverageClinicianListview extends StatelessWidget {
                                   child: Text(
                                     "01",
                                     textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                                 Expanded(
@@ -237,11 +196,7 @@ class AverageClinicianListview extends StatelessWidget {
                                   child: Text(
                                     "Clinician 1",
                                     textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                                 Expanded(
@@ -249,11 +204,7 @@ class AverageClinicianListview extends StatelessWidget {
                                   child: Text(
                                     "5",
                                     textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                                 Expanded(
@@ -261,11 +212,7 @@ class AverageClinicianListview extends StatelessWidget {
                                   child: Text(
                                     "2019",
                                     textAlign: TextAlign.start,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                                 Expanded(
@@ -273,11 +220,7 @@ class AverageClinicianListview extends StatelessWidget {
                                   child: Text(
                                     "100",
                                     textAlign: TextAlign.center,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorManager.black,
-                                    ),
+                                    style: EmDashListviewDataText.customTextStyle(context),
                                   ),
                                 ),
                               ],
@@ -289,24 +232,22 @@ class AverageClinicianListview extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 10,),
+              SizedBox(width: AppSize.s10,),
               Expanded(
                   flex: 1,
                   child: Column(
                     children: [
                       Container(
-                        height: 35,
+                        height: AppSize.s35,
                       decoration: BoxDecoration(
                         color: ColorManager.dashBlueHead,
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(6),topRight: Radius.circular(6))
                       ),
                       child:  Center(
-                        child: Text('Average Tenure (Years)',style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.mediumgrey,
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w600)),
+                        child: Text(EmDashboardStringManager.avgTenure,
+                            style: MenuContainerTextStylling.customTextStyle(context)),
                       ),),
-                      Container(height: 125,
+                      Container(height: AppSize.s125,
                         decoration: BoxDecoration(
                             color: ColorManager.white,
                             border: Border(top: BorderSide.none,bottom: BorderSide(color: ColorManager.blueBorder,width: 1),
@@ -324,10 +265,7 @@ class AverageClinicianListview extends StatelessWidget {
                                 children: [
                                   TextSpan(
                                     text: 'yrs',
-                                    style: CustomTextStylesCommon.commonStyle(
-                                        color: ColorManager.mediumgrey,
-                                        fontSize: FontSize.s14,
-                                        fontWeight: FontWeight.w700),
+                                    style: AllPopupHeadings.customTextStyle(context),
                                   ),
                                 ],
                               ),
@@ -351,7 +289,7 @@ class OfficeHighestPatientList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -359,16 +297,14 @@ class OfficeHighestPatientList extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Office With Highest Patients',style: CustomTextStylesCommon.commonStyle(
-                  color: ColorManager.mediumgrey,
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeight.w700)),
+              Text(EmDashboardStringManager.highestPatients,
+                  style: EmDashContainerHeadTextStyle.customTextStyle(context)),
             ],),
-          SizedBox(height: 20,),
+          SizedBox(height: AppSize.s10,),
           Container(
             height: AppSize.s30,
             // margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
-            padding: EdgeInsets.only(left: 10,right: 10),
+            padding: EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p10),
             // decoration: BoxDecoration(
             //   boxShadow: [
             //     BoxShadow(
@@ -385,49 +321,34 @@ class OfficeHighestPatientList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "No. of Offices",
+                 EmDashboardStringManager.NoOfOffice,
                   textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration.none,
-                  ),
+                  style: EmDashListviewHeadText.customTextStyle(context),
                 ),
                Expanded(flex:1 ,child: Container()),
                 Padding(
-                  padding: const EdgeInsets.only(right: 80.0),
+                  padding: const EdgeInsets.only(right: AppPadding.p80),
                   child: Text(
-                    "Ratio",
+                    EmDashboardStringManager.ratio,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: EmDashListviewHeadText.customTextStyle(context),
                   ),
                 ),
                 SizedBox(width: 30,),
                 Padding(
-                  padding: const EdgeInsets.only(right: 40.0),
+                  padding: const EdgeInsets.only(right: AppPadding.p40),
                   child: Text(
-                    "Count",
+                    EmDashboardStringManager.count,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: EmDashListviewHeadText.customTextStyle(context),
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: AppSize.s10,),
           Container(
-            height: 200,
+            height: AppSize.s200,
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: 15,
@@ -438,7 +359,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                 return Column(
                   children: [
                     SizedBox(
-                      height: 10,
+                      height: AppSize.s10,
                     ),
                     Container(
                       height: AppSize.s44,
@@ -465,11 +386,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                             child: Text(
                               "Office 1",
                               textAlign: TextAlign.start,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.black,
-                              ),
+                              style: EmDashListviewDataText.customTextStyle(context),
                             ),
                           ),
                           Expanded(
@@ -488,11 +405,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                             child: Text(
                               "55%",
                               textAlign: TextAlign.center,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.black,
-                              ),
+                              style: EmDashListviewDataText.customTextStyle(context),
                             ),
                           ),
                           Expanded(
@@ -500,11 +413,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                             child: Text(
                               "1000",
                               textAlign: TextAlign.center,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorManager.black,
-                              ),
+                              style: EmDashListviewDataText.customTextStyle(context),
                             ),
                           ),
                         ],
@@ -535,25 +444,19 @@ class AttendanceRatioConst extends StatelessWidget {
         Row(
           children: [
             Container(
-              width: 10.0,
-              height: 15.0,
+              width: AppSize.s10,
+              height: AppSize.s15,
               decoration: BoxDecoration(
                 color: containerColor,
                 shape: BoxShape.circle,
               ),
             ),
-            SizedBox(width: 10,),
-            Text(officeName,style: CustomTextStylesCommon.commonStyle(
-                color:  ColorManager.black,
-                fontSize: FontSize.s12,
-                fontWeight: FontWeight.w500),),
+            SizedBox(width: AppSize.s10,),
+            Text(officeName,style: EmDashListviewDataText.customTextStyle(context),),
           ],
         ),
-        SizedBox(width: 10,),
-        Text(attendance,style: CustomTextStylesCommon.commonStyle(
-            color:  ColorManager.black,
-            fontSize: FontSize.s12,
-            fontWeight: FontWeight.w500),)
+        SizedBox(width: AppSize.s10,),
+        Text(attendance,style: EmDashListviewDataText.customTextStyle(context),)
       ],
     );
   }
@@ -567,26 +470,23 @@ class OfficeClinicianPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
-        height: 220,
-        width: 400,
-        padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+        height: AppSize.s220,
+        width: AppSize.s400,
+        padding: EdgeInsets.symmetric(horizontal: AppPadding.p15,vertical: AppPadding.p10),
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(14),
         ),
         child: Column(
           children: [
-            Text('Customer Satisfaction Rating',
-            style: CustomTextStylesCommon.commonStyle(
-                color: ColorManager.mediumgrey,
-                fontSize: FontSize.s14,
-                fontWeight: FontWeight.w700),),
-            SizedBox(height: 20,),
+            Text(EmDashboardStringManager.customerSatisfactionRating,
+            style: EmDashContainerHeadTextStyle.customTextStyle(context)),
+            SizedBox(height: AppSize.s20,),
             ///heading
             Container(
               height: AppSize.s30,
               // margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
-              padding: EdgeInsets.only(left: 10,right: 12),
+              padding: EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p12),
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -603,34 +503,24 @@ class OfficeClinicianPopup extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Customer",
+                    EmDashboardStringManager.customer,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: GeneralSettingTextStyle.customTextStyle(context)
                   ),
                   Text(
-                    "Satisfaction Rating",
+                    EmDashboardStringManager.satisfactionRating,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: GeneralSettingTextStyle.customTextStyle(context),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: AppSize.s10,),
             Expanded(
               child: Container(
-                height: 280,
+                height: AppSize.s280,
                 // width: 500,
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: 15,
@@ -649,11 +539,7 @@ class OfficeClinicianPopup extends StatelessWidget {
                               child: Text(
                                 "Customer ${index + 1}",
                                 textAlign: TextAlign.start,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                             Expanded(
@@ -675,11 +561,7 @@ class OfficeClinicianPopup extends StatelessWidget {
                               child: Text(
                                 "5",
                                 textAlign: TextAlign.center,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.black,
-                                ),
+                                style: EmDashListviewDataText.customTextStyle(context),
                               ),
                             ),
                           ],

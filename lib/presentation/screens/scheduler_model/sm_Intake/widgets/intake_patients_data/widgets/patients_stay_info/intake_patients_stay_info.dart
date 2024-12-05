@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_related_party_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_stay_info_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
@@ -176,78 +177,28 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                     return SchedularTextField(
                       controller: dummyCtrl,
                       labelText: 'Facility',
-                      suffixIcon: Icon(Icons.arrow_drop_down,
-                        color: ColorManager.blueprime,),);
+                      );
                   }
                   if (snapshot.hasData) {
-                    List<String> dropDownList = [];
+                    List<DropdownMenuItem<String>> dropDownList = [];
                     for (var i in snapshot.data!) {
-                      dropDownList.add(i.idText!);
+                      dropDownList.add(DropdownMenuItem<String>(
+                        child: Text(i.idText!),
+                        value: i.idText,
+                      ));
                     }
 
-                    return SizedBox(
-                      height: 27,
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          labelText: 'Facility',
-                          labelStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: ColorManager.greylight,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: ColorManager
-                                    .containerBorderGrey),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(4.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey),
-                          ),
-                          contentPadding:
-                          const EdgeInsets.symmetric(
-                            //   //  vertical: 5,
-                              horizontal: 12),
-                        ),
-                        // value: selectedCountry,
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: ColorManager.blueprime,
-                        ),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464),
-                        ),
-
-                        onChanged: (newValue) {
-                          for (var a in snapshot.data!) {
-                            if (a.idText == newValue) {
-                              selectedFacility = a.idText!;
-                              //country = a
-                              // int? docType = a.companyOfficeID;
-                            }
+                    return CustomDropdownTextFieldsm(headText: 'Facility',dropDownMenuList: dropDownList,
+                      onChanged: (newValue) {
+                        for (var a in snapshot.data!) {
+                          if (a.idText == newValue) {
+                            selectedFacility = a.idText!;
+                            //country = a
+                            // int? docType = a.companyOfficeID;
                           }
-                        },
-                        items: dropDownList.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    );
+                        }
+                      },);
+
                   } else {
                     return const Offstage();
                   }
@@ -272,14 +223,29 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
-                child: SchedularDropdown(
-                    labelText: AppString.status,
-                    items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
-                  setState(() {
-                    selectedStatus = newValue;
-                  });
-                },
-                    )
+                child: CustomDropdownTextFieldsm(headText: AppString.status,dropDownMenuList: [DropdownMenuItem<String>(
+                  child: Text('Option 1'),
+                  value: 'Option 1',
+                ),DropdownMenuItem<String>(
+                  child: Text('Option 2'),
+                  value: 'Option 2',
+                ),DropdownMenuItem<String>(
+                  child: Text('Option 3'),
+                  value: 'Option 3',
+                )],
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedStatus = newValue;
+                    });
+                  },)
+                // SchedularDropdown(
+                //     labelText: AppString.status,
+                //     items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                //   setState(() {
+                //     selectedStatus = newValue;
+                //   });
+                // },
+                //     )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
@@ -312,79 +278,28 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                       ConnectionState.waiting) {
                     return SchedularTextField(
                       controller: dummyCtrl,
-                      labelText: 'City',
-                      suffixIcon: Icon(Icons.arrow_drop_down,
-                        color: ColorManager.blueprime,),);
+                      labelText: 'City');
                   }
                   if (snapshot.hasData) {
-                    List<String> dropDownList = [];
+                    List<DropdownMenuItem<String>> dropDownList = [];
                     for (var i in snapshot.data!) {
-                      dropDownList.add(i.cityName!);
+                      dropDownList.add(DropdownMenuItem<String>(
+                        child: Text(i.cityName!),
+                        value: i.cityName,
+                      ));
                     }
 
-                    return SizedBox(
-                      height: 27,
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          labelText: 'City',
-                          labelStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: ColorManager.greylight,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: ColorManager
-                                    .containerBorderGrey),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(4.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey),
-                          ),
-                          contentPadding:
-                          const EdgeInsets.symmetric(
-                            //   //  vertical: 5,
-                              horizontal: 12),
-                        ),
-                        // value: selectedCountry,
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: ColorManager.blueprime,
-                        ),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464),
-                        ),
-
-                        onChanged: (newValue) {
-                          for (var a in snapshot.data!) {
-                            if (a.cityName == newValue) {
-                           selectedCitySI = a.cityName!;
-                              //country = a
-                              // int? docType = a.companyOfficeID;
-                            }
+                    return CustomDropdownTextFieldsm(headText: 'City',dropDownMenuList: dropDownList,
+                      onChanged: (newValue) {
+                        for (var a in snapshot.data!) {
+                          if (a.cityName == newValue) {
+                            selectedCitySI = a.cityName!;
+                            //country = a
+                            // int? docType = a.companyOfficeID;
                           }
-                        },
-                        items: dropDownList.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    );
+                        }
+                      },);
+
                   } else {
                     return const Offstage();
                   }
@@ -402,74 +317,28 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                     return SchedularTextField(
                       controller: dummyCtrl,
                       labelText: 'State',
-                      suffixIcon: Icon(Icons.arrow_drop_down,
-                        color: ColorManager.blueprime,),);
+                      );
                   }
                   if (snapshot.hasData) {
-                    List<String> dropDownList = [];
+                    List<DropdownMenuItem<String>> dropDownList = [];
                     for (var i in snapshot.data!) {
-                      dropDownList.add(i.name!);
+                      dropDownList.add(DropdownMenuItem<String>(
+                        child: Text(i.name!),
+                        value: i.name,
+                      ));
                     }
 
-                    return SizedBox(
-                      height: 27,
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          labelText: 'State',
-                          labelStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: ColorManager.greylight,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: ColorManager.containerBorderGrey), // border color
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(4.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey),
-                          ),
-                          contentPadding:
-                          const EdgeInsets.symmetric(
-                            //   //  vertical: 5,
-                              horizontal: 12),
-                        ),
-                        // value: selectedCountry,
-                        icon: Icon(Icons.arrow_drop_down,
-                          color: ColorManager.blueprime,),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464),
-                        ),
-
-                        onChanged: (newValue) {
-                          for (var a in snapshot.data!) {
-                            if (a.name == newValue) {
-                              selectedStateSI = a.name!;
-                              //country = a
-                              // int? docType = a.companyOfficeID;
-                            }
+                    return CustomDropdownTextFieldsm(headText: 'State',dropDownMenuList: dropDownList,
+                      onChanged: (newValue) {
+                        for (var a in snapshot.data!) {
+                          if (a.name == newValue) {
+                            selectedStateSI = a.name!;
+                            //country = a
+                            // int? docType = a.companyOfficeID;
                           }
-                        },
-                        items: dropDownList.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    );
+                        }
+                      },);
+
                     // return SchedularDropdown(
                     //   labelText: 'State',
                     //   // labelStyle: GoogleFonts.firaSans(
@@ -504,7 +373,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
         Row(
           children: [
             Flexible(child: SchedularTextFieldWithButton(
-              controller: ctlrViewZone,
+              textController: ctlrViewZone,
               labelText: AppString.zip_code,
               initialValue: '2656845121',
               buttonText: 'View Zone',
@@ -514,7 +383,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrAdmitDate,
                     labelText: 'Admit Date',
-                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    showDatePicker:true
                     )
             ),
             SizedBox(width: AppSize.s35),
@@ -540,7 +409,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrDateSurgery,
                     labelText: 'Date of Surgery/ Procedure',
-                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    showDatePicker:true
                  )
             ),
             SizedBox(width: AppSize.s35),
@@ -571,7 +440,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrStartDate ,
                     labelText: AppString.startdate,
-                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    showDatePicker:true
 
                 )
             ),
@@ -580,7 +449,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrEndDate ,
                     labelText: AppString.enddate,
-                    suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    showDatePicker:true
                     // isDate: true
                 )
             ),
@@ -615,78 +484,27 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                     return SchedularTextField(
                       controller: dummyCtrl,
                       labelText: 'City',
-                      suffixIcon: Icon(Icons.arrow_drop_down,
-                        color: ColorManager.blueprime,),);
+                      );
                   }
                   if (snapshot.hasData) {
-                    List<String> dropDownList = [];
+                    List<DropdownMenuItem<String>> dropDownList = [];
                     for (var i in snapshot.data!) {
-                      dropDownList.add(i.cityName!);
+                      dropDownList.add(DropdownMenuItem<String>(
+                        child: Text(i.cityName!),
+                        value: i.cityName,
+                      ));
                     }
 
-                    return SizedBox(
-                      height: 27,
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          labelText: 'City',
-                          labelStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: ColorManager.greylight,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: ColorManager
-                                    .containerBorderGrey),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(4.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey),
-                          ),
-                          contentPadding:
-                          const EdgeInsets.symmetric(
-                            //   //  vertical: 5,
-                              horizontal: 12),
-                        ),
-                        // value: selectedCountry,
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: ColorManager.blueprime,
-                        ),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464),
-                        ),
-
-                        onChanged: (newValue) {
-                          for (var a in snapshot.data!) {
-                            if (a.cityName == newValue) {
-                              selectedCityLOC = a.cityName!;
-                              //country = a
-                              // int? docType = a.companyOfficeID;
-                            }
+                    return CustomDropdownTextFieldsm(headText: 'City',dropDownMenuList: dropDownList,
+                      onChanged: (newValue) {
+                        for (var a in snapshot.data!) {
+                          if (a.cityName == newValue) {
+                            selectedCityLOC = a.cityName!;
+                            //country = a
+                            // int? docType = a.companyOfficeID;
                           }
-                        },
-                        items: dropDownList.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    );
+                        }
+                      },);
                   } else {
                     return const Offstage();
                   }
@@ -709,74 +527,28 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                     return SchedularTextField(
                       controller: dummyCtrl,
                       labelText: 'State',
-                      suffixIcon: Icon(Icons.arrow_drop_down,
-                        color: ColorManager.blueprime,),);
+                      );
                   }
                   if (snapshot.hasData) {
-                    List<String> dropDownList = [];
+                    List<DropdownMenuItem<String>> dropDownList = [];
                     for (var i in snapshot.data!) {
-                      dropDownList.add(i.name!);
+                      dropDownList.add(DropdownMenuItem<String>(
+                        child: Text(i.name!),
+                        value: i.name,
+                      ));
                     }
 
-                    return SizedBox(
-                      height: 27,
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          labelText: 'State',
-                          labelStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: ColorManager.greylight,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: ColorManager.containerBorderGrey), // border color
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(4.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey),
-                          ),
-                          contentPadding:
-                          const EdgeInsets.symmetric(
-                            //   //  vertical: 5,
-                              horizontal: 12),
-                        ),
-                        // value: selectedCountry,
-                        icon: Icon(Icons.arrow_drop_down,
-                          color: ColorManager.blueprime,),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff686464),
-                        ),
-
-                        onChanged: (newValue) {
-                          for (var a in snapshot.data!) {
-                            if (a.name == newValue) {
-                              selectedStateLOC = a.name!;
-                              //country = a
-                              // int? docType = a.companyOfficeID;
-                            }
+                    return CustomDropdownTextFieldsm(headText: 'State',dropDownMenuList: dropDownList,
+                      onChanged: (newValue) {
+                        for (var a in snapshot.data!) {
+                          if (a.name == newValue) {
+                            selectedStateLOC = a.name!;
+                            //country = a
+                            // int? docType = a.companyOfficeID;
                           }
-                        },
-                        items: dropDownList.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    );
+                        }
+                      },);
+
 
                   } else {
                     return const Offstage();
@@ -796,7 +568,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextFieldWithButton(
-                  controller: ctlrZipCode,
+                  textController: ctlrZipCode,
                   labelText: AppString.zip_code,
                   initialValue: '2656845121',
                   buttonText: 'View Zone',

@@ -104,6 +104,9 @@ class ColorManager {
   static Color EMCyan = Color(0xFF16DBCC);
   static Color EMDCyan = Color(0xFF219CCC).withOpacity(0.8);
   static Color EMred = Color(0xFFC65B79);
+  static Color EMgreen = Color(0xFF3CC389);
+  static Color EMbrightred = Color(0xFFFF0000);
+  static Color EMFYellow = Color(0xFFFFE8BB);
 }
 
 extension HexColor on Color {
