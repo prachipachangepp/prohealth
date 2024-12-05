@@ -339,7 +339,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               Expanded(
                                 flex: 9,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 274.0),
+                                  padding: const EdgeInsets.only(left: 300.0),
                                   child: Text(
                                     'Allergies',
                                     style: TableHeading.customTextStyle(context),
