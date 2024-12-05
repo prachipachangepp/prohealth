@@ -104,43 +104,6 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                   calenderController: calenderController,
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
-                                  onPressed: () async {
-                                    setState(() {
-                                      _isLoading = true;
-                                    });
-                                    String expiryTypeToSend =
-                                    selectedExpiryType == "Not Applicable"
-                                        ? "--"
-                                        : calenderController.text;
-                                    try {
-                                      await addComplianceDocumentPost(
-
-                                        context: context,
-                                         patientId: widget.patientId,
-                                        //patientId: 1,
-                                        docTypeId: docTypeId,
-                                        // docTypeId: 24,
-                                        docName: docNamecontroller.text,
-                                        docUrl: 'url',
-                                        expDate: "2024-08-16T09:39:48.030Z",
-                                      );
-                                      print("DocName${docNamecontroller.text}");
-                                      fetchPatientDataCompliance(
-                                        context,
-                                      );
-                                      Navigator.pop(context);
-                                      setState(() {
-                                        expiryType = '';
-                                        calenderController.clear();
-                                        docIdController.clear();
-                                        docNamecontroller.clear();
-                                      });
-                                    } finally {
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
-                                    }
-                                  },
                                   uploadField: Container(
                                     height: AppSize.s30,
                                     width: AppSize.s360,
