@@ -124,14 +124,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      AppString.status_completed,
-                      style: GoogleFonts.firaSans(
-                          decoration: TextDecoration.none,
-                          fontSize: AppSize.s12,
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.greenDark),
-                    ),
+
                   ],
                 ),
               ),
@@ -160,7 +153,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               child: SchedularTextField(
                             controller: widget.ctlrSos,
                             labelText: 'SOC Date',
-                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime,),
+                                  showDatePicker:true
                           )),
                           SizedBox(width: AppSize.s35),
                           Flexible(
@@ -255,8 +248,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                   controller: widget.ctlrDate,
                                   labelText: AppString.date_of_birth,
                                   initialValue: '25-05-1999',
-                                  suffixIcon:
-                                      Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime,))),
+                                  showDatePicker:true)),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -268,7 +260,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextFieldWithButton(
-                                  controller: widget.ctlrZipCode,
+                                  textController: widget.ctlrZipCode,
                                   labelText: AppString.zip_code,
                                   buttonText: AppString.viewzone)),
                         ],
@@ -358,10 +350,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                             child: SchedularTextField(
                               controller: widget.ctlrDateOfDeath,
                               labelText: AppString.date_of_death,
-                              suffixIcon: Icon(
-                                Icons.calendar_month_outlined,
-                                color: ColorManager.blueprime,
-                              ),
+                                showDatePicker:true,
                               onChanged: (value) {
                                 /// If the TextField is empty, set dateOfDeath to null
                                 dateOfDeath = value.isEmpty ? null : value;

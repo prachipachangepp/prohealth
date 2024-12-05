@@ -504,7 +504,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
         Row(
           children: [
             Flexible(child: SchedularTextFieldWithButton(
-              controller: ctlrViewZone,
+              textController: ctlrViewZone,
               labelText: AppString.zip_code,
               initialValue: '2656845121',
               buttonText: 'View Zone',
@@ -540,7 +540,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrDateSurgery,
                     labelText: 'Date of Surgery/ Procedure',
-                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    showDatePicker:true
                  )
             ),
             SizedBox(width: AppSize.s35),
@@ -571,7 +571,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrStartDate ,
                     labelText: AppString.startdate,
-                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    showDatePicker:true
 
                 )
             ),
@@ -580,7 +580,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrEndDate ,
                     labelText: AppString.enddate,
-                    suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    showDatePicker:true
                     // isDate: true
                 )
             ),
@@ -796,7 +796,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextFieldWithButton(
-                  controller: ctlrZipCode,
+                  textController: ctlrZipCode,
                   labelText: AppString.zip_code,
                   initialValue: '2656845121',
                   buttonText: 'View Zone',

@@ -166,7 +166,8 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                               child: SchedularTextField(
                                   controller: ctlrEmgContact,
                                   labelText: 'Emergency Contact',
-                                  phoneField:true)),
+                                  phoneField:true,
+                              )),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -468,7 +469,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextFieldWithButton(
-                                  controller: ctlrZipCode,
+                                  textController: ctlrZipCode,
                                   labelText: AppString.zip_code,
                                   initialValue: '',
                                   buttonText: 'View Zone')),
