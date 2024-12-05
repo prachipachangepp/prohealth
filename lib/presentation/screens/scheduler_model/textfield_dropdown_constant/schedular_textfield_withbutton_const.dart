@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
@@ -27,7 +27,7 @@ class SchedularTextFieldWithButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: AppSize.s25p38,
+      // height: AppSize.s25p38,
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
@@ -144,9 +144,10 @@ class SchedularTextFieldWithButton extends StatelessWidget {
           //   ),
           // ),
           Positioned(
+           bottom: 6.2,
             right: 5,
             child: Container(
-              height: AppSize.s18,                                  //  view zone height button
+              height: AppSize.s25,                                  //  view zone height button
               width: AppSize.s72,
               child: ElevatedButton(
                 onPressed: () async {
@@ -159,16 +160,16 @@ class SchedularTextFieldWithButton extends StatelessWidget {
                 },
                 child: Text(
                   buttonText,
-                  style: GoogleFonts.firaSans(
-                    fontSize:FontSize.s10,
-                    fontWeight: FontWeightManager.regular,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
                     color: ColorManager.white,
-                    decoration: TextDecoration.underline,
+                    decoration: TextDecoration.none,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   padding: EdgeInsets.zero,
                 ),

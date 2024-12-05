@@ -373,7 +373,7 @@ return CustomDropdownTextFieldsm(
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextFieldWithButton(
-                              controller: prZipcode,
+                                textController: prZipcode,
                                 labelText: AppString.zip_code,
 
                                 buttonText: AppString.viewzone)
@@ -691,7 +691,7 @@ return CustomDropdownTextFieldsm(
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextFieldWithButton(
-                              controller: ffZipcode,
+                                textController: ffZipcode,
                                 labelText: AppString.zip_code,
                                 buttonText: AppString.viewzone)
                         ),

@@ -125,7 +125,7 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
               padding: const EdgeInsets.only(bottom: 3, top: 4, left: 4),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
