@@ -3,8 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_info_manager.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../../app/resources/font_manager.dart';
@@ -207,9 +211,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Status:',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: AppSize.s10,
-                                        fontWeight: FontWeightManager.regular)),
+                                    style: AllPopupHeadings.customTextStyle(context)),
                                 SizedBox(height: 1),
                                 Row(
                                   children: [
@@ -398,6 +400,101 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                   ),
                 ),
               ),
+              // Padding(
+              //   padding: const EdgeInsets.only(right: 40.0),
+              //   child: Container(
+              //     height: AppSize.s26,
+              //     width: AppSize.s102,
+              //     child:
+              //     ElevatedButton(
+              //       onPressed: () async {
+              //         final companyId = await TokenManager.getCompanyId();
+              //         // String? dateOfDeath = ctlrDateOfDeath.text.isEmpty ? null : ctlrDateOfDeath.text;
+              //         ApiData result = await IntakeInfoSave(
+              //           context,
+              //           widget.ctlrSos.text,
+              //           //"2024-08-12",
+              //           widget.ctlrMedicalRecord.text,
+              //           selectedStatus!.toString() ?? '',
+              //           // 'Pending',
+              //           widget.ctlrfirstName.text,
+              //           widget.ctlrLastName.text,
+              //           widget.ctlrMI.text,
+              //           widget.ctlrSuffix.text,
+              //           widget.statusType ?? '',
+              //           //"2024-08-12",
+              //           widget.ctlrDate.text,
+              //           widget.ctlrStreet.text,
+              //           selectedState!.toString(),
+              //           // "291000",//
+              //           widget.ctlrZipCode.text,
+              //           widget.ctlrApartment.text,
+              //           selectedcity!.toString(),
+              //           selectedCountry.toString() ?? '',
+              //           widget.ctlrMajorStreet.text,
+              //           widget.ctlrPrimeNo.text,
+              //           widget.ctlrSecNo.text,
+              //           widget.ctlrEmail.text,
+              //           widget.ctlrSocialSec.text,
+              //           selectedLanguage.toString() ?? '',
+              //           widget.ctlrDischargeResaon.text,
+              //           selectedRace.toString() ?? '',
+              //           selectedReligion.toString() ?? '',
+              //           selectedMaritalStatus.toString() ?? '',
+              //           //"2024-08-12",
+              //           // ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
+              //           widget.ctlrDateOfDeath.text.isEmpty ? null : widget.ctlrDateOfDeath.text,
+              //
+              //           1,
+              //           'At Land OSC',
+              //           'case',
+              //           'Type',
+              //           companyId,
+              //         );
+              //
+              //         if (result.success) {
+              //           patientId = result.patientId!;
+              //           widget.onPatientIdGenerated(patientId);
+              //           widget.ctlrMedicalRecord.clear();
+              //           widget.ctlrfirstName.clear();
+              //           widget.ctlrLastName.clear();
+              //           widget.ctlrMI.clear();
+              //           widget.ctlrSuffix.clear();
+              //           widget.ctlrStreet.clear();
+              //           widget.ctlrZipCode.clear();
+              //           widget.ctlrApartment.clear();
+              //           widget.ctlrCity.clear();
+              //           widget.ctlrMajorStreet.clear();
+              //           widget.ctlrPrimeNo.clear();
+              //           widget.ctlrSecNo.clear();
+              //           widget.ctlrEmail.clear();
+              //           widget.ctlrSocialSec.clear();
+              //           widget.ctlrDischargeResaon.clear();
+              //         } else {
+              //
+              //         }
+              //       },
+              //       child: Text(
+              //         AppString.save,
+              //         style: GoogleFonts.firaSans(
+              //           fontSize: FontSize.s14,
+              //           fontWeight: FontWeightManager.bold,
+              //           color: ColorManager.white,
+              //         ),
+              //       ),
+              //       style: ElevatedButton.styleFrom(
+              //         padding: const EdgeInsets.symmetric(
+              //           horizontal: 25,
+              //           vertical: 10,
+              //         ),
+              //         backgroundColor: ColorManager.blueprime,
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(12),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

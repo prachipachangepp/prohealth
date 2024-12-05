@@ -28,7 +28,7 @@ class ComplianceAddPopUp extends StatefulWidget {
   final TextEditingController idDocController;
   final TextEditingController nameDocController;
   final TextEditingController calenderController;
-  final VoidCallback onPressed;
+  //final VoidCallback onPressed;
   final Widget? child;
   final String title;
   final Widget? radioButton;
@@ -46,7 +46,7 @@ class ComplianceAddPopUp extends StatefulWidget {
     required this.idDocController,
     required this.nameDocController,
     required this.calenderController,
-    required this.onPressed,
+    //required this.onPressed,
      this.uploadField,
     required this.title,
     this.radioButton,

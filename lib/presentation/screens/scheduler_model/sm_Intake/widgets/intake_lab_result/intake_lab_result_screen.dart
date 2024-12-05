@@ -103,47 +103,47 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                 calenderController: calenderController,
                                 idDocController: docIdController,
                                 nameDocController: namecontroller,
-                                onPressed: () async {
-                                  print('File path on pressed ${filePath}');
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-                                  String expiryTypeToSend =
-                                  selectedExpiryType == "Not Applicable"
-                                      ? "--"
-                                      : calenderController.text;
-                                  try {
-                                    ApiData response =  await addLabReport(
-                                      context: context,
-                                      patientId: widget.patientId,
-                                      docTypeId: 1,
-                                      docType: namecontroller.text,
-                                      name: namecontroller.text,
-                                      docUrl: "url",
-                                      createdAt: DateTime.now().toIso8601String() + 'Z',
-                                      expDate: "2024-08-16T09:39:48.030Z",
-                                    );
-                                    if(response.statusCode == 200 ||response.statusCode == 201 ){
-                                      await uploadDocumentsLabReport(context: context,
-                                          documentFile: filePath,
-                                          labReportId: response.labReportId!);
-                                    }
-                                    print("DocName${namecontroller.text}");
-                                    //GetLabReport(context, 1);
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      expiryType = '';
-                                      fileName ='';
-                                      calenderController.clear();
-                                      docIdController.clear();
-                                      namecontroller.clear();
-                                    });
-                                  } finally {
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
-                                  }
-                                },
+                                // onPressed: () async {
+                                //   print('File path on pressed ${filePath}');
+                                //   setState(() {
+                                //     _isLoading = true;
+                                //   });
+                                //   String expiryTypeToSend =
+                                //   selectedExpiryType == "Not Applicable"
+                                //       ? "--"
+                                //       : calenderController.text;
+                                //   try {
+                                //     ApiData response =  await addLabReport(
+                                //       context: context,
+                                //       patientId: widget.patientId,
+                                //       docTypeId: 1,
+                                //       docType: namecontroller.text,
+                                //       name: namecontroller.text,
+                                //       docUrl: "url",
+                                //       createdAt: DateTime.now().toIso8601String() + 'Z',
+                                //       expDate: "2024-08-16T09:39:48.030Z",
+                                //     );
+                                //     if(response.statusCode == 200 ||response.statusCode == 201 ){
+                                //       await uploadDocumentsLabReport(context: context,
+                                //           documentFile: filePath,
+                                //           labReportId: response.labReportId!);
+                                //     }
+                                //     print("DocName${namecontroller.text}");
+                                //     //GetLabReport(context, 1);
+                                //     Navigator.pop(context);
+                                //     setState(() {
+                                //       expiryType = '';
+                                //       fileName ='';
+                                //       calenderController.clear();
+                                //       docIdController.clear();
+                                //       namecontroller.clear();
+                                //     });
+                                //   } finally {
+                                //     setState(() {
+                                //       _isLoading = false;
+                                //     });
+                                //   }
+                                // },
                                 title: 'Add New Lab Report',
                                 patientId: widget.patientId,
 
