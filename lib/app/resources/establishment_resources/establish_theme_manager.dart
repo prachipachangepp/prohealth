@@ -251,7 +251,8 @@ class CIHeading {
 
 
 ///apply most of the places for each listview data
-class DocumentTypeDataStyle {
+class
+DocumentTypeDataStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w600,

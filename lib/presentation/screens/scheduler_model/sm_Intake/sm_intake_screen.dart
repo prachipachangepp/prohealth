@@ -62,20 +62,20 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               grpIndex: _selectedIndex,
               heading: "Patients Data",
             ),
+            // PageViewMenuButtonConst(
+            //   onTap: (int index) {
+            //     intakeSelectButton(index);
+            //   },
+            //   index: 1,
+            //   grpIndex: _selectedIndex,
+            //   heading: "Referral",
+            //   enabled: patientId != 0,
+            // ),
             PageViewMenuButtonConst(
               onTap: (int index) {
                 intakeSelectButton(index);
               },
               index: 1,
-              grpIndex: _selectedIndex,
-              heading: "Referral",
-              enabled: patientId != 0,
-            ),
-            PageViewMenuButtonConst(
-              onTap: (int index) {
-                intakeSelectButton(index);
-              },
-              index: 2,
               grpIndex: _selectedIndex,
               heading: "Physician Info",
               enabled: patientId != 0,
@@ -84,7 +84,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               onTap: (int index) {
                 intakeSelectButton(index);
               },
-              index: 3,
+              index: 2,
               grpIndex: _selectedIndex,
               heading: "Medications",
               enabled: patientId != 0,
@@ -93,7 +93,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               onTap: (int index) {
                 intakeSelectButton(index);
               },
-              index: 4,
+              index: 3,
               grpIndex: _selectedIndex,
               heading: "Lab Results",
               enabled: patientId != 0,
@@ -102,7 +102,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               onTap: (int index) {
                 intakeSelectButton(index);
               },
-              index: 5,
+              index: 4,
               grpIndex: _selectedIndex,
               heading: "Insurance",
               enabled: patientId != 0,
@@ -111,7 +111,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
               onTap: (int index) {
                 intakeSelectButton(index);
               },
-              index: 6,
+              index: 5,
               grpIndex: _selectedIndex,
               heading: "Notes",
               enabled: patientId != 0,
@@ -136,7 +136,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
                 });
               },
             ),
-            SMIntakeReferralScreen(patientId: patientId),
+            // SMIntakeReferralScreen(patientId: patientId),
             IntakePhysicianScreen(patientId: patientId),
             IntakeMedicationScreen(patientId: patientId),
             IntakeLabResultScreen(patientId: patientId),

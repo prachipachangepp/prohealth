@@ -11,6 +11,7 @@ import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/referral_diagonsis_manager.dart';
 import '../../../../../../../../data/api_data/api_data.dart';
+import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../widgets/constant_widgets/button_constant.dart';
@@ -227,7 +228,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                               7,
                                           child: SchedularTextField(
                                             controller: descriptionController,
-                                            labelText: 'pr 1',
+                                            labelText: '',
                                           ),
                                         ),
                                         SizedBox(
@@ -242,7 +243,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                                 7,
                                             child: SchedularTextField(
                                               controller: icdCodeController,
-                                              labelText: 'pr 2',
+                                              labelText: '',
                                             )),
                                         SizedBox(
                                             width: MediaQuery.of(context)
@@ -257,11 +258,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                           child: SchedularTextField(
                                               controller: pdDateController,
                                               labelText: '',
-                                              suffixIcon: Icon(
-                                                Icons.calendar_month_outlined,
-                                                color: ColorManager.blueprime,
-                                                size: 18,
-                                              )),
+                                              showDatePicker:true),
                                         ),
                                       ],
                                     ),
@@ -513,95 +510,137 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                     ///code status
                     Row(
                       children: [
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Code Status',
-                                  style: AllPopupHeadings.customTextStyle(context),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: AppPadding.p80),
-                              child: Row(
+                        Padding(
+                          padding: const EdgeInsets.only(left: 50),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
-                                  Radio<String>(
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      'Code Status',
+                                      style: AllPopupHeadings.customTextStyle(context),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  CustomRadioListTile(
+                                    title:'Male',
                                     value: 'Male',
                                     groupValue: codestatusA,
-                                    onChanged: (value) =>
-                                        setState(() => codestatusA = value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        codestatusA = value;
+                                      });
+                                    },
                                   ),
-                                  Text(AppString.male,
-                                      style: DocumentTypeDataStyle.customTextStyle(context),),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          45),
-                                  Radio<String>(
+                                  CustomRadioListTile(
+                                    title:'Female',
                                     value: 'Female',
                                     groupValue: codestatusA,
-                                    onChanged: (value) =>
-                                        setState(() => codestatusA = value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        codestatusA = value;
+                                      });
+                                    },
                                   ),
-                                  Text(AppString.female,
-                                      style: DocumentTypeDataStyle.customTextStyle(context),),
+
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width / 80),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Code Status',
-                                  style: AllPopupHeadings.customTextStyle(context),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: AppPadding.p180),
-                              child: Row(
+                        SizedBox(width: MediaQuery.of(context).size.width / 50),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 100),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
-                                  Radio<String>(
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      'Code Status',
+                                      style: AllPopupHeadings.customTextStyle(context),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  CustomRadioListTile(
+                                    title:'Alone',
                                     value: 'Alone',
                                     groupValue: codestatusB,
-                                    onChanged: (value) =>
-                                        setState(() => codestatusB = value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        codestatusB = value;
+                                      });
+                                    },
                                   ),
-                                  Text('Alone',
-                                      style:DocumentTypeDataStyle.customTextStyle(context),),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          45),
-                                  Radio<String>(
+                                  CustomRadioListTile(
+                                    title:'Spouse',
                                     value: 'Spouse',
                                     groupValue: codestatusB,
-                                    onChanged: (value) =>
-                                        setState(() => codestatusB = value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        codestatusB = value;
+                                      });
+                                    },
                                   ),
-                                  Text('Spouse',
-                                      style:DocumentTypeDataStyle.customTextStyle(context),),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          45),
-                                  Radio<String>(
+                                  CustomRadioListTile(
+                                    title:'Other',
                                     value: 'Other',
                                     groupValue: codestatusB,
-                                    onChanged: (value) =>
-                                        setState(() => codestatusB = value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        codestatusB = value;
+                                      });
+                                    },
                                   ),
-                                  Text(AppString.other,
-                                      style: DocumentTypeDataStyle.customTextStyle(context),),
+
+                                  // Radio<String>(
+                                  //   value: 'Alone',
+                                  //   groupValue: codestatusB,
+                                  //   onChanged: (value) =>
+                                  //       setState(() => codestatusB = value),
+                                  // ),
+                                  // Text('Alone',
+                                  //     style:DocumentTypeDataStyle.customTextStyle(context),),
+                                  // SizedBox(
+                                  //     width: MediaQuery.of(context).size.width /
+                                  //         45),
+                                  // Radio<String>(
+                                  //   value: 'Spouse',
+                                  //   groupValue: codestatusB,
+                                  //   onChanged: (value) =>
+                                  //       setState(() => codestatusB = value),
+                                  // ),
+                                  // Text('Spouse',
+                                  //     style:DocumentTypeDataStyle.customTextStyle(context),),
+                                  // SizedBox(
+                                  //     width: MediaQuery.of(context).size.width /
+                                  //         45),
+                                  // Radio<String>(
+                                  //   value: 'Other',
+                                  //   groupValue: codestatusB,
+                                  //   onChanged: (value) =>
+                                  //       setState(() => codestatusB = value),
+                                  //   splashRadius: 0,
+                                  //   focusColor: Colors.transparent,
+                                  //   hoverColor: Colors.transparent,
+                                  // ),
+                                  // Text(AppString.other,
+                                  //     style: DocumentTypeDataStyle.customTextStyle(context),),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Spacer(),
                         Padding(
@@ -677,7 +716,8 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                           ],
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(height:AppSize.s15),
                   ],
                 ),
               ),
@@ -877,7 +917,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                         width: MediaQuery.of(context).size.width / 7,
                         child: SchedularTextField(
                           controller: prdescription,
-                          labelText: 'pr 1',
+                          labelText: '',
                         ),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width / 15),
@@ -885,7 +925,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                           width: MediaQuery.of(context).size.width / 7,
                           child: SchedularTextField(
                             controller: prcode,
-                            labelText: 'pr 2',
+                            labelText: '',
                           )),
                       SizedBox(width: MediaQuery.of(context).size.width / 15),
                       Container(
@@ -893,11 +933,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                         child: SchedularTextField(
                             controller: prdate,
                             labelText: '',
-                            suffixIcon: Icon(
-                              Icons.calendar_month_outlined,
-                              color: ColorManager.blueprime,
-                              size: 18,
-                            )),
+                            showDatePicker:true),
                       ),
                     ],
                   ),
@@ -975,11 +1011,7 @@ class _allergiesState extends State<allergies> {
               child: SchedularTextField(
                   controller: startEffectiveDate,
                   labelText: '',
-                  suffixIcon: Icon(
-                    Icons.calendar_month_outlined,
-                    color: ColorManager.blueprime,
-                    size: 18,
-                  )),
+                  showDatePicker:true),
             ),
           ],
         ),

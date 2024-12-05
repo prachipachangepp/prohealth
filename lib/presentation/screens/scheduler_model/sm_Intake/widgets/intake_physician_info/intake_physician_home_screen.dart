@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_face_to_face/physician_info_face_to_face.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_info/physician_info_info.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_orders/physician_info_orders.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_referring_diagnosis/physician_info_referring_diagnosis.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -215,7 +216,8 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                 children: [
                   PhysicianInfoInfoScreen(patientId: widget.patientId),
                   ReferringDiagnososScreen(patientId: widget.patientId,),
-                  Container(),
+                  PhysicianOrder(patientId: widget.patientId,),
+
                   PhysicianFaceToFace(patientId: widget.patientId,),
                 ]),
           ),
