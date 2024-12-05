@@ -70,82 +70,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 80.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text('Status Completed',
-                      style: GoogleFonts.firaSans(
-                          decoration: TextDecoration.none,
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.greenDark
-                      ),
-                    ),
-                    SizedBox(width: 15,),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final companyId = await TokenManager.getCompanyId();
-                        await postPhysicianInfoScreen(
-                            context,
-                            widget.patientId,
-                            companyId,
-                            primaryPhysician.text,
-                            prFirstName.text,
-                            prLastName.text,
-                            prPECOSStatus.text,
-                            prUPINNbr.text,
-                            prNPINbr.text,
-                            prStreet.text,
-                            prSuiteApt.text,
-                           selectedCitypr.toString(),
-                            selectedStatepr.toString(),
-                            prZipcode.text,
-                            prPhone.text,
-                            prFax.text,
-                            prProtocol.text,
-                            contractFFPhysician.text,
-                            ffFirstName.text,
-                            ffLastName.text,
-                            ffPECOSStatus.text,
-                            ffUPINNbr.text,
-                            ffNPINbr.text,
-                            ffStreet.text,
-                            ffSuiteApt.text,
-                          selectedCityff.toString(),
-                          selectedStateff.toString(),
-                            ffZipcode.text,
-                            ffPhone.text,
-                            ffFax.text,
-                            ffProtocol.text,
-                           );
-                      },
-                      child: Text(
-                        AppString.save,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.white,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 25,
-                          vertical: 10,
-                        ),
-                        backgroundColor: ColorManager.blueprime,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 19.5),
               SizedBox(height: AppSize.s10),
               Container(
                 width: MediaQuery.of(context).size.width * 0.95,
@@ -423,7 +348,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextFieldWithButton(
-                              controller: prZipcode,
+                                textController: prZipcode,
                                 labelText: AppString.zip_code,
 
                                 buttonText: AppString.viewzone)
@@ -726,7 +651,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextFieldWithButton(
-                              controller: ffZipcode,
+                                textController: ffZipcode,
                                 labelText: AppString.zip_code,
                                 buttonText: AppString.viewzone)
                         ),
@@ -763,6 +688,80 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(right: 80.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // Text('Status Completed',
+                    //   style: GoogleFonts.firaSans(
+                    //       decoration: TextDecoration.none,
+                    //       fontSize: FontSize.s14,
+                    //       fontWeight: FontWeightManager.bold,
+                    //       color: ColorManager.greenDark
+                    //   ),
+                    // ),
+                    // SizedBox(width: 15,),
+                    ElevatedButton(
+                      onPressed: () async {
+                        final companyId = await TokenManager.getCompanyId();
+                        await postPhysicianInfoScreen(
+                          context,
+                          widget.patientId,
+                          companyId,
+                          primaryPhysician.text,
+                          prFirstName.text,
+                          prLastName.text,
+                          prPECOSStatus.text,
+                          prUPINNbr.text,
+                          prNPINbr.text,
+                          prStreet.text,
+                          prSuiteApt.text,
+                          selectedCitypr.toString(),
+                          selectedStatepr.toString(),
+                          prZipcode.text,
+                          prPhone.text,
+                          prFax.text,
+                          prProtocol.text,
+                          contractFFPhysician.text,
+                          ffFirstName.text,
+                          ffLastName.text,
+                          ffPECOSStatus.text,
+                          ffUPINNbr.text,
+                          ffNPINbr.text,
+                          ffStreet.text,
+                          ffSuiteApt.text,
+                          selectedCityff.toString(),
+                          selectedStateff.toString(),
+                          ffZipcode.text,
+                          ffPhone.text,
+                          ffFax.text,
+                          ffProtocol.text,
+                        );
+                      },
+                      child: Text(
+                        AppString.save,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.white,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 10,
+                        ),
+                        backgroundColor: ColorManager.blueprime,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 19.5),
             ],
           ),
         ),

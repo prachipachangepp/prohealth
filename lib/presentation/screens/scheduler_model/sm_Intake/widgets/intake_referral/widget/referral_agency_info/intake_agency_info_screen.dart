@@ -342,7 +342,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextFieldWithButton(
-                              controller: ctlrZipCode,
+                                textController: ctlrZipCode,
                                 labelText: AppString.zip_code,
                                 //initialValue: '26586845121',
                                 buttonText: 'View Zone')),
