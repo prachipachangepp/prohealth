@@ -65,7 +65,6 @@ class EmDashboardStringManager{
   static const String customerSatisfactionRating = 'Customer Satisfaction Rating';
   ///office docAudit
   static const String securingSuccess = '“Securing Your Success, One\nDocument at a Time.”';
-  static const String status = 'Status';
   static const String randomNum = "Random Number";
   static const String randompass = "Random Audit Passed";
   static const String date = "Date";
@@ -84,10 +83,30 @@ class EmDashboardStringManager{
   static const String comDocUpdtFreq =  "Compliance Document Update Frequency";
   static const String conPriceIncPer=  "Contracts Price Increase Percentage Since Previous";
   static const String auditPreptimeOffice=  'Audit Preparation Time Per Office';
+  static const String avgcomratingperoffice=  'Average Compliance Rating per Office';
+  static const String complianceRating=  "Compliance Rating";
+  static const String auditDates =  'Audit Dates';
+  static const String Dates =  'Dates';
+  static const String upcomingCompliance =  'Number of Offices with Upcoming\nCompliance Deadlines ';
+  static const String offices =  "Offices";
+  static const String compDeadline =  "Compliance Deadline";
+  static const String officeExpXomDoc = 'Offices with expiring Compliance documents';
+  static const String certificate = "Certificate";
+  static const String addDoc = "+Add Document";
+  static const String partiallycompl = 'Partially Completed';
+  static const String fullycompl = 'Fully Completed';
+  static const String expired = "Expired";
+  static const String uploadDoc = "Upload Document";
+  static const String avgTimeResolve = 'Average time to resolve Audit Findings';
+  static const String dontforgettouploaddoc =  "Don’t forget to upload\nyour document";
   ///common
   static const String hello = 'Hello';
   static const String srNo =  "Sr. No.";
   static const String viewMore =  "View More";
   static const String orderQuantity =  "Order Quantity";
   static const String NoOfOffice =  'No of Offices';
+  static const String officeName=  'Office Name';
+  static const String status = 'Status';
+  static const String audit=  "Audit";
+  static const String time=  "Time";
 }

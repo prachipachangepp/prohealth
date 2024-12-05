@@ -14,7 +14,7 @@ class LinearCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8,vertical: AppPadding.p8),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8,vertical: AppPadding.p2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

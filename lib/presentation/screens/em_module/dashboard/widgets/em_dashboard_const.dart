@@ -193,7 +193,7 @@ class BlueBorderContainerConst extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(subText,
-                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s30,
+                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s28,
                       color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
