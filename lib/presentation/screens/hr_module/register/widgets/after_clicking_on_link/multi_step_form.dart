@@ -301,12 +301,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
             style: formNameText.customTextStyle(context),
           ),
         ),
-        content: generalForm(context: context, employeeID: widget.employeeID, onSave:(){
+        content: generalForm(context: context, employeeID: widget.employeeID,
+          onSave:(){
           // details.onStepContinue!();
           setState(() {
             _currentStep = _currentStep +1 ;
           });
         },
+          onNext: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
 
           //   onBack: (){
           //   setState(() {

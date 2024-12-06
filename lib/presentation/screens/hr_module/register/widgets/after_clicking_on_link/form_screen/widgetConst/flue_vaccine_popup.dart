@@ -239,7 +239,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SMTextFConst(
+                      SMTextfieldAsteric(
                         controller: nameOfAdministeringController,
                         keyboardType: TextInputType.text,
                         text: 'Name of Person Administering the Vaccine',
@@ -252,6 +252,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       SizedBox(height: AppSize.s6),
                       HeaderContentConst(
                         heading: 'Date of Vaccination',
+                        isAsterisk: true,
                         content: FormField<String>(
                           builder: (FormFieldState<String> field) {
                             return SizedBox(
@@ -321,7 +322,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       SizedBox(height: AppSize.s6),
-                      SMTextFConst(
+                      SMTextfieldAsteric(
                         controller: siteOfAdministrationController,
                         keyboardType: TextInputType.text,
                         text: 'Site of Administration',
@@ -332,7 +333,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       SizedBox(height: AppSize.s6),
-                      SMTextFConst(
+                      SMTextfieldAsteric(
                         controller: vaccineTypeController,
                         keyboardType: TextInputType.text,
                         text: 'Vaccine Type',
@@ -343,7 +344,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       SizedBox(height: AppSize.s6),
-                      SMTextFConst(
+                      SMTextfieldAsteric(
                         controller: doseController,
                         keyboardType: TextInputType.text,
                         text: 'Dose',
@@ -360,7 +361,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         text: 'Reactions, if any',
                       ),
                       SizedBox(height: AppSize.s6),
-                      SMTextFConst(
+                      SMTextfieldAsteric(
                         controller: manufacturerController,
                         keyboardType: TextInputType.text,
                         text: 'Manufacturer and Lot ',
@@ -371,7 +372,7 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       SizedBox(height: AppSize.s6),
-                      SMTextFConst(
+                      SMTextfieldAsteric(
                         controller: titleController,
                         keyboardType: TextInputType.text,
                         text: 'Title',
@@ -412,7 +413,19 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: AppSize.s6),
-                      Text( 'Acknowledge Facts', style: AllPopupHeadings.customTextStyle(context),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Acknowledge Facts ', // Main text
+                          style: AllPopupHeadings.customTextStyle(context), // Apply the custom text style
+                          children: [
+                            TextSpan(
+                              text: '*', // Asterisk
+                              style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                color: Colors.red, // Specify the color for the asterisk
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: AppSize.s2),
                       Padding(
@@ -598,7 +611,19 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                       ),
                       SizedBox(height: AppSize.s4),
                       ///allergies
-                      Text( 'Allergies', style: AllPopupHeadings.customTextStyle(context),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Allergies ', // Main text
+                          style: AllPopupHeadings.customTextStyle(context), // Apply the custom text style
+                          children: [
+                            TextSpan(
+                              text: '*', // Asterisk
+                              style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                color: Colors.red, // Specify the color for the asterisk
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: AppSize.s1),
                       Row(
@@ -875,7 +900,7 @@ class _AddressInputState extends State<AddressInput> {
 
   @override
   Widget build(BuildContext context) {
-    return   SMTextFConst(
+    return   SMTextfieldAsteric(
       controller:  widget.controller,
       keyboardType: TextInputType.text,
       text: 'Provider Address',
