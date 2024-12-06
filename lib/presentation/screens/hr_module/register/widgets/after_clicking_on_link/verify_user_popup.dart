@@ -133,7 +133,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
   }
 
   TextEditingController emailController = TextEditingController();
-  TextEditingController otpController = TextEditingController();
+  //TextEditingController otpController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -150,6 +150,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
   bool _isEmailValid(String email) {
     return RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(email);
   }
+  List<TextEditingController> otpControllers = List.generate(6, (index) => TextEditingController());
+  List<FocusNode> otpFocusNodes = List.generate(6, (index) => FocusNode());
+
 
   @override
   Widget build(BuildContext context) {
@@ -345,65 +348,133 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                               style: BlueButtonTextConst.customTextStyle(context)),
                         ),
                     const SizedBox(height: 20),
-
                     SizedBox(
-                      // padding: EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width / 5,
-                      //height:30,   // MediaQuery.of(context).size.height / 25,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('OTP',style: AllPopupHeadings.customTextStyle(context),),
-                          SizedBox(height: 5,),
-                          TextFormField(
-                            cursorColor: Colors.black,
-                            controller: otpController,
-                            style:  onlyFormDataStyle.customTextStyle(context),
-                            enabled: otpEnabled,
-                            // cursorWidth: 1,
-                            focusNode: otpFocusNode,
-                            decoration: new InputDecoration(
-                              // contentPadding: EdgeInsets.only(
-                              //           bottom: AppPadding.p5, left: AppPadding.p20),
-                              isDense: true,
-                             enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                                borderSide: const BorderSide(
-                                  color: Color(0xffB1B1B1),
+                          Text(
+                            'OTP',
+                            style: AllPopupHeadings.customTextStyle(context),
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: List.generate(6, (index) {
+                              return SizedBox(
+                                width: 40, // Width of each box
+                                child: TextFormField(
+                                  cursorColor: Colors.black,
+                                  controller: otpControllers[index],
+                                  style: onlyFormDataStyle.customTextStyle(context),
+                                  enabled: otpEnabled,
+                                  focusNode: otpFocusNodes[index],
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: const BorderSide(
+                                        color: Color(0xffB1B1B1),
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: const BorderSide(
+                                        color: Color(0xffB1B1B1),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: const BorderSide(
+                                        color: Color(0xffB1B1B1),
+                                      ),
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    if (value.isNotEmpty && index < 5) {
+                                      FocusScope.of(context).nextFocus();
+                                    } else if (value.isEmpty && index > 0) {
+                                      FocusScope.of(context).previousFocus();
+                                    }
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Enter digit';
+                                    }
+                                    return null;
+                                  },
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly, // Only allow digits
+                                    LengthLimitingTextInputFormatter(1), // Limit to one character
+                                  ],
+                                  textAlign: TextAlign.center, // Center text in the box
+                                  keyboardType: TextInputType.number,
                                 ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                                borderSide: const BorderSide(
-                                  color: Color(0xffB1B1B1),
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                                borderSide: const BorderSide(
-                                  color: Color(0xffB1B1B1),
-                                ),
-                              ),
-                            ),
-                            onChanged: (value) {},
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter OTP';
-                              }
-                              return null;
-                            },
-                            onFieldSubmitted: (value) {
-                              FocusScope.of(context).requestFocus(submitButtonFocusNode);
-                            },
-                            inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly, // Only allow digits
-                            LengthLimitingTextInputFormatter(6),
-                            ],
+                              );
+                            }),
                           ),
                         ],
                       ),
                     ),
+                    // SizedBox(
+                    //   // padding: EdgeInsets.all(10),
+                    //   width: MediaQuery.of(context).size.width / 5,
+                    //   //height:30,   // MediaQuery.of(context).size.height / 25,
+                    //   child: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     children: [
+                    //       Text('OTP',style: AllPopupHeadings.customTextStyle(context),),
+                    //       SizedBox(height: 5,),
+                    //       TextFormField(
+                    //         cursorColor: Colors.black,
+                    //         controller: otpController,
+                    //         style:  onlyFormDataStyle.customTextStyle(context),
+                    //         enabled: otpEnabled,
+                    //         // cursorWidth: 1,
+                    //         focusNode: otpFocusNode,
+                    //         decoration: new InputDecoration(
+                    //           // contentPadding: EdgeInsets.only(
+                    //           //           bottom: AppPadding.p5, left: AppPadding.p20),
+                    //           isDense: true,
+                    //          enabledBorder: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(5.0),
+                    //             borderSide: const BorderSide(
+                    //               color: Color(0xffB1B1B1),
+                    //             ),
+                    //           ),
+                    //           focusedBorder: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(5.0),
+                    //             borderSide: const BorderSide(
+                    //               color: Color(0xffB1B1B1),
+                    //             ),
+                    //           ),
+                    //           border: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(5.0),
+                    //             borderSide: const BorderSide(
+                    //               color: Color(0xffB1B1B1),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         onChanged: (value) {},
+                    //         validator: (value) {
+                    //           if (value == null || value.isEmpty) {
+                    //             return 'Please enter OTP';
+                    //           }
+                    //           return null;
+                    //         },
+                    //         onFieldSubmitted: (value) {
+                    //           FocusScope.of(context).requestFocus(submitButtonFocusNode);
+                    //         },
+                    //         inputFormatters: [
+                    //         FilteringTextInputFormatter.digitsOnly, // Only allow digits
+                    //         LengthLimitingTextInputFormatter(6),
+                    //         ],
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
 
                     // CustomTextFieldRegister(
                     //   height: 30,
@@ -430,7 +501,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 55),
                                   child: Text(
-                                    '00:$_remainingTime',
+                                    '00:${_remainingTime.toString().padLeft(2, '0')}',
                                     style:  onlyFormDataStyle.customTextStyle(context),)
                                 ),
                               )
@@ -444,7 +515,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                           context, emailController.text);
                                       _remainingTime = 59;
                                       _startTimer();
-                                      otpController.clear();
+                                     // otpControllers.;
                                     },
                                     child: Align(
                                       alignment: Alignment.centerRight,
@@ -484,7 +555,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                 ? () async {
                                     if (_formKey.currentState!.validate()) {
                                       String email = emailController.text;
-                                      String otp = otpController.text;
+                                      String otp = otpControllers.map((controller) => controller.text).join();
 
                                       setState(() {
                                         isOtpLoading = true;
@@ -499,7 +570,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                           });
                                         },
                                       );
-                                      otpController.clear();
+                                      //otpControllers.clear();
                                       emailController.clear();
                                       // showDialog(
                                       //   context: context,

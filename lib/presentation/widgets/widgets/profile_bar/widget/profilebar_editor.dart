@@ -185,6 +185,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   dynamic finalPath;
   String fileName = '';
   int selectedEmployeeTypeId =0;
+  bool isLoading = false;
   List<String> _suggestions = [];
   void _onCountyNameChanged() async {
     if (addressController.text.isEmpty) {
@@ -403,136 +404,154 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                   ),]
                                               ),
                                             ),
-                                            Row(
-                                              children: [
-                                                ProfileEditCancelButton(
-                                                  height: AppSize.s30,
-                                                  width: AppSize.s100,
-                                                  text: AppString.cancel,
-                                                  onPressed: () {
-                                                    print("Edit Mode Cancel :::::::::::::::::::::::############");
-                                                    widget.onCancel();
-                                                  },
-                                                ),
-                                                SizedBox(width: 10,),
-                                                CustomButton(
-                                                  height: AppSize.s30,
-                                                  width: AppSize.s100,
-                                                  onPressed: () async {
-                                                    try {
-                                                      var response = await patchEmployeeEdit(
-                                                          context: context,
-                                                          employeeId: widget.employeeId,
-                                                          code: profileData.code,
-                                                          userId: profileData.userId,
-                                                          firstName: nameController.text,
-                                                          lastName: profileData.lastName,
-                                                          departmentId: selectedDeptId!,
-                                                          employeeTypeId:selectedEmployeeTypeId,
-                                                          expertise: profileData.speciality,
-                                                          cityId: profileData.cityId,
-                                                          countryId: profileData.countryId,
-                                                          countyId: profileData.countyId,
-                                                          zoneId: profileData.zoneId,
-                                                          SSNNbr: ssNController.text,
-                                                          primaryPhoneNbr: phoneNController.text,
-                                                          secondryPhoneNbr: profileData.secondryPhoneNbr,
-                                                          workPhoneNbr: workPhoneController.text,
-                                                          regOfficId: selectedOfficeId ?? profileData.regOfficId,
-                                                          personalEmail: personalEmailController.text,
-                                                          workEmail: workEmailController.text,
-                                                          address: addressController.text,
-                                                          dateOfBirth: profileData.dateOfBirth == ageController.text ? profileData.dateOfBirth.toString() : ageController.text,
-                                                          emergencyContact:
-                                                          profileData.emergencyContact,
-                                                          covreage: profileData.covreage,
-                                                          employment: profileData.employment,
-                                                          gender: selectedGenderId ?? genderController.text,
-                                                          status: profileData.status,
-                                                          service: selectedServiceId ?? serviceController.text,
-                                                          summary: summaryController.text,
-                                                          imgurl: profileData.imgurl,
-                                                          resumeurl: profileData.resumeurl,
-                                                          // companyId: 1,
-                                                          onboardingStatus: profileData.onboardingStatus,
-                                                          driverLicenceNbr: profileData.driverLicenceNbr,
-                                                          dateofTermination: profileData.dateofTermination,
-                                                          dateofResignation: profileData.dateofResignation,
-                                                          dateofHire: profileData.dateofHire,
-                                                          rehirable: profileData.rehirable,
-                                                          position: profileData.position,
-                                                          finalAddress: addressController.text,
-                                                          type: profileData.type,
-                                                          reason: profileData.reason,
-                                                          finalPayCheck: profileData.finalPayCheck,
-                                                          checkDate: profileData.checkDate,
-                                                          grossPay: profileData.grossPay,
-                                                          netPay: profileData.netPay,
-                                                          methods: profileData.methods,
-                                                          materials: profileData.materials,
-                                                          race: profileData.race,
-                                                          rating: profileData.rating,
-                                                          signatureURL: profileData.signatureURL,
-                                                          colorCode: selectedEmployeeColor!,
-                                                        departmentName: selectedDeptName!
-                                                      );
-                                                      if(response.statusCode == 200 || response.statusCode == 201){
-                                                        // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (BuildContext context) {
-                                                            return const AddSuccessPopup(
-                                                              message: 'Employee updated successfully',
+                                            StatefulBuilder(
+                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                return Row(
+                                                  children: [
+                                                    ProfileEditCancelButton(
+                                                      height: AppSize.s30,
+                                                      width: AppSize.s100,
+                                                      text: AppString.cancel,
+                                                      onPressed: () {
+                                                        print("Edit Mode Cancel :::::::::::::::::::::::############");
+                                                        widget.onCancel();
+                                                      },
+                                                    ),
+                                                    SizedBox(width: 10,),
+
+                                                    isLoading ?SizedBox(
+                                                      height: 25,
+                                                      width: 25,
+                                                      child: CircularProgressIndicator(
+                                                        color: ColorManager.blueprime,
+                                                      ),
+                                                    ) :CustomButton(
+                                                      height: AppSize.s30,
+                                                      width: AppSize.s100,
+                                                      onPressed: () async {
+                                                        setState(() {
+                                                          isLoading = true;
+                                                        });
+                                                        try {
+                                                          var response = await patchEmployeeEdit(
+                                                              context: context,
+                                                              employeeId: widget.employeeId,
+                                                              code: profileData.code,
+                                                              userId: profileData.userId,
+                                                              firstName: nameController.text,
+                                                              lastName: profileData.lastName,
+                                                              departmentId: selectedDeptId!,
+                                                              employeeTypeId:selectedEmployeeTypeId,
+                                                              expertise: profileData.speciality,
+                                                              cityId: profileData.cityId,
+                                                              countryId: profileData.countryId,
+                                                              countyId: profileData.countyId,
+                                                              zoneId: profileData.zoneId,
+                                                              SSNNbr: ssNController.text,
+                                                              primaryPhoneNbr: phoneNController.text,
+                                                              secondryPhoneNbr: profileData.secondryPhoneNbr,
+                                                              workPhoneNbr: workPhoneController.text,
+                                                              regOfficId: selectedOfficeId ?? profileData.regOfficId,
+                                                              personalEmail: personalEmailController.text,
+                                                              workEmail: workEmailController.text,
+                                                              address: addressController.text,
+                                                              dateOfBirth: profileData.dateOfBirth == ageController.text ? profileData.dateOfBirth.toString() : ageController.text,
+                                                              emergencyContact:
+                                                              profileData.emergencyContact,
+                                                              covreage: profileData.covreage,
+                                                              employment: profileData.employment,
+                                                              gender: selectedGenderId ?? genderController.text,
+                                                              status: profileData.status,
+                                                              service: selectedServiceId ?? serviceController.text,
+                                                              summary: summaryController.text,
+                                                              imgurl: profileData.imgurl,
+                                                              resumeurl: profileData.resumeurl,
+                                                              // companyId: 1,
+                                                              onboardingStatus: profileData.onboardingStatus,
+                                                              driverLicenceNbr: profileData.driverLicenceNbr,
+                                                              dateofTermination: profileData.dateofTermination,
+                                                              dateofResignation: profileData.dateofResignation,
+                                                              dateofHire: profileData.dateofHire,
+                                                              rehirable: profileData.rehirable,
+                                                              position: profileData.position,
+                                                              finalAddress: addressController.text,
+                                                              type: profileData.type,
+                                                              reason: profileData.reason,
+                                                              finalPayCheck: profileData.finalPayCheck,
+                                                              checkDate: profileData.checkDate,
+                                                              grossPay: profileData.grossPay,
+                                                              netPay: profileData.netPay,
+                                                              methods: profileData.methods,
+                                                              materials: profileData.materials,
+                                                              race: profileData.race,
+                                                              rating: profileData.rating,
+                                                              signatureURL: profileData.signatureURL,
+                                                              colorCode: selectedEmployeeColor!,
+                                                              departmentName: selectedDeptName!
+                                                          );
+                                                          if(response.statusCode == 200 || response.statusCode == 201){
+                                                            // var patchCoverage = await patchEmpEnrollAddCoverage(context,profileData.employeeEnrollId,widget.employeeId,addCovrage);
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) {
+                                                                return const AddSuccessPopup(
+                                                                  message: 'Employee updated successfully',
+                                                                );
+                                                              },
                                                             );
-                                                          },
-                                                        );
-                                                        ///
-                                                        //   if (patchCoverage.success) {
-                                                        //     print("Coverage added successfully");
-                                                        //   } else {
-                                                        //     print("Failed To Add Coverage........");
-                                                        //   }
-                                                        if(pickedFilePath){
-                                                          var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
-                                                        }else{
-                                                          print('Document Error');
+                                                            ///
+                                                            //   if (patchCoverage.success) {
+                                                            //     print("Coverage added successfully");
+                                                            //   } else {
+                                                            //     print("Failed To Add Coverage........");
+                                                            //   }
+                                                            if(pickedFilePath){
+                                                              var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: widget.employeeId);
+                                                            }else{
+                                                              print('Document Error');
+                                                            }
+                                                          }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                            // Navigator.pop(context);
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => const FourNotFourPopup(),
+                                                            );
+                                                          }
+                                                          else {
+                                                            //Navigator.pop(context);
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext context) => FailedPopup(text: response.message),
+                                                            );
+                                                          }
+                                                          widget.onCancel();
+                                                          nameController.clear();
+                                                          deptController.clear();
+                                                          empTypeController.clear();
+                                                          addressController.clear();
+                                                          ageController.clear();
+                                                          ssNController.clear();
+                                                          phoneNController.clear();
+                                                          workPhoneController.clear();
+                                                          personalEmailController.clear();
+                                                          workEmailController.clear();
+                                                          countyController.clear();
+                                                          serviceController.clear();
+                                                          zoneController.clear();
+                                                          summaryController.clear();
+                                                        } catch (e) {
+                                                          print(e);
                                                         }
-                                                      }else if(response.statusCode == 400 || response.statusCode == 404){
-                                                       // Navigator.pop(context);
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (BuildContext context) => const FourNotFourPopup(),
-                                                        );
-                                                      }
-                                                      else {
-                                                        //Navigator.pop(context);
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (BuildContext context) => FailedPopup(text: response.message),
-                                                        );
-                                                      }
-                                                      widget.onCancel();
-                                                      nameController.clear();
-                                                      deptController.clear();
-                                                      empTypeController.clear();
-                                                      addressController.clear();
-                                                      ageController.clear();
-                                                      ssNController.clear();
-                                                      phoneNController.clear();
-                                                      workPhoneController.clear();
-                                                      personalEmailController.clear();
-                                                      workEmailController.clear();
-                                                      countyController.clear();
-                                                      serviceController.clear();
-                                                      zoneController.clear();
-                                                      summaryController.clear();
-                                                    } catch (e) {
-                                                      print(e);
-                                                    }
-                                                  },
-                                                  text: 'Save',
-                                                ),
-                                              ],
+                                                        setState(() {
+                                                          isLoading = false;
+                                                          // Start timer
+                                                        });
+                                                      },
+                                                      text: 'Save',
+                                                    ),
+                                                  ],
+                                                );
+                                              },
                                             )
                                           ],
                                         ),
