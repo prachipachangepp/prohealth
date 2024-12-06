@@ -76,6 +76,7 @@ class AverageClinicianListview extends StatelessWidget {
                 ),
               ),
             ],),
+          SizedBox(height: AppSize.s10,),
           ///heading
           Row(
             children: [
@@ -149,7 +150,7 @@ class AverageClinicianListview extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Container(
-                  height: 210,
+                  height: AppSize.s200,
                  // width: 500,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../color.dart';
 import '../font_manager.dart';
 ///general setting pie chart text
@@ -84,7 +83,7 @@ class EmDashListviewDataText{
     return TextStyle(
         fontSize: FontSize.s12,
         color:ColorManager.black,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         decoration: TextDecoration.none);
   }
 }
