@@ -302,8 +302,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
               SizedBox(height: AppSize.s8),
                 HeaderContentConst(
                   heading: "Available Date",
-                  content :
-                  FormField<String>(
+                  content : FormField<String>(
                     builder: (FormFieldState<String> field) {
                       return SizedBox(
                         width: 354,
