@@ -376,7 +376,8 @@ import 'assign_visit_pop_up.dart';
 
 class CalenderConstant extends StatefulWidget {
   final SchedularData schedularData;
-  CalenderConstant({required this.schedularData});
+  final VoidCallback onBack;
+  CalenderConstant({required this.schedularData, required this.onBack});
   @override
   _CalenderConstantState createState() => _CalenderConstantState();
 }
@@ -491,37 +492,52 @@ class _CalenderConstantState extends State<CalenderConstant> {
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
                 color: Colors.white,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(
-                      onPressed: () => setState(() => _selectedView = 'Day'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _selectedView == 'Day' ? ColorManager.blueprime : ColorManager.white,
-                        foregroundColor: _selectedView == 'Day' ? ColorManager.white : ColorManager.mediumgrey,
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    TextButton.icon(
+                      onPressed: widget.onBack,
+                      label: Text(
+                        'Back',
+                        style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s14,
+                            fontWeight: FontWeightManager.medium,
+                            color: ColorManager.textBlack),
                       ),
-                      child: Text('Day'),
+                      icon: Icon(Icons.keyboard_arrow_left_rounded, color: ColorManager.textBlack),
                     ),
-                    const SizedBox(width: 10),
-                    ElevatedButton(
-                      onPressed: () => setState(() => _selectedView = 'Week'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _selectedView == 'Week' ? ColorManager.blueprime : ColorManager.white,
-                        foregroundColor: _selectedView == 'Week' ? ColorManager.white : ColorManager.mediumgrey,
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    Row(
+                      children: [
+                      ElevatedButton(
+                        onPressed: () => setState(() => _selectedView = 'Day'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: _selectedView == 'Day' ? ColorManager.red : ColorManager.white,
+                          foregroundColor: _selectedView == 'Day' ? ColorManager.white : ColorManager.mediumgrey,
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        ),
+                        child: Text('Day'),
                       ),
-                      child: Text('Week'),
-                    ),
-                    const SizedBox(width: 10),
-                    ElevatedButton(
-                      onPressed: () => setState(() => _selectedView = 'Month'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _selectedView == 'Month' ? ColorManager.blueprime : ColorManager.white,
-                        foregroundColor: _selectedView == 'Month' ? ColorManager.white : ColorManager.mediumgrey,
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () => setState(() => _selectedView = 'Week'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: _selectedView == 'Week' ? ColorManager.red : ColorManager.white,
+                          foregroundColor: _selectedView == 'Week' ? ColorManager.white : ColorManager.mediumgrey,
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        ),
+                        child: Text('Week'),
                       ),
-                      child: Text('Month'),
-                    ),
+                    ],)
+
+                    // const SizedBox(width: 10),
+                    // ElevatedButton(
+                    //   onPressed: () => setState(() => _selectedView = 'Month'),
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: _selectedView == 'Month' ? ColorManager.blueprime : ColorManager.white,
+                    //     foregroundColor: _selectedView == 'Month' ? ColorManager.white : ColorManager.mediumgrey,
+                    //     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    //   ),
+                    //   child: Text('Month'),
+                    // ),
                   ],
                 ),
               ),
@@ -785,14 +801,30 @@ class _CalenderConstantState extends State<CalenderConstant> {
             eventArranger: const SideEventArranger(),
             onDateTap: _onDateLongPress,
           );
-        case 'Month':
-          return MonthView(
-            controller: eventController,
-            minMonth: DateTime(1990),
-            maxMonth: DateTime(2050),
-            onCellTap: (events, date) => _onDateLongPress(date),
-          );
+        // case 'Month':
+        //   return MonthView(
+        //     controller: eventController,
+        //     minMonth: DateTime(1990),
+        //     maxMonth: DateTime(2050),
+        //     onCellTap: (events, date) => _onDateLongPress(date),
+        //   );
         case 'Day':
+          return DayView(
+            controller: eventController,
+            minDay: DateTime(1990),
+            maxDay: DateTime(2050),
+            initialDay: DateTime.now(),
+            showLiveTimeLineInAllDays: true,
+            heightPerMinute: 1,
+            timeLineBuilder: _timeLineBuilder,
+            timeLineWidth: 80,
+            liveTimeIndicatorSettings: const LiveTimeIndicatorSettings(
+              color: Colors.black,
+              height: 2,
+            ),
+            eventArranger: const SideEventArranger(),
+            onDateLongPress: _onDateLongPress,
+          );
         default:
           return DayView(
             controller: eventController,
