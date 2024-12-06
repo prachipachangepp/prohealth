@@ -146,7 +146,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
               Text( AppStringLegalDocument.popupMsgHead,
                 style:  LegalDocumentPopupMessage.customTextStyle(context),),
               SizedBox(height: AppSize.s20),
-              SMTextFConst(
+              SMTextfieldAsteric(
                 controller: fullNameController,
                 keyboardType: TextInputType.text,
                 text: 'Full Name as it appear on license',
@@ -157,7 +157,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(height: AppSize.s7),
-              SMTextFConst(
+              SMTextfieldAsteric(
                 controller: stateLicenseController,
                 keyboardType: TextInputType.text,
                 text: 'State Issuing License',
@@ -167,7 +167,8 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                   stateError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              FirstSMTextFConst(
+              SizedBox(height: AppSize.s7),
+              SMTextfieldAsteric(
                 controller: middleNameController,
                 keyboardType: TextInputType.text,
                 text: 'Middle Name',

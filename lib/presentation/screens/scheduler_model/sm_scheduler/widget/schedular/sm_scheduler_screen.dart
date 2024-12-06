@@ -206,7 +206,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                         height: AppSize.s37,
                         child: ElevatedButton(
                           onPressed: () {
-                            selectButton(1);
+                            //selectButton(1);
                             // _goToPage(2); // Navigate to page 2
                           },
 

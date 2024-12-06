@@ -109,12 +109,12 @@ class _CustomDropdownTextFieldsmState extends State<CustomDropdownTextFieldsm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: Text(
-            widget.headText,
-            style: AllPopupHeadings.customTextStyle(context),
-          ),
+        Text(
+          widget.headText,
+          style: AllPopupHeadings.customTextStyle(context),
+        ),
+        SizedBox(
+          height: 5,
         ),
         SizedBox(
           // width: widget.widthone,

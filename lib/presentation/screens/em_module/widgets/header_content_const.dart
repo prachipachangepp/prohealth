@@ -5,26 +5,72 @@ import '../../../../app/resources/value_manager.dart';
 class HeaderContentConst extends StatelessWidget {
   final String heading;
   final Widget content;
-  const HeaderContentConst(
-      {super.key, required this.heading, required this.content});
+  final bool isAsterisk;
+
+  const HeaderContentConst({
+    super.key,
+    required this.heading,
+    required this.content,
+    this.isAsterisk = false, // Default value is false
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 6),
+      margin: const EdgeInsets.symmetric(vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            heading,
-            style: AllPopupHeadings.customTextStyle(context),
+          // Using RichText for heading with optional red asterisk
+          RichText(
+            text: TextSpan(
+              text: heading, // Main heading text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: isAsterisk
+                  ? [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings
+                      .customTextStyle(context)
+                      ?.copyWith(color: Colors.red), // Red color for asterisk
+                ),
+              ]
+                  : [], // Empty if isAsterisk is false
+            ),
           ),
-          SizedBox(height: AppSize.s5),
+          const SizedBox(height: AppSize.s5),
 
-          /// upload  doc
+          /// Content widget (e.g., upload doc)
           content,
         ],
       ),
     );
   }
 }
+
+// class HeaderContentConst extends StatelessWidget {
+//   final String heading;
+//   final Widget content;
+//   const HeaderContentConst(
+//       {super.key, required this.heading, required this.content});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       margin: EdgeInsets.symmetric(vertical: 6),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             heading,
+//             style: AllPopupHeadings.customTextStyle(context),
+//           ),
+//           SizedBox(height: AppSize.s5),
+//
+//           /// upload  doc
+//           content,
+//         ],
+//       ),
+//     );
+//   }
+// }

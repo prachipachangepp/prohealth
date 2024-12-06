@@ -191,7 +191,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
               Text( AppStringLegalDocument.popupMsgHead,
                 style:  LegalDocumentPopupMessage.customTextStyle(context),),
               SizedBox(height: AppSize.s25),
-              SMTextFConst(
+              SMTextfieldAsteric(
                 controller: nameController,
                 keyboardType: TextInputType.text,
                 text: 'Middle Name',
@@ -202,7 +202,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(height: AppSize.s8),
-              SMTextFConst(
+              SMTextfieldAsteric(
                 controller: lastNameController,
                 keyboardType: TextInputType.text,
                 text: 'Other Last Name',
@@ -213,7 +213,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(height: AppSize.s8),
-              SMTextFConst(
+              SMTextfieldAsteric(
                 controller: aptNumController,
                 keyboardType: TextInputType.text,
                 text: 'ATP Number',
@@ -302,8 +302,7 @@ class _INineSignPopupState extends State<INineSignPopup> {
               SizedBox(height: AppSize.s8),
                 HeaderContentConst(
                   heading: "Available Date",
-                  content :
-                  FormField<String>(
+                  content : FormField<String>(
                     builder: (FormFieldState<String> field) {
                       return SizedBox(
                         width: 354,

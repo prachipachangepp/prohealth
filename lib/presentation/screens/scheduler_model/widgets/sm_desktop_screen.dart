@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/intake_referral_home_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_calender/sm_calender.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/sm_dashboard_screen.dart';
 
 import '../../../../app/resources/color.dart';
@@ -120,7 +121,6 @@ class SMDesktopScreen extends StatelessWidget {
                       SizedBox(
                         width: AppSize.s15,
                       ),
-
                       Obx(
                             () => CustomTitleButton(
                           height: AppSize.s30,
@@ -134,8 +134,29 @@ class SMDesktopScreen extends StatelessWidget {
                                 duration: Duration(milliseconds: 500),
                                 curve: Curves.ease);
                           },
-                          text: 'Live Events',
+                          text: 'Calender',
                           isSelected: myController.selectedIndex.value == 3,
+                        ),
+                      ),
+                      SizedBox(
+                        width: AppSize.s15,
+                      ),
+
+                      Obx(
+                            () => CustomTitleButton(
+                          height: AppSize.s30,
+                          width: AppSize.s140,
+                          onPressed: () {
+
+                            //companyByIdApi(context,);
+                            // companyDetailsApi(context,5);
+                            myController.selectButton(4);
+                            _pageController.animateToPage(4,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          },
+                          text: 'Live View',
+                          isSelected: myController.selectedIndex.value == 4,
                         ),
                       ),
                       SizedBox(
@@ -155,6 +176,7 @@ class SMDesktopScreen extends StatelessWidget {
                   SMDashboardScreen(),
                   SMIntakeScreen(),
                  SMSchedulerScreen(),
+                  SmCalenderScreen(),
                   Container(color: ColorManager.grey),
 
                   // WhitelabellingScreen()
