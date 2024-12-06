@@ -11,6 +11,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
+import '../../../../../../app/resources/font_manager.dart';
 import '../em_dashboard_const.dart';
 
 class OfficeClinicianScreen extends StatefulWidget {
@@ -31,13 +32,18 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
 
   ///line graph
   final List<ChartData> chartData = [
-    ChartData(2012, 40),
-    ChartData(2014, 35),
-    ChartData(2016, 60),
-    ChartData(2018, 20),
-    ChartData(2020, 10),
-    ChartData(2022, 34),
-    ChartData(2024, 40)
+    ChartData(1, 35),  // February
+    ChartData(2, 60),  // March
+    ChartData(3, 20),  // April
+    ChartData(4, 10),  // May
+    ChartData(5, 34),  // June
+    ChartData(6, 35),  // July
+    ChartData(7, 60),  // July
+    ChartData(8, 40),  // July
+    ChartData(9, 20),  // July
+    ChartData(10, 10),  // July
+    ChartData(11, 35),  // July
+    ChartData(12, 40),  // July
   ];
 
   List<BarChartGroupData> _generateBarGroups() {
@@ -161,9 +167,12 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        EmDashboardStringManager.clinicianPatientRatio,
-                        style: EmDashContainerHeadTextStyle.customTextStyle(context),
+                      Padding(
+                        padding: const EdgeInsets.only(left: AppPadding.p8),
+                        child: Text(
+                          EmDashboardStringManager.clinicianPatientRatio,
+                          style: EmDashContainerHeadTextStyle.customTextStyle(context),
+                        ),
                       ),
                       Container(
                         height: AppSize.s200,
@@ -212,9 +221,11 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
               flex: 4,
               child: EMDashboardContainerConst(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p40),
+                      padding: const EdgeInsets.only(right: AppPadding.p40,left: AppPadding.p10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,27 +277,87 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                         ],
                       ),
                     ),
-                    Container(
-                    height: AppSize.s210,
-                    child: SfCartesianChart(
-                        primaryYAxis: NumericAxis(
-                          axisLabelFormatter: (AxisLabelRenderDetails details) {
-                            // Format the y-axis label to append '%'
-                            return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: 12));
-                          },
-                        ),
-                        series: <CartesianSeries>[
-                          // Renders spline chart
-                          SplineSeries<ChartData, int>(
-                              dataSource: chartData,
-                              xValueMapper:
-                                  (ChartData data, _) =>
-                              data.x,
-                              yValueMapper:
-                                  (ChartData data, _) =>
-                              data.y)
-                        ]),
-                                  ),
+          Container(
+            height: AppSize.s210,
+            child: SfCartesianChart(
+              primaryYAxis: NumericAxis(
+                title: AxisTitle(
+                  text: 'Number of Clinicians',
+                  textStyle: EmDashContainerHeadTextStyle.customTextStyle(context),
+                  alignment: ChartAlignment.center, // Center-align the title
+                ),
+                axisLabelFormatter: (AxisLabelRenderDetails details) {
+                  return ChartAxisLabel(details.value.toInt().toString(), TextStyle(fontSize: FontSize.s12));
+                },
+              ),
+              primaryXAxis: CategoryAxis(
+                // title: AxisTitle(
+                //   text: 'Months',
+                //   textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                // ),
+                axisLabelFormatter: (AxisLabelRenderDetails details) {
+                  // Map integer values to month names
+                  switch (details.value.toInt()) {
+                    case 1:
+                      return ChartAxisLabel('Jan', EmDashListviewDataText.customTextStyle(context));
+                    case 2:
+                      return ChartAxisLabel('Feb', EmDashListviewDataText.customTextStyle(context));
+                    case 3:
+                      return ChartAxisLabel('Mar', EmDashListviewDataText.customTextStyle(context));
+                    case 4:
+                      return ChartAxisLabel('Apr', EmDashListviewDataText.customTextStyle(context));
+                    case 5:
+                      return ChartAxisLabel('May', EmDashListviewDataText.customTextStyle(context));
+                    case 6:
+                      return ChartAxisLabel('Jun', EmDashListviewDataText.customTextStyle(context));
+                    case 7:
+                      return ChartAxisLabel('Jul', EmDashListviewDataText.customTextStyle(context));
+                    case 8:
+                      return ChartAxisLabel('Aug', EmDashListviewDataText.customTextStyle(context));
+                    case 9:
+                      return ChartAxisLabel('Sept', EmDashListviewDataText.customTextStyle(context));
+                    case 10:
+                      return ChartAxisLabel('Oct', EmDashListviewDataText.customTextStyle(context));
+                    case 11:
+                      return ChartAxisLabel('Nov', EmDashListviewDataText.customTextStyle(context));
+                    case 12:
+                      return ChartAxisLabel('Dec', EmDashListviewDataText.customTextStyle(context));
+                    default:
+                      return ChartAxisLabel('', TextStyle(fontSize: 12));
+                  }
+                },
+              ),
+              series: <CartesianSeries>[
+                // Render spline chart
+                SplineSeries<ChartData, int>(
+                  dataSource: chartData,
+                  xValueMapper: (ChartData data, _) => data.x,
+                  yValueMapper: (ChartData data, _) => data.y,
+                ),
+              ],
+            ),
+          )
+            // Container(
+            //         height: AppSize.s210,
+            //         child: SfCartesianChart(
+            //             primaryYAxis: NumericAxis(
+            //               axisLabelFormatter: (AxisLabelRenderDetails details) {
+            //                 // Format the y-axis label to append '%'
+            //                 return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: 12));
+            //               },
+            //             ),
+            //             series: <CartesianSeries>[
+            //               // Renders spline chart
+            //               SplineSeries<ChartData, int>(
+            //                   dataSource: chartData,
+            //                   xValueMapper:
+            //                       (ChartData data, _) =>
+            //                   data.x,
+            //                   yValueMapper:
+            //                       (ChartData data, _) =>
+            //                   data.y)
+            //             ]),
+            //                       ),
                   ],
                 ),)),
           SizedBox(width: AppSize.s15,),
@@ -321,44 +392,54 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                   Text(EmDashboardStringManager.avgclinScore,
                   style: EmDashContainerHeadTextStyle.customTextStyle(context)),
                   Container(
-                    height: AppSize.s200,
-                    padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
-                    child: BarChart(
-                      BarChartData(
-                        baselineY:2 ,
-                        maxY: 100, // Maximum value for the Y-axis
-                        barGroups: _generateBarGroups(),
-                        titlesData: FlTitlesData(
-                          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide left titles
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              getTitlesWidget: (double value, TitleMeta meta) {
-                                // X-axis labels
-                                switch (value.toInt()) {
-                                  case 0:
-                                    return Text('90%');
-                                  case 1:
-                                    return Text('80%');
-                                  case 2:
-                                    return Text('100%');
-                                  case 3:
-                                    return Text('75%');
-                                  default:
-                                    return Text('');
-                                }
-                              },
-                            ),
+                  height: AppSize.s200,
+                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                  child: BarChart(
+                    BarChartData(
+                      baselineY: 2,
+                      maxY: 100, // Maximum value for the Y-axis
+                      barGroups: _generateBarGroups(),
+                      titlesData: FlTitlesData(
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: false, // Disable Y-axis tick labels
                           ),
-                          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide top titles
-                          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide right titles
+                          axisNameWidget: Text(
+                            'Clinician Score',
+                            style: EmDashContainerHeadTextStyle.customTextStyle(context),
+                            textAlign: TextAlign.end,
+                          ),
+                          axisNameSize: 50, // Reserve space for the Y-axis title
                         ),
-                        barTouchData: BarTouchData(enabled: false),
-                        gridData: FlGridData(show: false), // Hide grid lines
-                        borderData: FlBorderData(show: false), // Hide chart borders
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: (double value, TitleMeta meta) {
+                              // X-axis labels
+                              switch (value.toInt()) {
+                                case 0:
+                                  return Text('90%');
+                                case 1:
+                                  return Text('80%');
+                                case 2:
+                                  return Text('100%');
+                                case 3:
+                                  return Text('75%');
+                                default:
+                                  return Text('');
+                              }
+                            },
+                          ),
+                        ),
+                        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide top titles
+                        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide right titles
                       ),
+                      barTouchData: BarTouchData(enabled: false),
+                      gridData: FlGridData(show: false), // Hide grid lines
+                      borderData: FlBorderData(show: false), // Hide chart borders
                     ),
                   ),
+                )
                 ],
               ),)),
           SizedBox(width: AppSize.s15,),
