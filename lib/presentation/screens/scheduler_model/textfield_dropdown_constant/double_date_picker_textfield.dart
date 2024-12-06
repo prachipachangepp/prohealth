@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../../../../app/resources/color.dart';
+import '../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../app/resources/value_manager.dart';
 class DoubleDatePickerTextField extends StatefulWidget {
   final String labelText;
   final String? initialValue;
@@ -72,38 +74,46 @@ class _DoubleDatePickerTextFieldState extends State<DoubleDatePickerTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 25.38,
-      child: TextFormField(
-        controller: _dateController,
-        style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.normal,
-          color: Colors.black,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+            widget.labelText,
+            style: AllPopupHeadings.customTextStyle(context)
+          //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
         ),
-        cursorColor: Colors.black,
-        decoration: InputDecoration(
-          labelText: widget.labelText,
-          labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
-            color: Colors.grey[300],
-          ),
-          border: const OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey[400]!),
-          ),
-          suffixIcon: widget.isDate
-              ? Icon(
-            Icons.calendar_month_outlined,
-            color: ColorManager.blueprime,
-          )
-              : null,
+        SizedBox(
+          height: 5,
         ),
-        readOnly: widget.isDate,
-        onTap: widget.isDate ? () async {
-          await _selectDateRange(context);
-        } : null,
-      ),
+        Container(
+         // width: widget.width,
+          height: 30,
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: TextFormField(
+            controller: _dateController,
+            style: TableSubHeading.customTextStyle(context),
+            cursorColor: Colors.black,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
+              border: InputBorder.none,
+              suffixIcon: widget.isDate
+                  ? Icon(
+                Icons.calendar_month_outlined,
+                color: ColorManager.blueprime,
+              )
+                  : null,
+            ),
+            readOnly: widget.isDate,
+            onTap: widget.isDate ? () async {
+              await _selectDateRange(context);
+            } : null,
+          ),
+        ),
+      ],
     );
   }
 }
