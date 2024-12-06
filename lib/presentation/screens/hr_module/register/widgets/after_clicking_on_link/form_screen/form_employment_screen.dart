@@ -50,10 +50,14 @@ class EmploymentScreen extends StatefulWidget {
   final int employeeID;
   final BuildContext context;
   final Function onSave;
+  final Function onNext;
   final Function onBack;
+
   const EmploymentScreen({
     super.key,
-    required this.employeeID, required this.context, required this.onSave, required this.onBack,
+    required this.employeeID,
+    required this.context, required this.onSave, required this.onBack,
+    required this.onNext,
   });
 
   @override
@@ -319,7 +323,31 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                   'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
                 ),
-              )
+              ),
+               SizedBox(
+                width: AppSize.s30,
+              ),
+              Container(
+                //color: Colors.white,
+                width: 117,
+                height: 30,
+                child: ElevatedButton(
+                  onPressed: (){
+                    widget.onNext();
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(
+                        color: ColorManager.bluebottom,
+                        width: 1,
+                      ),
+                    ),),
+                  child: Text('Next',
+                    style: TransparentButtonTextConst.customTextStyle(context),
+                  ),),
+              ),
 
 
               /////////
@@ -430,8 +458,6 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
               ///
               ///
               ///
-
-
               //     :CustomButton(
               //   width: 117,
               //   height: 30,
@@ -530,13 +556,6 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
               //     style: BlueButtonTextConst.customTextStyle(context),
               //   ),
               // ),
-
-
-
-
-
-
-
               ///file upload logic old
 //
 //               isLoading
@@ -629,8 +648,6 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
 //                   style: BlueButtonTextConst.customTextStyle(context),
 //                 ),
 //               ),
-
-
             ],
           ),
         ],
@@ -646,7 +663,6 @@ class EmploymentForm extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
-
   EmploymentForm({
     Key? key,
     required this.onRemove,
