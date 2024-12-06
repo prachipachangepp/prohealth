@@ -28,11 +28,12 @@ class BankingScreen extends StatefulWidget {
   final int employeeID;
   final Function onSave;
   final Function onBack;
+  final Function onNext;
 
   const BankingScreen({
     super.key,
     required this.context,
-    required this.employeeID, required this.onSave, required this.onBack,
+    required this.employeeID, required this.onSave, required this.onBack, required this.onNext,
   });
 
   final BuildContext context;
@@ -347,6 +348,30 @@ class _BankingScreenState extends State<BankingScreen> {
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
+            ),
+            const SizedBox(
+              width: AppSize.s30,
+            ),
+            Container(
+              //color: Colors.white,
+              width: 117,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: (){
+                  widget.onNext();
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: ColorManager.bluebottom,
+                      width: 1,
+                    ),
+                  ),),
+                child: Text('Next',
+                  style: TransparentButtonTextConst.customTextStyle(context),
+                ),),
             ),
 
 

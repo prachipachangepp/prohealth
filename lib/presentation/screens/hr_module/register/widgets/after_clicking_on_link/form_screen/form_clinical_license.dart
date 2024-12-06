@@ -15,6 +15,7 @@ import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/onboarding_manager/clinical_licenses_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/form_health_record_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_health_record_data.dart';
@@ -28,11 +29,13 @@ class Clinical_licenses extends StatefulWidget {
   final int employeeID;
   final Function onSave;
   final Function onBack;
+  final Function onNext;
   const Clinical_licenses(
       {super.key,
         required this.employeeID,
         required this.onSave,
         required this.onBack,
+        required this.onNext,
         required this.context});
 
   final BuildContext context;
@@ -554,10 +557,6 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
               const SizedBox(
                 width: 30,
               ),
-
-
-
-
               isLoading
                   ? SizedBox(
                 height: 25,
@@ -676,6 +675,30 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                   'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
                 ),
+              ),
+              const SizedBox(
+                width: AppSize.s30,
+              ),
+              Container(
+                //color: Colors.white,
+                width: 117,
+                height: 30,
+                child: ElevatedButton(
+                  onPressed: (){
+                    widget.onNext();
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(
+                        color: ColorManager.bluebottom,
+                        width: 1,
+                      ),
+                    ),),
+                  child: Text('Next',
+                    style: TransparentButtonTextConst.customTextStyle(context),
+                  ),),
               ),
 
 

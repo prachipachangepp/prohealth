@@ -205,7 +205,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               //   onTap: details.onStepCancel,
                               // )
                             ],
-SizedBox(),
+                            SizedBox(),
                             // Container(
                             //   width: 20,
                             //   height: 20,
@@ -340,6 +340,11 @@ SizedBox(),
               _currentStep = _currentStep -1;
             });
           },
+          onNext: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
         ),
       ),
       /////////////////
@@ -365,6 +370,11 @@ SizedBox(),
           onBack:(){
             setState(() {
               _currentStep = _currentStep -1;
+            });
+          },
+          onNext: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
             });
           },
         ),
@@ -394,6 +404,11 @@ SizedBox(),
               _currentStep = _currentStep -1;
             });
           },
+          onNext: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
         ),
       ),
       ///////////////////
@@ -419,6 +434,11 @@ SizedBox(),
           onBack:(){
             setState(() {
               _currentStep = _currentStep -1;
+            });
+          },
+          onNext: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
             });
           },
         ),
@@ -449,6 +469,11 @@ SizedBox(),
               _currentStep = _currentStep -1;
             });
           },
+          onNext: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
         ),
       ),
 
@@ -477,6 +502,11 @@ SizedBox(),
               _currentStep = _currentStep -1;
             });
           },
+          onNext: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
         ),
       ),
       Step(
@@ -503,6 +533,11 @@ SizedBox(),
               _currentStep = _currentStep -1;
             });
           },
+          onNext: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
+            });
+          },
         ),
       ),
       Step(
@@ -527,6 +562,11 @@ SizedBox(),
           onBack:(){
             setState(() {
               _currentStep = _currentStep -1;
+            });
+          },
+          onNext: (){
+            setState(() {
+              _currentStep = _currentStep +1 ;
             });
           },
         ),
