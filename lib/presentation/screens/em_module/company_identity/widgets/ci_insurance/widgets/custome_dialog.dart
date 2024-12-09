@@ -70,7 +70,7 @@ class _CustomPopupState extends State<CustomPopup> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  FirstSMTextFConst(
+                  SMTextfieldAsteric(
                     controller: nameController,
                     keyboardType: TextInputType.text,
                     text: 'Vendor Name',
@@ -200,7 +200,7 @@ class _AddVendorPopupState extends State<AddVendorPopup> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              FirstSMTextFConst(
+              SMTextfieldAsteric(
                 controller: widget.namecontroller,
                 keyboardType: TextInputType.text,
                 text: 'Vendor Name',

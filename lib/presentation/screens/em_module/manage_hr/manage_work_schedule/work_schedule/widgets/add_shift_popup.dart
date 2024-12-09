@@ -144,7 +144,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FirstSMTextFConst(
+                  SMTextfieldAsteric(
                     controller: widget.shiftNameController,
                     keyboardType: TextInputType.text,
                     text: 'Shift Name',
@@ -155,7 +155,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: 10,),
-                  SMTextFConst(
+                  SMTextfieldAsteric(
                     onChange: () => _selectStartTime(context),
                     controller: widget.controller1,
                     keyboardType: TextInputType.text,
@@ -168,7 +168,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
                   SizedBox(height: 10,),
-                  SMTextFConst(
+                  SMTextfieldAsteric(
                     onChange: () => _selectEndTime(context),
                     controller: widget.controller2,
                     keyboardType: TextInputType.text,

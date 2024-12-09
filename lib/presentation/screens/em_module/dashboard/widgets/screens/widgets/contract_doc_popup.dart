@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
+import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 
 class ContractDocAuditPopup extends StatelessWidget {
@@ -24,7 +25,8 @@ class ContractDocAuditPopup extends StatelessWidget {
                 Text(
                   EmDashboardStringManager.NoOfOffice,
                   textAlign: TextAlign.start,
-                  style: EmDashListviewHeadText.customTextStyle(context)
+                 // style: EmDashListviewHeadText.customTextStyle(context)
+                  style: PopupCompStyle.customTextStyle(context)
                 ),
                 //Expanded(flex:1 ,child: Container()),
                 Padding(
@@ -32,14 +34,14 @@ class ContractDocAuditPopup extends StatelessWidget {
                   child: Text(
                       EmDashboardStringManager.status,
                     textAlign: TextAlign.start,
-                    style: EmDashListviewHeadText.customTextStyle(context)
+                    style: PopupCompStyle.customTextStyle(context)
                   ),
                 ),
                 //SizedBox(width: 30,),
                 Text(
                     EmDashboardStringManager.randomNum ,
                   textAlign: TextAlign.center,
-                  style: EmDashListviewHeadText.customTextStyle(context)
+                  style: PopupCompStyle.customTextStyle(context)
                 ),
               ],
             ),
@@ -47,7 +49,7 @@ class ContractDocAuditPopup extends StatelessWidget {
           SizedBox(height: AppSize.s10,),
           Container(
             height: AppSize.s260,
-            padding: EdgeInsets.only(left: AppPadding.p25,),
+            padding: EdgeInsets.only(left: AppPadding.p15,),
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: 15,
@@ -117,7 +119,7 @@ class ContractDocPenaltyPopup extends StatelessWidget {
                 Text(
                     EmDashboardStringManager.NoOfOffice,
                   textAlign: TextAlign.start,
-                  style: EmDashListviewHeadText.customTextStyle(context)
+                  style: PopupCompStyle.customTextStyle(context)
                 ),
                 //Expanded(flex:1 ,child: Container()),
                 Padding(
@@ -125,14 +127,14 @@ class ContractDocPenaltyPopup extends StatelessWidget {
                   child: Text(
                       EmDashboardStringManager.date,
                     textAlign: TextAlign.start,
-                    style: EmDashListviewHeadText.customTextStyle(context)
+                    style: PopupCompStyle.customTextStyle(context)
                   ),
                 ),
                 //SizedBox(width: 30,),
                 Text(
                     EmDashboardStringManager.penaltyAmt,
                   textAlign: TextAlign.center,
-                  style: EmDashListviewHeadText.customTextStyle(context)
+                  style: PopupCompStyle.customTextStyle(context)
                 ),
               ],
             ),
@@ -140,7 +142,7 @@ class ContractDocPenaltyPopup extends StatelessWidget {
           SizedBox(height: AppSize.s10,),
           Container(
             height: AppSize.s260,
-            padding: EdgeInsets.only(left: AppPadding.p25,),
+            padding: EdgeInsets.only(left: AppPadding.p15,),
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: 15,
