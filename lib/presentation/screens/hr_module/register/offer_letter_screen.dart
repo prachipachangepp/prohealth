@@ -1211,123 +1211,127 @@ class _DynamciContainerState extends State<DynamciContainer> {
                         'County', style: DocumentTypeDataStyle.customTextStyle(context),
                       ),
                       const SizedBox(height: 5),
-                      FutureBuilder<List<AllCountyGetList>>(
-                        future: getCountyZoneList(context),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 7),
-                              child: Container(
-                                height: 32,
-                                width: 250,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                              ),
-                            );
-                          } else if (snapshot.hasError) {
-                            return const CustomDropdownTextField(
-                              hintText: 'Select County',
-                              headText: 'County',
-                              items: ['Error'],
-                            );
-                          } else if (snapshot.hasData) {
-                            // Clear dropdown list to avoid duplicates
-                            dropDownList.clear();
-
-                            // Add the default "Select" item
-                            // dropDownList.add( DropdownMenuItem<String>(
-                            //   child: Text('Select County',style: TextStyle(
-                            //     fontWeight: FontWeight.w500,
-                            //     fontSize: FontSize.s12,
-                            //     color: ColorManager.mediumgrey,
-                            //     decoration: TextDecoration.none,
-                            //   ),),
-                            //   value: 'Select County',
-                            // ));
-
-                            // Populate dropdown list with counties
-                            for (var i in snapshot.data!) {
-                              dropDownList.add(DropdownMenuItem<String>(
-                                child: Text(i.countyName),
-                                value: i.countyName,
-                              ));
-                            }
-
-                            // Set initial selectedCounty if not already set
-                            // if (selectedCounty == null) {
-                            //   selectedCounty = 'Select County';
-                            // }
-
-                            return StatefulBuilder(
-                              builder: (BuildContext context, StateSetter setState) {
-                                return Container(
-                                 // height: 31,
-                                  width: 250,
-                                  //padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                  // decoration: BoxDecoration(
-                                  //   color: Colors.white,
-                                  //   border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
-                                  //   borderRadius: BorderRadius.circular(6),
-                                  // ),
-                                  // child: DropdownButtonFormField<String>(
-                                  //   focusColor: Colors.transparent,
-                                  //   icon: const Icon(
-                                  //     Icons.arrow_drop_down_sharp,
-                                  //     color: Color(0xff686464),
-                                  //   ),
-                                  //   decoration: const InputDecoration.collapsed(hintText: ''),
-                                  //   items: dropDownList,
-                                  //   onChanged: (newValue) {
-                                  //     setState(() {
-                                  //       selectedCounty = newValue;
-                                  //       for (var a in snapshot.data!) {
-                                  //         if (a.countyName == newValue) {
-                                  //           selectedCountyId = a.countyId;
-                                  //           print("County Id :: ${selectedCountyId}");
-                                  //           // Perform other actions if needed
-                                  //         }
-                                  //       }
-                                  //     });
-                                  //   },
-                                  //   value: selectedCounty,
-                                  //   style: TextStyle(
-                                  //     fontWeight: FontWeight.w500,
-                                  //     fontSize: FontSize.s12,
-                                  //     color: ColorManager.mediumgrey,
-                                  //     decoration: TextDecoration.none,
-                                  //   ),
-                                  // ),
-
-                                  child: CustomDropdownTextFieldwidh(
-                                    dropDownMenuList: dropDownList,
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        selectedCounty = newValue;
-                                        for (var a in snapshot.data!) {
-                                          if (a.countyName == newValue) {
-                                            selectedCountyId = a.countyId;
-                                            print("County Id :: ${selectedCountyId}");
-                                            // Perform other actions if needed
-                                          }
-                                        }
-                                      });
-                                    },
-                                   // hintText: initialValue,
+                      StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) {
+                          return FutureBuilder<List<AllCountyGetList>>(
+                            future: getCountyZoneList(context),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 7),
+                                  child: Container(
                                     height: 32,
-
+                                    width: 250,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
                                   ),
                                 );
-                              },
-                            );
-                          } else {
-                            return CustomDropdownTextField(
-                              headText: 'County',
-                              items: ['No County'],
-                            );
-                          }
+                              } else if (snapshot.hasError) {
+                                return const CustomDropdownTextField(
+                                  hintText: 'Select County',
+                                  headText: 'County',
+                                  items: ['Error'],
+                                );
+                              } else if (snapshot.hasData) {
+                                // Clear dropdown list to avoid duplicates
+                                dropDownList.clear();
+
+                                // Add the default "Select" item
+                                // dropDownList.add( DropdownMenuItem<String>(
+                                //   child: Text('Select County',style: TextStyle(
+                                //     fontWeight: FontWeight.w500,
+                                //     fontSize: FontSize.s12,
+                                //     color: ColorManager.mediumgrey,
+                                //     decoration: TextDecoration.none,
+                                //   ),),
+                                //   value: 'Select County',
+                                // ));
+
+                                // Populate dropdown list with counties
+                                for (var i in snapshot.data!) {
+                                  dropDownList.add(DropdownMenuItem<String>(
+                                    child: Text(i.countyName),
+                                    value: i.countyName,
+                                  ));
+                                }
+
+                                // Set initial selectedCounty if not already set
+                                // if (selectedCounty == null) {
+                                //   selectedCounty = 'Select County';
+                                // }
+
+                                return StatefulBuilder(
+                                  builder: (BuildContext context, StateSetter setState) {
+                                    return Container(
+                                      // height: 31,
+                                      width: 250,
+                                      //padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                      // decoration: BoxDecoration(
+                                      //   color: Colors.white,
+                                      //   border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                      //   borderRadius: BorderRadius.circular(6),
+                                      // ),
+                                      // child: DropdownButtonFormField<String>(
+                                      //   focusColor: Colors.transparent,
+                                      //   icon: const Icon(
+                                      //     Icons.arrow_drop_down_sharp,
+                                      //     color: Color(0xff686464),
+                                      //   ),
+                                      //   decoration: const InputDecoration.collapsed(hintText: ''),
+                                      //   items: dropDownList,
+                                      //   onChanged: (newValue) {
+                                      //     setState(() {
+                                      //       selectedCounty = newValue;
+                                      //       for (var a in snapshot.data!) {
+                                      //         if (a.countyName == newValue) {
+                                      //           selectedCountyId = a.countyId;
+                                      //           print("County Id :: ${selectedCountyId}");
+                                      //           // Perform other actions if needed
+                                      //         }
+                                      //       }
+                                      //     });
+                                      //   },
+                                      //   value: selectedCounty,
+                                      //   style: TextStyle(
+                                      //     fontWeight: FontWeight.w500,
+                                      //     fontSize: FontSize.s12,
+                                      //     color: ColorManager.mediumgrey,
+                                      //     decoration: TextDecoration.none,
+                                      //   ),
+                                      // ),
+
+                                      child: CustomDropdownTextFieldwidh(
+                                        dropDownMenuList: dropDownList,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            selectedCounty = newValue;
+                                            for (var a in snapshot.data!) {
+                                              if (a.countyName == newValue) {
+                                                selectedCountyId = a.countyId;
+                                                print("County Id :: ${selectedCountyId}");
+                                                // Perform other actions if needed
+                                              }
+                                            }
+                                          });
+                                        },
+                                        // hintText: initialValue,
+                                        height: 32,
+
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else {
+                                return CustomDropdownTextField(
+                                  headText: 'County',
+                                  items: ['No County'],
+                                );
+                              }
+                            },
+                          );
                         },
                       ),
                     ],
