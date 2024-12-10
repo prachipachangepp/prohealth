@@ -245,7 +245,7 @@ class AvgComRatingOffice extends StatelessWidget {
         Container(
           height: AppSize.s30,
           // margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
-          padding: EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p40),
+          padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p60),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(

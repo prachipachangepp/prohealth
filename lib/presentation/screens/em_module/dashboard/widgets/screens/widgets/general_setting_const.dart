@@ -81,7 +81,7 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                             width: AppSize.s50,
                             height: AppSize.s50,
                             color: ColorManager.bluebottom,
-                            child: Icon(Icons.lock_clock, color: ColorManager.white, size: IconSize.I24,)
+                            child: Icon(Icons.personal_injury_outlined, color: ColorManager.white, size: IconSize.I24,)
                           // Image.asset(
                           //   imageTile, // Replace with your image path
                           //   fit: BoxFit.cover,

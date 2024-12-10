@@ -129,7 +129,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FirstSMTextFConst(
+                    SMTextfieldAsteric(
                       controller: widget.countynameController,
                       keyboardType: TextInputType.text,
                       text: widget.title1,
@@ -142,7 +142,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                       ),
                     SizedBox(height: AppSize.s20),
                     if (widget.title2 != null) ...[
-                      FirstSMTextFConst(
+                      SMTextfieldAsteric(
                         inputFormated: [UpperCaseTextFormatter()],
                         controller: widget.zipcodeController!,
                         keyboardType: TextInputType.text,
@@ -157,7 +157,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                     ],
                     if (widget.title3 != null) ...[
                       SizedBox(height: AppSize.s20),
-                      FirstSMTextFConst(
+                      SMTextfieldAsteric(
                         controller: widget.mapController!,
                         keyboardType: TextInputType.text,
                         text: widget.title3!,
@@ -356,10 +356,24 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'County Name',
-                      style: AllPopupHeadings.customTextStyle(context),
+                    RichText(
+                      text: TextSpan(
+                        text: 'County Name', // Main text
+                        style: AllPopupHeadings.customTextStyle(context), // Main style
+                        children: [
+                          TextSpan(
+                            text: ' *', // Asterisk
+                            style: AllPopupHeadings.customTextStyle(context).copyWith(
+                              color: ColorManager.red, // Asterisk color
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+                    // Text(
+                    //   'County Name',
+                    //   style: AllPopupHeadings.customTextStyle(context),
+                    // ),
                     SizedBox(height: AppSize.s5),
                     FutureBuilder<List<OfficeWiseCountyData>>(
                         future: getCountyListOfficeIdWise(context:context,OfficeId: widget.officeId),
@@ -468,10 +482,24 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      AppString.zone,
-                      style: AllPopupHeadings.customTextStyle(context),
+                    RichText(
+                      text: TextSpan(
+                        text: AppString.zone, // Main text
+                        style: AllPopupHeadings.customTextStyle(context), // Main style
+                        children: [
+                          TextSpan(
+                            text: ' *', // Asterisk
+                            style: AllPopupHeadings.customTextStyle(context).copyWith(
+                              color: ColorManager.red, // Asterisk color
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+                    // Text(
+                    //   AppString.zone,
+                    //   style: AllPopupHeadings.customTextStyle(context),
+                    // ),
                     SizedBox(height: AppSize.s5),
                     StreamBuilder<List<AllCountyZoneGet>>(
                         stream: _zoneController.stream,
@@ -575,7 +603,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                   ],
                 ),
                 SizedBox(height: AppSize.s15),
-                SMTextFConst(
+                SMTextfieldAsteric(
                   controller: widget.zipcodeController,
                   keyboardType: TextInputType.text,
                   text: 'Zip Code',
@@ -650,7 +678,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
           : CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
-        text: AppStringEM.add,
+        text: AppStringEM.save,
         onPressed: () async {
           if (validateFields()) {
             setState(() {
@@ -1257,10 +1285,24 @@ title: widget.title,
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'County Name',
-                          style: AllPopupHeadings.customTextStyle(context),
+                        RichText(
+                          text: TextSpan(
+                            text: 'County Name', // Main text
+                            style: AllPopupHeadings.customTextStyle(context), // Main style
+                            children: [
+                              TextSpan(
+                                text: ' *', // Asterisk
+                                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                  color: ColorManager.red, // Asterisk color
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                        // Text(
+                        //   'County Name',
+                        //   style: AllPopupHeadings.customTextStyle(context),
+                        // ),
                         SizedBox(height: AppSize.s5),
                         FutureBuilder<List<AllCountyGetList>>(
                             future: getCountyZoneList(context),
@@ -1351,10 +1393,24 @@ title: widget.title,
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          AppString.zone,
-                          style: AllPopupHeadings.customTextStyle(context)
+                        RichText(
+                          text: TextSpan(
+                            text:AppString.zone, // Main text
+                            style: AllPopupHeadings.customTextStyle(context), // Main style
+                            children: [
+                              TextSpan(
+                                text: ' *', // Asterisk
+                                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                  color: ColorManager.red, // Asterisk color
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                        // Text(
+                        //   AppString.zone,
+                        //   style: AllPopupHeadings.customTextStyle(context)
+                        // ),
                         SizedBox(height: AppSize.s5),
                         FutureBuilder<List<SortByZoneData>>(
                             future: PayRateZoneDropdown(context),
@@ -1445,7 +1501,7 @@ title: widget.title,
                     //   text: 'City Name',
                     // ),
                     SizedBox(height: AppSize.s15),
-                    SMTextFConst(
+                    SMTextfieldAsteric(
                       controller: widget.zipcodeController,
                       keyboardType: TextInputType.text,
                       text: 'Zip Code',
@@ -1709,7 +1765,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FirstSMTextFConst(
+                    SMTextfieldAsteric(
                       controller: widget.zoneNumberController,
                       keyboardType: TextInputType.text,
                       text: 'Zone Name',
@@ -1728,7 +1784,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FirstSMTextFConst(
+                        SMTextfieldAsteric(
                           enable: false,
                           controller: widget.countyNameController,
                           keyboardType: TextInputType.text,

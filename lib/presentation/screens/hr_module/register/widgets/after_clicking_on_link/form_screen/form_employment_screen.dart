@@ -50,10 +50,14 @@ class EmploymentScreen extends StatefulWidget {
   final int employeeID;
   final BuildContext context;
   final Function onSave;
+  final Function onNext;
   final Function onBack;
+
   const EmploymentScreen({
     super.key,
-    required this.employeeID, required this.context, required this.onSave, required this.onBack,
+    required this.employeeID,
+    required this.context, required this.onSave, required this.onBack,
+    required this.onNext,
   });
 
   @override
@@ -214,17 +218,16 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                   color: ColorManager.blueprime,
                 ),
               )
-                  :CustomButton(
+
+                  :// Required to use File class for checking file size
+
+              CustomButton(
                 width: 117,
                 height: 30,
                 text: 'Save', // Show empty text when loading
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-                  setState(() {
-                    isLoading = true; // Start loading
-                  });
-
                   for (var key in employmentFormKeys) {
                     final state = key.currentState!;
 
@@ -232,21 +235,33 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                       // Check if state isPrefill is false before proceeding
                       if (state.isPrefill == false) {
                         // Only check file size if "Currently Working" is selected (checkbox is checked)
-                        if (state.isChecked) {
-                          // Check if a file is uploaded and if it is under 20MB
-                          if ((state.fileName != null || state.finalPath != null) && state.fileAbove20Mb) {
-                            // Show "File is too large!" error message if the file exceeds 20MB
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddErrorPopup(
-                                  message: 'File is too large!',
-                                );
-                              },
-                            );
-                            return; // Exit the function if the file is too large
-                          }
-                        }
+                        //if (state.isChecked) {
+                        // Check if a file is uploaded and if it is under 20MB
+                        // if ((state.fileName != null || state.finalPath != null)) {
+                        // // Check the file size
+                        // File file = File(state.finalPath!);
+                        // int fileSizeInBytes = await file.length(); // Get file size in bytes
+                        // int fileSizeInMB = fileSizeInBytes ~/ (1024 * 1024); // Convert to MB
+                        //
+                        // if (fileSizeInMB > 20) {
+                        // // Show "File is too large!" error message if the file exceeds 20MB
+                        // showDialog(
+                        // context: context,
+                        // builder: (BuildContext context) {
+                        // return AddErrorPopup(
+                        // message: 'File is too large! Max size is 20MB.',
+                        // );
+                        // },
+                        // );
+                        // return; // Exit the function if the file is too large
+                        // }
+                        // }
+                        // }
+
+                        print(";;;;;;${state.fileAbove20Mb}");
+                        setState(() {
+                          isLoading = true; // Start loading
+                        });
 
                         // Proceed with posting the employment data if the conditions are met
                         var response = await postemploymentscreenData(
@@ -283,7 +298,10 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                               );
                             },
                           );
-                          widget.onSave();
+                          setState(() {
+                            isLoading = false; // End loading
+                          });
+                          await widget.onSave();
                           _loadEmploymentData();
                         } else {
                           showDialog(
@@ -300,19 +318,146 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                       print(e);
                     }
                   }
-
-                  setState(() {
-                    isLoading = false; // End loading
-                  });
                 },
                 child: Text(
                   'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
                 ),
               ),
+               SizedBox(
+                width: AppSize.s30,
+              ),
+              Container(
+                //color: Colors.white,
+                width: 117,
+                height: 30,
+                child: ElevatedButton(
+                  onPressed: (){
+                    widget.onNext();
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(
+                        color: ColorManager.bluebottom,
+                        width: 1,
+                      ),
+                    ),),
+                  child: Text('Next',
+                    style: TransparentButtonTextConst.customTextStyle(context),
+                  ),),
+              ),
 
 
-
+              /////////
+              ///
+              ///
+              ///
+              //     :CustomButton(
+              //   width: 117,
+              //   height: 30,
+              //   text: 'Save', // Show empty text when loading
+              //   style: BlueButtonTextConst.customTextStyle(context),
+              //   borderRadius: 12,
+              //   onPressed: () async {
+              //
+              //
+              //     for (var key in employmentFormKeys) {
+              //       final state = key.currentState!;
+              //
+              //       try {
+              //         // Check if state isPrefill is false before proceeding
+              //         if (state.isPrefill == false) {
+              //           // Only check file size if "Currently Working" is selected (checkbox is checked)
+              //           if (state.isChecked) {
+              //             // Check if a file is uploaded and if it is under 20MB
+              //             if ((state.fileName != null || state.finalPath != null) && state.fileAbove20Mb) {
+              //               // Show "File is too large!" error message if the file exceeds 20MB
+              //               showDialog(
+              //                 context: context,
+              //                 builder: (BuildContext context) {
+              //                   return AddErrorPopup(
+              //                     message: 'File is too large!',
+              //                   );
+              //                 },
+              //               );
+              //               return; // Exit the function if the file is too large
+              //             }
+              //           }
+              //           print(";;;;;;${state.fileAbove20Mb}");
+              //           setState(() {
+              //             isLoading = true; // Start loading
+              //           });
+              //           // Proceed with posting the employment data if the conditions are met
+              //           var response = await postemploymentscreenData(
+              //             context,
+              //             state.widget.employeeID,
+              //             state.employerController.text,
+              //             state.cityController.text,
+              //             state.reasonForLeavingController.text,
+              //             state.supervisorNameController.text,
+              //             state.supervisorMobileNumberController.text,
+              //             state.finalPositionController.text,
+              //             state.startDateController.text,
+              //             state.isChecked ? "Currently Working" : state.endDateController.text,
+              //             "NA",
+              //             "United States Of America",
+              //           );
+              //
+              //
+              //           // Check if the file name is not null before uploading the resume
+              //           if (state.fileName != null) {
+              //             await uploadEmployeeResume(
+              //               context: context,
+              //               employeementId: response.employeeMentId!,
+              //               documentFile: state.finalPath!,
+              //               documentName: state.fileName!,
+              //             );
+              //           }
+              //
+              //           if (response.statusCode == 200 || response.statusCode == 201) {
+              //             await showDialog(
+              //               context: context,
+              //               builder: (BuildContext context) {
+              //                 return AddSuccessPopup(
+              //                   message: 'Employment Data Saved',
+              //                 );
+              //               },
+              //             );
+              //             setState(() {
+              //               isLoading = false; // End loading
+              //             });
+              //            await widget.onSave();
+              //             _loadEmploymentData();
+              //           } else {
+              //             showDialog(
+              //               context: context,
+              //               builder: (BuildContext context) {
+              //                 return AddSuccessPopup(
+              //                   message: 'Failed To Save Employment Data',
+              //                 );
+              //               },
+              //             );
+              //           }
+              //         }
+              //       } catch (e) {
+              //         print(e);
+              //       }
+              //     }
+              //
+              //
+              //   },
+              //   child: Text(
+              //     'Save',
+              //     style: BlueButtonTextConst.customTextStyle(context),
+              //   ),
+              // ),
+              ///
+              ///
+              ///
+              ///
+              ///
               //     :CustomButton(
               //   width: 117,
               //   height: 30,
@@ -411,13 +556,6 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
               //     style: BlueButtonTextConst.customTextStyle(context),
               //   ),
               // ),
-
-
-
-
-
-
-
               ///file upload logic old
 //
 //               isLoading
@@ -510,8 +648,6 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
 //                   style: BlueButtonTextConst.customTextStyle(context),
 //                 ),
 //               ),
-
-
             ],
           ),
         ],
@@ -527,7 +663,6 @@ class EmploymentForm extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
   final bool isVisible;
-
   EmploymentForm({
     Key? key,
     required this.onRemove,
@@ -594,21 +729,59 @@ class _EmploymentFormState extends State<EmploymentForm> {
   }
 
   Future<void> _handleFileUpload() async {
+    // Pick the file using FilePicker
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['pdf']
+      type: FileType.custom,
+      allowedExtensions: ['pdf'], // Only allow PDFs
     );
-    final fileSize = result?.files.first.size; // File size in bytes
-    final isAbove20MB = fileSize! > (20 * 1024 * 1024);
-    if (result != null) {
-      final file = result.files.first;
-      setState(() {
-        fileName = file.name;
-        finalPath = file.bytes;
-        fileAbove20Mb = !isAbove20MB;
-      });
+
+    // Get the file size in bytes
+    final fileSize = result?.files.first.size;
+
+    if (fileSize != null) {
+      final isAbove20MB = fileSize > (20 * 1024 * 1024); // Check if file is larger than 20MB
+
+      if (isAbove20MB) {
+        // If the file is larger than 20MB, show an error message
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AddErrorPopup(
+              message: 'File is too large!',
+            );
+          },
+        );
+      } else {
+        // If the file is less than 20MB, proceed with the upload process
+        if (result != null) {
+          final file = result.files.first;
+          setState(() {
+            fileName = file.name;
+            finalPath = file.bytes;
+            fileAbove20Mb = false; // This flag indicates that the file is below 20MB
+          });
+        }
+      }
     }
   }
+
+
+  // Future<void> _handleFileUpload() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //       type: FileType.custom,
+  //       allowedExtensions: ['pdf']
+  //   );
+  //   final fileSize = result?.files.first.size; // File size in bytes
+  //   final isAbove20MB = fileSize! > (20 * 1024 * 1024);
+  //   if (result != null) {
+  //     final file = result.files.first;
+  //     setState(() {
+  //       fileName = file.name;
+  //       finalPath = file.bytes;
+  //       fileAbove20Mb = !isAbove20MB;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

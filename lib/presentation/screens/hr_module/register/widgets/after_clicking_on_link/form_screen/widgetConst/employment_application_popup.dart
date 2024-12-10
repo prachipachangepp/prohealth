@@ -66,11 +66,11 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
     setState(() {
       _isFormValid = true;
       nameError = _validateTextField(nameController.text, 'middle name');
-      faxError = _validateTextField(faxNoController.text, 'fax no');
+      //faxError = _validateTextField(faxNoController.text, 'fax no');
       positionError = _validateTextField(positionController.text, 'position applying');
       dateError = _validateTextField(dateAvailableController.text, 'date available');
       salaryError = _validateTextField(salaryController.text, 'salary');
-      if (nameError != null || faxError != null || positionError != null ||
+      if (nameError != null || positionError != null ||
           dateError != null || salaryError != null ) {
         _isFormValid = false;
       }
@@ -101,14 +101,35 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
         });
       }
     });
+    // sourceController.addListener(() {
+    //   if (_isSubmitted) {
+    //     setState(() {
+    //       sourceError = _validateTextField(sourceController.text, 'source');
+    //     });
+    //   }
+    // });
+    // specifyWorkHrController.addListener(() {
+    //   if (_isSubmitted) {
+    //     setState(() {
+    //       specifyError = _validateTextField(specifyWorkHrController.text, 'work hour');
+    //     });
+    //   }
+    // });
+    // valueController.addListener(() {
+    //   if (_isSubmitted) {
+    //     setState(() {
+    //       valueError = _validateTextField(valueController.text, 'value');
+    //     });
+    //   }
+    // });
 
-    faxNoController.addListener(() {
-      if (_isSubmitted) {
-        setState(() {
-          faxError = _validateTextField(faxNoController.text, 'fax no');
-        });
-      }
-    });
+    // faxNoController.addListener(() {
+    //   if (_isSubmitted) {
+    //     setState(() {
+    //       faxError = _validateTextField(faxNoController.text, 'fax no');
+    //     });
+    //   }
+    // });
     positionController.addListener(() {
       if (_isSubmitted) {
         setState(() {
@@ -161,7 +182,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FirstSMTextFConst(
+                        SMTextfieldAsteric(
                           controller: nameController,
                           keyboardType: TextInputType.text,
                           text: 'Middle Name',
@@ -202,14 +223,14 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                           keyboardType: TextInputType.text,
                           text: 'Fax No.',
                         ),
-                        if (faxError != null)
-                          Text(
-                            faxError!,
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                        // if (faxError != null)
+                        //   Text(
+                        //     faxError!,
+                        //     style: CommonErrorMsg.customTextStyle(context),
+                        //   ),
                         SizedBox(height: AppSize.s6),
 
-                        SMTextFConst(
+                        SMTextfieldAsteric(
                           controller: salaryController,
                           keyboardType: TextInputType.text,
                           text: 'Salary Expected',
@@ -223,6 +244,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
 
                         HeaderContentConst(
                           heading: "Available Date",
+                          isAsterisk: true,
                           content: FormField<String>(
                             builder: (FormFieldState<String> field) {
                               return SizedBox(
@@ -300,7 +322,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 
-                        SMTextFConst(
+                        SMTextfieldAsteric(
                           controller: positionController,
                           keyboardType: TextInputType.text,
                           text: 'Position Applying',
@@ -323,7 +345,19 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                         //     style: CommonErrorMsg.customTextStyle(context),
                         //   ),
                         SizedBox(height: AppSize.s14),
-                        Text( 'Desired Position', style: AllPopupHeadings.customTextStyle(context),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Desired Position ', // Main text
+                            style: AllPopupHeadings.customTextStyle(context), // Apply the custom text style
+                            children: [
+                              TextSpan(
+                                text: '*', // Asterisk
+                                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                  color: Colors.red, // Specify the color for the asterisk
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(height: AppSize.s6),
                         Row(
@@ -444,7 +478,7 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
             }
             try{
               EmploymentAppDocument employmentAppDocument = await getEmployeeApplicationDocument(context: context, employmentAppFormhtmlId: widget.htmlFormTemplateId, employeeId: widget.employeeId,
-                  middleName: nameController.text, faxNo: faxNoController.text,
+                  middleName: nameController.text, faxNo: faxNoController.text.isEmpty ? AppConfig.dash : faxNoController.text,
                   ifHired: emptype.toString().isEmpty ? AppConfig.dash : emptype.toString(), positionApplying: positionController.text,
                   positionDesired: position.isEmpty ? AppConfig.dash : position, dateAvailable: dateAvailableController.text,
                   specifyWorkingHrs: specifyWorkHrController.text.isEmpty ? AppConfig.dash : specifyWorkHrController.text,

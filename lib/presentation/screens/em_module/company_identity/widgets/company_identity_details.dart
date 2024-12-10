@@ -267,7 +267,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                               child: Container(
                                                 width: 300,
                                                 child: Text(serviceDetail
-                                                    .serviceName,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: Colors.white),),
+                                                    .serviceName,style: TextStyle(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: Colors.white),),
                                                 // CheckboxTileDetails(
                                                 //   title: serviceDetail
                                                 //       .serviceName,
@@ -306,12 +306,11 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                                   width: AppSize.s420,
                                                                   height: 250,
                                                                   body: [
-                                                                    FirstSMTextFConst(
+                                                                    SMTextfieldAsteric(
                                                                       controller:
                                                                       hcoNumControllerPrefill,
                                                                       keyboardType:
-                                                                      TextInputType
-                                                                          .text,
+                                                                      TextInputType.text,
                                                                       text:
                                                                       'HCO Number',
                                                                     ),

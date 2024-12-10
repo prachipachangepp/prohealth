@@ -125,7 +125,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FirstSMTextFConst(
+                    SMTextfieldAsteric(
                       controller: widget.typeController,
                       keyboardType: TextInputType.text,
                       text: 'Employee Type',

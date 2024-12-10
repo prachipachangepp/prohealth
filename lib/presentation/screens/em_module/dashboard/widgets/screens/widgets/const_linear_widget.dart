@@ -31,9 +31,24 @@ class LinearCardWidget extends StatelessWidget {
                       color: ColorManager.mediumgrey,
                       fontWeight: FontWeight.w500),),
                 SizedBox(height: AppSize.s15,),
-                  Text(totalCount,style: TextStyle(fontSize: FontSize.s20,color: ColorManager.blueprime,fontWeight: FontWeight.w700),)
+                  Text(totalCount,style: TextStyle(fontSize: FontSize.s28,color: ColorManager.blueprime,fontWeight: FontWeight.w700),)
                 ],
               ),
+              // Container(
+              //   height: 80,
+              //   color: ColorManager.red,
+              //   child: Center(
+              //     child: SizedBox(
+              //       height: 60, // Set the height you want for the icon
+              //       child: Icon(
+              //         icon,
+              //         color: ColorManager.bluebottom,
+              //         size: IconSize.I40, // This controls the icon's width
+              //       ),
+              //     ),
+              //   ),
+              // ),
+
               Icon(icon,color: ColorManager.bluebottom,size: IconSize.I40,)
             ],
           ),

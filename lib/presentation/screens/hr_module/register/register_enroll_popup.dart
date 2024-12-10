@@ -7,10 +7,8 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/compan
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
-import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
@@ -247,7 +245,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
 
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  640,
+          height:  655,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -304,7 +302,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -715,9 +713,19 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              "Employment",
-                              style: AllPopupHeadings.customTextStyle(context),
+                            RichText(
+                              text: TextSpan(
+                                text: "Employment", // Main text
+                                style: AllPopupHeadings.customTextStyle(context), // Main style
+                                children: [
+                                  TextSpan(
+                                    text: ' *', // Asterisk
+                                    style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                      color: ColorManager.red, // Asterisk color
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -815,9 +823,19 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Service',
-                              style: AllPopupHeadings.customTextStyle(context),
+                            RichText(
+                              text: TextSpan(
+                                text: "Service", // Main text
+                                style: AllPopupHeadings.customTextStyle(context), // Main style
+                                children: [
+                                  TextSpan(
+                                    text: ' *', // Asterisk
+                                    style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                      color: ColorManager.red, // Asterisk color
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(height: 5,),
                             StatefulBuilder(
@@ -965,6 +983,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             // );
                             print("countryname>>>> :: ${selectedCountry}");
                             print("countryID>>>>> :: ${countryId}");
+                            print("countryID :: ${countryId}");
 
                             setState(() {
                               _isLoading = false;

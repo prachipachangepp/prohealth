@@ -45,7 +45,7 @@ class AddNewOrgDocButton extends StatefulWidget {
 
 class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
   bool _isFormValid = true;
-  String selectedExpiryType = "";
+  String selectedExpiryType = AppConfig.notApplicable;
   TextEditingController idDocController = TextEditingController();
   TextEditingController nameDocController = TextEditingController();
 
@@ -112,7 +112,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
              /// ID of the Document
-             SMTextFConst(
+             SMTextfieldAsteric(
                controller: idDocController,
                keyboardType: TextInputType.text,
                text: AppString.id_of_the_document,
@@ -123,7 +123,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                  style:CommonErrorMsg.customTextStyle(context),
                ),
              /// Name of the Document
-             FirstSMTextFConst(
+             SMTextfieldAsteric(
                controller: nameDocController,
                keyboardType: TextInputType.text,
                text: AppString.name_of_the_document,
@@ -136,6 +136,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
 
              /// Type of the Document
              HeaderContentConst(
+              // isAsterisk: true,
                heading: AppString.type_of_the_document,
                content: Container(
                  width: 354,
@@ -165,6 +166,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
              )
                  : HeaderContentConst(
                heading: AppString.sub_type_of_the_document,
+               //isAsterisk: true,
                content: Container(
                  height: 30,
                  width: 354,
@@ -192,6 +194,7 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                child: Row(
                  children: [
                    HeaderContentConst(
+                     isAsterisk: true,
                      heading: AppString.expiry_type,
                      content: Column(
                        mainAxisAlignment: MainAxisAlignment.start,
@@ -545,7 +548,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
         ),
 
         /// Name of the Document
-        FirstSMTextFConst(
+        SMTextfieldAsteric(
           controller: nameDocController,
           keyboardType: TextInputType.text,
           text: AppString.name_of_the_document,
@@ -556,7 +559,7 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 4.0, left: 12),
+                padding: const EdgeInsets.only(top: 4.0, left: 15),
                 child: Text(
                   _nameDocError!,
                   style: TextStyle(

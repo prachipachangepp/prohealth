@@ -590,10 +590,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                    'Select Employee Type',
-                                                    //  widget.depTitle,
-                                                    style: AllPopupHeadings.customTextStyle(context)),
+                                                RichText(
+                                                  text: TextSpan(
+                                                    text: "Select Employee Type", // Main text
+                                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                                    children: [
+                                                      TextSpan(
+                                                        text: ' *', // Asterisk
+                                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                                          color: ColorManager.red, // Asterisk color
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                //Text('Select Employee Type', style: AllPopupHeadings.customTextStyle(context)),
                                                 SizedBox(height: 5,),
                                                 FutureBuilder<List<EmployeeTypeModal>>(
                                                   future: EmployeeTypeGet(context, deptId),
@@ -664,10 +675,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                    'Select Department',
-                                                    //  widget.depTitle,
-                                                    style: AllPopupHeadings.customTextStyle(context)),
+                                                RichText(
+                                                  text: TextSpan(
+                                                    text: "Select Department", // Main text
+                                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                                    children: [
+                                                      TextSpan(
+                                                        text: ' *', // Asterisk
+                                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                                          color: ColorManager.red, // Asterisk color
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                               // Text('Select Department', style: AllPopupHeadings.customTextStyle(context)),
                                                 SizedBox(height: 5,),
                                                 FutureBuilder<List<HRHeadBar>>(
                                                   future: companyHRHeadApi(context, deptId),
@@ -784,10 +806,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                    'Gender',
-                                                    //  widget.depTitle,
-                                                    style: AllPopupHeadings.customTextStyle(context)),
+                                                RichText(
+                                                  text: TextSpan(
+                                                    text: "Gender", // Main text
+                                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                                    children: [
+                                                      TextSpan(
+                                                        text: ' *', // Asterisk
+                                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                                          color: ColorManager.red, // Asterisk color
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                               // Text('Gender', style: AllPopupHeadings.customTextStyle(context)),
                                                 const SizedBox(height: 5,),
                                                 FutureBuilder<List<GenderData>>(
                                                   future: getGenderDropdown(context),
@@ -912,6 +945,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                           ],
                                         ),
                                       ),
+                                      const SizedBox(height: 5,),
                                       ///row 5
                                       Padding(
                                         padding: const EdgeInsets.only(left:18,right:23),
@@ -921,10 +955,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                    'Select Service',
-                                                    //  widget.depTitle,
-                                                    style: AllPopupHeadings.customTextStyle(context)),
+                                                RichText(
+                                                  text: TextSpan(
+                                                    text: "Select Service", // Main text
+                                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                                    children: [
+                                                      TextSpan(
+                                                        text: ' *', // Asterisk
+                                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                                          color: ColorManager.red, // Asterisk color
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                               // Text('Select Service', style: AllPopupHeadings.customTextStyle(context)),
                                                 SizedBox(height: 5,),
                                                 FutureBuilder<List<ServicesMetaData>>(
                                                   future: getServicesMetaData(context),
@@ -969,10 +1014,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                    'Reporting Office',
-                                                    //  widget.depTitle,
-                                                    style: AllPopupHeadings.customTextStyle(context)),
+                                                RichText(
+                                                  text: TextSpan(
+                                                    text: "Reporting Office", // Main text
+                                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                                    children: [
+                                                      TextSpan(
+                                                        text: ' *', // Asterisk
+                                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                                          color: ColorManager.red, // Asterisk color
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                               // Text('Reporting Office', style: AllPopupHeadings.customTextStyle(context)),
                                                 const SizedBox(height: 5,),
                                                 FutureBuilder<List<CompanyOfficeListData>>(
                                                   future: getCompanyOfficeList(context),

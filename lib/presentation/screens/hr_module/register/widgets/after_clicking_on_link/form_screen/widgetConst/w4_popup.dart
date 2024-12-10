@@ -286,7 +286,7 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SMTextFConst(
+                      SMTextfieldAsteric(
                         controller: nameController,
                         keyboardType: TextInputType.text,
                         text: 'Middle Name',
@@ -297,8 +297,19 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       SizedBox(height: AppSize.s9),
-                      Text(
-                        'Married Status',style: AllPopupHeadings.customTextStyle(context),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Married Status ', // Main text
+                          style: AllPopupHeadings.customTextStyle(context), // Apply the custom text style
+                          children: [
+                            TextSpan(
+                              text: '*', // Asterisk
+                              style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                color: Colors.red, // Specify the color for the asterisk
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Row(
                         children: [

@@ -2,13 +2,15 @@ import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/data/api_data/sm_data/Intake_deta/notes_data/intake_misc_note_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../../app/resources/theme_manager.dart';
@@ -104,11 +106,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 widget.title,
-                style: GoogleFonts.firaSans(
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.bold,
-                  color: ColorManager.white,
-                ),
+                style:PopupBlueBarText.customTextStyle(context),
               ),
             ),
             Spacer(),
@@ -143,11 +141,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                   children: [
                     Text(
                       AppString.type_of_the_document,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.textPrimaryColor,
-                      ),
+                      style:AllPopupHeadings.customTextStyle(context)
                     ),
                   ],
                 ),
@@ -236,11 +230,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                       return Center(
                         child: Text(
                           AppString.dataNotFound,
-                          style: CustomTextStylesCommon.commonStyle(
-                            fontWeight: FontWeightManager.medium,
-                            fontSize: FontSize.s14,
-                            color: ColorManager.mediumgrey,
-                          ),
+                          style: AllPopupHeadings.customTextStyle(context)
                         ),
                       );
                     }
@@ -291,11 +281,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                   children: [
                     Text(
                         AppString.name_of_the_document,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.textPrimaryColor,
-                      ),
+                      style: AllPopupHeadings.customTextStyle(context)
                     ),
                   ],
                 ),
@@ -306,11 +292,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     cursorColor: Colors.black,
                     cursorHeight: 18,
                     controller: widget.nameDocController,
-                    style: GoogleFonts.firaSans(
-                      fontSize: AppSize.s12,
-                      fontWeight: FontWeightManager.regular,
-                      color: ColorManager.greylight,
-                    ),
+                    style: TableSubHeading.customTextStyle(context),
                     textAlignVertical: TextAlignVertical.center,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -400,19 +382,16 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                   children: [
                     Text(
                       AppString.upload_document,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.textPrimaryColor,
-                      ),
+                      style: AllPopupHeadings.customTextStyle(context)
                     ),
                   ],
                 ),
                 SizedBox(height: AppSize.s10),
                 Container(
                   height: AppSize.s30,
-                  width: AppSize.s650,
-                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  //width: AppSize.s650,
+               //  margin: EdgeInsets.symmetric(horizontal: 10),
+                  padding:EdgeInsets.symmetric(horizontal: 10) ,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: ColorManager.containerBorderGrey,
@@ -422,33 +401,26 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                   ),
                   child: StatefulBuilder(
                     builder: (BuildContext context, void Function(void Function()) setState) {
-                      return Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              fileName,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeightManager.regular,
-                                color: ColorManager.greylight,
-                              ),
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            fileName,
+                            style:TableSubHeading.customTextStyle(context),
+                          ),
+                          IconButton(
+                            padding: EdgeInsets.all(4),
+                            onPressed:  _pickFile,
+                            icon: Icon(
+                              Icons.file_upload_outlined,
+                              color: ColorManager.black,
+                              size: 17,
                             ),
-                            IconButton(
-                              padding: EdgeInsets.all(4),
-                              onPressed:  _pickFile,
-                              icon: Icon(
-                                Icons.file_upload_outlined,
-                                color: ColorManager.black,
-                                size: 17,
-                              ),
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                            ),
-                          ],
-                        ),
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                          ),
+                        ],
                       );
                     },
                   ),

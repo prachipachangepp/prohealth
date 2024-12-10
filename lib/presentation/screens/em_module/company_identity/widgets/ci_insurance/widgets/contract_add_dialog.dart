@@ -85,7 +85,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
          child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
-             FirstSMTextFConst(
+             SMTextfieldAsteric(
                controller: contractNmaeController,
                keyboardType: TextInputType.text,
                text: 'Contract Name',
@@ -97,7 +97,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                ),
 
              SizedBox(height: AppSize.s8),
-             SMTextFConst(
+             SMTextfieldAsteric(
                controller: contractIdController,
                keyboardType: TextInputType.text,
                text: 'Contract ID',
@@ -115,6 +115,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
              Row(
                children: [
                  HeaderContentConst(
+                   isAsterisk: true,
                    heading: AppString.expiry_type,
                    content: Column(
                      mainAxisAlignment: MainAxisAlignment.start,
@@ -248,6 +249,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
 
                /// Conditionally display expiry date field
                child: HeaderContentConst(
+                 isAsterisk: true,
                  heading: AppString.expiry_date,
                  content: FormField<String>(
                    builder: (FormFieldState<String> field) {
@@ -322,7 +324,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
           : CustomElevatedButton(
               width: AppSize.s105,
               height: AppSize.s30,
-              text: AppStringEM.submit,
+              text: AppStringEM.save,
               onPressed: () async {
                 _validateForm(); // Validate the form on button press
                 if (_isFormValid) {

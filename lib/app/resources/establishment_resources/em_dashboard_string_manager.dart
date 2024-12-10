@@ -72,7 +72,7 @@ class EmDashboardStringManager{
   static const String AuditpenaltyAmt = "Audit Penalty Amounts";
   static const String activeContract = 'Total Number Of Active\nContracts';
   static const String randomaudits = 'Number Of Random\nAudits Passed';
-  static const String nonCompliant = 'Number of Non-Compliant\nOffices';
+  static const String nonCompliant = 'Number Of Non-Compliant\nOffices';
   static const String contractexpiresoon = "Contracts Expring Soon";
   static const String AuditPenaltyAmt = 'Audit Penalty Amounts\n ';
   static const String complianceIncidentRR = 'Compliance Incident\nReporting Rate';

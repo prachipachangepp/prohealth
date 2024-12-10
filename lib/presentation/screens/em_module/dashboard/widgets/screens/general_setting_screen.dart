@@ -71,14 +71,14 @@ class GeneralSettingScreen extends StatelessWidget {
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.calendar_today_outlined,
-                            headText: EmDashboardStringManager.systemUpdate, subText: '', bottomText: '',)),
+                            headText: EmDashboardStringManager.systemUpdate, numberText: '', bottomText: '',)),
                     ),
                     SizedBox(width: AppSize.s30,),
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.error_outline,
-                            headText: EmDashboardStringManager.systemError, subText: '12', bottomText: 'Last 24 hours',)),
+                            headText: EmDashboardStringManager.systemError, numberText: '12', bottomText: 'Last 24 hours',)),
                     ),
                   ],),
                   SizedBox(height: AppSize.s10,),
@@ -87,14 +87,14 @@ class GeneralSettingScreen extends StatelessWidget {
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.history_outlined,
-                            headText: EmDashboardStringManager.NoDataDelet, subText: '12', bottomText: '',) ),
+                            headText: EmDashboardStringManager.NoDataDelet, numberText: '12', bottomText: '',) ),
                     ),
                     SizedBox(width: AppSize.s30,),
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.arrow_circle_right_outlined,
-                            headText: EmDashboardStringManager.failedLoginAttempt, subText: '  02', bottomText: 'Last 24 hours',)),
+                            headText: EmDashboardStringManager.failedLoginAttempt, numberText: '  02', bottomText: 'Last 24 hours',)),
                     ),
                   ],),
                   SizedBox(height: AppSize.s10,),
@@ -103,14 +103,14 @@ class GeneralSettingScreen extends StatelessWidget {
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.shield_moon_outlined,
-                            headText: EmDashboardStringManager.multiAuthenticate, subText: '12       ', bottomText: '',)),
+                            headText: EmDashboardStringManager.multiAuthenticate, numberText: '12       ', bottomText: '',)),
                     ),
                     SizedBox(width: AppSize.s30,),
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.personal_injury_outlined,
-                            headText: EmDashboardStringManager.ActiveUsers, subText: '26', bottomText: '',),)
+                            headText: EmDashboardStringManager.ActiveUsers, numberText: '26', bottomText: '',),)
                     ),
                   ],),
                   SizedBox(height: AppSize.s10,),
@@ -119,14 +119,14 @@ class GeneralSettingScreen extends StatelessWidget {
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.stacked_line_chart_outlined,
-                            headText: EmDashboardStringManager.ActiveUsersSecurity, subText: '12  ', bottomText: '',),)
+                            headText: EmDashboardStringManager.ActiveUsersSecurity, numberText: '12  ', bottomText: '',),)
                     ),
                     SizedBox(width: AppSize.s30,),
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.calendar_today_outlined,
-                            headText: EmDashboardStringManager.lastSoftUpdate, subText: '', bottomText: 'Last updated on 14/11/2024',)),
+                            headText: EmDashboardStringManager.lastSoftUpdate, numberText: '', bottomText: 'Last updated on 14/11/2024',)),
                     ),
                   ],),
                 ],),
@@ -332,7 +332,7 @@ class GeneralSettingScreen extends StatelessWidget {
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
                                         image: AssetImage('images/em_dashboard/dashboard_key.png'), // Replace with your image path
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.contain,
                                       ),
                                     ),
                                   ),),

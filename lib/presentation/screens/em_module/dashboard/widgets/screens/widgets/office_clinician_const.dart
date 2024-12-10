@@ -76,6 +76,7 @@ class AverageClinicianListview extends StatelessWidget {
                 ),
               ),
             ],),
+          SizedBox(height: AppSize.s10,),
           ///heading
           Row(
             children: [
@@ -149,7 +150,7 @@ class AverageClinicianListview extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Container(
-                  height: 210,
+                  height: AppSize.s200,
                  // width: 500,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
@@ -247,7 +248,7 @@ class AverageClinicianListview extends StatelessWidget {
                         child: Text(EmDashboardStringManager.avgTenure,
                             style: MenuContainerTextStylling.customTextStyle(context)),
                       ),),
-                      Container(height: AppSize.s125,
+                      Container(height: AppSize.s160,
                         decoration: BoxDecoration(
                             color: ColorManager.white,
                             border: Border(top: BorderSide.none,bottom: BorderSide(color: ColorManager.blueBorder,width: 1),
@@ -260,12 +261,16 @@ class AverageClinicianListview extends StatelessWidget {
                                 text: '5',
                                 style:  CustomTextStylesCommon.commonStyle(
                                     color: ColorManager.mediumgrey,
-                                    fontSize: FontSize.s30,
+                                    fontSize: FontSize.s64,
                                     fontWeight: FontWeight.w700),
                                 children: [
                                   TextSpan(
                                     text: 'yrs',
-                                    style: AllPopupHeadings.customTextStyle(context),
+                                    style:  CustomTextStylesCommon.commonStyle(
+                                        color: ColorManager.mediumgrey,
+                                        fontSize: FontSize.s32,
+                                        fontWeight: FontWeight.w700)
+                                    //AllPopupHeadings.customTextStyle(context),
                                   ),
                                 ],
                               ),

@@ -239,10 +239,24 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   SizedBox(
                                     height: 25,
                                   ),
-                                  Text(
-                                    'Type',
-                                    style: AllPopupHeadings.customTextStyle(context),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: "Type", // Main text
+                                      style: AllPopupHeadings.customTextStyle(context), // Main style
+                                      children: [
+                                        TextSpan(
+                                          text: ' *', // Asterisk
+                                          style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                            color: ColorManager.red, // Asterisk color
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
+                                  // Text(
+                                  //   'Type',
+                                  //   style: AllPopupHeadings.customTextStyle(context),
+                                  // ),
                                   SizedBox(
                                     height: 4,
                                   ),
@@ -274,10 +288,24 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   SizedBox(
                                     height: 30,
                                   ),
-                                  Text(
-                                    'Routing/Transit Number',
-                                    style:AllPopupHeadings.customTextStyle(context),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Routing/Transit Number', // Main text
+                                      style: AllPopupHeadings.customTextStyle(context), // Main style
+                                      children: [
+                                        TextSpan(
+                                          text: ' *', // Asterisk
+                                          style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                            color: ColorManager.red, // Asterisk color
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
+                                  // Text(
+                                  //   'Routing/Transit Number',
+                                  //   style:AllPopupHeadings.customTextStyle(context),
+                                  // ),
                                   SizedBox(
                                     height: 4,
                                   ),
@@ -300,16 +328,31 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Text(
-                                    'Specific Amount',
-                                    style: AllPopupHeadings.customTextStyle(context),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Specific Amount', // Main text
+                                      style: AllPopupHeadings.customTextStyle(context), // Main style
+                                      children: [
+                                        TextSpan(
+                                          text: ' *', // Asterisk
+                                          style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                            color: ColorManager.red, // Asterisk color
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
+                                  // Text(
+                                  //   'Specific Amount',
+                                  //   style: AllPopupHeadings.customTextStyle(context),
+                                  // ),
                                   SizedBox(
                                     height: 4,
                                   ),
 
                                   Row(
                                     children: [
+                                      //HRMamangeFlowTextfield(
                                       CustomTextFieldRegister(
                                         width: 150,
                                         controller: requestammount,
@@ -356,10 +399,24 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                             Expanded(child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Effective Date',
-                                  style: AllPopupHeadings.customTextStyle(context),
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'Effective Date', // Main text
+                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                    children: [
+                                      TextSpan(
+                                        text: ' *', // Asterisk
+                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                          color: ColorManager.red, // Asterisk color
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                // Text(
+                                //   'Effective Date',
+                                //   style: AllPopupHeadings.customTextStyle(context),
+                                // ),
                                 SizedBox(
                                   height: 4,
                                 ),
@@ -402,10 +459,24 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                 SizedBox(
                                   height: 30,
                                 ),
-                                Text(
-                                  'Account Number ',
-                                  style: AllPopupHeadings.customTextStyle(context),
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'Account Number', // Main text
+                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                    children: [
+                                      TextSpan(
+                                        text: ' *', // Asterisk
+                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                          color: ColorManager.red, // Asterisk color
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                // Text(
+                                //   'Account Number ',
+                                //   style: AllPopupHeadings.customTextStyle(context),
+                                // ),
                                 SizedBox(
                                   height: 4,
                                 ),
@@ -433,10 +504,24 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                             Expanded(child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Bank Name',
-                                  style:AllPopupHeadings.customTextStyle(context),
+                                RichText(
+                                  text: TextSpan(
+                                    text:  'Bank Name', // Main text
+                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                    children: [
+                                      TextSpan(
+                                        text: ' *', // Asterisk
+                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                          color: ColorManager.red, // Asterisk color
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                // Text(
+                                //   'Bank Name',
+                                //   style:AllPopupHeadings.customTextStyle(context),
+                                // ),
                                 SizedBox(
                                   height: 4,
                                 ),
@@ -458,10 +543,24 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                 SizedBox(
                                   height: 30,
                                 ),
-                                Text(
-                                  'Verify Account Number',
-                                  style: AllPopupHeadings.customTextStyle(context),
+                                RichText(
+                                  text: TextSpan(
+                                    text:'Verify Account Number', // Main text
+                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                    children: [
+                                      TextSpan(
+                                        text: ' *', // Asterisk
+                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                          color: ColorManager.red, // Asterisk color
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                // Text(
+                                //   'Verify Account Number',
+                                //   style: AllPopupHeadings.customTextStyle(context),
+                                // ),
                                 SizedBox(
                                   height: 4,
                                 ),
@@ -589,26 +688,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -820,8 +899,6 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           'Type',
           style: AllPopupHeadings.customTextStyle(context),
         ),
-
-
         FormField<String>(
           key: _typeFieldKey,
           initialValue: widget.selectedType,
@@ -924,9 +1001,6 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           labelText: 'Routing Number/ Transit Number',
           errorText: rnumber?"Please Enter Routing Number" : null, ),
           SizedBox(height: MediaQuery.of(context).size.height / 30),
-        // Text('Requested Amount for this Account (select one)',
-        //     style: _labelStyle()),
-
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -1014,7 +1088,21 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+        RichText(
+          text: TextSpan(
+            text: labelText, // Main text
+            style: AllPopupHeadings.customTextStyle(context), // Main style
+            children: [
+              TextSpan(
+                text: ' *', // Asterisk
+                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                  color: ColorManager.red, // Asterisk color
+                ),
+              ),
+            ],
+          ),
+        ),
+        //Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
           capitalIsSelect: capitalIsSelect,

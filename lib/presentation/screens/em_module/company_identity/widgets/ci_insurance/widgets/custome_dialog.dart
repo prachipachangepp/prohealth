@@ -70,7 +70,7 @@ class _CustomPopupState extends State<CustomPopup> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  FirstSMTextFConst(
+                  SMTextfieldAsteric(
                     controller: nameController,
                     keyboardType: TextInputType.text,
                     text: 'Vendor Name',
@@ -200,7 +200,7 @@ class _AddVendorPopupState extends State<AddVendorPopup> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              FirstSMTextFConst(
+              SMTextfieldAsteric(
                 controller: widget.namecontroller,
                 keyboardType: TextInputType.text,
                 text: 'Vendor Name',
@@ -218,7 +218,7 @@ class _AddVendorPopupState extends State<AddVendorPopup> {
       bottomButtons: CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
-        text: AppStringEM.Add,
+        text: AppStringEM.save,
         onPressed: () async {
           _validateInputs(); // Perform validation
           if (_isNameValid) {

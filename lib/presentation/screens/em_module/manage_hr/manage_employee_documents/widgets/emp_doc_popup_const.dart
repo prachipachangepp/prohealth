@@ -75,7 +75,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
   }
 
   TextEditingController daysController = TextEditingController(text: "1");
-  String selectedExpiryType = "";
+  String selectedExpiryType = AppConfig.notApplicable;
   String? selectedYear = AppConfig.year;
 
   TextEditingController nameDocController = TextEditingController();
@@ -94,7 +94,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SMTextFConst(
+              SMTextfieldAsteric(
                 controller: idDocController,
                 keyboardType: TextInputType.text,
                 text: 'ID of the Document',
@@ -105,7 +105,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(height: AppSize.s8),
-              FirstSMTextFConst(
+              SMTextfieldAsteric(
                 controller: nameDocController,
                 keyboardType: TextInputType.text,
                 text: 'Name of the Document',
@@ -130,6 +130,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                 child: Row(
                   children: [
                     HeaderContentConst(
+                      isAsterisk: true,
                       heading: AppString.expiry_type,
                       content: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -518,7 +519,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                   style: TextStyle(color: Colors.red, fontSize: 10),
                 ),
               SizedBox(height: AppSize.s8),
-              FirstSMTextFConst(
+              SMTextfieldAsteric(
                 controller: nameDocController,
                 keyboardType: TextInputType.text,
                 text: 'Name of the Document',

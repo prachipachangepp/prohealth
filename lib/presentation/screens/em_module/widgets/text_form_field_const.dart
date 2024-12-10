@@ -72,11 +72,25 @@ class _SMTextFConstState extends State<SMTextFConst> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.text,
-            style: AllPopupHeadings.customTextStyle(context)
-            //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+          RichText(
+            text: TextSpan(
+              text: widget.text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: ColorManager.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
           ),
+          // Text(
+          //   widget.text,
+          //   style: AllPopupHeadings.customTextStyle(context)
+          //   //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+          // ),
           SizedBox(
             height: 5,
           ),
@@ -121,9 +135,127 @@ class _SMTextFConstState extends State<SMTextFConst> {
     );
   }
 }
+///normal textfield with asteric
+class SMTextfieldAsteric extends StatefulWidget {
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final String text;
+  final Color textColor;
+  final Icon? icon;
+  final bool? readOnly;
+  final VoidCallback? onChange;
+  final bool? enable;
+  final Widget? prefixWidget;
+  final String? Function(String?)? validator;
+  final FocusNode? focusNode;
+  final double? width;
+  final List<TextInputFormatter>? inputFormated;
+  final bool showDatePicker;
+  final Icon? suffixIcon;
+
+  SMTextfieldAsteric({
+    Key? key,
+    this.focusNode,
+    required this.controller,
+    required this.keyboardType,
+    required this.text,
+    this.textColor = const Color(0xff686464),
+    this.icon,
+    this.onChange,
+    this.readOnly,
+    this.enable,
+    this.validator,
+    this.prefixWidget,
+    this.width,
+    this.inputFormated,
+    this.showDatePicker = false,
+    this.suffixIcon,
+  }) : super(key: key);
+
+  @override
+  State<SMTextfieldAsteric> createState() => _SMTextfieldAstericState();
+}
+
+class _SMTextfieldAstericState extends State<SMTextfieldAsteric> {
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null) {
+      widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Using RichText for label with red asterisk
+          RichText(
+            text: TextSpan(
+              text: widget.text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: Colors.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 5),
+          Container(
+            width: widget.width ?? 354,
+            height: 30,
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: TextFormField(
+              focusNode: widget.focusNode,
+              autofocus: true,
+              enabled: widget.enable == null ? true : false,
+              controller: widget.controller,
+              keyboardType: widget.keyboardType,
+              cursorHeight: 17,
+              cursorColor: Colors.black,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                suffixIcon: widget.showDatePicker
+                    ? GestureDetector(
+                  onTap: () => _selectDate(context),
+                  child: const Icon(Icons.calendar_month_outlined),
+                )
+                    : widget.icon,
+                prefix: widget.prefixWidget,
+                prefixIcon: widget.suffixIcon,
+                prefixStyle: AllHRTableData.customTextStyle(context),
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.only(bottom: 18, left: AppPadding.p15),
+              ),
+              style: TableSubHeading.customTextStyle(context),
+              onTap: widget.onChange,
+              validator: widget.validator,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
 
 ///number only
-
 class SMNumberTextFConst extends StatefulWidget {
   final TextEditingController controller;
   final String text;
@@ -378,10 +510,24 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.text,
-            style: AllPopupHeadings.customTextStyle(context),
+          RichText(
+            text: TextSpan(
+              text: widget.text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: Colors.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
           ),
+          // Text(
+          //   widget.text,
+          //   style: AllPopupHeadings.customTextStyle(context),
+          // ),
           SizedBox(height: 5),
           Container(
             width: 354,
@@ -525,10 +671,24 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.text,
-            style: AllPopupHeadings.customTextStyle(context),
+          RichText(
+            text: TextSpan(
+              text: widget.text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: Colors.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
           ),
+          // Text(
+          //   widget.text,
+          //   style: AllPopupHeadings.customTextStyle(context),
+          // ),
           SizedBox(
             height: 5,
           ),
@@ -655,10 +815,24 @@ class _CapitalSMTextFConstState extends State<CapitalSMTextFConst> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.text,
-          style: AllPopupHeadings.customTextStyle(context),
+        RichText(
+          text: TextSpan(
+            text: widget.text, // Main text
+            style: AllPopupHeadings.customTextStyle(context), // Main style
+            children: [
+              TextSpan(
+                text: ' *', // Asterisk
+                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                  color: Colors.red, // Asterisk color
+                ),
+              ),
+            ],
+          ),
         ),
+        // Text(
+        //   widget.text,
+        //   style: AllPopupHeadings.customTextStyle(context),
+        // ),
         SizedBox(
           height: 5,
         ),
@@ -914,10 +1088,24 @@ class _SSNTextFConstState extends State<SSNTextFConst> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.text,
-            style: AllPopupHeadings.customTextStyle(context),
+          RichText(
+            text: TextSpan(
+              text: widget.text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: ColorManager.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
           ),
+          // Text(
+          //   widget.text,
+          //   style: AllPopupHeadings.customTextStyle(context),
+          // ),
           SizedBox(
             height: 5,
           ),

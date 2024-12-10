@@ -234,7 +234,21 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+        RichText(
+          text: TextSpan(
+            text: labelText, // Main text
+            style: AllPopupHeadings.customTextStyle(context), // Main style
+            children: [
+              TextSpan(
+                text: ' *', // Asterisk
+                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                  color: ColorManager.red, // Asterisk color
+                ),
+              ),
+            ],
+          ),
+        ),
+       // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
           phoneNumberField:  phoneNumberField,
