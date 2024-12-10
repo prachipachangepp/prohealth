@@ -197,7 +197,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                         ///Primary text field
                         Container(
-                          // color: Colors.blue,
+                       // color: Colors.blue,
                           child: Column(children: [
                             Row(
                               children: [
@@ -665,9 +665,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                       children: [
                         Flexible(
                           child: SchedularTextField(
+                              width: MediaQuery.of(context).size.width / 7,
                               controller: paidhelp, labelText: 'Paid Help'),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width / 40),
+                       SizedBox(width: MediaQuery.of(context).size.width / 40),
                         ////////
                         Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
@@ -675,12 +676,12 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5),
                               child: Text(
-    AppString.comment,
+                     AppString.comment,
                                 style: AllPopupHeadings.customTextStyle(context),
                               ),
                             ),
                             Container(
-                              height: AppSize.s54,
+                              height: AppSize.s32,
                               width: MediaQuery.of(context).size.width / 1.4,
                               child: TextFormField(
                                 controller: comments,

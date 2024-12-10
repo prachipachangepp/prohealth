@@ -72,7 +72,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         height: 540,
-        width: 900,
+        width: 860,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -235,7 +235,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ],
               ),
             ),
-            SizedBox(height: AppSize.s15),
+           // SizedBox(height: AppSize.s15),
 
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
