@@ -170,10 +170,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
 
   void _search(String query) async {
     if (query.isEmpty) {
-      setState(() {
+      //setState(() {
         _searchResults = [];
         _removeOverlay();
-      });
+     // });
       return;
     }
 

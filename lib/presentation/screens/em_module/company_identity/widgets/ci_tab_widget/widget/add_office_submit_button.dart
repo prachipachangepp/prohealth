@@ -195,7 +195,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      FirstSMTextFConst(
+                      SMTextfieldAsteric(
                         controller: widget.nameController,
                         keyboardType: TextInputType.text,
                         text: AppStringEM.name,
@@ -206,7 +206,8 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       const SizedBox(height: AppSize.s9),
-                      DemailSMTextFConst(
+                      //DemailSMTextFConst(
+                      SMTextfieldAsteric(
                         controller: widget.emailController,
                         keyboardType: TextInputType.emailAddress,
                         text: AppString.email,
@@ -217,7 +218,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       const SizedBox(height: AppSize.s9),
-                      FirstSMTextFConst(
+                      SMTextfieldAsteric(
                         controller: widget.countryController,
                         keyboardType: TextInputType.text,
                         text: 'Country',
@@ -239,10 +240,24 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       const SizedBox(height: AppSize.s14),
-                      Text(
-                        'Services',
-                        style: AllPopupHeadings.customTextStyle(context),
+                      RichText(
+                        text: TextSpan(
+                          text:"Services", // Main text
+                          style: AllPopupHeadings.customTextStyle(context), // Main style
+                          children: [
+                            TextSpan(
+                              text: ' *', // Asterisk
+                              style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                color: ColorManager.red, // Asterisk color
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+                      // Text(
+                      //   'Services',
+                      //   style: AllPopupHeadings.customTextStyle(context),
+                      // ),
                       SizedBox(height: 3),
                       StatefulBuilder(
                         builder: (BuildContext context,
@@ -634,7 +649,7 @@ class _AddressInputState extends State<AddressInput> {
   Widget build(BuildContext context) {
     return   Column(
       children: [
-        SMTextFConst(
+        SMTextfieldAsteric(
           controller: widget.controller,
           keyboardType: TextInputType.streetAddress,
           text: AppString.officeaddress,

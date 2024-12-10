@@ -162,7 +162,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ],
               ),
-
             ],
           ),
           Padding(

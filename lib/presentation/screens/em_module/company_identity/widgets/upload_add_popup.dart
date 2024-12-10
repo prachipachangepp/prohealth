@@ -183,6 +183,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             ? Column(
                 children: [
                   HeaderContentConst(
+                    isAsterisk: true,
                     heading: AppString.type_of_the_document,
                     content:  CICCDropdown(
                       width: 354,
@@ -207,6 +208,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   Visibility(
                     visible: showExpiryDateField,
                     child: HeaderContentConst(
+                      isAsterisk: true,
                       heading: AppString.expiry_date,
                       content: FormField<String>(
                         builder: (FormFieldState<String> field) {
@@ -276,6 +278,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
 
                   /// Upload document
                   HeaderContentConst(
+                    isAsterisk: true,
                       heading: AppString.upload_document,
                       content: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -344,7 +347,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ///name
-                  FirstSMTextFConst(
+                  SMTextfieldAsteric(
                     controller: nameDocController,
                     keyboardType: TextInputType.text,
                     text: 'Name of the Document',
@@ -357,7 +360,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   SizedBox(height: AppSize.s2),
 
                   ///id
-                  SMTextFConst(
+                  SMTextfieldAsteric(
                     controller: idDocController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
@@ -398,6 +401,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   widget.selectedSubDocId == AppConfig.subDocId0
                       ? SizedBox()
                       : HeaderContentConst(
+                    isAsterisk: true,
                     heading: AppString.sub_type_of_the_document,
                     content: Container(
                       width: 354,
@@ -422,6 +426,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   SizedBox(height: AppSize.s2),
                   /// Upload document
                   HeaderContentConst(
+                    isAsterisk: true,
                       heading: AppString.upload_document,
                       content: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -486,6 +491,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   Row(
                     children: [
                       HeaderContentConst(
+                       // isAsterisk: true,
                         heading: AppString.expiry_type,
                         content: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -651,6 +657,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         HeaderContentConst(
+                          isAsterisk: true,
                           heading: AppString.expiry_date,
                           content: FormField<String>(
                             builder: (FormFieldState<String> field) {

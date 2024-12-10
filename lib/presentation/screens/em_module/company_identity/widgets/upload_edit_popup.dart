@@ -246,6 +246,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
 
             /// upload  doc
             HeaderContentConst(
+              isAsterisk: true,
                 heading: AppString.upload_document,
                 content: InkWell(
                   onTap: _pickFile,
@@ -297,6 +298,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               visible: showExpiryDateField,
               /// Conditionally display expiry date field
               child: HeaderContentConst(
+                isAsterisk: true,
                 heading: AppString.expiry_date,
                 content: FormField<String>(
                   builder: (FormFieldState<String> field) {
@@ -390,6 +392,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               SizedBox(height: AppSize.s2),
               /// Upload document
               HeaderContentConst(
+                isAsterisk: true,
                   heading: AppString.upload_document,
                   content: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -504,6 +507,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               Row(
                 children: [
                   HeaderContentConst(
+                    //isAsterisk: true,
                     heading: AppString.expiry_type,
                     content: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -677,6 +681,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                     child: Visibility(
                       visible: selectedExpiryType == AppConfig.issuer,
                       child: HeaderContentConst(
+                        isAsterisk: true,
                         heading: AppString.expiry_date,
                         content: FormField<String>(
                           builder: (FormFieldState<String> field) {

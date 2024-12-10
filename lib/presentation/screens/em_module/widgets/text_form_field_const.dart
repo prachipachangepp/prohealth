@@ -72,11 +72,25 @@ class _SMTextFConstState extends State<SMTextFConst> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.text,
-            style: AllPopupHeadings.customTextStyle(context)
-            //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+          RichText(
+            text: TextSpan(
+              text: widget.text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: Colors.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
           ),
+          // Text(
+          //   widget.text,
+          //   style: AllPopupHeadings.customTextStyle(context)
+          //   //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+          // ),
           SizedBox(
             height: 5,
           ),
@@ -496,10 +510,24 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.text,
-            style: AllPopupHeadings.customTextStyle(context),
+          RichText(
+            text: TextSpan(
+              text: widget.text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: Colors.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
           ),
+          // Text(
+          //   widget.text,
+          //   style: AllPopupHeadings.customTextStyle(context),
+          // ),
           SizedBox(height: 5),
           Container(
             width: 354,
@@ -643,10 +671,24 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.text,
-            style: AllPopupHeadings.customTextStyle(context),
+          RichText(
+            text: TextSpan(
+              text: widget.text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: Colors.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
           ),
+          // Text(
+          //   widget.text,
+          //   style: AllPopupHeadings.customTextStyle(context),
+          // ),
           SizedBox(
             height: 5,
           ),
@@ -773,10 +815,24 @@ class _CapitalSMTextFConstState extends State<CapitalSMTextFConst> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.text,
-          style: AllPopupHeadings.customTextStyle(context),
+        RichText(
+          text: TextSpan(
+            text: widget.text, // Main text
+            style: AllPopupHeadings.customTextStyle(context), // Main style
+            children: [
+              TextSpan(
+                text: ' *', // Asterisk
+                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                  color: Colors.red, // Asterisk color
+                ),
+              ),
+            ],
+          ),
         ),
+        // Text(
+        //   widget.text,
+        //   style: AllPopupHeadings.customTextStyle(context),
+        // ),
         SizedBox(
           height: 5,
         ),

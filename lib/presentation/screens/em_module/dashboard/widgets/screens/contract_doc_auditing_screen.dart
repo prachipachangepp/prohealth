@@ -47,22 +47,36 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
     ChartDataLine(2016, 30),
     ChartDataLine(2018, 40),
   ];
-
   List<ChartedDataLine> chartedDataline = [
-    ChartedDataLine(10000, 100000),
-    ChartedDataLine(11000, 200000),
-    ChartedDataLine(12000, 700000),
-    ChartedDataLine(13000, 150000),
-    ChartedDataLine(14000, 500000),
-    ChartedDataLine(15000, 200000),
+    ChartedDataLine(11000, 1),
+    ChartedDataLine(12500, 9),
+    ChartedDataLine(15000, 3),
+    ChartedDataLine(17500, 3),
+    ChartedDataLine(20000, 5),
   ];
+
+  // List<ChartedDataLine> chartedDataline = [
+  //   ChartedDataLine(10000, 100000),
+  //   ChartedDataLine(11000, 200000),
+  //   ChartedDataLine(12000, 700000),
+  //   ChartedDataLine(13000, 150000),
+  //   ChartedDataLine(14000, 500000),
+  //   ChartedDataLine(15000, 200000),
+  // ];
+  // List<ChartedDataLine> chartedDatalineNew = [
+  //   ChartedDataLine(10000, 100000),
+  //   ChartedDataLine(11000, 150000),
+  //   ChartedDataLine(12000, 200000),
+  //   ChartedDataLine(13000, 150000),
+  //   ChartedDataLine(14000, 100000),
+  //   ChartedDataLine(15000, 50000),
+  // ];
   List<ChartedDataLine> chartedDatalineNew = [
-    ChartedDataLine(10000, 100000),
-    ChartedDataLine(11000, 150000),
-    ChartedDataLine(12000, 200000),
-    ChartedDataLine(13000, 150000),
-    ChartedDataLine(14000, 100000),
-    ChartedDataLine(15000, 50000),
+    ChartedDataLine(11000, 1),
+    ChartedDataLine(12500, 3),
+    ChartedDataLine(15000, 4),
+    ChartedDataLine(17500, 3),
+    ChartedDataLine(20000, 2),
   ];
 
   String selectedValue = "Daily";
@@ -300,20 +314,35 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                         child: SfCartesianChart(
                           primaryXAxis: NumericAxis(
-                            title: AxisTitle(text: ""),
+                            title: AxisTitle(text: ""), // Optional title for the X-axis
                             majorGridLines: MajorGridLines(width: 0),
-                          ),
-                          primaryYAxis: NumericAxis(
+                            minimum: 10000, // Start of the X-axis range
+                            maximum: 20000, // End of the X-axis range
+                            interval: 2500, // Interval between the X-axis labels
                             axisLabelFormatter: (AxisLabelRenderDetails details) {
+                              // Format X-axis labels as integers
                               return ChartAxisLabel(
-                                '${details.value.toInt()}',
+                                details.value.toInt().toString(),
                                 TextStyle(fontSize: FontSize.s12),
                               );
                             },
+                          ),
+                          primaryYAxis: NumericAxis(
+                            title: AxisTitle(text: ""), // Optional title for the Y-axis
                             majorGridLines: MajorGridLines(width: 0.5),
+                            minimum: 1, // Start of the Y-axis range
+                            maximum: 10, // End of the Y-axis range
+                            interval: 1, // Interval between the Y-axis labels
+                            axisLabelFormatter: (AxisLabelRenderDetails details) {
+                              // Format Y-axis labels as integers
+                              return ChartAxisLabel(
+                                details.value.toInt().toString(),
+                                TextStyle(fontSize: FontSize.s12),
+                              );
+                            },
                           ),
                           series: <SplineSeries<ChartedDataLine, int>>[
-                            // Single solid line
+                            // First line
                             SplineSeries<ChartedDataLine, int>(
                               dataSource: chartedDataline, // Replace with your data
                               xValueMapper: (ChartedDataLine data, _) => data.x,
@@ -321,6 +350,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                               color: ColorManager.bluebottom,
                               width: 2,
                             ),
+                            // Second line
                             SplineSeries<ChartedDataLine, int>(
                               dataSource: chartedDatalineNew, // Replace with your data
                               xValueMapper: (ChartedDataLine data, _) => data.x,
@@ -331,6 +361,43 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                           ],
                         ),
                       ),
+
+                      // Container(
+                      //   height: AppSize.s240,
+                      //   padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                      //   child: SfCartesianChart(
+                      //     primaryXAxis: NumericAxis(
+                      //       title: AxisTitle(text: ""),
+                      //       majorGridLines: MajorGridLines(width: 0),
+                      //     ),
+                      //     primaryYAxis: NumericAxis(
+                      //       axisLabelFormatter: (AxisLabelRenderDetails details) {
+                      //         return ChartAxisLabel(
+                      //           '${details.value.toInt()}',
+                      //           TextStyle(fontSize: FontSize.s12),
+                      //         );
+                      //       },
+                      //       majorGridLines: MajorGridLines(width: 0.5),
+                      //     ),
+                      //     series: <SplineSeries<ChartedDataLine, int>>[
+                      //       // Single solid line
+                      //       SplineSeries<ChartedDataLine, int>(
+                      //         dataSource: chartedDataline, // Replace with your data
+                      //         xValueMapper: (ChartedDataLine data, _) => data.x,
+                      //         yValueMapper: (ChartedDataLine data, _) => data.y,
+                      //         color: ColorManager.bluebottom,
+                      //         width: 2,
+                      //       ),
+                      //       SplineSeries<ChartedDataLine, int>(
+                      //         dataSource: chartedDatalineNew, // Replace with your data
+                      //         xValueMapper: (ChartedDataLine data, _) => data.x,
+                      //         yValueMapper: (ChartedDataLine data, _) => data.y,
+                      //         color: ColorManager.red,
+                      //         width: 2,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),)),
               SizedBox(width: AppSize.s15,),
