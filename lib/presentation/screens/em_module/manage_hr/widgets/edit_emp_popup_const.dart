@@ -131,7 +131,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                FirstSMTextFConst(
+                SMTextfieldAsteric(
                   controller: widget.typeController,
                   keyboardType: TextInputType.text,
                   text: 'Type',

@@ -221,5 +221,5 @@ class IconSize{
   static const double I20 = 20;
   static const double I24 = 24;
   static const double I30 = 30;
-  static const double I40 = 42;
+  static const double I40 = 52;
 }

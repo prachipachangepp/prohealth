@@ -141,7 +141,7 @@ class _CustomDialogState extends State<CustomDialog> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                FirstSMTextFConst(
+                SMTextfieldAsteric(
                   controller: widget.firstNameController,
                   keyboardType: TextInputType.text,
                   text: "First Name",
@@ -153,7 +153,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   ),
                 SizedBox(height: 5,),
                 ///
-                FirstSMTextFConst(
+                SMTextfieldAsteric(
                   controller: widget.lastNameController,
                   keyboardType: TextInputType.text,
                   text: 'Last Name',
@@ -164,10 +164,24 @@ class _CustomDialogState extends State<CustomDialog> {
                     style: CommonErrorMsg.customTextStyle(context),
                   ),
                 SizedBox(height: 10,),
-                Text(
-                    'Select Department',
-                    //  widget.depTitle,
-                    style: AllPopupHeadings.customTextStyle(context)),
+                RichText(
+                  text: TextSpan(
+                    text:"Select Department", // Main text
+                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                    children: [
+                      TextSpan(
+                        text: ' *', // Asterisk
+                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                          color: ColorManager.red, // Asterisk color
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // Text(
+                //     'Select Department',
+                //     //  widget.depTitle,
+                //     style: AllPopupHeadings.customTextStyle(context)),
                 SizedBox(height: 5,),
                 FutureBuilder<List<HRHeadBar>>(
                   future: companyHRHeadApi(context, deptId),
@@ -239,7 +253,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   },
                 ),
                 SizedBox(height: 14,),
-                SMTextFConst(controller: widget.emailController,
+                SMTextfieldAsteric(controller: widget.emailController,
                     keyboardType: TextInputType.emailAddress,
                     text: 'Email'),
                 if (_emailDocError != null) // Display error if any
@@ -514,7 +528,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              FirstSMTextFConst(
+              SMTextfieldAsteric(
                 controller: widget.firstNameController,
                 keyboardType: TextInputType.text,
                 text: "First Name",
@@ -526,7 +540,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                 ),
               SizedBox(height: 5,),
               ///
-              FirstSMTextFConst(
+              SMTextfieldAsteric(
                 controller: widget.lastNameController,
                 keyboardType: TextInputType.text,
                 text: 'Last Name',
@@ -537,10 +551,24 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(height: 10,),
-              Text(
-                  'Select Department',
-                  //  widget.depTitle,
-                  style: AllPopupHeadings.customTextStyle(context)),
+              RichText(
+                text: TextSpan(
+                  text:"Select Department", // Main text
+                  style: AllPopupHeadings.customTextStyle(context), // Main style
+                  children: [
+                    TextSpan(
+                      text: ' *', // Asterisk
+                      style: AllPopupHeadings.customTextStyle(context).copyWith(
+                        color: ColorManager.red, // Asterisk color
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Text(
+              //     'Select Department',
+              //     //  widget.depTitle,
+              //     style: AllPopupHeadings.customTextStyle(context)),
               SizedBox(height: 5,),
               FutureBuilder<List<HRHeadBar>>(
                 future: companyHRHeadApi(context, deptId),
@@ -612,7 +640,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                 },
               ),
               SizedBox(height: 14,),
-              SMTextFConst(controller: widget.emailController,
+              SMTextfieldAsteric(controller: widget.emailController,
                   keyboardType: TextInputType.emailAddress,
                   text: 'Email'),
               if (_emailDocError != null) // Display error if any
@@ -995,7 +1023,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
-              FirstSMTextFConst(
+              SMTextfieldAsteric(
                 controller: firstnameController,
                 keyboardType: TextInputType.text,
                 text: "First Name",
@@ -1007,7 +1035,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
               //   ),
               SizedBox(height: 5,),
               ///
-              FirstSMTextFConst(
+              SMTextfieldAsteric(
                 controller:lastnameController,
                 keyboardType: TextInputType.text,
                 text: 'Last Name',
@@ -1100,7 +1128,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                 },
               ),
               SizedBox(height: 14,),
-              SMTextFConst(controller: emailController,
+              SMTextfieldAsteric(controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   text: 'Email'),
               // if (_emailDocError != null) // Display error if any

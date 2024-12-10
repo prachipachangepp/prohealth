@@ -137,7 +137,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
         ),
 
         /// Name of the Document
-        FirstSMTextFConst(
+        SMTextfieldAsteric(
           controller: nameDocController,
           keyboardType: TextInputType.text,
           text: AppString.name_of_the_document,

@@ -139,7 +139,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SMTextFConst(
+                  SMTextfieldAsteric(
                     onChange: () => _selectStartTime(context),
                     controller: widget.controller1,
                     keyboardType: TextInputType.text,
@@ -156,7 +156,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                       ),
                     ),
                   SizedBox(height: 20,),
-                  SMTextFConst(
+                  SMTextfieldAsteric(
                     onChange: () => _selectEndTime(context),
                     controller: widget.controller2,
                     keyboardType: TextInputType.text,

@@ -19,11 +19,11 @@ import '../../../widgets/dialogue_template.dart';
 
 class PayRateAddPopup extends StatefulWidget {
   //final Widget child1;
- // final Widget child2;
+  // final Widget child2;
   final String title;
   final String serviceId;
   final int empTypeId;
- // final Future<void> Function() onPressed;
+  // final Future<void> Function() onPressed;
   final TextEditingController fixPayRatesController;
   final TextEditingController payRatesController;
   final TextEditingController perMilesController;
@@ -32,9 +32,9 @@ class PayRateAddPopup extends StatefulWidget {
   PayRateAddPopup({
     super.key,
     // required this.child1,
-  //  required this.child2,
+    //  required this.child2,
     required this.payRatesController,
-   // required this.onPressed,
+    // required this.onPressed,
     required this.title,
     required this.serviceId,
     required this.empTypeId,
@@ -48,7 +48,7 @@ class PayRateAddPopup extends StatefulWidget {
 class _PayRateAddPopupState extends State<PayRateAddPopup> {
   bool isLoading = false;
   String? docAddVisitTypeId;
- // String serviceId = "";
+  // String serviceId = "";
 
   // Error messages
   String? payRatesError;
@@ -74,169 +74,202 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
 
-        width: AppSize.s400,
-        height: AppSize.s460,
-        title: widget.title,
+      width: AppSize.s400,
+      height: AppSize.s460,
+      title: widget.title,
 
-          body: [
+      body: [
 
-            Padding(
-              padding: const EdgeInsets.symmetric(
+        Padding(
+          padding: const EdgeInsets.symmetric(
 
-                horizontal: AppPadding.p10,
-              ),
-              child: Column(
+            horizontal: AppPadding.p10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  widget.visitTypeTextActive ?
+                  RichText(
+                    text: TextSpan(
+                      text:"Type of Visit", // Main text
+                      style: AllPopupHeadings.customTextStyle(context), // Main style
+                      children: [
+                        TextSpan(
+                          text: ' *', // Asterisk
+                          style: AllPopupHeadings.customTextStyle(context).copyWith(
+                            color: ColorManager.red, // Asterisk color
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                  // Text(
+                  //   'Type of Visit',
+                  //   style:  DefineWorkWeekStyle.customTextStyle(context),
+                  // )
+                      : Offstage(),
+                  SizedBox(height: 5,),
+                  //widget.child1,
+                  FutureBuilder<List<VisitListDataByServiceId>>(
+                    future: getVisitListByServiceId(context:context, serviceId: widget.serviceId,),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Container(
+                          width:  354,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding:  EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                            child: Text(
+                                "No available visits!",
+                                //AppString.dataNotFound,
+                                style: ConstTextFieldRegister.customTextStyle(context)
+                            ),
+                          ),
+                        );
+                        //   CICCDropDownExcel(
+                        //   width: 354,
+                        //   initialValue: 'Select',
+                        //   items: [],
+                        // );
+                      }
+                      if (snapshot.hasData &&
+                          snapshot.data!.isEmpty) {
+                        return Container(
+                          width:  354,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding:  EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                            child: Text(
+                                "No available visits!",
+                                //AppString.dataNotFound,
+                                style: ConstTextFieldRegister.customTextStyle(context)
+                            ),
+                          ),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        List<DropdownMenuItem<String>>
+                        dropDownZoneList = [];
+                        for (var i in snapshot.data!) {
+                          dropDownZoneList.add(
+                            DropdownMenuItem<String>(
+                              child: Text(i.visitType),
+                              value: i.visitType,
+                            ),
+                          );
+                        }
+                        return CICCDropDownExcel(
+                          initialValue:
+                          dropDownZoneList.isNotEmpty
+                              ? dropDownZoneList[0].value
+                              : null,
+                          onChange: (val) {
+                            for (var a in snapshot.data!) {
+                              if (a.visitType == val) {
+                                docAddVisitTypeId = a.visitType;
+                                print('empId ${a.visitId}');
+                              }
+                            }
+                          },
+                          items: dropDownZoneList,
+                        );
+                      }
+                      return const SizedBox();
+                    },
+                  ),
+                  SizedBox(height: 20,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      widget.visitTypeTextActive ? Text(
-                        'Type of Visit',
-                        style:  DefineWorkWeekStyle.customTextStyle(context),
-                      ) : Offstage(),
-                      SizedBox(height: 5,),
-                      //widget.child1,
-                      FutureBuilder<List<VisitListDataByServiceId>>(
-                        future: getVisitListByServiceId(context:context, serviceId: widget.serviceId,),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CICCDropDownExcel(
-                              width: 354,
-                              initialValue: 'Select',
-                              items: [],
-                            );
-                          }
-                          if (snapshot.hasData &&
-                              snapshot.data!.isEmpty) {
-                            return Container(
-                              width:  354,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding:  EdgeInsets.symmetric(vertical: 5,horizontal: 5),
-                                child: Text(
-                                    "No available visits!",
-                                    //AppString.dataNotFound,
-                                    style: ConstTextFieldRegister.customTextStyle(context)
-                                ),
-                              ),
-                            );
-                          }
-                          if (snapshot.hasData) {
-                            List<DropdownMenuItem<String>>
-                            dropDownZoneList = [];
-                            for (var i in snapshot.data!) {
-                              dropDownZoneList.add(
-                                DropdownMenuItem<String>(
-                                  child: Text(i.visitType),
-                                  value: i.visitType,
-                                ),
-                              );
-                            }
-                            return CICCDropDownExcel(
-                              initialValue:
-                              dropDownZoneList.isNotEmpty
-                                  ? dropDownZoneList[0].value
-                                  : null,
-                              onChange: (val) {
-                                for (var a in snapshot.data!) {
-                                  if (a.visitType == val) {
-                                    docAddVisitTypeId = a.visitType;
-                                    print('empId ${a.visitId}');
-                                  }
-                                }
-                              },
-                              items: dropDownZoneList,
-                            );
-                          }
-                          return const SizedBox();
-                        },
+                      SMTextfieldAsteric(
+                        prefixWidget: Text("\$ "),
+                        controller: widget.payRatesController,
+                        keyboardType: TextInputType.number,
+                        text: 'Payrates',
                       ),
+                      if (payRatesError != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            payRatesError!,
+                            style:  CommonErrorMsg.customTextStyle(context),
+                          ),
+                        ),
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+                  Text("Out of Zone",
+                    style:  DefineWorkWeekStyle.customTextStyle(context),),
+                  SizedBox(height: 20,),
+                  //////////////
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SMTextfieldAsteric(
+                            width: 150,
+                            prefixWidget: Text("\$ "),
+                            controller: widget.fixPayRatesController,
+                            keyboardType: TextInputType.number,
+                            text: 'Fixed Rate',
+                          ),
+                          if (fixPayRatesError != null)
+                            Text(
+                              fixPayRatesError!,
+                              style:  CommonErrorMsg.customTextStyle(context),
+                            ),
+                        ],
+                      ),
+
                       SizedBox(height: 20,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SMTextFConst(
+                          SMTextfieldAsteric(
+                            width: 150,
                             prefixWidget: Text("\$ "),
-                            controller: widget.payRatesController,
+                            controller: widget.perMilesController,
                             keyboardType: TextInputType.number,
-                            text: 'Payrates',
+                            text: 'Per Mile',
                           ),
-                          if (payRatesError != null)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Text(
-                                payRatesError!,
-                                style:  CommonErrorMsg.customTextStyle(context),
-                              ),
+                          if (perMilesError != null)
+                            Text(
+                              perMilesError!,
+                              style:  CommonErrorMsg.customTextStyle(context),
                             ),
                         ],
                       ),
-                      SizedBox(height: 20,),
-                      Text("Out of Zone",
-                        style:  DefineWorkWeekStyle.customTextStyle(context),),
-                      SizedBox(height: 20,),
-                      //////////////
 
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SMTextFConst(
-                                width: 150,
-                                prefixWidget: Text("\$ "),
-                                controller: widget.fixPayRatesController,
-                                keyboardType: TextInputType.number,
-                                text: 'Fixed Rate',
-                              ),
-                              if (fixPayRatesError != null)
-                                Text(
-                                  fixPayRatesError!,
-                                  style:  CommonErrorMsg.customTextStyle(context),
-                                ),
-                            ],
-                          ),
-
-                          SizedBox(height: 20,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SMTextFConst(
-                                width: 150,
-                                prefixWidget: Text("\$ "),
-                                controller: widget.perMilesController,
-                                keyboardType: TextInputType.number,
-                                text: 'Per Mile',
-                              ),
-                              if (perMilesError != null)
-                                Text(
-                                  perMilesError!,
-                                  style:  CommonErrorMsg.customTextStyle(context),
-                                ),
-                            ],
-                          ),
-
-
-                        ],
-                      ),
                     ],
                   ),
                 ],
               ),
-            ),
+            ],
+          ),
+        ),
 
 
-          ], bottomButtons:  isLoading
+      ], bottomButtons:  isLoading
         ? SizedBox(
         height: 25,
         width: 25,
@@ -373,118 +406,118 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
 
-        width: AppSize.s400,
-        height: AppSize.s460,
-        title: widget.title,
+      width: AppSize.s400,
+      height: AppSize.s460,
+      title: widget.title,
 
-          body: [
+      body: [
 
-            Padding(
-              padding: const EdgeInsets.symmetric(
+        Padding(
+          padding: const EdgeInsets.symmetric(
 
-                horizontal: AppPadding.p10,
-              ),
-              child: Column(
+            horizontal: AppPadding.p10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  widget.visitTypeTextActive ? Text(
+                    'Type of Visit',
+                    style:  DefineWorkWeekStyle.customTextStyle(context),
+                  ) : Offstage(),
+                  SizedBox(height: 5,),
+                  widget.child1,
+                  SizedBox(height: 20,),
+                  SMTextfieldAsteric(
+                    prefixWidget: Text("\$ "),
+                    controller: widget.payRatesController,
+                    keyboardType: TextInputType.number,
+                    text: 'Payrates',
+                  ),
+                  if (perError != null)
+                    Text(
+                      perError!,
+                      style:  CommonErrorMsg.customTextStyle(context),
+                    ),
+                  SizedBox(height: 17,),
+                  Text("Out of Zone", style:  DefineWorkWeekStyle.customTextStyle(context),),
+                  SizedBox(height: 17,),
+                  //////////////
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      widget.visitTypeTextActive ? Text(
-                        'Type of Visit',
-                        style:  DefineWorkWeekStyle.customTextStyle(context),
-                      ) : Offstage(),
-                      SizedBox(height: 5,),
-                      widget.child1,
-                      SizedBox(height: 20,),
-                      SMTextFConst(
-                        prefixWidget: Text("\$ "),
-                        controller: widget.payRatesController,
-                        keyboardType: TextInputType.number,
-                        text: 'Payrates',
-                      ),
-                      if (perError != null)
-                        Text(
-                          perError!,
-                          style:  CommonErrorMsg.customTextStyle(context),
-                        ),
-                      SizedBox(height: 17,),
-                      Text("Out of Zone", style:  DefineWorkWeekStyle.customTextStyle(context),),
-                      SizedBox(height: 17,),
-                      //////////////
-
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SMTextFConst(
-                                width: 150,
-                                prefixWidget: Text("\$ "),
-                                controller: widget.fixPayRatesController,
-                                keyboardType: TextInputType.number,
-                                text: 'Fixed Rate',
-                              ),
-                              if (payRatesError != null)
-                                Text(
-                                  payRatesError!,
-                                  style:  CommonErrorMsg.customTextStyle(context),
-                                ),
-                            ],
+                          SMTextfieldAsteric(
+                            width: 150,
+                            prefixWidget: Text("\$ "),
+                            controller: widget.fixPayRatesController,
+                            keyboardType: TextInputType.number,
+                            text: 'Fixed Rate',
                           ),
-
-                          SizedBox(height: 20,),
-                          Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SMTextFConst(
-                                width: 150,
-                                prefixWidget: Text("\$ "),
-                                controller: widget.perMilesController,
-                                keyboardType: TextInputType.number,
-                                text: 'Per Mile',
-                              ),
-                              if (perMilesError != null)
-                                Text(
-                                  perMilesError!,
-                                  style:  CommonErrorMsg.customTextStyle(context),
-                                ),
-                            ],
-                          ),
-
-
+                          if (payRatesError != null)
+                            Text(
+                              payRatesError!,
+                              style:  CommonErrorMsg.customTextStyle(context),
+                            ),
                         ],
                       ),
+
+                      SizedBox(height: 20,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SMTextfieldAsteric(
+                            width: 150,
+                            prefixWidget: Text("\$ "),
+                            controller: widget.perMilesController,
+                            keyboardType: TextInputType.number,
+                            text: 'Per Mile',
+                          ),
+                          if (perMilesError != null)
+                            Text(
+                              perMilesError!,
+                              style:  CommonErrorMsg.customTextStyle(context),
+                            ),
+                        ],
+                      ),
+
+
                     ],
                   ),
                 ],
               ),
-            ),
+            ],
+          ),
+        ),
 
 
-          ],
-       bottomButtons:  isLoading
-           ? SizedBox(
-           height: 25,
-           width: 25,
-           child: CircularProgressIndicator(color: ColorManager.blueprime,)
-       )
-           : CustomElevatedButton(
-         width: AppSize.s105,
-         height: AppSize.s30,
-         text: AppStringEM.submit,
-         onPressed: () async {
-           setState(() {
-             isLoading = true;
-           });
-           _validateAndSubmit();
+      ],
+      bottomButtons:  isLoading
+          ? SizedBox(
+          height: 25,
+          width: 25,
+          child: CircularProgressIndicator(color: ColorManager.blueprime,)
+      )
+          : CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: AppStringEM.submit,
+        onPressed: () async {
+          setState(() {
+            isLoading = true;
+          });
+          _validateAndSubmit();
 
 
-         },
-       ),
+        },
+      ),
     );
   }
 }

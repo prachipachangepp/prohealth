@@ -87,7 +87,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // Holiday Name Field
-              FirstSMTextFConst(
+              SMTextfieldAsteric(
                 controller: holidayNameController,
                 keyboardType: TextInputType.text,
                 text: 'Holiday Name',
@@ -100,10 +100,24 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
               const SizedBox(height: 20),
 
               // Holiday Date Field
-              Text(
-                'Holiday Date',
-                style: AllPopupHeadings.customTextStyle(context),
+              RichText(
+                text: TextSpan(
+                  text:"Holiday Date", // Main text
+                  style: AllPopupHeadings.customTextStyle(context), // Main style
+                  children: [
+                    TextSpan(
+                      text: ' *', // Asterisk
+                      style: AllPopupHeadings.customTextStyle(context).copyWith(
+                        color: ColorManager.red, // Asterisk color
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              // Text(
+              //   'Holiday Date',
+              //   style: AllPopupHeadings.customTextStyle(context),
+              // ),
               const SizedBox(height: 5),
               SizedBox(
                 width: 354,
@@ -269,7 +283,7 @@ class _EditHolidayPopupState extends State<EditHolidayPopup> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // Holiday Name Field
-              FirstSMTextFConst(
+              SMTextfieldAsteric(
                 controller: widget.controller,
                 keyboardType: TextInputType.text,
                 text: 'Holiday Name',
@@ -282,9 +296,23 @@ class _EditHolidayPopupState extends State<EditHolidayPopup> {
               SizedBox(height: 20),
 
               // Holiday Date Field
-              Text(
-                'Holiday Date',
-                style: AllPopupHeadings.customTextStyle(context),
+              // Text(
+              //   'Holiday Date',
+              //   style: AllPopupHeadings.customTextStyle(context),
+              // ),
+              RichText(
+                text: TextSpan(
+                  text:"Holiday Date", // Main text
+                  style: AllPopupHeadings.customTextStyle(context), // Main style
+                  children: [
+                    TextSpan(
+                      text: ' *', // Asterisk
+                      style: AllPopupHeadings.customTextStyle(context).copyWith(
+                        color: ColorManager.red, // Asterisk color
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 5),
               SizedBox(
