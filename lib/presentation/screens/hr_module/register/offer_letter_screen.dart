@@ -39,10 +39,15 @@ class OfferLetterScreen extends StatefulWidget {
   final String services;
   final String employement;
   final String soecalityName;
-  final String clinicalName;
+  final int clinicalId;
   final int employeeId;
   final int depId;
   final ApiData? apiData;
+  final int cityId;
+  final int countyId;
+  final int zoneId;
+  final int countryId;
+  final String link;
  final Function() onRefreshRegister;
 
   const OfferLetterScreen(
@@ -59,9 +64,15 @@ class OfferLetterScreen extends StatefulWidget {
         required this.services,
         required this.employement,
         required this.soecalityName,
-        required this.clinicalName,
+        required this.clinicalId,
         required this.employeeId,
-         this.apiData, required this.onRefreshRegister, required this.depId
+         this.apiData,
+        required this.onRefreshRegister,
+        required this.depId,
+        required this.cityId,
+        required this.countyId,
+        required this.zoneId,
+        required this.link, required this.countryId
       });
 
   @override
@@ -827,7 +838,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             print('County ID: ${st.selectedCountyId}');
                             print('Zone ID:::::::::=>> ${st.docZoneId}');
                             print('Zip Codes: ${st.selectedZipCodes}');
-                            print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
+                            //print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
                             addCovrage.add( ApiAddCovrageData(
                                 city: '',
                                 countyId:st.selectedCountyId ,
@@ -863,78 +874,116 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     } else {
                                       patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
                                     }
-
-                                    // Call the API with the correct patientsValue
-                                    var empEnrollOfferResponse = await addEmpEnrollOffers(
-                                      context,
-                                      widget.apiData!.employeeEnrollId!,
-                                      widget.apiData!.employeeId!,
-                                      patientsValue,  // Use patientsValue here
-                                      issueDateController.text,
-                                      lastDateController.text,
-                                      startDateController.text,
-                                      verbalAcceptanceController.text,
+                                    ApiData response = await addEmpEnroll(
+                                      context: context,
+                                      employeeId: widget
+                                          .employeeId,
+                                      code: "",
+                                      userId: widget.userId,
+                                      firstName: widget
+                                          .firstName,
+                                      lastName: widget
+                                          .lastName,
+                                      phoneNbr: widget.phone,
+                                      email: widget.email,
+                                      link: widget.link,
+                                      status: widget.status,
+                                      departmentId: widget.depId,
+                                      position: widget.position,
+                                      speciality: widget.soecalityName,
+                                      clinicianTypeId:widget.clinicalId,
+                                      reportingOfficeId: widget.reportingOffice,
+                                      cityId: widget.cityId,
+                                      countryId: widget.countryId,
+                                      countyId: widget.countyId,
+                                      zoneId: widget.zoneId,
+                                      // employment: "Full Time",
+                                      employment: widget.employement,
+                                      // service: "Hospice",
+                                      service: widget.services,
                                     );
+                                    if(response.statusCode == 200 || response.statusCode == 201){
+                                      // Call the API with the correct patientsValue
+                                      widget.onRefreshRegister();
+                                      var empEnrollOfferResponse = await addEmpEnrollOffers(
+                                        context,
+                                        response.employeeEnrollId!,
+                                        response.employeeId!,
+                                        patientsValue,  // Use patientsValue here
+                                        issueDateController.text,
+                                        lastDateController.text,
+                                        startDateController.text,
+                                        verbalAcceptanceController.text,
+                                      );
 
-                                    print('County id : ${selectedCountyId}');
-                                    print('Zone id : ${selectedZoneId}');
+                                      print('County id : ${selectedCountyId}');
+                                      print('Zone id : ${selectedZoneId}');
 
-                                    // Call other enrollment-related APIs
-                                    await addEmpEnrollAddCoverage(
-                                      context,
-                                      widget.apiData!.employeeEnrollId!,
-                                      widget.apiData!.employeeId!,
-                                      addCovrage,
-                                    );
+                                      // Call other enrollment-related APIs
+                                      await addEmpEnrollAddCoverage(
+                                        context,
+                                        response.employeeEnrollId!,
+                                        response.employeeId!,
+                                        addCovrage,
+                                      );
 
-                                    await addEmpEnrollAddCompensation(
-                                      context,
-                                      widget.apiData!.employeeEnrollId!,
-                                      widget.apiData!.employeeId!,
-                                      dropdownValue.toString(),
-                                      int.parse(_salary),
-                                    );
+                                      await addEmpEnrollAddCompensation(
+                                        context,
+                                        response.employeeEnrollId!,
+                                        response.employeeId!,
+                                        dropdownValue.toString(),
+                                        int.parse(_salary),
+                                      );
 
-                                    // Clear controllers
-                                    issueDateController.clear();
-                                    lastDateController.clear();
-                                    startDateController.clear();
-                                    verbalAcceptanceController.clear();
+                                      // Clear controllers
+                                      issueDateController.clear();
+                                      lastDateController.clear();
+                                      startDateController.clear();
+                                      verbalAcceptanceController.clear();
 
-                                    Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            Future.delayed(const Duration(seconds: 3), () {
+                                              if (Navigator.of(context).canPop()) {
+                                                Navigator.pop(context);
+                                                popNavigation();
+                                              }
+                                            });
+                                            return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
+                                          },
+                                        );
+                                      }
+                                      else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
+                                        // Navigator.pop(context);
+                                         showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) => const FourNotFourPopup(),
+                                        );
+                                      }
+                                      else {
+                                        // Navigator.pop(context);
+                                         showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
+                                        );
+                                      }
+                                    }else{
+                                      Navigator.pop(context);
+                                       showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+                                      );
+                                    }
+
 
                                     // Check the response status
-                                    if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          Future.delayed(const Duration(seconds: 3), () {
-                                            if (Navigator.of(context).canPop()) {
-                                              Navigator.pop(context);
-                                              popNavigation();
-                                            }
-                                          });
-                                          return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
-                                        },
-                                      );
-                                    }
-                                    else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
-                                      // Navigator.pop(context);
-                                      await showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => const FourNotFourPopup(),
-                                      );
-                                    }
-                                    else {
-                                      // Navigator.pop(context);
-                                      await showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
-                                      );
-                                    }
+
                                   } catch (e) {
                                     print("Error during enrollment: $e");
-                                    await showDialog(
+                                    showDialog(
                                       context: context,
                                       builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
                                     );

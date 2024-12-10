@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/main_register_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
@@ -12,6 +13,7 @@ import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dar
 import 'package:prohealth/presentation/screens/hr_module/register/register_enroll_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../app/resources/color.dart';
@@ -179,15 +181,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         TextButton(
                           onPressed: () async {
                           // const url = "http://localhost:53372/#/onBordingWelcome";
-                           //const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                           const url = "${AppConfig.deployment}/#/onBordingWelcome";
                             //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                           Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingWelcome()));
+                           // Provider.of<RouteProvider>(context,listen:false).navigateToPage(context, OnBoardingWelcome());
                             //const url = "${AppConfig.deployment}/#/onBordingWelcome";
-                            // if (await canLaunch(url)) {
-                            //   await launch(url);
-                            // } else {
-                            //   throw 'Could not launch $url';
-                            // }
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
                           },
                           child: Text(
                               'https://prohealth.symmetry.care/register',

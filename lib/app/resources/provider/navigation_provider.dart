@@ -24,4 +24,19 @@ class RouteProvider with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('lastRoute', route); // Persist the route
   }
+
+  /// Navigator provider
+  void navigateToPage(BuildContext context, Widget page) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+
+  void navigateWithData(BuildContext context, Widget Function(BuildContext) pageBuilder) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: pageBuilder),
+    );
+  }
 }
