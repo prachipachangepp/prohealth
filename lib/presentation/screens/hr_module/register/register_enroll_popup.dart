@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
-
-import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
-import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -713,10 +706,24 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              "Employment",
-                              style: AllPopupHeadings.customTextStyle(context),
+                            RichText(
+                              text: TextSpan(
+                                text: "Employment", // Main text
+                                style: AllPopupHeadings.customTextStyle(context), // Main style
+                                children: [
+                                  TextSpan(
+                                    text: ' *', // Asterisk
+                                    style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                      color: ColorManager.red, // Asterisk color
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
+                            // Text(
+                            //   "Employment",
+                            //   style: AllPopupHeadings.customTextStyle(context),
+                            // ),
                           ],
                         ),
                         SizedBox(height: 5,),
@@ -813,10 +820,24 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Service',
-                              style: AllPopupHeadings.customTextStyle(context),
+                            RichText(
+                              text: TextSpan(
+                                text: "Service", // Main text
+                                style: AllPopupHeadings.customTextStyle(context), // Main style
+                                children: [
+                                  TextSpan(
+                                    text: ' *', // Asterisk
+                                    style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                      color: ColorManager.red, // Asterisk color
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
+                            // Text(
+                            //   'Service',
+                            //   style: AllPopupHeadings.customTextStyle(context),
+                            // ),
                             SizedBox(height: 5,),
                             StatefulBuilder(
                               builder: (BuildContext context, void Function(void Function()) setState) {return Container(
@@ -927,29 +948,21 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               _isLoading = true;
                             });
                             await _generateUrlLink(
-                                widget.email.text,
-                                widget.userId
-                                    .toString());
+                                widget.email.text, widget.userId.toString());
                             ApiData response = await addEmpEnroll(
                               context: context,
-                              employeeId: widget
-                                  .employeeId,
+                              employeeId: widget.employeeId,
                               code: "",
                               userId: widget.userId,
-                              firstName: widget
-                                  .firstName.text,
-                              lastName: widget
-                                  .lastName.text,
+                              firstName: widget.firstName.text,
+                              lastName: widget.lastName.text,
                               phoneNbr: phone.text,
-                              email: widget.email
-                                  .text,
+                              email: widget.email.text,
                               link: generatedURL,
                               status: widget.status,
                               departmentId: widget.depId,
-                              position: position
-                                  .text,
-                              speciality: speciality
-                                  .text,
+                              position: position.text,
+                              speciality: speciality.text,
                               clinicianTypeId:clinicalId,
                               reportingOfficeId: reportingOfficeId,
                               cityId: cityId,
@@ -970,36 +983,19 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             });
                             widget.onReferesh();
                             if (response.statusCode == 200 || response.statusCode == 201) {
-                              Navigator.pop(
-                                  context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (
-                                          context) =>
-                                          OfferLetterScreen(
+                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) => OfferLetterScreen(
                                             apiData: response,
-                                            employeeId: widget
-                                                .employeeId,
-                                            email: widget
-                                                .email
-                                                .text,
-                                            userId: widget
-                                                .userId,
-                                            status: widget
-                                                .status,
-                                            firstName: widget
-                                                .firstName
-                                                .text,
-                                            lastName: widget
-                                                .lastName
-                                                .text,
-                                            role: widget
-                                                .role,
-                                            position: position
-                                                .text,
-                                            phone: phone
-                                                .text,
+                                            employeeId: widget.employeeId,
+                                            email: widget.email.text,
+                                            userId: widget.userId,
+                                            status: widget.status,
+                                            firstName: widget.firstName.text,
+                                            lastName: widget.lastName.text,
+                                            role: widget.role,
+                                            position: position.text,
+                                            phone: phone.text,
                                             reportingOffice: reportingOfficeId,
                                             services: selectedService!,
                                             employement: 'Full Time',

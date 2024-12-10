@@ -275,7 +275,21 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+        RichText(
+          text: TextSpan(
+            text: labelText, // Main text
+            style: AllPopupHeadings.customTextStyle(context), // Main style
+            children: [
+              TextSpan(
+                text: ' *', // Asterisk
+                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                  color: ColorManager.red, // Asterisk color
+                ),
+              ),
+            ],
+          ),
+        ),
+       // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
           capitalIsSelect: capitalIsSelect,
@@ -317,14 +331,27 @@ hintText:hintText ,
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+        RichText(
+          text: TextSpan(
+            text:labelText, // Main text
+            style: AllPopupHeadings.customTextStyle(context), // Main style
+            children: [
+              TextSpan(
+                text: ' *', // Asterisk
+                style: AllPopupHeadings.customTextStyle(context).copyWith(
+                  color: ColorManager.red, // Asterisk color
+                ),
+              ),
+            ],
+          ),
+        ),
+       // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
         SizedBox(height: 4,),
         CustomTextFieldRegister(
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
           hintText:hintText,
-
           keyboardType: TextInputType.text,
           suffixIcon: Icon(
             Icons.calendar_month_outlined,

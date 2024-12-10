@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../em_module/widgets/text_form_field_const.dart';
 
 
 
@@ -294,6 +289,158 @@ class PhoneNumberInputFormatter extends TextInputFormatter {
 ///
 
 
+// class HRMamangeFlowTextfield extends StatelessWidget {
+//   final TextEditingController? controller;
+//   final String? labelText;
+//   final TextInputType? keyboardType;
+//   final TextInputAction? textInputAction;
+//   final bool obscureText;
+//   final bool autofocus;
+//   final bool enabled;
+//   final Widget? prefixIcon;
+//   final Widget? suffixIcon;
+//   final ValueChanged<String>? onChanged;
+//   final FormFieldValidator<String>? validator;
+//   VoidCallback? onTap;
+//   final FocusNode? focusNode;
+//   final ValueChanged<String>? onFieldSubmitted;
+//   final EdgeInsetsGeometry? padding;
+//   final double? width;
+//   final double? height;
+//   final String? hintText;
+//   final String text;
+//   final TextStyle? hintStyle;
+//   final TextStyle? prefixStyle;
+//   final String? prefixText;
+//   final double? cursorHeight;
+//   final int? maxLength;
+//   final bool capitalIsSelect;
+//   final bool readOnly;
+//   final bool? phoneNumberField;
+//   HRMamangeFlowTextfield({
+//     Key? key,
+//     this.phoneNumberField = false,
+//     this.capitalIsSelect = false, // Default to false
+//     this.maxLength,
+//     this.controller,
+//     this.labelText,
+//     this.keyboardType,
+//     this.textInputAction,
+//     this.obscureText = false,
+//     this.autofocus = false,
+//     this.enabled = true,
+//     this.prefixIcon,
+//     this.suffixIcon,
+//     this.hintText,
+//     this.hintStyle,
+//     this.prefixText,
+//     this.prefixStyle,
+//     this.onChanged,
+//     this.validator,
+//     this.focusNode,
+//     this.onFieldSubmitted,
+//     this.padding,
+//     this.width,
+//     this.height,
+//     this.cursorHeight,
+//     this.onTap,
+//     this.readOnly = false, required this.text,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       mainAxisAlignment: MainAxisAlignment.start,
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         RichText(
+//           text: TextSpan(
+//             text: text, // Main text
+//             style: AllPopupHeadings.customTextStyle(context), // Main style
+//             children: [
+//               TextSpan(
+//                 text: ' *', // Asterisk
+//                 style: AllPopupHeadings.customTextStyle(context).copyWith(
+//                   color: ColorManager.red, // Asterisk color
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//         // Text(
+//         //   widget.text,
+//         //   style: AllPopupHeadings.customTextStyle(context),
+//         // ),
+//         SizedBox(
+//           height: 4,
+//         ),
+//         SizedBox(
+//           width: width,
+//           height: height,
+//           child: Padding(
+//             padding: const EdgeInsets.all(1.0),
+//             child: TextFormField(
+//               controller: controller,
+//               cursorHeight: cursorHeight,
+//               cursorColor: Colors.black,
+//               cursorWidth: 1.5,
+//               decoration: InputDecoration(
+//                 contentPadding: EdgeInsets.only(
+//                     bottom: AppPadding.p3,
+//                     top: AppPadding.p4,
+//                     left: AppPadding.p12
+//                 ),
+//                 hintText: hintText,
+//                 hintStyle: hintStyle,
+//                 prefixText: prefixText,
+//                 prefixStyle: prefixStyle,
+//                 enabledBorder: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(5.0),
+//                   borderSide:  BorderSide(
+//                     color: Color(0xFFB1B1B1),
+//                   ),
+//                 ),
+//                 focusedBorder: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(5.0),
+//                   borderSide:  BorderSide(
+//                     color: Color(0xFFB1B1B1),
+//                   ),
+//                 ),
+//                 border: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(5.0),
+//                   borderSide:  BorderSide(
+//                     color: Color(0xFFB1B1B1),
+//                   ),
+//                 ),
+//                 labelText: labelText,
+//                 labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+//                 prefixIcon: prefixIcon,
+//                 suffixIcon: suffixIcon,
+//                 //contentPadding: padding,
+//               ),
+//               keyboardType: keyboardType,
+//               textInputAction: textInputAction,
+//               style:DocumentTypeDataStyle.customTextStyle(context),
+//               obscureText: obscureText,
+//               autofocus: autofocus,
+//               enabled: enabled,
+//               onTap: onTap,
+//               onChanged: onChanged,
+//               validator: validator,
+//               focusNode: focusNode,
+//               readOnly: readOnly,
+//               onFieldSubmitted: onFieldSubmitted,
+//               inputFormatters: capitalIsSelect ? [
+//                 //CapitalizeFirstLetterFormatter()
+//               ]:phoneNumberField! ? [PhoneNumberInputFormatter()] : [],
+//
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 
 
@@ -428,142 +575,7 @@ class CustomTextFieldRegister extends StatelessWidget {
 }
 
 
-
-
-
-
-
-///enroll popup only
-///
-
 ///normal textfield
-// class CustomTextFieldEnroll extends StatelessWidget {
-//   final TextEditingController? controller;
-//   final String? labelText;
-//   final TextInputType? keyboardType;
-//   final TextInputAction? textInputAction;
-//   final bool obscureText;
-//   final bool autofocus;
-//   final bool enabled;
-//   final Widget? prefixIcon;
-//   final Widget? suffixIcon;
-//   final ValueChanged<String>? onChanged;
-//   final FormFieldValidator<String>? validator;
-//   VoidCallback? onTap;
-//   final FocusNode? focusNode;
-//   final ValueChanged<String>? onFieldSubmitted;
-//   final EdgeInsetsGeometry? padding;
-//   final double? width;
-//   final double? height;
-//   final String? hintText;
-//   final hintStyle;
-//   final prefixStyle;
-//   final String? prefixText;
-//   final double? cursorHeight;
-//
-//
-//   CustomTextFieldEnroll({
-//     Key? key,
-//     this.controller,
-//     this.labelText,
-//     this.keyboardType,
-//     this.textInputAction,
-//     this.obscureText = false,
-//     this.autofocus = false,
-//     this.enabled = true,
-//     this.prefixIcon,
-//     this.suffixIcon,
-//     this.hintText,
-//     this.hintStyle,
-//     this.prefixText,
-//     this.prefixStyle,
-//     this.onChanged,
-//     this.validator,
-//     this.focusNode,
-//     this.onFieldSubmitted,
-//     this.padding,
-//     this.width,
-//     this.height,
-//     this.cursorHeight, this.onTap,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       width: width,
-//       height: height,
-//       child: Padding(
-//         padding: const EdgeInsets.all(1.0),
-//         child: TextFormField(
-//           controller: controller,
-//
-//           cursorHeight: cursorHeight,
-//           cursorColor: Colors.black,
-//           cursorWidth: 1.5,
-//           decoration: InputDecoration(
-//               hintText: hintText,
-//               hintStyle: hintStyle,
-//               prefixText: prefixText,
-//               prefixStyle: prefixStyle,
-//               enabledBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(5.0),
-//                 borderSide: const BorderSide(
-//                   color: Color(0xffB1B1B1),
-//                 ),
-//               ),
-//               focusedBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(5.0),
-//                 borderSide: const BorderSide(
-//                   color: Color(0xffB1B1B1),
-//                 ),
-//               ),
-//               border: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(5.0),
-//                 borderSide: const BorderSide(
-//                   color: Color(0xffB1B1B1),
-//                 ),
-//               ),
-//               // border: OutlineInputBorder(
-//               //   borderSide: BorderSide(color: Color(0xffB1B1B1)),
-//               //   borderRadius: BorderRadius.circular(5.0),
-//               // ),
-//               labelText: labelText,
-//               labelStyle:onlyFormDataStyle.customTextStyle(context),
-//               prefixIcon: prefixIcon,
-//               suffixIcon: suffixIcon,
-//               contentPadding: padding
-//           ),
-//           keyboardType: keyboardType,
-//           textInputAction: textInputAction,
-//           style: onlyFormDataStyle.customTextStyle(context),
-//           obscureText: obscureText,
-//           autofocus: autofocus,
-//           enabled: enabled,
-//           onTap: onTap,
-//           onChanged: onChanged,
-//           validator: validator,
-//           focusNode: focusNode,
-//           onFieldSubmitted: onFieldSubmitted,
-//           inputFormatters: [
-//             CapitalizeFirstLetterFormatter(),
-//           ],
-//
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-////terminate popup
 class FirstHRTextFConst extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
@@ -651,147 +663,6 @@ class _FirstHRTextFConstState extends State<FirstHRTextFConst> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-// import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
-// import 'package:prohealth/app/resources/font_manager.dart';
-//
-// class CustomTextFieldRegister extends StatelessWidget {
-//   final TextEditingController? controller;
-//   final String? labelText;
-//   final TextInputType? keyboardType;
-//   final TextInputAction? textInputAction;
-//   final bool obscureText;
-//   final bool autofocus;
-//   final bool enabled;
-//   final Widget? prefixIcon;
-//   final Widget? suffixIcon;
-//   final ValueChanged<String>? onChanged;
-//   final FormFieldValidator<String>? validator;
-//   final FocusNode? focusNode;
-//   final ValueChanged<String>? onFieldSubmitted;
-//   final EdgeInsetsGeometry? padding;
-//   final double? width;
-//   final double? height;
-//   final double? cursorHeight;
-//   final bool isDropdown; // New parameter to indicate dropdown
-//   final List<String>? dropdownItems; // New parameter for dropdown items
-//
-//   const CustomTextFieldRegister({
-//     Key? key,
-//     this.controller,
-//     this.labelText,
-//     this.keyboardType,
-//     this.textInputAction,
-//     this.obscureText = false,
-//     this.autofocus = false,
-//     this.enabled = true,
-//     this.prefixIcon,
-//     this.suffixIcon,
-//     this.onChanged,
-//     this.validator,
-//     this.focusNode,
-//     this.onFieldSubmitted,
-//     this.padding,
-//     this.width,
-//     this.height,
-//     this.cursorHeight,
-//     this.isDropdown = false, // Default to false
-//     this.dropdownItems, // Initialize the dropdown items
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       width: width,
-//       height: height,
-//       child: Padding(
-//         padding: const EdgeInsets.all(1.0),
-//         child: isDropdown && dropdownItems != null
-//             ? DropdownButtonFormField<String>(
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(
-//               borderSide: BorderSide(color: Color(0xffB1B1B1)),
-//               borderRadius: BorderRadius.circular(5.0),
-//             ),
-//             labelText: labelText,
-//             labelStyle: TextStyle(fontSize: FontSize.s10),
-//             prefixIcon: prefixIcon,
-//             suffixIcon: suffixIcon,
-//             contentPadding: padding,
-//           ),
-//           value: dropdownItems!.isNotEmpty ? dropdownItems![0] : null,
-//           items: dropdownItems!.map((String value) {
-//             return DropdownMenuItem<String>(
-//               value: value,
-//               child: Flexible(
-//                 child: Text(value,
-//                   overflow: TextOverflow.ellipsis,
-//                 style: GoogleFonts.firaSans(
-//                   fontSize: 12,
-//                   fontWeight: FontWeight.w400
-//                 ),),
-//               ),
-//             );
-//           }).toList(),
-//           onChanged: (String? newValue) {
-//             controller?.text = newValue ?? '';
-//             onChanged?.call(newValue ?? '');
-//           },
-//           validator: validator,
-//           icon: SizedBox.shrink(),
-//         )
-//             : TextFormField(
-//           controller: controller,
-//           cursorHeight: cursorHeight,
-//           cursorColor: Colors.black,
-//           cursorWidth: 1.5,
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(
-//               borderSide: BorderSide(color: Color(0xffB1B1B1)),
-//               borderRadius: BorderRadius.circular(5.0),
-//             ),
-//             labelText: labelText,
-//             labelStyle: TextStyle(fontSize: FontSize.s10),
-//             prefixIcon: prefixIcon,
-//             suffixIcon: suffixIcon,
-//             contentPadding: padding,
-//           ),
-//           keyboardType: keyboardType,
-//           textInputAction: textInputAction,
-//           style: TextStyle(fontSize: FontSize.s12),
-//           obscureText: obscureText,
-//           autofocus: autofocus,
-//           enabled: enabled,
-//           onChanged: onChanged,
-//           validator: validator,
-//           focusNode: focusNode,
-//           onFieldSubmitted: onFieldSubmitted,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-
 
 ///ssn number
 class CustomTextFieldSSn extends StatelessWidget {

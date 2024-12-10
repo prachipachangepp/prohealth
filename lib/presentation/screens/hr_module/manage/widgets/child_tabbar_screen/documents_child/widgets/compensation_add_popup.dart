@@ -694,6 +694,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
       height: AppSize.s390,
       body: [
         HeaderContentConst(
+          isAsterisk: true,
           heading: AppString.type_of_the_document,
           content: Container(
             width: 354,
@@ -721,6 +722,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
 
         /// upload  doc
         HeaderContentConst(
+          isAsterisk: true,
           heading: AppString.upload_document,
           content: InkWell(
             onTap: _pickFile,
@@ -773,6 +775,7 @@ class _CustomDocumedEditPopupState extends State<CustomDocumedEditPopup> {
           visible: showExpiryDateField,
           /// Conditionally display expiry date field
           child: HeaderContentConst(
+            isAsterisk: true,
             heading: AppString.expiry_date,
             content: FormField<String>(
               builder: (FormFieldState<String> field) {
@@ -1038,6 +1041,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
         height: widget.height == null ? AppSize.s390 : widget.height!,
         body: [
           HeaderContentConst(
+            isAsterisk: true,
             heading: AppString.type_of_the_document,
             content: widget.dataList.isEmpty
                 ? Container(
@@ -1088,6 +1092,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
           Visibility(
             visible: showExpiryDateField,
             child: HeaderContentConst(
+              isAsterisk: true,
               heading: AppString.expiry_date,
               content: FormField<String>(
                 builder: (FormFieldState<String> field) {
@@ -1139,6 +1144,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
           ),
 
           HeaderContentConst(
+            isAsterisk: true,
             heading: AppString.upload_document,
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -49,7 +49,21 @@ class CustomTextField extends StatelessWidget {
 
         Padding(
           padding: const EdgeInsets.only(left: 5.0),
-          child: Text(text,style: AllPopupHeadings.customTextStyle(context),),
+          child: RichText(
+            text: TextSpan(
+              text: text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: ColorManager.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //Text(text,style: AllPopupHeadings.customTextStyle(context),),
         ),
         SizedBox(height: 2,),
         SizedBox(
@@ -187,8 +201,7 @@ class CustomTextField extends StatelessWidget {
 //   }
 // }
 
-class CustomDropdownTextField extends StatefulWidget
-{
+class CustomDropdownTextField extends StatefulWidget {
   final String? value;
   final List<String>? items;
   final List<DropdownMenuItem<String>>? dropDownMenuList;
@@ -342,10 +355,24 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 5.0, bottom: 2),
-          child: Text(
-            widget.headText,
-            style: AllPopupHeadings.customTextStyle(context),
+          child: RichText(
+            text: TextSpan(
+              text: widget.headText, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: ColorManager.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
           ),
+          // Text(
+          //   widget.headText,
+          //   style: AllPopupHeadings.customTextStyle(context),
+          // ),
         ),
         SizedBox(
           width: AppSize.s250,
@@ -414,7 +441,21 @@ class CustomTextFieldPhone extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 5.0),
-          child: Text(text,style: AllPopupHeadings.customTextStyle(context),),
+          child: RichText(
+            text: TextSpan(
+              text: text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: ColorManager.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //Text(text,style: AllPopupHeadings.customTextStyle(context),),
         ),
         SizedBox(height: 2,),
         SizedBox(

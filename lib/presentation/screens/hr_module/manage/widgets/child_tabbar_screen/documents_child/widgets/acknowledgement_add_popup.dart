@@ -130,6 +130,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         height: widget.height == null ? AppSize.s390 : widget.height!,
         body: [
           HeaderContentConst(
+            isAsterisk: true,
             heading: AppString.type_of_the_document,
             content: widget.dataList.isEmpty
                 ? Container(
@@ -186,6 +187,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
           Visibility(
             visible: showExpiryDateField,
             child: HeaderContentConst(
+              isAsterisk: true,
               heading: AppString.expiry_date,
               content: FormField<String>(
                 builder: (FormFieldState<String> field) {
@@ -247,6 +249,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
           ),
           /// Upload document section...
           HeaderContentConst(
+            isAsterisk: true,
             heading: AppString.upload_document,
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

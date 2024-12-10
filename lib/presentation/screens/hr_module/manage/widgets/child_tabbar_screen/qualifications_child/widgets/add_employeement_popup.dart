@@ -152,6 +152,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     children: [
                       _buildTextField(
                         capitalIsSelect: false,
+                        isAsteric: false,
                         controller: widget.endDateController,
                         labelText: "End Date",
                         suffixIcon: Icon(Icons.calendar_month_outlined,
@@ -278,6 +279,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     required String  hintText,
     Widget? suffixIcon,
     required bool capitalIsSelect,
+    bool isAsteric = true,
     VoidCallback? onTap,
     String? errorMessage,
   }) {
@@ -288,10 +290,26 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              labelText,
-              style: AllPopupHeadings.customTextStyle(context),
+            RichText(
+              text: TextSpan(
+                text: labelText, // Main text
+                style: AllPopupHeadings.customTextStyle(context), // Main style
+                children: isAsteric
+                    ? [
+                  TextSpan(
+                    text: ' *', // Asterisk
+                    style: AllPopupHeadings.customTextStyle(context).copyWith(
+                      color: ColorManager.red, // Asterisk color
+                    ),
+                  ),
+                ]
+                    : [],
+              ),
             ),
+            // Text(
+            //   labelText,
+            //   style: AllPopupHeadings.customTextStyle(context),
+            // ),
             SizedBox(
               height: 4,
             ),

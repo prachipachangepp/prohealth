@@ -249,7 +249,21 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     else Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
+                      RichText(
+                        text: TextSpan(
+                          text: "No. of Patients", // Main text
+                          style: DocumentTypeDataStyle.customTextStyle(context), // Main style
+                          children: [
+                            TextSpan(
+                              text: ' *', // Asterisk
+                              style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                color: ColorManager.red, // Asterisk color
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    //Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
                     SizedBox(height: 5,),
                     Container(
                     height: 30,
@@ -316,15 +330,15 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     ),
                     ),
                     if (noOfPatientDate == true)
-    Padding(
-    padding: const EdgeInsets.only(top: 1),
-    child: Text(
-    "Please enter no. of Patients",
-    style: CommonErrorMsg.customTextStyle(context),
-    ),
-    ),
-    ],
-    ),
+                      Padding(
+                      padding: const EdgeInsets.only(top: 1),
+                      child: Text(
+                      "Please enter no. of Patients",
+                      style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                      ),
+                      ],
+                      ),
                     //SizedBox(width: MediaQuery.of(context).size.width / 10),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 5,
@@ -833,7 +847,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 countyId:st.selectedCountyId ,
                                 zoneId: st.docZoneId,
                                 zipCodes:st.selectedZipCodes
-
                             ));
                           }
                           print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
@@ -1063,7 +1076,21 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(text,style: DocumentTypeDataStyle.customTextStyle(context),),
+        RichText(
+          text: TextSpan(
+            text: text, // Main text
+            style: DocumentTypeDataStyle.customTextStyle(context), // Main style
+            children: [
+              TextSpan(
+                text: ' *', // Asterisk
+                style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                  color: ColorManager.red, // Asterisk color
+                ),
+              ),
+            ],
+          ),
+        ),
+       // Text(text,style: DocumentTypeDataStyle.customTextStyle(context),),
         SizedBox(height: 5,),
         CustomTextFieldOfferScreen(
           hintText: hintText,
