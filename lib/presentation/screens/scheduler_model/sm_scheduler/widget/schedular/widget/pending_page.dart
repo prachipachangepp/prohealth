@@ -104,6 +104,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                       ),
                     ),
 
+
                     Padding(
                       padding: const EdgeInsets.only(right: 30),
                       child: Text("POC"),
