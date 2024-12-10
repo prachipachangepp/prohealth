@@ -128,7 +128,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: 444,
+        height: 455,
         width: 800,
         decoration: BoxDecoration(
           color: ColorManager.white,

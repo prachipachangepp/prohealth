@@ -102,12 +102,12 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                           return const Text("Error fetching counties");
                         } else if (snapshot.hasData) {
                           countyDropDownList.clear();
-                          countyDropDownList.add(
-                            const DropdownMenuItem<String>(
-                              child: Text('Select County'),
-                              value: 'Select County',
-                            ),
-                          );
+                          // countyDropDownList.add(
+                          //   const DropdownMenuItem<String>(
+                          //     child: Text('Select County'),
+                          //     value: 'Select County',
+                          //   ),
+                          // );
                           for (var county in snapshot.data!) {
                             countyDropDownList.add(
                               DropdownMenuItem<String>(

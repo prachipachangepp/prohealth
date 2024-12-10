@@ -63,7 +63,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s480,
+      height: AppSize.s492,
       title: "Add New Equipment",
       onClear: (){
         Navigator.pop(context);

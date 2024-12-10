@@ -20,6 +20,7 @@ import '../../../../app/resources/establishment_resources/establish_theme_manage
 import '../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/hr_resources/hr_theme_manager.dart';
+import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -442,43 +443,53 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                               children: [
                                                 Container(
                                                   width: 125,
-                                                  height: 20,
+                                                 // height: 20,
                                                   padding: EdgeInsets.symmetric(horizontal: 5),
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
-                                                    borderRadius: BorderRadius.circular(6),
-                                                    color: Colors.transparent, // Ensure opacity 0 effect
-                                                  ),
+                                                  // decoration: BoxDecoration(
+                                                  //   border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
+                                                  //   borderRadius: BorderRadius.circular(6),
+                                                  //   color: Colors.transparent, // Ensure opacity 0 effect
+                                                  // ),
                                                   child: StatefulBuilder(
                                                     builder: (BuildContext context,
                                                        void Function(void Function()) setState) {
-                                                      return DropdownButtonHideUnderline(
-                                                        child: DropdownButton<
-                                                            String>(
-                                                          value: selectedValue,
-                                                          icon: const Icon(Icons
-                                                              .arrow_drop_down),
-                                                          iconSize: IconSize.I16,
-                                                          isExpanded: true,
-                                                          style: TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 10),
-                                                          items: items.map((
-                                                              String value) {
-                                                            return DropdownMenuItem<
-                                                                String>(
-                                                              value: value,
-                                                              child: Text(value),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged: (newValue) {
-                                                            setState(() {
-                                                              selectedValue =
-                                                              newValue!;
-                                                            });
-                                                          },
-                                                        ),
+                                                      return CustomDropdownTextFieldwidh(
+                                                        items: ["Daily", "Weekly", "Monthly"],
+                                                        onChanged: (newValue) {
+                                                          setState(() {
+                                                            selectedValue =
+                                                            newValue!;
+                                                          });
+                                                        },
+
                                                       );
+                                                      // return DropdownButtonHideUnderline(
+                                                      //   child: DropdownButton<
+                                                      //       String>(
+                                                      //     value: selectedValue,
+                                                      //     icon: const Icon(Icons
+                                                      //         .arrow_drop_down),
+                                                      //     iconSize: IconSize.I16,
+                                                      //     isExpanded: true,
+                                                      //     style: TextStyle(
+                                                      //         color: Colors.black,
+                                                      //         fontSize: 10),
+                                                      //     items: items.map((
+                                                      //         String value) {
+                                                      //       return DropdownMenuItem<
+                                                      //           String>(
+                                                      //         value: value,
+                                                      //         child: Text(value),
+                                                      //       );
+                                                      //     }).toList(),
+                                                      //     onChanged: (newValue) {
+                                                      //       setState(() {
+                                                      //         selectedValue =
+                                                      //         newValue!;
+                                                      //       });
+                                                      //     },
+                                                      //   ),
+                                                      // );
                                                     }
                                                   ),
                                                 )

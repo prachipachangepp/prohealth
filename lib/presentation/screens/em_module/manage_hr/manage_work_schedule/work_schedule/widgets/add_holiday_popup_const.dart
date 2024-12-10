@@ -118,52 +118,55 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
               //   'Holiday Date',
               //   style: AllPopupHeadings.customTextStyle(context),
               // ),
-              const SizedBox(height: 5),
-              SizedBox(
-                width: 354,
-                height: 30,
-                child: TextFormField(
-                  controller: calenderController,
-                  style: DocumentTypeDataStyle.customTextStyle(context),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: ColorManager.fmediumgrey, width: 1),
-                      borderRadius: BorderRadius.circular(8),
+            const SizedBox(height: 1),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: SizedBox(
+                  width: 354,
+                  height: 30,
+                  child: TextFormField(
+                    controller: calenderController,
+                    style: DocumentTypeDataStyle.customTextStyle(context),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: ColorManager.fmediumgrey, width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: ColorManager.fmediumgrey, width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      hintText: 'yyyy-mm-dd',
+                      hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(width: 1),
+                      ),
+                      contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16),
+                      suffixIcon:  Icon(Icons.calendar_month_outlined,
+                          color: ColorManager.blueprime),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: ColorManager.fmediumgrey, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    hintText: 'yyyy-mm-dd',
-                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(width: 1),
-                    ),
-                    contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16),
-                    suffixIcon:  Icon(Icons.calendar_month_outlined,
-                        color: ColorManager.blueprime),
+                    readOnly: true,
+                    onTap: () async {
+                      DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedDate,
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2101),
+                      );
+                      if (date != null) {
+                        String formattedDate =
+                        DateFormat('yyyy-MM-dd').format(date);
+                        calenderController.text = formattedDate;
+                        setState(() {
+                          holidayDateError = null;
+                        });
+                      }
+                    },
                   ),
-                  readOnly: true,
-                  onTap: () async {
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: _selectedDate,
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2101),
-                    );
-                    if (date != null) {
-                      String formattedDate =
-                      DateFormat('yyyy-MM-dd').format(date);
-                      calenderController.text = formattedDate;
-                      setState(() {
-                        holidayDateError = null;
-                      });
-                    }
-                  },
                 ),
               ),
               if (holidayDateError != null)

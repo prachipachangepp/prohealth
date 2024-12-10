@@ -149,10 +149,10 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                   ),
                   if (startTimeError != null)
                     Padding(
-                      padding: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 1),
                       child: Text(
                         startTimeError!,
-                        style: TextStyle(color: Colors.red, fontSize: 12),
+                        style: CommonErrorMsg.customTextStyle(context),
                       ),
                     ),
                   SizedBox(height: 20,),
@@ -165,10 +165,10 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                   ),
                   if (endTimeError != null)
                     Padding(
-                      padding: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 1),
                       child: Text(
                         endTimeError!,
-                        style: TextStyle(color: Colors.red, fontSize: 12),
+                        style: CommonErrorMsg.customTextStyle(context),
                       ),
                     ),
                 ],
