@@ -31,7 +31,7 @@ class LinearCardWidget extends StatelessWidget {
                       color: ColorManager.mediumgrey,
                       fontWeight: FontWeight.w500),),
                 SizedBox(height: AppSize.s15,),
-                  Text(totalCount,style: TextStyle(fontSize: FontSize.s20,color: ColorManager.blueprime,fontWeight: FontWeight.w700),)
+                  Text(totalCount,style: TextStyle(fontSize: FontSize.s28,color: ColorManager.blueprime,fontWeight: FontWeight.w700),)
                 ],
               ),
               // Container(

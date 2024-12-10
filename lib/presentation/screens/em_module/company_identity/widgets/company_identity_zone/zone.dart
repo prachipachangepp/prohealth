@@ -299,7 +299,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                     context: context,
                     builder: (context) {
                       return CIZoneAddPopup(
-                        buttonTitle: AppStringEM.add,
+                        buttonTitle: AppStringEM.save,
                         title: 'Add County',
                         onSavePressed: () async {
                           await addCounty(
@@ -345,7 +345,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                     builder: (context) {
                       return AddZonePopup(
                         countyNameController: countynameController,
-                        buttonTitle: AppStringEM.add,
+                        buttonTitle: AppStringEM.save,
                         zoneNumberController: zoneNumberController,
                         title: 'Add Zone',
                         onSavePressed: () async {

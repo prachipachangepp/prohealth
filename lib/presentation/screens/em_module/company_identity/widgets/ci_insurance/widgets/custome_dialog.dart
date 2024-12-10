@@ -218,7 +218,7 @@ class _AddVendorPopupState extends State<AddVendorPopup> {
       bottomButtons: CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
-        text: AppStringEM.Add,
+        text: AppStringEM.save,
         onPressed: () async {
           _validateInputs(); // Perform validation
           if (_isNameValid) {

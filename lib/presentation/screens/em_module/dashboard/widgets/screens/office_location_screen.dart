@@ -184,18 +184,22 @@ class OfficeLocationScreen extends StatelessWidget {
                                                   title: '65%',
                                                   titleStyle:  TextStyle(
                                                       fontSize: 10, fontWeight: FontWeight.bold, color: ColorManager.mediumgrey),
-                                                  radius: 75,
+                                                  radius: 40,
                                                 ),
                                                 PieChartSectionData(
+                                                  // borderSide: BorderSide(
+                                                  //   color: Colors.white, // Border color
+                                                  //   width: 2, // Border width
+                                                  // ),
                                                   color: ColorManager.pieChartGreen,
                                                   value: 40,
                                                   title: '35%',
                                                   titleStyle:  TextStyle(
                                                       fontSize: 10, fontWeight: FontWeight.bold, color: ColorManager.mediumgrey),
-                                                  radius: 65,
+                                                  radius: 45,
                                                 ),
                                               ],
-                                              centerSpaceRadius: 40,
+                                              centerSpaceRadius: 70,
                                               centerSpaceColor: Colors.white,
                                               sectionsSpace: 2,
                                               borderData: FlBorderData(show: true),
@@ -256,7 +260,8 @@ class OfficeLocationScreen extends StatelessWidget {
                                       style: EmDashHelloSubText.customTextStyle(context))
                                 ],),
                                 Column(children: [
-                                  Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I30,),
+                                  Image.asset("images/em_dashboard/hospice.png",height: IconSize.I30,width: IconSize.I20,fit: BoxFit.fill,color: ColorManager.bluebottom,),
+                                  //Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I30,),
                                   SizedBox(height: AppSize.s8,),
                                   Text(EmDashboardStringManager.hospice,
                                       style: EmDashHelloSubText.customTextStyle(context))

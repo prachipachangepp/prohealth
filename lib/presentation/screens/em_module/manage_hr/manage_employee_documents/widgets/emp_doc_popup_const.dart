@@ -75,7 +75,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
   }
 
   TextEditingController daysController = TextEditingController(text: "1");
-  String selectedExpiryType = "";
+  String selectedExpiryType = AppConfig.notApplicable;
   String? selectedYear = AppConfig.year;
 
   TextEditingController nameDocController = TextEditingController();

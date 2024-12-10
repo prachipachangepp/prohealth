@@ -238,7 +238,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
 
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  640,
+          height:  655,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -295,7 +295,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

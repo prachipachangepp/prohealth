@@ -11,6 +11,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
+import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../em_dashboard_const.dart';
 
@@ -180,6 +181,10 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                           backgroundColor: ColorManager.white,
                           primaryXAxis: CategoryAxis(),
                           primaryYAxis: NumericAxis(
+                            // Set minimum, maximum, and interval for percentage labels
+                            minimum: 0,
+                            maximum: 100,
+                            interval: 10,
                             axisLabelFormatter: (AxisLabelRenderDetails details) {
                               // Appends '%' symbol to the Y-axis labels
                               return ChartAxisLabel('${details.text}%', details.textStyle);
@@ -252,9 +257,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                                           .arrow_drop_down),
                                       iconSize: IconSize.I16,
                                       isExpanded: true,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 10),
+                                      style: TableSubHeading.customTextStyle(context),
                                       items: items.map((
                                           String value) {
                                         return DropdownMenuItem<
@@ -578,28 +581,28 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                                 value: 40,
                                 title: '',
                                 //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                radius: 40,
+                                radius: 25,
                               ),
                               PieChartSectionData(
                                 color: ColorManager.pieChartGreen,
                                 value: 20,
                                 title: '',
                                 //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                radius: 40,
+                                radius: 25,
                               ),
                               PieChartSectionData(
                                 color: ColorManager.relativeResult,
                                 value: 10,
                                 title: '',
                                 //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                radius: 40,
+                                radius: 25,
                               ),
                               PieChartSectionData(
                                 color: ColorManager.pieChartBlue,
                                 value: 25,
                                 title: '',
                                 //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                radius: 40,
+                                radius: 25,
                               ),
                             ],
                             centerSpaceRadius: 60,
@@ -617,11 +620,11 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                           AttendanceRatioConst(officeName: "Office 1", attendance: "80%", containerColor: ColorManager.mediumgrey),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 20,),
                           AttendanceRatioConst(officeName: "Office 2", attendance: "95%", containerColor: ColorManager.pieChartGreen),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 20,),
                           AttendanceRatioConst(officeName: "Office 3", attendance: "50%", containerColor: ColorManager.pieChartBlue),
-                            SizedBox(height: 10,),
+                            SizedBox(height: 20,),
                             AttendanceRatioConst(officeName: "Office 4", attendance: "20%", containerColor: ColorManager.relativeResult),
                         ],),
                       )
@@ -651,16 +654,16 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                           minimum: 0,      // Minimum value of the gauge
                           maximum: 100,    // Maximum value of the gauge
                           ranges: <GaugeRange>[
-                            GaugeRange(startValue: 0, endValue: 80, color: ColorManager.blueprime),
+                            GaugeRange(startValue: 0, endValue: 80, color: ColorManager.pieChartBBlue),
                             GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey),
                           ],
-                          pointers: <GaugePointer>[
-                            MarkerPointer(
-                              value: 70, // The value where the marker points
-                              markerHeight: 20, // Height of the marker
-                              markerWidth: 40,  // Width of the marker
-                            ),
-                          ],
+                         // pointers: <GaugePointer>[
+                          //   MarkerPointer(
+                          //     value: 70, // The value where the marker points
+                          //     markerHeight: 20, // Height of the marker
+                          //     markerWidth: 40,  // Width of the marker
+                          //   ),
+                          // ],
                           annotations: <GaugeAnnotation>[
                             GaugeAnnotation(
                               widget: Text(

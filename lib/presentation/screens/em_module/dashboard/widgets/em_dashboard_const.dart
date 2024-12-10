@@ -161,9 +161,9 @@ class EMDashboardAllBlueSideContainer extends StatelessWidget {
 class BlueBorderContainerConst extends StatelessWidget {
   final IconData imageTile;
   final String headText;
-  final String subText;
+  final String numberText;
   final String bottomText;
-  const BlueBorderContainerConst({super.key, required this.imageTile, required this.headText, required this.subText, required this.bottomText});
+  const BlueBorderContainerConst({super.key, required this.imageTile, required this.headText, required this.numberText, required this.bottomText});
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +192,8 @@ class BlueBorderContainerConst extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(subText,
+                Text(numberText,
+                  textAlign: TextAlign.center,
                   style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s28,
                       color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
               Row(
@@ -200,6 +201,7 @@ class BlueBorderContainerConst extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(headText,
+                    textAlign: TextAlign.center,
                     style: EmDashText.customTextStyle(context),),
                 ],
               ),

@@ -324,7 +324,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
           : CustomElevatedButton(
               width: AppSize.s105,
               height: AppSize.s30,
-              text: AppStringEM.submit,
+              text: AppStringEM.save,
               onPressed: () async {
                 _validateForm(); // Validate the form on button press
                 if (_isFormValid) {

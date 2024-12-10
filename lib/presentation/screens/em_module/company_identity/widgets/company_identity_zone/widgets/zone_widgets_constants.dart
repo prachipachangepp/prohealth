@@ -678,7 +678,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
           : CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
-        text: AppStringEM.add,
+        text: AppStringEM.save,
         onPressed: () async {
           if (validateFields()) {
             setState(() {
