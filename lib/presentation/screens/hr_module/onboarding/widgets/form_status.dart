@@ -66,13 +66,17 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                   );
                 }
                 if (snapshot.hasData) {
+                  final filteredData = snapshot.data!
+                      .where((formStatus) =>
+                  formStatus.htmlname != AppStringLegalDocument.returnOfcompanyProperty)
+                      .toList();
                   return Column(
                     children: [
                       Expanded(
                         child: ListView.builder(
-                            itemCount: snapshot.data!.length,
+                            itemCount: filteredData.length,
                             itemBuilder: (context, index) {
-                             FormModel formStatus = snapshot.data![index];
+                             FormModel formStatus = filteredData[index];
                               return Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
                                 child: Column(
@@ -147,24 +151,6 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
                                                     ),
                                                   ),
                                                   formStatus.signed || (formStatus.htmlname == AppStringLegalDocument.employeeHandbook) == true ?
-                                                  // Container(
-                                                  //   height: 32,
-                                                  //   decoration: BoxDecoration(
-                                                  //     border: Border.all(color: const Color(0xff1696C8)),
-                                                  //     borderRadius: BorderRadius.circular(8),
-                                                  //   ),
-                                                  //   padding: EdgeInsets.only(bottom: 5,left: 10),
-                                                  //   child:
-                                                    // Row(
-                                                    //   children: [
-                                                    //     Padding(
-                                                    //       padding: const EdgeInsets.only(top: 6.0),
-                                                    //       child: Text('Download',style: TextStyle(
-                                                    //         fontWeight: FontWeight.w700,
-                                                    //         fontSize: FontSize.s12,
-                                                    //         color: Color(0xff1696C8),
-                                                    //       ),),
-                                                    //     ),
                                                         PdfDownloadButton(apiUrl: formStatus.url, documentName: formStatus.htmlname,)
                                                 : SizedBox(width: AppSize.s110,),
                                                 ],
@@ -195,3 +181,22 @@ class _FormStatusScreenState extends State<FormStatusScreen> {
     );
   }
 }
+
+// Container(
+//   height: 32,
+//   decoration: BoxDecoration(
+//     border: Border.all(color: const Color(0xff1696C8)),
+//     borderRadius: BorderRadius.circular(8),
+//   ),
+//   padding: EdgeInsets.only(bottom: 5,left: 10),
+//   child:
+// Row(
+//   children: [
+//     Padding(
+//       padding: const EdgeInsets.only(top: 6.0),
+//       child: Text('Download',style: TextStyle(
+//         fontWeight: FontWeight.w700,
+//         fontSize: FontSize.s12,
+//         color: Color(0xff1696C8),
+//       ),),
+//     ),
