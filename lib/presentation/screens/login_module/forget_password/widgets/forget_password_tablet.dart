@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
@@ -68,7 +69,7 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
                     style: GoogleFonts.firaSans(
                       letterSpacing: 0.5,
                       color: ColorManager.mediumgrey,
-                      fontSize: MediaQuery.of(context).size.width / 120,
+                      fontSize: FontSize.s10,
                       fontWeight: FontWeightManager.semiBold,
                     ),
                   ),
@@ -116,8 +117,14 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
                     child: CustomButton(
                       borderRadius: 24,
                       height: MediaQuery.of(context).size.height / 18,
-                      width: MediaQuery.of(context).size.width / 10,
+                      width: MediaQuery.of(context).size.width / 6,
                       text: AppString.continuet,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
                       onPressed: submitForm,
                     ),
                   )

@@ -1,22 +1,24 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+
 import '../../../../../../app/resources/theme_manager.dart';
-import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../../widgets/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import '../../../../widgets/widgets/profile_bar/widget/screen_transition.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../login/login_screen.dart';
 import '../../update_password/update_password.dart';
 
-
 class VerifyForgotPassWeb extends StatefulWidget {
-  static const String routeName = "/ForgetPasswordVerification";
-  const VerifyForgotPassWeb({super.key});
+  final String email;
+  const VerifyForgotPassWeb({super.key, required this.email});
 
   @override
   State<VerifyForgotPassWeb> createState() => _VerifyForgotPassWebState();
@@ -24,25 +26,27 @@ class VerifyForgotPassWeb extends StatefulWidget {
 
 class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
   final List<TextEditingController> _otpControllers =
-  List.generate(6, (_) => TextEditingController());
+      List.generate(6, (_) => TextEditingController());
   List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
   final _formKey = GlobalKey<FormState>();
   String? _errorMessage;
   late Timer _timer;
   int _timerCount = 30;
   bool isOtpFieldEmpty = true;
-  String email = "";
+
   final List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
   @override
   void initState() {
     super.initState();
     startTimer();
   }
+
   @override
   void dispose() {
     _timer.cancel();
     super.dispose();
   }
+
   void startTimer() {
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(oneSec, (timer) {
@@ -55,11 +59,13 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
       }
     });
   }
+
   String getTimerString() {
     int minutes = _timerCount ~/ 60;
     int seconds = _timerCount % 60;
     return '$minutes:${seconds.toString().padLeft(2, '0')}';
   }
+
   void navigateToNextScreen() {
     bool allFieldsFilled = _otpFieldFilledStatus.every((filled) => filled);
     if (allFieldsFilled) {
@@ -67,7 +73,8 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => UpdatePassword(email: email, otp: otp)),
+            builder: (context) =>
+                UpdatePassword(email: widget.email, otp: otp)),
       );
     } else {
       setState(() {
@@ -78,8 +85,6 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    email = args.title!;
     return LoginBaseConstant(
       onTap: () {
         Navigator.push(
@@ -106,23 +111,18 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(AppString.entersixdigitCode,
-                    style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.mediumgrey,
-                      fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.semiBold,
-                    )),
+                    style: LoginFlowLetterSpacing.enterEmail(context,applyLetterSpacing: false)),
 
                 ///txtfield
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
                     6,
-                        (index) => Container(
+                    (index) => Container(
                       width: MediaQuery.of(context).size.width / 40,
                       height: MediaQuery.of(context).size.height / 20,
                       margin: EdgeInsets.symmetric(
-                          horizontal:
-                          MediaQuery.of(context).size.width / 200),
+                          horizontal: MediaQuery.of(context).size.width / 200),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
                         border: Border.all(
@@ -131,16 +131,11 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                         ),
                       ),
                       child: TextFormField(
-                        style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.black.withOpacity(0.7),
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.medium,
-                        ),
+                        style: LoginFlowTextField.customTextStyle(context),
                         controller: _otpControllers[index],
                         cursorColor: ColorManager.black,
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                              RegExp(r'[0-9]')),
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                         ],
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
@@ -148,7 +143,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                         focusNode: _focusNodes[index],
                         decoration: const InputDecoration(
                           contentPadding:
-                          EdgeInsets.only(bottom: AppPadding.p11),
+                              EdgeInsets.only(bottom: AppPadding.p11),
                           counterText: '',
                           border: InputBorder.none,
                         ),
@@ -159,8 +154,8 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                         ///
                         onChanged: (value) {
                           _otpFieldFilledStatus[index] = value.isNotEmpty;
-                          bool allFieldsFilled = _otpFieldFilledStatus
-                              .every((filled) => filled);
+                          bool allFieldsFilled =
+                              _otpFieldFilledStatus.every((filled) => filled);
                           setState(() {
                             isOtpFieldEmpty = !allFieldsFilled;
                           });
@@ -181,8 +176,8 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                   getTimerString(),
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.orange,
-                    fontSize: FontSize.s8,
-                    fontWeight: FontWeightManager.semiBold,
+                    fontSize: FontSize.s10,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
 
@@ -203,11 +198,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                     padding: const EdgeInsets.all(AppPadding.p8),
                     child: Text(
                       _errorMessage!,
-                      style: CustomTextStylesCommon.commonStyle(
-                        color: ColorManager.red,
-                        fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.bold,
-                      ),
+                      style: LoginFlowErrorMsg.customTextStyle(context),
                     ),
                   ),
 
@@ -216,7 +207,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(AppString.didntrecieveCode,
-                        style: CodeVerficationText.VerifyCode(context)),
+                        style: LoginFlowLetterSpacing.enterEmail(context,)),
                     TextButton(
                       onPressed: () {
                         print("Resend tapped!");
@@ -225,7 +216,7 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.blueprime,
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.semiBold,
+                            fontWeight: FontWeight.w500,
                           )),
                     )
                   ],

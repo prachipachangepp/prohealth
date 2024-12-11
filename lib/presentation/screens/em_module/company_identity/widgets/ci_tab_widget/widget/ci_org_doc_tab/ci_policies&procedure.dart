@@ -1,216 +1,451 @@
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/policies_constant.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/heading_constant_widget.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/org_add_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
-import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
-import '../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import '../../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
+import '../files_constant-widget.dart';
 
 class CIPoliciesProcedure extends StatefulWidget {
-  const CIPoliciesProcedure({super.key});
+  final int docId;
+  final int subDocId;
+  const CIPoliciesProcedure({
+    super.key,
+    required this.docId,
+    required this.subDocId, //required this.officeId,
+  });
 
   @override
   State<CIPoliciesProcedure> createState() => _CIPoliciesProcedureState();
 }
 
 class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
-  String? selectedValue;
-  late List<Color> hrcontainerColors;
-  TextEditingController docNamecontroller = TextEditingController();
+  TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  TextEditingController calenderController = TextEditingController();
+  TextEditingController idOfDocController = TextEditingController();
+  TextEditingController daysController = TextEditingController(text: "1");
+  final StreamController<List<NewOrgDocument>> _policiesandprocedureController =
+      StreamController<List<NewOrgDocument>>();
+  final StreamController<List<IdentityDocumentIdData>> _identityDataController =
+      StreamController<List<IdentityDocumentIdData>>.broadcast();
+
+  int docSubTypeMetaId = AppConfig.subDocId0;
+  String? expiryType;
+  bool _isLoading = false;
+  String? selectedValue;
+  int docTypeMetaIdPP = AppConfig.policiesAndProcedure;
+  String? selectedYear = AppConfig.year;
+
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 6;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
-    hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    _loadColors();
   }
-  void _loadColors() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
+
+  void onPageNumberPressed(int pageNumber) {
     setState(() {
-      for (int i = 0; i < hrcontainerColors.length; i++) {
-        int? colorValue = prefs.getInt('containerColor$i');
-        if (colorValue != null) {
-          hrcontainerColors[i] = Color(colorValue);
-        }
-      }
+      currentPage = pageNumber;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    List<String> currentPageItems = items.sublist(
-      (currentPage - 1) * itemsPerPage,
-      min(currentPage * itemsPerPage, items.length),
-    );
     return Column(
       children: [
-        SizedBox(height: 20,),
-        Container(
-          height: AppSize.s30,
-          margin: EdgeInsets.symmetric(horizontal: AppMargin.m35),
-          decoration: BoxDecoration(
-            color: ColorManager.grey,
-            borderRadius: BorderRadius.circular(12),
+        TableHeadingConst(),
+        SizedBox(height: AppSize.s10),
+        PoliciesProcedureList(
+          controller: _policiesandprocedureController,
+          fetchDocuments: (context) => getNewOrgDocfetch(context, AppConfig.policiesAndProcedure,
+            AppConfig.subDocId0, 1, 50,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Center(
-                  child: Text(
-                    AppString.srNo,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
-              Center(
-                  child: Text(
-                    AppString.name,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
-              Center(
-                  child: Text(
-                    AppString.expiry,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
-              // Expanded(
-              //     child: SizedBox(width: AppSize.s16,
-              //     )),
-              Center(
-                  child: Text(
-                    AppString.reminderthershold,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
-              // Center(child:
-              // Text(AppString.eligibleClinician,style: RegisterTableHead.customTextStyle(context),),),
-              Center(
-                  child: Text(
-                    AppString.actions,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
-            ],
-          ),
-        ),
-        SizedBox(height: AppSize.s10,),
-        Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: currentPageItems.length,
-            itemBuilder: (context, index) {
-              int serialNumber =
-                  index + 1 + (currentPage - 1) * itemsPerPage;
-              String formattedSerialNumber =
-              serialNumber.toString().padLeft(2, '0');
-              return Column(
-                children: [
-                  SizedBox(height: AppSize.s5),
-                  Container(
-                    padding: EdgeInsets.only(bottom: AppPadding.p5),
-                    margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
-                    decoration: BoxDecoration(
-                      color:ColorManager.white,
-                      borderRadius: BorderRadius.circular(4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: ColorManager.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    height: AppSize.s56,
+          emptyMessage: ErrorMessageString.noPolicyProcedure,
+          onEdit: (NewOrgDocument doc) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return FutureBuilder<NewOrgDocument>(
+                      future: getPrefillNewOrgDocument(context, doc.orgDocumentSetupid),
+                      builder: (context, snapshotPrefill) {
+                        if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: ColorManager.blueprime,
+                            ),
+                          );
+                        }
 
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Center(
-                            child: Text(
-                              formattedSerialNumber,
-                              style: ThemeManagerDark.customTextStyle(context),
-                              textAlign: TextAlign.start,
-                            )),
-                        Center(
-                            child: Text(
-                              AppString.name,
-                              style: ThemeManagerDark.customTextStyle(context),
-                            )),
-                        Center(
-                            child: Text(
-                              AppString.expiry,
-                              style: ThemeManagerDark.customTextStyle(context),
-                            )),
-                        Center(
-                            child: Text(
-                              AppString.reminderthershold,
-                              style: ThemeManagerDark.customTextStyle(context),
-                            )),
-                        Center(
-                          child: Row(
-                            children: [
-                              IconButton(onPressed: (){
-                                showDialog(context: context, builder: (context){
-                                  return ORGPoliciesEditPopup(
-                                    idDocController: docIdController,
-                                    nameDocController: docNamecontroller,
-                                    onSavePressed: (){},
-                                    child:  CICCDropdown(
-                                      initialValue: 'Corporate & Compliance Documents',
-                                      items: [
-                                        DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
-                                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                      ],),);
+                        var name = snapshotPrefill.data!.docName;
+                        docNameController = TextEditingController(text: snapshotPrefill.data!.docName);
+
+                        var expiry = snapshotPrefill.data!.expiryType;
+                        String? selectedExpiryType = expiry;
+
+                        return StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function()) setState) {
+                            return OrgDocNewEditPopup(
+                              height: AppSize.s374,
+                              title: EditPopupString.editPolicy,
+                              orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
+                              docTypeId: snapshotPrefill.data!.documentTypeId,
+                              subDocTypeId: snapshotPrefill.data!.documentSubTypeId,
+                              idOfDoc: snapshotPrefill.data!.idOfDocument,
+                              docName: snapshotPrefill.data!.docName,
+                              expiryType: snapshotPrefill.data!.expiryType,
+                              threshhold: snapshotPrefill.data!.threshold,
+                              expiryDate: snapshotPrefill.data!.expiryDate,
+                              expiryReminder: snapshotPrefill.data!.expiryReminder,
+                              docTypeText: AppStringEM.policiesAndProcedures,
+                              subDocTypeText: '',
+                            );
+                          },
+                        );
+                      });
+                });
+          },
+          onDelete: (NewOrgDocument doc) {
+            showDialog(
+                context: context,
+                builder: (context) => StatefulBuilder(
+                      builder: (BuildContext context,
+                          void Function(void Function()) setState) {
+                        return DeletePopup(
+                            title: DeletePopupString.deletePolicy,
+                            loadingDuration: _isLoading,
+                            onCancel: () {
+                              Navigator.pop(context);
+                            },
+                            onDelete: () async {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              try {
+                                await deleteNewOrgDoc(context, doc.orgDocumentSetupid);
+                              } finally {
+                                setState(() {
+                                  _isLoading = false;
                                 });
-                              },
-                                  icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)), SizedBox(width: 3,),
-                              Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            /// Handle previous page button press
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            /// Handle page number tap
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            /// Handle next page button press
-            setState(() {
-              currentPage = currentPage < (items.length / itemsPerPage).ceil()
-                  ? currentPage + 1
-                  : (items.length / itemsPerPage).ceil();
-            });
+                                Navigator.pop(context);
+                              }
+                            });
+                      },
+                    ));
           },
         ),
       ],
     );
   }
 }
+
+///old expanded streambuilder code
+//
+// Expanded(
+//   child: StreamBuilder<List<NewOrgDocument>>(
+//     stream: _policiesandprocedureController.stream,
+//     builder: (context, snapshot) {
+//       getNewOrgDocfetch(context,AppConfig.policiesAndProcedure,AppConfig.subDocId0,1,50).then((data) {
+//         _policiesandprocedureController.add(data);
+//       }).catchError((error) {
+//         // Handle error
+//       });
+//       print('1111111');
+//       if (snapshot.connectionState == ConnectionState.waiting) {
+//         return Center(
+//           child: CircularProgressIndicator(
+//             color: ColorManager.blueprime,
+//           ),
+//         );
+//       }
+//       if (snapshot.data!.isEmpty) {
+//         return Center(
+//           child: Text(
+//             ErrorMessageString.noPolicyProcedure,
+//             style: DocumentTypeDataStyle.customTextStyle(context),
+//           ),
+//         );
+//       }
+//       if (snapshot.hasData) {
+//         int totalItems = snapshot.data!.length;
+//         int totalPages = (totalItems / itemsPerPage).ceil();
+//         List<NewOrgDocument> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+//         return Column(
+//           children: [
+//             Expanded(
+//               child: ListView.builder(
+//                 scrollDirection: Axis.vertical,
+//                 itemCount: paginatedData.length,
+//                 itemBuilder: (context, index) {
+//                   int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+//                   String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+//                   NewOrgDocument policiesdata = paginatedData[index];
+//                   return Column(
+//                     children: [
+//                       SizedBox(height: AppSize.s5),
+//                       Container(
+//                         padding: EdgeInsets.only(bottom: AppPadding.p5),
+//                         margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
+//                         decoration: BoxDecoration(
+//                           color: ColorManager.white,
+//                           borderRadius: BorderRadius.circular(4),
+//                           boxShadow: [
+//                             BoxShadow(
+//                               color: ColorManager.grey.withOpacity(0.5),
+//                               spreadRadius: 1,
+//                               blurRadius: 4,
+//                               offset: Offset(0, 2),
+//                             ),
+//                           ],
+//                         ),
+//                         height: AppSize.s56,
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                           children: [
+//                             Expanded(
+//                               child: Center(
+//                                 child: Text(
+//                                   formattedSerialNumber,
+//                                  // style: DocDefineTableData.customTextStyle(context),
+//                                   style:  DocumentTypeDataStyle.customTextStyle(context),
+//                                   textAlign: TextAlign.start,
+//                                 ),
+//                               ),
+//                             ),
+//                             Expanded(
+//                               child: Center(
+//                                 child: Text(
+//                                   policiesdata.idOfDocument,
+//                                   //style: DocDefineTableData.customTextStyle(context)
+//                                   style:  DocumentTypeDataStyle.customTextStyle(context),
+//                                 ),
+//                               ),
+//                             ),
+//                             Expanded(
+//                               child: Center(
+//                                 child: Text(
+//                                   policiesdata.docName.toString(),
+//                                  // style: DocDefineTableData.customTextStyle(context)
+//                                   style:  DocumentTypeDataStyle.customTextStyle(context),
+//                                 ),
+//                               ),
+//                             ),
+//                             Expanded(
+//                               child: Center(
+//                                 child: Text(
+//                                   policiesdata.expiryReminder.toString(),
+//                                   //style: DocDefineTableData.customTextStyle(context),
+//                                   style:  DocumentTypeDataStyle.customTextStyle(context),
+//                                 ),
+//                               ),
+//                             ),
+//                             Expanded(
+//                               child: Row(
+//                                 mainAxisAlignment: MainAxisAlignment.center,
+//                                 children: [
+//                                   IconButton(
+//                                       onPressed: (){
+//                                     showDialog(context: context, builder: (context){
+//                                       return  FutureBuilder<NewOrgDocument>(
+//                                           future: getPrefillNewOrgDocument(context,policiesdata.orgDocumentSetupid),
+//                                           builder: (context,snapshotPrefill) {
+//                                             if(snapshotPrefill.connectionState == ConnectionState.waiting){
+//                                               return Center(
+//                                                 child: CircularProgressIndicator(color: ColorManager.blueprime,),
+//                                               );
+//                                             }
+//
+//                                             var name = snapshotPrefill.data!.docName;
+//                                             docNameController = TextEditingController(text: snapshotPrefill.data!.docName);
+//
+//                                             var expiry = snapshotPrefill.data!.expiryType;
+//                                             String? selectedExpiryType = expiry;
+//
+//                                             return StatefulBuilder(
+//                                               builder: (BuildContext context, void Function(void Function()) setState) {
+//                                                 return OrgDocNewEditPopup(
+//                                                   height: AppSize.s374,
+//                                                   title: EditPopupString.editPolicy,
+//                                                   orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
+//                                                   docTypeId: snapshotPrefill.data!.documentTypeId,
+//                                                   subDocTypeId: snapshotPrefill.data!.documentSubTypeId,
+//                                                   idOfDoc: snapshotPrefill.data!.idOfDocument,
+//                                                   docName: snapshotPrefill.data!.docName,
+//                                                   expiryType: snapshotPrefill.data!.expiryType,
+//                                                   threshhold: snapshotPrefill.data!.threshold,
+//                                                   expiryDate: snapshotPrefill.data!.expiryDate,
+//                                                   expiryReminder: snapshotPrefill.data!.expiryReminder,
+//                                                   docTypeText: AppString.policiesAndProcedures,
+//                                                   subDocTypeText: '',
+//                                                 );
+//                                               },
+//                                             );
+//                                           }
+//                                       );
+//                                     });
+//                                   },
+//                                       icon: Icon(Icons.edit_outlined,
+//                                         size:IconSize.I18,color: IconColorManager.bluebottom,)),
+//                                   IconButton(
+//                                       onPressed: (){
+//                                         showDialog(context: context,
+//                                             builder: (context) => StatefulBuilder(
+//                                               builder: (BuildContext context, void Function(void Function()) setState) {
+//                                                 return  DeletePopup(
+//                                                     title: DeletePopupString.deletePolicy,
+//                                                     loadingDuration: _isLoading,
+//                                                     onCancel: (){
+//                                                       Navigator.pop(context);
+//                                                     }, onDelete: () async{
+//                                                   setState(() {
+//                                                     _isLoading = true;
+//                                                   });
+//                                                   try {
+//                                                     await deleteNewOrgDoc(context, snapshot.data![index].orgDocumentSetupid);
+//                                                   } finally {
+//                                                     setState(() {
+//                                                       _isLoading = false;
+//                                                     });
+//                                                     Navigator.pop(context);
+//                                                   }
+//
+//                                                 });
+//                                               },
+//
+//                                             ));
+//                                       },
+//                                       icon: Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
+//                                 ],
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   );
+//                 },
+//               ),
+//             ),
+//             PaginationControlsWidget(
+//               currentPage: currentPage,
+//               items: snapshot.data!,
+//               itemsPerPage: itemsPerPage,
+//               onPreviousPagePressed: () {
+//                 setState(() {
+//                   currentPage = currentPage > 1 ? currentPage - 1 : 1;
+//                 });
+//               },
+//               onPageNumberPressed: (pageNumber) {
+//                 setState(() {
+//                   currentPage = pageNumber;
+//                 });
+//               },
+//               onNextPagePressed: () {
+//                 setState(() {
+//                   currentPage = currentPage < totalPages
+//                       ? currentPage + 1
+//                       : totalPages;
+//                 });
+//               },
+//             )
+//           ],
+//         );
+//       }
+//       return Offstage();
+//     },
+//   ),
+// ),
+///calendar code
+// child2: Visibility(
+//   visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+//   child: Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       Padding(
+//         padding: const EdgeInsets.only(left: 2),
+//         child: Text(
+//           "Expiry Date",
+//           style: GoogleFonts.firaSans(
+//             fontSize: FontSize.s12,
+//             fontWeight: FontWeight.w700,
+//             color: ColorManager.mediumgrey,
+//             decoration: TextDecoration.none,
+//           ),
+//         ),
+//       ),
+//       SizedBox(height: 5,),
+//       FormField<String>(
+//         builder: (FormFieldState<String> field) {
+//           return SizedBox (
+//             width: 354,
+//             height: 30,
+//             child:   TextFormField(
+//               controller: calenderController,
+//               cursorColor: ColorManager.black,
+//               style: GoogleFonts.firaSans(
+//                 fontSize: FontSize.s12,
+//                 fontWeight: FontWeight.w700,
+//                 color: ColorManager.mediumgrey,
+//                 //decoration: TextDecoration.none,
+//               ),
+//               decoration: InputDecoration(
+//                 enabledBorder: OutlineInputBorder(
+//                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 focusedBorder: OutlineInputBorder(
+//                   borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 hintText: 'mm-dd-yyyy',
+//                 hintStyle: GoogleFonts.firaSans(
+//                   fontSize: FontSize.s12,
+//                   fontWeight: FontWeight.w700,
+//                   color: ColorManager.mediumgrey,
+//                   //decoration: TextDecoration.none,
+//                 ),
+//                 border: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(8),
+//                   borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+//                 ),
+//                 contentPadding:
+//                 EdgeInsets.symmetric(horizontal: 16),
+//                 suffixIcon: Icon(Icons.calendar_month_outlined,
+//                     color: ColorManager.blueprime),
+//                 errorText: field.errorText,
+//               ),
+//               onTap: () async {
+//                 DateTime? pickedDate = await showDatePicker(
+//                   context: context,
+//                   initialDate: DateTime.now(),
+//                   firstDate: DateTime(2000),
+//                   lastDate: DateTime(3101),
+//                 );
+//                 if (pickedDate != null) {
+//                   calenderController.text =
+//                       DateFormat('MM-dd-yyyy').format(pickedDate);
+//                 }
+//               },
+//               validator: (value) {
+//                 if (value == null || value.isEmpty) {
+//                   return 'please select birth date';
+//                 }
+//                 return null;
+//               },
+//             ),
+//           );
+//         },
+//       ),
+//     ],
+//   ),
+// ),

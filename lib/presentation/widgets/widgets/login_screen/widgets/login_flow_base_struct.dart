@@ -1,16 +1,16 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-
 import '../../../../../../app/resources/color.dart';
+import 'package:get/get.dart';
 
-/// new code
+ /// new code
 class LoginBaseConstant extends StatelessWidget {
   LoginBaseConstant(
       {Key? key,
@@ -29,12 +29,15 @@ class LoginBaseConstant extends StatelessWidget {
   final double? containerHeight;
   final double? containerWidth;
   final EdgeInsetsGeometry? textActionPadding;
-  final SvgPicture backImg = SvgPicture.asset("images/background.svg");
+  final SvgPicture backImg = SvgPicture.asset("images/background.svg",);
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body:
+
+      Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Stack(children: [
@@ -50,6 +53,14 @@ class LoginBaseConstant extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: SvgPicture.asset(
+                          key: UniqueKey(),
+                          placeholderBuilder: (BuildContext context) => Container(
+                            width: 25,
+                            height: 25,
+                            child: Center(
+                              child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                            ),
+                          ),
                           'images/vector.svg',
                           height: MediaQuery.of(context).size.height / 1.25,
                           // width: MediaQuery.of(context).size.width / 1,
@@ -63,7 +74,9 @@ class LoginBaseConstant extends StatelessWidget {
                       children: [
                         Align(
                           alignment: Alignment.topLeft,
-                          child: SvgPicture.asset('images/vector1.svg',
+                          child: SvgPicture.asset(
+                            key: UniqueKey(),
+                              'images/vector1.svg',
                               height: MediaQuery.of(context).size.height / 1,
                               width: MediaQuery.of(context).size.width),
                         ),
@@ -110,17 +123,12 @@ class LoginBaseConstant extends StatelessWidget {
                               children: [
                                 Text(
                                   titleText,
-                                  style: GoogleFonts.firaSans(
-                                    color: ColorManager.mediumgrey,
-                                    // fontSize: FontSize.s38,
-                                    fontSize: 30,
-                                    fontWeight: FontWeightManager.extrabold,
-                                  ),
+                                  style: LoginFlowHeading.customTextStyle(context),
                                 ),
                                 SizedBox(height: 20),
                                 child,
                                 SizedBox(height: 20),
-      
+
                                 ///bottom text
                                 Row(
                                   mainAxisAlignment:
@@ -133,16 +141,7 @@ class LoginBaseConstant extends StatelessWidget {
                                         child: Text(
                                           textAction,
                                           textAlign: TextAlign.end,
-                                          style:
-                                              CustomTextStylesCommon.commonStyle(
-                                            color: ColorManager.bluebottom,
-                                            //fontSize: FontSize.s12,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                55,
-                                            fontWeight: FontWeightManager.medium,
-                                          ),
+                                          style:LoginFlowBase.customTextStyle(context),
                                         ),
                                       ),
                                     ),
@@ -151,7 +150,7 @@ class LoginBaseConstant extends StatelessWidget {
                               ],
                             ),
                           )),
-      
+
                       ///logo, amico image
                       Expanded(
                         flex: 1,
@@ -167,12 +166,14 @@ class LoginBaseConstant extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Image.asset(
+                                  key: UniqueKey(),
                                   'images/logo_login.png',
                                   width: MediaQuery.of(context).size.width / 5,
                                   height: MediaQuery.of(context).size.height / 5,
                                 ),
                                 Expanded(
                                   child:  SvgPicture.asset(
+                                    key: UniqueKey(),
                                     'images/amico.svg',
                                     // fit: BoxFit.fill,
                                   ),
@@ -200,11 +201,7 @@ class LoginBaseConstant extends StatelessWidget {
               children: [
                 Text(
                   AppString.poweredby,
-                  style: GoogleFonts.firaSans(
-                    color: ColorManager.black,
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.regular,
-                  ),
+                  style: LoginFlowBottomBar.customTextStyle(context),
                 ),
                 const SizedBox(
                   width: AppSize.s2,

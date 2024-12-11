@@ -49,8 +49,6 @@ class ScreenSizeController extends GetxController {
 //   }
 // }
 
-///head 1st tabbar
-///saloni
 class MyAppTabBarController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -78,12 +76,9 @@ class MyAppTabBarController extends GetxController
   }
 }
 
-///middle head tabbar
-///saloni
 class CenteredTabBarController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
-
   final List<Widget> tabs;
   final List<Widget> tabViews;
   final double tabBarViewHeight;
@@ -92,10 +87,10 @@ class CenteredTabBarController extends GetxController
   CenteredTabBarController({
     required this.tabs,
     required this.tabViews,
-    this.tabBarViewHeight = 325.0, //320
+    this.tabBarViewHeight = 330.0,
     this.tabBarViewWidth = 600.0,
   });
-
+///
   @override
   void onInit() {
     tabController = TabController(length: tabs.length, vsync: this);
@@ -109,26 +104,27 @@ class CenteredTabBarController extends GetxController
   }
 }
 
-///last child tabbar
-///saloni
 class CenteredTabBarChildController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
-  final List<Widget> tabs;
-  final List<Widget> tabViews;
+  final List<Widget>? tabs;
+  final List<Widget>? tabViews;
   final double tabBarViewHeight;
   final double tabBarViewWidth;
+  int? employeeId;
 
   CenteredTabBarChildController({
-    required this.tabs,
-    required this.tabViews,
+    this.employeeId,
+     this.tabs,
+     this.tabViews,
     this.tabBarViewHeight = 250.0, //250
     this.tabBarViewWidth = 620.0,
   });
 
   @override
   void onInit() {
-    tabController = TabController(length: tabs.length, vsync: this);
+    print("Controller employeeId :: ${employeeId}");
+    tabController = TabController(length: tabs!.length, vsync: this);
     super.onInit();
   }
 
@@ -139,7 +135,7 @@ class CenteredTabBarChildController extends GetxController
   }
 }
 
-///saloni
+
 class RegisterController extends GetxController {
   final isDialogOpen = false.obs;
 
@@ -153,7 +149,7 @@ class RegisterController extends GetxController {
   }
 }
 
-///prachi
+
 class AddEmployeeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -182,7 +178,7 @@ class AddEmployeeController extends GetxController
   }
 }
 
-///prachi
+
 class OnboardingController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -211,7 +207,7 @@ class OnboardingController extends GetxController
   }
 }
 
-///
+
 class QualificationTabBarController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -224,8 +220,38 @@ class QualificationTabBarController extends GetxController
   QualificationTabBarController({
     required this.tabs,
     required this.tabViews,
-    this.tabBarViewHeight = 250.0, //320
+    this.tabBarViewHeight = 400.0, //320
     this.tabBarViewWidth = 600.0,
+  });
+
+  @override
+  void onInit() {
+    tabController = TabController(length: tabs.length, vsync: this);
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    tabController.dispose();
+    super.onClose();
+  }
+}
+
+
+///rohit
+class SeeAllHrController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  late TabController tabController;
+  final List<Widget> tabs;
+  final List<Widget> tabViews;
+  final double tabBarViewHeight;
+  final double tabBarViewWidth;
+
+  SeeAllHrController({
+    required this.tabs,
+    required this.tabViews,
+    this.tabBarViewHeight = 300.0, //250
+    this.tabBarViewWidth = 500.0,
   });
 
   @override

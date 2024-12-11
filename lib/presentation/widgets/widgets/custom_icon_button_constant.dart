@@ -1,61 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../app/resources/font_manager.dart';
 
-///saloni
+///saloni///
 class CustomIconButtonConst extends StatelessWidget {
-  final String text;
+  final String? text;
   final IconData? icon;
   final VoidCallback onPressed;
-
+  final double? width;
+  final bool? enabled;
 
   const CustomIconButtonConst({
-    required this.text,
+    this.text,
     this.icon,
     required this.onPressed,
-    Key? key,
+    this.width,
+    Key? key, this.enabled,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-      decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x40000000),
-            offset: Offset(0, 2),
-            blurRadius: 4,
-          ),
-        ],
-        borderRadius: BorderRadius.circular(12)
-      ),
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: icon != null
-            ? Icon(icon!, color: ColorManager.white, size: AppSize.s20)
-            : SizedBox.shrink(),
-        label: Text(
-          text,
-          style: GoogleFonts.firaSans(
-            fontSize: AppSize.s12,
-            fontWeight: FontWeightManager.bold,
-            color: ColorManager.white,
-          )
-        ),
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: AppSize.s15, vertical: AppSize.s10),
-          backgroundColor: ColorManager.blueprime,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+      child: InkWell(
+        onTap: onPressed,
+        child: Material(
           elevation: 4,
-          shadowColor: ColorManager.black.withOpacity(0.4),
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            // width: width ?? MediaQuery.of(context).size.width / 15, //11
+
+            decoration: BoxDecoration(
+              color: ColorManager.blueprime,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child:
+            Row(
+              children: [
+              icon != null
+                      ? Icon(icon!,
+                      color: ColorManager.white, size: AppSize.s20)
+                      : Offstage(),
+                 SizedBox(width: 5,),
+                 Text(
+                    text!,
+                    style: BlueButtonTextConst.customTextStyle(context)
+                  ),
+              ],
+            )
+
+            // ElevatedButton.icon(
+            //   onPressed: onPressed,
+            //
+            //   // style: ElevatedButton.styleFrom(
+            //   //   padding: EdgeInsets.symmetric(horizontal: AppSize.s10, vertical: AppSize.s10),
+            //   //   backgroundColor: ColorManager.blueprime,
+            //   //   shape: RoundedRectangleBorder(
+            //   //     borderRadius: BorderRadius.circular(12),
+            //   //   ),
+            //   //   // elevation: 4,
+            //   //   // shadowColor: ColorManager.black.withOpacity(0.4),
+            //   // ),
+            // ),
+          ),
         ),
       ),
     );
   }
 }
+

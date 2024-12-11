@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
@@ -70,21 +71,11 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                     children: [
                       Text(
                         AppString.forgotenter,
-                        style: GoogleFonts.firaSans(
-                          letterSpacing: 0.5,
-                          color: ColorManager.mediumgrey,
-                          fontSize: MediaQuery.of(context).size.width / 120,
-                          fontWeight: FontWeightManager.semiBold,
-                        ),
+                        style: LoginFlowLetterSpacing.enterEmail(context,applyLetterSpacing: true),
                       ),
                       TextFormField(
                         controller: emailController,
-                        style: CustomTextStylesCommon.commonStyle(
-                          color: Color(0xff000000).withOpacity(0.5),
-                          fontWeight: FontWeightManager.medium,
-                          //fontSize: MediaQuery.of(context).size.width / 92,
-                          fontSize: FontSize.s14,
-                        ),
+                        style: LoginFlowTextField.customTextStyle(context),
                         cursorHeight: 22,
                         cursorColor: ColorManager.black,
                         decoration: InputDecoration(
@@ -121,8 +112,13 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                         child: CustomButton(
                           borderRadius: 24,
                           height: MediaQuery.of(context).size.height / 18,
-                          width: MediaQuery.of(context).size.width / 10,
+                          width: MediaQuery.of(context).size.width / 11,
                           text: AppString.continuet,
+                          style: TextStyle(
+                            color: ColorManager.white,
+                            fontSize: MediaQuery.of(context).size.width / 90,
+                            fontWeight: FontWeight.w600,
+                          ),
                           onPressed: submitForm,
                         ),
                       )

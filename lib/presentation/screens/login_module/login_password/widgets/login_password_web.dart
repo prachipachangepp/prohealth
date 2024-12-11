@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/login_resources/login_flow_theme_const.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
@@ -40,7 +41,10 @@ class _LoginPasswordWebState extends State<LoginPasswordWeb> {
       ApiData apiData = await AuthManager.signInWithEmail(
           email, _passwordController.text, context);
       if (apiData.success) {
-        Navigator.pushNamed(context, HomeScreen.routeName);
+        Navigator.pushNamed(context, HomeScreen.routeName,);
+        String userName = apiData.data.toString();
+        print('user Date ${apiData.data.toString()}');
+       //Navigator.push(context, MaterialPageRoute(builder: (_)=>HomeScreen()));
       } else {
         setState(() {
           _isLoading = false;
@@ -83,11 +87,7 @@ class _LoginPasswordWebState extends State<LoginPasswordWeb> {
                     horizontal: MediaQuery.of(context).size.width / 30,
                   ),
                   child: TextFormField(
-                    style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.black.withOpacity(0.5),
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s14,
-                    ),
+                    style: LoginFlowTextField.customTextStyle(context),
                     onFieldSubmitted: (_) {
                       _login();
                     },
@@ -149,7 +149,7 @@ class _LoginPasswordWebState extends State<LoginPasswordWeb> {
                         vertical: AppPadding.p10),
                     child: Text(
                       _errorMessage!,
-                      style: TextStyle(color: ColorManager.red),
+                      style: LoginFlowErrorMsg.customTextStyle(context),
                     ),
                   ),
               ],

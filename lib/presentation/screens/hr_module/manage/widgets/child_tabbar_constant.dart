@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../controller/controller.dart';
 
@@ -11,14 +15,14 @@ class CenteredTabBarChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: controller.tabs.length,
+      length: controller.tabs!.length,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
-              color: Color(0xFF50B5E5),
+              color: ColorManager.calandercolour,
               boxShadow: [
                 BoxShadow(
                   // color: Colors.black.withOpacity(0.2),
@@ -29,31 +33,38 @@ class CenteredTabBarChild extends StatelessWidget {
                 ),
               ],
             ),
-            height: 30,
+            height: AppSize.s30,
             width: controller.tabBarViewWidth,
             child: TabBar(
-              tabs: controller.tabs,
+              isScrollable: false,
+              tabs: controller.tabs!,
               dividerColor: Colors.transparent,
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(50), // Creates border
-                  color: Colors.white),
+                  color: ColorManager.white),
               indicatorSize: TabBarIndicatorSize.tab,
-              indicatorColor: Colors.white,
-              labelColor: Color(0xFF686464),
-              labelStyle: TextStyle(
-                fontFamily: 'FiraSans',
-                fontSize: 12,
-                color: Color(0xFF686464),
+              indicatorColor: ColorManager.white,
+              labelColor: ColorManager.granitegray,
+              unselectedLabelStyle: TextStyle(
+                fontSize: FontSize.s14,
                 fontWeight: FontWeight.w600,
               ),
-              unselectedLabelColor: Colors.white,
+              labelStyle: TextStyle(
+                fontSize: FontSize.s14,
+                fontWeight: FontWeight.w700,
+              ),
+              unselectedLabelColor: ColorManager.white,
             ),
           ),
-          SizedBox(height: 20),
-          Container(
-            height: controller.tabBarViewHeight,
-            child: TabBarView(
-              children: controller.tabViews,
+          SizedBox(height: AppSize.s20),
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              height: controller.tabBarViewHeight,
+              child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+                children: controller.tabViews!,
+              ),
             ),
           ),
         ],

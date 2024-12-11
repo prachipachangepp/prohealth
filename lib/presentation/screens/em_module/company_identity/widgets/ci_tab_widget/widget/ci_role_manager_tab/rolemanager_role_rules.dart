@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+
+import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 
 class RoleManagerRoleRules extends StatelessWidget {
   const RoleManagerRoleRules({super.key});
@@ -11,8 +14,11 @@ class RoleManagerRoleRules extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        Container(
-          color: Colors.purple,
+        Center(
+          child: Text(
+            ErrorMessageString.noRoleRules,
+            style: AllNoDataAvailable.customTextStyle(context),
+          ),
         ),
       ],
     );

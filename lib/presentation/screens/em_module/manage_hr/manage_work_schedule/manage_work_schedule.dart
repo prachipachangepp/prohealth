@@ -1,73 +1,31 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-
+import 'package:prohealth/app/resources/value_manager.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import 'work_schedule/define_holidays.dart';
 import 'work_schedule/define_work_weeks.dart';
 
-class ManageWorkSchedule extends StatefulWidget {
-  const ManageWorkSchedule({super.key});
-
-  @override
-  State<ManageWorkSchedule> createState() => _ManageWorkScheduleState();
-}
-
-class _ManageWorkScheduleState extends State<ManageWorkSchedule> {
-  final PageController _managePageController = PageController();
-  int _selectedIndex = 0;
-
-  void _selectButton(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    _managePageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
-  @override
-  Widget build(BuildContext context) {
-    return WorkSchedule(
-      managePageController: _managePageController,
-      selectedIndex: _selectedIndex,
-      selectButton: _selectButton,
-    );
-  }
-}
-
-
 class WorkSchedule extends StatefulWidget {
-  final PageController managePageController;
-  final int selectedIndex;
-  final Function(int) selectButton;
-
-  WorkSchedule({
-    Key? key,
-    required this.managePageController,
-    required this.selectedIndex,
-    required this.selectButton,
-  }) : super(key: key);
+  WorkSchedule({Key? key}) : super(key: key);
 
   @override
   State<WorkSchedule> createState() => _WorkScheduleState();
 }
 
 class _WorkScheduleState extends State<WorkSchedule> {
-  final List<String> _categories = [
-    'Define Work Week',
-    'Define Holidays',
-  ];
 
+  TextEditingController calenderController = TextEditingController();
   final PageController _managePageController = PageController();
-
   int _selectedIndex = 0;
+
 
   void _selectButton(int index) {
     setState(() {
       _selectedIndex = index;
     });
-
     _managePageController.animateToPage(
       index,
       duration: Duration(milliseconds: 500),
@@ -75,12 +33,19 @@ class _WorkScheduleState extends State<WorkSchedule> {
     );
   }
   @override
+  void initState() {
+    super.initState();
+    // companyAllApi(context);
+  }
+  @override
   Widget build(BuildContext context) {
+    TextEditingController holidayNameController = TextEditingController();
     return Material(
+      color: Colors.white,
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 15,top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -88,64 +53,96 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   elevation: 4,
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    height: 28,
-                    width: MediaQuery.of(context).size.width / 4.2,
+                    height: AppSize.s30,
+                    width:315,
+                    //width: MediaQuery.of(context).size.width / 4.865,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: ColorManager.blueprime,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: _categories
-                          .asMap()
-                          .entries
-                          .map(
-                            (entry) => InkWell(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          onTap: () => _selectButton(0),
                           child: Container(
                             height: 30,
-                            width: MediaQuery.of(context).size.width / 8.42,
-                            padding: EdgeInsets.symmetric(vertical: 6),
+                            width: 160,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: widget.selectedIndex == entry.key
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: _selectedIndex == 0
                                   ? Colors.white
-                                  : null,
+                                  : Colors.transparent,
                             ),
-                            child: Text(
-                              entry.value,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeightManager.semiBold,
-                                color: widget.selectedIndex == entry.key
-                                    ? ColorManager.mediumgrey
-                                    : Colors.white,
+                            child: Center(
+                              child: Text(
+                                AppStringEM.shiftbatch,
+                                style:  BlueBgTabbar.customTextStyle(0, _selectedIndex),
                               ),
                             ),
                           ),
-                          onTap: () => widget.selectButton(entry.key),
                         ),
-                      )
-                          .toList(),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          onTap: () => _selectButton(1),
+                          child: Container(
+                            height: 30,
+                            width: 155,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: _selectedIndex == 1
+                                  ? Colors.white
+                                  : Colors.transparent,
+                            ),
+                            child: Center(
+                              child: Text(
+                                AppStringEM.defineHoliday,
+                                style:  BlueBgTabbar.customTextStyle(1, _selectedIndex),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                      ],
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 20,),
           Expanded(
             flex: 10,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 45),
-              child: PageView(
-                  controller: widget.managePageController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    DefineWorkWeek(),
-                    DefineHolidays(),
-                  ]),
+            child: Stack(
+              children: [
+           _selectedIndex == 1 ? Offstage():Container(
+              //height: MediaQuery.of(context).size.height/3,
+                  decoration: BoxDecoration(color: Color(0xFFF2F9FC),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                      boxShadow: [ BoxShadow(
+                        color: ColorManager.faintGrey,
+                        blurRadius: 2,
+                        spreadRadius: -2,
+                        offset: Offset(0, -4),
+                      ),]
+                  ),),
+                Padding(
+                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 45,
+                  right: MediaQuery.of(context).size.width / 45,
+                ),
+                child: PageView(
+                    controller: _managePageController,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      DefineWorkWeek(),
+                      DefineHolidays(),
+                    ]),
+              ),]
             ),
           ),
         ],

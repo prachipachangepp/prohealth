@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../controller/controller.dart';
 
@@ -6,7 +11,7 @@ import '../controller/controller.dart';
 class AppBarTabBarConstant extends StatelessWidget {
   final MyAppTabBarController controller;
 
-  AppBarTabBarConstant(this.controller);
+  const AppBarTabBarConstant(this.controller);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class AppBarTabBarConstant extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              color: Colors.white,
+              color: ColorManager.white,
               height: MediaQuery.of(context).size.height / 18,
               width: controller.tabBarViewWidth,
               child: Row(
@@ -30,7 +35,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                       indicator: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
+                            color: ColorManager.black.withOpacity(0.25),
                             spreadRadius: 1,
                             blurRadius: 4,
                             offset: const Offset(0, 3),
@@ -41,26 +46,26 @@ class AppBarTabBarConstant extends StatelessWidget {
                       ),
                       indicatorSize: TabBarIndicatorSize.tab,
                       indicatorColor: const Color(0xFF686464),
-                      labelColor: Colors.white,
+                      labelColor: ColorManager.white,
                       labelStyle: const TextStyle(
                         fontFamily: 'FiraSans',
-                        fontSize: 12,
+                        fontSize: FontSize.s14,
                         color: Color(0xFF686464),
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeightManager.semiBold,
                       ),
-                      unselectedLabelColor: Colors.black,
+                      unselectedLabelColor: ColorManager.black,
                        physics: NeverScrollableScrollPhysics(),
                       // onTap: (_){},
                     ),
                   ),
-                  const SizedBox(width: 30), // Add space between tabs and TextField
+                  const SizedBox(width: AppSize.s30),
                   Expanded(
                     child: Row(
                       children: [
                         Expanded(
                           child: Container(
                             //width: 301,
-                            height: 25,
+                            height: AppSize.s25,
                             decoration: BoxDecoration(
                               border:
                               Border.all(color: const Color(0xFF686464), width: 1),
@@ -79,8 +84,8 @@ class AppBarTabBarConstant extends StatelessWidget {
                                         hintText: 'John S',
                                         hintStyle:TextStyle(color: Color(0xff686464),
                                           fontFamily: 'FiraSans',
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w400,),
+                                          fontSize: FontSize.s10,
+                                          fontWeight: FontWeightManager.regular),
                                       ),
                                     ),
                                   ),
@@ -90,12 +95,12 @@ class AppBarTabBarConstant extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: AppSize.s10),
                         Container(
-                          height: 25,
-                            width: 37,
+                          height: AppSize.s25,
+                            width: AppSize.s37,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: ColorManager.white,
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.25),
@@ -111,15 +116,15 @@ class AppBarTabBarConstant extends StatelessWidget {
                               EdgeInsets.symmetric(horizontal: 6.0,),
                               child: Center(child: Image.asset('images/menu_icon.png',)),
                             )),
-                        const SizedBox(width: 20),
+                        const SizedBox(width: AppSize.s20),
                         Container(
-                            height: 25,
-                            width: 32,
+                            height: AppSize.s25,
+                            width: AppSize.s32,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: ColorManager.white,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.25),
+                                  color: ColorManager.black.withOpacity(0.25),
                                   spreadRadius: 1,
                                   blurRadius: 4,
                                   offset: const Offset(0, 4),
@@ -132,21 +137,23 @@ class AppBarTabBarConstant extends StatelessWidget {
                               child: Text('DZ',
                                 style: TextStyle(
                                   fontFamily: 'FiraSans',
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w400,
+                                  fontSize: FontSize.s13,
+                                  fontWeight: FontWeightManager.regular,
                                 ),textAlign: TextAlign.center,),
                             )),
                         const SizedBox(
-                          width: 40,
+                          width: AppSize.s40,
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+
+                          },
                           child: const Text(
                             'See All',
                             style: TextStyle(
                                 fontFamily: 'FiraSans',
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
+                                fontSize: FontSize.s13,
+                                fontWeight: FontWeightManager.semiBold,
                                 color: Colors.white),
                           ),
                           style: ElevatedButton.styleFrom(
@@ -165,11 +172,12 @@ class AppBarTabBarConstant extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: AppSize.s20),
             Container(
               //color: Colors.grey,
               height: controller.tabBarViewHeight,
               child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 children: controller.tabViews,
               ),
             ),

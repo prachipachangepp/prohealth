@@ -1,9 +1,8 @@
 ///saloni
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
@@ -112,7 +111,6 @@ class _CIDetailsDropdownState extends State<CIDetailsDropdown> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -129,23 +127,19 @@ class _CIDetailsDropdownState extends State<CIDetailsDropdown> {
           Expanded(
             child: Text(
               _selectedValue ?? '',
-              style: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.mediumgrey,
-                decoration: TextDecoration.none,
-              ),
+              style: DefineWorkWeekStyle.customTextStyle(context),
             ),
           ),
-          IconButton(
-            icon: Icon(
-              Icons.edit_outlined,
-              size: 20,
-            ),
-            onPressed: widget.onEditIconTap,
-            padding: EdgeInsets.zero,
-            constraints: BoxConstraints(),
-          ),
+          // IconButton(
+          //   icon: Icon(
+          //     Icons.edit_outlined,
+          //     size: 18,
+          //     color: ColorManager.blueprime,
+          //   ),
+          //   onPressed: widget.onEditIconTap,
+          //   padding: EdgeInsets.zero,
+          //   constraints: BoxConstraints(),
+          // ),
           GestureDetector(
             onTap: _showCustomDropdown,
             child: Icon(Icons.arrow_drop_down),
@@ -157,6 +151,7 @@ class _CIDetailsDropdownState extends State<CIDetailsDropdown> {
 }
 
 ///details screen popup constant
+
 class CIDetailsDropdownPopup extends StatefulWidget {
   final TextEditingController hcoNumController;
   final TextEditingController medicareController;
@@ -176,18 +171,30 @@ class CIDetailsDropdownPopup extends StatefulWidget {
 
 class _CIDetailsDropdownPopupState extends State<CIDetailsDropdownPopup> {
   bool checkboxValue1 = false;
+
+  void _showCheckboxWarning(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Please check the checkbox',
+        style: TableHeading.customTextStyle(context),
+      ),
+      backgroundColor: ColorManager.mediumgrey,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        backgroundColor: Colors.transparent,
-        child: Container(
-          height: AppSize.s400,
-          width: AppSize.s350,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(children: [
+      backgroundColor: Colors.transparent,
+      child: Container(
+        height: AppSize.s400,
+        width: AppSize.s350,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -201,68 +208,65 @@ class _CIDetailsDropdownPopupState extends State<CIDetailsDropdownPopup> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p3, horizontal: AppPadding.p20),
+                  vertical: AppPadding.p3, horizontal: AppPadding.p20
+              ),
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SMTextFConst(
-                        controller: widget.hcoNumController,
-                        keyboardType: TextInputType.text,
-                        text: AppStringEM.hcoNumber),
-                    SizedBox(
-                      height: AppSize.s16,
-                    ),
-                    SMTextFConst(
-                        controller: widget.hcoNumController,
-                        keyboardType: TextInputType.text,
-                        text: AppStringEM.medicareid),
-                    SizedBox(
-                      height: AppSize.s16,
-                    ),
-                    SMTextFConst(
-                        controller: widget.hcoNumController,
-                        keyboardType: TextInputType.text,
-                        text: AppStringEM.npinum),
-                    SizedBox(
-                      height: AppSize.s16,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          AppStringEM.emabled,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        CheckboxConstant(value: checkboxValue1,
-                            onChanged: (newValue){
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SMTextFConst(
+                    controller: widget.hcoNumController,
+                      text: 'HCO Number', keyboardType: TextInputType.number,
+                  ),
+                  SizedBox(height: 16),
+                  SMTextFConst(
+                    controller: widget.medicareController,
+                      text: 'Medicare ID',
+                    keyboardType: TextInputType.number,
+                  ),
+                  SizedBox(height: 16),
+                  SMTextFConst(
+                    controller: widget.npiNumController,
+                      text: 'NPI Number',
+                    keyboardType: TextInputType.number,
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Text(
+                        AppStringEM.emabled,
+                        style: DefineWorkWeekStyle.customTextStyle(context),
+                      ),
+                      Checkbox(
+                        value: checkboxValue1,
+                        onChanged: (newValue) {
                           setState(() {
                             checkboxValue1 = newValue!;
                           });
-                            }, text: ''),
-                      ],
-                    ),
-
-                  ]),
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p40),
+              padding: const EdgeInsets.only(bottom: 40),
               child: Center(
-                child: CustomElevatedButton(
+                child:CustomElevatedButton(
                     width: AppSize.s105,
                     height: AppSize.s30,
                     text: AppStringEM.save,
-                    onPressed: () {
-                      widget.onSavePressed;
+                    onPressed: checkboxValue1
+                        ? () {
+                      widget.onSavePressed();
                       Navigator.pop(context);
-                    }),
+                    } : () { _showCheckboxWarning(context); }),
               ),
-            )
-          ]),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
