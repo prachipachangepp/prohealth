@@ -8,6 +8,7 @@ import '../../../../../../../app/resources/common_resources/common_theme_const.d
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../widgets/constant_widgets/button_constant.dart';
 
 class PendingPageView extends StatefulWidget {
@@ -82,6 +83,24 @@ class _PendingPageViewState extends State<PendingPageView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [ Text("Employee Type"), IconButton(onPressed: (){}, icon: Icon(Icons.arrow_drop_down_sharp))],),),
+Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [ Text("Clinician Type"), IconButton(onPressed: (){}, icon: Icon(Icons.arrow_drop_down_sharp))],),),
+
+
+
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: Container(
+
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1,color: ColorManager.greylight),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(8))
+                        ),
+                        child:buildDropdownButton(context),
+                      ),
+                    ),
+
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Text("SOC"),
@@ -106,60 +125,24 @@ class _PendingPageViewState extends State<PendingPageView> {
 
 
                     Padding(
-                      padding: const EdgeInsets.only(right: 30),
+                      padding: const EdgeInsets.only(right: 5),
                       child: Text("POC"),
                     ),
 
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Container(
-                        width: 40, // Set the desired width
-                        height: 32, // Set the desired height to make it square
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 1,color: ColorManager.greylight),
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(8))
-                        ),
-                        child: IconButton(onPressed: () {  }, icon: Icon(CupertinoIcons.bell,size: 18,color:ColorManager.mediumgrey,), splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Container(
-
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 1,color: ColorManager.greylight),
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(8))
-                        ),
-                        child:buildDropdownButton(context),
-                      ),
-                    ),
-                    Container(
-                      width: 150,
-                      height: 32,
-                      child: ElevatedButton.icon(onPressed: (){}, label: Text("Bulk Assign", style: BlueButtonTextConst.customTextStyle(context),),
-                        icon: Icon( Icons.supervisor_account,color:ColorManager.white ,size: 18,),
-                        style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-
-                          ),),
-                      ),
-                    )
                     // Container(
-                    //   width: 130,
+                    //   width: 150,
                     //   height: 32,
-                    //   child: SchedularIconButtonConst(
-                    //       text: 'Bulk Assign',
-                    //       icon: Icons.supervisor_account,
-                    //       onPressed: () {}
-                    //     // onPressed: () {}
+                    //   child: ElevatedButton.icon(onPressed: (){}, label: Text("Bulk Assign", style: BlueButtonTextConst.customTextStyle(context),),
+                    //     icon: Icon( Icons.supervisor_account,color:ColorManager.white ,size: 18,),
+                    //     style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
+                    //       elevation: 5,
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //
+                    //       ),),
                     //   ),
-                    // ),
+                    // )
+
                   ],
                 ),
               ],
@@ -202,9 +185,22 @@ class _PendingPageViewState extends State<PendingPageView> {
                                 Image.asset('images/1.png'),
                               ),
                               SizedBox(width: AppSize.s7),
-                              Text(
-                                'Jeh Tiwari',
-                                style:DocumentTypeDataStyle.customTextStyle(context),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Jeh Tiwari',
+                                      style:DocumentTypeDataStyle.customTextStyle(context),
+                                    ),
+                                    SizedBox(width: AppSize.s5),
+                                    Text(
+                                      'Anxiety',
+                                      style:DocumentTypeDataStyle.customTextStyle(context),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -214,12 +210,21 @@ class _PendingPageViewState extends State<PendingPageView> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Icon(Icons.location_on_outlined),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                  BorderRadius.circular(8),
+                                  color:Color(0xFFDCEFF7) ,
+                                ),
+                                height:40,
+                                  width: 40,
+
+                                  child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,)),
                             ),
                             Container(
                               width: 200,
 
-                              child:Text("John Smith, 999 Anywhere St.,Apt 555, Medford MA 02155 ",
+                              child:Text("132 My Street, Kingston, New York 12401",
                                 textAlign: TextAlign.start,
                                 style:DocumentTypeDataStyle.customTextStyle(context),
                               ) ,
@@ -229,11 +234,11 @@ class _PendingPageViewState extends State<PendingPageView> {
 
                         Row(
                           children: [
-                            Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
+                           // Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                color: Color(0xFF527FB9),
+                                color: Color(0xFF527FB9).withOpacity(0.3),
                                 width: 19,
                                 height: 19,
                                 child: Center(
@@ -250,7 +255,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                color: Color(0xFFFEBD4D),
+                                color: Color(0xFFFEBD4D).withOpacity(0.5),
                                 width: 19,
                                 height: 19,
                                 child: Center(
@@ -277,58 +282,122 @@ class _PendingPageViewState extends State<PendingPageView> {
                         ),
 
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 165,
-                              height: 31,
-                              child: ElevatedButton.icon(onPressed: (){},label: Text("Manually Assign", style: TextStyle(
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w600,
-                                color: ColorManager.bluebottom,
-                                decoration: TextDecoration.none,
-                              )),
-                                icon: Icon(Icons.check_circle_outline_rounded,color:ColorManager.bluebottom ,size: 18,),
-                                style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
-
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    side: BorderSide(
-                                      color: ColorManager.bluebottom,
-                                      width: 1,
-                                    ),
-                                  ),),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 150,
-                              height: 31,
-                              child: ElevatedButton.icon(onPressed: (){}, label: Text("Auto Assign", style: BlueButtonTextConst.customTextStyle(context),),
-                                icon: Icon( FontAwesomeIcons.userCheck,color:ColorManager.white ,size: 16,),
-                                style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-
-                                  ),),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(right: 50),
                               child: Icon(Icons.call,color: ColorManager.greenDark,),
                             ),
                           ],
-                        )
+                        ),
 
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 200,
+                              height: 55,
+                              child:Row(
+                                children: [
+                                  Container(
+                                    width: 100,
+                                    child:  ElevatedButton.icon(onPressed: ()async{
+                                      await  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return VendorSelectNoti(
+                                          message: 'Please Select A File',
+                                        );
+                                      },
+                                      );
+                                    },label: Text("Auto", style: TextStyle(
+                                      fontSize: FontSize.s13,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.white,
+                                      decoration: TextDecoration.none,
+                                    )),
+                                      icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:  ColorManager.bluebottom,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(12), // Round only the top-left corner
+                                            bottomLeft: Radius.circular(12), // Round only the bottom-left corner
+                                          ),
+                                          side: BorderSide(
+                                            color: Color(0xFF0A74DA), // Border color
+                                            width: 1,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 100,
+                                    child:  ElevatedButton.icon(onPressed: (){
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AddErrorPopup(
+                                            message: 'File is too large!',
+                                          );
+                                        },
+                                      );
+                                    },label: Text("Manual", style: TextStyle(
+                                      fontSize: FontSize.s13,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.bluebottom,
+                                      decoration: TextDecoration.none,
+                                    )),
+                                      icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(12), // Round only the top-left corner
+                                            bottomRight: Radius.circular(12), // Round only the bottom-left corner
+                                          ),
+                                          side: BorderSide(
+                                            color: Color(0xFF0A74DA), // Border color
+                                            width: 1,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+
+                                ],
+                              )
+                            )
+                          ],
+                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Container(
+                        //       width: 150,
+                        //       height: 31,
+                        //       child: ElevatedButton.icon(onPressed: (){}, label: Text("Auto Assign", style: BlueButtonTextConst.customTextStyle(context),),
+                        //         icon: Icon( FontAwesomeIcons.userCheck,color:ColorManager.white ,size: 16,),
+                        //         style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
+                        //           elevation: 5,
+                        //           shape: RoundedRectangleBorder(
+                        //             borderRadius: BorderRadius.circular(12),
+                        //
+                        //           ),),
+                        //       ),
+                        //     )
+                        //   ],
+                        // ),
+
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 15),
+                              child: SizedBox()
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
