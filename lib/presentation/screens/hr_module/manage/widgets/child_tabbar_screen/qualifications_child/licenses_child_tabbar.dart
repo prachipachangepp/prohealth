@@ -462,7 +462,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                                   return CICCDropdown(
                                                     // width: 200,
                                                       width: MediaQuery.of(context).size.width / 6,
-                                                      initialValue: dropDownMenuItems[0].value,
+                                                      initialValue: docNameEdit,
+
                                                       onChange: (val){
                                                         for(var a in snapshot.data!){
                                                           if(a.docName == val){
