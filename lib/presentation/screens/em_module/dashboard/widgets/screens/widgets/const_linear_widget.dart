@@ -7,9 +7,10 @@ import '../../../../../../../app/resources/theme_manager.dart';
 class LinearCardWidget extends StatelessWidget {
   final String headingText;
   final String totalCount;
-  final IconData icon;
+  final IconData? icon;
+  final String? imagePath;
   final int totalValue;
-   LinearCardWidget({super.key, required this.headingText, required this.totalCount, required this.totalValue, required this.icon});
+   LinearCardWidget({super.key, required this.headingText, required this.totalCount, required this.totalValue, this.icon, this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -34,22 +35,19 @@ class LinearCardWidget extends StatelessWidget {
                   Text(totalCount,style: TextStyle(fontSize: FontSize.s28,color: ColorManager.blueprime,fontWeight: FontWeight.w700),)
                 ],
               ),
-              // Container(
-              //   height: 80,
-              //   color: ColorManager.red,
-              //   child: Center(
-              //     child: SizedBox(
-              //       height: 60, // Set the height you want for the icon
-              //       child: Icon(
-              //         icon,
-              //         color: ColorManager.bluebottom,
-              //         size: IconSize.I40, // This controls the icon's width
-              //       ),
-              //     ),
-              //   ),
-              // ),
-
-              Icon(icon,color: ColorManager.bluebottom,size: IconSize.I40,)
+              if (imagePath != null)
+                Image.asset(
+                  imagePath!,
+                  height: 40, // Adjust the size as needed
+                  width: 40,
+                 // color: ColorManager.bluebottom,
+                )
+              else if (icon != null)
+                Icon(
+                  icon,
+                  color: ColorManager.bluebottom.withOpacity(0.4),
+                  size: IconSize.I40,
+                ),
             ],
           ),
           LinearProgressIndicator(

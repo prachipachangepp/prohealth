@@ -143,6 +143,7 @@ flutter:
     - images/
     - images/hr_dashboard/
     - images/em_dashboard/
+    - images/sm/
     - images/mobile_images/
     - images/error/
     - images/tab_images/

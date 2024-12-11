@@ -463,33 +463,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                         },
 
                                                       );
-                                                      // return DropdownButtonHideUnderline(
-                                                      //   child: DropdownButton<
-                                                      //       String>(
-                                                      //     value: selectedValue,
-                                                      //     icon: const Icon(Icons
-                                                      //         .arrow_drop_down),
-                                                      //     iconSize: IconSize.I16,
-                                                      //     isExpanded: true,
-                                                      //     style: TextStyle(
-                                                      //         color: Colors.black,
-                                                      //         fontSize: 10),
-                                                      //     items: items.map((
-                                                      //         String value) {
-                                                      //       return DropdownMenuItem<
-                                                      //           String>(
-                                                      //         value: value,
-                                                      //         child: Text(value),
-                                                      //       );
-                                                      //     }).toList(),
-                                                      //     onChanged: (newValue) {
-                                                      //       setState(() {
-                                                      //         selectedValue =
-                                                      //         newValue!;
-                                                      //       });
-                                                      //     },
-                                                      //   ),
-                                                      // );
+
                                                     }
                                                   ),
                                                 )
@@ -515,36 +489,22 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                               dataSource: CombochartData,
                                               xValueMapper: (ComboChartData data, _) => data.x,
                                               yValueMapper: (ComboChartData data, _) => data.y,
+                                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                                              width: 0.5,
+                                              spacing: 0.5,
                                             ),
                                             ColumnSeries<ComboChartData, String>(
                                               color: ColorManager.relativeResult,
                                               dataSource: CombochartData,
                                               xValueMapper: (ComboChartData data, _) => data.x,
                                               yValueMapper: (ComboChartData data, _) => data.y1,
+                                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                                              width: 0.5,
+                                              spacing: 0.5,
                                             ),
                                           ],
                                         ),
                                       ),
-
-                                      // Container(
-                                      //     height: 200,
-                                      //     child: SfCartesianChart(
-                                      //         backgroundColor: ColorManager.white,
-                                      //         primaryXAxis: CategoryAxis(),
-                                      //         series: <CartesianSeries>[
-                                      //           ColumnSeries<ComboChartData,
-                                      //                   String>(
-                                      //               color: ColorManager.emptenure,
-                                      //               dataSource: CombochartData,
-                                      //               xValueMapper: (ComboChartData data, _) => data.x,
-                                      //               yValueMapper: (ComboChartData data, _) => data.y),
-                                      //           ColumnSeries<ComboChartData, String>(
-                                      //               color: ColorManager.relativeResult,
-                                      //               dataSource: CombochartData,
-                                      //               xValueMapper: (ComboChartData data, _) => data.x,
-                                      //               yValueMapper: (ComboChartData data, _) => data.y1),
-                                      //         ])
-                                      //     ),
                                     ],
                                   ))),
                           const SizedBox(width: AppSize.s15,),
@@ -755,16 +715,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                             minimum: 0,      // Minimum value of the gauge
                                             maximum: 100,    // Maximum value of the gauge
                                             ranges: <GaugeRange>[
-                                              GaugeRange(startValue: 0, endValue: 80, color: ColorManager.blueprime),
+                                              GaugeRange(startValue: 0, endValue: 80, color: ColorManager.pieChartBBlue),
                                               GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey),
                                             ],
-                                            pointers: <GaugePointer>[
-                                              MarkerPointer(
-                                                value: 70, // The value where the marker points
-                                                markerHeight: 20, // Height of the marker
-                                                markerWidth: 40,  // Width of the marker
-                                              ),
-                                            ],
+                                            // pointers: <GaugePointer>[
+                                            //   MarkerPointer(
+                                            //     value: 70, // The value where the marker points
+                                            //     markerHeight: 20, // Height of the marker
+                                            //     markerWidth: 40,  // Width of the marker
+                                            //   ),
+                                            // ],
                                             annotations: <GaugeAnnotation>[
                                               GaugeAnnotation(
                                                 widget: Text(
@@ -1063,7 +1023,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                       value: 56,
                                                       title: '',
                                                       //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                      radius: 30,
+                                                      radius: 20,
                                                     ),
                                                     PieChartSectionData(
                                                       color: ColorManager
@@ -1071,7 +1031,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                       value: 88,
                                                       title: '',
                                                       //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                      radius: 30,
+                                                      radius: 20,
                                                     ),
                                                   ],
                                                   centerSpaceRadius: 20,
@@ -1116,10 +1076,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     height: 200,
                                     child: SfCartesianChart(
                                       primaryXAxis: NumericAxis(
-                                        isVisible: false,
+                                        isVisible: true, // Keeps the X-axis line visible
+                                        axisLine: AxisLine(width: 1, color: Colors.grey), // X-axis base line
+                                        labelStyle: TextStyle(color: Colors.transparent), // Hides the labels on X-axis
+                                        majorGridLines: MajorGridLines(width: 0), // Disables grid lines
+                                        tickPosition: TickPosition.inside, // Keeps ticks inside the graph
+                                        majorTickLines: MajorTickLines(size: 6, color: Colors.grey), // Small ticks
                                       ),
                                       primaryYAxis: NumericAxis(
-                                        isVisible: false,
+                                        isVisible: false, // Hides the Y-axis completely
                                       ),
                                       series: <CartesianSeries>[
                                         SplineAreaSeries<ChartAreaData, int>(
@@ -1141,6 +1106,45 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       ],
                                     ),
                                   ),
+
+
+                                  // Container(
+                                  //   height: 200,
+                                  //   child: SfCartesianChart(
+                                  //     // primaryXAxis: NumericAxis(
+                                  //     //   isVisible: false,
+                                  //     // ),
+                                  //     primaryXAxis: NumericAxis(
+                                  //       isVisible: true,
+                                  //       majorGridLines: MajorGridLines(
+                                  //         width: 1,
+                                  //         color: Colors.grey.withOpacity(0.5),
+                                  //       ),
+                                  //       axisLine: AxisLine(width: 0),
+                                  //     ),
+                                  //     primaryYAxis: NumericAxis(
+                                  //       isVisible: false,
+                                  //     ),
+                                  //     series: <CartesianSeries>[
+                                  //       SplineAreaSeries<ChartAreaData, int>(
+                                  //         color: ColorManager.incidentBlue.withOpacity(0.2),
+                                  //         borderColor: ColorManager.incidentBlue,
+                                  //         borderWidth: 2,
+                                  //         dataSource: AreachartData,
+                                  //         xValueMapper: (ChartAreaData data, _) => data.x,
+                                  //         yValueMapper: (ChartAreaData data, _) => data.y,
+                                  //       ),
+                                  //       SplineAreaSeries<ChartAreaData, int>(
+                                  //         color: ColorManager.incidentskin.withOpacity(0.3),
+                                  //         borderColor: ColorManager.incidentskin,
+                                  //         borderWidth: 2,
+                                  //         dataSource: AreachartData,
+                                  //         yValueMapper: (ChartAreaData data, _) => data.y1,
+                                  //         xValueMapper: (ChartAreaData data, _) => data.x,
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [

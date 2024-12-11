@@ -33,13 +33,13 @@ class OfficeLocationScreen extends StatelessWidget {
               Expanded(
                   flex: 2,
                   child: EMDashboardContainerBBorderConst(
-                    child: LinearCardWidget(headingText: EmDashboardStringManager.totaloffice, totalCount: '10', totalValue: 10,icon: Icons.business//CupertinoIcons.building_2_fill,
+                    child: LinearCardWidget(headingText: EmDashboardStringManager.totaloffice, totalCount: '10', totalValue: 10,imagePath: "images/em_dashboard/TNO.png"
                     ),)),
               SizedBox(width: AppSize.s15,),
               Expanded(
                   flex: 2,
                   child: EMDashboardContainerBBorderConst(
-                    child: LinearCardWidget(headingText: EmDashboardStringManager.occupancyrate, totalCount: '04', totalValue:4,icon: FontAwesomeIcons.hospitalUser//FontAwesomeIcons.userDoctor,
+                    child: LinearCardWidget(headingText: EmDashboardStringManager.occupancyrate, totalCount: '04', totalValue:4,imagePath: "images/em_dashboard/OOR.png"
                     ),)),
               SizedBox(width: AppSize.s15,),
               Expanded(
@@ -49,7 +49,7 @@ class OfficeLocationScreen extends StatelessWidget {
                         onTap: (){
                           showDialog(context: context, builder: (context) => OfficeLocationPopup());
                         },
-                        child: LinearCardWidget(headingText: EmDashboardStringManager.dailyattendance, totalCount: '100%', totalValue: 100,icon: FontAwesomeIcons.calendarCheck,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.dailyattendance, totalCount: '100%', totalValue: 100,imagePath: "images/em_dashboard/calendar_check.png")),)),
             ],),
           SizedBox(height: AppSize.s15,),
           ///2nd row
