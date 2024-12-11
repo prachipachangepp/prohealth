@@ -39,10 +39,15 @@ class OfferLetterScreen extends StatefulWidget {
   final String services;
   final String employement;
   final String soecalityName;
-  final String clinicalName;
+  final int clinicalId;
   final int employeeId;
   final int depId;
   final ApiData? apiData;
+  final int cityId;
+  final int countyId;
+  final int zoneId;
+  final int countryId;
+  final String link;
  final Function() onRefreshRegister;
 
   const OfferLetterScreen(
@@ -59,9 +64,15 @@ class OfferLetterScreen extends StatefulWidget {
         required this.services,
         required this.employement,
         required this.soecalityName,
-        required this.clinicalName,
+        required this.clinicalId,
         required this.employeeId,
-         this.apiData, required this.onRefreshRegister, required this.depId
+         this.apiData,
+        required this.onRefreshRegister,
+        required this.depId,
+        required this.cityId,
+        required this.countyId,
+        required this.zoneId,
+        required this.link, required this.countryId
       });
 
   @override
@@ -249,7 +260,21 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     else Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
+                      RichText(
+                        text: TextSpan(
+                          text: "No. of Patients", // Main text
+                          style: DocumentTypeDataStyle.customTextStyle(context), // Main style
+                          children: [
+                            TextSpan(
+                              text: ' *', // Asterisk
+                              style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                color: ColorManager.red, // Asterisk color
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    //Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
                     SizedBox(height: 5,),
                     Container(
                     height: 30,
@@ -316,15 +341,15 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     ),
                     ),
                     if (noOfPatientDate == true)
-    Padding(
-    padding: const EdgeInsets.only(top: 1),
-    child: Text(
-    "Please enter no. of Patients",
-    style: CommonErrorMsg.customTextStyle(context),
-    ),
-    ),
-    ],
-    ),
+                      Padding(
+                      padding: const EdgeInsets.only(top: 1),
+                      child: Text(
+                      "Please enter no. of Patients",
+                      style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                      ),
+                      ],
+                      ),
                     //SizedBox(width: MediaQuery.of(context).size.width / 10),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 5,
@@ -827,13 +852,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             print('County ID: ${st.selectedCountyId}');
                             print('Zone ID:::::::::=>> ${st.docZoneId}');
                             print('Zip Codes: ${st.selectedZipCodes}');
-                            print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
+                            //print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
                             addCovrage.add( ApiAddCovrageData(
                                 city: '',
                                 countyId:st.selectedCountyId ,
                                 zoneId: st.docZoneId,
                                 zipCodes:st.selectedZipCodes
-
                             ));
                           }
                           print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
@@ -863,78 +887,116 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     } else {
                                       patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
                                     }
-
-                                    // Call the API with the correct patientsValue
-                                    var empEnrollOfferResponse = await addEmpEnrollOffers(
-                                      context,
-                                      widget.apiData!.employeeEnrollId!,
-                                      widget.apiData!.employeeId!,
-                                      patientsValue,  // Use patientsValue here
-                                      issueDateController.text,
-                                      lastDateController.text,
-                                      startDateController.text,
-                                      verbalAcceptanceController.text,
+                                    ApiData response = await addEmpEnroll(
+                                      context: context,
+                                      employeeId: widget
+                                          .employeeId,
+                                      code: "",
+                                      userId: widget.userId,
+                                      firstName: widget
+                                          .firstName,
+                                      lastName: widget
+                                          .lastName,
+                                      phoneNbr: widget.phone,
+                                      email: widget.email,
+                                      link: widget.link,
+                                      status: widget.status,
+                                      departmentId: widget.depId,
+                                      position: widget.position,
+                                      speciality: widget.soecalityName,
+                                      clinicianTypeId:widget.clinicalId,
+                                      reportingOfficeId: widget.reportingOffice,
+                                      cityId: widget.cityId,
+                                      countryId: widget.countryId,
+                                      countyId: widget.countyId,
+                                      zoneId: widget.zoneId,
+                                      // employment: "Full Time",
+                                      employment: widget.employement,
+                                      // service: "Hospice",
+                                      service: widget.services,
                                     );
+                                    if(response.statusCode == 200 || response.statusCode == 201){
+                                      // Call the API with the correct patientsValue
+                                      widget.onRefreshRegister();
+                                      var empEnrollOfferResponse = await addEmpEnrollOffers(
+                                        context,
+                                        response.employeeEnrollId!,
+                                        response.employeeId!,
+                                        patientsValue,  // Use patientsValue here
+                                        issueDateController.text,
+                                        lastDateController.text,
+                                        startDateController.text,
+                                        verbalAcceptanceController.text,
+                                      );
 
-                                    print('County id : ${selectedCountyId}');
-                                    print('Zone id : ${selectedZoneId}');
+                                      print('County id : ${selectedCountyId}');
+                                      print('Zone id : ${selectedZoneId}');
 
-                                    // Call other enrollment-related APIs
-                                    await addEmpEnrollAddCoverage(
-                                      context,
-                                      widget.apiData!.employeeEnrollId!,
-                                      widget.apiData!.employeeId!,
-                                      addCovrage,
-                                    );
+                                      // Call other enrollment-related APIs
+                                      await addEmpEnrollAddCoverage(
+                                        context,
+                                        response.employeeEnrollId!,
+                                        response.employeeId!,
+                                        addCovrage,
+                                      );
 
-                                    await addEmpEnrollAddCompensation(
-                                      context,
-                                      widget.apiData!.employeeEnrollId!,
-                                      widget.apiData!.employeeId!,
-                                      dropdownValue.toString(),
-                                      int.parse(_salary),
-                                    );
+                                      await addEmpEnrollAddCompensation(
+                                        context,
+                                        response.employeeEnrollId!,
+                                        response.employeeId!,
+                                        dropdownValue.toString(),
+                                        int.parse(_salary),
+                                      );
 
-                                    // Clear controllers
-                                    issueDateController.clear();
-                                    lastDateController.clear();
-                                    startDateController.clear();
-                                    verbalAcceptanceController.clear();
+                                      // Clear controllers
+                                      issueDateController.clear();
+                                      lastDateController.clear();
+                                      startDateController.clear();
+                                      verbalAcceptanceController.clear();
 
-                                    Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            Future.delayed(const Duration(seconds: 3), () {
+                                              if (Navigator.of(context).canPop()) {
+                                                Navigator.pop(context);
+                                                popNavigation();
+                                              }
+                                            });
+                                            return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
+                                          },
+                                        );
+                                      }
+                                      else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
+                                        // Navigator.pop(context);
+                                         showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) => const FourNotFourPopup(),
+                                        );
+                                      }
+                                      else {
+                                        // Navigator.pop(context);
+                                         showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
+                                        );
+                                      }
+                                    }else{
+                                      Navigator.pop(context);
+                                       showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+                                      );
+                                    }
+
 
                                     // Check the response status
-                                    if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          Future.delayed(const Duration(seconds: 3), () {
-                                            if (Navigator.of(context).canPop()) {
-                                              Navigator.pop(context);
-                                              popNavigation();
-                                            }
-                                          });
-                                          return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
-                                        },
-                                      );
-                                    }
-                                    else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
-                                      // Navigator.pop(context);
-                                      await showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => const FourNotFourPopup(),
-                                      );
-                                    }
-                                    else {
-                                      // Navigator.pop(context);
-                                      await showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
-                                      );
-                                    }
+
                                   } catch (e) {
                                     print("Error during enrollment: $e");
-                                    await showDialog(
+                                    showDialog(
                                       context: context,
                                       builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
                                     );
@@ -1063,7 +1125,21 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(text,style: DocumentTypeDataStyle.customTextStyle(context),),
+        RichText(
+          text: TextSpan(
+            text: text, // Main text
+            style: DocumentTypeDataStyle.customTextStyle(context), // Main style
+            children: [
+              TextSpan(
+                text: ' *', // Asterisk
+                style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                  color: ColorManager.red, // Asterisk color
+                ),
+              ),
+            ],
+          ),
+        ),
+       // Text(text,style: DocumentTypeDataStyle.customTextStyle(context),),
         SizedBox(height: 5,),
         CustomTextFieldOfferScreen(
           hintText: hintText,
@@ -1211,123 +1287,127 @@ class _DynamciContainerState extends State<DynamciContainer> {
                         'County', style: DocumentTypeDataStyle.customTextStyle(context),
                       ),
                       const SizedBox(height: 5),
-                      FutureBuilder<List<AllCountyGetList>>(
-                        future: getCountyZoneList(context),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 7),
-                              child: Container(
-                                height: 32,
-                                width: 250,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                              ),
-                            );
-                          } else if (snapshot.hasError) {
-                            return const CustomDropdownTextField(
-                              hintText: 'Select County',
-                              headText: 'County',
-                              items: ['Error'],
-                            );
-                          } else if (snapshot.hasData) {
-                            // Clear dropdown list to avoid duplicates
-                            dropDownList.clear();
-
-                            // Add the default "Select" item
-                            // dropDownList.add( DropdownMenuItem<String>(
-                            //   child: Text('Select County',style: TextStyle(
-                            //     fontWeight: FontWeight.w500,
-                            //     fontSize: FontSize.s12,
-                            //     color: ColorManager.mediumgrey,
-                            //     decoration: TextDecoration.none,
-                            //   ),),
-                            //   value: 'Select County',
-                            // ));
-
-                            // Populate dropdown list with counties
-                            for (var i in snapshot.data!) {
-                              dropDownList.add(DropdownMenuItem<String>(
-                                child: Text(i.countyName),
-                                value: i.countyName,
-                              ));
-                            }
-
-                            // Set initial selectedCounty if not already set
-                            // if (selectedCounty == null) {
-                            //   selectedCounty = 'Select County';
-                            // }
-
-                            return StatefulBuilder(
-                              builder: (BuildContext context, StateSetter setState) {
-                                return Container(
-                                 // height: 31,
-                                  width: 250,
-                                  //padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                  // decoration: BoxDecoration(
-                                  //   color: Colors.white,
-                                  //   border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
-                                  //   borderRadius: BorderRadius.circular(6),
-                                  // ),
-                                  // child: DropdownButtonFormField<String>(
-                                  //   focusColor: Colors.transparent,
-                                  //   icon: const Icon(
-                                  //     Icons.arrow_drop_down_sharp,
-                                  //     color: Color(0xff686464),
-                                  //   ),
-                                  //   decoration: const InputDecoration.collapsed(hintText: ''),
-                                  //   items: dropDownList,
-                                  //   onChanged: (newValue) {
-                                  //     setState(() {
-                                  //       selectedCounty = newValue;
-                                  //       for (var a in snapshot.data!) {
-                                  //         if (a.countyName == newValue) {
-                                  //           selectedCountyId = a.countyId;
-                                  //           print("County Id :: ${selectedCountyId}");
-                                  //           // Perform other actions if needed
-                                  //         }
-                                  //       }
-                                  //     });
-                                  //   },
-                                  //   value: selectedCounty,
-                                  //   style: TextStyle(
-                                  //     fontWeight: FontWeight.w500,
-                                  //     fontSize: FontSize.s12,
-                                  //     color: ColorManager.mediumgrey,
-                                  //     decoration: TextDecoration.none,
-                                  //   ),
-                                  // ),
-
-                                  child: CustomDropdownTextFieldwidh(
-                                    dropDownMenuList: dropDownList,
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        selectedCounty = newValue;
-                                        for (var a in snapshot.data!) {
-                                          if (a.countyName == newValue) {
-                                            selectedCountyId = a.countyId;
-                                            print("County Id :: ${selectedCountyId}");
-                                            // Perform other actions if needed
-                                          }
-                                        }
-                                      });
-                                    },
-                                   // hintText: initialValue,
+                      StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) {
+                          return FutureBuilder<List<AllCountyGetList>>(
+                            future: getCountyZoneList(context),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 7),
+                                  child: Container(
                                     height: 32,
-
+                                    width: 250,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
                                   ),
                                 );
-                              },
-                            );
-                          } else {
-                            return CustomDropdownTextField(
-                              headText: 'County',
-                              items: ['No County'],
-                            );
-                          }
+                              } else if (snapshot.hasError) {
+                                return const CustomDropdownTextField(
+                                  hintText: 'Select County',
+                                  headText: 'County',
+                                  items: ['Error'],
+                                );
+                              } else if (snapshot.hasData) {
+                                // Clear dropdown list to avoid duplicates
+                                dropDownList.clear();
+
+                                // Add the default "Select" item
+                                // dropDownList.add( DropdownMenuItem<String>(
+                                //   child: Text('Select County',style: TextStyle(
+                                //     fontWeight: FontWeight.w500,
+                                //     fontSize: FontSize.s12,
+                                //     color: ColorManager.mediumgrey,
+                                //     decoration: TextDecoration.none,
+                                //   ),),
+                                //   value: 'Select County',
+                                // ));
+
+                                // Populate dropdown list with counties
+                                for (var i in snapshot.data!) {
+                                  dropDownList.add(DropdownMenuItem<String>(
+                                    child: Text(i.countyName),
+                                    value: i.countyName,
+                                  ));
+                                }
+
+                                // Set initial selectedCounty if not already set
+                                // if (selectedCounty == null) {
+                                //   selectedCounty = 'Select County';
+                                // }
+
+                                return StatefulBuilder(
+                                  builder: (BuildContext context, StateSetter setState) {
+                                    return Container(
+                                      // height: 31,
+                                      width: 250,
+                                      //padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                      // decoration: BoxDecoration(
+                                      //   color: Colors.white,
+                                      //   border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                      //   borderRadius: BorderRadius.circular(6),
+                                      // ),
+                                      // child: DropdownButtonFormField<String>(
+                                      //   focusColor: Colors.transparent,
+                                      //   icon: const Icon(
+                                      //     Icons.arrow_drop_down_sharp,
+                                      //     color: Color(0xff686464),
+                                      //   ),
+                                      //   decoration: const InputDecoration.collapsed(hintText: ''),
+                                      //   items: dropDownList,
+                                      //   onChanged: (newValue) {
+                                      //     setState(() {
+                                      //       selectedCounty = newValue;
+                                      //       for (var a in snapshot.data!) {
+                                      //         if (a.countyName == newValue) {
+                                      //           selectedCountyId = a.countyId;
+                                      //           print("County Id :: ${selectedCountyId}");
+                                      //           // Perform other actions if needed
+                                      //         }
+                                      //       }
+                                      //     });
+                                      //   },
+                                      //   value: selectedCounty,
+                                      //   style: TextStyle(
+                                      //     fontWeight: FontWeight.w500,
+                                      //     fontSize: FontSize.s12,
+                                      //     color: ColorManager.mediumgrey,
+                                      //     decoration: TextDecoration.none,
+                                      //   ),
+                                      // ),
+
+                                      child: CustomDropdownTextFieldwidh(
+                                        dropDownMenuList: dropDownList,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            selectedCounty = newValue;
+                                            for (var a in snapshot.data!) {
+                                              if (a.countyName == newValue) {
+                                                selectedCountyId = a.countyId;
+                                                print("County Id :: ${selectedCountyId}");
+                                                // Perform other actions if needed
+                                              }
+                                            }
+                                          });
+                                        },
+                                        // hintText: initialValue,
+                                        height: 32,
+
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else {
+                                return CustomDropdownTextField(
+                                  headText: 'County',
+                                  items: ['No County'],
+                                );
+                              }
+                            },
+                          );
                         },
                       ),
                     ],

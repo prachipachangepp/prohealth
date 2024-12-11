@@ -63,7 +63,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s480,
+      height: AppSize.s492,
       title: "Add New Equipment",
       onClear: (){
         Navigator.pop(context);
@@ -107,8 +107,21 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
               SizedBox(
                 height: AppSize.s16,
               ),
-              Text('Device Description',
-                  style: AllPopupHeadings.customTextStyle(context)),
+              RichText(
+                text: TextSpan(
+                  text: "Device Description", // Main text
+                  style: AllPopupHeadings.customTextStyle(context), // Main style
+                  children: [
+                    TextSpan(
+                      text: ' *', // Asterisk
+                      style: AllPopupHeadings.customTextStyle(context).copyWith(
+                        color: ColorManager.red, // Asterisk color
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              //Text('Device Description', style: AllPopupHeadings.customTextStyle(context)),
               SizedBox(height: 5),
               FutureBuilder<List<InventoryDropdownData>>(
                   future: getDropdownInventory(context),
@@ -205,8 +218,21 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
               SizedBox(
                 height: AppSize.s16,
               ),
-              Text('Assign Date',
-                  style: AllPopupHeadings.customTextStyle(context)),
+              RichText(
+                text: TextSpan(
+                  text: "Assign Date", // Main text
+                  style: AllPopupHeadings.customTextStyle(context), // Main style
+                  children: [
+                    TextSpan(
+                      text: ' *', // Asterisk
+                      style: AllPopupHeadings.customTextStyle(context).copyWith(
+                        color: ColorManager.red, // Asterisk color
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+             // Text('Assign Date', style: AllPopupHeadings.customTextStyle(context)),
               SizedBox(
                 height: 5,
               ),

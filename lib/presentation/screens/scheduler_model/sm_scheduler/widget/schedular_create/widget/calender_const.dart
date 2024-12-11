@@ -510,6 +510,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
                       ElevatedButton(
                         onPressed: () => setState(() => _selectedView = 'Day'),
                         style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
                           backgroundColor: _selectedView == 'Day' ? ColorManager.red : ColorManager.white,
                           foregroundColor: _selectedView == 'Day' ? ColorManager.white : ColorManager.mediumgrey,
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -520,6 +521,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
                       ElevatedButton(
                         onPressed: () => setState(() => _selectedView = 'Week'),
                         style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
                           backgroundColor: _selectedView == 'Week' ? ColorManager.red : ColorManager.white,
                           foregroundColor: _selectedView == 'Week' ? ColorManager.white : ColorManager.mediumgrey,
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -799,7 +801,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
               height: 2,
             ),
             eventArranger: const SideEventArranger(),
-            onDateTap: _onDateLongPress,
+            //onDateTap: _onDateLongPress,
           );
         // case 'Month':
         //   return MonthView(
@@ -823,7 +825,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
               height: 2,
             ),
             eventArranger: const SideEventArranger(),
-            onDateLongPress: _onDateLongPress,
+            //onDateLongPress: _onDateLongPress,
           );
         default:
           return DayView(
@@ -840,7 +842,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
               height: 2,
             ),
             eventArranger: const SideEventArranger(),
-            onDateLongPress: _onDateLongPress,
+            //onDateLongPress: _onDateLongPress,
           );
       }
     } catch (e) {

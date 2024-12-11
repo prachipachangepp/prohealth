@@ -75,7 +75,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
   }
 
   TextEditingController daysController = TextEditingController(text: "1");
-  String selectedExpiryType = "";
+  String selectedExpiryType = AppConfig.notApplicable;
   String? selectedYear = AppConfig.year;
 
   TextEditingController nameDocController = TextEditingController();
@@ -174,106 +174,100 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: AppPadding.p20,
-                        right: AppPadding.p20,
-                      ),
-                      child: Visibility(
-                        visible: selectedExpiryType == AppConfig.scheduled,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  height: 30,
-                                  width: 50,
-                                  //color: ColorManager.red,
-                                  child: TextFormField(
-                                    textAlign: TextAlign.center,
-                                    controller: daysController, // Use the controller initialized with "1"
-                                    cursorColor: ColorManager.black,
-                                    cursorWidth: 1,
-                                    style:DocumentTypeDataStyle.customTextStyle(context),
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: ColorManager.fmediumgrey,
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: ColorManager.fmediumgrey,
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 10),
+                    Visibility(
+                      visible: selectedExpiryType == AppConfig.scheduled,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 50,
+                                //color: ColorManager.red,
+                                child: TextFormField(
+                                  textAlign: TextAlign.center,
+                                  controller: daysController, // Use the controller initialized with "1"
+                                  cursorColor: ColorManager.black,
+                                  cursorWidth: 1,
+                                  style:DocumentTypeDataStyle.customTextStyle(context),
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: ColorManager.fmediumgrey,
+                                          width: 2),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter
-                                          .digitsOnly, // This ensures only digits are accepted
-                                    ],
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: ColorManager.fmediumgrey,
+                                          width: 2),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter
+                                        .digitsOnly, // This ensures only digits are accepted
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                height: 30,
+                                width: 80,
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: ColorManager.fmediumgrey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonFormField<String>(
+                                  value:
+                                      selectedYear, // Initial value (you should define this variable)
+                                  items: [
+                                    DropdownMenuItem(
+                                      value: AppConfig.year,
+                                      child: Text(
+                                        AppConfig.year,
+                                        style: DocumentTypeDataStyle.customTextStyle(context),
+                                      ),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: AppConfig.month,
+                                      child: Text(
+                                        AppConfig.month,
+                                        style: DocumentTypeDataStyle.customTextStyle(context),
+                                      ),
+                                    ),
+                                  ],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedYear =
+                                          value; // Update the selected option (Year/Month)
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    hintText: AppConfig.year,
+                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                    contentPadding: EdgeInsets.only(bottom: 20),
+                                  ),
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: ColorManager.green,
+                                    size: IconSize.I16,
                                   ),
                                 ),
-                                SizedBox(width: 10),
-                                Container(
-                                  height: 30,
-                                  width: 80,
-                                  padding: EdgeInsets.symmetric(horizontal: 5),
-                                  decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: ColorManager.fmediumgrey),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: DropdownButtonFormField<String>(
-                                    value:
-                                        selectedYear, // Initial value (you should define this variable)
-                                    items: [
-                                      DropdownMenuItem(
-                                        value: AppConfig.year,
-                                        child: Text(
-                                          AppConfig.year,
-                                          style: DocumentTypeDataStyle.customTextStyle(context),
-                                        ),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: AppConfig.month,
-                                        child: Text(
-                                          AppConfig.month,
-                                          style: DocumentTypeDataStyle.customTextStyle(context),
-                                        ),
-                                      ),
-                                    ],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedYear =
-                                            value; // Update the selected option (Year/Month)
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      hintText: AppConfig.year,
-                                      hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                      contentPadding: EdgeInsets.only(bottom: 20),
-                                    ),
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      color: ColorManager.black,
-                                      size: IconSize.I16,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ],

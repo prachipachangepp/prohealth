@@ -45,7 +45,7 @@ class AddNewOrgDocButton extends StatefulWidget {
 
 class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
   bool _isFormValid = true;
-  String selectedExpiryType = "";
+  String selectedExpiryType = AppConfig.notApplicable;
   TextEditingController idDocController = TextEditingController();
   TextEditingController nameDocController = TextEditingController();
 

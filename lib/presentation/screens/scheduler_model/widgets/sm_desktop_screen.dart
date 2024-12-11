@@ -6,6 +6,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/intake_referral_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_calender/sm_calender.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/sm_dashboard_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_live_view/sm_live_view_screen.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/value_manager.dart';
@@ -178,7 +179,8 @@ class SMDesktopScreen extends StatelessWidget {
                   SMIntakeScreen(),
                   NewSchedulerScreen(),
                   SmCalenderScreen(),
-                  Container(color: ColorManager.grey),
+                  SmLiveViewMapScreen(),
+
 
                   // WhitelabellingScreen()
                 ],

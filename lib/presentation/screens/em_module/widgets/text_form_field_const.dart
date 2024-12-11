@@ -80,7 +80,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
                 TextSpan(
                   text: ' *', // Asterisk
                   style: AllPopupHeadings.customTextStyle(context).copyWith(
-                    color: Colors.red, // Asterisk color
+                    color: ColorManager.red, // Asterisk color
                   ),
                 ),
               ],
@@ -1088,10 +1088,24 @@ class _SSNTextFConstState extends State<SSNTextFConst> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.text,
-            style: AllPopupHeadings.customTextStyle(context),
+          RichText(
+            text: TextSpan(
+              text: widget.text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: ColorManager.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
           ),
+          // Text(
+          //   widget.text,
+          //   style: AllPopupHeadings.customTextStyle(context),
+          // ),
           SizedBox(
             height: 5,
           ),

@@ -83,9 +83,21 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                        'County',
-                        style: AllPopupHeadings.customTextStyle(context),),
+                    RichText(
+                      text: TextSpan(
+                        text: "County", // Main text
+                        style: AllPopupHeadings.customTextStyle(context), // Main style
+                        children: [
+                          TextSpan(
+                            text: ' *', // Asterisk
+                            style: AllPopupHeadings.customTextStyle(context).copyWith(
+                              color: ColorManager.red, // Asterisk color
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                 //   Text('County', style: AllPopupHeadings.customTextStyle(context),),
                     const SizedBox(height: 5),
                     FutureBuilder<List<AllCountyGetList>>(
                       future: getCountyZoneList(context),
@@ -102,12 +114,12 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                           return const Text("Error fetching counties");
                         } else if (snapshot.hasData) {
                           countyDropDownList.clear();
-                          countyDropDownList.add(
-                            const DropdownMenuItem<String>(
-                              child: Text('Select County'),
-                              value: 'Select County',
-                            ),
-                          );
+                          // countyDropDownList.add(
+                          //   const DropdownMenuItem<String>(
+                          //     child: Text('Select County'),
+                          //     value: 'Select County',
+                          //   ),
+                          // );
                           for (var county in snapshot.data!) {
                             countyDropDownList.add(
                               DropdownMenuItem<String>(
@@ -148,10 +160,21 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                   const SizedBox(height: 15),
 
                                   // Zone Label
-                                  Text(
-                                      'Zone',
-                                      style: AllPopupHeadings.customTextStyle(context),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: "Zone", // Main text
+                                      style: AllPopupHeadings.customTextStyle(context), // Main style
+                                      children: [
+                                        TextSpan(
+                                          text: ' *', // Asterisk
+                                          style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                            color: ColorManager.red, // Asterisk color
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
+                                 // Text('Zone', style: AllPopupHeadings.customTextStyle(context),),
                                   const SizedBox(height: 5),
 
                                   // Zone Dropdown with hint text
@@ -279,10 +302,22 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 18.0),
-                    child: Text(
-                        'Zip Codes',
-                        style: AllPopupHeadings.customTextStyle(context),
+                    child:
+                    RichText(
+                      text: TextSpan(
+                        text: "Zop Codes", // Main text
+                        style: AllPopupHeadings.customTextStyle(context), // Main style
+                        children: [
+                          TextSpan(
+                            text: ' *', // Asterisk
+                            style: AllPopupHeadings.customTextStyle(context).copyWith(
+                              color: ColorManager.red, // Asterisk color
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+                  //  Text('Zip Codes', style: AllPopupHeadings.customTextStyle(context),),
                   ),
                   /// Removed TabBar code
                   Expanded(

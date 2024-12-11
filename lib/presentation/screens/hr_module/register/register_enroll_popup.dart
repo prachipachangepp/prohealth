@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
-import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -136,27 +136,27 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
     // if (result.success) {
     // await _generateUrlLink(email, userId.toString());
     Navigator.pop(context);
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
-      //apiData: (),
-      employeeId: widget.employeeId,
-      email: widget.email.text,
-      userId: widget.userId,
-      status: widget.status,
-      firstName: widget.firstName.text,
-      lastName: widget.lastName.text,
-      role: widget.role,
-      position: position,
-      phone: phone.text,
-      reportingOffice: reportingOfficeId,
-      services: serviceVal,
-      employement: 'Full Time',
-      clinicalName: clinicialName,
-      soecalityName: speciality,
-      depId: widget.depId,
-      onRefreshRegister: () {
-        setState(() {});
-      },
-    )));
+    // Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
+    //   //apiData: (),
+    //   employeeId: widget.employeeId,
+    //   email: widget.email.text,
+    //   userId: widget.userId,
+    //   status: widget.status,
+    //   firstName: widget.firstName.text,
+    //   lastName: widget.lastName.text,
+    //   role: widget.role,
+    //   position: position,
+    //   phone: phone.text,
+    //   reportingOffice: reportingOfficeId,
+    //   services: serviceVal,
+    //   employement: 'Full Time',
+    //   clinicalName: clinicialName,
+    //   soecalityName: speciality,
+    //   depId: widget.depId,
+    //   onRefreshRegister: () {
+    //     setState(() {});
+    //   },
+    // )));
   }
   bool _isButtonEnabled = false;
   bool _isLoad = false;
@@ -245,7 +245,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
 
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  640,
+          height:  655,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -302,7 +302,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -713,9 +713,19 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              "Employment",
-                              style: AllPopupHeadings.customTextStyle(context),
+                            RichText(
+                              text: TextSpan(
+                                text: "Employment", // Main text
+                                style: AllPopupHeadings.customTextStyle(context), // Main style
+                                children: [
+                                  TextSpan(
+                                    text: ' *', // Asterisk
+                                    style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                      color: ColorManager.red, // Asterisk color
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -813,9 +823,19 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Service',
-                              style: AllPopupHeadings.customTextStyle(context),
+                            RichText(
+                              text: TextSpan(
+                                text: "Service", // Main text
+                                style: AllPopupHeadings.customTextStyle(context), // Main style
+                                children: [
+                                  TextSpan(
+                                    text: ' *', // Asterisk
+                                    style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                      color: ColorManager.red, // Asterisk color
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(height: 5,),
                             StatefulBuilder(
@@ -930,37 +950,37 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 widget.email.text,
                                 widget.userId
                                     .toString());
-                            ApiData response = await addEmpEnroll(
-                              context: context,
-                              employeeId: widget
-                                  .employeeId,
-                              code: "",
-                              userId: widget.userId,
-                              firstName: widget
-                                  .firstName.text,
-                              lastName: widget
-                                  .lastName.text,
-                              phoneNbr: phone.text,
-                              email: widget.email
-                                  .text,
-                              link: generatedURL,
-                              status: widget.status,
-                              departmentId: widget.depId,
-                              position: position
-                                  .text,
-                              speciality: speciality
-                                  .text,
-                              clinicianTypeId:clinicalId,
-                              reportingOfficeId: reportingOfficeId,
-                              cityId: cityId,
-                              countryId: countryId,
-                              countyId: countyId,
-                              zoneId: zoneId,
-                             // employment: "Full Time",
-                              employment: emptype.toString(),
-                             // service: "Hospice",
-                            service: selectedServiceName.toString(),
-                            );
+                            // ApiData response = await addEmpEnroll(
+                            //   context: context,
+                            //   employeeId: widget
+                            //       .employeeId,
+                            //   code: "",
+                            //   userId: widget.userId,
+                            //   firstName: widget
+                            //       .firstName.text,
+                            //   lastName: widget
+                            //       .lastName.text,
+                            //   phoneNbr: phone.text,
+                            //   email: widget.email
+                            //       .text,
+                            //   link: generatedURL,
+                            //   status: widget.status,
+                            //   departmentId: widget.depId,
+                            //   position: position
+                            //       .text,
+                            //   speciality: speciality
+                            //       .text,
+                            //   clinicianTypeId:clinicalId,
+                            //   reportingOfficeId: reportingOfficeId,
+                            //   cityId: cityId,
+                            //   countryId: countryId,
+                            //   countyId: countyId,
+                            //   zoneId: zoneId,
+                            //  // employment: "Full Time",
+                            //   employment: emptype.toString(),
+                            //  // service: "Hospice",
+                            // service: selectedServiceName.toString(),
+                            // );
                             print("countryname>>>> :: ${selectedCountry}");
                             print("countryID>>>>> :: ${countryId}");
                             print("countryID :: ${countryId}");
@@ -968,63 +988,108 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             setState(() {
                               _isLoading = false;
                             });
-                            widget.onReferesh();
-                            if (response.statusCode == 200 || response.statusCode == 201) {
+
+                            // if (response.statusCode == 200 || response.statusCode == 201) {
                               Navigator.pop(
                                   context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (
-                                          context) =>
-                                          OfferLetterScreen(
-                                            apiData: response,
-                                            employeeId: widget
-                                                .employeeId,
-                                            email: widget
-                                                .email
-                                                .text,
-                                            userId: widget
-                                                .userId,
-                                            status: widget
-                                                .status,
-                                            firstName: widget
-                                                .firstName
-                                                .text,
-                                            lastName: widget
-                                                .lastName
-                                                .text,
-                                            role: widget
-                                                .role,
-                                            position: position
-                                                .text,
-                                            phone: phone
-                                                .text,
-                                            reportingOffice: reportingOfficeId,
-                                            services: selectedService!,
-                                            employement: 'Full Time',
-                                            clinicalName: clinicialName,
-                                            soecalityName: specialityName,
-                                            onRefreshRegister: () {
-                                              setState(() {
-
-                                              });
-                                            }, depId: widget.depId,
-                                          )));
-                            } else if(response.statusCode == 400 || response.statusCode == 404){
-                              // Navigator.pop(context);
-                              await showDialog(
-                                context: context,
-                                builder: (BuildContext context) => const FourNotFourPopup(),
+                              Provider.of<RouteProvider>(context, listen: false)
+                                  .navigateWithData(
+                                context,
+                                    (ctx) => OfferLetterScreen(
+                                      //apiData: response,
+                                      employeeId: widget
+                                          .employeeId,
+                                      email: widget
+                                          .email
+                                          .text,
+                                      userId: widget
+                                          .userId,
+                                      status: widget
+                                          .status,
+                                      firstName: widget
+                                          .firstName
+                                          .text,
+                                      lastName: widget
+                                          .lastName
+                                          .text,
+                                      role: widget
+                                          .role,
+                                      position: position
+                                          .text,
+                                      phone: phone
+                                          .text,
+                                      reportingOffice: reportingOfficeId,
+                                      services: selectedServiceName.toString(),
+                                      employement: emptype.toString(),
+                                      clinicalId: clinicalId,
+                                      soecalityName: speciality.text,
+                                      onRefreshRegister: widget.onReferesh,
+                                      depId: widget.depId,
+                                      cityId: cityId,
+                                      countyId: countyId,
+                                      zoneId: zoneId,
+                                      link: generatedURL,
+                                      countryId: countryId,
+                                    ),
                               );
-                            }
-                            else {
-                              // Navigator.pop(context);
-                              await showDialog(
-                                context: context,
-                                builder: (BuildContext context) => FailedPopup(text: response.message),
-                              );
-                            }
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (
+                              //             context) =>
+                              //             OfferLetterScreen(
+                              //               apiData: response,
+                              //               employeeId: widget
+                              //                   .employeeId,
+                              //               email: widget
+                              //                   .email
+                              //                   .text,
+                              //               userId: widget
+                              //                   .userId,
+                              //               status: widget
+                              //                   .status,
+                              //               firstName: widget
+                              //                   .firstName
+                              //                   .text,
+                              //               lastName: widget
+                              //                   .lastName
+                              //                   .text,
+                              //               role: widget
+                              //                   .role,
+                              //               position: position
+                              //                   .text,
+                              //               phone: phone
+                              //                   .text,
+                              //               reportingOffice: reportingOfficeId,
+                              //               services: selectedServiceName.toString(),
+                              //               employement: emptype.toString(),
+                              //               clinicalId: clinicalId,
+                              //               soecalityName: speciality.text,
+                              //               onRefreshRegister: () {
+                              //                 setState(() {
+                              //
+                              //                 });
+                              //               }, depId: widget.depId,
+                              //               cityId: cityId,
+                              //               countyId: countyId,
+                              //               zoneId: zoneId,
+                              //               link: generatedURL,
+                              //               countryId: countryId,
+                              //             )));
+                            // } else if(response.statusCode == 400 || response.statusCode == 404){
+                            //   // Navigator.pop(context);
+                            //   await showDialog(
+                            //     context: context,
+                            //     builder: (BuildContext context) => const FourNotFourPopup(),
+                            //   );
+                            // }
+                            // else {
+                            //   // Navigator.pop(context);
+                            //   await showDialog(
+                            //     context: context,
+                            //     builder: (BuildContext context) => FailedPopup(text: response.message),
+                            //   );
+                            // }
                             print("${widget
                                 .employeeId}");
                           }
