@@ -93,7 +93,7 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                       child: Container(
 
                         decoration: BoxDecoration(
-                          border: Border.all(width: 1,color: ColorManager.greylight),
+                          border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
                               borderRadius: BorderRadius.all(
                                   Radius.circular(8))
                         ),
@@ -157,7 +157,7 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                       vertical: 5,),
                   child: Container(
                     // color: Colors.red,
-                    height: 70,
+                    height: 80,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:
@@ -186,7 +186,7 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                               ),
                               SizedBox(width: AppSize.s7),
                               Padding(
-                                padding: const EdgeInsets.only(top: 15),
+                                padding: const EdgeInsets.only(top: 18),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -194,7 +194,7 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                                       'Jeh Tiwari',
                                       style:DocumentTypeDataStyle.customTextStyle(context),
                                     ),
-                                    SizedBox(width: AppSize.s5),
+                                    SizedBox(height: AppSize.s3),
                                     Text(
                                       'Anxiety',
                                       style:DocumentTypeDataStyle.customTextStyle(context),
@@ -238,7 +238,7 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                color: Color(0xFF527FB9).withOpacity(0.3),
+                                color: Color(0xFF527FB9).withOpacity(0.5),
                                 width: 19,
                                 height: 19,
                                 child: Center(
@@ -284,8 +284,8 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(right: 50),
-                              child: Icon(Icons.call,color: ColorManager.greenDark,),
+                              padding: const EdgeInsets.only(right: 0),
+                              child: Image.asset("images/sm/contact.png",height: 50,width: 60,)
                             ),
                           ],
                         ),
