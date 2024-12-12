@@ -74,7 +74,6 @@ class _SmCalenderScreenState extends State<SmCalenderScreen> {
               return Container(
                     height: MediaQuery.of(context).size.height / 1,
                     child: CalenderConstant(schedularData: snapshot.data!, onBack: goBack,));
-
             }
             else{
               return const SizedBox();

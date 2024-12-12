@@ -145,12 +145,12 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                       onTap: (){
                         showDialog(context: context, builder: (context) => OfficeClinicianPopup());
                       },
-                      child: LinearCardWidget(headingText: EmDashboardStringManager.customerSatisfaction, totalCount: '04', totalValue: 04,icon: CupertinoIcons.bag_badge_plus,)),)),
+                      child: LinearCardWidget(headingText: EmDashboardStringManager.customerSatisfaction, totalCount: '04', totalValue: 04,imagePath: "images/em_dashboard/OCSR.png",)),)),
             SizedBox(width: AppSize.s15,),
             Expanded(
                 flex: 2,
                 child: EMDashboardContainerBBorderConst(
-                  child: LinearCardWidget(headingText: EmDashboardStringManager.continueEduCredit, totalCount: '30', totalValue: 30,icon: Icons.cast_for_education,),)),
+                  child: LinearCardWidget(headingText: EmDashboardStringManager.continueEduCredit, totalCount: '30', totalValue: 30,imagePath: "images/em_dashboard/CEC.png"),)),
             SizedBox(width: AppSize.s15,),
             Expanded(
                 flex: 2,
