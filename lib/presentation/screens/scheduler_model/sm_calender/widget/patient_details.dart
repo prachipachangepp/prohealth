@@ -444,7 +444,6 @@ class _PatientDetailsCalenderState extends State<PatientDetailsCalender> {
           ],
         ),
             ),
-
     );
   }
 }
