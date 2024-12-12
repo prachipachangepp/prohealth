@@ -181,15 +181,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         TextButton(
                           onPressed: () async {
                           // const url = "http://localhost:53372/#/onBordingWelcome";
-                          // const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                           const url = "${AppConfig.deployment}/#/onBordingWelcome";
                             //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                            Provider.of<RouteProvider>(context,listen:false).navigateToPage(context, OnBoardingWelcome());
+                          //  Provider.of<RouteProvider>(context,listen:false).navigateToPage(context, OnBoardingWelcome());
                             //const url = "${AppConfig.deployment}/#/onBordingWelcome";
-                            // if (await canLaunch(url)) {
-                            //   await launch(url);
-                            // } else {
-                            //   throw 'Could not launch $url';
-                            // }
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
                           },
                           child: Text(
                               'https://prohealth.symmetry.care/register',
