@@ -12,10 +12,11 @@ import '../../../../hr_module/dashboard/widgets/view_details_popup.dart';
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 class InformationUpdateScreen extends StatelessWidget {
-  const InformationUpdateScreen({super.key});
+   InformationUpdateScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _searchController = TextEditingController();
     return  Padding(
       padding: const EdgeInsets.symmetric(horizontal: 80.0),
       child: Column(
@@ -25,7 +26,31 @@ class InformationUpdateScreen extends StatelessWidget {
             //crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(color: ColorManager.red,width: 500,),
+              Container(
+                width: 320,
+                height: 35,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 5.0,
+                    ),
+                  ],
+                ),
+                child: TextField(
+                  controller: _searchController,
+                  textInputAction: TextInputAction.search,
+                  //onSubmitted: (value) => _performSearch(),
+                  decoration: InputDecoration(
+                    hintText: "Search location",
+                    suffixIcon: Icon(Icons.search),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10,),
                 child: Container(
