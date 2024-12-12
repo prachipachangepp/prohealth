@@ -124,7 +124,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                     hintText: "Search location",
                     suffixIcon: Icon(Icons.search),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 6),
                   ),
                 ),
               ),
