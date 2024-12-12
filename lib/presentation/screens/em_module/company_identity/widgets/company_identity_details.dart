@@ -222,8 +222,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                             right: 25,
-                            // left: 25,
+                            // right: 25,
+                             left: 100,
                             top: 10, bottom: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -231,7 +231,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                           children: [
                             Container(
                               height: 170,
-                              width: 400,
+                              width: 450,
                               decoration: BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
@@ -263,23 +263,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 10),
-                                              child: Container(
-                                                width: 300,
-                                                child: Text(serviceDetail
-                                                    .serviceName,style: TextStyle(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: Colors.white),),
-                                                // CheckboxTileDetails(
-                                                //   title: serviceDetail
-                                                //       .serviceName,
-                                                //   initialValue: isChecked,
-                                                //   onChanged: (value) {
-                                                //     setState(() {
-                                                //       isChecked = !isChecked;
-                                                //     });
-                                                //   },
-                                                // )
-                                              ),
+                                              padding: EdgeInsets.only(left: 20),
+                                              child: Text(serviceDetail
+                                                  .serviceName,style: PopupBlueBarText.customTextStyle(context),),
                                             ),
                                             Row(
                                               children: [
@@ -610,45 +596,49 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FirstSMTextFConst(
-                              controller: nameController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringEM.officename,
-                            ),
-                            const SizedBox(height: AppSize.s10),
-                            SMTextFConstPhone(
-                              controller: secNumberController,
-                              keyboardType: TextInputType.number,
-                              text: AppStringEM.secNum,
-                            ),
-                            const SizedBox(height: AppSize.s10),
-                            FirstSMTextFConst(
-                              controller: stateNameController,
-                              keyboardType: TextInputType.text,
-                              text: AppStringEM.stateName,
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 50),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              FirstSMTextFConst(
+                                controller: nameController,
+                                keyboardType: TextInputType.text,
+                                text: AppStringEM.officename,
+                              ),
+                              const SizedBox(height: AppSize.s10),
+                              SMTextFConstPhone(
+                                controller: secNumberController,
+                                keyboardType: TextInputType.number,
+                                text: AppStringEM.secNum,
+                              ),
+                              const SizedBox(height: AppSize.s10),
+                              FirstSMTextFConst(
+                                controller: stateNameController,
+                                keyboardType: TextInputType.text,
+                                text: AppStringEM.stateName,
+                              ),
 
-                            // AddressInput(controller: addressController),
-                            // SMTextFConst(
-                            //
-                            //   controller: addressController,
-                            //   keyboardType: TextInputType.text,
-                            //   text: AppStringEM.address,
-                            // ),
-                            const SizedBox(height: AppSize.s10),
-                            AddressInput(
-                              controller: addressController,
-                              onSuggestionSelected: (selectedSuggestion) {
-                                // Handle the selected suggestion here
-                                print("Selected suggestion: $selectedSuggestion");
-                              }, onChanged: (String ) {  },
-                            ),
-                          ],
+                              // AddressInput(controller: addressController),
+                              // SMTextFConst(
+                              //
+                              //   controller: addressController,
+                              //   keyboardType: TextInputType.text,
+                              //   text: AppStringEM.address,
+                              // ),
+                              const SizedBox(height: AppSize.s10),
+                              AddressInput(
+                                controller: addressController,
+                                onSuggestionSelected: (selectedSuggestion) {
+                                  // Handle the selected suggestion here
+                                  print("Selected suggestion: $selectedSuggestion");
+                                }, onChanged: (String ) {  },
+                              ),
+                            ],
+                          ),
                         ),
+
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,

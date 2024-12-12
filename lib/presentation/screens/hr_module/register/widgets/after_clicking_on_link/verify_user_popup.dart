@@ -34,12 +34,12 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
   bool _isVerifyingOTP = false;
   String? _errorMessage = "";
 
-  Future<void> _verifyOTPAndProcess(String email, String otp) async {
+  Future<void> _verifyOTPAndProcess(String email,) async {
     setState(() {
       _isVerifyingOTP = true;
       _errorMessage = "";
     });
-    String enteredOTP = otp;
+    String enteredOTP = otpControllers.map((controller) => controller.text).join();
     try {
       ApiDataRegister result = await AuthManager.verifyOTPAndRegister(
           email: email, otp: enteredOTP, context: context);
@@ -151,7 +151,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
     return RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(email);
   }
   List<TextEditingController> otpControllers = List.generate(6, (index) => TextEditingController());
-  List<FocusNode> otpFocusNodes = List.generate(6, (index) => FocusNode());
+  //List<FocusNode> otpFocusNodes = List.generate(6, (index) => FocusNode());
 
 
   @override
@@ -364,53 +364,56 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                             children: List.generate(6, (index) {
                               return SizedBox(
                                 width: 40, // Width of each box
-                                child: TextFormField(
-                                  cursorColor: Colors.black,
-                                  controller: otpControllers[index],
-                                  style: onlyFormDataStyle.customTextStyle(context),
-                                  enabled: otpEnabled,
-                                  focusNode: otpFocusNodes[index],
-                                  decoration: InputDecoration(
-                                    isDense: true,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      borderSide: const BorderSide(
-                                        color: Color(0xffB1B1B1),
+                                  child: TextFormField(
+                                    cursorColor: Colors.black,
+                                    controller: otpControllers[index],
+                                    style: onlyFormDataStyle.customTextStyle(context),
+                                    enabled: otpEnabled,
+                                    focusNode: _focusNodes[index],
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: const BorderSide(
+                                          color: Color(0xffB1B1B1),
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: const BorderSide(
+                                          color: Color(0xffB1B1B1),
+                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: const BorderSide(
+                                          color: Color(0xffB1B1B1),
+                                        ),
                                       ),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      borderSide: const BorderSide(
-                                        color: Color(0xffB1B1B1),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      borderSide: const BorderSide(
-                                        color: Color(0xffB1B1B1),
-                                      ),
-                                    ),
+                                    onChanged: (value) {
+                                      if (value.isNotEmpty && index < 5) {
+                                        FocusScope.of(context).nextFocus();
+                                      } else if (value.isEmpty && index > 0) {
+                                        FocusScope.of(context).previousFocus();
+                                      }else if (value.isNotEmpty && index == 5) {
+                                        // Last field, perform action (e.g., verify OTP)
+                                        _verifyOTPAndProcess(emailController.text,);
+                                      }
+                                    },
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Enter digit';
+                                      }
+                                      return null;
+                                    },
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly, // Only allow digits
+                                      LengthLimitingTextInputFormatter(1), // Limit to one character
+                                    ],
+                                    textAlign: TextAlign.center, // Center text in the box
+                                    keyboardType: TextInputType.number,
                                   ),
-                                  onChanged: (value) {
-                                    if (value.isNotEmpty && index < 5) {
-                                      FocusScope.of(context).nextFocus();
-                                    } else if (value.isEmpty && index > 0) {
-                                      FocusScope.of(context).previousFocus();
-                                    }
-                                  },
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Enter digit';
-                                    }
-                                    return null;
-                                  },
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly, // Only allow digits
-                                    LengthLimitingTextInputFormatter(1), // Limit to one character
-                                  ],
-                                  textAlign: TextAlign.center, // Center text in the box
-                                  keyboardType: TextInputType.number,
-                                ),
                               );
                             }),
                           ),
@@ -555,13 +558,13 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                 ? () async {
                                     if (_formKey.currentState!.validate()) {
                                       String email = emailController.text;
-                                      String otp = otpControllers.map((controller) => controller.text).join();
+
 
                                       setState(() {
                                         isOtpLoading = true;
                                         // Start timer
                                       });
-                                      await _verifyOTPAndProcess(email, otp);
+                                      await _verifyOTPAndProcess(email,);
                                       Future.delayed(
                                         const Duration(seconds: 2),
                                         () {
@@ -591,7 +594,10 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                     }
                                   }
                                 : null,
-                            child: Text(
+                            child: _isVerifyingOTP ? Text(
+                            AppString.verify ,
+                                style: BlueButtonTextConst.customTextStyle(context)
+                            ): Text(
                               'Submit',
                               style: BlueButtonTextConst.customTextStyle(context)
                             ),
