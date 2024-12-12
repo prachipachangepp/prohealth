@@ -5,7 +5,7 @@
 //   static const String demo = "https://demoapp.symmetry.care";
 //   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
 //   static const String deployment = "https://prohealth.symmetry.care";
-//   static const String version = "Version 1.0.10 (7) demo";
+//   static const String version = "Version 1.0.10 (8) demo";
 //
 //   ///
 //   static const String local = "";
