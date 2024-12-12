@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/sm_intake_screen.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -7,6 +9,7 @@ import '../../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../hr_module/dashboard/widgets/view_details_popup.dart';
+import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 class InformationUpdateScreen extends StatelessWidget {
   const InformationUpdateScreen({super.key});
@@ -17,6 +20,56 @@ class InformationUpdateScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 80.0),
       child: Column(
         children: [
+          ///button
+          Row(
+            //crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(color: ColorManager.red,width: 500,),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10,),
+                child: Container(
+                  height: 33,
+                  child: CustomIconButton(
+                    color: ColorManager.bluebottom,
+                      icon: Icons.add,
+                      text: "Add Patient",
+                      onPressed: () async {
+                        // showDialog(
+                        //     context: context,
+                        //     builder: (context) {
+                        //       return FutureBuilder<List<TypeofDocpopup>>(
+                        //           future: getTypeofDoc(
+                        //               context, docTypeMetaIdCC, selectedSubDocId),
+                        //           builder: (contex, snapshot) {
+                        //             if (snapshot.connectionState ==
+                        //                 ConnectionState.waiting) {
+                        //               return Center(
+                        //                   child: CircularProgressIndicator());
+                        //             }
+                        //             if (snapshot.hasData) {
+                        //               return UploadDocumentAddPopup(
+                        //                 loadingDuration: _isLoading,
+                        //                 title: 'Upload Document',
+                        //                 officeId: widget.officeId,
+                        //                 docTypeMetaIdCC: docTypeMetaIdCC,
+                        //                 selectedSubDocId: selectedSubDocId,
+                        //                 dataList: snapshot.data!,
+                        //                 docTypeText: AppStringEM.corporateAndComplianceDocuments,
+                        //                 subDocTypeText: getSubDocTypeText(selectedSubDocId),
+                        //               );
+                        //             } else {
+                        //               return ErrorPopUp(
+                        //                   title: "Received Error",
+                        //                   text: snapshot.error.toString());
+                        //             }
+                        //           });
+                        //     });
+                      }),
+                ),
+              ),
+            ],
+          ),
           Expanded(
               child: ListView.builder(
               scrollDirection: Axis.vertical,
@@ -125,7 +178,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                 "Prohealth App",
                                 textAlign: TextAlign.start,
                                 style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w400,
                                   color: ColorManager.textBlack,),
                               ),
                             ],
@@ -135,18 +188,18 @@ class InformationUpdateScreen extends StatelessWidget {
                       ),
                     ),
                    Image.asset("images/sm/contact.png",height: 50,width: 80,fit: BoxFit.fill,),
-                    // LinearProgressIndicator(
-                    //   backgroundColor: ColorManager.white,
-                    //   color: ColorManager.blueprime,
-                    //   value: 50/100,
-                    // ),
+                    ///conditional button don't delete
                     Container(
                       height:33,
-                      width: 100,
+                      width: 160,
                       child: ElevatedButton.icon(
-                        icon: Icon(Icons.edit_outlined),
+                        icon: Padding(
+                          padding: const EdgeInsets.only(right: 15.0),
+                          child: Icon(Icons.edit_outlined,size: 20,),
+                        ),
                         onPressed: (){
-                          showDialog(context: context, builder: (context) => ViewDetailsPopup());
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SMIntakeScreen()));
+                          //showDialog(context: context, builder: (context) => ViewDetailsPopup());
                         },
 
                         style: ElevatedButton.styleFrom(
@@ -163,7 +216,30 @@ class InformationUpdateScreen extends StatelessWidget {
                                 color: ColorManager.white,)
                                 ),
                       ),
-                    )
+                    ),
+                    // Container(
+                    //   height:33,
+                    //   width: 160,
+                    //   child: ElevatedButton.icon(
+                    //     icon: Image.asset("images/sm/calendar.png",height: 20,width: 20,),
+                    //     onPressed: (){
+                    //       showDialog(context: context, builder: (context) => ViewDetailsPopup());
+                    //     },
+                    //     style: ElevatedButton.styleFrom(
+                    //       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    //       backgroundColor: ColorManager.white,
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(12),
+                    //         side: BorderSide(color: ColorManager.bluebottom),
+                    //       ),
+                    //     ), label: Text(
+                    //             "Move to Schedular",
+                    //             style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                    //             fontWeight: FontWeight.w500,
+                    //             color: ColorManager.bluebottom,)
+                    //             ),
+                    //   ),
+                    // ),
                   ],),
                 ),
                 SizedBox(height: AppSize.s5),
