@@ -6,6 +6,7 @@ import '../../../../../../../app/resources/common_resources/common_theme_const.d
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 
 class SocPageView extends StatefulWidget {
   const SocPageView({super.key});
@@ -75,9 +76,44 @@ class _SocPageViewState extends State<SocPageView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [ Text("Employee Type"), IconButton(onPressed: (){}, icon: Icon(Icons.arrow_drop_down_sharp))],),),
-                    Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [ Text("Clinician Type"), IconButton(onPressed: (){}, icon: Icon(Icons.arrow_drop_down_sharp))],),),
-
+                    CustomDropdownTextField(
+                      width: 150,
+                      isAstric:false,
+                      // Adjust headText based on depId
+                      initialValue: 'Employee Type',
+                      headText: "", // Default fallback if depId doesn't match any of the expected values
+                      items: ['Employee 1','Employee 2','Employee 3'],
+                      onChanged: (newValue) {
+                        // for (var a in snapshot.data!) {
+                        //   if (a.empType == newValue) {
+                        //     clinicialName = a.empType!;
+                        //     clinicalId = a.employeeTypesId!;
+                        //     print("Dept ID'''''' ${clinicalId}");
+                        //     print("';';';''''''''Dept ID ${clinicialName}");
+                        //     // Do something with docType
+                        //   }
+                        // }
+                      },
+                    ),
+                    CustomDropdownTextField(
+                      width:150,
+                      isAstric:false,
+                      // Adjust headText based on depId
+                      initialValue: 'Clinician Type',
+                      headText: "", // Default fallback if depId doesn't match any of the expected values
+                      items: ['Clinical 1','Clinical 2','Clinical 3'],
+                      onChanged: (newValue) {
+                        // for (var a in snapshot.data!) {
+                        //   if (a.empType == newValue) {
+                        //     clinicialName = a.empType!;
+                        //     clinicalId = a.employeeTypesId!;
+                        //     print("Dept ID'''''' ${clinicalId}");
+                        //     print("';';';''''''''Dept ID ${clinicialName}");
+                        //     // Do something with docType
+                        //   }
+                        // }
+                      },
+                    ),
 
 
                     Padding(
@@ -89,10 +125,29 @@ class _SocPageViewState extends State<SocPageView> {
                             borderRadius: BorderRadius.all(
                                 Radius.circular(8))
                         ),
-                        child:buildDropdownButton(context),
+                        // child:buildDropdownButton(context),
+                        child: CustomDropdownTextField(
+                          width:100,
+                          height: 32,
+                          isAstric:false,
+                          // Adjust headText based on depId
+                          initialValue: 'Filter by',
+                          headText: "", // Default fallback if depId doesn't match any of the expected values
+                          items: ['Clinical 1','Clinical 2','Clinical 3'],
+                          onChanged: (newValue) {
+                            // for (var a in snapshot.data!) {
+                            //   if (a.empType == newValue) {
+                            //     clinicialName = a.empType!;
+                            //     clinicalId = a.employeeTypesId!;
+                            //     print("Dept ID'''''' ${clinicalId}");
+                            //     print("';';';''''''''Dept ID ${clinicialName}");
+                            //     // Do something with docType
+                            //   }
+                            // }
+                          },
+                        ),
                       ),
                     ),
-
                   ],
                 ),
               ],
@@ -250,7 +305,7 @@ class _SocPageViewState extends State<SocPageView> {
 
                             Padding(
                                 padding: const EdgeInsets.only(right: 0),
-                                child: Image.asset("images/sm/contact.png",height: 50,width: 60,)
+                                child: Image.asset("images/sm/contact_schedular.png",height: 50,width: 60,)
                             ),
                             Padding(
                               padding: const EdgeInsets.only(right: 30,left: 10),
@@ -263,7 +318,7 @@ class _SocPageViewState extends State<SocPageView> {
                                   height:40,
                                   width: 40,
 
-                                  child: Icon(Icons.edit,color: ColorManager.bluebottom,)),
+                                  child: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
                             ),
                             // Container(
                             //     width: 200,

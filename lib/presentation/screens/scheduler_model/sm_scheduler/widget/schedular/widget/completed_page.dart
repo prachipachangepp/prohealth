@@ -6,6 +6,7 @@ import '../../../../../../../app/resources/common_resources/common_theme_const.d
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 
 class CompletedPageView extends StatefulWidget {
   const CompletedPageView({super.key});
@@ -77,15 +78,36 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                   children: [
 
                     Padding(
-                      padding: const EdgeInsets.only(right: 5),
+                      padding: const EdgeInsets.only(right: 20),
                       child: Container(
+                       // height: 32,
 
                         decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
+                            border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
                             borderRadius: BorderRadius.all(
                                 Radius.circular(8))
                         ),
-                        child:buildDropdownButton(context),
+                        // child:buildDropdownButton(context),
+                        child: CustomDropdownTextField(
+                          width:100,
+
+                          isAstric:false,
+                          // Adjust headText based on depId
+                          initialValue: 'Filter by',
+                          headText: "", // Default fallback if depId doesn't match any of the expected values
+                          items: ['Clinical 1','Clinical 2','Clinical 3'],
+                          onChanged: (newValue) {
+                            // for (var a in snapshot.data!) {
+                            //   if (a.empType == newValue) {
+                            //     clinicialName = a.empType!;
+                            //     clinicalId = a.employeeTypesId!;
+                            //     print("Dept ID'''''' ${clinicalId}");
+                            //     print("';';';''''''''Dept ID ${clinicialName}");
+                            //     // Do something with docType
+                            //   }
+                            // }
+                          },
+                        ),
                       ),
                     ),
 
