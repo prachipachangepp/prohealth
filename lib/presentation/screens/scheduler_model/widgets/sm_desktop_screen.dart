@@ -177,8 +177,8 @@ class SMDesktopScreen extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   SMDashboardScreen(),
-                  //IntakeMainScreen(),
-                  SMIntakeScreen(),
+                  IntakeMainScreen(),
+                  //SMIntakeScreen(),
                   NewSchedulerScreen(),
                   SmCalenderScreen(),
                   SmLiveViewMapScreen(),
