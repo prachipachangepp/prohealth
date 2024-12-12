@@ -351,10 +351,6 @@
 //     }
 //   }
 // }
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -362,6 +358,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/scheduler/scheduler_create_manager.dart';
@@ -370,7 +367,9 @@ import 'package:prohealth/data/api_data/sm_data/scheduler_create_data/create_dat
 import 'package:prohealth/data/api_data/sm_data/scheduler_create_data/schedular_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_calender/widget/patient_details.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular_create/widget/edit_calender_schedule_popup.dart';
+import 'package:provider/provider.dart';
 
 import 'assign_visit_pop_up.dart';
 
@@ -477,82 +476,115 @@ class _CalenderConstantState extends State<CalenderConstant> {
   /// Edit schedule
   String? editSelectedValue;
   String? editDocAddVisitType;
+  final PageController _pageController = PageController();
 
+  int selectedIndex = 0;
+  void selectButton(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
+  }
+
+  void goBack() {
+    if (selectedIndex > 0) {
+      setState(() {
+        selectedIndex--;
+      });
+      _pageController.animateToPage(
+        selectedIndex,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    return CalendarControllerProvider(
-      controller: eventController,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          backgroundColor: Colors.white,
-          body: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton.icon(
-                      onPressed: widget.onBack,
-                      label: Text(
-                        'Back',
-                        style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.textBlack),
-                      ),
-                      icon: Icon(Icons.keyboard_arrow_left_rounded, color: ColorManager.textBlack),
-                    ),
-                    Row(
+    return PageView(
+      controller: _pageController,
+      physics: NeverScrollableScrollPhysics(),
+      children: [
+        CalendarControllerProvider(
+          controller: eventController,
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              backgroundColor: Colors.white,
+              body: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                      ElevatedButton(
-                        onPressed: () => setState(() => _selectedView = 'Day'),
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
-                          backgroundColor: _selectedView == 'Day' ? ColorManager.red : ColorManager.white,
-                          foregroundColor: _selectedView == 'Day' ? ColorManager.white : ColorManager.mediumgrey,
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        TextButton.icon(
+                          onPressed: widget.onBack,
+                          label: Text(
+                            'Back',
+                            style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s14,
+                                fontWeight: FontWeightManager.medium,
+                                color: ColorManager.textBlack),
+                          ),
+                          icon: Icon(Icons.keyboard_arrow_left_rounded, color: ColorManager.textBlack),
                         ),
-                        child: Text('Day'),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () => setState(() => _selectedView = 'Week'),
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
-                          backgroundColor: _selectedView == 'Week' ? ColorManager.red : ColorManager.white,
-                          foregroundColor: _selectedView == 'Week' ? ColorManager.white : ColorManager.mediumgrey,
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        ),
-                        child: Text('Week'),
-                      ),
-                    ],)
+                        Row(
+                          children: [
+                          ElevatedButton(
+                            onPressed: () => setState(() => _selectedView = 'Day'),
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
+                              backgroundColor: _selectedView == 'Day' ? ColorManager.red : ColorManager.white,
+                              foregroundColor: _selectedView == 'Day' ? ColorManager.white : ColorManager.mediumgrey,
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            ),
+                            child: Text('Day'),
+                          ),
+                          const SizedBox(width: 10),
+                          ElevatedButton(
+                            onPressed: () => setState(() => _selectedView = 'Week'),
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
+                              backgroundColor: _selectedView == 'Week' ? ColorManager.red : ColorManager.white,
+                              foregroundColor: _selectedView == 'Week' ? ColorManager.white : ColorManager.mediumgrey,
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            ),
+                            child: Text('Week'),
+                          ),
+                        ],)
 
-                    // const SizedBox(width: 10),
-                    // ElevatedButton(
-                    //   onPressed: () => setState(() => _selectedView = 'Month'),
-                    //   style: ElevatedButton.styleFrom(
-                    //     backgroundColor: _selectedView == 'Month' ? ColorManager.blueprime : ColorManager.white,
-                    //     foregroundColor: _selectedView == 'Month' ? ColorManager.white : ColorManager.mediumgrey,
-                    //     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    //   ),
-                    //   child: Text('Month'),
-                    // ),
-                  ],
-                ),
+                        // const SizedBox(width: 10),
+                        // ElevatedButton(
+                        //   onPressed: () => setState(() => _selectedView = 'Month'),
+                        //   style: ElevatedButton.styleFrom(
+                        //     backgroundColor: _selectedView == 'Month' ? ColorManager.blueprime : ColorManager.white,
+                        //     foregroundColor: _selectedView == 'Month' ? ColorManager.white : ColorManager.mediumgrey,
+                        //     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        //   ),
+                        //   child: Text('Month'),
+                        // ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: Colors.redAccent,
+                      child: _buildCalendarView(),
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: Container(
-                  color: Colors.redAccent,
-                  child: _buildCalendarView(),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+        PatientDetailsCalender(onBack: goBack,),
+      ],
     );
   }
 
@@ -569,162 +601,165 @@ class _CalenderConstantState extends State<CalenderConstant> {
                   return InkWell(
                     onTap: (){
                       int? schedulerId = eventSchedulerMap[event];
-                      if(schedulerId != null){
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return FutureBuilder<CreatePrefillDataScheduler>(future: getPreFillCalenderData(context: context,schedulerCreateId: schedulerId),
-                              builder: (BuildContext context,snapshot) {
-                                if(snapshot.connectionState == ConnectionState.waiting){
-                                  return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                }
-                                var patientId = snapshot.data!.patientId;
-                                var details = snapshot.data!.details;
-                                editCtlrdetails = TextEditingController(text: snapshot.data!.details);
-
-                                //var patientName = "${snapshot.data!.patientFirstName} ${snapshot.data!.patientLastName}";
-
-                                var assignedate = snapshot.data!.assignDate;
-                                editCtlrassignedate = TextEditingController(text: snapshot.data!.assignDate);
-
-                                var startTime = snapshot.data!.startTime;
-                                editCctlrstarttime = TextEditingController(text: snapshot.data!.startTime);
-
-                                var endTime = snapshot.data!.endTime;
-                                editCctlrendtime = TextEditingController(text: snapshot.data!.endTime);
-                                return EditCalenderSchedulePopup(onPressed: () async{
-                                  var response = await updateScheduleCalender(
-                                    context: context, schedulerCreateId: schedulerId,
-                                    patientId: 1, clinicianId: 134,
-                                    visitType: docAddVisitType!,
-                                    assignDate: assignedate == editCtlrassignedate.text ? assignedate.toString() : editCtlrassignedate.text,
-                                    startTime: startTime == editCctlrstarttime.text ? startTime.toString() :editCctlrstarttime.text ,
-                                    endTime: endTime == editCctlrendtime.text ? endTime.toString() : editCctlrendtime.text,
-                                    details: details == editCtlrdetails.text ? details.toString() : editCtlrdetails.text,);
-
-                                  fetchAndSetEvents(context, 134);
-                                  if(response.statusCode == 200 || response.statusCode == 201){
-                                    ctlrassignedate.clear();
-                                    ctlrstarttime.clear();
-                                    ctlrendtime.clear();
-                                    ctlrdetails.clear();
-                                    Navigator.pop(context);
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Dialog(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(15.0), // Rounded corners
-                                          ),
-                                          child: Container(
-                                            height: 270,
-                                            width: 300,
-                                            padding: EdgeInsets.all(20.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15.0), // Rounded corners
-                                              color: Colors.white, // Background color
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: <Widget>[
-                                                Icon(
-                                                  Icons.check_circle_outline,
-                                                  color: Color(0xFF50B5E5),
-                                                  size: 80.0,
-                                                ),
-                                                SizedBox(height: 20.0),
-                                                Text(
-                                                  "Successfully Edit !",
-                                                  style: GoogleFonts.firaSans(
-                                                      fontSize: 16.0,
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w700),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                SizedBox(height: 30.0),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    CustomButton(
-                                                        height: 30,
-                                                        width: 130,
-                                                        text: 'Continue',
-                                                        onPressed: () {
-                                                          Navigator.pop(context);
-                                                        })
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }
-                                },
-                                  ctlrdetails: editCtlrdetails, ctlrassignedate: editCtlrassignedate,
-                                  ctlrstarttime: editCctlrstarttime, ctlrendtime: editCctlrendtime,
-                                  child: FutureBuilder<List<VisitListData>>(
-                                    future: getVisitList(context),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
-                                        return Container(
-                                          width: 354,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            color: ColorManager.white,
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshot.hasData && snapshot.data!.isEmpty) {
-                                        return Center(
-                                          child: Text(
-                                            AppString.dataNotFound,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              fontWeight: FontWeightManager.medium,
-                                              fontSize: FontSize.s14,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshot.hasData) {
-                                        List<DropdownMenuItem<String>> dropDownZoneList = [];
-                                        for (var i in snapshot.data!) {
-                                          dropDownZoneList.add(
-                                            DropdownMenuItem<String>(
-                                              child: Text(i.visitType),
-                                              value: i.visitType,
-                                            ),
-                                          );
-                                        }
-                                        return CICCDropdown(
-                                          initialValue: dropDownZoneList.isNotEmpty
-                                              ? dropDownZoneList[0].value
-                                              : null,
-                                          onChange: (val) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.visitType == val) {
-                                                docAddVisitType = a.visitType;
-                                              }
-                                            }
-                                          },
-                                          items: dropDownZoneList,
-                                        );
-                                      }
-                                      return const SizedBox();
-                                    },
-                                  ),
-                                );
-                              },
-
-                            );
-                          },
-                        );
-                      }else{
-                        print("ScheduleId error");
-                      }
+                      selectButton(1);
+                      //Provider.of<RouteProvider>(context,listen:false).navigateToPage(context, PatientDetailsCalender());
+                      // if(schedulerId != null){
+                      //   showDialog(
+                      //     context: context,
+                      //     builder: (context) {
+                      //       return FutureBuilder<CreatePrefillDataScheduler>(future: getPreFillCalenderData(context: context,schedulerCreateId: schedulerId),
+                      //         builder: (BuildContext context,snapshot) {
+                      //           if(snapshot.connectionState == ConnectionState.waiting){
+                      //             return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                      //           }
+                      //           var patientId = snapshot.data!.patientId;
+                      //           var details = snapshot.data!.details;
+                      //           editCtlrdetails = TextEditingController(text: snapshot.data!.details);
+                      //
+                      //           //var patientName = "${snapshot.data!.patientFirstName} ${snapshot.data!.patientLastName}";
+                      //
+                      //           var assignedate = snapshot.data!.assignDate;
+                      //           editCtlrassignedate = TextEditingController(text: snapshot.data!.assignDate);
+                      //
+                      //           var startTime = snapshot.data!.startTime;
+                      //           editCctlrstarttime = TextEditingController(text: snapshot.data!.startTime);
+                      //
+                      //           var endTime = snapshot.data!.endTime;
+                      //           editCctlrendtime = TextEditingController(text: snapshot.data!.endTime);
+                      //           return EditCalenderSchedulePopup(onPressed: () async{
+                      //             var response = await updateScheduleCalender(
+                      //               context: context, schedulerCreateId: schedulerId,
+                      //               patientId: 1, clinicianId: 134,
+                      //               visitType: docAddVisitType!,
+                      //               assignDate: assignedate == editCtlrassignedate.text ? assignedate.toString() : editCtlrassignedate.text,
+                      //               startTime: startTime == editCctlrstarttime.text ? startTime.toString() :editCctlrstarttime.text ,
+                      //               endTime: endTime == editCctlrendtime.text ? endTime.toString() : editCctlrendtime.text,
+                      //               details: details == editCtlrdetails.text ? details.toString() : editCtlrdetails.text,);
+                      //
+                      //             fetchAndSetEvents(context, 134);
+                      //             if(response.statusCode == 200 || response.statusCode == 201){
+                      //               ctlrassignedate.clear();
+                      //               ctlrstarttime.clear();
+                      //               ctlrendtime.clear();
+                      //               ctlrdetails.clear();
+                      //               Navigator.pop(context);
+                      //               showDialog(
+                      //                 context: context,
+                      //                 builder: (BuildContext context) {
+                      //                   return Dialog(
+                      //                     shape: RoundedRectangleBorder(
+                      //                       borderRadius: BorderRadius.circular(15.0), // Rounded corners
+                      //                     ),
+                      //                     child: Container(
+                      //                       height: 270,
+                      //                       width: 300,
+                      //                       padding: EdgeInsets.all(20.0),
+                      //                       decoration: BoxDecoration(
+                      //                         borderRadius: BorderRadius.circular(15.0), // Rounded corners
+                      //                         color: Colors.white, // Background color
+                      //                       ),
+                      //                       child: Column(
+                      //                         mainAxisSize: MainAxisSize.min,
+                      //                         children: <Widget>[
+                      //                           Icon(
+                      //                             Icons.check_circle_outline,
+                      //                             color: Color(0xFF50B5E5),
+                      //                             size: 80.0,
+                      //                           ),
+                      //                           SizedBox(height: 20.0),
+                      //                           Text(
+                      //                             "Successfully Edit !",
+                      //                             style: GoogleFonts.firaSans(
+                      //                                 fontSize: 16.0,
+                      //                                 color: Colors.black,
+                      //                                 fontWeight: FontWeight.w700),
+                      //                             textAlign: TextAlign.center,
+                      //                           ),
+                      //                           SizedBox(height: 30.0),
+                      //                           Row(
+                      //                             mainAxisAlignment: MainAxisAlignment.center,
+                      //                             children: <Widget>[
+                      //                               CustomButton(
+                      //                                   height: 30,
+                      //                                   width: 130,
+                      //                                   text: 'Continue',
+                      //                                   onPressed: () {
+                      //                                     Navigator.pop(context);
+                      //                                   })
+                      //                             ],
+                      //                           ),
+                      //                         ],
+                      //                       ),
+                      //                     ),
+                      //                   );
+                      //                 },
+                      //               );
+                      //             }
+                      //           },
+                      //             ctlrdetails: editCtlrdetails, ctlrassignedate: editCtlrassignedate,
+                      //             ctlrstarttime: editCctlrstarttime, ctlrendtime: editCctlrendtime,
+                      //             child: FutureBuilder<List<VisitListData>>(
+                      //               future: getVisitList(context),
+                      //               builder: (context, snapshot) {
+                      //                 if (snapshot.connectionState == ConnectionState.waiting) {
+                      //                   return Container(
+                      //                     width: 354,
+                      //                     height: 30,
+                      //                     decoration: BoxDecoration(
+                      //                       color: ColorManager.white,
+                      //                       borderRadius: BorderRadius.circular(10),
+                      //                     ),
+                      //                   );
+                      //                 }
+                      //                 if (snapshot.hasData && snapshot.data!.isEmpty) {
+                      //                   return Center(
+                      //                     child: Text(
+                      //                       AppString.dataNotFound,
+                      //                       style: CustomTextStylesCommon.commonStyle(
+                      //                         fontWeight: FontWeightManager.medium,
+                      //                         fontSize: FontSize.s14,
+                      //                         color: ColorManager.mediumgrey,
+                      //                       ),
+                      //                     ),
+                      //                   );
+                      //                 }
+                      //                 if (snapshot.hasData) {
+                      //                   List<DropdownMenuItem<String>> dropDownZoneList = [];
+                      //                   for (var i in snapshot.data!) {
+                      //                     dropDownZoneList.add(
+                      //                       DropdownMenuItem<String>(
+                      //                         child: Text(i.visitType),
+                      //                         value: i.visitType,
+                      //                       ),
+                      //                     );
+                      //                   }
+                      //                   return CICCDropdown(
+                      //                     initialValue: dropDownZoneList.isNotEmpty
+                      //                         ? dropDownZoneList[0].value
+                      //                         : null,
+                      //                     onChange: (val) {
+                      //                       for (var a in snapshot.data!) {
+                      //                         if (a.visitType == val) {
+                      //                           docAddVisitType = a.visitType;
+                      //                         }
+                      //                       }
+                      //                     },
+                      //                     items: dropDownZoneList,
+                      //                   );
+                      //                 }
+                      //                 return const SizedBox();
+                      //               },
+                      //             ),
+                      //           );
+                      //         },
+                      //
+                      //       );
+                      //     },
+                      //   );
+                      // }
+                      // else{
+                      //   print("ScheduleId error");
+                      // }
 
                     },
                     child: Container(

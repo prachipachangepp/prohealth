@@ -373,7 +373,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                     context: context,
                     builder: (BuildContext context) {
                       return AddErrorPopup(
-                        message: 'Request entity to large!',
+                        message: 'File is too large!',
                       );
                     },
                   );
@@ -384,7 +384,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                   context: context,
                   builder: (BuildContext context) {
                     return AddErrorPopup(
-                      message: 'Request entity to large!',
+                      message: 'File is too large!',
                     );
                   },
                 );

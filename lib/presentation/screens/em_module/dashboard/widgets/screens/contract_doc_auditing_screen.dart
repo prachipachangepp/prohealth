@@ -99,7 +99,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
-                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.activeContract, totalCount: '12', totalValue: 12,icon: Icons.save_as_outlined,),)),
+                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.activeContract, totalCount: '12', totalValue: 12,imagePath: "images/em_dashboard/contract.png"),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
@@ -107,11 +107,11 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         onTap: (){
                           showDialog(context: context, builder: (context) => ContractDocAuditPopup());
                         },
-                        child: LinearCardWidget(headingText: EmDashboardStringManager.randomaudits, totalCount: '20', totalValue: 20,icon: Icons.arrow_circle_right_outlined,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.randomaudits, totalCount: '20', totalValue: 20,imagePath: "images/em_dashboard/login.png")),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
-                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.nonCompliant, totalCount: '02', totalValue: 2,icon: CupertinoIcons.building_2_fill,),)),
+                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.nonCompliant, totalCount: '02', totalValue: 2,imagePath: "images/em_dashboard/TNO.png",),)),
               ],),
             SizedBox(height: AppSize.s15,),
             ///2nd row
@@ -160,11 +160,11 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         onTap: (){
                           showDialog(context: context, builder: (context) => ContractDocPenaltyPopup());
                         },
-                        child: LinearCardWidget(headingText: EmDashboardStringManager.AuditPenaltyAmt, totalCount: '\$1000', totalValue: 80,icon: Icons.dangerous_outlined,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.AuditPenaltyAmt, totalCount: '\$1000', totalValue: 80,imagePath: "images/em_dashboard/penalty.png")),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
-                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.complianceIncidentRR, totalCount: '04', totalValue: 30,icon: Icons.lock_person_outlined,),)),
+                    child: EMDashboardContainerBBorderConst(child: LinearCardWidget(headingText: EmDashboardStringManager.complianceIncidentRR, totalCount: '04', totalValue: 30,imagePath: "images/em_dashboard/OCSR.png"),)),
                 SizedBox(width: AppSize.s15,),
                 Expanded(
                     flex: 2,
@@ -172,7 +172,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         onTap: (){
                           showDialog(context: context, builder: (context) => ContractDocAuditPopup());
                         },
-                        child: LinearCardWidget(headingText: EmDashboardStringManager.govmtAuditPass, totalCount: '20', totalValue: 20,icon: Icons.arrow_circle_right_outlined,)),)),
+                        child: LinearCardWidget(headingText: EmDashboardStringManager.govmtAuditPass, totalCount: '20', totalValue: 20,imagePath: "images/em_dashboard/login.png")),)),
               ],),
             SizedBox(height: AppSize.s15,),
             ///3rd row
