@@ -370,7 +370,8 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                             //   width: 120,
                             //  // height: 32,
                             //   child: ElevatedButton.icon(onPressed: (){}, label: Text("Manual", style: BlueButtonTextConst.customTextStyle(context),),
-                            //     icon: Icon( FontAwesomeIcons.userCheck,color:ColorManager.white ,size: 16,),
+                            //    // icon: Icon( FontAwesomeIcons.userCheck,color:ColorManager.white ,size: 16,),
+                            //     icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
                             //     style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
                             //       elevation: 5,
                             //       shape: RoundedRectangleBorder(

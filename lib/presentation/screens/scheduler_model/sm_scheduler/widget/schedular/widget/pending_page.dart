@@ -370,7 +370,8 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       color: ColorManager.white,
                                       decoration: TextDecoration.none,
                                     )),
-                                      icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
+                                      //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
+                                      icon: Image.asset("images/sm/auto.png",height: 30,width: 18,),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor:  ColorManager.bluebottom,
                                         shape: RoundedRectangleBorder(
@@ -403,7 +404,8 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       color: ColorManager.bluebottom,
                                       decoration: TextDecoration.none,
                                     )),
-                                      icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
+                                      //icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
+                                      icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.white,
                                         shape: RoundedRectangleBorder(
