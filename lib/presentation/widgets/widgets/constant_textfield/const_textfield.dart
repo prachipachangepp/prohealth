@@ -980,97 +980,97 @@ class _CustomDropDownState extends State<CustomDropDown> {
 // }
 
 ///drop down User
-class HRManageDropdown extends StatefulWidget {
-  final TextEditingController controller;
-  final String? labelText;
-  final String? hintText;
-  final Color textColor;
-  final TextStyle? labelStyle;
-  final double labelFontSize;
-  final List<String> items;
-  final String? errorText;
-  final ValueChanged<String>? onChanged;
-  final double? width;
-  final double? height;
-
-  HRManageDropdown({
-    Key? key,
-    required this.controller,
-    this.labelText,
-    this.labelStyle,
-    required this.labelFontSize,
-    required this.items,
-    this.errorText,
-    this.width,
-    this.height,
-    this.onChanged,  this.hintText,   this.textColor = const  Color(0xff686464),
-  }) : super(key: key);
-
-  @override
-  State<HRManageDropdown> createState() => _HRManageDropdownState();
-}
-
-class _HRManageDropdownState extends State<HRManageDropdown> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: widget.width ?? 320,
-      height: widget.height ?? 35,
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: DropdownButtonFormField<String>(
-          value: widget.controller.text.isEmpty ? null : widget.controller.text,
-          items: widget.items.map((item) {
-            return DropdownMenuItem(
-              value: item,
-              child: Text(
-                item,
-                style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.s12),
-
-                // TextStyle(
-                //   fontSize: MediaQuery.of(context).size.width / 130,
-                //   color: Color(0xff686464),
-                // ),
-              ),
-            );
-          }).toList(),
-          onChanged: (value) {
-            setState(() {
-              widget.controller.text = value!;
-            });
-            if (widget.onChanged != null) {
-              widget.onChanged!(value!);
-            }
-          },
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(
-                bottom: 3.0, left: 5.0),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black),
-            ),
-            hintStyle: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: ColorManager.mediumgrey
-            ),
-            labelText: widget.labelText,
-            hintText: widget.hintText,
-            labelStyle: TextStyle(
-                fontSize: widget.labelFontSize,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.mediumgrey),
-
-            // errorText: widget.errorText,
-            // validator: validator,
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class HRManageDropdown extends StatefulWidget {
+//   final TextEditingController controller;
+//   final String? labelText;
+//   final String? hintText;
+//   final Color textColor;
+//   final TextStyle? labelStyle;
+//   final double labelFontSize;
+//   final List<String> items;
+//   final String? errorText;
+//   final ValueChanged<String>? onChanged;
+//   final double? width;
+//   final double? height;
+//
+//   HRManageDropdown({
+//     Key? key,
+//     required this.controller,
+//     this.labelText,
+//     this.labelStyle,
+//     required this.labelFontSize,
+//     required this.items,
+//     this.errorText,
+//     this.width,
+//     this.height,
+//     this.onChanged,  this.hintText,   this.textColor = const  Color(0xff686464),
+//   }) : super(key: key);
+//
+//   @override
+//   State<HRManageDropdown> createState() => _HRManageDropdownState();
+// }
+//
+// class _HRManageDropdownState extends State<HRManageDropdown> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: widget.width ?? 320,
+//       height: widget.height ?? 35,
+//       child: Padding(
+//         padding: const EdgeInsets.all(5.0),
+//         child: DropdownButtonFormField<String>(
+//           value: widget.controller.text.isEmpty ? null : widget.controller.text,
+//           items: widget.items.map((item) {
+//             return DropdownMenuItem(
+//               value: item,
+//               child: Text(
+//                 item,
+//                 style: TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.s12),
+//
+//                 // TextStyle(
+//                 //   fontSize: MediaQuery.of(context).size.width / 130,
+//                 //   color: Color(0xff686464),
+//                 // ),
+//               ),
+//             );
+//           }).toList(),
+//           onChanged: (value) {
+//             setState(() {
+//               widget.controller.text = value!;
+//             });
+//             if (widget.onChanged != null) {
+//               widget.onChanged!(value!);
+//             }
+//           },
+//           decoration: InputDecoration(
+//             contentPadding: EdgeInsets.only(
+//                 bottom: 3.0, left: 5.0),
+//             border: OutlineInputBorder(
+//               borderSide: BorderSide(color: Colors.black),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderSide: BorderSide(color: Colors.black),
+//             ),
+//             hintStyle: TextStyle(
+//                 fontSize: 10,
+//                 fontWeight: FontWeight.w500,
+//                 color: ColorManager.mediumgrey
+//             ),
+//             labelText: widget.labelText,
+//             hintText: widget.hintText,
+//             labelStyle: TextStyle(
+//                 fontSize: widget.labelFontSize,
+//                 fontWeight: FontWeight.w700,
+//                 color: ColorManager.mediumgrey),
+//
+//             // errorText: widget.errorText,
+//             // validator: validator,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 ///
 // class HRUManageDropdown extends StatefulWidget {
 //   final TextEditingController controller;
