@@ -57,7 +57,7 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
