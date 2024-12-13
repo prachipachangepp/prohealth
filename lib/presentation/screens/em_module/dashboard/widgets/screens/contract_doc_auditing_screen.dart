@@ -320,23 +320,36 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                             maximum: 20000, // End of the X-axis range
                             interval: 2500, // Interval between the X-axis labels
                             axisLabelFormatter: (AxisLabelRenderDetails details) {
-                              // Format X-axis labels as integers
                               return ChartAxisLabel(
                                 details.value.toInt().toString(),
                                 TextStyle(fontSize: FontSize.s12),
                               );
                             },
                           ),
-                          primaryYAxis: NumericAxis(
+                          primaryYAxis: CategoryAxis(
                             title: AxisTitle(text: ""), // Optional title for the Y-axis
                             majorGridLines: MajorGridLines(width: 0.5),
-                            minimum: 1, // Start of the Y-axis range
-                            maximum: 10, // End of the Y-axis range
-                            interval: 1, // Interval between the Y-axis labels
+                            labelPlacement: LabelPlacement.onTicks, // Align labels on ticks
                             axisLabelFormatter: (AxisLabelRenderDetails details) {
-                              // Format Y-axis labels as integers
+                              // Map Y-axis values to custom labels
+                              List<String> officeLocations = [
+                                'Office Location 1',
+                                'Office Location 2',
+                                'Office Location 3',
+                                'Office Location 4',
+                                'Office Location 5',
+                                'Office Location 6',
+                                'Office Location 7',
+                                'Office Location 8',
+                                'Office Location 9',
+                                'Office Location 10',
+                              ];
+                              int index = details.value.toInt() - 1;
+                              String label = (index >= 0 && index < officeLocations.length)
+                                  ? officeLocations[index]
+                                  : '';
                               return ChartAxisLabel(
-                                details.value.toInt().toString(),
+                                label,
                                 TextStyle(fontSize: FontSize.s12),
                               );
                             },
@@ -362,6 +375,59 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         ),
                       ),
 
+                      // Container(
+                      //   height: AppSize.s240,
+                      //   padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                      //   child: SfCartesianChart(
+                      //     primaryXAxis: NumericAxis(
+                      //       title: AxisTitle(text: ""), // Optional title for the X-axis
+                      //       majorGridLines: MajorGridLines(width: 0),
+                      //       minimum: 10000, // Start of the X-axis range
+                      //       maximum: 20000, // End of the X-axis range
+                      //       interval: 2500, // Interval between the X-axis labels
+                      //       axisLabelFormatter: (AxisLabelRenderDetails details) {
+                      //         // Format X-axis labels as integers
+                      //         return ChartAxisLabel(
+                      //           details.value.toInt().toString(),
+                      //           TextStyle(fontSize: FontSize.s12),
+                      //         );
+                      //       },
+                      //     ),
+                      //     primaryYAxis: NumericAxis(
+                      //       title: AxisTitle(text: ""), // Optional title for the Y-axis
+                      //       majorGridLines: MajorGridLines(width: 0.5),
+                      //       minimum: 1, // Start of the Y-axis range
+                      //       maximum: 10, // End of the Y-axis range
+                      //       interval: 1, // Interval between the Y-axis labels
+                      //       axisLabelFormatter: (AxisLabelRenderDetails details) {
+                      //         // Format Y-axis labels as integers
+                      //         return ChartAxisLabel(
+                      //           details.value.toInt().toString(),
+                      //           TextStyle(fontSize: FontSize.s12),
+                      //         );
+                      //       },
+                      //     ),
+                      //     series: <SplineSeries<ChartedDataLine, int>>[
+                      //       // First line
+                      //       SplineSeries<ChartedDataLine, int>(
+                      //         dataSource: chartedDataline, // Replace with your data
+                      //         xValueMapper: (ChartedDataLine data, _) => data.x,
+                      //         yValueMapper: (ChartedDataLine data, _) => data.y,
+                      //         color: ColorManager.bluebottom,
+                      //         width: 2,
+                      //       ),
+                      //       // Second line
+                      //       SplineSeries<ChartedDataLine, int>(
+                      //         dataSource: chartedDatalineNew, // Replace with your data
+                      //         xValueMapper: (ChartedDataLine data, _) => data.x,
+                      //         yValueMapper: (ChartedDataLine data, _) => data.y,
+                      //         color: ColorManager.red,
+                      //         width: 2,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      ///
                       // Container(
                       //   height: AppSize.s240,
                       //   padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),

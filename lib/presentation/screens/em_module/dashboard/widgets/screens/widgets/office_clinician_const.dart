@@ -328,7 +328,8 @@ class OfficeHighestPatientList extends StatelessWidget {
                 Text(
                  EmDashboardStringManager.NoOfOffice,
                   textAlign: TextAlign.start,
-                  style: EmDashListviewHeadText.customTextStyle(context),
+                  style: EmDashContainerHeadTextStyle.customTextStyle(context),
+                 // style: EmDashListviewHeadText.customTextStyle(context),
                 ),
                Expanded(flex:1 ,child: Container()),
                 Padding(
@@ -336,7 +337,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                   child: Text(
                     EmDashboardStringManager.ratio,
                     textAlign: TextAlign.start,
-                    style: EmDashListviewHeadText.customTextStyle(context),
+                    style: EmDashContainerHeadTextStyle.customTextStyle(context),
                   ),
                 ),
                 SizedBox(width: 30,),
@@ -345,7 +346,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                   child: Text(
                     EmDashboardStringManager.count,
                     textAlign: TextAlign.center,
-                    style: EmDashListviewHeadText.customTextStyle(context),
+                    style: EmDashContainerHeadTextStyle.customTextStyle(context),
                   ),
                 ),
               ],

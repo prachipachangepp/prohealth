@@ -33,18 +33,18 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
 
   ///line graph
   final List<ChartData> chartData = [
-    ChartData(1, 35),  // February
-    ChartData(2, 60),  // March
-    ChartData(3, 20),  // April
-    ChartData(4, 10),  // May
-    ChartData(5, 34),  // June
-    ChartData(6, 35),  // July
-    ChartData(7, 60),  // July
-    ChartData(8, 40),  // July
-    ChartData(9, 20),  // July
-    ChartData(10, 10),  // July
-    ChartData(11, 35),  // July
-    ChartData(12, 40),  // July
+    ChartData(1, 2),  // February
+    ChartData(2, 3),  // March
+    ChartData(3, 4),  // April
+    ChartData(4, 4),  // May
+    ChartData(5, 3),  // June
+    ChartData(6, 2.5),  // July
+    ChartData(7, 2),  // July
+    ChartData(8, 3),  // July
+    ChartData(9, 4),  // July
+    ChartData(10, 5),  // July
+    ChartData(11, 6),  // July
+    ChartData(12, 6),  // July
   ];
 
   List<BarChartGroupData> _generateBarGroups() {
@@ -176,14 +176,14 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                         ),
                       ),
                       Container(
-                        height: AppSize.s200,
+                        height: AppSize.s220,
                         child: SfCartesianChart(
                           backgroundColor: ColorManager.white,
                           primaryXAxis: CategoryAxis(),
                           primaryYAxis: NumericAxis(
                             // Set minimum, maximum, and interval for percentage labels
                             minimum: 0,
-                            maximum: 100,
+                            maximum: 90,
                             interval: 10,
                             axisLabelFormatter: (AxisLabelRenderDetails details) {
                               // Appends '%' symbol to the Y-axis labels
@@ -284,9 +284,12 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
             height: AppSize.s210,
             child: SfCartesianChart(
               primaryYAxis: NumericAxis(
+                minimum: 0,
+                maximum: 8,
+                interval: 1,
                 title: AxisTitle(
                   text: 'Number of Clinicians',
-                  textStyle: EmDashContainerHeadTextStyle.customTextStyle(context),
+                  textStyle: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
                   alignment: ChartAlignment.center, // Center-align the title
                 ),
                 axisLabelFormatter: (AxisLabelRenderDetails details) {
@@ -301,29 +304,29 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                 axisLabelFormatter: (AxisLabelRenderDetails details) {
                   // Map integer values to month names
                   switch (details.value.toInt()) {
-                    case 1:
+                    case 0:
                       return ChartAxisLabel('Jan', EmDashListviewDataText.customTextStyle(context));
-                    case 2:
+                    case 1:
                       return ChartAxisLabel('Feb', EmDashListviewDataText.customTextStyle(context));
-                    case 3:
+                    case 2:
                       return ChartAxisLabel('Mar', EmDashListviewDataText.customTextStyle(context));
-                    case 4:
+                    case 3:
                       return ChartAxisLabel('Apr', EmDashListviewDataText.customTextStyle(context));
-                    case 5:
+                    case 4:
                       return ChartAxisLabel('May', EmDashListviewDataText.customTextStyle(context));
-                    case 6:
+                    case 5:
                       return ChartAxisLabel('Jun', EmDashListviewDataText.customTextStyle(context));
-                    case 7:
+                    case 6:
                       return ChartAxisLabel('Jul', EmDashListviewDataText.customTextStyle(context));
-                    case 8:
+                    case 7:
                       return ChartAxisLabel('Aug', EmDashListviewDataText.customTextStyle(context));
-                    case 9:
+                    case 8:
                       return ChartAxisLabel('Sept', EmDashListviewDataText.customTextStyle(context));
-                    case 10:
+                    case 9:
                       return ChartAxisLabel('Oct', EmDashListviewDataText.customTextStyle(context));
-                    case 11:
+                    case 10:
                       return ChartAxisLabel('Nov', EmDashListviewDataText.customTextStyle(context));
-                    case 12:
+                    case 11:
                       return ChartAxisLabel('Dec', EmDashListviewDataText.customTextStyle(context));
                     default:
                       return ChartAxisLabel('', TextStyle(fontSize: 12));
@@ -654,8 +657,12 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                           minimum: 0,      // Minimum value of the gauge
                           maximum: 100,    // Maximum value of the gauge
                           ranges: <GaugeRange>[
-                            GaugeRange(startValue: 0, endValue: 80, color: ColorManager.pieChartBBlue),
-                            GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey),
+                            GaugeRange(startValue: 0, endValue: 80, color: ColorManager.pieChartBBlue,
+                              startWidth: 20,
+                              endWidth: 20, ),
+                            GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey,
+                              startWidth: 20,
+                              endWidth: 20, ),
                           ],
                          // pointers: <GaugePointer>[
                           //   MarkerPointer(

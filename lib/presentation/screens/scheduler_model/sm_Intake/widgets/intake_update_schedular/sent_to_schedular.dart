@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 
 class SentToSchedularScreen extends StatelessWidget {
   const SentToSchedularScreen({super.key});
@@ -10,7 +13,7 @@ class SentToSchedularScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController _searchController = TextEditingController();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 80.0),
+      padding: const EdgeInsets.symmetric(horizontal: 55.0),
       child: Column(
         children: [
           ///button
@@ -22,14 +25,15 @@ class SentToSchedularScreen extends StatelessWidget {
                 width: 320,
                 height: 35,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 5.0,
-                    ),
-                  ],
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: ColorManager.mediumgrey.withOpacity(0.1),width: 1)
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Colors.black26,
+                  //     blurRadius: 5.0,
+                  //   ),
+                  // ],
                 ),
                 child: TextField(
                   controller: _searchController,
@@ -37,9 +41,10 @@ class SentToSchedularScreen extends StatelessWidget {
                   //onSubmitted: (value) => _performSearch(),
                   decoration: InputDecoration(
                     hintText: "Search location",
-                    suffixIcon: Icon(Icons.search),
+                    hintStyle: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),
+                    prefixIcon: Icon(Icons.search),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
+                    contentPadding: EdgeInsets.only(left: 15.0, right: 15,bottom: 5),
                   ),
                 ),
               ),
@@ -88,6 +93,222 @@ class SentToSchedularScreen extends StatelessWidget {
               ),
             ],
           ),
+          Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: 15,
+                itemBuilder: (context, index) {
+                  //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                  // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                  // EmployeeDocumentModal employeedoc = paginatedData[index];
+                  return Column(
+                    children: [
+                      SizedBox(height: AppSize.s5),
+                      Container(
+                        height: AppSize.s88,
+                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p40),
+                        margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
+                        decoration: BoxDecoration(
+                          color: ColorManager.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorManager.black.withOpacity(0.2),
+                              spreadRadius: 0,
+                              blurRadius: 2,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: Image.asset(
+                                        'images/hr_dashboard/man.png', // Replace with your image path
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10,),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "John smith",
+                                      textAlign: TextAlign.center,
+                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w400,
+                                        color: ColorManager.textBlack,),
+                                    ),
+                                    Text(
+                                      "Intake Date: 09/15/2024",
+                                      textAlign: TextAlign.center,
+                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w600,
+                                        color: ColorManager.mediumgrey,),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 20,),
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  "images/sm/location.png",
+                                  height: 25,width: 26,fit: BoxFit.fill,
+                                ),
+                                SizedBox(width: 25,),
+                                Text(
+                                  "Tufts International Center, 20 Sawyer Ave,\nMedford MA 02155 ",
+                                  textAlign: TextAlign.start,
+                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorManager.textBlack,),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                // Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                //  Padding(
+                                //    padding: const EdgeInsets.all(8.0),
+                                //    child: Container(
+                                //      color: Color(0xFF527FB9),
+                                //      width: 19,
+                                //      height: 19,
+                                //      child: Center(
+                                //        child: Text("ST",style: TextStyle(
+                                //          // fontWeight: FontWeight.w600,
+                                //          // fontSize: FontSize.s13,
+                                //          color: ColorManager.white,
+                                //          decoration: TextDecoration.none,
+                                //        ),),
+                                //      ),
+                                //    ),
+                                //  ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    color: Color(0xFFFEBD4D),
+                                    width: 19,
+                                    height: 19,
+                                    child: Center(
+                                      child: Text("OT",style: TextStyle(
+                                        // fontWeight: FontWeight.w600,
+                                        //     fontSize: FontSize.s13,
+                                        color: ColorManager.white,
+                                        decoration: TextDecoration.none,
+                                      ),),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: Image.asset(
+                                        'images/hr_dashboard/man.png', // Replace with your image path
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10,),
+                                Text(
+                                  "Kia",
+                                  textAlign: TextAlign.center,
+                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorManager.textBlack,),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 40.0),
+                            child: Image.asset("images/sm/contact_schedular.png",height: 33,width: 33,fit: BoxFit.fill,),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Scheduled",
+                                  textAlign: TextAlign.start,
+                                  style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w500,
+                                    color: ColorManager.Violet,),
+                                ),
+                             SizedBox(width: 25,),
+                                Text(
+                                  "SOC Completed",
+                                  textAlign: TextAlign.start,
+                                  style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w500,
+                                    color: ColorManager.greenDark,),
+                                ),
+                                ///dont delete these r conditional text
+                                // Text(
+                                //   "SMissed on 13/05/2022",
+                                //   textAlign: TextAlign.start,
+                                //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                //     fontWeight: FontWeight.w500,
+                                //     color: ColorManager.tangerine,),
+                                // ),
+                                // Text(
+                                //   "Rescheduled on 15/08/2022",
+                                //   textAlign: TextAlign.start,
+                                //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                //     fontWeight: FontWeight.w500,
+                                //     color: ColorManager.mediumgrey,),
+                                // ),
+                                // Text(
+                                //   "SOC Pending",
+                                //   textAlign: TextAlign.start,
+                                //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                //     fontWeight: FontWeight.w500,
+                                //     color: ColorManager.EMbrightred,),
+                                // ),
+
+                              ],
+                            ),
+                          ),
+                        ],),
+                      ),
+                      SizedBox(height: AppSize.s5),
+                    ],
+                  );
+                },
+              )),
         ],
       ),
     );

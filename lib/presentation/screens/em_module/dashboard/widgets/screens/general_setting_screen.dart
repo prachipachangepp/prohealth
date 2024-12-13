@@ -286,7 +286,7 @@ class GeneralSettingScreen extends StatelessWidget {
                                               style: GeneralSettingNumStyle.customTextStyle(context),
                                             ),
                                             TextSpan(
-                                              text: 'Backup/\nRecovery',
+                                              text: 'Backup /\nRecovery',
                                               style: GeneralSettingTextStyle.customTextStyle(context),
                                             ),
                                           ],

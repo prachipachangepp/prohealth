@@ -3,22 +3,16 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-//import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/intake_main_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/intake_referral_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_calender/sm_calender.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/sm_dashboard_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_live_view/sm_live_view_screen.dart';
-
-import '../../../../app/resources/color.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/app_bar/app_bar.dart';
 import '../../../widgets/widgets/const_appbar/controller.dart';
 import '../../hr_module/manage/widgets/bottom_row.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../sm_Intake/intake_main_screen.dart';
-import '../sm_Intake/sm_intake_screen.dart';
 import '../sm_scheduler/widget/schedular/schedular_new_screen.dart';
-import '../sm_scheduler/widget/schedular/sm_scheduler_screen.dart';
 
 class SMDesktopScreen extends StatelessWidget {
   final PageController _pageController = PageController();

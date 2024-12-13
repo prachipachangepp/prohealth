@@ -32,11 +32,9 @@ class ColorManager {
   static Color faintOrange = Color(0xffF6928A);
   static Color EfaintOrange = Color(0xffF6928A).withOpacity(0.5);
   static Color sfaintOrange = Color(0xffE8A87D);
-  static Color greenDark = Color(0xff008000);
   static Color greenF = Color(0xff52A889);
   static Color redSign = Color(0xffBA0707);
   static Color green = Color(0xffB4DB4C);
-  static Color tangerine = Color(0xffFEBD4D);
   static Color orange = Color(0xffF2451C);
   static Color white = HexColor.fromHex('#FFFFFF');
   static Color black = Color(0xff000000);
@@ -107,6 +105,11 @@ class ColorManager {
   static Color EMgreen = Color(0xFF3CC389);
   static Color EMbrightred = Color(0xFFFF0000);
   static Color EMFYellow = Color(0xFFFFE8BB);
+
+  ///SM
+  static Color Violet = Color(0xFF8E01D0);
+  static Color greenDark = Color(0xff008000);
+  static Color tangerine = Color(0xffFEBD4D);
 }
 
 extension HexColor on Color {
