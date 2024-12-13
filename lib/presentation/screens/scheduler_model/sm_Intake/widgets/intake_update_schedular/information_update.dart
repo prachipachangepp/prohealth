@@ -13,11 +13,21 @@ import '../../../../hr_module/dashboard/widgets/view_details_popup.dart';
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 class InformationUpdateScreen extends StatelessWidget {
-   InformationUpdateScreen({super.key});
+  final VoidCallback onUpdateButtonPressed;
+  final void Function(int patientId) onPatientIdReceived;
+
+  InformationUpdateScreen({super.key, required this.onUpdateButtonPressed, required this.onPatientIdReceived});
+
+  void handlePatientId(int patientId) {
+    /// Pass the patientId back to the parent widget
+    onPatientIdReceived(patientId);
+  }
 
   @override
   Widget build(BuildContext context) {
     TextEditingController _searchController = TextEditingController();
+    int fetchedPatientId = 0; // Replace this with your actual patientId
+    handlePatientId(fetchedPatientId);
     return  Padding(
       padding: const EdgeInsets.symmetric(horizontal: 55.0),
       child: Column(
@@ -31,14 +41,15 @@ class InformationUpdateScreen extends StatelessWidget {
                 width: 320,
                 height: 35,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 5.0,
-                    ),
-                  ],
+                  border: Border.all(color: ColorManager.mediumgrey.withOpacity(0.1),width: 1)
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Colors.black26,
+                  //     blurRadius: 5.0,
+                  //   ),
+                  // ],
                 ),
                 child: TextField(
                   controller: _searchController,
@@ -46,9 +57,10 @@ class InformationUpdateScreen extends StatelessWidget {
                   //onSubmitted: (value) => _performSearch(),
                   decoration: InputDecoration(
                     hintText: "Search location",
-                    suffixIcon: Icon(Icons.search),
+                    hintStyle: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),
+                    prefixIcon: Icon(Icons.search),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
+                    contentPadding: EdgeInsets.only(left: 15.0, right: 15,bottom: 5),
                   ),
                 ),
               ),
@@ -61,37 +73,14 @@ class InformationUpdateScreen extends StatelessWidget {
                       icon: Icons.add,
                       text: "Add Patient",
                       onPressed: () async {
-                        // showDialog(
-                        //     context: context,
-                        //     builder: (context) {
-                        //       return FutureBuilder<List<TypeofDocpopup>>(
-                        //           future: getTypeofDoc(
-                        //               context, docTypeMetaIdCC, selectedSubDocId),
-                        //           builder: (contex, snapshot) {
-                        //             if (snapshot.connectionState ==
-                        //                 ConnectionState.waiting) {
-                        //               return Center(
-                        //                   child: CircularProgressIndicator());
-                        //             }
-                        //             if (snapshot.hasData) {
-                        //               return UploadDocumentAddPopup(
-                        //                 loadingDuration: _isLoading,
-                        //                 title: 'Upload Document',
-                        //                 officeId: widget.officeId,
-                        //                 docTypeMetaIdCC: docTypeMetaIdCC,
-                        //                 selectedSubDocId: selectedSubDocId,
-                        //                 dataList: snapshot.data!,
-                        //                 docTypeText: AppStringEM.corporateAndComplianceDocuments,
-                        //                 subDocTypeText: getSubDocTypeText(selectedSubDocId),
-                        //               );
-                        //             } else {
-                        //               return ErrorPopUp(
-                        //                   title: "Received Error",
-                        //                   text: snapshot.error.toString());
-                        //             }
-                        //           });
-                        //     });
-                      }),
+                      try {
+                        onUpdateButtonPressed();
+                      }
+                      catch (e){
+                        print("Error: $e");
+                      }
+                      },
+                      ),
                 ),
               ),
             ],
@@ -123,7 +112,10 @@ class InformationUpdateScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Row(children: [
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
                     Expanded(
                       flex: 2,
                       child: Row(
@@ -188,39 +180,10 @@ class InformationUpdateScreen extends StatelessWidget {
                       ),
                     ),
                   SizedBox(width: 10,),
-                    // Expanded(
-                    //   flex: 1,
-                    //   child: Row(
-                    //     children: [
-                    //       Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         mainAxisAlignment: MainAxisAlignment.center,
-                    //         children: [
-                    //           Text(
-                    //             "Refferal :",
-                    //             textAlign: TextAlign.start,
-                    //             style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                    //               fontWeight: FontWeight.w400,
-                    //               color: ColorManager.textBlack,),
-                    //           ),
-                    //          // SizedBox(width: 25,),
-                    //           Text(
-                    //             "Prohealth App",
-                    //             textAlign: TextAlign.start,
-                    //             style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                    //               fontWeight: FontWeight.w400,
-                    //               color: ColorManager.textBlack,),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //
-                    //     ],
-                    //   ),
-                    // ),
                     Expanded(
-                      flex: 4,
+                      flex: 5,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Column(
@@ -244,10 +207,12 @@ class InformationUpdateScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(width: 10,),
+                         // SizedBox(width: 10,),
                           Padding(
                             padding: const EdgeInsets.only(top:35.0),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SMDashboardMenuButtons(
                                     onTap: (int index) {
@@ -256,6 +221,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                     index: 0,
                                     grpIndex: 0,
                                     heading: "Patients Data"),
+                                SizedBox(width: 5,),
                                 SMDashboardMenuButtons(
                                     onTap: (int index) {
                                       //_selectButton(index);
@@ -263,6 +229,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                     index: 0,
                                     grpIndex: 0,
                                     heading: "Physical Info"),
+                                SizedBox(width: 5,),
                                 SMDashboardMenuButtons(
                                     onTap: (int index) {
                                       //_selectButton(index);
@@ -270,6 +237,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                     index: 0,
                                     grpIndex: 0,
                                     heading: "Medication"),
+                                SizedBox(width: 5,),
                                 SMDashboardMenuButtons(
                                     onTap: (int index) {
                                       //_selectButton(index);
@@ -277,6 +245,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                     index: 0,
                                     grpIndex: 0,
                                     heading: "Lab Results"),
+                                SizedBox(width: 5,),
                                 SMDashboardMenuButtons(
                                     onTap: (int index) {
                                       //_selectButton(index);
@@ -284,6 +253,7 @@ class InformationUpdateScreen extends StatelessWidget {
                                     index: 0,
                                     grpIndex: 0,
                                     heading: "Insurance"),
+                                SizedBox(width: 5,),
                                 SMDashboardMenuButtons(
                                     onTap: (int index) {
                                       //_selectButton(index);
@@ -291,13 +261,18 @@ class InformationUpdateScreen extends StatelessWidget {
                                     index: 0,
                                     grpIndex: 0,
                                     heading: "Notes"),
+
                               ],
+
                             ),
                           ),
+                         // SizedBox(width: 15,),
+                          Image.asset("images/sm/contact.png",height: 50,width: 60,fit: BoxFit.fill,),
+
                         ],
                       ),
                     ),
-                   Image.asset("images/sm/contact.png",height: 50,width: 80,fit: BoxFit.fill,),
+                    SizedBox(width: 10,),
                     ///conditional button don't delete
                     Expanded(
                       child: Container(
@@ -308,11 +283,12 @@ class InformationUpdateScreen extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 15.0),
                             child: Icon(Icons.edit_outlined,size: 20,),
                           ),
-                          onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SMIntakeScreen()));
-                            //showDialog(context: context, builder: (context) => ViewDetailsPopup());
-                          },
-                      
+                          onPressed:onUpdateButtonPressed,
+                          //     (){
+                          //   Navigator.push(context, MaterialPageRoute(builder: (context) => SMIntakeScreen()));
+                          //   //showDialog(context: context, builder: (context) => ViewDetailsPopup());
+                          // },
+
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                             backgroundColor: ColorManager.bluebottom,
@@ -364,7 +340,7 @@ class InformationUpdateScreen extends StatelessWidget {
     );
   }
 }
-
+///
 typedef void OnManuButtonTapCallBack(int index);
 class SMDashboardMenuButtons extends StatelessWidget {
   const SMDashboardMenuButtons({
@@ -389,15 +365,12 @@ class SMDashboardMenuButtons extends StatelessWidget {
       onHover: (bool val) {},
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
-            child: Text(
-              heading,
-              style: TextStyle(
-                fontSize: FontSize.s10,
-                fontWeight: FontWeight.w400,
-                color: ColorManager.textBlack,
-              ),
+          Text(
+            heading,
+            style: TextStyle(
+              fontSize: FontSize.s10,
+              fontWeight: FontWeight.w400,
+              color: ColorManager.textBlack,
             ),
           ),
           LayoutBuilder(
@@ -414,16 +387,15 @@ class SMDashboardMenuButtons extends StatelessWidget {
               )..layout();
 
               final textWidth = textPainter.size.width;
-
+              print("textwidth :::::::: $heading $textWidth");
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: AppMargin.m5),
                 height: 6,
-                width: textWidth + 10,
+                width: 65,// textWidth + 10,
                 decoration: BoxDecoration(
                     color: ColorManager.greenDark,
                     borderRadius: BorderRadius.circular(12)
                 ),
-
               );
             },
           ),

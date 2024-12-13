@@ -25,14 +25,15 @@ class SentToSchedularScreen extends StatelessWidget {
                 width: 320,
                 height: 35,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 5.0,
-                    ),
-                  ],
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: ColorManager.mediumgrey.withOpacity(0.1),width: 1)
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Colors.black26,
+                  //     blurRadius: 5.0,
+                  //   ),
+                  // ],
                 ),
                 child: TextField(
                   controller: _searchController,
@@ -40,9 +41,10 @@ class SentToSchedularScreen extends StatelessWidget {
                   //onSubmitted: (value) => _performSearch(),
                   decoration: InputDecoration(
                     hintText: "Search location",
-                    suffixIcon: Icon(Icons.search),
+                    hintStyle: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),
+                    prefixIcon: Icon(Icons.search),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
+                    contentPadding: EdgeInsets.only(left: 15.0, right: 15,bottom: 5),
                   ),
                 ),
               ),
@@ -253,7 +255,7 @@ class SentToSchedularScreen extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
+                            padding: const EdgeInsets.only(right: 40.0),
                             child: Image.asset("images/sm/contact_schedular.png",height: 33,width: 33,fit: BoxFit.fill,),
                           ),
                           Expanded(
