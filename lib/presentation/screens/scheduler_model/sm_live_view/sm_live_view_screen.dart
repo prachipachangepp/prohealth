@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 
 class SmLiveViewMapScreen extends StatefulWidget {
@@ -15,7 +16,40 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
 
   final LatLng _initialPosition = const LatLng(37.7749, -122.4194); // San Francisco coordinates
   TextEditingController _searchController = TextEditingController();
+  // Dummy data for heatmap points with intensity
+  final List<LatLng> _heatMapData = [
+    LatLng(37.7749, -122.4194), // Point 1
+    LatLng(37.7849, -122.4294), // Point 2
+    LatLng(37.7949, -122.4394), // Point 3
+    LatLng(37.7649, -122.4494), // Point 4
+    LatLng(37.7549, -122.4594), // Point 5
+  ];
 
+  final List<double> _intensities = [0.1, 0.3, 0.6, 0.8, 1.0]; // Intensities for heat map points
+
+  // Set to hold the current circles
+  Set<Circle> _heatMapCircles = {};
+
+  // Function to generate heatmap circles
+  void _generateHeatMap() {
+    Set<Circle> circles = {};
+
+    for (int i = 0; i < _heatMapData.length; i++) {
+      circles.add(
+        Circle(
+          circleId: CircleId('heatmap-point-$i'),
+          center: _heatMapData[i],
+          radius: _intensities[i] * 700, // Adjust radius based on intensity
+          fillColor: Colors.red.withOpacity(_intensities[i]), // Adjust opacity based on intensity
+          strokeColor: Colors.transparent,
+        ),
+      );
+    }
+
+    setState(() {
+      _heatMapCircles = circles;
+    });
+  }
   // Dummy data for zones, counties, and zip codes
   final List<LatLng> _zoneData = [
     LatLng(37.7749, -122.4194), // Example Zone 1 (San Francisco)
@@ -95,7 +129,8 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
               target: _initialPosition,
               zoom: 12.0,
             ),
-            markers: _markers, // Use the markers set here
+            markers: _markers,
+            circles: _selectedView == 'Heat Map' ? _heatMapCircles : {},// Use the markers set here
           ),
         ),
         Positioned(
@@ -238,7 +273,10 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                   ),
                   SizedBox(width: 20,),
                   ElevatedButton(
-                    onPressed: () => setState(() => _selectedView = 'Heat Map'),
+                    onPressed: () {
+                      setState(() => _selectedView = 'Heat Map');
+                      _generateHeatMap();
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
                       backgroundColor: _selectedView == 'Heat Map' ? ColorManager.blueprime : ColorManager.white,
@@ -269,6 +307,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
       ],
     );
   }
+//
 
   Future<void> _performSearch() async {
     final query = _searchController.text;
