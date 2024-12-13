@@ -8,6 +8,7 @@ import '../../../../../../../app/resources/common_resources/common_theme_const.d
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../widgets/constant_widgets/button_constant.dart';
 
@@ -83,21 +84,75 @@ class _PendingPageViewState extends State<PendingPageView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [ Text("Employee Type"), IconButton(onPressed: (){}, icon: Icon(Icons.arrow_drop_down_sharp))],),),
-Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [ Text("Clinician Type"), IconButton(onPressed: (){}, icon: Icon(Icons.arrow_drop_down_sharp))],),),
-
-
+                    CustomDropdownTextField(
+                      width: 150,
+                      isAstric:false,
+                      // Adjust headText based on depId
+                      initialValue: 'Employee Type',
+                      headText: "", // Default fallback if depId doesn't match any of the expected values
+                      items: ['Employee 1','Employee 2','Employee 3'],
+                      onChanged: (newValue) {
+                        // for (var a in snapshot.data!) {
+                        //   if (a.empType == newValue) {
+                        //     clinicialName = a.empType!;
+                        //     clinicalId = a.employeeTypesId!;
+                        //     print("Dept ID'''''' ${clinicalId}");
+                        //     print("';';';''''''''Dept ID ${clinicialName}");
+                        //     // Do something with docType
+                        //   }
+                        // }
+                      },
+                    ),
+                    CustomDropdownTextField(
+                      width:150,
+                      isAstric:false,
+                      // Adjust headText based on depId
+                      initialValue: 'Clinician Type',
+                      headText: "", // Default fallback if depId doesn't match any of the expected values
+                      items: ['Clinical 1','Clinical 2','Clinical 3'],
+                      onChanged: (newValue) {
+                        // for (var a in snapshot.data!) {
+                        //   if (a.empType == newValue) {
+                        //     clinicialName = a.empType!;
+                        //     clinicalId = a.employeeTypesId!;
+                        //     print("Dept ID'''''' ${clinicalId}");
+                        //     print("';';';''''''''Dept ID ${clinicialName}");
+                        //     // Do something with docType
+                        //   }
+                        // }
+                      },
+                    ),
 
                     Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: Container(
 
                         decoration: BoxDecoration(
-                          border: Border.all(width: 1,color: ColorManager.greylight),
+                          border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
                               borderRadius: BorderRadius.all(
                                   Radius.circular(8))
                         ),
-                        child:buildDropdownButton(context),
+                        // child:buildDropdownButton(context),
+                        child: CustomDropdownTextField(
+                          width:100,
+
+                         isAstric:false,
+                          // Adjust headText based on depId
+                          initialValue: 'Filter by',
+                          headText: "", // Default fallback if depId doesn't match any of the expected values
+                          items: ['Clinical 1','Clinical 2','Clinical 3'],
+                          onChanged: (newValue) {
+                            // for (var a in snapshot.data!) {
+                            //   if (a.empType == newValue) {
+                            //     clinicialName = a.empType!;
+                            //     clinicalId = a.employeeTypesId!;
+                            //     print("Dept ID'''''' ${clinicalId}");
+                            //     print("';';';''''''''Dept ID ${clinicialName}");
+                            //     // Do something with docType
+                            //   }
+                            // }
+                          },
+                        ),
                       ),
                     ),
 
@@ -157,7 +212,7 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                       vertical: 5,),
                   child: Container(
                     // color: Colors.red,
-                    height: 70,
+                    height: 80,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:
@@ -186,7 +241,7 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                               ),
                               SizedBox(width: AppSize.s7),
                               Padding(
-                                padding: const EdgeInsets.only(top: 15),
+                                padding: const EdgeInsets.only(top: 18),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -194,7 +249,7 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                                       'Jeh Tiwari',
                                       style:DocumentTypeDataStyle.customTextStyle(context),
                                     ),
-                                    SizedBox(width: AppSize.s5),
+                                    SizedBox(height: AppSize.s3),
                                     Text(
                                       'Anxiety',
                                       style:DocumentTypeDataStyle.customTextStyle(context),
@@ -238,7 +293,7 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                color: Color(0xFF527FB9).withOpacity(0.3),
+                                color: Color(0xFF527FB9).withOpacity(0.5),
                                 width: 19,
                                 height: 19,
                                 child: Center(
@@ -284,8 +339,8 @@ Container(child: Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween,childre
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(right: 50),
-                              child: Icon(Icons.call,color: ColorManager.greenDark,),
+                              padding: const EdgeInsets.only(right: 0),
+                              child: Image.asset("images/sm/contact.png",height: 50,width: 60,)
                             ),
                           ],
                         ),

@@ -37,115 +37,117 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Container(
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          boxShadow: [
-            BoxShadow(
-              color: ColorManager.black.withOpacity(0.5),
-              offset: Offset(0, 4),
-              blurRadius: 4,
-              spreadRadius: 0,
-            ),
-          ],
+    return Material(
+      child: Column(children: [
+        Container(
+          decoration: BoxDecoration(
+            color: ColorManager.white,
+            boxShadow: [
+              BoxShadow(
+                color: ColorManager.black.withOpacity(0.5),
+                offset: Offset(0, 4),
+                blurRadius: 4,
+                spreadRadius: 0,
+              ),
+            ],
+          ),
+          margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              PageViewMenuButtonConst(
+                onTap: (int index) {
+                  intakeSelectButton(index);
+                },
+                index: 0,
+                grpIndex: _selectedIndex,
+                heading: "Patients Data",
+              ),
+              // PageViewMenuButtonConst(
+              //   onTap: (int index) {
+              //     intakeSelectButton(index);
+              //   },
+              //   index: 1,
+              //   grpIndex: _selectedIndex,
+              //   heading: "Referral",
+              //   enabled: patientId != 0,
+              // ),
+              PageViewMenuButtonConst(
+                onTap: (int index) {
+                  intakeSelectButton(index);
+                },
+                index: 1,
+                grpIndex: _selectedIndex,
+                heading: "Physician Info",
+                enabled: patientId != 0,
+              ),
+              PageViewMenuButtonConst(
+                onTap: (int index) {
+                  intakeSelectButton(index);
+                },
+                index: 2,
+                grpIndex: _selectedIndex,
+                heading: "Medications",
+                enabled: patientId != 0,
+              ),
+              PageViewMenuButtonConst(
+                onTap: (int index) {
+                  intakeSelectButton(index);
+                },
+                index: 3,
+                grpIndex: _selectedIndex,
+                heading: "Lab Results",
+                enabled: patientId != 0,
+              ),
+              PageViewMenuButtonConst(
+                onTap: (int index) {
+                  intakeSelectButton(index);
+                },
+                index: 4,
+                grpIndex: _selectedIndex,
+                heading: "Insurance",
+                enabled: patientId != 0,
+              ),
+              PageViewMenuButtonConst(
+                onTap: (int index) {
+                  intakeSelectButton(index);
+                },
+                index: 5,
+                grpIndex: _selectedIndex,
+                heading: "Notes",
+                enabled: patientId != 0,
+              ),
+            ],
+          ),
         ),
-        margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            PageViewMenuButtonConst(
-              onTap: (int index) {
-                intakeSelectButton(index);
-              },
-              index: 0,
-              grpIndex: _selectedIndex,
-              heading: "Patients Data",
-            ),
-            // PageViewMenuButtonConst(
-            //   onTap: (int index) {
-            //     intakeSelectButton(index);
-            //   },
-            //   index: 1,
-            //   grpIndex: _selectedIndex,
-            //   heading: "Referral",
-            //   enabled: patientId != 0,
-            // ),
-            PageViewMenuButtonConst(
-              onTap: (int index) {
-                intakeSelectButton(index);
-              },
-              index: 1,
-              grpIndex: _selectedIndex,
-              heading: "Physician Info",
-              enabled: patientId != 0,
-            ),
-            PageViewMenuButtonConst(
-              onTap: (int index) {
-                intakeSelectButton(index);
-              },
-              index: 2,
-              grpIndex: _selectedIndex,
-              heading: "Medications",
-              enabled: patientId != 0,
-            ),
-            PageViewMenuButtonConst(
-              onTap: (int index) {
-                intakeSelectButton(index);
-              },
-              index: 3,
-              grpIndex: _selectedIndex,
-              heading: "Lab Results",
-              enabled: patientId != 0,
-            ),
-            PageViewMenuButtonConst(
-              onTap: (int index) {
-                intakeSelectButton(index);
-              },
-              index: 4,
-              grpIndex: _selectedIndex,
-              heading: "Insurance",
-              enabled: patientId != 0,
-            ),
-            PageViewMenuButtonConst(
-              onTap: (int index) {
-                intakeSelectButton(index);
-              },
-              index: 5,
-              grpIndex: _selectedIndex,
-              heading: "Notes",
-              enabled: patientId != 0,
-            ),
-          ],
+        Expanded(
+          flex: 1,
+          child: NonScrollablePageView(
+            controller: intakePageController,
+            onPageChanged: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            children: [
+              SmIntakePatientsScreen(
+                onPatientIdGenerated: (int id) {
+                  setState(() {
+                    patientId = id;
+                  });
+                },
+              ),
+              // SMIntakeReferralScreen(patientId: patientId),
+              IntakePhysicianScreen(patientId: patientId),
+              IntakeMedicationScreen(patientId: patientId),
+              IntakeLabResultScreen(patientId: patientId),
+              SMIntakeInsuranceScreen(patientId: patientId),
+              SmIntakeNotesScreen(patientId: patientId),
+            ],
+          ),
         ),
-      ),
-      Expanded(
-        flex: 1,
-        child: NonScrollablePageView(
-          controller: intakePageController,
-          onPageChanged: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          children: [
-            SmIntakePatientsScreen(
-              onPatientIdGenerated: (int id) {
-                setState(() {
-                  patientId = id;
-                });
-              },
-            ),
-            // SMIntakeReferralScreen(patientId: patientId),
-            IntakePhysicianScreen(patientId: patientId),
-            IntakeMedicationScreen(patientId: patientId),
-            IntakeLabResultScreen(patientId: patientId),
-            SMIntakeInsuranceScreen(patientId: patientId),
-            SmIntakeNotesScreen(patientId: patientId),
-          ],
-        ),
-      ),
-    ]);
+      ]),
+    );
   }
 }
 

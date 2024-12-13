@@ -211,9 +211,11 @@ class CustomDropdownTextField extends StatefulWidget {
   final double? width;
   final double? height;
   final String? initialValue;
+   final bool? isAstric;
 
-  const CustomDropdownTextField({
+   CustomDropdownTextField({
     Key? key,
+    this.isAstric = true,
     this.dropDownMenuList,
     required this.headText,
     this.value,
@@ -353,19 +355,21 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        widget.isAstric!?Padding(
           padding: const EdgeInsets.only(left: 5.0, bottom: 2),
           child: RichText(
             text: TextSpan(
-              text: widget.headText, // Main text
+              text: widget.isAstric!?widget.headText:"", // Main text
               style: AllPopupHeadings.customTextStyle(context), // Main style
               children: [
-                TextSpan(
+                widget.isAstric!? TextSpan(
                   text: ' *', // Asterisk
                   style: AllPopupHeadings.customTextStyle(context).copyWith(
                     color: ColorManager.red, // Asterisk color
                   ),
-                ),
+                ):TextSpan(
+                  text: ' ', // Asterisk
+                )
               ],
             ),
           ),
@@ -373,9 +377,9 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
           //   widget.headText,
           //   style: AllPopupHeadings.customTextStyle(context),
           // ),
-        ),
+        ):Offstage(),
         SizedBox(
-          width: AppSize.s250,
+          width: widget.isAstric!?AppSize.s250:widget.width,
           height: AppSize.s40,
           child: GestureDetector(
             onTap: _showDropdownDialog,
@@ -383,8 +387,10 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
               padding: const EdgeInsets.all(5),
               child: Container(
                 padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
-                decoration: BoxDecoration(
+                decoration:widget.isAstric!? BoxDecoration(
                   border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(4),
+                ):BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Row(
