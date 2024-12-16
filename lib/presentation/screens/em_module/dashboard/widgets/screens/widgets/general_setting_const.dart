@@ -94,32 +94,35 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                     ],
                   ),
 
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ShaderMask(
-                        shaderCallback: (Rect bounds) {
-                          return LinearGradient(
-                            colors: [
-                              ColorManager.mediumgrey,
-                              ColorManager.bluebottom
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ).createShader(bounds);
-                        },
-                        blendMode: BlendMode.srcIn,
-                        // Ensures the gradient applies only to the text
-                        child: Text(
-                          "08",
-                          style: CustomTextStylesCommon.commonStyle(
-                            fontSize: FontSize.s30,
-                            fontWeight: FontWeight.w700,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 25.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ShaderMask(
+                          shaderCallback: (Rect bounds) {
+                            return LinearGradient(
+                              colors: [
+                                ColorManager.mediumgrey,
+                                ColorManager.bluebottom
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ).createShader(bounds);
+                          },
+                          blendMode: BlendMode.srcIn,
+                          // Ensures the gradient applies only to the text
+                          child: Text(
+                            "08",
+                            style: CustomTextStylesCommon.commonStyle(
+                              fontSize: FontSize.s30,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],),
               Padding(

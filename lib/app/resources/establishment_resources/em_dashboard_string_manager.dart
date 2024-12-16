@@ -24,8 +24,8 @@ class EmDashboardStringManager{
   static const String empowerprivacy = '"Empower Your Privacy with Precision Settings"';
 
   ///office location
-  static const String totaloffice = 'Total Number Of Office\n ';
-  static const String occupancyrate = 'Office Occupancy rate\n ';
+  static const String totaloffice = 'Total Number Of Office\n';
+  static const String occupancyrate = 'Office Occupancy rate\n';
   static const String dailyattendance = 'Average Daily Attendance\nper Office';
   static const String locateElvtP = '“Locate, Elevate, Participate.”';
   static const String serviceAvailability = 'Offices by service Availability';
@@ -45,7 +45,7 @@ class EmDashboardStringManager{
   static const String enjoyLife = '“ Enjoy Your life, We’ll Be Here to\nSave it.”';
   static const String customerSatisfaction = 'Office Customer\nSatisfaction rating';
   static const String continueEduCredit = 'Continuing Education\nCredits';
-  static const String clinicianTimeOff = 'Clinician Time Off\n  ';
+  static const String clinicianTimeOff = 'Clinician Time Off\n ';
   static const String clinicianPatientRatio = 'Clinicians to Patient ratio by Service type';
   static const String clinicianOvertime = "Number of clinician working overtime";
   static const String avgclinScore = 'Average Clinician Score';
@@ -69,12 +69,12 @@ class EmDashboardStringManager{
   static const String randompass = "Random Audit Passed";
   static const String date = "Date";
   static const String penaltyAmt = "Penalty Amount";
-  static const String AuditpenaltyAmt = "Audit Penalty Amounts";
+  static const String AuditpenaltyAmt = "Audit Penalty Amounts\n ";
   static const String activeContract = 'Total Number Of Active\nContracts';
   static const String randomaudits = 'Number Of Random\nAudits Passed';
   static const String nonCompliant = 'Number Of Non-Compliant\nOffices';
   static const String contractexpiresoon = "Contracts Expring Soon";
-  static const String AuditPenaltyAmt = 'Audit Penalty Amounts\n ';
+  static const String AuditPenaltyAmt = 'Audit Penalty Amounts';
   static const String complianceIncidentRR = 'Compliance Incident\nReporting Rate';
   static const String govmtAuditPass = 'Number Of Government\nAudits Passed';
   static const String avgtimecompleteInternalAudit = "Average Time to Complete Internal Audit";

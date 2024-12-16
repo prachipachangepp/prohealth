@@ -5,7 +5,7 @@ import '../font_manager.dart';
 class GeneralSettingNumStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s24,
+      fontSize: FontSize.s30,
       fontWeight: FontWeight.w600,
       color: ColorManager.white,
       decoration: TextDecoration.none,
@@ -16,7 +16,7 @@ class GeneralSettingNumStyle {
 class GeneralSettingTextStyle {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s14,
       fontWeight: FontWeight.w700,
       color: ColorManager.white,
       decoration: TextDecoration.none,
@@ -70,7 +70,7 @@ class EmDashText{
 class EmDashListviewHeadText{
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-        fontSize: FontSize.s12,
+        fontSize: FontSize.s13,
         color:ColorManager.mediumgrey,
         fontWeight: FontWeight.w700,
         decoration: TextDecoration.none);
