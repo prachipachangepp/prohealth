@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import '../../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 
 class LinearCardWidget extends StatelessWidget {
@@ -27,10 +28,12 @@ class LinearCardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(headingText,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontSize: FontSize.s16,
-                      color: ColorManager.mediumgrey,
-                      fontWeight: FontWeight.w500),),
+                    style:  EmDashContainerHeadTextStyle.customTextStyle(context)
+                    // CustomTextStylesCommon.commonStyle(
+                    //   fontSize: FontSize.s16,
+                    //   color: ColorManager.mediumgrey,
+                    //   fontWeight: FontWeight.w500),
+                  ),
                 SizedBox(height: AppSize.s15,),
                   Text(totalCount,style: TextStyle(fontSize: FontSize.s28,color: ColorManager.blueprime,fontWeight: FontWeight.w700),)
                 ],
@@ -44,7 +47,7 @@ class LinearCardWidget extends StatelessWidget {
                         fit: BoxFit.fill,
                         imagePath!,
                         height: 60, // Adjust the size as needed
-                        width: 40,
+                        width: 45,
                         // color: ColorManager.bluebottom,
                       )
                     else if (icon != null)
@@ -62,6 +65,7 @@ class LinearCardWidget extends StatelessWidget {
             backgroundColor: ColorManager.white,
             color: ColorManager.blueprime,
             value: totalValue/100,
+            minHeight: 2,
           )
         ],
       ),

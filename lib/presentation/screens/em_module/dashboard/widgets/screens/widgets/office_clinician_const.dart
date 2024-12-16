@@ -262,14 +262,14 @@ class AverageClinicianListview extends StatelessWidget {
                                 style:  CustomTextStylesCommon.commonStyle(
                                     color: ColorManager.mediumgrey,
                                     fontSize: FontSize.s64,
-                                    fontWeight: FontWeight.w700),
+                                    fontWeight: FontWeight.w500),
                                 children: [
                                   TextSpan(
                                     text: 'yrs',
                                     style:  CustomTextStylesCommon.commonStyle(
                                         color: ColorManager.mediumgrey,
                                         fontSize: FontSize.s32,
-                                        fontWeight: FontWeight.w700)
+                                        fontWeight: FontWeight.w500)
                                     //AllPopupHeadings.customTextStyle(context),
                                   ),
                                 ],
