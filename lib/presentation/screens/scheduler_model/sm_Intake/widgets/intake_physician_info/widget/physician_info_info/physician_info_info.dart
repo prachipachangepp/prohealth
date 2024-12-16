@@ -164,9 +164,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                                   ConnectionState.waiting) {
                                 return SchedularTextField(
                                   controller: dummyCtrl,
-                                  labelText: 'City',
-                                  suffixIcon: Icon(Icons.arrow_drop_down,
-                                    color: ColorManager.blueprime,),);
+                                  labelText: 'City');
                               }
                               if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
@@ -204,9 +202,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                                   ConnectionState.waiting) {
                                 return SchedularTextField(
                                   controller: dummyCtrl,
-                                  labelText: 'State',
-                                  suffixIcon: Icon(Icons.arrow_drop_down,
-                                    color: ColorManager.blueprime,),);
+                                  labelText: 'State');
                               }
                               if (snapshot.hasData) {
                                 // List<String> dropDownList = [];
@@ -417,9 +413,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                                   ConnectionState.waiting) {
                                 return SchedularTextField(
                                   controller: dummyCtrl,
-                                  labelText: 'City',
-                                  suffixIcon: Icon(Icons.arrow_drop_down,
-                                    color: ColorManager.blueprime,),);
+                                  labelText: 'City');
                               }
                               if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
@@ -464,9 +458,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                                   ConnectionState.waiting) {
                                 return SchedularTextField(
                                   controller: dummyCtrl,
-                                  labelText: 'State',
-                                  suffixIcon: Icon(Icons.arrow_drop_down,
-                                    color: ColorManager.blueprime,),);
+                                  labelText: 'State');
                               }
                               if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
