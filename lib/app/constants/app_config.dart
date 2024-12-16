@@ -5,7 +5,7 @@ class AppConfig {
   static const String demo = "https://demoapp.symmetry.care";
   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
   static const String deployment = "https://prohealth.symmetry.care";
-  static const String version = "Version 1.0.10 (11) demo";
+  static const String version = "Version 1.0.9 (21) demo";
 
   ///
   static const String local = "";
@@ -62,9 +62,7 @@ class AppConfig {
   static const String year = "Year";
   static const String month = "Month";
   static const String misc = "MISC";
-  static const String other = "Other";
 }
-
 
 
 
