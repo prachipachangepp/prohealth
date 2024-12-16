@@ -59,7 +59,7 @@ class GeneralSettingScreen extends StatelessWidget {
                           children: [
                             Text(EmDashboardStringManager.expDays,
                               style: CustomTextStylesCommon.commonStyle(
-                                fontSize: FontSize.s10, color: ColorManager.mediumgrey,
+                                fontSize: FontSize.s12, color: ColorManager.mediumgrey,fontWeight: FontWeight.w400
                               ),),
                           ],
                         ),
@@ -157,7 +157,7 @@ class GeneralSettingScreen extends StatelessWidget {
                         children: [
                           SizedBox(height: AppSize.s10,),
                           Text(EmDashboardStringManager.encryptionKey,
-                          style: CustomTextStylesCommon.commonStyle(fontSize: 24,
+                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s24,
                               color:ColorManager.mediumgrey,fontWeight: FontWeight.w700),),
                           Stack(
                             alignment: Alignment.center,
