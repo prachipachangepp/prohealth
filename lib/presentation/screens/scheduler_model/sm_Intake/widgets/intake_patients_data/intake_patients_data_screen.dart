@@ -261,6 +261,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
           ),
           SizedBox(width: MediaQuery.of(context).size.width / 5),
           if (selectedIndex == 0)
+            //
             Padding(
               padding: const EdgeInsets.only(right: 40.0),
               child: Container(
