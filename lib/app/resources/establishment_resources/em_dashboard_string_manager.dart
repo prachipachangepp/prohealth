@@ -56,7 +56,7 @@ class EmDashboardStringManager{
   static const String clinicianName = "Clinician Name";
   static const String tenure = "Tenure (YRS)";
   static const String startYear = "Start Year";
-  static const String avgTenure = 'Average Tenure (Years)';
+  static const String avgTenure = 'Avg. Tenure (Years)';
   static const String highestPatients = 'Office With Highest Patients';
   static const String ratio = "Ratio";
   static const String count = "Count";
