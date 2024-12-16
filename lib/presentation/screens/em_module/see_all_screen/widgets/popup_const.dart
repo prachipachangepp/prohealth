@@ -231,21 +231,25 @@ class _CustomDialogState extends State<CustomDialog> {
                         selectedDeptId = firstDeptId;
                       }
 
-                      return HRUManageDropdown(
-                        controller: TextEditingController(
-                            text: selectedDeptName ?? ''),
-                        hintText: "Department",
-                        labelFontSize: 12,
-                        items: dropDownServiceList,
-                        onChanged: (val) {
-                          setState(() {
-                            selectedDeptName = val;
-                            // Find the corresponding department ID from the snapshot
-                            selectedDeptId = snapshot.data!
-                                .firstWhere(
-                                    (dept) => dept.deptName == val)
-                                .deptId;
-                          });
+                      return StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) {
+                          return HRUManageDropdown(
+                            controller: TextEditingController(
+                                text: selectedDeptName ?? ''),
+                            hintText: "Department",
+                            labelFontSize: 12,
+                            items: dropDownServiceList,
+                            onChanged: (val) {
+                              setState(() {
+                                selectedDeptName = val;
+                                // Find the corresponding department ID from the snapshot
+                                selectedDeptId = snapshot.data!
+                                    .firstWhere(
+                                        (dept) => dept.deptName == val)
+                                    .deptId;
+                              });
+                            },
+                          );
                         },
                       );
                     }
@@ -292,15 +296,22 @@ class _CustomDialogState extends State<CustomDialog> {
 
         ],
         bottomButtons:  isLoading == true
-      ? CircularProgressIndicator(
-          color: ColorManager.blueprime,
-        )
+      ? SizedBox(
+          height: 25,
+        width: 25,
+        child: CircularProgressIndicator(
+            color: ColorManager.blueprime,
+          ),
+      )
             :
         CustomElevatedButton(
           height: 30,
           width: 120,
           text: 'Create',
           onPressed: () async {
+            setState(() {
+              isLoading = true;
+            });
             _validateForm();
             print('$selectedDeptId');
             print('${widget.firstNameController.text}');
@@ -324,13 +335,7 @@ class _CustomDialogState extends State<CustomDialog> {
               );
 
               if (response.statusCode == 200 || response.statusCode == 201) {
-                widget.onCancel!();
-                widget.firstNameController.clear();
-                widget.lastNameController.clear();
-                widget.emailController.clear();
-                selectedDeptId = AppConfig.AdministrationId;
                 Navigator.pop(context);
-
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -339,7 +344,16 @@ class _CustomDialogState extends State<CustomDialog> {
                     );
                   },
                 );
+                setState(() {
+                  isLoading = false;
+                });
+                widget.onCancel!();
+                widget.firstNameController.clear();
+                widget.lastNameController.clear();
+                widget.emailController.clear();
+                selectedDeptId = AppConfig.AdministrationId;
               }
+
               // else if(response.statusCode == 400 || response.statusCode == 404){
               //   // Navigator.pop(context);
               //   await showDialog(
@@ -353,6 +367,9 @@ class _CustomDialogState extends State<CustomDialog> {
                   context: context,
                   builder: (BuildContext context) => FailedPopup(text: response.message),
                 );
+                setState(() {
+                  isLoading == false;
+                });
               }
             }
           },
@@ -618,21 +635,25 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                       selectedDeptId = firstDeptId;
                     }
 
-                    return HRUManageDropdown(
-                      controller: TextEditingController(
-                          text: selectedDeptName ?? ''),
-                      hintText: "Department",
-                      labelFontSize: 12,
-                      items: dropDownServiceList,
-                      onChanged: (val) {
-                        setState(() {
-                          selectedDeptName = val;
-                          // Find the corresponding department ID from the snapshot
-                          selectedDeptId = snapshot.data!
-                              .firstWhere(
-                                  (dept) => dept.deptName == val)
-                              .deptId;
-                        });
+                    return StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) {
+                        return HRUManageDropdown(
+                          controller: TextEditingController(
+                              text: selectedDeptName ?? ''),
+                          hintText: "Department",
+                          labelFontSize: 12,
+                          items: dropDownServiceList,
+                          onChanged: (val) {
+                            setState(() {
+                              selectedDeptName = val;
+                              // Find the corresponding department ID from the snapshot
+                              selectedDeptId = snapshot.data!
+                                  .firstWhere(
+                                      (dept) => dept.deptName == val)
+                                  .deptId;
+                            });
+                          },
+                        );
                       },
                     );
                   }
@@ -679,15 +700,22 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
 
       ],
       bottomButtons:  isLoading == true
-          ? CircularProgressIndicator(
-        color: ColorManager.blueprime,
-      )
+          ? SizedBox(
+        height: 25,
+          width:25,
+            child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+          )
           :
       CustomElevatedButton(
         height: 30,
         width: 120,
         text: 'Create',
         onPressed: () async {
+          setState(() {
+            isLoading = true;
+          });
           _validateForm();
           print('$selectedDeptId');
           print('${widget.firstNameController.text}');
@@ -712,10 +740,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
 
             if (response.success) {
               //widget.onCancel!();
-              widget.firstNameController.clear();
-              widget.lastNameController.clear();
-              widget.emailController.clear();
-              selectedDeptId = AppConfig.AdministrationId;
+
               Navigator.pop(context);
               showDialog(
                 context: context,
@@ -725,6 +750,13 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   );
                 },
               );
+              setState(() {
+                isLoading = false;
+              });
+              widget.firstNameController.clear();
+              widget.lastNameController.clear();
+              widget.emailController.clear();
+              selectedDeptId = AppConfig.AdministrationId;
             }
             // if(response.statusCode == 400 || response.statusCode == 404){
             //   Navigator.pop(context);

@@ -308,34 +308,74 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
     );
   }
 //
-
   Future<void> _performSearch() async {
-    final query = _searchController.text;
+    final query = _searchController.text.trim(); // Trim extra spaces
     if (query.isNotEmpty) {
       try {
+        // Get the list of locations matching the query
         List<Location> locations = await locationFromAddress(query);
+
         if (locations.isNotEmpty) {
           final location = locations.first;
-          mapController.animateCamera(
+
+          // Animate the map to the searched location
+          mapController?.animateCamera(
             CameraUpdate.newLatLngZoom(
               LatLng(location.latitude, location.longitude),
               15.0,
             ),
           );
+
+          // Add the marker to the map
           setState(() {
             _searchedMarker = Marker(
               markerId: MarkerId('searched-location'),
               position: LatLng(location.latitude, location.longitude),
               infoWindow: InfoWindow(title: query),
             );
-            _markers.add(_searchedMarker!); // Add the searched marker to the map
+            _markers.add(_searchedMarker!);
           });
         }
       } catch (e) {
+        // Show an error message if something goes wrong
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Location not found! Please try again.")),
         );
       }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please enter a location to search.")),
+      );
     }
   }
+
+  // Future<void> _performSearch() async {
+  //   final query = _searchController.text;
+  //   if (query.isNotEmpty) {
+  //     try {
+  //       List<Location> locations = await locationFromAddress(query);
+  //       if (locations.isNotEmpty) {
+  //         final location = locations.first;
+  //         mapController.animateCamera(
+  //           CameraUpdate.newLatLngZoom(
+  //             LatLng(location.latitude, location.longitude),
+  //             15.0,
+  //           ),
+  //         );
+  //         setState(() {
+  //           _searchedMarker = Marker(
+  //             markerId: MarkerId('searched-location'),
+  //             position: LatLng(location.latitude, location.longitude),
+  //             infoWindow: InfoWindow(title: query),
+  //           );
+  //           _markers.add(_searchedMarker!); // Add the searched marker to the map
+  //         });
+  //       }
+  //     } catch (e) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Location not found! Please try again.")),
+  //       );
+  //     }
+  //   }
+  // }
 }

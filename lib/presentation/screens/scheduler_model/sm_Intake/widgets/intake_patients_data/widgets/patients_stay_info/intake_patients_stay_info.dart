@@ -267,7 +267,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             Flexible(
                 child: SchedularTextField(
                   controller: ctlrAddress,
-                    labelText: AppString.address)
+                    labelText: AppString.addresss)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
