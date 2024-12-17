@@ -93,7 +93,6 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                         style: EmDashText.customTextStyle(context),),
                     ],
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(right: 25.0),
                     child: Row(

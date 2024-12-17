@@ -55,7 +55,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
         barRods: [
           BarChartRodData(
             toY: 90,
-            width: 30,
+            width: 32,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
             color: ColorManager.pieChartGreen,
             backDrawRodData: BackgroundBarChartRodData(
@@ -72,7 +72,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
         barRods: [
           BarChartRodData(
             toY: 80,
-            width: 30,
+            width: 32,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
             color: ColorManager.pieChartBlue,
             backDrawRodData: BackgroundBarChartRodData(
@@ -89,7 +89,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
         barRods: [
           BarChartRodData(
             toY: 100,
-            width: 30,
+            width: 32,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
             color: Color(0xFFFEBD4D),
             backDrawRodData: BackgroundBarChartRodData(
@@ -106,7 +106,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
         barRods: [
           BarChartRodData(
             toY: 75,
-            width: 30,
+            width: 32,
             borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6)),
             color: Color(0xFFC77AC4),
             backDrawRodData: BackgroundBarChartRodData(
@@ -415,7 +415,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                             style: EmDashContainerHeadTextStyle.customTextStyle(context),
                             textAlign: TextAlign.end,
                           ),
-                          axisNameSize: 50, // Reserve space for the Y-axis title
+                          axisNameSize: 20, // Reserve space for the Y-axis title
                         ),
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(
@@ -638,51 +638,62 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
           SizedBox(width: AppSize.s15,),
           ///speedometer
           Expanded(
-              flex: 3,
+              flex: 4,
               child: EMDashboardContainerConst(child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(EmDashboardStringManager.longavgvisit,
                       style: EmDashContainerHeadTextStyle.customTextStyle(context)),
-                  Container(
-                    height:AppSize.s190,
-                    width: AppSize.s250,
-                   // color: Colors.pink,
-                    child:SfRadialGauge(
-                      axes: <RadialAxis>[
-                        RadialAxis(
-                          startAngle: 180, // Start from the bottom center
-                          endAngle: 0,     // End at the bottom center
-                          minimum: 0,      // Minimum value of the gauge
-                          maximum: 100,    // Maximum value of the gauge
-                          ranges: <GaugeRange>[
-                            GaugeRange(startValue: 0, endValue: 80, color: ColorManager.pieChartBBlue,
-                              startWidth: 20,
-                              endWidth: 20, ),
-                            GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey,
-                              startWidth: 20,
-                              endWidth: 20, ),
-                          ],
-                         // pointers: <GaugePointer>[
-                          //   MarkerPointer(
-                          //     value: 70, // The value where the marker points
-                          //     markerHeight: 20, // Height of the marker
-                          //     markerWidth: 40,  // Width of the marker
-                          //   ),
-                          // ],
-                          annotations: <GaugeAnnotation>[
-                            GaugeAnnotation(
-                              widget: Text(
-                                '70%',
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Center(
+                    child: Container(
+                      height:AppSize.s190,
+                      width: AppSize.s250,
+                      //color: Colors.pink,
+                      child:SfRadialGauge(
+                        axes: <RadialAxis>[
+                          RadialAxis(
+                            showLabels: false,
+                            startAngle: 180, // Start from the bottom center
+                            endAngle: 0,     // End at the bottom center
+                            minimum: 0,      // Minimum value of the gauge
+                            maximum: 100,    // Maximum value of the gauge
+                            ranges: <GaugeRange>[
+                              GaugeRange(startValue: 0, endValue: 80, color: ColorManager.pieChartBBlue,
+                                startWidth: 20,
+                                endWidth: 20, ),
+                              GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey,
+                                startWidth: 20,
+                                endWidth: 20, ),
+                            ],
+                            // pointers: <GaugePointer>[
+                            //   // Custom gradient for the range pointer
+                            //   RangePointer(
+                            //     value: 80, // The value up to which the gradient should appear
+                            //     width: 20,
+                            //     enableAnimation: true,
+                            //     gradient: const SweepGradient(
+                            //       colors: [
+                            //         Color(0xFF3A6FA0), // Start color
+                            //         Color(0xFF2BC2C2), // End color
+                            //       ],
+                            //       stops: [0.0, 1.0],
+                            //     ),
+                            //   ),
+                            // ],
+                            annotations: <GaugeAnnotation>[
+                              GaugeAnnotation(
+                                widget: Text(
+                                  '84%',
+                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                                ),
+                                angle: 90,
+                                positionFactor: 0,
                               ),
-                              angle: 90,
-                              positionFactor: 0,
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   )
 

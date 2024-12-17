@@ -144,34 +144,37 @@ class SchedularTextFieldWithButton extends StatelessWidget {
           //   ),
           // ),
           Positioned(
-           bottom: 6.2,
+           bottom: 2,
             right: 5,
-            child: Container(
-              height: AppSize.s25,                                  //  view zone height button
-              width: AppSize.s72,
-              child: ElevatedButton(
-                onPressed: () async {
-                  String googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
-                  if (await canLaunchUrlString(googleMapsUrl)) {
-                    await launchUrlString(googleMapsUrl);
-                  } else {
-                    print('Could not open the map.');
-                  }
-                },
-                child: Text(
-                  buttonText,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: ColorManager.white,
-                    decoration: TextDecoration.none,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 7),
+              child: Container(
+                height: AppSize.s20,                                  //  view zone height button
+                width: AppSize.s72,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    String googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
+                    if (await canLaunchUrlString(googleMapsUrl)) {
+                      await launchUrlString(googleMapsUrl);
+                    } else {
+                      print('Could not open the map.');
+                    }
+                  },
+                  child: Text(
+                    buttonText,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: ColorManager.white,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: EdgeInsets.zero,
                   ),
-                  padding: EdgeInsets.zero,
                 ),
               ),
             ),
