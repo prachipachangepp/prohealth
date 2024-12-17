@@ -302,6 +302,7 @@ class SentToSchedularScreen extends StatelessWidget {
                             ),
                           ),
 
+
                             Padding(
                               padding: const EdgeInsets.only(right: 40.0),
                               child: SvgPicture.asset("images/sm/contact_s.svg",height: 50,width: 43,fit: BoxFit.fill,),
