@@ -145,14 +145,14 @@ class InformationUpdateScreen extends StatelessWidget {
                                 "John smith",
                                 textAlign: TextAlign.center,
                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorManager.textBlack,),
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorManager.mediumgrey,),
                               ),
                               Text(
                                "Intake Date: 09/15/2024",
                                 textAlign: TextAlign.center,
                                 style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w400,
                                   color: ColorManager.mediumgrey,),
                               ),
                             ],
@@ -164,10 +164,11 @@ class InformationUpdateScreen extends StatelessWidget {
                       flex: 2,
                       child: Row(
                         children: [
-                          Image.asset(
-                              "images/sm/location.png",
-                            height: 25,width: 26,fit: BoxFit.fill,
-                          ),
+                          Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
+                          // Image.asset(
+                          //     "images/sm/location.png",
+                          //   height: 25,width: 26,fit: BoxFit.fill,
+                          // ),
                           SizedBox(width: 10,),
                           Text(
                             "Tufts International Center, 20 Sawyer Ave,\nMedford MA 02155 ",
@@ -274,60 +275,84 @@ class InformationUpdateScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 10,),
                     ///conditional button don't delete
-                    Expanded(
-                      child: Container(
-                        height:33,
-                        width: 160,
-                        child: ElevatedButton.icon(
-                          icon: Padding(
-                            padding: const EdgeInsets.only(right: 15.0),
-                            child: Icon(Icons.edit_outlined,size: 20,),
-                          ),
-                          onPressed:onUpdateButtonPressed,
-                          //     (){
-                          //   Navigator.push(context, MaterialPageRoute(builder: (context) => SMIntakeScreen()));
-                          //   //showDialog(context: context, builder: (context) => ViewDetailsPopup());
-                          // },
-
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                            backgroundColor: ColorManager.bluebottom,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(color: ColorManager.dashListviewData),
-                            ),
-                          ), label: Text(
-                                  "Update",
-                                  style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w500,
-                                  color: ColorManager.white,)
-                                  ),
-                        ),
-                      ),
-                    ),
-                    // Container(
-                    //   height:33,
-                    //   width: 160,
-                    //   child: ElevatedButton.icon(
-                    //     icon: Image.asset("images/sm/calendar.png",height: 20,width: 20,),
-                    //     onPressed: (){
-                    //       showDialog(context: context, builder: (context) => ViewDetailsPopup());
-                    //     },
-                    //     style: ElevatedButton.styleFrom(
-                    //       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    //       backgroundColor: ColorManager.white,
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(12),
-                    //         side: BorderSide(color: ColorManager.bluebottom),
+                    //   Container(
+                    //     height:33,
+                    //     width: 160,
+                    //     child: ElevatedButton(
+                    //      // icon: Image.asset("images/sm/calendar.png",height: 20,width: 20,),
+                    //       onPressed: (){
+                    //         showDialog(context: context, builder: (context) => ViewDetailsPopup());
+                    //       },
+                    //       style: ElevatedButton.styleFrom(
+                    //         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    //         backgroundColor: ColorManager.white,
+                    //         shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(12),
+                    //           side: BorderSide(color: ColorManager.bluebottom),
+                    //         ),
+                    //       ), child: Text(
+                    //         "Update",
+                    //         style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                    //           fontWeight: FontWeight.w500,
+                    //           color: ColorManager.bluebottom,)
+                    //     ),
+                    //     ),
+                    //   ),
+                    ///old blue button
+                    // Expanded(
+                    //   child: Container(
+                    //     height:33,
+                    //     width: 160,
+                    //     child: ElevatedButton.icon(
+                    //       icon: Padding(
+                    //         padding: const EdgeInsets.only(right: 15.0),
+                    //         child: Icon(Icons.edit_outlined,size: 20,),
                     //       ),
-                    //     ), label: Text(
-                    //             "Move to Schedular",
-                    //             style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                    //             fontWeight: FontWeight.w500,
-                    //             color: ColorManager.bluebottom,)
-                    //             ),
+                    //       onPressed:onUpdateButtonPressed,
+                    //       //     (){
+                    //       //   Navigator.push(context, MaterialPageRoute(builder: (context) => SMIntakeScreen()));
+                    //       //   //showDialog(context: context, builder: (context) => ViewDetailsPopup());
+                    //       // },
+                    //
+                    //       style: ElevatedButton.styleFrom(
+                    //         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    //         backgroundColor: ColorManager.bluebottom,
+                    //         shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(12),
+                    //           side: BorderSide(color: ColorManager.dashListviewData),
+                    //         ),
+                    //       ), label: Text(
+                    //               "Update",
+                    //               style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                    //               fontWeight: FontWeight.w500,
+                    //               color: ColorManager.white,)
+                    //               ),
+                    //     ),
                     //   ),
                     // ),
+                    Container(
+                      height:33,
+                      width: 160,
+                      child: ElevatedButton.icon(
+                        icon: Image.asset("images/sm/calendar.png",height: 20,width: 20,),
+                        onPressed: (){
+                          showDialog(context: context, builder: (context) => ViewDetailsPopup());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          backgroundColor: ColorManager.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(color: ColorManager.bluebottom),
+                          ),
+                        ), label: Text(
+                                "Move to Schedular",
+                                style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.bluebottom,)
+                                ),
+                      ),
+                    ),
                   ],),
                 ),
                 SizedBox(height: AppSize.s5),
@@ -370,7 +395,7 @@ class SMDashboardMenuButtons extends StatelessWidget {
             style: TextStyle(
               fontSize: FontSize.s10,
               fontWeight: FontWeight.w400,
-              color: ColorManager.textBlack,
+              color: ColorManager.mediumgrey,
             ),
           ),
           LayoutBuilder(
