@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -215,16 +216,7 @@ class _SocPageViewState extends State<SocPageView> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(8),
-                                    color:Color(0xFFDCEFF7) ,
-                                  ),
-                                  height:40,
-                                  width: 40,
-
-                                  child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,)),
+                              child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
                             ),
                             Container(
                               width: 200,
@@ -305,20 +297,11 @@ class _SocPageViewState extends State<SocPageView> {
 
                             Padding(
                                 padding: const EdgeInsets.only(right: 0),
-                                child: Image.asset("images/sm/contact_schedular.png",height: 50,width: 60,)
+                                child: SvgPicture.asset("images/sm/contact_s.svg",height: 50,width: 40,)
                             ),
                             Padding(
                               padding: const EdgeInsets.only(right: 30,left: 10),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(8),
-                                    color:Color(0xFFDCEFF7) ,
-                                  ),
-                                  height:40,
-                                  width: 40,
-
-                                  child: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
+                              child: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
                             ),
                             // Container(
                             //     width: 200,
