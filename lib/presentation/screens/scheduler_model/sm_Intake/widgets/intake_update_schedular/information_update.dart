@@ -334,7 +334,7 @@ class InformationUpdateScreen extends StatelessWidget {
                       height:33,
                       width: 160,
                       child: ElevatedButton.icon(
-                        icon: Image.asset("images/sm/calendar.png",height: 20,width: 20,),
+                        icon: Image.asset("images/sm/move.png",height: 20,width: 20,),
                         onPressed: (){
                           showDialog(context: context, builder: (context) => ViewDetailsPopup());
                         },
