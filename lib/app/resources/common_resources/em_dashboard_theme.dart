@@ -38,7 +38,7 @@ class EmDashContainerHeadTextStyle {
 class EmDashHelloText{
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-        fontSize: FontSize.s24,
+        fontSize: FontSize.s28,
         color:ColorManager.bluebottom,
         fontWeight: FontWeight.w700,
     decoration: TextDecoration.none);

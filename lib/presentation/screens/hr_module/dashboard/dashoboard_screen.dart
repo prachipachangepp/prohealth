@@ -45,7 +45,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     ComboChartData('Thu', 80, 65),
     ComboChartData('Fri', 80, 40),
   ];
-  String? emptype;
+  String? emptype = 'Age Wise';
   // List<DataModel> _list = List<DataModel>.empty(growable:true);
   // List<BarChartGroupData> _chartGroups(){
   //   List<BarChartGroupData> list = List<BarChartGroupData>.empty(growable: true);
@@ -476,8 +476,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                         height: 200,
                                         child: SfCartesianChart(
                                           backgroundColor: ColorManager.white,
-                                          primaryXAxis: CategoryAxis(),
+                                          primaryXAxis: CategoryAxis(
+                                            labelStyle: TextStyle(color: ColorManager.dashListviewData),
+                                          ),
                                           primaryYAxis: NumericAxis(
+                                            minimum: 0,
+                                            maximum: 100,
+                                            interval: 10,
+                                            labelStyle: TextStyle(color: ColorManager.dashListviewData),
                                             axisLabelFormatter: (AxisLabelRenderDetails details) {
                                               // Appends '%' symbol to the Y-axis labels
                                               return ChartAxisLabel('${details.text}%', details.textStyle);
@@ -516,7 +522,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
@@ -705,34 +711,48 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                     // ),
                                     Divider(),
                                     Container(
-                                      height:190,
-                                      width:250,
+                                      height:AppSize.s190,
+                                      width: AppSize.s250,
+                                      //color: Colors.pink,
                                       child:SfRadialGauge(
                                         axes: <RadialAxis>[
                                           RadialAxis(
+                                            showLabels: false,
                                             startAngle: 180, // Start from the bottom center
                                             endAngle: 0,     // End at the bottom center
                                             minimum: 0,      // Minimum value of the gauge
                                             maximum: 100,    // Maximum value of the gauge
                                             ranges: <GaugeRange>[
-                                              GaugeRange(startValue: 0, endValue: 80, color: ColorManager.pieChartBBlue),
-                                              GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey),
+                                              GaugeRange(startValue: 0, endValue: 80, color: ColorManager.pieChartBBlue,
+                                                startWidth: 20,
+                                                endWidth: 20, ),
+                                              GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey,
+                                                startWidth: 20,
+                                                endWidth: 20, ),
                                             ],
                                             // pointers: <GaugePointer>[
-                                            //   MarkerPointer(
-                                            //     value: 70, // The value where the marker points
-                                            //     markerHeight: 20, // Height of the marker
-                                            //     markerWidth: 40,  // Width of the marker
+                                            //   // Custom gradient for the range pointer
+                                            //   RangePointer(
+                                            //     value: 80, // The value up to which the gradient should appear
+                                            //     width: 20,
+                                            //     enableAnimation: true,
+                                            //     gradient: const SweepGradient(
+                                            //       colors: [
+                                            //         Color(0xFF3A6FA0), // Start color
+                                            //         Color(0xFF2BC2C2), // End color
+                                            //       ],
+                                            //       stops: [0.0, 1.0],
+                                            //     ),
                                             //   ),
                                             // ],
                                             annotations: <GaugeAnnotation>[
                                               GaugeAnnotation(
                                                 widget: Text(
-                                                  '70%',
-                                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                                  '84%',
+                                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                                                 ),
                                                 angle: 90,
-                                                positionFactor: 0.75,
+                                                positionFactor: 0,
                                               ),
                                             ],
                                           ),
@@ -776,59 +796,60 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                 )
                                               ],
                                             ),
-                                            Container(
-                                              height: 120,
-                                              width: 120,
-                                              alignment: Alignment.center,
-                                              child: Stack(
+                                            Expanded(
+                                              child: Container(
+                                                height: 120,
+                                               // width: 120,
                                                 alignment: Alignment.center,
-                                                children: [
-                                                  ShaderMask(
-                                                    shaderCallback: (rect) {
-                                                      return RadialGradient(
-                                                        colors: [
-                                                          Color(0xff59A9F4),
-                                                          Color(0xff34628E),
-                                                        ],
-                                                        center: Alignment.center,
-                                                        radius: 0.5,
-                                                      ).createShader(rect);
-                                                    },
-                                                    blendMode: BlendMode.srcATop,
-                                                    child: PieChart(
-                                                      PieChartData(
-                                                        sections: [
-                                                          PieChartSectionData(
-                                                            color: ColorManager
-                                                                .faintGrey.withOpacity(0.11),
-                                                            value: 20,
-                                                            title: '',
-                                                            radius: 27,
-                                                          ),
-                                                          PieChartSectionData(
-                                                            color: Colors.white,
-                                                            value: 90,
-                                                            title: '',
-                                                            radius: 27,
-                                                          ),
-                                                        ],
-                                                        centerSpaceRadius: 10,
-                                                        centerSpaceColor: Colors.white,
-                                                        sectionsSpace: 0,
-                                                        borderData: FlBorderData(show: false),
-                                                        startDegreeOffset: 0,
+                                                child: Stack(
+                                                  alignment: Alignment.center,
+                                                  children: [
+                                                    ShaderMask(
+                                                      shaderCallback: (rect) {
+                                                        return RadialGradient(
+                                                          colors: [
+                                                            Color(0xff59A9F4),
+                                                            Color(0xff34628E),
+                                                          ],
+                                                          center: Alignment.center,
+                                                          radius: 0.5,
+                                                        ).createShader(rect);
+                                                      },
+                                                      blendMode: BlendMode.srcATop,
+                                                      child: PieChart(
+                                                        PieChartData(
+                                                          sections: [
+                                                            PieChartSectionData(
+                                                              color: Colors.transparent,
+                                                              value: 20,
+                                                              title: '',
+                                                              radius: 27,
+                                                            ),
+                                                            PieChartSectionData(
+                                                              color: Colors.white,
+                                                              value: 90,
+                                                              title: '',
+                                                              radius: 27,
+                                                            ),
+                                                          ],
+                                                          centerSpaceRadius: 10,
+                                                          centerSpaceColor: Colors.white,
+                                                          sectionsSpace: 0,
+                                                          borderData: FlBorderData(show: false),
+                                                          startDegreeOffset: 0,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    height: 30,
-                                                    width: 30,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      shape: BoxShape.circle,
+                                                    Container(
+                                                      height: 30,
+                                                      width: 30,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        shape: BoxShape.circle,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
 
@@ -928,6 +949,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       ///Attrition Rate
                                       HrDashboardSmallcontainer(
                                         child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.end,
@@ -941,8 +963,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                     color: ColorManager.mediumgrey,),
                                                 ),
                                                 SizedBox(width: 10,),
-                                                IconButton(onPressed: (){}, icon: Icon(Icons.filter_alt_outlined,size: 14,))
+                                                Image.asset('images/hr_dashboard/filter.png',fit: BoxFit.contain,height: 14,width: 14,)
+                                                //IconButton(onPressed: (){}, icon: Icon(Icons.filter_alt_outlined,size: 14,))
                                               ],),
+                                           // SizedBox(height: 10,),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
@@ -1013,33 +1037,35 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                 ],
                                               ),
                                             ),
-                                            Container(
-                                              height: 150,
-                                              width: 120,
-                                              child: PieChart(
-                                                PieChartData(
-                                                  sections: [
-                                                    PieChartSectionData(
-                                                      color: ColorManager.greenGraph,
-                                                      value: 56,
-                                                      title: '',
-                                                      //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                      radius: 20,
-                                                    ),
-                                                    PieChartSectionData(
-                                                      color: ColorManager
-                                                          .faintGrey.withOpacity(0.5),
-                                                      value: 88,
-                                                      title: '',
-                                                      //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                      radius: 20,
-                                                    ),
-                                                  ],
-                                                  centerSpaceRadius: 20,
-                                                  centerSpaceColor: Colors.white,
-                                                  sectionsSpace: 2,
-                                                  borderData: FlBorderData(show: false),
-                                                  startDegreeOffset: -150,
+                                            Expanded(
+                                              child: Container(
+                                                height: 150,
+                                               // width: 120,
+                                                child: PieChart(
+                                                  PieChartData(
+                                                    sections: [
+                                                      PieChartSectionData(
+                                                        color: ColorManager.greenGraph,
+                                                        value: 56,
+                                                        title: '',
+                                                        //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                        radius: 15,
+                                                      ),
+                                                      PieChartSectionData(
+                                                        color: ColorManager
+                                                            .faintGrey.withOpacity(0.5),
+                                                        value: 88,
+                                                        title: '',
+                                                        //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                        radius: 15,
+                                                      ),
+                                                    ],
+                                                    centerSpaceRadius: 30,
+                                                    centerSpaceColor: Colors.white,
+                                                    sectionsSpace: 2,
+                                                    borderData: FlBorderData(show: false),
+                                                    startDegreeOffset: -150,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -1181,31 +1207,67 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       Divider(),
                                       SizedBox(height: 10,),
                                       Row(
-                                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          CustomRadioListTile(
-                                            title: 'Age Wise',
-                                            value: 'Age Wise',
-                                            groupValue: emptype,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                emptype = value;
-                                              });
-                                            },
+                                          Row(
+                                            children: [
+                                              Radio<String>(
+                                                activeColor: ColorManager.mediumgrey,
+                                                value: 'Age Wise',
+                                                groupValue: emptype, // Matches default value for pre-selection
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    emptype = value;
+                                                  });
+                                                },
+                                              ),
+                                              const Text('Age Wise'),
+                                            ],
                                           ),
-                                          CustomRadioListTile(
-                                            title: 'Service Wise',
-                                            value: 'Service Wise',
-                                            groupValue: emptype,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                emptype = value;
-                                              });
-                                            },
+                                          SizedBox(width: 50,),
+                                          Row(
+                                            children: [
+                                              Radio<String>(
+                                                activeColor: ColorManager.mediumgrey,
+                                                value: 'Service Wise',
+                                                groupValue: emptype, // Different from default initially
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    emptype = value;
+                                                  });
+                                                },
+                                              ),
+                                              const Text('Service Wise'),
+                                            ],
                                           ),
-
                                         ],
                                       ),
+                                      // Row(
+                                      //   //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      //   children: [
+                                      //     CustomRadioListTile(
+                                      //       title: 'Age Wise',
+                                      //       value: 'Age Wise',
+                                      //       groupValue: emptype,
+                                      //       onChanged: (value) {
+                                      //         setState(() {
+                                      //           emptype = value;
+                                      //         });
+                                      //       },
+                                      //     ),
+                                      //     CustomRadioListTile(
+                                      //       title: 'Service Wise',
+                                      //       value: 'Service Wise',
+                                      //       groupValue: emptype,
+                                      //       onChanged: (value) {
+                                      //         setState(() {
+                                      //           emptype = value;
+                                      //         });
+                                      //       },
+                                      //     ),
+                                      //
+                                      //   ],
+                                      // ),
                                       Padding(
                                         padding: const EdgeInsets.only(left: 8.0),
                                         child: Row(children: [
@@ -1272,7 +1334,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                     "Age 49Y",
                                                     textAlign: TextAlign.center,
                                                     style: CustomTextStylesCommon.commonStyle(
-                                                      fontSize: FontSize.s14,
+                                                      fontSize: FontSize.s12,
                                                       fontWeight: FontWeight.w500,
                                                       color: ColorManager.mediumgrey,),
                                                   ),
@@ -1313,7 +1375,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                   "Age 49Y",
                                                   textAlign: TextAlign.center,
                                                   style: CustomTextStylesCommon.commonStyle(
-                                                    fontSize: FontSize.s14,
+                                                    fontSize: FontSize.s12,
                                                     fontWeight: FontWeight.w500,
                                                     color: ColorManager.mediumgrey,),
                                                 ),

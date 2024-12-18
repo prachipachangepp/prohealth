@@ -86,24 +86,24 @@ class GeneralSettingScreen extends StatelessWidget {
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
-                          child: BlueBorderContainerConst(imageTile: Icons.history_outlined,
+                          child: BlueBorderContainerConst(imagePath: "images/em_dashboard/data_deletion.png",
                             headText: EmDashboardStringManager.NoDataDelet, numberText: '12', bottomText: '',) ),
                     ),
                     SizedBox(width: AppSize.s30,),
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
-                          child: BlueBorderContainerConst(imageTile: Icons.arrow_circle_right_outlined,
+                          child: BlueBorderContainerConst(imagePath: "images/em_dashboard/login_white.png",
                             headText: EmDashboardStringManager.failedLoginAttempt, numberText: '  02', bottomText: 'Last 24 hours',)),
                     ),
                   ],),
                   SizedBox(height: AppSize.s10,),
                   Row(children: [
                     Expanded(
-                      child: EMDashboardAllBlueSideContainer(
+                        child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
-                          child: BlueBorderContainerConst(imageTile: Icons.shield_moon_outlined,
-                            headText: EmDashboardStringManager.multiAuthenticate, numberText: '12       ', bottomText: '',)),
+                          child: BlueBorderContainerConst(imagePath: "images/em_dashboard/security_protocol.png",
+                            headText: EmDashboardStringManager.ActiveUsersSecurity, numberText: '12  ', bottomText: '',),)
                     ),
                     SizedBox(width: AppSize.s30,),
                     Expanded(
@@ -118,8 +118,8 @@ class GeneralSettingScreen extends StatelessWidget {
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
-                          child: BlueBorderContainerConst(imageTile: Icons.stacked_line_chart_outlined,
-                            headText: EmDashboardStringManager.ActiveUsersSecurity, numberText: '12  ', bottomText: '',),)
+                          child: BlueBorderContainerConst(imagePath: "images/em_dashboard/authenticate.png",
+                            headText: EmDashboardStringManager.multiAuthenticate, numberText: '12', bottomText: '',)),
                     ),
                     SizedBox(width: AppSize.s30,),
                     Expanded(
@@ -131,7 +131,7 @@ class GeneralSettingScreen extends StatelessWidget {
                   ],),
                 ],),
               ),
-              SizedBox(width: AppSize.s20,),
+              SizedBox(width: AppSize.s60,),
               Expanded(
                 flex: 3,
                 child: Column(
