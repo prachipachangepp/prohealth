@@ -318,15 +318,27 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
             ],
           ),
         ),
+
+
+
         Expanded(
           child: ListView.builder(
             reverse: true, // Show the latest messages at the bottom
             itemCount: _messages.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(
-                  _messages[_messages.length - 1 - index],
-                  style: TextStyle(fontSize: 16),
+              return Container(
+                alignment: Alignment.centerRight, // Align the message to the right
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent, // Change the message bubble color
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    _messages[_messages.length - 1 - index],
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ),
               );
             },
@@ -334,13 +346,21 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
         ),
 
         // Expanded(
-        //   child: Center(
-        //     child: Text(
-        //       "Here is the chatbot UI.",
-        //       style:DocumentTypeDataStyle.customTextStyle(context),
-        //     ),
+        //   child: ListView.builder(
+        //     reverse: true, // Show the latest messages at the bottom
+        //     itemCount: _messages.length,
+        //     itemBuilder: (context, index) {
+        //       return ListTile(
+        //         title: Text(
+        //           _messages[_messages.length - 1 - index],
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //       );
+        //     },
         //   ),
         // ),
+
+
         // Divider(),
         // Input Field & Send Button
         Container (

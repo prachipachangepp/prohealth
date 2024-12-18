@@ -295,85 +295,92 @@ class _CustomDialogState extends State<CustomDialog> {
           )
 
         ],
-        bottomButtons:  isLoading == true
-      ? SizedBox(
-          height: 25,
+      bottomButtons: isLoading
+          ? SizedBox(
+        height: 25,
         width: 25,
         child: CircularProgressIndicator(
-            color: ColorManager.blueprime,
-          ),
-      )
-            :
-        CustomElevatedButton(
-          height: 30,
-          width: 120,
-          text: 'Create',
-          onPressed: () async {
-            setState(() {
-              isLoading = true;
-            });
-            _validateForm();
-            print('$selectedDeptId');
-            print('${widget.firstNameController.text}');
-            print('${widget.lastNameController.text}');
-            print('${widget.emailController.text}');
-            print('${widget.passwordController.text}');
-            if (widget.passwordController.text.length < 6) {
-              setState(() {
-                _PasswordDocError = "Password must be longer than or equal to 6 characters";
-              });
-              return; // Stop further execution if password validation fails
-            }
-            if (_isFormValid) {
-              var response = await createUserPost(
-                context,
-                widget.firstNameController.text,
-                widget.lastNameController.text,
-                selectedDeptId!,
-                widget.emailController.text,
-                widget.passwordController.text,
-              );
-
-              if (response.statusCode == 200 || response.statusCode == 201) {
-                Navigator.pop(context);
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AddSuccessPopup(
-                      message: 'User Added Successfully',
-                    );
-                  },
-                );
-                setState(() {
-                  isLoading = false;
-                });
-                widget.onCancel!();
-                widget.firstNameController.clear();
-                widget.lastNameController.clear();
-                widget.emailController.clear();
-                selectedDeptId = AppConfig.AdministrationId;
-              }
-
-              // else if(response.statusCode == 400 || response.statusCode == 404){
-              //   // Navigator.pop(context);
-              //   await showDialog(
-              //     context: context,
-              //     builder: (BuildContext context) => const FourNotFourPopup(),
-              //   );
-              // }
-              else {
-                // Show error dialog if email is already used or other errors
-                await showDialog(
-                  context: context,
-                  builder: (BuildContext context) => FailedPopup(text: response.message),
-                );
-                setState(() {
-                  isLoading == false;
-                });
-              }
-            }
-          },
+          color: ColorManager.blueprime,
         ),
+      )
+          : CustomElevatedButton(
+        height: 30,
+        width: 120,
+        text: 'Create',
+        onPressed: () async {
+          // Validate the form fields first
+          _validateForm();
+
+          // Check if form is valid
+          if (!_isFormValid) {
+            return; // Do not proceed if form isn't valid
+          }
+
+          // Check if password length is sufficient
+          if (widget.passwordController.text.length < 6) {
+            setState(() {
+              _PasswordDocError = "Password must be longer than or equal to 6 characters";
+            });
+            return; // Exit if password validation fails
+          }
+
+          // If validations are successful, show loader and proceed
+          setState(() {
+            isLoading = true;
+          });
+
+          print('$selectedDeptId');
+          print('${widget.firstNameController.text}');
+          print('${widget.lastNameController.text}');
+          print('${widget.emailController.text}');
+          print('${widget.passwordController.text}');
+
+          try {
+            var response = await createUserPost(
+              context,
+              widget.firstNameController.text,
+              widget.lastNameController.text,
+              selectedDeptId!,
+              widget.emailController.text,
+              widget.passwordController.text,
+            );
+
+            if (response.statusCode == 200 || response.statusCode == 201) {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddSuccessPopup(
+                    message: 'User Added Successfully',
+                  );
+                },
+              );
+              widget.onCancel!();
+              widget.firstNameController.clear();
+              widget.lastNameController.clear();
+              widget.emailController.clear();
+              selectedDeptId = AppConfig.AdministrationId;
+            } else {
+              // Handle other errors, such as email already used
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) => FailedPopup(text: response.message),
+              );
+            }
+          } catch (e) {
+            // Handle unexpected errors
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) => FailedPopup(text: e.toString()),
+            );
+          } finally {
+            setState(() {
+              isLoading = false; // Ensure loader is always reset
+            });
+          }
+        },
+      ),
+
 
 
 
@@ -699,36 +706,47 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
         )
 
       ],
-      bottomButtons:  isLoading == true
+      bottomButtons: isLoading
           ? SizedBox(
         height: 25,
-          width:25,
-            child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-          )
-          :
-      CustomElevatedButton(
+        width: 25,
+        child: CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        ),
+      )
+          : CustomElevatedButton(
         height: 30,
         width: 120,
         text: 'Create',
         onPressed: () async {
+          // Validate the form fields first
+          _validateForm();
+
+          // Check if form is valid
+          if (!_isFormValid) {
+            return; // Do not proceed if form isn't valid
+          }
+
+          // Check if password length is sufficient
+          if (widget.passwordController.text.length < 6) {
+            setState(() {
+              _PasswordDocError = "Password must be longer than or equal to 6 characters";
+            });
+            return; // Exit if password validation fails
+          }
+
+          // If validations are successful, show loader and proceed
           setState(() {
             isLoading = true;
           });
-          _validateForm();
+
           print('$selectedDeptId');
           print('${widget.firstNameController.text}');
           print('${widget.lastNameController.text}');
           print('${widget.emailController.text}');
           print('${widget.passwordController.text}');
-          if (widget.passwordController.text.length < 6) {
-            setState(() {
-              _PasswordDocError = "Password must be longer than or equal to 6 characters";
-            });
-            return; // Stop further execution if password validation fails
-          }
-          if (_isFormValid) {
+
+          try {
             var response = await createUserPost(
               context,
               widget.firstNameController.text,
@@ -738,9 +756,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
               widget.passwordController.text,
             );
 
-            if (response.success) {
-              //widget.onCancel!();
-
+            if (response.statusCode == 200 || response.statusCode == 201) {
               Navigator.pop(context);
               showDialog(
                 context: context,
@@ -750,57 +766,31 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   );
                 },
               );
-              setState(() {
-                isLoading = false;
-              });
+
               widget.firstNameController.clear();
               widget.lastNameController.clear();
               widget.emailController.clear();
               selectedDeptId = AppConfig.AdministrationId;
-            }
-            // if(response.statusCode == 400 || response.statusCode == 404){
-            //   Navigator.pop(context);
-            //   showDialog(
-            //     context: context,
-            //     builder: (BuildContext context) => const FourNotFourPopup(),
-            //   );
-            // }
-            else {
-              Navigator.pop(context);
-              showDialog(
+            } else {
+              // Handle other errors, such as email already used
+              await showDialog(
                 context: context,
                 builder: (BuildContext context) => FailedPopup(text: response.message),
               );
             }
-            // else {
-            //   // Show error dialog if email is already used or other errors
-            //   showDialog(
-            //     context: context,
-            //     builder: (BuildContext context) {
-            //       return DialogueTemplate(
-            //         width: 300, // Adjust as needed
-            //         height: 200,
-            //         // Adjust as needed
-            //         title: 'Error',
-            //         body: [
-            //           Text(
-            //               response.message,
-            //               style: TextStyle(fontSize: 16)),
-            //         ],
-            //         bottomButtons: ElevatedButton(
-            //           onPressed: () {
-            //             Navigator.of(context).pop();
-            //           },
-            //           child: Text('OK'),
-            //         ),
-            //       );
-            //     },
-            //   );
-            // }
+          } catch (e) {
+            // Handle unexpected errors
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) => FailedPopup(text: e.toString()),
+            );
+          } finally {
+            setState(() {
+              isLoading = false; // Ensure loader is always reset
+            });
           }
         },
       ),
-
 
 
 
@@ -1227,7 +1217,6 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
               },
             );
           }else {
-            Navigator.pop(context);
             showDialog(
               context: context,
               builder: (BuildContext context) => FailedPopup(text: responce.message),
