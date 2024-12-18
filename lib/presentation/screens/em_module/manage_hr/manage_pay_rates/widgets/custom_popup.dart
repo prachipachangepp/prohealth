@@ -130,7 +130,7 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                           child: Padding(
                             padding:  EdgeInsets.symmetric(vertical: 5,horizontal: 5),
                             child: Text(
-                                "No available visits!",
+                                "",
                                 //AppString.dataNotFound,
                                 style: ConstTextFieldRegister.customTextStyle(context)
                             ),

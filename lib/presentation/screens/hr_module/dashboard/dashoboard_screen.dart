@@ -799,7 +799,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                       PieChartData(
                                                         sections: [
                                                           PieChartSectionData(
-                                                            color: Colors.transparent,
+                                                            color: ColorManager
+                                                                .faintGrey.withOpacity(0.11),
                                                             value: 20,
                                                             title: '',
                                                             radius: 27,
