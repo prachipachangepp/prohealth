@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -118,7 +119,7 @@ class SentToSchedularScreen extends StatelessWidget {
                               blurRadius: 2,
                               offset: Offset(0, 2),
                             ),
-                          ],
+                          ]
                         ),
                         child: Row(
                           children: [
@@ -150,8 +151,8 @@ class SentToSchedularScreen extends StatelessWidget {
                                       "John smith",
                                       textAlign: TextAlign.center,
                                       style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textBlack,),
+                                        fontWeight: FontWeight.w700,
+                                        color: ColorManager.mediumgrey,),
                                     ),
                                     Text(
                                       "Intake Date: 09/15/2024",
@@ -170,10 +171,11 @@ class SentToSchedularScreen extends StatelessWidget {
                             flex: 2,
                             child: Row(
                               children: [
-                                Image.asset(
-                                  "images/sm/location.png",
-                                  height: 25,width: 26,fit: BoxFit.fill,
-                                ),
+                                Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
+                                // Image.asset(
+                                //   "images/sm/location.png",
+                                //   height: 25,width: 26,fit: BoxFit.fill,
+                                // ),
                                 SizedBox(width: 25,),
                                 Text(
                                   "Tufts International Center, 20 Sawyer Ave,\nMedford MA 02155 ",
@@ -254,10 +256,7 @@ class SentToSchedularScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 40.0),
-                            child: Image.asset("images/sm/contact_schedular.png",height: 33,width: 33,fit: BoxFit.fill,),
-                          ),
+
                           Expanded(
                             child: Row(
                               children: [
@@ -302,6 +301,12 @@ class SentToSchedularScreen extends StatelessWidget {
                               ],
                             ),
                           ),
+
+
+                            Padding(
+                              padding: const EdgeInsets.only(right: 40.0),
+                              child: SvgPicture.asset("images/sm/contact_s.svg",height: 50,width: 43,fit: BoxFit.fill,),
+                            ),
                         ],),
                       ),
                       SizedBox(height: AppSize.s5),

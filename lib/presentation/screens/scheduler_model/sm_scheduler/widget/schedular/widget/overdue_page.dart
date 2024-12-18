@@ -221,16 +221,7 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(8),
-                                    color:Color(0xFFDCEFF7) ,
-                                  ),
-                                  height:40,
-                                  width: 40,
-
-                                  child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,)),
+                              child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
                             ),
                             Container(
                               width: 200,
@@ -385,16 +376,7 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(8),
-                                          color:Color(0xFFDCEFF7) ,
-                                        ),
-                                        height:40,
-                                        width: 40,
-
-                                        child: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
+                                    child: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
                                   ),
                                   CircleAvatar(
                                     child:

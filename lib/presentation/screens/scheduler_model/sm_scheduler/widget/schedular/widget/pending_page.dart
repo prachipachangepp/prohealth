@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -274,16 +275,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                      BorderRadius.circular(8),
-                                      color:Color(0xFFDCEFF7) ,
-                                    ),
-                                    height:40,
-                                    width: 40,
-
-                                    child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,)),
+                                child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
                               ),
                               Container(
                                 width: 200,
@@ -349,7 +341,10 @@ class _PendingPageViewState extends State<PendingPageView> {
                             children: [
                               Padding(
                                   padding: const EdgeInsets.only(right: 0),
-                                  child: InkWell(child: Image.asset("images/sm/contact.png",height: 50,width: 60,),onTap: _toggleChatbotVisibility,)
+                                  child:
+                                  InkWell(
+                                    child: SvgPicture.asset("images/sm/contact_s.svg",height: 50,width: 40,)
+                                 ,onTap: _toggleChatbotVisibility,)
                               ),
                             ],
                           ),
