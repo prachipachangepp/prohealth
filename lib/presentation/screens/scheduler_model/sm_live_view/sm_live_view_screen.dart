@@ -3,6 +3,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/search_address_field.dart';
+import 'package:provider/provider.dart';
+
+import '../../em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
 
 class SmLiveViewMapScreen extends StatefulWidget {
   const SmLiveViewMapScreen({super.key});
@@ -120,191 +125,209 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox.expand(
-          child: GoogleMap(
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: _initialPosition,
-              zoom: 12.0,
-            ),
-            markers: _markers,
-            circles: _selectedView == 'Heat Map' ? _heatMapCircles : {},// Use the markers set here
-          ),
-        ),
-        Positioned(
-          top: 30.0,
-          left: 20.0,
-          child: Row(
+    return ChangeNotifierProvider(
+      create: (_) => AddressProvider(controller: TextEditingController(text:""), onChange: (String ) {  }),
+      child: Consumer<AddressProvider>(
+        builder: (context, provider, _) {
+          return Stack(
             children: [
-              Container(
-                width: 320,
-                height: 35,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 5.0,
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  controller: _searchController,
-                  textInputAction: TextInputAction.search,
-                  onSubmitted: (value) => _performSearch(),
-                  decoration: InputDecoration(
-                    hintText: "Search location",
-                    suffixIcon: Icon(Icons.search,),
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical:4),
+              SizedBox.expand(
+                child: GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                    target: provider.latitudeL == null ?_initialPosition: LatLng(provider.latitudeL!, provider.latitudeL!),
+                    zoom: 12.0,
                   ),
+                  markers: _markers,
+                  circles: _selectedView == 'Heat Map' ? _heatMapCircles : {},// Use the markers set here
                 ),
               ),
-              SizedBox(width: 50),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() => _selectedView = 'Zones');
-                      _updateMarkers(); // Update map with zone markers
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                      backgroundColor: _selectedView == 'Zones' ? Colors.blue : Colors.white,
-                      foregroundColor: _selectedView == 'Zones' ? Colors.white : Colors.grey,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
-                    child: Text('Zones'),
-                  ),
-                  SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() => _selectedView = 'Counties');
-                      _updateMarkers(); // Update map with county markers
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                      backgroundColor: _selectedView == 'Counties' ? Colors.blue : Colors.white,
-                      foregroundColor: _selectedView == 'Counties' ? Colors.white : Colors.grey,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
-                    child: Text('Counties'),
-                  ),
-                  SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() => _selectedView = 'Zip Codes');
-                      _updateMarkers(); // Update map with zip code markers
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                      backgroundColor: _selectedView == 'Zip Codes' ? Colors.blue : Colors.white,
-                      foregroundColor: _selectedView == 'Zip Codes' ? Colors.white : Colors.grey,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
-                    child: Text('Zip Codes'),
-                  ),
-                  SizedBox(width: 20,),
-                  ElevatedButton(
-                    onPressed: () => setState(() => _selectedView = 'Offices'),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
-                      backgroundColor: _selectedView == 'Offices' ? ColorManager.blueprime : ColorManager.white,
-                      foregroundColor: _selectedView == 'Offices' ? ColorManager.white : ColorManager.mediumgrey,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(Icons.food_bank_outlined,
-                            size:17,
-                            color: _selectedView == 'Offices' ? ColorManager.white : ColorManager.mediumgrey,),
-                          Text('Offices',style:TextStyle(
+              Positioned(
+                top: 30.0,
+                left: 20.0,
+                child: Row(
+                  children: [
+                    SearchAddressMap(
+                      controller: _searchController,
+                      onSubmit:(val)=> provider.getLatLngFromAddress(val),
+                      onSuggestionSelected: (selected) {
+                        print('Selected Address: $selected');
+                      },
+                      onChanged: (value) {
+                        // provider.showOverlay(context);
+                        print('Address Changed: $value');
+                       // Triggered on every text change
+                      },),
+                    // Container(
+                    //   width: 320,
+                    //   height: 35,
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,
+                    //     borderRadius: BorderRadius.circular(8.0),
+                    //     boxShadow: [
+                    //       BoxShadow(
+                    //         color: Colors.black26,
+                    //         blurRadius: 5.0,
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   child: TextField(
+                    //     controller: _searchController,
+                    //     textInputAction: TextInputAction.search,
+                    //     onSubmitted: (value) => _performSearch(),
+                    //     decoration: InputDecoration(
+                    //       hintText: "Search location",
+                    //       suffixIcon: Icon(Icons.search,),
+                    //       border: InputBorder.none,
+                    //       contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical:4),
+                    //     ),
+                    //   ),
+                    // ),
+                    SizedBox(width: 50),
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() => _selectedView = 'Zones');
+                            _updateMarkers(); // Update map with zone markers
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                            backgroundColor: _selectedView == 'Zones' ? Colors.blue : Colors.white,
+                            foregroundColor: _selectedView == 'Zones' ? Colors.white : Colors.grey,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          ),
+                          child: Text('Zones'),
+                        ),
+                        SizedBox(width: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() => _selectedView = 'Counties');
+                            _updateMarkers(); // Update map with county markers
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                            backgroundColor: _selectedView == 'Counties' ? Colors.blue : Colors.white,
+                            foregroundColor: _selectedView == 'Counties' ? Colors.white : Colors.grey,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          ),
+                          child: Text('Counties'),
+                        ),
+                        SizedBox(width: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() => _selectedView = 'Zip Codes');
+                            _updateMarkers(); // Update map with zip code markers
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                            backgroundColor: _selectedView == 'Zip Codes' ? Colors.blue : Colors.white,
+                            foregroundColor: _selectedView == 'Zip Codes' ? Colors.white : Colors.grey,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          ),
+                          child: Text('Zip Codes'),
+                        ),
+                        SizedBox(width: 20,),
+                        ElevatedButton(
+                          onPressed: () => setState(() => _selectedView = 'Offices'),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
+                            backgroundColor: _selectedView == 'Offices' ? ColorManager.blueprime : ColorManager.white,
+                            foregroundColor: _selectedView == 'Offices' ? ColorManager.white : ColorManager.mediumgrey,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(Icons.food_bank_outlined,
+                                  size:17,
+                                  color: _selectedView == 'Offices' ? ColorManager.white : ColorManager.mediumgrey,),
+                                Text('Offices',style:TextStyle(
+                                    fontSize: 14,
+                                    color: _selectedView == 'Offices' ?ColorManager.white: ColorManager.tangerine,
+                                    fontWeight: FontWeight.w500)),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20,),
+                        ElevatedButton(
+                          onPressed: () => setState(() => _selectedView = 'Clinicians'),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
+                            backgroundColor: _selectedView == 'Clinicians' ? ColorManager.blueprime : ColorManager.white,
+                            foregroundColor: _selectedView == 'Clinicians' ? ColorManager.white : ColorManager.mediumgrey,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          ),
+                          child: Text('Clinicians',style:TextStyle(
                               fontSize: 14,
-                              color: _selectedView == 'Offices' ?ColorManager.white: ColorManager.tangerine,
+                              color: _selectedView == 'Clinicians' ?ColorManager.white:ColorManager.blueKeyGraph,
                               fontWeight: FontWeight.w500)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 20,),
-                  ElevatedButton(
-                    onPressed: () => setState(() => _selectedView = 'Clinicians'),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
-                      backgroundColor: _selectedView == 'Clinicians' ? ColorManager.blueprime : ColorManager.white,
-                      foregroundColor: _selectedView == 'Clinicians' ? ColorManager.white : ColorManager.mediumgrey,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
-                    child: Text('Clinicians',style:TextStyle(
-                        fontSize: 14,
-                        color: _selectedView == 'Clinicians' ?ColorManager.white:ColorManager.blueKeyGraph,
-                        fontWeight: FontWeight.w500)),
-                  ),
-                  SizedBox(width: 20,),
-                  ElevatedButton(
-                    onPressed: () => setState(() => _selectedView = 'Patients'),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
-                      backgroundColor: _selectedView == 'Patients' ? ColorManager.blueprime : ColorManager.white,
-                      foregroundColor: _selectedView == 'Patients' ? ColorManager.white : ColorManager.mediumgrey,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(Icons.add,
-                            size:17,
-                            color: _selectedView == 'Patients' ?ColorManager.white:ColorManager.mediumgrey,),
-                          Text('Patients',style:TextStyle(
-                              fontSize: 14,
-                              color: _selectedView == 'Patients' ?ColorManager.white:ColorManager.green,
-                              fontWeight: FontWeight.w500)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 20,),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() => _selectedView = 'Heat Map');
-                      _generateHeatMap();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
-                      backgroundColor: _selectedView == 'Heat Map' ? ColorManager.blueprime : ColorManager.white,
-                      foregroundColor: _selectedView == 'Heat Map' ? ColorManager.white : ColorManager.mediumgrey,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(Icons.filter_b_and_w_outlined,
-                            size:17,
-                            color:_selectedView == 'Heat Map' ? ColorManager.white:ColorManager.blueBorderText,),
-                          Text('Heat Map',style:TextStyle(
-                              fontSize: 14,
-                              color: _selectedView == 'Heat Map' ? ColorManager.white:ColorManager.blueBorderText,
-                              fontWeight: FontWeight.w500)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              )
+                        ),
+                        SizedBox(width: 20,),
+                        ElevatedButton(
+                          onPressed: () => setState(() => _selectedView = 'Patients'),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
+                            backgroundColor: _selectedView == 'Patients' ? ColorManager.blueprime : ColorManager.white,
+                            foregroundColor: _selectedView == 'Patients' ? ColorManager.white : ColorManager.mediumgrey,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(Icons.add,
+                                  size:17,
+                                  color: _selectedView == 'Patients' ?ColorManager.white:ColorManager.mediumgrey,),
+                                Text('Patients',style:TextStyle(
+                                    fontSize: 14,
+                                    color: _selectedView == 'Patients' ?ColorManager.white:ColorManager.green,
+                                    fontWeight: FontWeight.w500)),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20,),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() => _selectedView = 'Heat Map');
+                            _generateHeatMap();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
+                            backgroundColor: _selectedView == 'Heat Map' ? ColorManager.blueprime : ColorManager.white,
+                            foregroundColor: _selectedView == 'Heat Map' ? ColorManager.white : ColorManager.mediumgrey,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(Icons.filter_b_and_w_outlined,
+                                  size:17,
+                                  color:_selectedView == 'Heat Map' ? ColorManager.white:ColorManager.blueBorderText,),
+                                Text('Heat Map',style:TextStyle(
+                                    fontSize: 14,
+                                    color: _selectedView == 'Heat Map' ? ColorManager.white:ColorManager.blueBorderText,
+                                    fontWeight: FontWeight.w500)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ],
-          ),
-        ),
-      ],
+          );
+        }
+      ),
     );
   }
 //
