@@ -269,7 +269,7 @@ class HRDashBottomSheetData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: AppSize.s88,
-      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+      padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
       margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
       decoration: BoxDecoration(
         color: ColorManager.white,
@@ -285,6 +285,7 @@ class HRDashBottomSheetData extends StatelessWidget {
       ),
       child: Row(children: [
         Expanded(
+          flex: 2,
           child: Row(
             children: [
               Padding(
@@ -313,6 +314,7 @@ class HRDashBottomSheetData extends StatelessWidget {
           ),
         ),
         Expanded(
+          flex: 2,
           child: Row(
             children: [
               Text(
@@ -334,6 +336,7 @@ class HRDashBottomSheetData extends StatelessWidget {
           ),
         ),
         Expanded(
+          flex: 2,
           child: Row(
             children: [
               Text(
@@ -355,62 +358,71 @@ class HRDashBottomSheetData extends StatelessWidget {
           ),
         ),
         Expanded(
+          flex: 3,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                "Document Names",
-                textAlign: TextAlign.center,
-                style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                  fontWeight: FontWeight.w400,
-                  color: ColorManager.mediumgrey,),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Text(
+                  "Document Names",
+                  textAlign: TextAlign.center,
+                  style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                    fontWeight: FontWeight.w400,
+                    color: ColorManager.mediumgrey,),
+                ),
               ),
               SizedBox(width: 20,),
-              Container(
-                height: 70,
-                //color: Colors.blue,
-                child: GestureDetector(
-                  onTap: (){
-                    showDialog(context: context, builder: (context) => BottomsheetPopup());
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Driving License",
-                            textAlign: TextAlign.start,
-                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.black,),
-                          ),
-                          SizedBox(width: 20,),
-                          Text(
-                            "expiry in 10 month",
-                            textAlign: TextAlign.start,
-                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFF428634)),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        "Domicile",
-                        textAlign: TextAlign.start,
-                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: ColorManager.black,),
-                      ),
-                      Text(
-                        "Birth Certificate",
-                        textAlign: TextAlign.start,
-                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: ColorManager.black,),
-                      ),
-                    ],
+              Expanded(
+                child: Container(
+                  height: 70,
+                // color: Colors.blue,
+                  padding: EdgeInsets.only(left: 50),
+                  child: GestureDetector(
+                    onTap: (){
+                      showDialog(context: context, builder: (context) => BottomsheetPopup());
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Driving License",
+                              textAlign: TextAlign.start,
+                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w400,
+                                color: ColorManager.black,),
+                            ),
+                            SizedBox(width: 20,),
+                            Text(
+                              "expiry in 10 month",
+                              textAlign: TextAlign.start,
+                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF428634)),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          "Domicile",
+                          textAlign: TextAlign.start,
+                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.black,),
+                        ),
+                        Text(
+                          "Birth Certificate",
+                          textAlign: TextAlign.start,
+                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.black,),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -431,7 +443,7 @@ class HRDashboardListViewData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: AppSize.s88,
-     padding: EdgeInsets.symmetric(horizontal: AppPadding.p40),
+     padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
      margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
       decoration: BoxDecoration(
         color: ColorManager.white,
@@ -508,7 +520,7 @@ class HRDashboardListViewData extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              "Expiry Date for\nPractioner License",
+              "Expiry Date for\nPractitioner License",
               textAlign: TextAlign.start,
               style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
                 fontWeight: FontWeight.w400,
@@ -565,7 +577,7 @@ class HRDashboardListViewData extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              "Practional License",
+              "Practitioner License",
               textAlign: TextAlign.start,
               style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
                 fontWeight: FontWeight.w400,

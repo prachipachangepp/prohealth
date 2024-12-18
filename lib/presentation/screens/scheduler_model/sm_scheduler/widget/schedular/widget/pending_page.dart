@@ -421,8 +421,6 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       ),
                                     ),
                                   ),
-
-
                                 ],
                               )
                             )

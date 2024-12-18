@@ -159,11 +159,12 @@ class EMDashboardAllBlueSideContainer extends StatelessWidget {
 }
 
 class BlueBorderContainerConst extends StatelessWidget {
-  final IconData imageTile;
+  final IconData? imageTile;
   final String headText;
   final String numberText;
   final String bottomText;
-  const BlueBorderContainerConst({super.key, required this.imageTile, required this.headText, required this.numberText, required this.bottomText});
+  final String? imagePath;
+  const BlueBorderContainerConst({super.key, this.imageTile, required this.headText, required this.numberText, required this.bottomText, this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -173,12 +174,32 @@ class BlueBorderContainerConst extends StatelessWidget {
           children: [
             Column(children: [
               SizedBox(height: AppSize.s10,),
-              ClipRRect(
+              if (imagePath != null)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Container(
+                    padding: EdgeInsets.all(12),
+                      width: AppSize.s50,
+                      height: AppSize.s50,
+                      color: ColorManager.bluebottom,
+                      child:
+                      Image.asset(
+                  //fit: BoxFit.contain,
+                  imagePath!,
+                  // height: 20, // Adjust the size as needed
+                  // width: 20,
+                  // color: ColorManager.bluebottom,
+                )
+                ),
+                )
+              else if (imageTile != null)
+                 ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: Container(
                   width: AppSize.s50,
                   height: AppSize.s50,
                   color: ColorManager.bluebottom,
+                  //padding: EdgeInsets.all(10),
                   child: Icon(imageTile,color: ColorManager.white,size: IconSize.I24,)
                   // Image.asset(
                   //   imageTile, // Replace with your image path
@@ -187,7 +208,7 @@ class BlueBorderContainerConst extends StatelessWidget {
                 ),
               )
             ],),
-            SizedBox(width: AppSize.s25,),
+            SizedBox(width: AppSize.s15,),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
