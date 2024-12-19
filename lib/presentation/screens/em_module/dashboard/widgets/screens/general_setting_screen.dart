@@ -16,7 +16,7 @@ class GeneralSettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
         child: Column(
           children: [
             Row(children: [
@@ -24,8 +24,8 @@ class GeneralSettingScreen extends StatelessWidget {
                 flex: 4,
                 child: Column(children: [
                   ///white first container
-                 GeneralSettingConst(),
-                  SizedBox(height: AppSize.s20,),
+                 const GeneralSettingConst(),
+                  const SizedBox(height: AppSize.s20,),
                   ///border blue big container row 2
                   EMDashboardAllBlueSideContainer(
                       height: AppSize.s100,
@@ -47,7 +47,7 @@ class GeneralSettingScreen extends StatelessWidget {
                                 // ),
                               ),
                             ),
-                            SizedBox(width: AppSize.s20,),
+                            const SizedBox(width: AppSize.s20,),
                             Text( EmDashboardStringManager.userPassExp ,
                               style: EmDashText.customTextStyle(context),),
                           ],
@@ -65,12 +65,13 @@ class GeneralSettingScreen extends StatelessWidget {
                         ),
                       ],)),
 
-                  SizedBox(height: AppPadding.p20,),
-                  Row(children: [
+                  const SizedBox(height: AppPadding.p20,),
+                  const Row(children: [
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.calendar_today_outlined,
+                            padding: 0,
                             headText: EmDashboardStringManager.systemUpdate, numberText: '', bottomText: '',)),
                     ),
                     SizedBox(width: AppSize.s30,),
@@ -78,15 +79,17 @@ class GeneralSettingScreen extends StatelessWidget {
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.error_outline,
+                            padding: 0,
                             headText: EmDashboardStringManager.systemError, numberText: '12', bottomText: 'Last 24 hours',)),
                     ),
                   ],),
-                  SizedBox(height: AppSize.s10,),
-                  Row(children: [
+                  const SizedBox(height: AppSize.s10,),
+                  const Row(children: [
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imagePath: "images/em_dashboard/data_deletion.png",
+                            padding: 0,
                             headText: EmDashboardStringManager.NoDataDelet, numberText: '12', bottomText: '',) ),
                     ),
                     SizedBox(width: AppSize.s30,),
@@ -94,15 +97,17 @@ class GeneralSettingScreen extends StatelessWidget {
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imagePath: "images/em_dashboard/login_white.png",
+                            padding: 0,
                             headText: EmDashboardStringManager.failedLoginAttempt, numberText: '  02', bottomText: 'Last 24 hours',)),
                     ),
                   ],),
-                  SizedBox(height: AppSize.s10,),
-                  Row(children: [
+                  const SizedBox(height: AppSize.s10,),
+                  const Row(children: [
                     Expanded(
                         child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imagePath: "images/em_dashboard/security_protocol.png",
+                            padding: 0,
                             headText: EmDashboardStringManager.ActiveUsersSecurity, numberText: '12  ', bottomText: '',),)
                     ),
                     SizedBox(width: AppSize.s30,),
@@ -110,37 +115,41 @@ class GeneralSettingScreen extends StatelessWidget {
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.personal_injury_outlined,
+                            padding: 0,
                             headText: EmDashboardStringManager.ActiveUsers, numberText: '26', bottomText: '',),)
                     ),
                   ],),
-                  SizedBox(height: AppSize.s10,),
-                  Row(children: [
+                  const SizedBox(height: AppSize.s10,),
+                  const Row(children: [
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imagePath: "images/em_dashboard/authenticate.png",
-                            headText: EmDashboardStringManager.multiAuthenticate, numberText: '12', bottomText: '',)),
+                            headText: EmDashboardStringManager.multiAuthenticate,
+                            padding: 45,
+                            numberText: '12', bottomText: '',)),
                     ),
                     SizedBox(width: AppSize.s30,),
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
                           child: BlueBorderContainerConst(imageTile: Icons.calendar_today_outlined,
+                            padding: 0,
                             headText: EmDashboardStringManager.lastSoftUpdate, numberText: '', bottomText: 'Last updated on 14/11/2024',)),
                     ),
                   ],),
                 ],),
               ),
-              SizedBox(width: AppSize.s60,),
+              const SizedBox(width: AppSize.s60,),
               Expanded(
                 flex: 3,
                 child: Column(
                   children: [
                     UserRoleDistribution(),
-                    SizedBox(height: AppSize.s20,),
+                    const SizedBox(height: AppSize.s20,),
                     Container(
                       height: AppSize.s550,
-                      padding: EdgeInsets.all(AppPadding.p10),
+                      padding: const EdgeInsets.all(AppPadding.p10),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(14),
@@ -155,10 +164,10 @@ class GeneralSettingScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          SizedBox(height: AppSize.s10,),
+                          const SizedBox(height: AppSize.s10,),
                           Text(EmDashboardStringManager.encryptionKey,
-                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s24,
-                              color:ColorManager.mediumgrey,fontWeight: FontWeight.w700),),
+                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s22,
+                              color:ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                           Stack(
                             alignment: Alignment.center,
                             children:[
@@ -328,7 +337,7 @@ class GeneralSettingScreen extends StatelessWidget {
                                   child: Container(
                                     width: AppSize.s80,
                                     height: AppSize.s80,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
                                         image: AssetImage('images/em_dashboard/dashboard_key.png'), // Replace with your image path
@@ -344,7 +353,7 @@ class GeneralSettingScreen extends StatelessWidget {
                 ),
               ),
             ],),
-            SizedBox(height: AppSize.s30,),
+            const SizedBox(height: AppSize.s30,),
         ],),
       ),
     );

@@ -39,6 +39,7 @@ class EmDashHelloText{
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
         fontSize: FontSize.s28,
+        letterSpacing: 0.5,
         color:ColorManager.bluebottom,
         fontWeight: FontWeight.w700,
     decoration: TextDecoration.none);

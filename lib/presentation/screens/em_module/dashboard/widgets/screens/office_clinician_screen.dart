@@ -13,6 +13,7 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../em_dashboard_const.dart';
 
 class OfficeClinicianScreen extends StatefulWidget {
@@ -237,46 +238,27 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                         children: [
                           Text(EmDashboardStringManager.clinicianOvertime,
                            style: EmDashContainerHeadTextStyle.customTextStyle(context)),
+
                           Container(
                             width:AppSize.s125,
-                            height: AppSize.s20,
-                            padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.transparent, // Ensure opacity 0 effect
-                            ),
-                            child: StatefulBuilder(
+                           child: StatefulBuilder(
                                 builder: (BuildContext context,
                                     void Function(void Function()) setState) {
-                                  return DropdownButtonHideUnderline(
-                                    child: DropdownButton<
-                                        String>(
-                                      value: selectedValue,
-                                      icon: const Icon(Icons
-                                          .arrow_drop_down),
-                                      iconSize: IconSize.I16,
-                                      isExpanded: true,
-                                      style: TableSubHeading.customTextStyle(context),
-                                      items: items.map((
-                                          String value) {
-                                        return DropdownMenuItem<
-                                            String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          selectedValue =
-                                          newValue!;
-                                        });
-                                      },
-                                    ),
+                                  return CustomDropdownEMDashboard(
+                                    items: ["Daily", "Weekly", "Monthly"],
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        selectedValue =
+                                        newValue!;
+                                      });
+                                    },
+
                                   );
+
                                 }
                             ),
-                          )
+                         ),
+
                         ],
                       ),
                     ),
@@ -410,10 +392,13 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                           sideTitles: SideTitles(
                             showTitles: false, // Disable Y-axis tick labels
                           ),
-                          axisNameWidget: Text(
-                            'Clinician Score',
-                            style: EmDashContainerHeadTextStyle.customTextStyle(context),
-                            textAlign: TextAlign.end,
+                          axisNameWidget: Padding(
+                            padding: const EdgeInsets.only(right: 50.0),
+                            child: Text(
+                              'Clinician Score',
+                              style: EmDashContainerHeadTextStyle.customTextStyle(context),
+                              textAlign: TextAlign.end,
+                            ),
                           ),
                           axisNameSize: 20, // Reserve space for the Y-axis title
                         ),
@@ -475,19 +460,19 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                                 sections: [
                                   PieChartSectionData(
                                     color: ColorManager.pieChartGreen,
-                                    value: 75, // Patients % value
-                                    radius: 20,
+                                    value: 85, // Patients % value
+                                    radius: 15,
                                     title: "",
 
                                   ),
                                   PieChartSectionData(
                                     color: Colors.grey[300],
-                                    value: 25, // Remaining % value
-                                    radius: 20,
+                                    value: 15, // Remaining % value
+                                    radius: 15,
                                     title: "",
                                   ),
                                 ],
-                                centerSpaceRadius: 60, // Space between inner and outer circle
+                                centerSpaceRadius: 70, // Space between inner and outer circle
                                 sectionsSpace: 0,
                               ),
                             ),
@@ -502,17 +487,17 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                                   PieChartSectionData(
                                     color: ColorManager.pieChartfGrey,
                                     value: 90, // Clinicians % value
-                                    radius: 15,
+                                    radius: 13,
                                     title: "",
                                   ),
                                   PieChartSectionData(
                                     color: Colors.grey[200],
                                     value: 10, // Remaining % value
-                                    radius: 15,
+                                    radius: 13,
                                     title: "",
                                   ),
                                 ],
-                                centerSpaceRadius: 40,
+                                centerSpaceRadius: 50,
                                 sectionsSpace: 0,
                               ),
                             ),

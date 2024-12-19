@@ -138,76 +138,79 @@ class AuditPrepTimeOffice extends StatelessWidget {
               child: Container(
                 height: AppSize.s205,
                 // width: 500,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: 15,
-                  itemBuilder: (context, index) {
-                    //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                    // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                    // EmployeeDocumentModal employeedoc = paginatedData[index];
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: AppSize.s10,
-                        ),
-                        Container(
-                          height: AppSize.s44,
-                          padding: EdgeInsets.only(left: AppPadding.p20),
-                          //margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
-                          decoration: BoxDecoration(
-                            color: ColorManager.white,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(width: 1, color: Color(0xFFE9E9E9)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: ColorManager.black.withOpacity(0.1),
-                                spreadRadius: 0,
-                                blurRadius: 4,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
+                child: ScrollConfiguration(
+                  behavior: ScrollBehavior().copyWith(scrollbars: false),
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: 15,
+                    itemBuilder: (context, index) {
+                      //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                      // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                      // EmployeeDocumentModal employeedoc = paginatedData[index];
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: AppSize.s10,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                // flex: 1,
-                                child: Text(
-                                  "01",
-                                  textAlign: TextAlign.start,
-                                  style: EmDashListviewDataText.customTextStyle(context),
+                          Container(
+                            height: AppSize.s44,
+                            padding: EdgeInsets.only(left: AppPadding.p20),
+                            //margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
+                            decoration: BoxDecoration(
+                              color: ColorManager.white,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(width: 1, color: Color(0xFFE9E9E9)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: ColorManager.black.withOpacity(0.1),
+                                  spreadRadius: 0,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
                                 ),
-                              ),
-                              Expanded(
-                                // flex:2,
-                                child: Text(
-                                  "Office 1",
-                                  textAlign: TextAlign.start,
-                                  style: EmDashListviewDataText.customTextStyle(context),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  // flex: 1,
+                                  child: Text(
+                                    "01",
+                                    textAlign: TextAlign.start,
+                                    style: EmDashListviewDataText.customTextStyle(context),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                // flex:2,
-                                child: Text(
-                                  "Audit 1",
-                                  textAlign: TextAlign.center,
-                                  style: EmDashListviewDataText.customTextStyle(context),
+                                Expanded(
+                                  // flex:2,
+                                  child: Text(
+                                    "Office 1",
+                                    textAlign: TextAlign.start,
+                                    style: EmDashListviewDataText.customTextStyle(context),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                // flex:2,
-                                child: Text(
-                                  "10:00:00 AM",
-                                  textAlign: TextAlign.center,
-                                  style: EmDashListviewDataText.customTextStyle(context),
+                                Expanded(
+                                  // flex:2,
+                                  child: Text(
+                                    "Audit 1",
+                                    textAlign: TextAlign.center,
+                                    style: EmDashListviewDataText.customTextStyle(context),
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  // flex:2,
+                                  child: Text(
+                                    "10:00:00 AM",
+                                    textAlign: TextAlign.center,
+                                    style: EmDashListviewDataText.customTextStyle(context),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  },
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -245,7 +248,7 @@ class AvgComRatingOffice extends StatelessWidget {
         Container(
           height: AppSize.s30,
           // margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
-          padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p60),
+          padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p50),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -280,71 +283,74 @@ class AvgComRatingOffice extends StatelessWidget {
             height: AppSize.s210,
             // width: 500,
             padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: 15,
-              itemBuilder: (context, index) {
-                //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                // EmployeeDocumentModal employeedoc = paginatedData[index];
-                double rating = 4.5 - (index % 2) * 0.5;
-                return Column(
-                  children: [
-                    SizedBox(height: AppSize.s6,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex:1,
-                          child: Text(
-                            "Office 1",
-                            textAlign: TextAlign.start,
-                            style: EmDashListviewDataText.customTextStyle(context),
+            child: ScrollConfiguration(
+              behavior: ScrollBehavior().copyWith(scrollbars: false),
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: 15,
+                itemBuilder: (context, index) {
+                  //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                  // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                  // EmployeeDocumentModal employeedoc = paginatedData[index];
+                  double rating = 4.5 - (index % 2) * 0.5;
+                  return Column(
+                    children: [
+                      SizedBox(height: AppSize.s6,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex:1,
+                            child: Text(
+                              "Office 1",
+                              textAlign: TextAlign.start,
+                              style: EmDashListviewDataText.customTextStyle(context),
+                            ),
                           ),
-                        ),
-                        Expanded(flex:1 ,child: Container()),
-                        Expanded(
-                          flex: 1,
-                          child: Row(
-                            children: [
-                              RatingStars(
-                                value: rating,
-                                starCount: 5,
-                                starSize: 18,
-                                maxValue: 5,
-                                starSpacing: 2,
-                                maxValueVisibility: false,
-                                valueLabelVisibility: false,
-                                starOffColor: ColorManager.grey, // Unselected stars
-                                starColor: Colors.orange, // Selected stars
-                              ),
-                          SizedBox(width: 20,),
-                          Text(
-                            "5",
-                            textAlign: TextAlign.center,
-                            style: EmDashListviewDataText.customTextStyle(context),)
-                            ],
+                          Expanded(flex:1 ,child: Container()),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              children: [
+                                RatingStars(
+                                  value: rating,
+                                  starCount: 5,
+                                  starSize: 18,
+                                  maxValue: 5,
+                                  starSpacing: 2,
+                                  maxValueVisibility: false,
+                                  valueLabelVisibility: false,
+                                  starOffColor: ColorManager.grey, // Unselected stars
+                                  starColor: Colors.orange, // Selected stars
+                                ),
+                            SizedBox(width: 20,),
+                            Text(
+                              "5",
+                              textAlign: TextAlign.center,
+                              style: EmDashListviewDataText.customTextStyle(context),)
+                              ],
+                            ),
                           ),
-                        ),
-                        // Expanded(
-                        //   flex:1,
-                        //   child: Text(
-                        //     "5",
-                        //     textAlign: TextAlign.center,
-                        //     style: CustomTextStylesCommon.commonStyle(
-                        //       fontSize: FontSize.s12,
-                        //       fontWeight: FontWeight.w400,
-                        //       color: ColorManager.black,
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                    SizedBox(height: AppSize.s6,),
-                    Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
-                  ],
-                );
-              },
+                          // Expanded(
+                          //   flex:1,
+                          //   child: Text(
+                          //     "5",
+                          //     textAlign: TextAlign.center,
+                          //     style: CustomTextStylesCommon.commonStyle(
+                          //       fontSize: FontSize.s12,
+                          //       fontWeight: FontWeight.w400,
+                          //       color: ColorManager.black,
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                      SizedBox(height: AppSize.s6,),
+                      Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -431,72 +437,75 @@ class AuditDates extends StatelessWidget {
                 height: AppSize.s190,
                 // width: 500,
                 padding: EdgeInsets.only(left: AppPadding.p20,),
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: 15,
-                  itemBuilder: (context, index) {
-                    //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                    // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                    // EmployeeDocumentModal employeedoc = paginatedData[index];
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: AppSize.s6,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              // flex: 1,
-                              child: Text(
-                                "01",
-                                textAlign: TextAlign.start,
-                                style: EmDashListviewDataText.customTextStyle(context),
+                child: ScrollConfiguration(
+                  behavior: ScrollBehavior().copyWith(scrollbars: false),
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: 15,
+                    itemBuilder: (context, index) {
+                      //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                      // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                      // EmployeeDocumentModal employeedoc = paginatedData[index];
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: AppSize.s6,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                // flex: 1,
+                                child: Text(
+                                  "01",
+                                  textAlign: TextAlign.start,
+                                  style: EmDashListviewDataText.customTextStyle(context),
+                                ),
                               ),
-                            ),
-                            Expanded(
-                             flex:2,
-                              child: Text(
-                                "Next Scheduled Gov. Date",
-                                textAlign: TextAlign.start,
-                                style: EmDashListviewDataText.customTextStyle(context),
+                              Expanded(
+                               flex:2,
+                                child: Text(
+                                  "Next Scheduled Gov. Date",
+                                  textAlign: TextAlign.start,
+                                  style: EmDashListviewDataText.customTextStyle(context),
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "27-08-2025",
-                                    textAlign: TextAlign.center,
-                                    style: EmDashListviewDataText.customTextStyle(context),
-                                  ),
-                                  SizedBox(width: AppSize.s15),
-                                  IconButton(
-                                    icon: Icon(Icons.calendar_today, size: IconSize.I16, color: ColorManager.bluebottom),
-                                    onPressed: () async {
-                                      DateTime? pickedDate = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(), // Default date
-                                        firstDate: DateTime(1950), // Earliest date
-                                        lastDate: DateTime(3100), // Latest date
-                                      );
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "27-08-2025",
+                                      textAlign: TextAlign.center,
+                                      style: EmDashListviewDataText.customTextStyle(context),
+                                    ),
+                                    SizedBox(width: AppSize.s15),
+                                    IconButton(
+                                      icon: Icon(Icons.calendar_today_outlined, size: IconSize.I16, color: ColorManager.bluebottom),
+                                      onPressed: () async {
+                                        DateTime? pickedDate = await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(), // Default date
+                                          firstDate: DateTime(1950), // Earliest date
+                                          lastDate: DateTime(3100), // Latest date
+                                        );
 
-                                      if (pickedDate != null) {
-                                        print("Selected date: ${pickedDate.toString()}");
-                                      }
-                                    },
-                                  ),
-                                ],
+                                        if (pickedDate != null) {
+                                          print("Selected date: ${pickedDate.toString()}");
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
 
-                          ],
-                        ),
-                        Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
-                      ],
-                    );
-                  },
+                            ],
+                          ),
+                          Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -558,7 +567,7 @@ class UpcomingCpmDeadlines extends StatelessWidget {
                       style: EmDashListviewHeadText.customTextStyle(context),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: AppPadding.p15),
+                      padding: const EdgeInsets.only(left: AppPadding.p30),
                       child: Text(
                         EmDashboardStringManager.offices,
                         textAlign: TextAlign.start,
@@ -585,72 +594,75 @@ class UpcomingCpmDeadlines extends StatelessWidget {
                 height: AppSize.s110,
                 // width: 500,
                 padding: EdgeInsets.only(left: AppPadding.p20,),
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: 15,
-                  itemBuilder: (context, index) {
-                    //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                    // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                    // EmployeeDocumentModal employeedoc = paginatedData[index];
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: AppSize.s6,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              // flex: 1,
-                              child: Text(
-                                "01",
-                                textAlign: TextAlign.start,
-                                style: EmDashListviewDataText.customTextStyle(context),
+                child: ScrollConfiguration(
+                  behavior: ScrollBehavior().copyWith(scrollbars: false),
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: 15,
+                    itemBuilder: (context, index) {
+                      //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                      // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                      // EmployeeDocumentModal employeedoc = paginatedData[index];
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: AppSize.s6,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                // flex: 1,
+                                child: Text(
+                                  "01",
+                                  textAlign: TextAlign.start,
+                                  style: EmDashListviewDataText.customTextStyle(context),
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              // flex:2,
-                              child: Text(
-                                "Office 1",
-                                textAlign: TextAlign.start,
-                                style: EmDashListviewDataText.customTextStyle(context),
+                              Expanded(
+                                // flex:2,
+                                child: Text(
+                                  "Office 1",
+                                  textAlign: TextAlign.start,
+                                  style: EmDashListviewDataText.customTextStyle(context),
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "27-08-2025",
-                                    textAlign: TextAlign.center,
-                                    style: EmDashListviewDataText.customTextStyle(context),
-                                  ),
-                                  SizedBox(width: AppSize.s15),
-                                  IconButton(
-                                    icon: Icon(Icons.calendar_today, size: IconSize.I16, color: ColorManager.bluebottom),
-                                    onPressed: () async {
-                                      DateTime? pickedDate = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(), // Default date
-                                        firstDate: DateTime(1950), // Earliest date
-                                        lastDate: DateTime(3100), // Latest date
-                                      );
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "27-08-2025",
+                                      textAlign: TextAlign.center,
+                                      style: EmDashListviewDataText.customTextStyle(context),
+                                    ),
+                                    SizedBox(width: AppSize.s15),
+                                    IconButton(
+                                      icon: Icon(Icons.calendar_today_outlined, size: IconSize.I16, color: ColorManager.bluebottom),
+                                      onPressed: () async {
+                                        DateTime? pickedDate = await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(), // Default date
+                                          firstDate: DateTime(1950), // Earliest date
+                                          lastDate: DateTime(3100), // Latest date
+                                        );
 
-                                      if (pickedDate != null) {
-                                        print("Selected date: ${pickedDate.toString()}");
-                                      }
-                                    },
-                                  ),
-                                ],
+                                        if (pickedDate != null) {
+                                          print("Selected date: ${pickedDate.toString()}");
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
 
-                          ],
-                        ),
-                        Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
-                      ],
-                    );
-                  },
+                            ],
+                          ),
+                          Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -690,7 +702,7 @@ class OfficeExpiringComDoc extends StatelessWidget {
               child: Container(
                 height: AppSize.s54,
                 // margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
-                padding: EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p50),
+                padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p50),
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -711,10 +723,13 @@ class OfficeExpiringComDoc extends StatelessWidget {
                       textAlign: TextAlign.start,
                       style: EmDashListviewHeadText.customTextStyle(context),
                     ),
-                    Text(
-                      EmDashboardStringManager.status,
-                      textAlign: TextAlign.start,
-                      style: EmDashListviewHeadText.customTextStyle(context),
+                    Padding(
+                      padding: const EdgeInsets.only(left: AppPadding.p10),
+                      child: Text(
+                        EmDashboardStringManager.status,
+                        textAlign: TextAlign.start,
+                        style: EmDashListviewHeadText.customTextStyle(context),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: AppPadding.p40),
@@ -743,130 +758,134 @@ class OfficeExpiringComDoc extends StatelessWidget {
               child: Container(
                 height: AppSize.s383,
                 // width: 500,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: 15,
-                  itemBuilder: (context, index) {
-                    //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                    // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                    // EmployeeDocumentModal employeedoc = paginatedData[index];
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: AppSize.s6,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                // flex: 1,
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(AppPadding.p4),
-                                      child: CircleAvatar(
-                                        backgroundColor: ColorManager.bluebottom,
-                                        radius: 15,
-                                        child: Icon(Icons.home_work_outlined,color: ColorManager.white,size: 14,),
-                                      ),
-                                    ),
-                                    SizedBox(width: AppSize.s6,),
-                                    Text(
-                                      "Office 1",
-                                      textAlign: TextAlign.start,
-                                      style: EmDashListviewDataText.customTextStyle(context),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(child: Container()),
-                              Expanded(
-                                flex:3,
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: AppSize.s10,
-                                      height: AppSize.s15,
-                                      decoration: BoxDecoration(
-                                        color: ColorManager.EMred, //add condition with color EMgreen
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                    SizedBox(width: AppSize.s10,),
-                                    Text(EmDashboardStringManager.partiallycompl, // add condition with EmDashboardStringManager.fullycompl
-                                      style:EmDashListviewDataText.customTextStyle(context),)
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: AppPadding.p30),
-                                child: Container(
-                                  width: AppSize.s60,
-                                  height: AppSize.s25,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 1,color: ColorManager.EMred),
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: ColorManager.EMred.withOpacity(0.1)
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      EmDashboardStringManager.expired,
-                                      textAlign: TextAlign.center,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.EMred,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              ///apply with condition
-                              // Container(
-                              //   width: 60,
-                              //   height: 35,
-                              //   decoration: BoxDecoration(
-                              //     border: Border.all(width: 1,color: ColorManager.EMgreen),
-                              //       borderRadius: BorderRadius.circular(8),
-                              //       color: ColorManager.EMgreen.withOpacity(0.1)
-                              //   ),
-                              //   child: Center(
-                              //     child: Icon(FontAwesomeIcons.fileInvoice,color: ColorManager.EMgreen,),
-                              //   ),
-                              // ),
-                              Expanded(child: Container()),
-                              ElevatedButton.icon(
-                                onPressed: () async{
-                                  showDialog(context: context, builder: (context) => ContractUploadDocPopup());
-                                },
-                                icon: Icon(Icons.file_upload_outlined, color: Colors.white, size: IconSize.I20),
-                                label: Text(
-                                    EmDashboardStringManager.uploadDoc,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w500,
-                                        color: ColorManager.white)),
-                                style: ElevatedButton.styleFrom(
-                                    padding:  EdgeInsets.symmetric(horizontal: AppPadding.p15, vertical: AppPadding.p10),
-                                    backgroundColor:  ColorManager.blueprime,
-                                    // shadowColor: Colors.grey,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    elevation: 5
-                                ),
-                              )
-
-                            ],
+                child: ScrollConfiguration(
+                  behavior: ScrollBehavior().copyWith(scrollbars: false),
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: 15,
+                    itemBuilder: (context, index) {
+                      //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                      // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                      // EmployeeDocumentModal employeedoc = paginatedData[index];
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: AppSize.s6,
                           ),
-                        ),
-                        Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
-                      ],
-                    );
-                  },
+                          Padding(
+                            padding: EdgeInsets.only(left: AppPadding.p20,right: AppPadding.p20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  // flex: 1,
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(AppPadding.p4),
+                                        child: CircleAvatar(
+                                          backgroundColor: ColorManager.bluebottom,
+                                          radius: 15,
+                                          child: Image.asset("images/em_dashboard/TNO.png", height: 14,width: 14,color: ColorManager.white,)
+                                          //Icon(Icons.home_work_outlined,color: ColorManager.white,size: 14,),
+                                        ),
+                                      ),
+                                      SizedBox(width: AppSize.s6,),
+                                      Text(
+                                        "Office 1",
+                                        textAlign: TextAlign.start,
+                                        style: EmDashListviewDataText.customTextStyle(context),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(child: Container()),
+                                Expanded(
+                                  flex:3,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: AppSize.s10,
+                                        height: AppSize.s15,
+                                        decoration: BoxDecoration(
+                                          color: ColorManager.EMred, //add condition with color EMgreen
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                      SizedBox(width: AppSize.s10,),
+                                      Text(EmDashboardStringManager.partiallycompl, // add condition with EmDashboardStringManager.fullycompl
+                                        style:EmDashListviewDataText.customTextStyle(context),)
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: AppPadding.p30),
+                                  child: Container(
+                                    width: AppSize.s60,
+                                    height: AppSize.s25,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(width: 0.5,color: ColorManager.EMred),
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: ColorManager.EMred.withOpacity(0.1)
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        EmDashboardStringManager.expired,
+                                        textAlign: TextAlign.center,
+                                        style: CustomTextStylesCommon.commonStyle(
+                                          fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.EMred,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                ///apply with condition
+                                // Container(
+                                //   width: 60,
+                                //   height: 35,
+                                //   decoration: BoxDecoration(
+                                //     border: Border.all(width: 0.5,color: ColorManager.EMgreen),
+                                //       borderRadius: BorderRadius.circular(8),
+                                //       color: ColorManager.EMgreen.withOpacity(0.1)
+                                //   ),
+                                //   child: Center(
+                                //     child: Icon(FontAwesomeIcons.fileInvoice,color: ColorManager.EMgreen,),
+                                //   ),
+                                // ),
+                                Expanded(child: Container()),
+                                ElevatedButton.icon(
+                                  onPressed: () async{
+                                    showDialog(context: context, builder: (context) => ContractUploadDocPopup());
+                                  },
+                                  icon: Icon(Icons.file_upload_outlined, color: Colors.white, size: IconSize.I20),
+                                  label: Text(
+                                      EmDashboardStringManager.uploadDoc,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w500,
+                                          color: ColorManager.white)),
+                                  style: ElevatedButton.styleFrom(
+                                      padding:  EdgeInsets.symmetric(horizontal: AppPadding.p15, vertical: AppPadding.p10),
+                                      backgroundColor:  ColorManager.blueprime,
+                                      // shadowColor: Colors.grey,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      elevation: 5
+                                  ),
+                                )
+
+                              ],
+                            ),
+                          ),
+                          Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -956,54 +975,57 @@ class AverageTimeAuditFindings extends StatelessWidget {
                 height: AppSize.s205,
                 // width: 500,
                 padding: EdgeInsets.only(left: AppPadding.p20,),
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: 15,
-                  itemBuilder: (context, index) {
-                    //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                    // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                    // EmployeeDocumentModal employeedoc = paginatedData[index];
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: AppSize.s10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              // flex: 1,
-                              child: Text(
-                                "01",
-                                textAlign: TextAlign.start,
-                                style: EmDashListviewDataText.customTextStyle(context),
+                child: ScrollConfiguration(
+                  behavior: ScrollBehavior().copyWith(scrollbars: false),
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: 15,
+                    itemBuilder: (context, index) {
+                      //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                      // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                      // EmployeeDocumentModal employeedoc = paginatedData[index];
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: AppSize.s10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                // flex: 1,
+                                child: Text(
+                                  "01",
+                                  textAlign: TextAlign.start,
+                                  style: EmDashListviewDataText.customTextStyle(context),
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              // flex:2,
-                              child: Text(
-                                "Audit 1",
-                                textAlign: TextAlign.start,
-                                style: EmDashListviewDataText.customTextStyle(context),
+                              Expanded(
+                                // flex:2,
+                                child: Text(
+                                  "Audit 1",
+                                  textAlign: TextAlign.start,
+                                  style: EmDashListviewDataText.customTextStyle(context),
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              // flex:2,
-                              child: Text(
-                                "10:00:00 AM",
-                                textAlign: TextAlign.center,
-                                style: EmDashListviewDataText.customTextStyle(context),
+                              Expanded(
+                                // flex:2,
+                                child: Text(
+                                  "10:00:00 AM",
+                                  textAlign: TextAlign.center,
+                                  style: EmDashListviewDataText.customTextStyle(context),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: AppSize.s10,
-                        ),
-                        Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
-                      ],
-                    );
-                  },
+                            ],
+                          ),
+                          SizedBox(
+                            height: AppSize.s10,
+                          ),
+                          Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

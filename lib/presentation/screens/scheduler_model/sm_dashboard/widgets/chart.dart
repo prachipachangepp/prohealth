@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import '../../../../app/resources/color.dart';
+import '../../../../../app/resources/color.dart';
 
 class VisitsForCliniciansGraph extends StatefulWidget {
   @override

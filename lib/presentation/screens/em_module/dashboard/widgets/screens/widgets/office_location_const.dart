@@ -123,84 +123,87 @@ class OfficeEquipmentData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: 15,
-        itemBuilder: (context, index) {
-          //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-          // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-          // EmployeeDocumentModal employeedoc = paginatedData[index];
-          return Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: AppSize.s44,
-               padding: EdgeInsets.only(left: AppPadding.p20),
-                //margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(width: 1, color: Color(0xFFE9E9E9)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: ColorManager.black.withOpacity(0.1),
-                      spreadRadius: 0,
-                      blurRadius: 4,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
+      child: ScrollConfiguration(
+        behavior: ScrollBehavior().copyWith(scrollbars: false),
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemCount: 15,
+          itemBuilder: (context, index) {
+            //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+            // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+            // EmployeeDocumentModal employeedoc = paginatedData[index];
+            return Column(
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        "1",
-                        textAlign: TextAlign.start,
-                        style: EmDashListviewDataText.customTextStyle(context),
+                Container(
+                  height: AppSize.s44,
+                 padding: EdgeInsets.only(left: AppPadding.p20),
+                  //margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
+                  decoration: BoxDecoration(
+                    color: ColorManager.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(width: 1, color: Color(0xFFE9E9E9)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorManager.black.withOpacity(0.1),
+                        spreadRadius: 0,
+                        blurRadius: 4,
+                        offset: Offset(0, 4),
                       ),
-                    ),
-                    Expanded(
-                      flex:2,
-                      child: Text(
-                        "Equipment",
-                        textAlign: TextAlign.start,
-                        style: EmDashListviewDataText.customTextStyle(context),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "1",
+                          textAlign: TextAlign.start,
+                          style: EmDashListviewDataText.customTextStyle(context),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex:2,
-                      child: Text(
-                        "Supplies",
-                        textAlign: TextAlign.start,
-                        style: EmDashListviewDataText.customTextStyle(context),
+                      Expanded(
+                        flex:2,
+                        child: Text(
+                          "Equipment",
+                          textAlign: TextAlign.start,
+                          style: EmDashListviewDataText.customTextStyle(context),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex:1,
-                      child: Text(
-                        "100",
-                        textAlign: TextAlign.start,
-                        style: EmDashListviewDataText.customTextStyle(context),
+                      Expanded(
+                        flex:2,
+                        child: Text(
+                          "Supplies",
+                          textAlign: TextAlign.start,
+                          style: EmDashListviewDataText.customTextStyle(context),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex:1,
-                      child: Text(
-                        "100",
-                        textAlign: TextAlign.center,
-                        style: EmDashListviewDataText.customTextStyle(context),
+                      Expanded(
+                        flex:1,
+                        child: Text(
+                          "100",
+                          textAlign: TextAlign.start,
+                          style: EmDashListviewDataText.customTextStyle(context),
+                        ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        flex:1,
+                        child: Text(
+                          "100",
+                          textAlign: TextAlign.center,
+                          style: EmDashListviewDataText.customTextStyle(context),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }
