@@ -208,7 +208,8 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => AddressProvider(controller: TextEditingController(text:""), onChange: (String ) {  }),
+      create: (_) => AddressProvider(
+          controller: TextEditingController(text:""), onChange: (String ) {  }),
       child: Consumer<AddressProvider>(
         builder: (context, provider, _) {
           return Stack(

@@ -3,10 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/chart.dart';
 
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import 'chart.dart';
+
 
 class SMDashboardScreen extends StatefulWidget {
   const SMDashboardScreen({super.key});
