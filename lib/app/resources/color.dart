@@ -107,9 +107,15 @@ class ColorManager {
   static Color EMFYellow = Color(0xFFFFE8BB);
 
   ///SM
+  static Color lightBlue = Color(0xFFEDF8FC);
   static Color Violet = Color(0xFF8E01D0);
   static Color greenDark = Color(0xff008000);
   static Color tangerine = Color(0xffFEBD4D);
+  static Color fGrey = Color(0xffBBBBBB);
+  static Color SMPurple = Color(0xff5D6FD4);
+  static Color SMYellow = Color(0xffD9B039);
+  static Color SMRed = Color(0xffCA0E0E);
+  static Color SMGreen = Color(0xff00B05D);
 }
 
 extension HexColor on Color {

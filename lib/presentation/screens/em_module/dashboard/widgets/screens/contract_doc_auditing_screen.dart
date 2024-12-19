@@ -13,6 +13,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../hr_module/dashboard/widgets/hr_dashboard_const.dart';
 
 class ContractDocAuditingScreen extends StatefulWidget {
@@ -33,22 +34,33 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
 
   ///line graph
   final List<ChartDataLine> chartDataline = [
-    ChartDataLine(2012, 30),
-    ChartDataLine(2014, 25),
-    ChartDataLine(2016, 50),
-    ChartDataLine(2018, 30),
-    ChartDataLine(2020, 20),
-    ChartDataLine(2022, 34),
-    ChartDataLine(2024, 40)
+    ChartDataLine("Jan", 30),
+    ChartDataLine("Feb", 25),
+    ChartDataLine("March", 50),
+    ChartDataLine("April", 30),
+    ChartDataLine("May", 20),
+    ChartDataLine("June", 34),
+    ChartDataLine("July", 40),
+    ChartDataLine("Aug", 50),
+    ChartDataLine("Sept", 60),
+    ChartDataLine("Oct", 50),
+    ChartDataLine("Nov", 40),
+    ChartDataLine("Dec", 35)
   ];
   final List<ChartDataLine> chartDatalineDotted = [
-    ChartDataLine(2012, 40),
-    ChartDataLine(2014, 55),
-    ChartDataLine(2016, 30),
-    ChartDataLine(2018, 40),
+    ChartDataLine("Jan", 40),
+    ChartDataLine("Feb", 55),
+    ChartDataLine("March", 30),
+    ChartDataLine("April", 40),
+    ChartDataLine("May", 35),
+    ChartDataLine("June", 34),
+    ChartDataLine("July", 20),
+    ChartDataLine("Aug", 25),
+    ChartDataLine("Sept", 30),
   ];
   List<ChartedDataLine> chartedDataline = [
-    ChartedDataLine(11000, 1),
+    ChartedDataLine(7500, 1),
+    ChartedDataLine(10000, 2),
     ChartedDataLine(12500, 9),
     ChartedDataLine(15000, 3),
     ChartedDataLine(17500, 3),
@@ -72,7 +84,8 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
   //   ChartedDataLine(15000, 50000),
   // ];
   List<ChartedDataLine> chartedDatalineNew = [
-    ChartedDataLine(11000, 1),
+    ChartedDataLine(7500, 1),
+    ChartedDataLine(10000, 2),
     ChartedDataLine(12500, 3),
     ChartedDataLine(15000, 4),
     ChartedDataLine(17500, 3),
@@ -574,13 +587,16 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         ),
                         Container(
                           height: AppSize.s190,
-                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p100),
+                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p50),
                           child: SfCartesianChart(
                             primaryXAxis: NumericAxis(
                               title: AxisTitle(text: ""),
                               majorGridLines: MajorGridLines(width: 0),
                             ),
                             primaryYAxis: NumericAxis(
+                              minimum: 0,
+                              maximum: 10,
+                              interval: 1,
                               axisLabelFormatter: (AxisLabelRenderDetails details) {
                                 return ChartAxisLabel(
                                   '${details.value.toInt()}',
@@ -633,48 +649,25 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                        Container(
-                          width: AppSize.s125,
-                          height: AppSize.s20,
-                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xFFC9C9C9), width: 0.86),
-                            borderRadius: BorderRadius.circular(6),
-                            color: Colors.transparent, // Ensure opacity 0 effect
-                          ),
-                          child: StatefulBuilder(
-                              builder: (BuildContext context,
-                                  void Function(void Function()) setState) {
-                                return DropdownButtonHideUnderline(
-                                  child: DropdownButton<
-                                      String>(
-                                    value: selectedValue,
-                                    icon: const Icon(Icons
-                                        .arrow_drop_down),
-                                    iconSize: IconSize.I16,
-                                    isExpanded: true,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: FontSize.s10),
-                                    items: items.map((
-                                        String value) {
-                                      return DropdownMenuItem<
-                                          String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
+                          Container(
+                            width:AppSize.s125,
+                            child: StatefulBuilder(
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return CustomDropdownEMDashboard(
+                                    items: ["Daily", "Weekly", "Monthly"],
                                     onChanged: (newValue) {
                                       setState(() {
                                         selectedValue =
                                         newValue!;
                                       });
                                     },
-                                  ),
-                                );
-                              }
+
+                                  );
+
+                                }
+                            ),
                           ),
-                        )
                       ],),
                     ),
                     SizedBox(height: 10,),
@@ -696,32 +689,72 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                     ),
                     SizedBox(height: AppSize.s10,),
                     Container(
-                  height: AppSize.s210,
-                  child: SfCartesianChart(
-                      primaryYAxis: NumericAxis(
-                        axisLabelFormatter: (AxisLabelRenderDetails details) {
-                          // Format the y-axis label to append '%'
-                          return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: FontSize.s12));
-                        },
-                      ),
-                      series: <CartesianSeries>[
-                        // Renders spline chart
-                        SplineSeries<ChartDataLine, int>(
+                      height: AppSize.s210,
+                      child: SfCartesianChart(
+                        primaryXAxis: CategoryAxis(
+                          labelStyle: TextStyle(fontSize: FontSize.s12),
+                        ),
+                        primaryYAxis: NumericAxis(
+                          minimum: 0,
+                          maximum: 70,
+                          interval: 10,
+                          // axisLabelFormatter: (AxisLabelRenderDetails details) {
+                          //           // Format the y-axis label to append '%'
+                          //           return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: FontSize.s12));
+                          //         },
+                        ),
+                        series: <CartesianSeries>[
+                          // Renders spline chart
+                          SplineSeries<ChartDataLine, String>(
                             dataSource: chartDataline,
                             xValueMapper: (ChartDataLine data, _) => data.x,
                             yValueMapper: (ChartDataLine data, _) => data.y,
-                          color: ColorManager.EMCyan,
-                          width: 2,),
-                        SplineSeries<ChartDataLine, int>(
-                          dataSource: chartDatalineDotted, // Replace with your dotted line data
-                          xValueMapper: (ChartDataLine data, _) => data.x,
-                          yValueMapper: (ChartDataLine data, _) => data.y,
-                          color: ColorManager.EMDCyan,
-                          width: 2,
-                          dashArray: [5, 5], // Creates a dashed effect
-                        )
-                      ]),
-                ),],
+                            color: ColorManager.EMCyan,
+                            width: 2,
+                          ),
+                          SplineSeries<ChartDataLine, String>(
+                            dataSource: chartDatalineDotted, // Replace with your dotted line data
+                            xValueMapper: (ChartDataLine data, _) => data.x,
+                            yValueMapper: (ChartDataLine data, _) => data.y,
+                            color: ColorManager.EMDCyan,
+                            width: 2,
+                            dashArray: [5, 5], // Creates a dashed effect
+                          )
+                        ],
+                      ),
+                    )
+
+                  //     Container(
+                //   height: AppSize.s210,
+                //   child: SfCartesianChart(
+                //       primaryYAxis: NumericAxis(
+                //         minimum: 0,
+                //         maximum: 70,
+                //         interval: 10,
+                //         // axisLabelFormatter: (AxisLabelRenderDetails details) {
+                //         //   // Format the y-axis label to append '%'
+                //         //   return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: FontSize.s12));
+                //         // },
+                //       ),
+                //       series: <CartesianSeries>[
+                //         // Renders spline chart
+                //         SplineSeries<ChartDataLine, String>(
+                //             dataSource: chartDataline,
+                //             xValueMapper: (ChartDataLine data, _) => data.x,
+                //             yValueMapper: (ChartDataLine data, _) => data.y,
+                //           color: ColorManager.EMCyan,
+                //           width: 2,),
+                //         SplineSeries<ChartDataLine, String>(
+                //           dataSource: chartDatalineDotted, // Replace with your dotted line data
+                //           xValueMapper: (ChartDataLine data, _) => data.x,
+                //           yValueMapper: (ChartDataLine data, _) => data.y,
+                //           color: ColorManager.EMDCyan,
+                //           width: 2,
+                //           dashArray: [5, 5], // Creates a dashed effect
+                //         )
+                //       ]),
+                // ),
+                  ],
                 ),)),
               ],),
             ),

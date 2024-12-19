@@ -164,7 +164,8 @@ class BlueBorderContainerConst extends StatelessWidget {
   final String numberText;
   final String bottomText;
   final String? imagePath;
-  const BlueBorderContainerConst({super.key, this.imageTile, required this.headText, required this.numberText, required this.bottomText, this.imagePath});
+  final double padding ;
+  const BlueBorderContainerConst({super.key, this.imageTile, required this.headText, required this.numberText, required this.bottomText, this.imagePath, required this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -213,10 +214,13 @@ class BlueBorderContainerConst extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(numberText,
-                  textAlign: TextAlign.center,
-                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s28,
-                      color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
+                Padding(
+                  padding: EdgeInsets.only(right: padding ),
+                  child: Text(numberText,
+                    textAlign: TextAlign.center,
+                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s28,
+                        color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
+                ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -152,84 +152,87 @@ class AverageClinicianListview extends StatelessWidget {
                 child: Container(
                   height: AppSize.s200,
                  // width: 500,
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: 15,
-                    itemBuilder: (context, index) {
-                      //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                      // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                      // EmployeeDocumentModal employeedoc = paginatedData[index];
-                      return Column(
-                        children: [
-                          SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          Container(
-                            height: AppSize.s44,
-                            padding: EdgeInsets.only(left: AppPadding.p20),
-                            //margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
-                            decoration: BoxDecoration(
-                              color: ColorManager.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(width: 1, color: Color(0xFFE9E9E9)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: ColorManager.black.withOpacity(0.1),
-                                  spreadRadius: 0,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
+                  child: ScrollConfiguration(
+                    behavior: ScrollBehavior().copyWith(scrollbars: false),
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: 15,
+                      itemBuilder: (context, index) {
+                        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                        // EmployeeDocumentModal employeedoc = paginatedData[index];
+                        return Column(
+                          children: [
+                            SizedBox(
+                              height: AppSize.s10,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "01",
-                                    textAlign: TextAlign.start,
-                                    style: EmDashListviewDataText.customTextStyle(context),
+                            Container(
+                              height: AppSize.s44,
+                              padding: EdgeInsets.only(left: AppPadding.p20),
+                              //margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
+                              decoration: BoxDecoration(
+                                color: ColorManager.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(width: 1, color: Color(0xFFE9E9E9)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: ColorManager.black.withOpacity(0.1),
+                                    spreadRadius: 0,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 4),
                                   ),
-                                ),
-                                Expanded(
-                                  flex:2,
-                                  child: Text(
-                                    "Clinician 1",
-                                    textAlign: TextAlign.start,
-                                    style: EmDashListviewDataText.customTextStyle(context),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      "01",
+                                      textAlign: TextAlign.start,
+                                      style: EmDashListviewDataText.customTextStyle(context),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex:1,
-                                  child: Text(
-                                    "5",
-                                    textAlign: TextAlign.start,
-                                    style: EmDashListviewDataText.customTextStyle(context),
+                                  Expanded(
+                                    flex:2,
+                                    child: Text(
+                                      "Clinician 1",
+                                      textAlign: TextAlign.start,
+                                      style: EmDashListviewDataText.customTextStyle(context),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex:1,
-                                  child: Text(
-                                    "2019",
-                                    textAlign: TextAlign.start,
-                                    style: EmDashListviewDataText.customTextStyle(context),
+                                  Expanded(
+                                    flex:1,
+                                    child: Text(
+                                      "5",
+                                      textAlign: TextAlign.start,
+                                      style: EmDashListviewDataText.customTextStyle(context),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex:1,
-                                  child: Text(
-                                    "100",
-                                    textAlign: TextAlign.center,
-                                    style: EmDashListviewDataText.customTextStyle(context),
+                                  Expanded(
+                                    flex:1,
+                                    child: Text(
+                                      "2019",
+                                      textAlign: TextAlign.start,
+                                      style: EmDashListviewDataText.customTextStyle(context),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Expanded(
+                                    flex:1,
+                                    child: Text(
+                                      "100",
+                                      textAlign: TextAlign.center,
+                                      style: EmDashListviewDataText.customTextStyle(context),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -256,25 +259,28 @@ class AverageClinicianListview extends StatelessWidget {
                             borderRadius: BorderRadius.only(bottomRight: Radius.circular(6),bottomLeft: Radius.circular(6))
                         ),
                         child: Center(
-                          child: RichText(
-                              text: TextSpan(
-                                text: '5',
-                                style:  CustomTextStylesCommon.commonStyle(
-                                    color: ColorManager.mediumgrey,
-                                    fontSize: FontSize.s64,
-                                    fontWeight: FontWeight.w500),
-                                children: [
-                                  TextSpan(
-                                    text: 'yrs',
-                                    style:  CustomTextStylesCommon.commonStyle(
-                                        color: ColorManager.mediumgrey,
-                                        fontSize: FontSize.s32,
-                                        fontWeight: FontWeight.w500)
-                                    //AllPopupHeadings.customTextStyle(context),
-                                  ),
-                                ],
-                              ),
-                                                ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 60.0),
+                            child: RichText(
+                                text: TextSpan(
+                                  text: '5',
+                                  style:  CustomTextStylesCommon.commonStyle(
+                                      color: ColorManager.mediumgrey,
+                                      fontSize: FontSize.s64,
+                                      fontWeight: FontWeight.w500),
+                                  children: [
+                                    TextSpan(
+                                      text: 'yrs',
+                                      style:  CustomTextStylesCommon.commonStyle(
+                                          color: ColorManager.mediumgrey,
+                                          fontSize: FontSize.s32,
+                                          fontWeight: FontWeight.w500)
+                                      //AllPopupHeadings.customTextStyle(context),
+                                    ),
+                                  ],
+                                ),
+                                                  ),
+                          ),
                         ),
                       )],
                   ))
@@ -355,79 +361,82 @@ class OfficeHighestPatientList extends StatelessWidget {
           SizedBox(height: AppSize.s10,),
           Container(
             height: AppSize.s200,
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: 15,
-              itemBuilder: (context, index) {
-                //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                // EmployeeDocumentModal employeedoc = paginatedData[index];
-                return Column(
-                  children: [
-                    SizedBox(
-                      height: AppSize.s10,
-                    ),
-                    Container(
-                      height: AppSize.s44,
-                      padding: EdgeInsets.only(left: AppPadding.p20),
-                      //margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(width: 1, color: Color(0xFFE9E9E9)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorManager.black.withOpacity(0.1),
-                            spreadRadius: 0,
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
+            child: ScrollConfiguration(
+              behavior: ScrollBehavior().copyWith(scrollbars: false),
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: 15,
+                itemBuilder: (context, index) {
+                  //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                  // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                  // EmployeeDocumentModal employeedoc = paginatedData[index];
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: AppSize.s10,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex:1,
-                            child: Text(
-                              "Office 1",
-                              textAlign: TextAlign.start,
-                              style: EmDashListviewDataText.customTextStyle(context),
+                      Container(
+                        height: AppSize.s44,
+                        padding: EdgeInsets.only(left: AppPadding.p20),
+                        //margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
+                        decoration: BoxDecoration(
+                          color: ColorManager.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(width: 1, color: Color(0xFFE9E9E9)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorManager.black.withOpacity(0.1),
+                              spreadRadius: 0,
+                              blurRadius: 4,
+                              offset: Offset(0, 4),
                             ),
-                          ),
-                          Expanded(
-                              flex:2,
-                              child:  LinearProgressIndicator(
-                                backgroundColor: ColorManager.grey,
-                                color: ColorManager.pieChartYellow,
-                                value: 55/100,//.totalVal/100
-                                minHeight: 10,
-                                borderRadius: BorderRadius.circular(30),
-                              )
-                          ),
-                          //SizedBox(width: 20,),
-                          Expanded(
-                            flex:1,
-                            child: Text(
-                              "55%",
-                              textAlign: TextAlign.center,
-                              style: EmDashListviewDataText.customTextStyle(context),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex:1,
+                              child: Text(
+                                "Office 1",
+                                textAlign: TextAlign.start,
+                                style: EmDashListviewDataText.customTextStyle(context),
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex:1,
-                            child: Text(
-                              "1000",
-                              textAlign: TextAlign.center,
-                              style: EmDashListviewDataText.customTextStyle(context),
+                            Expanded(
+                                flex:2,
+                                child:  LinearProgressIndicator(
+                                  backgroundColor: ColorManager.grey,
+                                  color: ColorManager.pieChartYellow,
+                                  value: 55/100,//.totalVal/100
+                                  minHeight: 10,
+                                  borderRadius: BorderRadius.circular(30),
+                                )
                             ),
-                          ),
-                        ],
+                            //SizedBox(width: 20,),
+                            Expanded(
+                              flex:1,
+                              child: Text(
+                                "55%",
+                                textAlign: TextAlign.center,
+                                style: EmDashListviewDataText.customTextStyle(context),
+                              ),
+                            ),
+                            Expanded(
+                              flex:1,
+                              child: Text(
+                                "1000",
+                                textAlign: TextAlign.center,
+                                style: EmDashListviewDataText.customTextStyle(context),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              },
+                    ],
+                  );
+                },
+              ),
             ),)
         ],
       ),

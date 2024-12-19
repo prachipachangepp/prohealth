@@ -47,7 +47,7 @@ class LinearCardWidget extends StatelessWidget {
                         fit: BoxFit.fill,
                         imagePath!,
                         height: 60, // Adjust the size as needed
-                        width: 45,
+                        width: 50,
                         // color: ColorManager.bluebottom,
                       )
                     else if (icon != null)
