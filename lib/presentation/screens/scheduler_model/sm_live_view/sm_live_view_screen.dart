@@ -18,44 +18,28 @@ class SmLiveViewMapScreen extends StatefulWidget {
 
 class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
   late GoogleMapController mapController;
-
+  BitmapDescriptor? customIcon;
   final LatLng _initialPosition = const LatLng(37.7749, -122.4194); // San Francisco coordinates
   TextEditingController _searchController = TextEditingController();
+  final List<double> _intensities = [0.1, 0.3, 0.6, 0.8, 1.0];
+  // Set to hold the current circles
+  Set<Polygon> _heatMapCircles = {};
+  // Set to hold the current markers
+  Set<Marker> _markers = {};
+  // Add the searched marker (nullable)
+  Marker? _searchedMarker;
+  String _selectedView = "";
+
+  /// Dummy Data
   // Dummy data for heatmap points with intensity
-  final List<LatLng> _heatMapData = [
+   List<LatLng> _heatMapData = [
     LatLng(37.7749, -122.4194), // Point 1
     LatLng(37.7849, -122.4294), // Point 2
     LatLng(37.7949, -122.4394), // Point 3
     LatLng(37.7649, -122.4494), // Point 4
     LatLng(37.7549, -122.4594), // Point 5
   ];
-
-  final List<double> _intensities = [0.1, 0.3, 0.6, 0.8, 1.0]; // Intensities for heat map points
-
-  // Set to hold the current circles
-  Set<Circle> _heatMapCircles = {};
-
-  // Function to generate heatmap circles
-  void _generateHeatMap() {
-    Set<Circle> circles = {};
-
-    for (int i = 0; i < _heatMapData.length; i++) {
-      circles.add(
-        Circle(
-          circleId: CircleId('heatmap-point-$i'),
-          center: _heatMapData[i],
-          radius: _intensities[i] * 700, // Adjust radius based on intensity
-          fillColor: Colors.red.withOpacity(_intensities[i]), // Adjust opacity based on intensity
-          strokeColor: Colors.transparent,
-        ),
-      );
-    }
-
-    setState(() {
-      _heatMapCircles = circles;
-    });
-  }
-  // Dummy data for zones, counties, and zip codes
+// Dummy data for zones, counties, and zip codes
   final List<LatLng> _zoneData = [
     LatLng(37.7749, -122.4194), // Example Zone 1 (San Francisco)
     LatLng(37.7849, -122.4294), // Example Zone 2
@@ -71,14 +55,67 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
     LatLng(37.7749, -122.4294), // Example Zip Code 1
     LatLng(37.7649, -122.4194), // Example Zip Code 2
   ];
+  final List<LatLng> _officeData = [
+    LatLng(37.7749, -122.4298), // Example Zip Code 1
+    LatLng(37.7649, -122.4194),
+    LatLng(37.7949, -122.4094), // Example Zip Code 1
+    LatLng(37.7649, -177.4194),
+    LatLng(37.7949, -122.4394),
+    LatLng(38.7749, -122.4245), // Example Zip Code 1
+    LatLng(37.7649, -189.4184),// Example Zip Code 2
+  ];
+  final List<LatLng> _patientData = [
+    LatLng(37.7849, -122.4194), // Example Zip Code 1
+    LatLng(39.7649, -122.4193),
+    LatLng(37.7949, -122.4094), // Example Zip Code 1
+    LatLng(37.7649, -177.4194),
+    LatLng(33.7649, -142.4198),
+    LatLng(37.7949, -122.4394), // Example Zip Code 1
+    LatLng(31.7649, -189.4184),// Example Zip Code 2
+  ];
 
-  // Set to hold the current markers
-  Set<Marker> _markers = {};
+  @override
+  void initState() {
+    // TODO: implement initState
+    _loadCustomIcon();
+    super.initState();
+  }
+  void _loadCustomIcon() async {
+    // Load the custom icon
+    customIcon = await BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(size: Size(65, 30)), // Adjust size as needed
+      'images/logo.png', // Path to your image
+    );
+    setState(() {});
+  }
 
-  // Add the searched marker (nullable)
-  Marker? _searchedMarker;
 
-  String _selectedView = "";
+  // Function to generate heatmap circles
+  void _generateHeatMap() {
+    Set<Polygon> circles = {};
+
+    for (int i = 0; i < _heatMapData.length; i++) {
+      circles.add(
+        Polygon(
+          points: _heatMapData,
+          polygonId: PolygonId('heatmap-point-$i'),
+          strokeColor: Colors.transparent,
+          fillColor:Colors.grey.withOpacity(0.2),)
+       //  Circle(
+       //    circleId:,
+       //    center: _heatMapData[i],
+       //    radius: _intensities[i] * 700, // Adjust radius based on intensity
+       //    fillColor: Colors.red.withOpacity(_intensities[i]), // Adjust opacity based on intensity
+       //    strokeColor: Colors.transparent,
+       //  ),
+      );
+    }
+
+    setState(() {
+      _heatMapCircles = circles;
+    });
+  }
+
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -87,35 +124,80 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
   // Function to update markers based on selected view
   void _updateMarkers() {
     Set<Marker> markers = {};
-
-    if (_selectedView == 'Zones') {
-      // Add Zone markers
-      for (var zone in _zoneData) {
+    switch(_selectedView){
+      case 'Zones':for (var zone in _zoneData) {
         markers.add(Marker(
           markerId: MarkerId('zone-${zone.latitude}-${zone.longitude}'),
           position: zone,
           infoWindow: InfoWindow(title: 'Zone'),
         ));
       }
-    } else if (_selectedView == 'Counties') {
-      // Add County markers
-      for (var county in _countyData) {
+      break;
+      case 'Counties':for (var county in _countyData) {
         markers.add(Marker(
           markerId: MarkerId('county-${county.latitude}-${county.longitude}'),
           position: county,
           infoWindow: InfoWindow(title: 'County'),
         ));
       }
-    } else if (_selectedView == 'Zip Codes') {
-      // Add Zip Code markers
-      for (var zip in _zipCodeData) {
+      break;
+      case 'Zip Codes':for (var zip in _zipCodeData) {
         markers.add(Marker(
           markerId: MarkerId('zip-${zip.latitude}-${zip.longitude}'),
           position: zip,
           infoWindow: InfoWindow(title: 'Zip Code'),
         ));
       }
+      break;
+      case 'Offices':
+        for (var office in _officeData) {
+          markers.add(Marker(
+            markerId: MarkerId('Offices-${office.latitude}-${office.longitude}'),
+            position: office,
+            infoWindow: InfoWindow(title: 'v'),
+            icon:customIcon!,
+          ));
+        }
+        break;
+      case 'Patients':
+        for (var patients in _patientData) {
+          markers.add(Marker(
+            markerId: MarkerId('patients-${patients.latitude}-${patients.longitude}'),
+            position: patients,
+            infoWindow: InfoWindow(title: 'patients'),
+            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          ));
+        }
     }
+
+    // if (_selectedView == 'Zones') {
+    //   // Add Zone markers
+    //   for (var zone in _zoneData) {
+    //     markers.add(Marker(
+    //       markerId: MarkerId('zone-${zone.latitude}-${zone.longitude}'),
+    //       position: zone,
+    //       infoWindow: InfoWindow(title: 'Zone'),
+    //     ));
+    //   }
+    // } else if (_selectedView == 'Counties') {
+    //   // Add County markers
+    //   for (var county in _countyData) {
+    //     markers.add(Marker(
+    //       markerId: MarkerId('county-${county.latitude}-${county.longitude}'),
+    //       position: county,
+    //       infoWindow: InfoWindow(title: 'County'),
+    //     ));
+    //   }
+    // } else if (_selectedView == 'Zip Codes') {
+    //   // Add Zip Code markers
+    //   for (var zip in _zipCodeData) {
+    //     markers.add(Marker(
+    //       markerId: MarkerId('zip-${zip.latitude}-${zip.longitude}'),
+    //       position: zip,
+    //       infoWindow: InfoWindow(title: 'Zip Code'),
+    //     ));
+    //   }
+    // }
 
     // Update the markers on the map
     setState(() {
@@ -139,7 +221,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                     zoom: 12.0,
                   ),
                   markers: _markers,
-                  circles: _selectedView == 'Heat Map' ? _heatMapCircles : {},// Use the markers set here
+                  polygons: _selectedView == 'Heat Map' ? _heatMapCircles : {},// Use the markers set here
                 ),
               ),
               Positioned(
@@ -229,7 +311,10 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                         ),
                         SizedBox(width: 20,),
                         ElevatedButton(
-                          onPressed: () => setState(() => _selectedView = 'Offices'),
+                          onPressed: () {
+                            setState(() => _selectedView = 'Offices');
+                            _updateMarkers();
+                          },
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
                             backgroundColor: _selectedView == 'Offices' ? ColorManager.blueprime : ColorManager.white,
@@ -268,7 +353,10 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                         ),
                         SizedBox(width: 20,),
                         ElevatedButton(
-                          onPressed: () => setState(() => _selectedView = 'Patients'),
+                          onPressed: () {
+                            setState(() => _selectedView = 'Patients');
+                            _updateMarkers();
+                          },
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(6)),
                             backgroundColor: _selectedView == 'Patients' ? ColorManager.blueprime : ColorManager.white,

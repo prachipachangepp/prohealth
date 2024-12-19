@@ -36,6 +36,9 @@ class ProfileBar extends StatefulWidget {
 }
 
 class _ProfileBarState extends State<ProfileBar> {
+  int expiredCount = 0;
+  int upToDateCount = 0;
+  int aboutToCount = 0;
   @override
   void initState() {
     super.initState();
@@ -50,9 +53,37 @@ class _ProfileBarState extends State<ProfileBar> {
       totalDateStamp = _calculateHireDateTimeStamp(widget.searchByEmployeeIdProfileData!.dateofHire);
     }
     sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
-    fetchData();
+   // fetchData();
   }
+  // Stream method to fetch license data periodically
+  Stream<Map<String, int>> _licenseStream() async* {
+    while (true) {
+      try {
+        // Fetch the data
+        Map<String, List<LicensesData>> data =
+        await getLicenseStatusWise(
+            context, widget.searchByEmployeeIdProfileData!.employeeId!);
 
+        // Extract counts from the fetched data
+         expiredCount = data['Expired']?.length ?? 0;
+        upToDateCount = data['About to Expire']?.length ?? 0;
+         upToDateCount = data['Upto date']?.length ?? 0;
+
+        // Yield counts as a map
+        yield {
+          'Expired': expiredCount,
+          'About to Expire': upToDateCount,
+          'Upto date': upToDateCount,
+        };
+      } catch (error) {
+        print("Error fetching data: $error");
+        yield {'Expired': 0, 'About to Expire': 0, 'Upto date': 0};
+      }
+
+      // Wait before fetching again
+      await Future.delayed(const Duration(seconds: 5));
+    }
+  }
   String _trimAddress(String address) {
     const int maxLength = 15;
     if (address.length > maxLength) {
@@ -71,9 +102,7 @@ class _ProfileBarState extends State<ProfileBar> {
 
   var hexColor;
   String? sSNNBR;
-  int expiredCount = 0;
-  int upToDateCount = 0;
-  int aboutToCount = 0;
+
   dynamic base64Decode;
   Future<void> decodeMEthod(String url) async {
     final response = await http.get(Uri.parse(url));
@@ -709,8 +738,8 @@ class _ProfileBarState extends State<ProfileBar> {
                               children: [
                                 StatefulBuilder(builder: (BuildContext context,
                                     void Function(void Function()) setState) {
-                                  return  FutureBuilder(
-                                  future: fetchData(),
+                                  return  StreamBuilder<Map<String, int>>(
+                                  stream: _licenseStream(),
                                   builder: (BuildContext context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
