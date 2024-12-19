@@ -136,7 +136,7 @@ class _BankingScreenState extends State<BankingScreen> {
               },
             );
             await widget.onSave();
-            _loadBankingData();
+            await  _loadBankingData();
           }
           else{
             await showDialog(
@@ -225,8 +225,8 @@ class _BankingScreenState extends State<BankingScreen> {
               width: 117,
               height: 30,
               child: ElevatedButton(
-                onPressed: (){
-                  widget.onBack();
+                onPressed: ()async{
+                  await widget.onBack();
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
                   elevation: 5,
@@ -323,7 +323,7 @@ class _BankingScreenState extends State<BankingScreen> {
                         });
                     }
                       else{
-                        showDialog(
+                        await  showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AddErrorPopup(
@@ -357,8 +357,8 @@ class _BankingScreenState extends State<BankingScreen> {
               width: 117,
               height: 30,
               child: ElevatedButton(
-                onPressed: (){
-                  widget.onNext();
+                onPressed: ()async{
+                  await widget.onNext();
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
                   elevation: 5,

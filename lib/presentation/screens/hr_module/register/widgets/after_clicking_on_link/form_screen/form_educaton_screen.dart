@@ -278,12 +278,12 @@ class _EducationScreenState extends State<EducationScreen> {
                                 );
                               },
                             );
-                            widget.onSave();
-                            _loadEducationData();
+                            await  widget.onSave();
+                            await  _loadEducationData();
                           }
                         }
                         else{
-                          showDialog(
+                            await showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AddErrorPopup(
@@ -332,8 +332,8 @@ class _EducationScreenState extends State<EducationScreen> {
                 width: 117,
                 height: 30,
                 child: ElevatedButton(
-                  onPressed: (){
-                    widget.onNext();
+                  onPressed: ()async{
+                    await widget.onNext();
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
                     elevation: 5,
@@ -780,19 +780,40 @@ class _EducationFormState extends State<EducationForm> {
       future: getDegreeDropDown(context),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 7),
-            child: Container(
-              height: 31,
-              width: 250,
-              decoration: BoxDecoration(color: ColorManager.white),
+          return Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(4),
             ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '',
+                  style: DocumentTypeDataStyle.customTextStyle(context),
+                ),
+                Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+              ],
+            ),
+
           );
         } else if (snapshot.hasError) {
-          return CustomDropdownTextField(
-            // width: MediaQuery.of(context).size.width / 5,
-            items: ['Error'],
-            headText: 'Degree',
+          return Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(4),
+            ),
+         child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '',
+                style: DocumentTypeDataStyle.customTextStyle(context),
+              ),
+              Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+            ],
+          ),
+
           );
         } else if (snapshot.hasData) {
           List<DropdownMenuItem<String>> dropDownList = [];
@@ -867,7 +888,7 @@ class _EducationFormState extends State<EducationForm> {
         } else {
           return CustomDropdownTextField(
             // width: MediaQuery.of(context).size.width / 5,
-            headText: 'Zone',
+            headText: 'Degree',
             items: ['No Data'],
           );
         }

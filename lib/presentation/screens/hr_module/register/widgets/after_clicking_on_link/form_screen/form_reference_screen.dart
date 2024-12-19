@@ -165,8 +165,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
               width: 117,
               height: 30,
               child: ElevatedButton(
-                onPressed: (){
-                  widget.onBack();
+                onPressed: ()async{
+                  await widget.onBack();
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
                   elevation: 5,
@@ -234,7 +234,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                         },
                       );
                       await  widget.onSave();
-                      _loadEducationData();
+                      await _loadEducationData();
                     }
 
 
@@ -269,8 +269,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
               width: 117,
               height: 30,
               child: ElevatedButton(
-                onPressed: (){
-                  widget.onNext();
+                onPressed: ()async{
+                  await widget.onNext();
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
                   elevation: 5,
@@ -341,9 +341,6 @@ class _ReferencesFormState extends State<ReferencesForm> {
           referenseIndex = data.referenceId ?? 0;
 
         });
-      }
-      else{
-
       }
 
     } catch (e) {

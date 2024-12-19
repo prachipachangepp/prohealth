@@ -209,6 +209,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                         child: Row(
                                           children: [
                                             Container(
+                                              width:250,
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: const Color(
@@ -414,6 +415,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
                                         child: Row(
                                           children: [
                                             Container(
+                                              width:250,
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: const Color(

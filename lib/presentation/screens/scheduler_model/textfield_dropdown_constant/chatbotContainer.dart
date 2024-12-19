@@ -230,18 +230,42 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
   // }
 
 // Simulate chat messages locally using a list
-  final List<String> _messages = []; // Message storage
+ // final List<String> _messages = []; // Message storage
   final TextEditingController _textController = TextEditingController();
 
+  // void _sendMessage() {
+  //   if (_textController.text.isNotEmpty) {
+  //     setState(() {
+  //       _messages.add(_textController.text); // Save message locally
+  //     });
+  //     print("Message sent: ${_textController.text}");
+  //     _textController.clear(); // Clear text field
+  //   }
+  // }
+
+  List<Map<String, String>> _messages = [];
   void _sendMessage() {
     if (_textController.text.isNotEmpty) {
       setState(() {
-        _messages.add(_textController.text); // Save message locally
+        // Store message with current time
+        String messageText = _textController.text;
+        String timeStamp = _getFormattedTime();
+        _messages.add({
+          'message': messageText,
+          'time': timeStamp,
+        });
       });
+      print("Message sent: ${_textController.text}");
       _textController.clear(); // Clear text field
     }
   }
 
+
+  // Function to get current time in HH:MM format
+  String _getFormattedTime() {
+    final currentTime = DateTime.now();
+    return '${currentTime.hour.toString().padLeft(2, '0')}:${currentTime.minute.toString().padLeft(2, '0')}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -297,14 +321,14 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     icon: Icon(Icons.videocam_rounded, color: ColorManager.blueBorder),
-                    onPressed: widget.onClose, // Call the close function
+                    onPressed: (){}, // Call the close function
                   ),
                   IconButton(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     icon: Icon(Icons.call_rounded, color: ColorManager.greenDark),
-                    onPressed: widget.onClose, // Call the close function
+                    onPressed: (){}, // Call the close function
                   ),
                   IconButton(
                     splashColor: Colors.transparent,
@@ -319,8 +343,6 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
           ),
         ),
 
-
-
         Expanded(
           child: ListView.builder(
             reverse: true, // Show the latest messages at the bottom
@@ -329,22 +351,58 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
               return Container(
                 alignment: Alignment.centerRight, // Align the message to the right
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent, // Change the message bubble color
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    _messages[_messages.length - 1 - index],
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    // Message Bubble
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blueAccent, // Change the message bubble color
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        _messages[_messages.length - 1 - index]['message']!,
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    // Message Time
+                    Text(
+                      _messages[_messages.length - 1 - index]['time']!,
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                  ],
                 ),
               );
             },
           ),
         ),
 
+        // Expanded(
+        //   child: ListView.builder(
+        //     reverse: true, // Show the latest messages at the bottom
+        //     itemCount: _messages.length,
+        //     itemBuilder: (context, index) {
+        //       return Container(
+        //         alignment: Alignment.centerRight, // Align the message to the right
+        //         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        //         child: Container(
+        //           decoration: BoxDecoration(
+        //             color: Colors.blueAccent, // Change the message bubble color
+        //             borderRadius: BorderRadius.circular(12),
+        //           ),
+        //           padding: EdgeInsets.all(10),
+        //           child: Text(
+        //             _messages[_messages.length - 1 - index],
+        //             style: TextStyle(color: Colors.white, fontSize: 16),
+        //           ),
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // ),
+///
         // Expanded(
         //   child: ListView.builder(
         //     reverse: true, // Show the latest messages at the bottom
@@ -375,6 +433,10 @@ class _ChatBotContainerState extends State<ChatBotContainer> {
                   style: DocumentTypeDataStyle.customTextStyle(context),
                   controller: _textController,
                   cursorColor: Colors.black,
+                  onSubmitted:  (text) {
+                    // When the "Enter" key is pressed, send the message
+                    _sendMessage();
+                  },
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,

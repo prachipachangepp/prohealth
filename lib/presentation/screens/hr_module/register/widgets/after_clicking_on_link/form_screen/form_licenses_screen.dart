@@ -663,19 +663,40 @@ class _licensesFormState extends State<licensesForm> {
                         future: getCountry(context: context),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 7),
-                              child: Container(
-                                height: 31,
-                                width: 250,
-                                decoration: BoxDecoration(color: ColorManager.white),
+                            return Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(4),
                               ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '',
+                                    style: DocumentTypeDataStyle.customTextStyle(context),
+                                  ),
+                                  Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+                                ],
+                              ),
+
                             );
                           } else if (snapshot.hasError) {
-                            return CustomDropdownTextField(
-                              // width: MediaQuery.of(context).size.width / 5,
-                              headText: 'Country',
-                              items: ['Error'],
+                            return Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '',
+                                    style: DocumentTypeDataStyle.customTextStyle(context),
+                                  ),
+                                  Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+                                ],
+                              ),
+
                             );
                           } else if (snapshot.hasData) {
                             List<DropdownMenuItem<String>> dropDownList = [];
@@ -697,7 +718,7 @@ class _licensesFormState extends State<licensesForm> {
                               dropDownMenuList: dropDownList,
                               onChanged: (newValue) {
                                 isPrefill = false;
-                                for (var a in snapshot.data!) {
+                                  for (var a in snapshot.data!) {
                                   if (a.name == newValue) {
                                     selectedCountry = a.name;
                                     countryId = a.countryId;
@@ -910,30 +931,56 @@ class _licensesFormState extends State<licensesForm> {
                               future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                                    child: Container(
-                                      height: 31,
-                                      width: 250,
-                                      decoration: BoxDecoration(color: ColorManager.white),
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(4),
                                     ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '',
+                                          style: DocumentTypeDataStyle.customTextStyle(context),
+                                        ),
+                                        Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+                                      ],
+                                    ),
+
                                   );
                                 } else if (snapshot.hasError ||snapshot.data ==null ) {
-                                 return Container(
-                                   width:  285,
-                                   height: 30,
-                                   // padding: EdgeInsets.symmetric(horizontal: 20),
-                                   decoration: BoxDecoration(
-                                     // color: Colors.red,
-                                     border: Border.all(
-                                         color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                                     borderRadius: BorderRadius.circular(4),
-                                   ),
-                                   child: Center(
-                                     child: Text('No Data Available',
-                                       style: DocumentTypeDataStyle.customTextStyle(context),),
-                                   ),
-                                 );
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'No Data Available',
+                                          style: DocumentTypeDataStyle.customTextStyle(context),
+                                        ),
+                                        Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+                                      ],
+                                    ),
+
+                                  );
+                                 // return Container(
+                                 //   width:  285,
+                                 //   height: 30,
+                                 //   // padding: EdgeInsets.symmetric(horizontal: 20),
+                                 //   decoration: BoxDecoration(
+                                 //     // color: Colors.red,
+                                 //     border: Border.all(
+                                 //         color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                 //     borderRadius: BorderRadius.circular(4),
+                                 //   ),
+                                 //   child: Center(
+                                 //     child: Text('No Data Available',
+                                 //       style: DocumentTypeDataStyle.customTextStyle(context),),
+                                 //   ),
+                                 // );
                                 } else if (snapshot.hasData) {
 
                                   List<DropdownMenuItem<String>> dropDownList = [];
