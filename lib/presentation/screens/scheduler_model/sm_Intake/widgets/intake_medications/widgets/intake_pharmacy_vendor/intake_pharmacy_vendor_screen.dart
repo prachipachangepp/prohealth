@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
@@ -144,55 +145,18 @@ class _IntakePharmacyVendorScreenState
                                     ConnectionState.waiting) {
                                   return SchedularTextField(
                                     controller: dummyCtrl,
-                                    labelText: 'Supplies',
-                                    suffixIcon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,),);
+                                    labelText: 'Supplies');
                                 }
                                 if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
+                                  List<DropdownMenuItem<String>> dropDownList = [];
                                   for (var i in snapshot.data!) {
-                                    dropDownList.add(i.idText!);
+                                    dropDownList.add(DropdownMenuItem<String>(
+                                      child: Text(i.idText!),
+                                      value: i.idText,
+                                    ));
                                   }
 
-                                  return SizedBox(
-                                    height: 27,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'Facility',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.greylight,
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager
-                                                  .containerBorderGrey),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
-                                        const EdgeInsets.symmetric(
-                                          //   //  vertical: 5,
-                                            horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: ColorManager.blueprime,
-                                      ),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
-
+                                  return CustomDropdownTextFieldsm(headText: 'Facility',dropDownMenuList: dropDownList,
                                       onChanged: (newValue) {
                                         for (var a in snapshot.data!) {
                                           if (a.idText == newValue) {
@@ -201,22 +165,70 @@ class _IntakePharmacyVendorScreenState
                                             // int? docType = a.companyOfficeID;
                                           }
                                         }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
+                                      });
+                                  //   SizedBox(
+                                  //   height: 27,
+                                  //   child: DropdownButtonFormField<String>(
+                                  //     decoration: InputDecoration(
+                                  //       labelText: 'Facility',
+                                  //       labelStyle: GoogleFonts.firaSans(
+                                  //         fontSize: 10.0,
+                                  //         fontWeight: FontWeight.w400,
+                                  //         color: ColorManager.greylight,
+                                  //       ),
+                                  //       focusedBorder: OutlineInputBorder(
+                                  //         borderSide: BorderSide(
+                                  //             color: ColorManager
+                                  //                 .containerBorderGrey),
+                                  //       ),
+                                  //       border: OutlineInputBorder(
+                                  //         borderRadius:
+                                  //         BorderRadius.circular(4.0),
+                                  //         borderSide: const BorderSide(
+                                  //             color: Colors.grey),
+                                  //       ),
+                                  //       contentPadding:
+                                  //       const EdgeInsets.symmetric(
+                                  //         //   //  vertical: 5,
+                                  //           horizontal: 12),
+                                  //     ),
+                                  //     // value: selectedCountry,
+                                  //     icon: Icon(
+                                  //       Icons.arrow_drop_down,
+                                  //       color: ColorManager.blueprime,
+                                  //     ),
+                                  //     iconSize: 24,
+                                  //     elevation: 16,
+                                  //     style: GoogleFonts.firaSans(
+                                  //       fontSize: 10.0,
+                                  //       fontWeight: FontWeight.w400,
+                                  //       color: const Color(0xff686464),
+                                  //     ),
+                                  //
+                                  //     onChanged: (newValue) {
+                                  //       for (var a in snapshot.data!) {
+                                  //         if (a.idText == newValue) {
+                                  //           dmeSupplies = a.idText!;
+                                  //           //country = a
+                                  //           // int? docType = a.companyOfficeID;
+                                  //         }
+                                  //       }
+                                  //     },
+                                  //     items: dropDownList.map((String value) {
+                                  //       return DropdownMenuItem<String>(
+                                  //         value: value,
+                                  //         child: Text(
+                                  //           value,
+                                  //           style: GoogleFonts.firaSans(
+                                  //             fontSize: 12,
+                                  //             color: Color(0xff575757),
+                                  //             fontWeight: FontWeight.w400,
+                                  //           ),
+                                  //         ),
+                                  //       );
+                                  //     }).toList(),
+                                  //   ),
+                                  // );
                                 } else {
                                   return const Offstage();
                                 }
@@ -269,55 +281,17 @@ class _IntakePharmacyVendorScreenState
                                     ConnectionState.waiting) {
                                   return SchedularTextField(
                                     controller: dummyCtrl,
-                                    labelText: 'Pharmacy',
-                                    suffixIcon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,),);
+                                    labelText: 'Pharmacy');
                                 }
                                 if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
+                                  List<DropdownMenuItem<String>> dropDownList = [];
                                   for (var i in snapshot.data!) {
-                                    dropDownList.add(i.idText!);
+                                    dropDownList.add(DropdownMenuItem<String>(
+                                      child: Text(i.idText!),
+                                      value: i.idText,
+                                    ));
                                   }
-
-                                  return SizedBox(
-                                    height: 27,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'Pharmacy',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.greylight,
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager
-                                                  .containerBorderGrey),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
-                                        const EdgeInsets.symmetric(
-                                          //   //  vertical: 5,
-                                            horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: ColorManager.blueprime,
-                                      ),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
-
+                                  return CustomDropdownTextFieldsm(headText: 'Pharmacy',dropDownMenuList: dropDownList,
                                       onChanged: (newValue) {
                                         for (var a in snapshot.data!) {
                                           if (a.idText == newValue) {
@@ -326,22 +300,8 @@ class _IntakePharmacyVendorScreenState
                                             // int? docType = a.companyOfficeID;
                                           }
                                         }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
+                                      });
+
                                 } else {
                                   return const Offstage();
                                 }
@@ -384,55 +344,17 @@ class _IntakePharmacyVendorScreenState
                                     ConnectionState.waiting) {
                                   return SchedularTextField(
                                     controller: dummyCtrl,
-                                    labelText: 'City',
-                                    suffixIcon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,),);
+                                    labelText: 'City',);
                                 }
                                 if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
+                                  List<DropdownMenuItem<String>> dropDownList = [];
                                   for (var i in snapshot.data!) {
-                                    dropDownList.add(i.cityName!);
+                                    dropDownList.add(DropdownMenuItem<String>(
+                                      child: Text(i.cityName!),
+                                      value: i.cityName,
+                                    ));
                                   }
-
-                                  return SizedBox(
-                                    height: 27,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'City',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.greylight,
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager
-                                                  .containerBorderGrey),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
-                                        const EdgeInsets.symmetric(
-                                          //   //  vertical: 5,
-                                            horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: ColorManager.blueprime,
-                                      ),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
-
+                                  return CustomDropdownTextFieldsm(headText: 'City',dropDownMenuList: dropDownList,
                                       onChanged: (newValue) {
                                         for (var a in snapshot.data!) {
                                           if (a.cityName == newValue) {
@@ -441,22 +363,7 @@ class _IntakePharmacyVendorScreenState
                                             // int? docType = a.companyOfficeID;
                                           }
                                         }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
+                                      });
                                 } else {
                                   return const Offstage();
                                 }
@@ -479,76 +386,26 @@ class _IntakePharmacyVendorScreenState
                                     ConnectionState.waiting) {
                                   return SchedularTextField(
                                     controller: dummyCtrl,
-                                    labelText: 'State',
-                                    suffixIcon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,),);
+                                    labelText: 'State');
                                 }
                                 if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
+                                  List<DropdownMenuItem<String>> dropDownList = [];
                                   for (var i in snapshot.data!) {
-                                    dropDownList.add(i.name!);
+                                    dropDownList.add(DropdownMenuItem<String>(
+                                      child: Text(i.name),
+                                      value: i.name,
+                                    ));
                                   }
-
-                                  return SizedBox(
-                                    height: 27,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'State',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.greylight,
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
-                                        const EdgeInsets.symmetric(
-                                          //   //  vertical: 5,
-                                            horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(Icons.arrow_drop_down,
-                                        color: ColorManager.blueprime,),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
-
+                                  return CustomDropdownTextFieldsm(headText: 'State',dropDownMenuList: dropDownList,
                                       onChanged: (newValue) {
                                         for (var a in snapshot.data!) {
                                           if (a.name == newValue) {
-                                            pharmacystate = a.name!;
+                                            pharmacystate = a.name;
                                             //country = a
                                             // int? docType = a.companyOfficeID;
                                           }
                                         }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
-
+                                      });
                                 } else {
                                   return const Offstage();
                                 }

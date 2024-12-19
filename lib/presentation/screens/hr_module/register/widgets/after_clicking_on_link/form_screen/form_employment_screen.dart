@@ -190,8 +190,8 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                 width: 117,
                 height: 30,
                 child: ElevatedButton(
-                  onPressed: (){
-                    widget.onBack();
+                  onPressed: ()async{
+                    await widget.onBack();
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
                     elevation: 5,
@@ -302,9 +302,9 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                             isLoading = false; // End loading
                           });
                           await widget.onSave();
-                          _loadEmploymentData();
+                          await _loadEmploymentData();
                         } else {
-                          showDialog(
+                          await showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AddSuccessPopup(
@@ -332,8 +332,8 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                 width: 117,
                 height: 30,
                 child: ElevatedButton(
-                  onPressed: (){
-                    widget.onNext();
+                  onPressed: ()async{
+                    await widget.onNext();
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
                     elevation: 5,
@@ -719,6 +719,17 @@ class _EmploymentFormState extends State<EmploymentForm> {
           endDateController.text = data.endDate;
           // isChecked = data.endDate == true;
           //isChecked = data.endDate?.isEmpty ?? true;
+          if (data.endDate == 'Currently Working') {
+            isChecked = true;  // Checkbox should be true
+          }
+          // else if (data.endDate == '2024-12-14') {
+          //   isChecked = false; // Checkbox should be false
+          // }
+          else {
+            // You can add further conditions if necessary (e.g., empty end date, etc.)
+            isChecked = false; // Default case if the endDate doesn't match
+          }
+
           employementIndex = data.employmentId ?? 0;
 
         });

@@ -71,7 +71,7 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                         'Pharmacy Vendor',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                          fontSize: 12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == 0
                               ? ColorManager.mediumgrey
@@ -96,7 +96,7 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                         'Medication Profile',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
-                          fontSize: 12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == 1
                               ? ColorManager.mediumgrey

@@ -231,21 +231,25 @@ class _CustomDialogState extends State<CustomDialog> {
                         selectedDeptId = firstDeptId;
                       }
 
-                      return HRUManageDropdown(
-                        controller: TextEditingController(
-                            text: selectedDeptName ?? ''),
-                        hintText: "Department",
-                        labelFontSize: 12,
-                        items: dropDownServiceList,
-                        onChanged: (val) {
-                          setState(() {
-                            selectedDeptName = val;
-                            // Find the corresponding department ID from the snapshot
-                            selectedDeptId = snapshot.data!
-                                .firstWhere(
-                                    (dept) => dept.deptName == val)
-                                .deptId;
-                          });
+                      return StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) {
+                          return HRUManageDropdown(
+                            controller: TextEditingController(
+                                text: selectedDeptName ?? ''),
+                            hintText: "Department",
+                            labelFontSize: 12,
+                            items: dropDownServiceList,
+                            onChanged: (val) {
+                              setState(() {
+                                selectedDeptName = val;
+                                // Find the corresponding department ID from the snapshot
+                                selectedDeptId = snapshot.data!
+                                    .firstWhere(
+                                        (dept) => dept.deptName == val)
+                                    .deptId;
+                              });
+                            },
+                          );
                         },
                       );
                     }
@@ -291,72 +295,92 @@ class _CustomDialogState extends State<CustomDialog> {
           )
 
         ],
-        bottomButtons:  isLoading == true
-      ? CircularProgressIndicator(
+      bottomButtons: isLoading
+          ? SizedBox(
+        height: 25,
+        width: 25,
+        child: CircularProgressIndicator(
           color: ColorManager.blueprime,
-        )
-            :
-        CustomElevatedButton(
-          height: 30,
-          width: 120,
-          text: 'Create',
-          onPressed: () async {
-            _validateForm();
-            print('$selectedDeptId');
-            print('${widget.firstNameController.text}');
-            print('${widget.lastNameController.text}');
-            print('${widget.emailController.text}');
-            print('${widget.passwordController.text}');
-            if (widget.passwordController.text.length < 6) {
-              setState(() {
-                _PasswordDocError = "Password must be longer than or equal to 6 characters";
-              });
-              return; // Stop further execution if password validation fails
-            }
-            if (_isFormValid) {
-              var response = await createUserPost(
-                context,
-                widget.firstNameController.text,
-                widget.lastNameController.text,
-                selectedDeptId!,
-                widget.emailController.text,
-                widget.passwordController.text,
-              );
-
-              if (response.statusCode == 200 || response.statusCode == 201) {
-                widget.onCancel!();
-                widget.firstNameController.clear();
-                widget.lastNameController.clear();
-                widget.emailController.clear();
-                selectedDeptId = AppConfig.AdministrationId;
-                Navigator.pop(context);
-
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AddSuccessPopup(
-                      message: 'User Added Successfully',
-                    );
-                  },
-                );
-              }
-              // else if(response.statusCode == 400 || response.statusCode == 404){
-              //   // Navigator.pop(context);
-              //   await showDialog(
-              //     context: context,
-              //     builder: (BuildContext context) => const FourNotFourPopup(),
-              //   );
-              // }
-              else {
-                // Show error dialog if email is already used or other errors
-                await showDialog(
-                  context: context,
-                  builder: (BuildContext context) => FailedPopup(text: response.message),
-                );
-              }
-            }
-          },
         ),
+      )
+          : CustomElevatedButton(
+        height: 30,
+        width: 120,
+        text: 'Create',
+        onPressed: () async {
+          // Validate the form fields first
+          _validateForm();
+
+          // Check if form is valid
+          if (!_isFormValid) {
+            return; // Do not proceed if form isn't valid
+          }
+
+          // Check if password length is sufficient
+          if (widget.passwordController.text.length < 6) {
+            setState(() {
+              _PasswordDocError = "Password must be longer than or equal to 6 characters";
+            });
+            return; // Exit if password validation fails
+          }
+
+          // If validations are successful, show loader and proceed
+          setState(() {
+            isLoading = true;
+          });
+
+          print('$selectedDeptId');
+          print('${widget.firstNameController.text}');
+          print('${widget.lastNameController.text}');
+          print('${widget.emailController.text}');
+          print('${widget.passwordController.text}');
+
+          try {
+            var response = await createUserPost(
+              context,
+              widget.firstNameController.text,
+              widget.lastNameController.text,
+              selectedDeptId!,
+              widget.emailController.text,
+              widget.passwordController.text,
+            );
+
+            if (response.statusCode == 200 || response.statusCode == 201) {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddSuccessPopup(
+                    message: 'User Added Successfully',
+                  );
+                },
+              );
+              widget.onCancel!();
+              widget.firstNameController.clear();
+              widget.lastNameController.clear();
+              widget.emailController.clear();
+              selectedDeptId = AppConfig.AdministrationId;
+            } else {
+              // Handle other errors, such as email already used
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) => FailedPopup(text: response.message),
+              );
+            }
+          } catch (e) {
+            // Handle unexpected errors
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) => FailedPopup(text: e.toString()),
+            );
+          } finally {
+            setState(() {
+              isLoading = false; // Ensure loader is always reset
+            });
+          }
+        },
+      ),
+
 
 
 
@@ -618,21 +642,25 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                       selectedDeptId = firstDeptId;
                     }
 
-                    return HRUManageDropdown(
-                      controller: TextEditingController(
-                          text: selectedDeptName ?? ''),
-                      hintText: "Department",
-                      labelFontSize: 12,
-                      items: dropDownServiceList,
-                      onChanged: (val) {
-                        setState(() {
-                          selectedDeptName = val;
-                          // Find the corresponding department ID from the snapshot
-                          selectedDeptId = snapshot.data!
-                              .firstWhere(
-                                  (dept) => dept.deptName == val)
-                              .deptId;
-                        });
+                    return StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) {
+                        return HRUManageDropdown(
+                          controller: TextEditingController(
+                              text: selectedDeptName ?? ''),
+                          hintText: "Department",
+                          labelFontSize: 12,
+                          items: dropDownServiceList,
+                          onChanged: (val) {
+                            setState(() {
+                              selectedDeptName = val;
+                              // Find the corresponding department ID from the snapshot
+                              selectedDeptId = snapshot.data!
+                                  .firstWhere(
+                                      (dept) => dept.deptName == val)
+                                  .deptId;
+                            });
+                          },
+                        );
                       },
                     );
                   }
@@ -678,29 +706,47 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
         )
 
       ],
-      bottomButtons:  isLoading == true
-          ? CircularProgressIndicator(
-        color: ColorManager.blueprime,
+      bottomButtons: isLoading
+          ? SizedBox(
+        height: 25,
+        width: 25,
+        child: CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        ),
       )
-          :
-      CustomElevatedButton(
+          : CustomElevatedButton(
         height: 30,
         width: 120,
         text: 'Create',
         onPressed: () async {
+          // Validate the form fields first
           _validateForm();
+
+          // Check if form is valid
+          if (!_isFormValid) {
+            return; // Do not proceed if form isn't valid
+          }
+
+          // Check if password length is sufficient
+          if (widget.passwordController.text.length < 6) {
+            setState(() {
+              _PasswordDocError = "Password must be longer than or equal to 6 characters";
+            });
+            return; // Exit if password validation fails
+          }
+
+          // If validations are successful, show loader and proceed
+          setState(() {
+            isLoading = true;
+          });
+
           print('$selectedDeptId');
           print('${widget.firstNameController.text}');
           print('${widget.lastNameController.text}');
           print('${widget.emailController.text}');
           print('${widget.passwordController.text}');
-          if (widget.passwordController.text.length < 6) {
-            setState(() {
-              _PasswordDocError = "Password must be longer than or equal to 6 characters";
-            });
-            return; // Stop further execution if password validation fails
-          }
-          if (_isFormValid) {
+
+          try {
             var response = await createUserPost(
               context,
               widget.firstNameController.text,
@@ -710,12 +756,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
               widget.passwordController.text,
             );
 
-            if (response.success) {
-              //widget.onCancel!();
-              widget.firstNameController.clear();
-              widget.lastNameController.clear();
-              widget.emailController.clear();
-              selectedDeptId = AppConfig.AdministrationId;
+            if (response.statusCode == 200 || response.statusCode == 201) {
               Navigator.pop(context);
               showDialog(
                 context: context,
@@ -725,50 +766,31 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   );
                 },
               );
-            }
-            // if(response.statusCode == 400 || response.statusCode == 404){
-            //   Navigator.pop(context);
-            //   showDialog(
-            //     context: context,
-            //     builder: (BuildContext context) => const FourNotFourPopup(),
-            //   );
-            // }
-            else {
-              Navigator.pop(context);
-              showDialog(
+
+              widget.firstNameController.clear();
+              widget.lastNameController.clear();
+              widget.emailController.clear();
+              selectedDeptId = AppConfig.AdministrationId;
+            } else {
+              // Handle other errors, such as email already used
+              await showDialog(
                 context: context,
                 builder: (BuildContext context) => FailedPopup(text: response.message),
               );
             }
-            // else {
-            //   // Show error dialog if email is already used or other errors
-            //   showDialog(
-            //     context: context,
-            //     builder: (BuildContext context) {
-            //       return DialogueTemplate(
-            //         width: 300, // Adjust as needed
-            //         height: 200,
-            //         // Adjust as needed
-            //         title: 'Error',
-            //         body: [
-            //           Text(
-            //               response.message,
-            //               style: TextStyle(fontSize: 16)),
-            //         ],
-            //         bottomButtons: ElevatedButton(
-            //           onPressed: () {
-            //             Navigator.of(context).pop();
-            //           },
-            //           child: Text('OK'),
-            //         ),
-            //       );
-            //     },
-            //   );
-            // }
+          } catch (e) {
+            // Handle unexpected errors
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) => FailedPopup(text: e.toString()),
+            );
+          } finally {
+            setState(() {
+              isLoading = false; // Ensure loader is always reset
+            });
           }
         },
       ),
-
 
 
 
@@ -1195,7 +1217,6 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
               },
             );
           }else {
-            Navigator.pop(context);
             showDialog(
               context: context,
               builder: (BuildContext context) => FailedPopup(text: responce.message),

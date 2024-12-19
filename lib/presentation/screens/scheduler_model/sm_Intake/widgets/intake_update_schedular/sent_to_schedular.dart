@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -301,9 +302,10 @@ class SentToSchedularScreen extends StatelessWidget {
                             ),
                           ),
 
+
                             Padding(
                               padding: const EdgeInsets.only(right: 40.0),
-                              child: Image.asset("images/sm/contact_schedular.png",height: 33,width: 33,fit: BoxFit.fill,),
+                              child: SvgPicture.asset("images/sm/contact_s.svg",height: 50,width: 43,fit: BoxFit.fill,),
                             ),
                         ],),
                       ),

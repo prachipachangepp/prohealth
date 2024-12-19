@@ -155,7 +155,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
                               return Container(
-                                width: 354,
+                                width: 300,
                                 height: 30,
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -168,7 +168,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     SizedBox(width: AppSize.s8),
                                     Expanded(
                                       child: Text(
-                                        "Select",
+                                        "",
                                         style: MobileMenuText.MenuTextConst(
                                             context),
                                       ),
@@ -181,9 +181,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 ),
                               );
                             }
-                            if (snapshot.hasData && snapshot.data!.isEmpty) {
+                            if (snapshot.data!.isEmpty) {
                               return Container(
-                                width: 350,
+                                width: 300,
                                 height: 30,
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -258,7 +258,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             if (snapshotAbbreavition.connectionState ==
                                 ConnectionState.waiting) {
                               return Container(
-                                width: 354,
+                                width: 300,
                                 height: 30,
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -271,7 +271,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     SizedBox(width: AppSize.s8),
                                     Expanded(
                                       child: Text(
-                                        "Select",
+                                        "",
                                         style: MobileMenuText.MenuTextConst(
                                             context),
                                       ),

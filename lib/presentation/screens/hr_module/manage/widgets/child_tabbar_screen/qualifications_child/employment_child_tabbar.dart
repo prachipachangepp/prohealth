@@ -56,7 +56,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
     //CenteredTabBarController centeredTabBarController;
     super.initState();
   }
-  bool isSelected = false;
+  bool isSelectedADD = false;
+  bool isSelectedEdit = false;
    String _trimAddress(String address) {
      const int maxLength = 22;
      if (address.length > maxLength) {
@@ -168,7 +169,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     supervisorMobileNumber.text,
                                     positionTitleController.text,
                                     startDateContoller.text,
-                                    isSelected ? "Currently Working" : endDateController.text ,
+                                    isSelectedADD ? "Currently Working" : endDateController.text ,
                                     emergencyMobileNumber.text,
                                     countryController.text);
 
@@ -206,10 +207,10 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       width: 300,
                                       child: CheckboxTile(
                                         title: 'Currently work here',
-                                        initialValue: isSelected,
+                                        initialValue: isSelectedADD,
                                         onChanged: (value) {
                                           setState((){
-                                            isSelected = !isSelected;
+                                            isSelectedADD = !isSelectedADD;
                                             endDateController.clear();
                                           });
                                         },
@@ -487,7 +488,13 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                   supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
                                                   positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
                                                   startDate == startDateContoller.text ? startDate  : startDateContoller.text,
-                                                  endDate == endDateController.text ? endDate : endDateController.text,
+                                              // isSelectedEdit
+                                                  //     ? null // If currently working, don't update the end date
+                                                  //     : endDate == endDateController.text
+                                                  //     ? endDate
+                                                  //     : endDateController.text,
+                                                  isSelectedEdit ?  "Currently Working" : endDateController.text ,
+//endDate == endDateController.text ? endDate : endDateController.text,
                                                   emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
                                                   country== countryController.text ?country.toString():countryController.text
                                                 // 'USA'
@@ -516,11 +523,29 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                   builder: (BuildContext context) => FailedPopup(text: response.message),
                                                 );
                                               }
-                                            }, checkBoxTile:  Container(
-                                                width: 300,
-                                                child: CheckboxTile(title: 'Currently work here',
-                                                  initialValue: false,onChanged: (value){
-                                                },)), tite: 'Edit Employment',
+                                         }, checkBoxTile: StatefulBuilder(
+                                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                                  return Container(
+                                                    //color: Colors.red,
+                                                      width: 300,
+                                                      child: CheckboxTile(
+                                                        title: 'Currently work here',
+                                                        initialValue: isSelectedEdit,
+                                                        onChanged: (value) {
+                                                          setState((){
+                                                            isSelectedEdit = !isSelectedEdit;
+                                                            endDateController.clear();
+                                                          });
+                                                        },
+                                                      ));
+                                                },
+                                              ),
+                                            // checkBoxTile:  Container(
+                                            //     width: 300,
+                                            //     child: CheckboxTile(title: 'Currently work here',
+                                            //       initialValue: false,onChanged: (value){
+                                            //     },)),
+                                            tite: 'Edit Employment',
                                             onpressedClose: ()
                                              {
                                               Navigator.pop(context);

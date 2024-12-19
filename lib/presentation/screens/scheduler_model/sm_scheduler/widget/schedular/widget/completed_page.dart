@@ -7,6 +7,7 @@ import '../../../../../../../app/resources/establishment_resources/establish_the
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
+import 'completed_popup.dart';
 
 class CompletedPageView extends StatefulWidget {
   const CompletedPageView({super.key});
@@ -127,152 +128,150 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                 itemBuilder: (BuildContext context, int index) { return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 1,
                     vertical: 5,),
-                  child: Container(
-                    // color: Colors.red,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                      BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey
-                              .withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
+                  child: InkWell(
+                    onTap: ()async{
+    await showDialog(
+    context: context,
+    builder: (BuildContext context) { return Completed_popup();});
+                    },
+                    child: Container(
+                      // color: Colors.red,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey
+                                .withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
 
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                child:
-                                Image.asset('images/1.png'),
-                              ),
-                              SizedBox(width: AppSize.s7),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Jeh Tiwari',
-                                      style:DocumentTypeDataStyle.customTextStyle(context),
-                                    ),
-                                    SizedBox(height: AppSize.s3),
-                                    Text(
-                                      'Anxiety',
-                                      style:DocumentTypeDataStyle.customTextStyle(context),
-                                    ),
-                                  ],
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  child:
+                                  Image.asset('images/1.png'),
                                 ),
+                                SizedBox(width: AppSize.s7),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Jeh Tiwari',
+                                        style:DocumentTypeDataStyle.customTextStyle(context),
+                                      ),
+                                      SizedBox(height: AppSize.s3),
+                                      Text(
+                                        'Anxiety',
+                                        style:DocumentTypeDataStyle.customTextStyle(context),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
+                              ),
+                              Container(
+                                width: 200,
+
+                                child:Text("132 My Street, Kingston, New York 12401",
+                                  textAlign: TextAlign.start,
+                                  style:DocumentTypeDataStyle.customTextStyle(context),
+                                ) ,
+                              )
+                            ],
+                          ),
+
+                          Row(
+                            children: [
+                              // Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  color: Color(0xFF527FB9).withOpacity(0.3),
+                                  width: 19,
+                                  height: 19,
+                                  child: Center(
+                                    child: Text("ST",style: TextStyle(
+                                      // fontWeight: FontWeight.w600,
+                                      // fontSize: FontSize.s13,
+                                      color: ColorManager.white,
+                                      decoration: TextDecoration.none,
+                                    ),),
+                                  ),
+                                ),
+                              ),
+
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  color: Color(0xFFFEBD4D).withOpacity(0.5),
+                                  width: 19,
+                                  height: 19,
+                                  child: Center(
+                                    child: Text("OT",style: TextStyle(
+                                      // fontWeight: FontWeight.w600,
+                                      //     fontSize: FontSize.s13,
+                                      color: ColorManager.white,
+                                      decoration: TextDecoration.none,
+                                    ),),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text("Completed",style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: FontSize.s13,
+                                color:  ColorManager.greenDark,
+                                decoration: TextDecoration.none,
+                              ),)
+                            ],
+                          ),
+
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.only(right: 0),
+                                  child: Image.asset("images/sm/contact.png",height: 50,width: 60,)
                               ),
                             ],
                           ),
-                        ),
 
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(8),
-                                    color:Color(0xFFDCEFF7) ,
-                                  ),
-                                  height:40,
-                                  width: 40,
 
-                                  child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,)),
-                            ),
-                            Container(
-                              width: 200,
 
-                              child:Text("132 My Street, Kingston, New York 12401",
-                                textAlign: TextAlign.start,
-                                style:DocumentTypeDataStyle.customTextStyle(context),
-                              ) ,
-                            )
-                          ],
-                        ),
-
-                        Row(
-                          children: [
-                            // Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                color: Color(0xFF527FB9).withOpacity(0.3),
-                                width: 19,
-                                height: 19,
-                                child: Center(
-                                  child: Text("ST",style: TextStyle(
-                                    // fontWeight: FontWeight.w600,
-                                    // fontSize: FontSize.s13,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  ),),
-                                ),
+                          Row(
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: SizedBox()
                               ),
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                color: Color(0xFFFEBD4D).withOpacity(0.5),
-                                width: 19,
-                                height: 19,
-                                child: Center(
-                                  child: Text("OT",style: TextStyle(
-                                    // fontWeight: FontWeight.w600,
-                                    //     fontSize: FontSize.s13,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  ),),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text("Completed",style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: FontSize.s13,
-                              color:  ColorManager.greenDark,
-                              decoration: TextDecoration.none,
-                            ),)
-                          ],
-                        ),
-
-                        Row(
-                          children: [
-                            Padding(
-                                padding: const EdgeInsets.only(right: 0),
-                                child: Image.asset("images/sm/contact.png",height: 50,width: 60,)
-                            ),
-                          ],
-                        ),
-
-
-
-                        Row(
-                          children: [
-                            Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: SizedBox()
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ); },

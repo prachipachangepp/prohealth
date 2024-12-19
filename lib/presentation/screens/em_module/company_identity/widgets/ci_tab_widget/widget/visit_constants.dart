@@ -518,7 +518,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
   //   });
   // }
 
-  String? selectedServiceName;
+  String selectedServiceName = 'Select';
   String? serviceId;
   int empTypeId = 0;
   List<Widget> selectedChips = [];
@@ -601,7 +601,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                               SizedBox(width: AppSize.s8),
                               Expanded(
                                 child: Text(
-                                  "Select",
+                                  "",
                                   style: MobileMenuText.MenuTextConst(context),
                                 ),
                               ),
@@ -613,7 +613,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                           ),
                         );
                       }
-                      if (snapshot.hasData && snapshot.data!.isEmpty) {
+                      if (snapshot.data!.isEmpty) {
                         return Container(
                           width: 354,
                           height: 30,
@@ -635,10 +635,10 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       }
                       if (snapshot.hasData) {
                         // Only set the default values if they haven't been set yet.
-                        if (selectedServiceName == null && serviceId == null) {
-                          selectedServiceName = snapshot.data![0].serviceName;
-                          serviceId = snapshot.data![0].serviceId;
-                        }
+                        // if (selectedServiceName == null && serviceId == null) {
+                        //   selectedServiceName = snapshot.data![0].serviceName;
+                        //   serviceId = snapshot.data![0].serviceId;
+                        // }
 
                         List<DropdownMenuItem<String>> dropDownServiceList = [];
                         for (var service in snapshot.data!) {
@@ -871,9 +871,13 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
         ),
       ],
       bottomButtons: isLoading
-          ? CircularProgressIndicator(
-              color: ColorManager.blueprime,
-            )
+          ? SizedBox(
+        height:25,
+            width:25,
+            child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
+          )
           : CustomElevatedButton(
               width: AppSize.s105,
               height: AppSize.s30,

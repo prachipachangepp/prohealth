@@ -117,7 +117,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
         SizedBox(height: AppSize.s15),
         Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           Container(
-            width: MediaQuery.of(context).size.width / 1.97,
+            width: MediaQuery.of(context).size.width /2.450,
             height: AppSize.s30,
             decoration: BoxDecoration(
               boxShadow: [
@@ -181,31 +181,31 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   ),
                   onTap: patientId != 0 ? () => selectButton(1) : null,
                 ),
-                InkWell(
-                  child: Container(
-                    height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width / 10,
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: selectedIndex == 2 ? ColorManager.white : null,
-                    ),
-                    child: Text(
-                      'Plan of Care',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: patientId == 0
-                            ? ColorManager.fmediumgrey
-                            :( selectedIndex == 2
-                            ? ColorManager.mediumgrey
-                            : Colors.white),
-                      ),
-                    ),
-                  ),
-                  onTap: patientId != 0 ? () => selectButton(2) : null,
-                ),
+                // InkWell(
+                //   child: Container(
+                //     height: AppSize.s30,
+                //     width: MediaQuery.of(context).size.width / 10,
+                //     padding: EdgeInsets.symmetric(vertical: 6),
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(20),
+                //       color: selectedIndex == 2 ? ColorManager.white : null,
+                //     ),
+                //     child: Text(
+                //       'Plan of Care',
+                //       textAlign: TextAlign.center,
+                //       style: GoogleFonts.firaSans(
+                //         fontSize: FontSize.s14,
+                //         fontWeight: FontWeightManager.semiBold,
+                //         color: patientId == 0
+                //             ? ColorManager.fmediumgrey
+                //             :( selectedIndex == 2
+                //             ? ColorManager.mediumgrey
+                //             : Colors.white),
+                //       ),
+                //     ),
+                //   ),
+                //   onTap: patientId != 0 ? () => selectButton(2) : null,
+                // ),
                 InkWell(
                   child: Container(
                     height: AppSize.s30,
@@ -259,8 +259,9 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
               ],
             ),
           ),
-          SizedBox(width: MediaQuery.of(context).size.width / 6),
+          SizedBox(width: MediaQuery.of(context).size.width / 5),
           if (selectedIndex == 0)
+            //
             Padding(
               padding: const EdgeInsets.only(right: 40.0),
               child: Container(
@@ -938,7 +939,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   ),
                 ),
                 IntakePComplianceScreen(patientId: patientId),
-                IntakePlanCareScreen(patientId: patientId,),
+                // IntakePlanCareScreen(patientId: patientId,),
                 IntakeRelatedPartiesScreen(patientId: patientId,),
                 IntakePatientsStayInfoScreen(patientId: patientId,),
               ],
