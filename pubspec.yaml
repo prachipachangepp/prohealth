@@ -103,23 +103,11 @@ dependencies:
   flutter_rating_stars: any
   dotted_border: any
   mapbox_maps_flutter: any
+  open_file_macos: ^0.0.1
 
 
 
 #  riverpod: ^2.5.1
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 dev_dependencies:
   flutter_test:
