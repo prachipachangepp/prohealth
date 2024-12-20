@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:http/http.dart' as http;
 
 
 class RouteProvider with ChangeNotifier {
@@ -176,25 +180,58 @@ class AddressProvider with ChangeNotifier{
   double? get longitude => longitudeL;
   /// Method to fetch latitude and longitude from the selected address
   Future<void> getLatLngFromAddress(String address) async {
+    final String apiKey = AppConfig.googleApiKey; // Replace with your API key.
+    final String url =
+        'https://maps.googleapis.com/maps/api/geocode/json?address=${Uri.encodeComponent(address)}&key=$apiKey';
+
     try {
-      List<Location> locations = await locationFromAddress(address);
-      if (locations.isNotEmpty) {
-        double latitude = locations.first.latitude;
-        double longitude = locations.first.longitude;
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
 
-        // Notify parent widget with the latitude and longitude
-        if (onLatLngFetched != null) {
-          onLatLngFetched!(latitude, longitude);
+        if (data['status'] == 'OK' && data['results'].isNotEmpty) {
+          final location = data['results'][0]['geometry']['location'];
+          latitudeL = location['lat'];
+          longitudeL = location['lng'];
+          notifyListeners();
+
+          // Notify parent widget with the latitude and longitude
+          if (onLatLngFetched != null) {
+            onLatLngFetched!(latitudeL!, longitudeL!);
+          }
+          notifyListeners();
+          print("Latitude: $latitude, Longitude: $longitude");
+          print('Get location lat: $latitudeL and long: $longitudeL');
+        } else {
+          print("No coordinates found for this address.");
         }
-
-        print("Latitude: $latitude, Longitude: $longitude");
       } else {
-        print("No coordinates found for this address.");
+        print("Failed to fetch coordinates: ${response.statusCode}");
       }
     } catch (e) {
       print("Error fetching lat/lng: $e");
     }
   }
+  // Future<void> getLatLngFromAddress(String address) async {
+  //   try {
+  //     List<Location> locations = await locationFromAddress(address);
+  //     if (locations.isNotEmpty) {
+  //       double latitude = locations.first.latitude;
+  //       double longitude = locations.first.longitude;
+  //
+  //       // Notify parent widget with the latitude and longitude
+  //       if (onLatLngFetched != null) {
+  //         onLatLngFetched!(latitude, longitude);
+  //       }
+  //
+  //       print("Latitude: $latitude, Longitude: $longitude");
+  //     } else {
+  //       print("No coordinates found for this address.");
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching lat/lng: $e");
+  //   }
+  // }
   void showOverlay(BuildContext context) {
     removeOverlay(); // Remove existing overlay before showing new one
 
