@@ -212,6 +212,9 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
           controller: TextEditingController(text:""), onChange: (String ) {  }),
       child: Consumer<AddressProvider>(
         builder: (context, provider, _) {
+          LatLng currentPosition = provider.latitudeL != null && provider.longitudeL != null
+              ? LatLng(provider.latitudeL!, provider.longitudeL!)
+              : _initialPosition;
           return Stack(
             children: [
               SizedBox.expand(
@@ -221,7 +224,13 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                     target: provider.latitudeL == null ?_initialPosition: LatLng(provider.latitudeL!, provider.latitudeL!),
                     zoom: 12.0,
                   ),
-                  markers: _markers,
+                  markers: _selectedView == ''? {if (provider.latitudeL != null && provider.longitudeL != null)
+                    Marker(
+                      markerId: MarkerId(
+                          'Search-${provider.latitudeL}-${provider.longitudeL}'),
+                      position: currentPosition,
+                      infoWindow: InfoWindow(title: 'Location'),
+                    ),}:_markers,
                   polygons: _selectedView == 'Heat Map' ? _heatMapCircles : {},// Use the markers set here
                 ),
               ),
@@ -241,9 +250,9 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                         print('Address Changed: $value');
                        // Triggered on every text change
                       },),
-                    // Container(
                     //   width: 320,
                     //   height: 35,
+                  // Container(
                     //   decoration: BoxDecoration(
                     //     color: Colors.white,
                     //     borderRadius: BorderRadius.circular(8.0),
