@@ -733,6 +733,7 @@ class CustomTextFieldSSn extends StatelessWidget {
           cursorHeight: cursorHeight,
           cursorColor: Colors.black,
           cursorWidth: 1.5,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(
                 bottom: AppPadding.p3,

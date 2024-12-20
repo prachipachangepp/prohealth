@@ -36,7 +36,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
 
 
   String? pickedFileName;
-  String? selectedtype;
+  String selectedtype = 'Checking';
   dynamic pickedFile;
   bool isLoading = false;
   TextEditingController effectivecontroller = TextEditingController();
@@ -269,7 +269,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                         groupValue: selectedtype,
                                         onChanged: (value) {
                                           setState(() {
-                                            selectedtype = value;
+                                            selectedtype = value!;
                                           });
                                         },
                                       ),
@@ -279,7 +279,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                         groupValue: selectedtype,
                                         onChanged: (value) {
                                           setState(() {
-                                            selectedtype = value;
+                                            selectedtype = value!;
                                           });
                                         },
                                       ),

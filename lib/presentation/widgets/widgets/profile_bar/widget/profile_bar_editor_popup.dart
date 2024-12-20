@@ -224,7 +224,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                                     horizontal: 10),
                                                 child: Text(
                                                   ErrorMessageString
-                                                      .noZoneAdded,
+                                                      .noZones,
                                                   //  AppString.dataNotFound,
                                                   style:
                                                   AllNoDataAvailable.customTextStyle(context),
@@ -351,7 +351,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                           return Center(
                             child: Text(
                               'No Zipcode Available!',
-                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12, fontWeight: FontWeight.w500),
+                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12, color:ColorManager.mediumgrey,fontWeight: FontWeight.w500),
                             ),
                           );
                         }
