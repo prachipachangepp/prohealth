@@ -117,7 +117,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
         SizedBox(height: AppSize.s15),
         Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           Container(
-            width: MediaQuery.of(context).size.width /2.450,
+            width: MediaQuery.of(context).size.width /2.455,
             height: AppSize.s30,
             decoration: BoxDecoration(
               boxShadow: [

@@ -286,7 +286,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                             backgroundColor: _selectedView == 'Zones' ? Colors.blue : Colors.white,
-                            foregroundColor: _selectedView == 'Zones' ? Colors.white : Colors.grey,
+                            foregroundColor: _selectedView == 'Zones' ? Colors.white : ColorManager.blueprime,
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                           ),
                           child: Text('Zones'),
@@ -300,7 +300,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                             backgroundColor: _selectedView == 'Counties' ? Colors.blue : Colors.white,
-                            foregroundColor: _selectedView == 'Counties' ? Colors.white : Colors.grey,
+                            foregroundColor: _selectedView == 'Counties' ? Colors.white : ColorManager.blueprime,
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                           ),
                           child: Text('Counties'),
@@ -314,7 +314,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                             backgroundColor: _selectedView == 'Zip Codes' ? Colors.blue : Colors.white,
-                            foregroundColor: _selectedView == 'Zip Codes' ? Colors.white : Colors.grey,
+                            foregroundColor: _selectedView == 'Zip Codes' ? Colors.white : ColorManager.blueprime,
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                           ),
                           child: Text('Zip Codes'),
