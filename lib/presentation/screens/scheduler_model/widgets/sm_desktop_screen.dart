@@ -160,6 +160,23 @@ class SMDesktopScreen extends StatelessWidget {
                       SizedBox(
                         width: AppSize.s15,
                       ),
+                      Obx(
+                            () => CustomTitleButton(
+                          height: AppSize.s30,
+                          width: AppSize.s140,
+                          onPressed: () {
+
+                            //companyByIdApi(context,);
+                            // companyDetailsApi(context,5);
+                            myController.selectButton(5);
+                            _pageController.animateToPage(5,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          },
+                          text: 'Today',
+                          isSelected: myController.selectedIndex.value == 5,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -177,6 +194,7 @@ class SMDesktopScreen extends StatelessWidget {
                   NewSchedulerScreen(),
                   SmCalenderScreen(),
                   SmLiveViewMapScreen(),
+                  Container(color:Colors.white)
 
 
                   // WhitelabellingScreen()
