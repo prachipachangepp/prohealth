@@ -952,21 +952,24 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  'Filter',
-                                                  textAlign: TextAlign.start,
-                                                  style: CustomTextStylesCommon.commonStyle(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: ColorManager.mediumgrey,),
-                                                ),
-                                                SizedBox(width: 10,),
-                                                Image.asset('images/hr_dashboard/filter.png',fit: BoxFit.contain,height: 14,width: 14,)
-                                                //IconButton(onPressed: (){}, icon: Icon(Icons.filter_alt_outlined,size: 14,))
-                                              ],),
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 20),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    'Filter',
+                                                    textAlign: TextAlign.start,
+                                                    style: CustomTextStylesCommon.commonStyle(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: ColorManager.mediumgrey,),
+                                                  ),
+                                                  SizedBox(width: 10,),
+                                                  Image.asset('images/hr_dashboard/filter.png',fit: BoxFit.contain,height: 14,width: 14,)
+                                                  //IconButton(onPressed: (){}, icon: Icon(Icons.filter_alt_outlined,size: 14,))
+                                                ],),
+                                            ),
                                            // SizedBox(height: 10,),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -996,7 +999,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Container(
-                                                        width: 100,
+                                                        width: 105,
                                                         height: 55,
                                                         child: Image.asset('images/hr_dashboard/person.png',fit: BoxFit.contain,))
                                                   ],
@@ -1222,7 +1225,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                   });
                                                 },
                                               ),
-                                              const Text('Age Wise'),
+                                            Text('Age Wise',  style: CustomTextStylesCommon.commonStyle(
+                                                fontSize: FontSize.s12,
+                                                fontWeight: emptype == 'Age Wise' ? FontWeight.w700 : FontWeight.w400,
+                                                color: ColorManager.mediumgrey,),),
                                             ],
                                           ),
                                           SizedBox(width: 50,),
@@ -1238,7 +1244,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                   });
                                                 },
                                               ),
-                                              const Text('Service Wise'),
+                                     Text('Service Wise', style: CustomTextStylesCommon.commonStyle(
+                                                fontSize: FontSize.s12,
+                                                fontWeight: emptype == 'Service Wise' ? FontWeight.w700 : FontWeight.w400,
+                                                color: ColorManager.mediumgrey,),),
                                             ],
                                           ),
                                         ],

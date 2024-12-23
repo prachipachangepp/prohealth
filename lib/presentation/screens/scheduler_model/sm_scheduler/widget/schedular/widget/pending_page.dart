@@ -58,19 +58,27 @@ class _PendingPageViewState extends State<PendingPageView> {
                           // controller: _controller,
                           textCapitalization:
                           TextCapitalization.words,
-                          style: TextStyle(fontSize: 12),
+                          style: DocumentTypeDataStyle.customTextStyle(context),
                           // onChanged: _search,
                           decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Color(0xFFF8F8F8),
                               hintText: 'Search',
                               alignLabelWithHint: true,
-                              hintStyle: TextStyle(
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.mediumgrey,
+                              hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color:Color(0xFFC9C9C9)),
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(20))),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color:ColorManager.greylight ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              // border: OutlineInputBorder(
+                              //
+                              //     borderRadius: BorderRadius.all(
+                              //
+                              //         Radius.circular(20))),
                               prefixIcon: IconButton(
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
@@ -79,6 +87,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                   child: Icon(
                                     Icons.search,
                                     size: 18,
+                                    color:  ColorManager.greylight,
                                   ),
                                 ),
                                 onPressed: () {},
@@ -343,7 +352,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                   padding: const EdgeInsets.only(right: 0),
                                   child:
                                   InkWell(
-                                    child: SvgPicture.asset("images/sm/contact_s.svg",height: 50,width: 40,)
+                                    child: SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,)
                                  ,onTap: _toggleChatbotVisibility,)
                               ),
                             ],
