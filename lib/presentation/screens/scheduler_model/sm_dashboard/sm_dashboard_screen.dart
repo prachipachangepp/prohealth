@@ -57,15 +57,15 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                       ///row 1
                       Row(children: [
                         Expanded(
-                            flex: 7,
+                            flex: 6,
                             child: Container()),
                         Expanded(
-                            flex: 5,
+                            flex: 6,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
+                                  padding: const EdgeInsets.only(left: 80.0),
                                   child: Text("Scheduled Patients",
                                     style: TextStyle(fontSize: FontSize.s14,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                                 ),
@@ -286,11 +286,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                   ),
                                 ],
                               ),
-                              childBody: Column(
-                                children: [
-                                  Container()
-                                ],
-                              ),)),
+                              childBody: HighestCaseLoadListview(),)),
                         SizedBox(width: AppPadding.p20,),
                         Expanded(
                             flex: 3,
@@ -306,11 +302,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                   ),
                                 ],
                               ),
-                              childBody: Column(
-                                children: [
-                                  Container()
-                                ],
-                              ),)),
+                              childBody: MostMissedVisitsListview(),)),
                       ],),
 
                     ],

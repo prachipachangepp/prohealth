@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/popup_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sm_dashboard_const.dart';
 
 import '../../../../../app/resources/color.dart';
@@ -31,10 +32,15 @@ class AllVisitsUpdate extends StatelessWidget {
                 ),
                 const SizedBox(height: 10,),
                 ///Employee Ratio
-                SMDashboardContainerConst(
-                  child: SMSmallContainerData(headingText: 'Missed Visit Count', totalCount: '03',
-                    imagePath: 'images/sm/sm_dashboard/missed_visit.png', totalValue: 50,
-                    indicatorColor: ColorManager.red,TextColor: ColorManager.rednew,),
+                GestureDetector(
+                  onTap: (){
+                    showDialog(context: context, builder: (context) => MissedVisitPopup());
+                  },
+                  child: SMDashboardContainerConst(
+                    child: SMSmallContainerData(headingText: 'Missed Visit Count', totalCount: '03',
+                      imagePath: 'images/sm/sm_dashboard/missed_visit.png', totalValue: 50,
+                      indicatorColor: ColorManager.red,TextColor: ColorManager.rednew,),
+                  ),
                 ),
               ],
             ),
@@ -145,7 +151,7 @@ class ScheduledPatientsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        flex: 5,
+        flex: 6,
         child: JointContainerConst(
           height: 225,
           childHeading: Padding(
@@ -228,7 +234,7 @@ class ScheduledPatientsList extends StatelessWidget {
                                           Text(
                                             "Eva I",
                                             textAlign: TextAlign.start,
-                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w600,
                                               color: ColorManager.textBlack,),
                                           ),
@@ -251,8 +257,8 @@ class ScheduledPatientsList extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
-                                      SizedBox(width: 15,),
+                                      Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I18,),
+                                      SizedBox(width: 10,),
                                       Expanded(
                                         child: Text(
                                           "Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
@@ -262,7 +268,7 @@ class ScheduledPatientsList extends StatelessWidget {
                                             color: ColorManager.mediumgrey,),
                                         ),
                                       ),
-
+                                      SizedBox(width: 10,),
                                     ],
                                   ),),
                                 Expanded(
@@ -344,7 +350,7 @@ class ScheduledPatientsList extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            "See More",
+                            "View More",
                             textAlign: TextAlign.end,
                             style: EmDashViewMoreText.customTextStyle(context),
                           ),
@@ -430,7 +436,7 @@ class PatientsToBeScheduledList extends StatelessWidget {
                                           Text(
                                             "Eva I",
                                             textAlign: TextAlign.start,
-                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
+                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w600,
                                               color: ColorManager.textBlack,),
                                           ),
@@ -453,8 +459,8 @@ class PatientsToBeScheduledList extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
-                                      SizedBox(width: 15,),
+                                      Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I18,),
+                                      SizedBox(width: 10,),
                                       Expanded(
                                         child: Text(
                                           "Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
@@ -464,7 +470,7 @@ class PatientsToBeScheduledList extends StatelessWidget {
                                             color: ColorManager.mediumgrey,),
                                         ),
                                       ),
-
+                                      SizedBox(width: 10,),
                                     ],
                                   ),),
                                 Container(
@@ -562,7 +568,7 @@ class PatientsToBeScheduledList extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            "See More",
+                            "View More",
                             textAlign: TextAlign.end,
                             style: EmDashViewMoreText.customTextStyle(context),
                           ),
@@ -610,7 +616,7 @@ class AllAvailableClinician extends StatelessWidget {
                       return Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -621,19 +627,32 @@ class AllAvailableClinician extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(50),
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: Image.asset(
-                                              'images/hr_dashboard/man.png', // Replace with your image path
-                                              fit: BoxFit.cover,
-                                            ),
+                                      Stack(
+
+                                        children: [SizedBox(
+                                          height:50,
+                                          child: CircleAvatar(
+                                            child:
+                                            Image.asset('images/1.png'),
                                           ),
                                         ),
+                                          Positioned(
+                                            left:22,
+                                            bottom :0,
+                                            child: Container(
+                                              color: Color(0xFF527FB9),
+                                              width: 19,
+                                              height: 15,
+                                              child: Center(
+                                                child: Text("ST",style: TextStyle(
+                                                  // fontWeight: FontWeight.w600,
+                                                  fontSize: FontSize.s10,
+                                                  color: ColorManager.white,
+                                                  decoration: TextDecoration.none,
+                                                ),),
+                                              ),
+                                            ),)
+                                        ],
                                       ),
                                       SizedBox(width: 10,),
                                       Text(
@@ -709,16 +728,16 @@ class AllAvailableClinician extends StatelessWidget {
                                             //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
                                             icon: Image.asset("images/sm/auto.png",height: 30,width: 18,),
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor:  ColorManager.bluebottom,
+                                              backgroundColor:  Color(0xFFB9DFEF),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(12), // Round only the top-left corner
                                                   bottomLeft: Radius.circular(12), // Round only the bottom-left corner
                                                 ),
-                                                side: BorderSide(
-                                                  color: ColorManager.bluebottom, // Border color
-                                                  width: 1,
-                                                ),
+                                                // side: BorderSide(
+                                                //   color: ColorManager.bluebottom, // Border color
+                                                //   width: 1,
+                                                // ),
                                               ),
                                             ),
                                           ),
@@ -768,27 +787,716 @@ class AllAvailableClinician extends StatelessWidget {
                       );
                     },
                   )),
-              SizedBox(height: AppSize.s10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Row(
-                      children: [
-                        Text(
-                          "See More",
-                          textAlign: TextAlign.end,
-                          style: EmDashViewMoreText.customTextStyle(context),
-                        ),
-                        SizedBox(width: AppSize.s5),
-                        Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
-                      ],
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          Text(
+                            "View More",
+                            textAlign: TextAlign.end,
+                            style: EmDashViewMoreText.customTextStyle(context),
+                          ),
+                          SizedBox(width: AppSize.s5),
+                          Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
+                        ],
+                      ),
                     ),
-                  ),
-                ],),
+                  ],),
+              ),
 
             ],
           ),));
+  }
+}
+
+///highest case load listview
+class HighestCaseLoadListview extends StatefulWidget {
+  const HighestCaseLoadListview({super.key});
+
+  @override
+  _HighestCaseLoadListviewState createState() =>
+      _HighestCaseLoadListviewState();
+}
+
+class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
+  final PageController _pageController = PageController();
+  int _currentPageIndex = 0;
+  int totalValue = 50;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+              onPressed: () {
+                if (_currentPageIndex > 0) {
+                  setState(() {
+                    _currentPageIndex--;
+                  });
+                  _pageController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
+                }
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_new_outlined,
+                color: _currentPageIndex > 0
+                    ? ColorManager.mediumgrey
+                    : Colors.grey, // Disable icon if on the first page
+                size: IconSize.I16,
+              ),
+            ),
+          _currentPageIndex == 0
+              ?  Text(
+              "Clinician Name",
+              style: NumberTExtFieldLegalDoc.customTextStyle(context),
+            )
+            : _currentPageIndex == 1
+            ? Text(
+            "Clinician Type",
+            style: NumberTExtFieldLegalDoc.customTextStyle(context),
+          )
+            : Text(
+            "Employee Type",
+            style: NumberTExtFieldLegalDoc.customTextStyle(context),
+          ),
+            IconButton(
+              onPressed: () {
+                if (_currentPageIndex < 2) {
+                  setState(() {
+                    _currentPageIndex++;
+                  });
+                  _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
+                }
+              },
+              icon: Icon(
+                Icons.arrow_forward_ios_outlined,
+                color: ColorManager.mediumgrey,
+                size: IconSize.I16,
+              ),
+            ),
+          ],
+        ),
+        Expanded(
+          child: PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPageIndex = index;
+              });
+            },
+            children: [
+              _buildClinicianName(context), // Initial screen
+              _buildClinicianType(context), // Next screen
+              _buildEmployeeType(context), // Add more as needed
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child:  _currentPageIndex == 2
+              ? Offstage()
+              : Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  children: [
+                    Text(
+                      "View More",
+                      textAlign: TextAlign.end,
+                      style: EmDashViewMoreText.customTextStyle(context),
+                    ),
+                    SizedBox(width: AppSize.s5),
+                    Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
+                  ],
+                ),
+              ),
+            ],),
+        ),// Space between ListView and indicators
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(3, (index) => _buildDot(index)),
+        ),
+        SizedBox(height: 20), // Space between indicators and bottom
+      ],
+    );
+  }
+
+  Widget _buildClinicianName(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: 15,
+      itemBuilder: (context, index) {
+        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+        // EmployeeDocumentModal employeedoc = paginatedData[index];
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    //flex: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Stack(
+                          children: [SizedBox(
+                            height:50,
+                            child: CircleAvatar(
+                              child:
+                              Image.asset('images/1.png'),
+                            ),
+                          ),
+                            Positioned(
+                              left:22,
+                              bottom :0,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3),
+                                  color: Color(0xFF527FB9),
+                                ),
+                                width: 19,
+                                height: 15,
+                                child: Center(
+                                  child: Text("ST",style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: FontSize.s10,
+                                    color: ColorManager.white,
+                                    decoration: TextDecoration.none,
+                                  ),),
+                                ),
+                              ),)
+                          ],
+                        ),
+                        SizedBox(width: 10,),
+                        Text(
+                          "Michel Jackson",
+                          textAlign: TextAlign.start,
+                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w500,
+                            color: ColorManager.mediumgrey,),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child:  Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "24",
+                          textAlign: TextAlign.start,
+                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.blueprime,),
+                        ),
+                      ],
+                    ),),
+                ],),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Widget _buildClinicianType(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: 15,
+      itemBuilder: (context, index) {
+        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+        // EmployeeDocumentModal employeedoc = paginatedData[index];
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                       flex: 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(3),
+                                color: Color(0xFFF6928A)
+
+                              ),
+                              width: 26,
+                              height: 20,
+                              child: Center(
+                                child: Text("ST",style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: FontSize.s10,
+                                  color: ColorManager.white,
+                                  decoration: TextDecoration.none,
+                                ),),
+                              ),
+                            ),
+                            SizedBox(width: 15,),
+                            Text(
+                              "Physical Therapy",
+                              textAlign: TextAlign.start,
+                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.mediumgrey,),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child:  Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "24",
+                              textAlign: TextAlign.start,
+                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.blueprime,),
+                            ),
+                          ],
+                        ),),
+                    ],),
+                  SizedBox(height: 10,),
+                  GradientProgressIndicator(
+                    progress: totalValue / 100, // Pass your progress value here
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Widget _buildEmployeeType(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: 15,
+      itemBuilder: (context, index) {
+        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+        // EmployeeDocumentModal employeedoc = paginatedData[index];
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Temporery",
+                        textAlign: TextAlign.start,
+                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w500,
+                          color: ColorManager.mediumgrey,),
+                      ),
+                      Text(
+                        "30",
+                        textAlign: TextAlign.start,
+                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.blueprime,),
+                      ),
+                    ],),
+                  SizedBox(height: 10,),
+                  GradientProgressIndicator(
+                    progress: totalValue / 100, // Pass your progress value here
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildDot(int index) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      width: 8, //_currentPageIndex == index ? 12 : 8,
+      height: 8,
+      decoration: BoxDecoration(
+        color: _currentPageIndex == index
+            ? ColorManager.bluebottom // Active color
+            : ColorManager.transparentColor, // Inactive color
+        borderRadius: BorderRadius.circular(4),
+      ),
+    );
+  }
+}
+
+///Most Missed visit
+class MostMissedVisitsListview extends StatefulWidget {
+  const MostMissedVisitsListview({super.key});
+
+  @override
+  State<MostMissedVisitsListview> createState() => _MostMissedVisitsListviewState();
+}
+
+class _MostMissedVisitsListviewState extends State<MostMissedVisitsListview> {
+  final PageController _pageController = PageController();
+  int _currentPageIndex = 0;
+  int totalValue = 50;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+              onPressed: () {
+                if (_currentPageIndex > 0) {
+                  setState(() {
+                    _currentPageIndex--;
+                  });
+                  _pageController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
+                }
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_new_outlined,
+                color: _currentPageIndex > 0
+                    ? ColorManager.mediumgrey
+                    : Colors.grey, // Disable icon if on the first page
+                size: IconSize.I16,
+              ),
+            ),
+            _currentPageIndex == 0
+                ?  Text(
+              "Clinician Name",
+              style: NumberTExtFieldLegalDoc.customTextStyle(context),
+            )
+                : _currentPageIndex == 1
+                ? Text(
+              "Clinician Type",
+              style: NumberTExtFieldLegalDoc.customTextStyle(context),
+            )
+                : Text(
+              "Employee Type",
+              style: NumberTExtFieldLegalDoc.customTextStyle(context),
+            ),
+            IconButton(
+              onPressed: () {
+                if (_currentPageIndex < 2) {
+                  setState(() {
+                    _currentPageIndex++;
+                  });
+                  _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
+                }
+              },
+              icon: Icon(
+                Icons.arrow_forward_ios_outlined,
+                color: ColorManager.mediumgrey,
+                size: IconSize.I16,
+              ),
+            ),
+          ],
+        ),
+        Expanded(
+          child: PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPageIndex = index;
+              });
+            },
+            children: [
+              _buildClinicianNameMissed(context,), // Initial screen
+              _buildClinicianTypeMissed(context,), // Next screen
+              _buildEmployeeTypeMissed(context, ), // Add more as needed
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child:  _currentPageIndex == 2
+              ? Offstage()
+              : Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  children: [
+                    Text(
+                      "View More",
+                      textAlign: TextAlign.end,
+                      style: EmDashViewMoreText.customTextStyle(context),
+                    ),
+                    SizedBox(width: AppSize.s5),
+                    Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
+                  ],
+                ),
+              ),
+            ],),
+        ),// Space between ListView and indicators
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(3, (index) => _buildDot(index)),
+        ),
+        SizedBox(height: 20), // Space between indicators and bottom
+      ],
+    );
+  }
+
+  Widget _buildClinicianNameMissed(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: 15,
+      itemBuilder: (context, index) {
+        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+        // EmployeeDocumentModal employeedoc = paginatedData[index];
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    //flex: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Stack(
+                          children: [SizedBox(
+                            height:50,
+                            child: CircleAvatar(
+                              child:
+                              Image.asset('images/1.png'),
+                            ),
+                          ),
+                            Positioned(
+                              left:22,
+                              bottom :0,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3),
+                                  color: Color(0xFFF6928A)
+                                ),
+                                width: 20,
+                                height: 15,
+                                child: Center(
+                                  child: Text("OT",style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: FontSize.s10,
+                                    color: ColorManager.white,
+                                    decoration: TextDecoration.none,
+                                  ),),
+                                ),
+                              ),)
+                          ],
+                        ),
+                        SizedBox(width: 10,),
+                        Text(
+                          "Rose Galler",
+                          textAlign: TextAlign.start,
+                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w500,
+                            color: ColorManager.mediumgrey,),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child:  Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "25",
+                          textAlign: TextAlign.start,
+                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.blueprime,),
+                        ),
+                      ],
+                    ),),
+                ],),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Widget _buildClinicianTypeMissed(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: 15,
+      itemBuilder: (context, index) {
+        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+        // EmployeeDocumentModal employeedoc = paginatedData[index];
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3),
+                                  color: Color(0xFFF6928A)
+
+                              ),
+                              width: 26,
+                              height: 20,
+                              child: Center(
+                                child: Text("LVN",style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: FontSize.s10,
+                                  color: ColorManager.white,
+                                  decoration: TextDecoration.none,
+                                ),),
+                              ),
+                            ),
+                            SizedBox(width: 15,),
+                            Text(
+                              "Occupational Therapy",
+                              textAlign: TextAlign.start,
+                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.mediumgrey,),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child:  Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "20",
+                              textAlign: TextAlign.start,
+                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.blueprime,),
+                            ),
+                          ],
+                        ),),
+                    ],),
+                  SizedBox(height: 10,),
+                  GradientProgressIndicator(
+                    progress: totalValue / 100, // Pass your progress value here
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Widget _buildEmployeeTypeMissed(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: 3,
+      itemBuilder: (context, index) {
+        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+        // EmployeeDocumentModal employeedoc = paginatedData[index];
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Salaried",
+                        textAlign: TextAlign.start,
+                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w500,
+                          color: ColorManager.mediumgrey,),
+                      ),
+                      Text(
+                        "24",
+                        textAlign: TextAlign.start,
+                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.blueprime,),
+                      ),
+                    ],),
+                  SizedBox(height: 10,),
+                  GradientProgressIndicator(
+                    progress: totalValue / 100, // Pass your progress value here
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildDot(int index) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      width: 8, //_currentPageIndex == index ? 12 : 8,
+      height: 8,
+      decoration: BoxDecoration(
+        color: _currentPageIndex == index
+            ? ColorManager.bluebottom // Active color
+            : ColorManager.transparentColor, // Inactive color
+        borderRadius: BorderRadius.circular(4),
+      ),
+    );
   }
 }

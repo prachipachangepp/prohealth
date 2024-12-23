@@ -256,3 +256,49 @@ class TypeOfVisitsConst extends StatelessWidget {
     );
   }
 }
+
+///
+class GradientProgressIndicator extends StatelessWidget {
+  final double progress; // Value between 0 and 1
+
+  const GradientProgressIndicator({
+    Key? key,
+    required this.progress,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        // Background track
+        Container(
+          height: 5,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              color: Color(0xFFE9ECEF)
+          ),
+        ),
+        // Gradient progress
+        LayoutBuilder(
+          builder: (context, constraints) {
+            return Container(
+              width: constraints.maxWidth * progress, // Progress width
+              height: 5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF1696C8), // #1696C8
+                    Color(0xFFB0E7FC), // #B0E7FC
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
