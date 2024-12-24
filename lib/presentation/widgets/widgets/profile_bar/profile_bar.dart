@@ -66,13 +66,13 @@ class _ProfileBarState extends State<ProfileBar> {
 
         // Extract counts from the fetched data
          expiredCount = data['Expired']?.length ?? 0;
-        upToDateCount = data['About to Expire']?.length ?? 0;
-         upToDateCount = data['Upto date']?.length ?? 0;
+        aboutToCount = data['About to Expire']?.length ?? 0;
+        upToDateCount = data['Upto date']?.length ?? 0;
 
         // Yield counts as a map
         yield {
           'Expired': expiredCount,
-          'About to Expire': upToDateCount,
+          'About to Expire': aboutToCount,
           'Upto date': upToDateCount,
         };
       } catch (error) {
@@ -185,8 +185,8 @@ class _ProfileBarState extends State<ProfileBar> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         // Update the count after the current build phase
         expiredCount = data['Expired']!.length;
-        upToDateCount = data['About to Expire']!.length;
-        aboutToCount = data['Upto date']!.length;
+        aboutToCount = data['About to Expire']!.length;
+        upToDateCount = data['Upto date']!.length;
         //print("EEE ${expiredCount}");
       });
     } catch (error) {
@@ -373,11 +373,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                 ClipOval(
                                   child: widget.searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
                                       widget.searchByEmployeeIdProfileData!.imgurl == null
-                                      ? Icon(
-                                    Icons.person,
-                                    color: ColorManager.white,
-                                    size: AppSize.s50,
-                                  )
+                                      ? CircleAvatar(radius: 60,backgroundColor: ColorManager.faintGrey,child: Image.asset("images/profilepic.png"),)
                                       : CachedNetworkImage(
                                     imageUrl: widget.searchByEmployeeIdProfileData!.imgurl,
                                     placeholder: (context, url) => CircularProgressIndicator(),
@@ -1223,7 +1219,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                               text: AppString.abouttoexpire,
                                               // containerColor: Colors.orange,
                                               containerColor: Color(0xffFEBD4D),
-                                              textOval: upToDateCount.toString()),
+                                              textOval:aboutToCount.toString()),
                                           SizedBox(
                                               height:
                                               MediaQuery.of(context).size.height / 120),
@@ -1464,7 +1460,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                               text: AppString.uptodate,
                                               // containerColor: Colors.lightGreen,
                                               containerColor: Color(0xffB4DB4C),
-                                              textOval: aboutToCount.toString()),
+                                              textOval: upToDateCount.toString()),
                                         ],
                                       ),
                                     );

@@ -609,56 +609,56 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                           right: 50.0),
                                                   child: Row(
                                                     children: [
-                                                      // IconButton(
-                                                      //   icon: Icon(
-                                                      //       size: 20,
-                                                      //       Icons.history,
-                                                      //       color: ColorManager
-                                                      //           .textPrimaryColor),
-                                                      //   onPressed: () {},
-                                                      // ),
-                                                      // SizedBox(
-                                                      //     width: MediaQuery.of(
-                                                      //                 context)
-                                                      //             .size
-                                                      //             .width /
-                                                      //         120),
-                                                      // IconButton(
-                                                      //   icon: Icon(
-                                                      //       size: 20,
-                                                      //       Icons
-                                                      //           .print_outlined,
-                                                      //       color: ColorManager
-                                                      //           .textPrimaryColor),
-                                                      //   onPressed: () async {
-                                                      //     final pdf =
-                                                      //         pw.Document();
-                                                      //
-                                                      //     pdf.addPage(
-                                                      //       pw.Page(
-                                                      //         build: (pw.Context
-                                                      //                 context) =>
-                                                      //             pw.Center(
-                                                      //           child: pw.Text(
-                                                      //               'Hello, this is a test print!'),
-                                                      //         ),
-                                                      //       ),
-                                                      //     );
-                                                      //
-                                                      //     await Printing
-                                                      //         .layoutPdf(
-                                                      //       onLayout: (PdfPageFormat
-                                                      //               format) async =>
-                                                      //           pdf.save(),
-                                                      //     );
-                                                      //   },
-                                                      // ),
-                                                      // SizedBox(
-                                                      //     width: MediaQuery.of(
-                                                      //                 context)
-                                                      //             .size
-                                                      //             .width /
-                                                      //         120),
+                                                      IconButton(
+                                                        icon: Icon(
+                                                            size: 20,
+                                                            Icons.history,
+                                                            color: ColorManager
+                                                                .textPrimaryColor),
+                                                        onPressed: () {},
+                                                      ),
+                                                      SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              120),
+                                                      IconButton(
+                                                        icon: Icon(
+                                                            size: 20,
+                                                            Icons
+                                                                .print_outlined,
+                                                            color: ColorManager
+                                                                .textPrimaryColor),
+                                                        onPressed: () async {
+                                                          final pdf =
+                                                              pw.Document();
+
+                                                          pdf.addPage(
+                                                            pw.Page(
+                                                              build: (pw.Context
+                                                                      context) =>
+                                                                  pw.Center(
+                                                                child: pw.Text(
+                                                                    'Hello, this is a test print!'),
+                                                              ),
+                                                            ),
+                                                          );
+
+                                                          await Printing
+                                                              .layoutPdf(
+                                                            onLayout: (PdfPageFormat
+                                                                    format) async =>
+                                                                pdf.save(),
+                                                          );
+                                                        },
+                                                      ),
+                                                      SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              120),
                                                       IconButton(
                                                       onPressed: () {
                                                 print("FileExtension:${fileExtension}");

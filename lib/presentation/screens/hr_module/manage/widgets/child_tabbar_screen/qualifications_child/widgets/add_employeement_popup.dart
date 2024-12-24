@@ -140,8 +140,11 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                         errorMessage: 'Please enter start date',
                         suffixIcon: Icon(Icons.calendar_month_outlined,
                             color: ColorManager.blueprime),
-                        onTap: () => _selectDate(
-                            widget.startDateContoller, _selectedStartDate), hintText:'yyyy-mm-dd',
+                        onTap: () {
+                          errorStates["startDate"] =  widget.startDateContoller.text.isEmpty;
+                          _selectDate(
+                              widget.startDateContoller, _selectedStartDate);
+                        }, hintText:'yyyy-mm-dd',
                       ),
                     ],
                   ),
