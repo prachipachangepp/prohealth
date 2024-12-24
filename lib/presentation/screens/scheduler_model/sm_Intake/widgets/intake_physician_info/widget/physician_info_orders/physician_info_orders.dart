@@ -239,30 +239,30 @@ class _PhysicianOrderState extends State<PhysicianOrder> {
                                        padding: const EdgeInsets.only(right: 70),
                                        child: Row(
                                          children: [
-                                           IconButton(
-                                             splashColor: Colors.transparent,
-                                             highlightColor: Colors.transparent,
-                                             hoverColor: Colors.transparent,
-                                             icon: Icon(
-                                               size: 20,
-                                               Icons.history,
-                                               color: ColorManager.granitegray,
-                                             ),
-                                             onPressed: () {},
-                                           ),
-                                           SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                           IconButton(
-                                             splashColor: Colors.transparent,
-                                             highlightColor: Colors.transparent,
-                                             hoverColor: Colors.transparent,
-                                             icon: Icon(
-                                               size: 20,
-                                               Icons.print_outlined,
-                                               color: ColorManager.granitegray,
-                                             ),
-                                             onPressed: () {},
-                                           ),
-                                           SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                           // IconButton(
+                                           //   splashColor: Colors.transparent,
+                                           //   highlightColor: Colors.transparent,
+                                           //   hoverColor: Colors.transparent,
+                                           //   icon: Icon(
+                                           //     size: 20,
+                                           //     Icons.history,
+                                           //     color: ColorManager.granitegray,
+                                           //   ),
+                                           //   onPressed: () {},
+                                           // ),
+                                           // SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                           // IconButton(
+                                           //   splashColor: Colors.transparent,
+                                           //   highlightColor: Colors.transparent,
+                                           //   hoverColor: Colors.transparent,
+                                           //   icon: Icon(
+                                           //     size: 20,
+                                           //     Icons.print_outlined,
+                                           //     color: ColorManager.granitegray,
+                                           //   ),
+                                           //   onPressed: () {},
+                                           // ),
+                                           // SizedBox(width: MediaQuery.of(context).size.width / 120),
                                            IconButton(
                                              splashColor: Colors.transparent,
                                              highlightColor: Colors.transparent,
@@ -276,18 +276,18 @@ class _PhysicianOrderState extends State<PhysicianOrder> {
                                                // Your download logic
                                              },
                                            ),
-                                           SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                           IconButton(
-                                             splashColor: Colors.transparent,
-                                             highlightColor: Colors.transparent,
-                                             hoverColor: Colors.transparent,
-                                             onPressed: () {},
-                                             icon: Icon(
-                                               Icons.delete_outline,
-                                               size: 20,
-                                               color: Color(0xff686464),
-                                             ),
-                                           ),
+                                           // SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                           // IconButton(
+                                           //   splashColor: Colors.transparent,
+                                           //   highlightColor: Colors.transparent,
+                                           //   hoverColor: Colors.transparent,
+                                           //   onPressed: () {},
+                                           //   icon: Icon(
+                                           //     Icons.delete_outline,
+                                           //     size: 20,
+                                           //     color: Color(0xff686464),
+                                           //   ),
+                                           // ),
                                          ],
                                        ),
                                      ),
