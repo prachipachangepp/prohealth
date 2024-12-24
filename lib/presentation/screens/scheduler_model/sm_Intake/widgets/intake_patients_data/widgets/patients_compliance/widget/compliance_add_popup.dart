@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -22,6 +23,8 @@ import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_
 import '../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../em_module/widgets/button_constant.dart';
+import '../../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
+import '../../../../../../widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../../patients_plan_care/intake_patients_plan_care.dart';
 
 class ComplianceAddPopUp extends StatefulWidget {
@@ -129,11 +132,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Text(
                     widget.title,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.white,
-                    ),
+                    style: PopupBlueBarText.customTextStyle(context)
                   ),
                 ),
                 Spacer(),
@@ -155,7 +154,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
         ],
       ),
       content: Container(
-        height: 470,
+        height: 500,
         width: AppSize.s350,
         color: Colors.white,
         child: Column(
@@ -166,87 +165,128 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppString.type_of_the_document,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.textPrimaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       AppString.type_of_the_document,
+                //       style: AllPopupHeadings.customTextStyle(context)
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(height: 5),
                 FutureBuilder<List<PatientDataComplianceDoc>>(
-                  future:
-                  getpatientDataComplianceDoc(context),
+                  future: getpatientDataComplianceDoc(context),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState ==
                         ConnectionState.waiting) {
+                      return CustomDropdownTextFieldsm(
+                        // width: 350,
+                        // height: 30,
+                        // decoration: BoxDecoration(
+                        //   borderRadius:
+                        //   BorderRadius.circular(10),
+                        //   border: Border.all(color: Colors.grey, width: 1),
+                        // ),
+                        headText: AppString.type_of_the_document,
+                      );
+                    }
+                    if (snapshot.data!.isEmpty) {
                       return Container(
                         width: 350,
                         height: 30,
                         decoration: BoxDecoration(
                           borderRadius:
                           BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey, width: 1),
                         ),
-                      );
-                    }
-                    if (snapshot.data!.isEmpty) {
-                      return Center(
-                        child: Text(
-                          AppString.dataNotFound,
-                          style: CustomTextStylesCommon
-                              .commonStyle(
-                            fontWeight:
-                            FontWeightManager.medium,
-                            fontSize: FontSize.s14,
-                            color: ColorManager.mediumgrey,
+                        child: Center(
+                          child: Text(
+                            AppString.dataNotFound,
+                            style: CustomTextStylesCommon
+                                .commonStyle(
+                              fontWeight:
+                              FontWeightManager.medium,
+                              fontSize: FontSize.s14,
+                              color: ColorManager.mediumgrey,
+                            ),
                           ),
                         ),
                       );
                     }
                     if (snapshot.hasData) {
-                      List<DropdownMenuItem<String>>
-                      dropDownMenuItems = snapshot.data!
-                          .map((doc) =>
-                          DropdownMenuItem<String>(
-                            value: doc.docType,
-                            child: Text(doc.docType!),
-                          ))
-                          .toList();
-                      docTypeId = snapshot.data![0].docTypeId!;
-                      documentTypeName = snapshot.data![0].docType!;
-                      return CICCDropdown(
-                        initialValue: selectedDocType ??
-                            dropDownMenuItems[0].value,
-                        onChange: (val) {
-                          setState(() {
-                            selectedDocType = val;
-                            for (var doc in snapshot.data!) {
-                              if (doc.docType == val) {
-                                docTypeId = doc.docTypeId!;
-                                documentTypeName = doc.docType;
-                              }
+                      List<DropdownMenuItem<String>> dropDownList = [];
+
+
+                      for (var i in snapshot.data!) {
+                        dropDownList.add(DropdownMenuItem<String>(
+                          child: Text(i.docType!!),
+                          value: i.docType!,
+                        ));
+                      }
+
+                      return CustomDropdownTextFieldsm(
+                        dropDownMenuList: dropDownList,
+                        headText: AppString.type_of_the_document,
+                        onChanged:  (val) {
+
+                          for (var i in snapshot.data!) {
+                            if (i.docType == val) {
+                              docTypeId = i.docTypeId!;
+                              documentTypeName = i.docType;
+                              selectedDocType =documentTypeName!;
                             }
-                            getComplianceByPatientId(
-                                context,
-                                1
-                            ).then((data) {
-                              _compliancePatientDataController
-                                  .add(data);
-                            }).catchError((error) {
-                              // Handle error
-                            });
+                          }
+                          getComplianceByPatientId(
+                              context,
+                              1
+                          ).then((data) {
+                            _compliancePatientDataController
+                                .add(data);
+                          }).catchError((error) {
+                            // Handle error
                           });
-                        },
-                        items: dropDownMenuItems,
+
+                      },
+
                       );
+                      // List<DropdownMenuItem<String>>
+                      // dropDownMenuItems = snapshot.data!
+                      //     .map((doc) =>
+                      //     DropdownMenuItem<String>(
+                      //       value: doc.docType,
+                      //       child: Text(doc.docType!),
+                      //     ))
+                      //     .toList();
+                      // docTypeId = snapshot.data![0].docTypeId!;
+                      // documentTypeName = snapshot.data![0].docType!;
+                      // return CICCDropdown(
+                      //   initialValue: selectedDocType ??
+                      //       dropDownMenuItems[0].value,
+                    //     onChange: (val) {
+                    //       setState(() {
+                    //         selectedDocType = val;
+                    //         for (var doc in snapshot.data!) {
+                    //           if (doc.docType == val) {
+                    //             docTypeId = doc.docTypeId!;
+                    //             documentTypeName = doc.docType;
+                    //           }
+                    //         }
+                    //         getComplianceByPatientId(
+                    //             context,
+                    //             1
+                    //         ).then((data) {
+                    //           _compliancePatientDataController
+                    //               .add(data);
+                    //         }).catchError((error) {
+                    //           // Handle error
+                    //         });
+                    //       });
+                    // },
+                      //   items: dropDownMenuItems,
+                      // );
                     } else {
-                      return SizedBox();
+                      return const Offstage();
                     }
                   },
                 ),
@@ -302,10 +342,10 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                 //     ),
                 //   ),
                 // ),
-                SMTextFConst(
+                SchedularTextField(
                   controller: widget.nameDocController,
-                  keyboardType: TextInputType.text,
-                  text:  AppString.name_of_the_document,
+                 // keyboardType: TextInputType.text,
+                  labelText:  AppString.name_of_the_document,
                 ),
                 if (_nameDocError != null)
                   Text(
@@ -325,12 +365,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                           children: [
                             Text(
                               "Expiry Type",
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.mediumgrey,
-                                decoration: TextDecoration.none,
-                              ),
+                              style: AllPopupHeadings.customTextStyle(context)
                             ),
                             CustomRadioListTile(
                               value: "Not Applicable",
@@ -369,7 +404,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                               ),
                           ],
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: 5,),
                         Visibility(
                           visible: selectedExpiryType ==
                               "Scheduled" ||
@@ -378,105 +413,93 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                             crossAxisAlignment:
                             CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Expiry Date",
-                                style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s14,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorManager.mediumgrey,
-                                  decoration: TextDecoration.none,
-                                ),
-                              ),
-                              FormField<String>(
-                                builder:
-                                    (FormFieldState<String> field) {
-                                  return SizedBox(
-                                    width: 354,
-                                    height: 30,
-                                    child: TextFormField(
-                                      controller: widget.calenderController,
-                                      cursorColor: ColorManager.black,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s14,
-                                        fontWeight: FontWeight.w700,
-                                        color:
-                                        ColorManager.mediumgrey,
-                                        //decoration: TextDecoration.none,
-                                      ),
-                                      decoration: InputDecoration(
-                                        enabledBorder:
-                                        OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager
-                                                  .fmediumgrey,
-                                              width: 1),
-                                          borderRadius:
-                                          BorderRadius.circular(
-                                              8),
-                                        ),
-                                        focusedBorder:
-                                        OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager
-                                                  .fmediumgrey,
-                                              width: 1),
-                                          borderRadius:
-                                          BorderRadius.circular(
-                                              8),
-                                        ),
-                                        hintText: 'yyyy-MM-dd',
-                                        hintStyle:
-                                        GoogleFonts.firaSans(
-                                          fontSize: FontSize.s14,
-                                          fontWeight: FontWeight.w700,
-                                          color:
-                                          ColorManager.mediumgrey,
-                                          //decoration: TextDecoration.none,
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(
-                                              8),
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: ColorManager
-                                                  .fmediumgrey),
-                                        ),
-                                        contentPadding:
-                                        EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        suffixIcon: Icon(
-                                            Icons
-                                                .calendar_month_outlined,
-                                            color: ColorManager
-                                                .blueprime),
-                                        errorText: field.errorText,
-                                      ),
-                                      onTap: () async {
-                                        DateTime? pickedDate =
-                                        await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(2000),
-                                          lastDate: DateTime(3101),
-                                        );
-                                        if (pickedDate != null) {
-                                          widget.calenderController.text =
-                                              DateFormat('yyyy-MM-dd')
-                                                  .format(pickedDate);
-                                        }
-                                      },
-                                      validator: (value) {
-                                        if (value == null ||
-                                            value.isEmpty) {
-                                          return 'please select birth date';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
+                              SchedularTextField(labelText: 'Expiry Date',
+                                  showDatePicker:true,
+                                controller: widget.calenderController,
+
+                              )
+                              // Text(
+                              //   "Expiry Date",
+                              //   style: AllPopupHeadings.customTextStyle(context)
+                              // ),
+                              // FormField<String>(
+                              //   builder:
+                              //       (FormFieldState<String> field) {
+                              //     return SizedBox(
+                              //       width: 354,
+                              //       height: 30,
+                              //       child: TextFormField(
+                              //         controller: widget.calenderController,
+                              //         cursorColor: ColorManager.black,
+                              //         style: DocumentTypeDataStyle.customTextStyle(context),
+                              //         decoration: InputDecoration(
+                              //           enabledBorder:
+                              //           OutlineInputBorder(
+                              //             borderSide: BorderSide(
+                              //                 color: ColorManager
+                              //                     .fmediumgrey,
+                              //                 width: 1),
+                              //             borderRadius:
+                              //             BorderRadius.circular(
+                              //                 8),
+                              //           ),
+                              //           focusedBorder:
+                              //           OutlineInputBorder(
+                              //             borderSide: BorderSide(
+                              //                 color: ColorManager
+                              //                     .fmediumgrey,
+                              //                 width: 1),
+                              //             borderRadius:
+                              //             BorderRadius.circular(
+                              //                 8),
+                              //           ),
+                              //           hintText: 'yyyy-MM-dd',
+                              //           hintStyle:
+                              //           DocumentTypeDataStyle.customTextStyle(context),
+                              //           border: OutlineInputBorder(
+                              //             borderRadius:
+                              //             BorderRadius.circular(
+                              //                 8),
+                              //             borderSide: BorderSide(
+                              //                 width: 1,
+                              //                 color: ColorManager
+                              //                     .fmediumgrey),
+                              //           ),
+                              //           contentPadding:
+                              //           EdgeInsets.symmetric(
+                              //               horizontal: 16),
+                              //           suffixIcon: Icon(
+                              //               Icons
+                              //                   .calendar_month_outlined,
+                              //               color: ColorManager
+                              //                   .blueprime),
+                              //           errorText: field.errorText,
+                              //         ),
+                              //         onTap: () async {
+                              //           DateTime? pickedDate =
+                              //           await showDatePicker(
+                              //             context: context,
+                              //             initialDate: DateTime.now(),
+                              //             firstDate: DateTime(2000),
+                              //             lastDate: DateTime(3101),
+                              //           );
+                              //           if (pickedDate != null) {
+                              //             widget.calenderController.text =
+                              //                 DateFormat('yyyy-MM-dd')
+                              //                     .format(pickedDate);
+                              //           }
+                              //         },
+                              //         validator: (value) {
+                              //           if (value == null ||
+                              //               value.isEmpty) {
+                              //             return 'please select birth date';
+                              //           }
+                              //           return null;
+                              //         },
+                              //       ),
+                              //     );
+                              //   },
+                              // ),
                             ],
                           ),
                         ),
@@ -484,7 +507,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     );
                   },
                 ),
-                SizedBox(height: 10),
+               // SizedBox(height: 10),
                 widget.child2 ?? Offstage(),
                 SizedBox(height: 10),
                 Row(
@@ -492,11 +515,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                   children: [
                     Text(
                       AppString.upload_document,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.textPrimaryColor,
-                      ),
+                      style:AllPopupHeadings.customTextStyle(context)
                     ),
                   ],
                 ),
@@ -507,27 +526,25 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
         Container(
           height: AppSize.s30,
           width: AppSize.s360,
-          margin: EdgeInsets.symmetric(horizontal: 5),
+         // margin: EdgeInsets.symmetric(horizontal: 5),
           decoration: BoxDecoration(
             border: Border.all(
               color: ColorManager.containerBorderGrey,
               width: 1,
             ),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: StatefulBuilder(
             builder: (BuildContext context, void Function(void Function()) setState) {
-              return Padding(
-                padding: const EdgeInsets.all(4.0),
+              return InkWell(onTap:_pickFile ,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      fileName,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.regular,
-                        color: ColorManager.greylight,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Text(
+                        fileName,
+                        style: DocumentTypeDataStyle.customTextStyle(context)
                       ),
                     ),
                     IconButton(
@@ -556,11 +573,12 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
 
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+              padding: const EdgeInsets.only(bottom: 10),
               child: Center(
                 child: widget.loadingDuration == true
                     ? SizedBox(
@@ -710,11 +728,7 @@ class _AddClinicianPopupState extends State<AddClinicianPopup> {
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: Text(
                     widget.title,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    style:BlueButtonTextConst.customTextStyle(context)
                   ),
                 ),
                 Spacer(),
@@ -746,11 +760,7 @@ class _AddClinicianPopupState extends State<AddClinicianPopup> {
           children: [
             Text(
               "Select Type of Clinician",
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+              style: AllPopupHeadings.customTextStyle(context)
             ),
             SizedBox(height: 5),
             widget.child ?? SizedBox(),

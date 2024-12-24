@@ -213,7 +213,7 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                                   children: [
                                     Text(
                                       'Jeh Tiwari',
-                                      style:DocumentTypeDataStyle.customTextStyle(context),
+                                      style:AllHRTableData.customTextStyle(context),
                                     ),
                                     SizedBox(height: AppSize.s3),
                                     Text(
@@ -381,18 +381,50 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                             //       ),),
                             //   ),
                             // ),
+
+                            Padding(
+                              padding: const EdgeInsets.only(right: 30,left: 10),
+                              child: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
+                            ),
                             Container(
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
-                                  ),
-                                  CircleAvatar(
-                                    child:
-                                    Image.asset('images/1.png'),
-                                  ),
-                                ],
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 0),
+                                child: Row(
+                                  children: [
+                                    Stack(
+
+                                      children: [SizedBox(
+                                        height:50,
+                                        child: CircleAvatar(
+                                          child:
+                                          Image.asset('images/1.png'),
+                                        ),
+                                      ),
+                                        Positioned(
+                                          left:22,
+                                          bottom :0,
+                                          child: Container(
+                                            color: Color(0xFF527FB9),
+                                            width: 19,
+                                            height: 19,
+                                            child: Center(
+                                              child: Text("ST",style: TextStyle(
+                                                // fontWeight: FontWeight.w600,
+                                                // fontSize: FontSize.s13,
+                                                color: ColorManager.white,
+                                                decoration: TextDecoration.none,
+                                              ),),
+                                            ),
+                                          ),)
+                                      ],
+                                    ),
+                                    SizedBox(width: AppSize.s7),
+                                    Text(
+                                      'John Smith',
+                                      style:DocumentTypeDataStyle.customTextStyle(context),
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                           ],

@@ -431,129 +431,268 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                 color: ColorManager.mediumgrey,
                                 fontWeight: FontWeight.w600,
                               )): BorderIconButton(iconData: Icons.edit_outlined, buttonText: 'Edit', onPressed: (){
+//                                 setState(() {
+//                                   showDialog(context: context, builder: (BuildContext context){
+//                                     return FutureBuilder<EmployeementPrefillData>(
+//                                         future: getPrefillEmployeement(context,snapshot.data![index].employmentId),
+//                                         builder: (context,snapshotPrefill) {
+//                                           if(snapshotPrefill.connectionState == ConnectionState.waiting){
+//                                             return Center(
+//                                               child: CircularProgressIndicator(
+//                                                 color: ColorManager.blueprime,
+//                                               ),
+//                                             );
+//                                           }
+//                                           var positionTitle = snapshotPrefill.data!.title;
+//                                           positionTitleController = TextEditingController(text: snapshotPrefill.data!.title);
+//
+//                                           var leavingReason = snapshotPrefill.data!.reason;
+//                                           leavingResonController = TextEditingController(text: snapshotPrefill.data!.reason);
+//
+//                                           var startDate = snapshotPrefill.data!.dateOfJoining;
+//                                           startDateContoller = TextEditingController(text: snapshotPrefill.data?.dateOfJoining);
+//
+//                                           var endDate = snapshotPrefill.data!.endDate;
+//                                           endDateController = TextEditingController(text: snapshotPrefill.data?.endDate);
+//
+//
+//                                           var supervisorName = snapshotPrefill.data!.supervisor;
+//                                           lastSupervisorNameController = TextEditingController(text: snapshotPrefill.data!.supervisor);
+//
+//                                           var supervisorMob = snapshotPrefill.data!.supMobile;
+//                                           supervisorMobileNumber = TextEditingController(text: snapshotPrefill.data!.supMobile);
+//
+//                                           var cityName = snapshotPrefill.data!.city;
+//                                           cityNameController = TextEditingController(text: snapshotPrefill.data!.city);
+//
+//                                           var employeer = snapshotPrefill.data!.employer;
+//                                           employeerController = TextEditingController(text: snapshotPrefill.data!.employer);
+//
+//                                           var emgMobile = snapshotPrefill.data!.emgMobile;
+//                                           emergencyMobileNumber = TextEditingController(text: snapshotPrefill.data!.emgMobile);
+//                                           var country = snapshotPrefill.data!.country;
+//                                           countryController =TextEditingController(text: snapshotPrefill.data!.country);
+//                                           return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
+//                                             endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
+//                                             supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
+//                                             employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
+//                                             countryController: countryController,
+//                                             onpressedSave: ()async{
+//                                               var response = await updateEmployeementPatch(context,
+//                                                   snapshot.data![index].employmentId,
+//                                                   widget.employeeId,
+//                                                   employeer == employeerController.text ? employeer.toString() : employeerController.text,
+//                                                   cityName == cityNameController.text ? cityName.toString() : cityNameController.text,
+//                                                   leavingReason == leavingResonController.text ? leavingReason.toString() : leavingResonController.text,
+//                                                   supervisorName == lastSupervisorNameController.text ? supervisorName.toString() : lastSupervisorNameController.text,
+//                                                   supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
+//                                                   positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
+//                                                   startDate == startDateContoller.text ? startDate  : startDateContoller.text,
+//                                               // isSelectedEdit
+//                                                   //     ? null // If currently working, don't update the end date
+//                                                   //     : endDate == endDateController.text
+//                                                   //     ? endDate
+//                                                   //     : endDateController.text,
+//                                                   isSelectedEdit ?  "Currently Working" : endDateController.text ,
+// //endDate == endDateController.text ? endDate : endDateController.text,
+//                                                   emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
+//                                                   country== countryController.text ?country.toString():countryController.text
+//                                                 // 'USA'
+//                                               );
+//                                               if(response.statusCode == 200 || response.statusCode == 201){
+//                                                 Navigator.pop(context);
+//                                                  showDialog(
+//                                                   context: context,
+//                                                   builder: (BuildContext context) {
+//                                                     return AddSuccessPopup(
+//                                                       message: 'Employement Edited Successfully',
+//                                                     );
+//                                                   },
+//                                                 );
+//                                               }else if(response.statusCode == 400 || response.statusCode == 404){
+//                                                 Navigator.pop(context);
+//                                                 showDialog(
+//                                                   context: context,
+//                                                   builder: (BuildContext context) => const FourNotFourPopup(),
+//                                                 );
+//                                               }
+//                                               else {
+//                                                 Navigator.pop(context);
+//                                                 showDialog(
+//                                                   context: context,
+//                                                   builder: (BuildContext context) => FailedPopup(text: response.message),
+//                                                 );
+//                                               }
+//                                          }, checkBoxTile: StatefulBuilder(
+//                                                 builder: (BuildContext context, void Function(void Function()) setState) {
+//                                                   return Container(
+//                                                     //color: Colors.red,
+//                                                       width: 300,
+//                                                       child: CheckboxTile(
+//                                                         title: 'Currently work here',
+//                                                         initialValue: isSelectedEdit,
+//                                                         onChanged: (value) {
+//                                                           setState((){
+//                                                             isSelectedEdit = !isSelectedEdit;
+//                                                             endDateController.clear();
+//                                                           });
+//                                                         },
+//                                                       ));
+//                                                 },
+//                                               ),
+//                                             // checkBoxTile:  Container(
+//                                             //     width: 300,
+//                                             //     child: CheckboxTile(title: 'Currently work here',
+//                                             //       initialValue: false,onChanged: (value){
+//                                             //     },)),
+//                                             tite: 'Edit Employment',
+//                                             onpressedClose: ()
+//                                              {
+//                                               Navigator.pop(context);
+//                                               },);
+//                                         }
+//                                     );
+//                                   });
+//                                 }
+
+
                                 setState(() {
-                                  showDialog(context: context, builder: (BuildContext context){
+                                  showDialog(context: context, builder: (BuildContext context) {
                                     return FutureBuilder<EmployeementPrefillData>(
-                                        future: getPrefillEmployeement(context,snapshot.data![index].employmentId),
-                                        builder: (context,snapshotPrefill) {
-                                          if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                            return Center(
-                                              child: CircularProgressIndicator(
-                                                color: ColorManager.blueprime,
-                                              ),
-                                            );
-                                          }
-                                          var positionTitle = snapshotPrefill.data!.title;
-                                          positionTitleController = TextEditingController(text: snapshotPrefill.data!.title);
-
-                                          var leavingReason = snapshotPrefill.data!.reason;
-                                          leavingResonController = TextEditingController(text: snapshotPrefill.data!.reason);
-
-                                          var startDate = snapshotPrefill.data!.dateOfJoining;
-                                          startDateContoller = TextEditingController(text: snapshotPrefill.data?.dateOfJoining);
-
-                                          var endDate = snapshotPrefill.data!.endDate;
-                                          endDateController = TextEditingController(text: snapshotPrefill.data?.endDate);
-
-
-                                          var supervisorName = snapshotPrefill.data!.supervisor;
-                                          lastSupervisorNameController = TextEditingController(text: snapshotPrefill.data!.supervisor);
-
-                                          var supervisorMob = snapshotPrefill.data!.supMobile;
-                                          supervisorMobileNumber = TextEditingController(text: snapshotPrefill.data!.supMobile);
-
-                                          var cityName = snapshotPrefill.data!.city;
-                                          cityNameController = TextEditingController(text: snapshotPrefill.data!.city);
-
-                                          var employeer = snapshotPrefill.data!.employer;
-                                          employeerController = TextEditingController(text: snapshotPrefill.data!.employer);
-
-                                          var emgMobile = snapshotPrefill.data!.emgMobile;
-                                          emergencyMobileNumber = TextEditingController(text: snapshotPrefill.data!.emgMobile);
-                                          var country = snapshotPrefill.data!.country;
-                                          countryController =TextEditingController(text: snapshotPrefill.data!.country);
-                                          return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
-                                            endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
-                                            supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
-                                            employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
-                                            countryController: countryController,
-                                            onpressedSave: ()async{
-                                              var response = await updateEmployeementPatch(context,
-                                                  snapshot.data![index].employmentId,
-                                                  widget.employeeId,
-                                                  employeer == employeerController.text ? employeer.toString() : employeerController.text,
-                                                  cityName == cityNameController.text ? cityName.toString() : cityNameController.text,
-                                                  leavingReason == leavingResonController.text ? leavingReason.toString() : leavingResonController.text,
-                                                  supervisorName == lastSupervisorNameController.text ? supervisorName.toString() : lastSupervisorNameController.text,
-                                                  supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
-                                                  positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
-                                                  startDate == startDateContoller.text ? startDate  : startDateContoller.text,
-                                              // isSelectedEdit
-                                                  //     ? null // If currently working, don't update the end date
-                                                  //     : endDate == endDateController.text
-                                                  //     ? endDate
-                                                  //     : endDateController.text,
-                                                  isSelectedEdit ?  "Currently Working" : endDateController.text ,
-//endDate == endDateController.text ? endDate : endDateController.text,
-                                                  emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
-                                                  country== countryController.text ?country.toString():countryController.text
-                                                // 'USA'
-                                              );
-                                              if(response.statusCode == 200 || response.statusCode == 201){
-                                                Navigator.pop(context);
-                                                 showDialog(
-                                                  context: context,
-                                                  builder: (BuildContext context) {
-                                                    return AddSuccessPopup(
-                                                      message: 'Employement Edited Successfully',
-                                                    );
-                                                  },
-                                                );
-                                              }else if(response.statusCode == 400 || response.statusCode == 404){
-                                                Navigator.pop(context);
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (BuildContext context) => const FourNotFourPopup(),
-                                                );
-                                              }
-                                              else {
-                                                Navigator.pop(context);
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (BuildContext context) => FailedPopup(text: response.message),
-                                                );
-                                              }
-                                         }, checkBoxTile: StatefulBuilder(
-                                                builder: (BuildContext context, void Function(void Function()) setState) {
-                                                  return Container(
-                                                    //color: Colors.red,
-                                                      width: 300,
-                                                      child: CheckboxTile(
-                                                        title: 'Currently work here',
-                                                        initialValue: isSelectedEdit,
-                                                        onChanged: (value) {
-                                                          setState((){
-                                                            isSelectedEdit = !isSelectedEdit;
-                                                            endDateController.clear();
-                                                          });
-                                                        },
-                                                      ));
-                                                },
-                                              ),
-                                            // checkBoxTile:  Container(
-                                            //     width: 300,
-                                            //     child: CheckboxTile(title: 'Currently work here',
-                                            //       initialValue: false,onChanged: (value){
-                                            //     },)),
-                                            tite: 'Edit Employment',
-                                            onpressedClose: ()
-                                             {
-                                              Navigator.pop(context);
-                                              },);
+                                      future: getPrefillEmployeement(context, snapshot.data![index].employmentId),
+                                      builder: (context, snapshotPrefill) {
+                                        if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              color: ColorManager.blueprime,
+                                            ),
+                                          );
                                         }
+
+                                        var positionTitle = snapshotPrefill.data!.title;
+                                        positionTitleController = TextEditingController(text: snapshotPrefill.data!.title);
+
+                                        var leavingReason = snapshotPrefill.data!.reason;
+                                        leavingResonController = TextEditingController(text: snapshotPrefill.data!.reason);
+
+                                        var startDate = snapshotPrefill.data!.dateOfJoining;
+                                        startDateContoller = TextEditingController(text: snapshotPrefill.data?.dateOfJoining);
+
+                                        var endDate = snapshotPrefill.data!.endDate;
+                                        endDateController = TextEditingController(text: snapshotPrefill.data?.endDate);
+
+                                        // Determine the value of isSelectedEdit based on endDateController's value
+                                        if (endDateController.text == "Currently Working") {
+                                          isSelectedEdit = true;
+                                        } else if (endDateController.text == "2024/12/24") {
+                                          isSelectedEdit = false;
+                                        }
+
+                                        var supervisorName = snapshotPrefill.data!.supervisor;
+                                        lastSupervisorNameController = TextEditingController(text: snapshotPrefill.data!.supervisor);
+
+                                        var supervisorMob = snapshotPrefill.data!.supMobile;
+                                        supervisorMobileNumber = TextEditingController(text: snapshotPrefill.data!.supMobile);
+
+                                        var cityName = snapshotPrefill.data!.city;
+                                        cityNameController = TextEditingController(text: snapshotPrefill.data!.city);
+
+                                        var employeer = snapshotPrefill.data!.employer;
+                                        employeerController = TextEditingController(text: snapshotPrefill.data!.employer);
+
+                                        var emgMobile = snapshotPrefill.data!.emgMobile;
+                                        emergencyMobileNumber = TextEditingController(text: snapshotPrefill.data!.emgMobile);
+
+                                        var country = snapshotPrefill.data!.country;
+                                        countryController = TextEditingController(text: snapshotPrefill.data!.country);
+
+                                        return AddEmployeementPopup(
+                                          positionTitleController: positionTitleController,
+                                          leavingResonController: leavingResonController,
+                                          startDateContoller: startDateContoller,
+                                          endDateController: endDateController,
+                                          lastSupervisorNameController: lastSupervisorNameController,
+                                          supervisorMobileNumber: supervisorMobileNumber,
+                                          cityNameController: cityNameController,
+                                          employeerController: employeerController,
+                                          emergencyMobileNumber: emergencyMobileNumber,
+                                          countryController: countryController,
+                                          onpressedSave: () async {
+                                            var response = await updateEmployeementPatch(
+                                              context,
+                                              snapshot.data![index].employmentId,
+                                              widget.employeeId,
+                                              employeer == employeerController.text ? employeer.toString() : employeerController.text,
+                                              cityName == cityNameController.text ? cityName.toString() : cityNameController.text,
+                                              leavingReason == leavingResonController.text ? leavingReason.toString() : leavingResonController.text,
+                                              supervisorName == lastSupervisorNameController.text ? supervisorName.toString() : lastSupervisorNameController.text,
+                                              supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
+                                              positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
+                                              startDate == startDateContoller.text ? startDate : startDateContoller.text,
+                                              // Check if the end date is the same as the current end date or 'Currently Working'
+                                              // endDate == endDateController.text || endDateController.text == "Currently Working"
+                                              //     ? endDateController.text // If it's the same or "Currently Working", do not change the end date
+                                              //     : endDateController.text,
+                                              isSelectedEdit ?  "Currently Working" : endDateController.text ,
+                                              emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
+                                              country == countryController.text ? country.toString() : countryController.text,
+                                            );
+                                            if (response.statusCode == 200 || response.statusCode == 201) {
+                                              Navigator.pop(context);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AddSuccessPopup(
+                                                    message: 'Employement Edited Successfully',
+                                                  );
+                                                },
+                                              );
+                                            } else if (response.statusCode == 400 || response.statusCode == 404) {
+                                              Navigator.pop(context);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => const FourNotFourPopup(),
+                                              );
+                                            } else {
+                                              Navigator.pop(context);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) => FailedPopup(text: response.message),
+                                              );
+                                            }
+                                          },
+                                          checkBoxTile: StatefulBuilder(
+                                            builder: (BuildContext context, void Function(void Function()) setState) {
+                                              return Container(
+                                                width: 300,
+                                                child: CheckboxTile(
+                                                  title: 'Currently work here',
+                                                  initialValue: isSelectedEdit, // Checkbox is checked based on isSelectedEdit
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      isSelectedEdit = !isSelectedEdit;
+                                                      if (isSelectedEdit) {
+                                                        endDateController.clear(); // Clear end date when "Currently Working" is selected
+                                                      } else {
+                                                        endDateController.text = ''; // Or revert end date based on your logic
+                                                      }
+                                                    });
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                          tite: 'Edit Employment',
+                                          onpressedClose: () {
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                      },
                                     );
                                   });
                                 }
+
+
                                 );
                               },)
                           ),

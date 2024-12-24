@@ -208,7 +208,7 @@ class _SocPageViewState extends State<SocPageView> {
                                   children: [
                                     Text(
                                       'Jeh Tiwari',
-                                      style:DocumentTypeDataStyle.customTextStyle(context),
+                                      style:AllHRTableData.customTextStyle(context)
                                     ),
                                     SizedBox(height: AppSize.s3),
                                     Text(

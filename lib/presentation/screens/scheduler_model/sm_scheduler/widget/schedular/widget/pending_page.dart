@@ -65,7 +65,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                               fillColor: Color(0xFFF8F8F8),
                               hintText: 'Search',
                               alignLabelWithHint: true,
-                              hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                              // hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color:Color(0xFFC9C9C9)),
                                 borderRadius: BorderRadius.circular(20),
@@ -143,7 +143,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(right: 20),
+                        padding: const EdgeInsets.all(10),
                         child: Container(
 
                           decoration: BoxDecoration(
@@ -176,8 +176,8 @@ class _PendingPageViewState extends State<PendingPageView> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Text("SOC"),
+                        padding: const EdgeInsets.only(right: 0),
+                        child: Text("SOC",style: DocumentTypeDataStyle.customTextStyle(context),),
                       ),
                       Container(
                         child:  Switch(
@@ -199,23 +199,23 @@ class _PendingPageViewState extends State<PendingPageView> {
 
 
                       Padding(
-                        padding: const EdgeInsets.only(right: 5),
-                        child: Text("POC"),
+                        padding: const EdgeInsets.only(right: 8,left: 5),
+                        child: Text("POC",style: DocumentTypeDataStyle.customTextStyle(context),),
                       ),
 
-                      // Container(
-                      //   width: 150,
-                      //   height: 32,
-                      //   child: ElevatedButton.icon(onPressed: (){}, label: Text("Bulk Assign", style: BlueButtonTextConst.customTextStyle(context),),
-                      //     icon: Icon( Icons.supervisor_account,color:ColorManager.white ,size: 18,),
-                      //     style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
-                      //       elevation: 5,
-                      //       shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(10),
-                      //
-                      //       ),),
-                      //   ),
-                      // )
+                      Container(
+                        width: 130,
+                        height: 32,
+                        child: ElevatedButton.icon(onPressed: (){}, label: Text("Bulk Assign", style: BlueButtonTextConst.customTextStyle(context),),
+                          icon: Icon( Icons.supervisor_account,color:ColorManager.white ,size: 18,),
+                          style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+
+                            ),),
+                        ),
+                      )
 
                     ],
                   ),
@@ -266,7 +266,7 @@ class _PendingPageViewState extends State<PendingPageView> {
                                     children: [
                                       Text(
                                         'Jeh Tiwari',
-                                        style:DocumentTypeDataStyle.customTextStyle(context),
+                                        style:AllHRTableData.customTextStyle(context)
                                       ),
                                       SizedBox(height: AppSize.s3),
                                       Text(

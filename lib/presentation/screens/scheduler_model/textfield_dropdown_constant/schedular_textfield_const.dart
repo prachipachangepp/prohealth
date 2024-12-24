@@ -71,7 +71,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      lastDate: DateTime(2031),
     );
     if (pickedDate != null) {
       widget.controller!.text = DateFormat('yyyy-MM-dd').format(pickedDate);

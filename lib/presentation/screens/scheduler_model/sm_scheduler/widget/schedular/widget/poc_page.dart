@@ -209,7 +209,7 @@ class _PocPageViewState extends State<PocPageView> {
                                   children: [
                                     Text(
                                       'Jeh Tiwari',
-                                      style:DocumentTypeDataStyle.customTextStyle(context),
+                                      style:AllHRTableData.customTextStyle(context)
                                     ),
                                     SizedBox(height: AppSize.s3),
                                     Text(

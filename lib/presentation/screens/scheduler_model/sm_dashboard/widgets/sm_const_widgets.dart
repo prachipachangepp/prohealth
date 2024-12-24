@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/popup_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sm_dashboard_const.dart';
 
@@ -696,10 +697,9 @@ class AllAvailableClinician extends StatelessWidget {
                                         height: 25,width: 30,fit: BoxFit.fill,
                                       ),
                                       SizedBox(width: 20,),
-                                      Image.asset(
-                                        "images/sm/contact.png",
-                                        height: 45,width: 55,fit: BoxFit.fill,
-                                      ),
+                                      SvgPicture.asset("images/sm/contact_sv.svg",
+                                        height: 30,width: 20,
+                                      )
                                     ],
                                   ),
                                 ),
