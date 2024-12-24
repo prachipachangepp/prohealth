@@ -134,15 +134,17 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
-                            child: SchedularTextField(
-                              controller: prNPINbr,
-                              labelText: 'NPI#', )
+                          child:
+                              SchedularTextField(
+                                controller: prNPINbr,
+                                labelText: 'NPI#', ),
+
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextField(
                               controller: prStreet,
-                                labelText: AppString.street)
+                                labelText: "Street")
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
@@ -153,6 +155,20 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                       ],
                     ),
                     SizedBox(height:AppSize.s16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: Container()),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(child: Text("Check PECOS eligibility status", style: TransparentButtonTextConst.customTextStyle(context),)),
+                        SizedBox(width:AppSize.s45 ),
+                        Flexible(
+                            child: Container()),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: Container()),
+                      ],
+                    ),
                     Row(
                       children: [
                         Flexible(
@@ -385,14 +401,15 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextField(
-                              controller: ffNPINbr,
-                              labelText: 'NPI#', )
+                                  controller: ffNPINbr,
+                                  labelText: 'NPI#', ),
+
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextField(
                               controller: ffStreet,
-                                labelText: AppString.street)
+                                labelText: "Street")
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
@@ -402,7 +419,22 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         ),
                       ],
                     ),
+
                     SizedBox(height:AppSize.s16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: Container()),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(child: Text("Check PECOS eligibility status", style: TransparentButtonTextConst.customTextStyle(context),)),
+                        SizedBox(width:AppSize.s45 ),
+                        Flexible(
+                            child: Container()),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: Container()),
+                      ],
+                    ),
                     Row(
                       children: [
                         Flexible(

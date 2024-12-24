@@ -47,7 +47,7 @@ class SearchAddressMap extends StatelessWidget {
                     provider.showOverlay(context);
                   },
                   decoration: InputDecoration(
-                    hintText: "Search location",
+                    hintText: "Search",
                     suffixIcon: Icon(Icons.search,),
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical:4),

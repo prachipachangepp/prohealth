@@ -115,7 +115,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                 suffixIcon: widget.showDatePicker
                     ? GestureDetector(
                   onTap: () => _selectDate(context),
-                  child: Icon(Icons.calendar_month_outlined),
+                  child: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,size: 18,),
                 )
                     : widget.icon,
                 prefix: widget.prefixWidget,

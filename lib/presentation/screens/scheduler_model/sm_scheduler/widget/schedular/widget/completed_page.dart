@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -37,23 +38,31 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                     Container(
                       width: 300,
                       height: 32,
-                      child: TextField(
+                      child:TextField(
                         // controller: _controller,
                         textCapitalization:
                         TextCapitalization.words,
-                        style: TextStyle(fontSize: 12),
+                        style: DocumentTypeDataStyle.customTextStyle(context),
                         // onChanged: _search,
                         decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Color(0xFFF8F8F8),
                             hintText: 'Search',
                             alignLabelWithHint: true,
-                            hintStyle: TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w500,
-                              color: ColorManager.mediumgrey,
+                            hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color:Color(0xFFC9C9C9)),
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(20))),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color:ColorManager.greylight ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            // border: OutlineInputBorder(
+                            //
+                            //     borderRadius: BorderRadius.all(
+                            //
+                            //         Radius.circular(20))),
                             prefixIcon: IconButton(
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
@@ -62,6 +71,7 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                                 child: Icon(
                                   Icons.search,
                                   size: 18,
+                                  color:  ColorManager.greylight,
                                 ),
                               ),
                               onPressed: () {},
@@ -96,7 +106,7 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                           // Adjust headText based on depId
                           initialValue: 'Filter by',
                           headText: "", // Default fallback if depId doesn't match any of the expected values
-                          items: ['Clinical 1','Clinical 2','Clinical 3'],
+                          items: ['Weekly','Monthly',],
                           onChanged: (newValue) {
                             // for (var a in snapshot.data!) {
                             //   if (a.empType == newValue) {
@@ -255,7 +265,7 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                             children: [
                               Padding(
                                   padding: const EdgeInsets.only(right: 0),
-                                  child: Image.asset("images/sm/contact.png",height: 50,width: 60,)
+                                  child:SvgPicture.asset("images/sm/contact_sv.svg",  height: 30,width: 20,)
                               ),
                             ],
                           ),

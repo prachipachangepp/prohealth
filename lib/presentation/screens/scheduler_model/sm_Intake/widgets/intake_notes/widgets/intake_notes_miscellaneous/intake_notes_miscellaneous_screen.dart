@@ -452,7 +452,7 @@ class _IntakeNotesMiscellaneousScreenState
                                                           height: AppSize.s1),
                                                       Text(
                                                      "Expiry 10 months", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
-                                                        style: TableSubHeading.customTextStyle(context),
+                                                        style: TableSubHeading.customTextStyleDate(context),
                                                       ),
                                                     ],
                                                   ),

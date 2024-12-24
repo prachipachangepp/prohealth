@@ -281,6 +281,14 @@ class TableSubHeading {
       decoration: TextDecoration.none,
     );
   }
+  static TextStyle customTextStyleDate(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: FontSize.s12,
+      color: ColorManager.green,
+      decoration: TextDecoration.none,
+    );
+  }
 }
 
 
