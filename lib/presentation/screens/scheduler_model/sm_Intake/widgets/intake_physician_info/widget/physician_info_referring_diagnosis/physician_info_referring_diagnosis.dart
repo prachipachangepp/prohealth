@@ -144,147 +144,159 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                       children: [
                         ///heading
                         Container(
-                          height: AppSize.s30,
                           decoration: BoxDecoration(
-                            color: ColorManager.fmediumgrey,
-                            borderRadius: BorderRadius.circular(12),
+                              border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(12))
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          child: Column(
                             children: [
-                              Expanded(
-                                flex: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 80.0),
-                                  child: Text(
-                                    'Title',
-                                    style: TableHeading.customTextStyle(context),
-                                  ),
+                              Container(
+                                height: AppSize.s30,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.fmediumgrey,
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 5.0),
-                                  child: Text(
-                                    'Description',
-                                    style: TableHeading.customTextStyle(context),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Text(
-                                  'ICD Code',
-                                  style: TableHeading.customTextStyle(context),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 25.0),
-                                  child: Text(
-                                    AppString.date,
-                                    style: TableHeading.customTextStyle(context),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 40),
-
-                        ///Primary text field
-                        Container(
-                       // color: Colors.blue,
-                          child: Column(children: [
-                            Row(
-                              children: [
-                                Column(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 40.0),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 80.0),
+                                        child: Text(
+                                          'Title',
+                                          style: TableHeading.customTextStyle(context),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 5.0),
+                                        child: Text(
+                                          'Description',
+                                          style: TableHeading.customTextStyle(context),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
                                       child: Text(
-
-                                        '  Primary Diagnosis   ',
-                                        style: DocumentTypeDataStyle.customTextStyle(context),
+                                        'ICD Code',
+                                        style: TableHeading.customTextStyle(context),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 25.0),
+                                        child: Text(
+                                          AppString.date,
+                                          style: TableHeading.customTextStyle(context),
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width / 10),
-                                Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              7,
-                                          child: SchedularTextField(
-                                            controller: descriptionController,
-                                            labelText: '',
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                15),
-                                        Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                7,
-                                            child: SchedularTextField(
-                                              controller: icdCodeController,
-                                              labelText: '',
-                                            )),
-                                        SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                15),
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              7,
-                                          child: SchedularTextField(
-                                              controller: pdDateController,
-                                              labelText: '',
-                                              showDatePicker:true),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                          ]),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 20),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height / 40),
 
-                        ///Secondary textfield
-                        Column(
-                          children:
-                              referenceFormKeys.asMap().entries.map((entry) {
-                            int index = entry.key;
-                            GlobalKey<_ReferringTextfieldState> key =
-                                entry.value;
-                            return ReferringTextfield(
-                              key: key,
-                              index: index + 1,
-                              onRemove: () => removeReferenseForm(key),
-                              // employeeID: widget.employeeID,
-                            );
-                          }).toList(),
+                              ///Primary text field
+                              Container(
+                                                     // color: Colors.blue,
+                                child: Column(children: [
+                                  Row(
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 40.0,top: 15),
+                                            child: Text(
+
+                                              '  Primary Diagnosis   ',
+                                              style: DocumentTypeDataStyle.customTextStyle(context),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                          width:
+                                              MediaQuery.of(context).size.width / 10),
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    7,
+                                                child: SchedularTextField(
+                                                  controller: descriptionController,
+                                                  labelText: '',
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      15),
+                                              Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      7,
+                                                  child: SchedularTextField(
+                                                    controller: icdCodeController,
+                                                    labelText: '',
+                                                  )),
+                                              SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      15),
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    7,
+                                                child: SchedularTextField(
+                                                    controller: pdDateController,
+                                                    labelText: '',
+                                                    showDatePicker:true),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                ]),
+                              ),
+                              Divider(),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height / 20),
+
+                              ///Secondary textfield
+                              Column(
+                                children:
+                                    referenceFormKeys.asMap().entries.map((entry) {
+                                  int index = entry.key;
+                                  GlobalKey<_ReferringTextfieldState> key =
+                                      entry.value;
+                                  return ReferringTextfield(
+                                    key: key,
+                                    index: index + 1,
+                                    onRemove: () => removeReferenseForm(key),
+                                    // employeeID: widget.employeeID,
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ),
                         ),
 
                         SizedBox(
@@ -294,7 +306,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 38.0),
+                              padding: const EdgeInsets.only(left: 0),
                               child: Text(
                                 'Last Inpatient Stay Information',
                                 style: TextStyle(
@@ -305,7 +317,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             ),
                             Spacer(),
                             Padding(
-                              padding: const EdgeInsets.only(right: 39.0),
+                              padding: const EdgeInsets.only(right: 0),
                               child: Container(
                                 height: AppSize.s32,
                                 width: AppSize.s105,
@@ -325,55 +337,65 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                         /// Allergies and Start Effective Date Heading
                         Container(
-                          height: AppSize.s30,
-                          decoration: BoxDecoration(
-                            color: ColorManager.fmediumgrey,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    decoration: BoxDecoration(
+    border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
+    borderRadius: BorderRadius.all(
+    Radius.circular(12)),),
+                          child: Column(
                             children: [
-                              Expanded(
-                                flex: 9,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 300.0),
-                                  child: Text(
-                                    'Allergies',
-                                    style: TableHeading.customTextStyle(context),
-                                  ),
+                              Container(
+                                height: AppSize.s30,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.fmediumgrey,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Expanded(
+                                      flex: 9,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 300.0),
+                                        child: Text(
+                                          'Allergies',
+                                          style: TableHeading.customTextStyle(context),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 5.0),
+                                        child: Text(
+                                          'Start Effective Date',
+                                          style: TableHeading.customTextStyle(context),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Expanded(
-                                flex: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 5.0),
-                                  child: Text(
-                                    'Start Effective Date',
-                                    style: TableHeading.customTextStyle(context),
-                                  ),
-                                ),
+
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height / 80),
+
+                              /// Allergies and Start Effective Date TextField
+                              ///
+
+                              Column(
+                                children:
+                                    allergiesFormKeys.asMap().entries.map((entry) {
+                                  int index = entry.key;
+                                  GlobalKey<_allergiesState> key = entry.value;
+                                  return allergies(
+                                    key: key,
+                                    index: index + 1,
+                                    onRemove: () => removeallergiesForm(key),
+                                  );
+                                }).toList(),
                               ),
                             ],
                           ),
-                        ),
-
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 80),
-
-                        /// Allergies and Start Effective Date TextField
-                        ///
-
-                        Column(
-                          children:
-                              allergiesFormKeys.asMap().entries.map((entry) {
-                            int index = entry.key;
-                            GlobalKey<_allergiesState> key = entry.value;
-                            return allergies(
-                              key: key,
-                              index: index + 1,
-                              onRemove: () => removeallergiesForm(key),
-                            );
-                          }).toList(),
                         ),
 
                         // Row(
@@ -511,7 +533,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 50),
+                          padding: const EdgeInsets.only(left: 0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -644,7 +666,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                         ),
                         Spacer(),
                         Padding(
-                          padding: const EdgeInsets.only(right: 39.0),
+                          padding: const EdgeInsets.only(right: 0),
                           child: Container(
                             height: AppSize.s32,
                             width: AppSize.s105,
@@ -663,11 +685,9 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                     /// helpline & comment
                     Row(
                       children: [
-                        Flexible(
-                          child: SchedularTextField(
-                              width: MediaQuery.of(context).size.width / 7,
-                              controller: paidhelp, labelText: 'Paid Help'),
-                        ),
+                        SchedularTextField(
+                            width: MediaQuery.of(context).size.width / 6,
+                            controller: paidhelp, labelText: 'Paid Help'),
                        SizedBox(width: MediaQuery.of(context).size.width / 40),
                         ////////
                         Column(
@@ -682,7 +702,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             ),
                             Container(
                               height: AppSize.s32,
-                              width: MediaQuery.of(context).size.width / 1.4,
+                          width: MediaQuery.of(context).size.width /1.4,
                               child: TextFormField(
                                 controller: comments,
                                 cursorColor: ColorManager.black,
@@ -900,7 +920,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 40.0),
+                    padding: const EdgeInsets.only(left: 40.0,bottom: 15),
                     child: Text(
 
                       'Secondary Diagnosis',

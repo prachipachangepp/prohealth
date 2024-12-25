@@ -47,13 +47,14 @@ class _Add_PrescriptionState extends State<Add_Prescription> {
     return DialogueTemplate(
       width: 400,
       height: 320,
-      title: 'Add Physician',
+      title: 'Add Prescription',
       body: [
         SchedularTextField(
             width: AppSize.s354,
             controller: treatmentfor,
             labelText: "Treatment for"),
 
+SizedBox(height: 10,),
         HeaderContentConst(
           heading: "Upload Prescription",
           content: Column(

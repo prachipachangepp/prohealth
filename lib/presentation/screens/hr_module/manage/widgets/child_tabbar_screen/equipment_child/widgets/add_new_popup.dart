@@ -131,8 +131,24 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                         width: 350,
                         height: 30,
                         decoration: BoxDecoration(
-                            color: ColorManager.white,
-                            borderRadius: BorderRadius.circular(10)),
+                          border: Border.all(color: Colors.grey, width: 1),
+                          borderRadius: BorderRadius.circular(5),),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: Text(
+                             '',
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: Icon(Icons.arrow_drop_down),
+                            ),
+                          ],
+                        ),
                       );
                     }
                     if (snapshot.data!.isEmpty) {

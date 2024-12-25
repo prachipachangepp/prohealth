@@ -58,6 +58,9 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
               child: Row(
                 children: [
                   InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
                     child: Container(
                       height: AppSize.s30,
                       width: MediaQuery.of(context).size.width / 10,
@@ -134,6 +137,9 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                     onTap: () => selectButton(2),
                   ),
                   InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
                     child: Container(
                       height: AppSize.s30,
                       width: MediaQuery.of(context).size.width / 9.5,

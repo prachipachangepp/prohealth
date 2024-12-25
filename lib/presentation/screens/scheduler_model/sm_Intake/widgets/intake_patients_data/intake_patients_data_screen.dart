@@ -1,6 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_info_manager.dart';
@@ -134,6 +135,9 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
             child: Row(
               children: [
                 InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
                   child: Container(
                     height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 10,
@@ -232,6 +236,9 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   onTap: patientId != 0 ? () => selectButton(3) : null,
                 ),
                 InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
                   child: Container(
                     height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 9.8,
