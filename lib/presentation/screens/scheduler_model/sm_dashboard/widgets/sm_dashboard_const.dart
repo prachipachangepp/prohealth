@@ -218,7 +218,7 @@ class SMDashboardConst extends StatelessWidget {
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: AppMargin.m5),
                 height: 3,
-                width: 30,// textWidth + 10,
+                width: 40,// textWidth + 10,
                 decoration: BoxDecoration(
                     color: ColorManager.bluebottom,
                    // borderRadius: BorderRadius.circular(12)

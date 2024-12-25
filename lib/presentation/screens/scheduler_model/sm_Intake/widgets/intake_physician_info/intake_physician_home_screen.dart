@@ -4,12 +4,9 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_info/physician_info_info.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_orders/physician_info_orders.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_referring_diagnosis/physician_info_referring_diagnosis.dart';
-
 import '../../../../../../app/resources/color.dart';
-import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
-import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 class IntakePhysicianScreen extends StatefulWidget {
   final int patientId;

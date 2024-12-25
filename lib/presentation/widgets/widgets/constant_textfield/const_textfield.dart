@@ -210,8 +210,11 @@ class CustomDropdownTextField extends StatefulWidget {
   final void Function(String?)? onChanged;
   final double? width;
   final double? height;
+  final double? fontsize;
   final String? initialValue;
    final bool? isAstric;
+   final IconData? icon;
+   final Color? iconColor;
 
    CustomDropdownTextField({
     Key? key,
@@ -224,7 +227,7 @@ class CustomDropdownTextField extends StatefulWidget {
     this.width,
     this.height,
     this.initialValue,
-    this.hintText,
+    this.hintText, this.fontsize, this.icon, this.iconColor,
   }) : super(key: key);
 
   @override
@@ -377,7 +380,8 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
           //   widget.headText,
           //   style: AllPopupHeadings.customTextStyle(context),
           // ),
-        ):Offstage(),
+        )
+            :Offstage(),
         SizedBox(
           width: widget.isAstric!?AppSize.s250:widget.width,
           height: AppSize.s40,
@@ -398,9 +402,14 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                   children: [
                     Text(
                       _selectedValue ?? widget.hintText ?? 'Select',
-                      style: DocumentTypeDataStyle.customTextStyle(context),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: widget.fontsize ?? FontSize.s13,
+                        color: ColorManager.mediumgrey,
+                        decoration: TextDecoration.none,
+                      ) //DocumentTypeDataStyle.customTextStyle(context),
                     ),
-                    Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
+                    Icon(widget.icon ?? Icons.arrow_drop_down_sharp, color: widget.iconColor ?? Colors.grey),
                   ],
                 ),
               ),

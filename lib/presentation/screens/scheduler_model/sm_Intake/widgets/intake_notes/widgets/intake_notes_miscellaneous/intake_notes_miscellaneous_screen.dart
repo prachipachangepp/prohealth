@@ -1,13 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/widgets/intake_notes_miscellaneous/widget/miscellaneous_add_pop_up.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/widgets/intake_notes_miscellaneous/widget/miscellaneous_edit_pop_up.dart';
@@ -19,11 +16,9 @@ import '../../../../../../../../app/resources/establishment_resources/establish_
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/notes_manager/notes_misc_manager.dart';
-import '../../../../../../../../app/services/api/managers/sm_module_manager/patient_data/patient_data_compliance.dart';
 import '../../../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../../../data/api_data/sm_data/Intake_deta/notes_data/intake_misc_note_data.dart';
 import '../../../../../../../../data/api_data/sm_data/patient_data/patient_data_compliance.dart';
-import '../../../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../../widgets/constant_widgets/button_constant.dart';
@@ -289,16 +284,19 @@ class _IntakeNotesMiscellaneousScreenState
               ],
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 30),
+          SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
             child: Container(
               decoration: BoxDecoration(
                 color: ColorManager.white,
                 borderRadius: BorderRadius.circular(12),
+               // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
+                border: Border.all(width: 0.2,color: ColorManager.lightGrey),//all(width: 1, color: Color(0xFFBCBCBC)),
+
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: Colors.black.withOpacity(0.3),
                     spreadRadius: 1,
                     blurRadius: 5,
                     offset: Offset(0, 4),
@@ -307,7 +305,7 @@ class _IntakeNotesMiscellaneousScreenState
               ),
               height: MediaQuery.of(context).size.height / 1.5,
               child: Padding(
-                padding: const EdgeInsets.only(top: 30.0),
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
                 child: Column(
                   children: [
                     Expanded(
@@ -378,20 +376,17 @@ class _IntakeNotesMiscellaneousScreenState
                                   );
                                 }
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 40),
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 50),
                                   child: Column(
                                     children: [
                                       Container(
-                                       // height: AppSize.s65,
+                                        height: AppSize.s65,
                                         decoration: BoxDecoration(
                                           color: ColorManager.white,
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
+                                          borderRadius: BorderRadius.circular(8.0),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: ColorManager.black
-                                                  .withOpacity(0.2),
+                                              color: ColorManager.black.withOpacity(0.2),
                                               spreadRadius: 1,
                                               blurRadius: 5,
                                               offset: Offset(0, 4),
@@ -399,70 +394,57 @@ class _IntakeNotesMiscellaneousScreenState
                                           ],
                                         ),
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 10.0),
-                                                  child: Container(
-                                                    color:
-                                                        ColorManager.blueprime,
-                                                    height: AppSize.s60,
-                                                    width: AppSize.s62,
-                                                    child: Icon(
-                                                      Icons
-                                                          .remove_red_eye_outlined,
-                                                      color: ColorManager.white,
-                                                      size: AppSize.s24,
+                                            Expanded(
+                                              child: Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 10.0),
+                                                    child: Container(
+                                                      color: ColorManager.blueprime,
+                                                      height: AppSize.s45,
+                                                      width: AppSize.s65,
+                                                      child: Icon(
+                                                        Icons.remove_red_eye_outlined,
+                                                        color: ColorManager.white,
+                                                        size: AppSize.s24,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            120),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 11.5,bottom: 20),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        'ID: ${snapshot.data![index].miscNoteId}',
-                                                        style:TableSubHeading.customTextStyle(context),
-                                                      ),
-                                                      SizedBox(height:AppSize.s2 ),
-                                                      Text(
-                                                        snapshot.data![index]
-                                                            .docType,
-                                                        style:AllPopupHeadings.customTextStyle(context)
-                                                      ),
-                                                      SizedBox(
-                                                          height: AppSize.s1),
-                                                      Text(
-                                                     "Expiry 10 months", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
-                                                        style: TableSubHeading.customTextStyleDate(context),
-                                                      ),
-                                                    ],
+                                                  SizedBox(width: 20),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(bottom: 4,top: 2),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      children: [
+                                                        Text(
+                                                          'ID: ${snapshot.data![index].miscNoteId}',
+                                                          style:TableSubHeading.customTextStyle(context),
+                                                        ),
+                                                        //SizedBox(height:AppSize.s2 ),
+                                                        Text(snapshot.data![index].docType,
+                                                          style:AllPopupHeadings.customTextStyle(context)
+                                                        ),
+                                                        //SizedBox(height: AppSize.s1),
+                                                        Text(
+                                                       "Expiry 10 months", //  'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
+                                                          style: TableSubHeading.customTextStyleDate(context),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 50.0),
+                                            Expanded(child: Container()),
+                                            Expanded(
+                                             //flex: 2,
                                               child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 children: [
                                                   IconButton(
                                                     icon: Icon(
@@ -472,7 +454,7 @@ class _IntakeNotesMiscellaneousScreenState
                                                     ),
                                                     onPressed: () {},
                                                   ),
-                                                  SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                                 // SizedBox(width: MediaQuery.of(context).size.width / 120),
                                                   IconButton(
                                                     icon: Icon(
                                                       size: 20,
@@ -636,8 +618,7 @@ class _IntakeNotesMiscellaneousScreenState
                                                       );
                                                     },
                                                   ),
-                                                  SizedBox(width: MediaQuery.of(context).size.width / 120),
-
+                                                  //SizedBox(width: MediaQuery.of(context).size.width / 120),
                                                   IconButton(
                                                     icon: Icon(
                                                       size: 20,
@@ -654,12 +635,7 @@ class _IntakeNotesMiscellaneousScreenState
 
                                                     },
                                                   ),
-                                                  SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              120),
+
                                                   IconButton(
                                                     onPressed: () {
                                                       showDialog(
@@ -730,13 +706,7 @@ class _IntakeNotesMiscellaneousScreenState
                                                       color: Color(0xff686464),
                                                     ),
                                                   ),
-
-                                                  SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              100),
+                                                  SizedBox(width: 20),
                                                   ElevatedButton(
                                                     onPressed: () {
                                                       showDialog(
@@ -748,38 +718,28 @@ class _IntakeNotesMiscellaneousScreenState
                                                       );
                                                     },
                                                     child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Icon(
-                                                          Icons
-                                                              .mode_edit_outlined,
-                                                          color: ColorManager
-                                                              .white,
-                                                          size: 20,
+                                                          Icons.mode_edit_outlined,
+                                                          color: ColorManager.white,
+                                                          size: IconSize.I18,
                                                         ),
-                                                        SizedBox(
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width /
-                                                                160),
+                                                       SizedBox(width: 20),
                                                         Text(
                                                           'Edit',
                                                           style: BlueButtonTextConst.customTextStyle(context)
                                                         ),
                                                       ],
                                                     ),
-                                                    style: ElevatedButton
-                                                        .styleFrom(
+                                                    style: ElevatedButton.styleFrom(
                                                       shape: RoundedRectangleBorder(  borderRadius: BorderRadius.circular(12),),
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 15,
-                                                              vertical: 12),
-                                                      backgroundColor:
-                                                          ColorManager
-                                                              .blueprime,
+                                                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                                                      backgroundColor: ColorManager.blueprime,
                                                     ),
                                                   ),
+                                                  SizedBox(width: 20),
                                                 ],
                                               ),
                                             ),

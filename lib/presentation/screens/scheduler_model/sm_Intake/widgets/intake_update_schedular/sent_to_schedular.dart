@@ -41,7 +41,7 @@ class SentToSchedularScreen extends StatelessWidget {
                   textInputAction: TextInputAction.search,
                   //onSubmitted: (value) => _performSearch(),
                   decoration: InputDecoration(
-                    hintText: "Search location",
+                    hintText: "Search",
                     hintStyle: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,color: ColorManager.mediumgrey,fontWeight: FontWeight.w400),
                     prefixIcon: Icon(Icons.search),
                     border: InputBorder.none,

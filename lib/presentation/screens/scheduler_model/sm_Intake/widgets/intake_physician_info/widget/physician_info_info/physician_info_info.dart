@@ -130,14 +130,16 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         Flexible(
                             child: SchedularTextField(
                               controller: prUPINNbr,
-                              labelText: 'UPIN#', )
+                              hintText: 'UPIN#',
+                              labelText: '', )
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                           child:
                               SchedularTextField(
                                 controller: prNPINbr,
-                                labelText: 'NPI#', ),
+                                hintText: 'NPI#',
+                                labelText: '', ),
 
                         ),
                         SizedBox(width:AppSize.s35 ),
@@ -326,6 +328,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextField(
+                              phoneField: true,
                               controller: prPhone,
                                 labelText: 'Phone')
                         ),
@@ -395,14 +398,17 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                              controller: ffUPINNbr,
-                              labelText: 'UPIN#', )
+                              controller: prUPINNbr,
+                              hintText: 'UPIN#',
+                              labelText: '', )
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
-                            child: SchedularTextField(
-                                  controller: ffNPINbr,
-                                  labelText: 'NPI#', ),
+                          child:
+                          SchedularTextField(
+                            controller: prNPINbr,
+                            hintText: 'NPI#',
+                            labelText: '', ),
 
                         ),
                         SizedBox(width:AppSize.s35 ),
@@ -594,6 +600,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         Flexible(
                             child: SchedularTextField(
                               controller: ffPhone,
+                                phoneField: true,
                                 labelText: 'Phone')
                         ),
                       ],

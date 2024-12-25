@@ -24,8 +24,7 @@ class SMDesktopScreen extends StatelessWidget {
   String selectedOption = 'Select';
 
   bool showSelectOption = true;
-  final ButtonSelectionSMController myController =
-  Get.put(ButtonSelectionSMController());
+  final ButtonSelectionSMController myController = Get.put(ButtonSelectionSMController());
   SMDesktopScreen({
 
     this.onChanged,
@@ -186,9 +185,12 @@ class SMDesktopScreen extends StatelessWidget {
               flex: 8,
               child: PageView(
                 controller: _pageController,
+                onPageChanged: (index){
+                  myController.selectButton(index);
+                },
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  SMDashboardScreen(),
+                  SMDashboardScreen(pageController: _pageController,),
                   IntakeMainScreen(),
                  // SMIntakeScreen(),
                   NewSchedulerScreen(),

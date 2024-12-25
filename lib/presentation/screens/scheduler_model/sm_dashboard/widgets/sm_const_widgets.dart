@@ -15,7 +15,8 @@ import '../../sm_scheduler/widget/schedular/schedular_new_screen.dart';
 
 ///row 2 part 1
 class AllVisitsUpdate extends StatelessWidget {
-  const AllVisitsUpdate({super.key});
+  final VoidCallback onNavigate;
+  const AllVisitsUpdate({super.key, required this.onNavigate});
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +53,13 @@ class AllVisitsUpdate extends StatelessWidget {
             child: Column(
               children: [
                 ///Attrition Rate
-                SMDashboardContainerConst(
-                  child: SMSmallContainerData(headingText: 'No. of SOC\'s due today', totalCount: '92',
-                    imagePath: 'images/sm/sm_dashboard/soc_due.png', totalValue: 92,
-                    indicatorColor: ColorManager.orange.withOpacity(0.5),TextColor: ColorManager.greenDark,),
+                GestureDetector(
+                  onTap: onNavigate,
+                  child: SMDashboardContainerConst(
+                    child: SMSmallContainerData(headingText: 'No. of SOC\'s due today', totalCount: '92',
+                      imagePath: 'images/sm/sm_dashboard/soc_due.png', totalValue: 92,
+                      indicatorColor: ColorManager.orange.withOpacity(0.5),TextColor: ColorManager.greenDark,),
+                  ),
                 ),
                 SizedBox(height: 10,),
                 ///hiring ratio
@@ -93,6 +97,7 @@ class ScheduledToBeScheduledPatients extends StatelessWidget {
                       CustomDropdownTextField(
                         width: 100,
                         isAstric:false,
+                        icon: Icons.keyboard_arrow_down_outlined,
                         // Adjust headText based on depId
                         initialValue: 'Weekly',
                         headText: "", // Default fallback if depId doesn't match any of the expected values
@@ -181,189 +186,195 @@ class ScheduledPatientsList extends StatelessWidget {
                     style: MenuContainerTextStylling.customTextStyle(context),
                   ),
                 ),
-                Text(
-                  'Status',
-                  textAlign: TextAlign.start,
-                  style: MenuContainerTextStylling.customTextStyle(context),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: Text(
+                    'Status',
+                    textAlign: TextAlign.start,
+                    style: MenuContainerTextStylling.customTextStyle(context),
+                  ),
                 ),
               ],
             ),
           ),
-          childBody:  Column(
-            children: [
-              Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: 15,
-                    itemBuilder: (context, index) {
-                      //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                      // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                      // EmployeeDocumentModal employeedoc = paginatedData[index];
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  //flex: 2,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(50),
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: Image.asset(
-                                              'images/hr_dashboard/man.png', // Replace with your image path
-                                              fit: BoxFit.cover,
+          childBody:  ScrollConfiguration(
+            behavior: ScrollBehavior().copyWith(scrollbars: false),
+            child: Column(
+              children: [
+                Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: 15,
+                      itemBuilder: (context, index) {
+                        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                        // EmployeeDocumentModal employeedoc = paginatedData[index];
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    //flex: 2,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(50),
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: Image.asset(
+                                                'images/hr_dashboard/man.png', // Replace with your image path
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(width: 10,),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Eva I",
+                                        SizedBox(width: 10,),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Eva I",
+                                              textAlign: TextAlign.start,
+                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w600,
+                                                color: ColorManager.textBlack,),
+                                            ),
+                                            Text(
+                                              "Cancer",
+                                              textAlign: TextAlign.start,
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorManager.mediumgrey,),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex:2,
+                                    child:  Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I18,),
+                                        SizedBox(width: 10,),
+                                        Expanded(
+                                          child: Text(
+                                            "Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
                                             textAlign: TextAlign.start,
-                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w600,
-                                              color: ColorManager.textBlack,),
-                                          ),
-                                          Text(
-                                            "Cancer",
-                                            textAlign: TextAlign.start,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w400,
+                                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w500,
                                               color: ColorManager.mediumgrey,),
                                           ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex:2,
-                                  child:  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I18,),
-                                      SizedBox(width: 10,),
-                                      Expanded(
-                                        child: Text(
-                                          "Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
-                                          textAlign: TextAlign.start,
+                                        ),
+                                        SizedBox(width: 10,),
+                                      ],
+                                    ),),
+                                  Expanded(
+                                    flex:1,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              SMDashboardConst(
+                                                onTap: (int index) {
+                                                  //_selectButton(index);
+                                                },
+                                                index: 0,
+                                                grpIndex: 0,),
+                                              SizedBox(width: 2,),
+                                              SMDashboardConst(
+                                                onTap: (int index) {
+                                                  //_selectButton(index);
+                                                },
+                                                index: 0,
+                                                grpIndex: 0,),
+                                              SizedBox(width: 2,),
+                                              SMDashboardConst(
+                                                onTap: (int index) {
+                                                  //_selectButton(index);
+                                                },
+                                                index: 0,
+                                                grpIndex: 0,),
+                                            ]
+                                        ),
+                                        Text(
+                                          "3/3",
+                                          textAlign: TextAlign.end,
                                           style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeight.w400,
                                             color: ColorManager.mediumgrey,),
                                         ),
-                                      ),
-                                      SizedBox(width: 10,),
-                                    ],
-                                  ),),
-                                Expanded(
-                                  flex:1,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            SMDashboardConst(
-                                              onTap: (int index) {
-                                                //_selectButton(index);
-                                              },
-                                              index: 0,
-                                              grpIndex: 0,),
-                                            SizedBox(width: 2,),
-                                            SMDashboardConst(
-                                              onTap: (int index) {
-                                                //_selectButton(index);
-                                              },
-                                              index: 0,
-                                              grpIndex: 0,),
-                                            SizedBox(width: 2,),
-                                            SMDashboardConst(
-                                              onTap: (int index) {
-                                                //_selectButton(index);
-                                              },
-                                              index: 0,
-                                              grpIndex: 0,),
-                                          ]
-                                      ),
-                                      Text(
-                                        "3/3",
-                                        textAlign: TextAlign.end,
-                                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.mediumgrey,),
-                                      ),
-                                    ],
-                                  ),),
-                                Expanded(
-                                  //flex: 2,
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "Completed",
-                                        textAlign: TextAlign.end,
-                                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.greenDark,),
-                                      ),
-                                      // SizedBox(width: 20,),
-                                      // Image.asset(
-                                      //   "images/sm/contact.png",
-                                      //   height: 45,width: 55,fit: BoxFit.fill,
-                                      // ),
-                                    ],
+                                      ],
+                                    ),),
+                                  Expanded(
+                                    //flex: 2,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "Completed",
+                                          textAlign: TextAlign.end,
+                                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w600,
+                                            color: ColorManager.greenDark,),
+                                        ),
+                                        // SizedBox(width: 20,),
+                                        // Image.asset(
+                                        //   "images/sm/contact.png",
+                                        //   height: 45,width: 55,fit: BoxFit.fill,
+                                        // ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],),
-                          ),
-                          Divider(color: ColorManager.dashDivider,height: 1,),
-                          SizedBox(height: AppSize.s5),
-                        ],
-                      );
-                    },
-                  )),
-              //SizedBox(height: AppSize.s10),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        children: [
-                          Text(
-                            "View More",
-                            textAlign: TextAlign.end,
-                            style: EmDashViewMoreText.customTextStyle(context),
-                          ),
-                          SizedBox(width: AppSize.s5),
-                          Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
-                        ],
+                                ],),
+                            ),
+                            Divider(color: ColorManager.dashDivider,height: 1,),
+                            SizedBox(height: AppSize.s5),
+                          ],
+                        );
+                      },
+                    )),
+                //SizedBox(height: AppSize.s10),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Text(
+                              "View More",
+                              textAlign: TextAlign.end,
+                              style: EmDashViewMoreText.customTextStyle(context),
+                            ),
+                            SizedBox(width: AppSize.s8),
+                            Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
+                          ],
+                        ),
                       ),
-                    ),
-                  ],),
-              ),
+                    ],),
+                ),
 
-            ],
+              ],
+            ),
           ),));
   }
 }
@@ -391,196 +402,199 @@ class PatientsToBeScheduledList extends StatelessWidget {
               ],
             ),
           ),
-          childBody:  Column(
-            children: [
-              Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: 15,
-                    itemBuilder: (context, index) {
-                      //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                      // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                      // EmployeeDocumentModal employeedoc = paginatedData[index];
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  //flex: 2,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(50),
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: Image.asset(
-                                              'images/hr_dashboard/man.png', // Replace with your image path
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: 10,),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Eva I",
-                                            textAlign: TextAlign.start,
-                                            style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w600,
-                                              color: ColorManager.textBlack,),
-                                          ),
-                                          Text(
-                                            "Cancer",
-                                            textAlign: TextAlign.start,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w400,
-                                              color: ColorManager.mediumgrey,),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex:2,
-                                  child:  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I18,),
-                                      SizedBox(width: 10,),
-                                      Expanded(
-                                        child: Text(
-                                          "Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
-                                          textAlign: TextAlign.start,
-                                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w500,
-                                            color: ColorManager.mediumgrey,),
-                                        ),
-                                      ),
-                                      SizedBox(width: 10,),
-                                    ],
-                                  ),),
-                                Container(
-                                    width: 185,
-                                    height: 30,
-                                    child:Row(
+          childBody:  ScrollConfiguration(
+            behavior: ScrollBehavior().copyWith(scrollbars: false),
+            child: Column(
+              children: [
+                Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: 15,
+                      itemBuilder: (context, index) {
+                        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                        // EmployeeDocumentModal employeedoc = paginatedData[index];
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    //flex: 2,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        Container(
-                                          width: 90,
-                                          child:  ElevatedButton.icon(onPressed: ()async{
-                                            await  showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return VendorSelectNoti(
-                                                  message: 'Please Select A File',
-                                                );
-                                              },
-                                            );
-                                          },
-                                            label: Text("Auto", style: TextStyle(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w600,
-                                            color: ColorManager.white,
-                                            decoration: TextDecoration.none,
-                                          )),
-                                            //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
-                                            icon: Image.asset("images/sm/auto.png",height: 30,width: 18,),
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:  ColorManager.bluebottom,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(12), // Round only the top-left corner
-                                                  bottomLeft: Radius.circular(12), // Round only the bottom-left corner
-                                                ),
-                                                side: BorderSide(
-                                                  color: ColorManager.bluebottom, // Border color
-                                                  width: 1,
-                                                ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(50),
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: Image.asset(
+                                                'images/hr_dashboard/man.png', // Replace with your image path
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
                                           ),
                                         ),
-                                        Container(
-                                          width: 95,
-                                          child:  ElevatedButton.icon(onPressed: (){
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AddErrorPopup(
-                                                  message: 'File is too large!',
-                                                );
-                                              },
-                                            );
-                                          },label: Text("Manual", style: TextStyle(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w600,
-                                            color: ColorManager.bluebottom,
-                                            decoration: TextDecoration.none,
-                                          )),
-                                            //icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
-                                            icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.only(
-                                                  topRight: Radius.circular(12), // Round only the top-left corner
-                                                  bottomRight: Radius.circular(12), // Round only the bottom-left corner
-                                                ),
-                                                side: BorderSide(
-                                                  color: ColorManager.bluebottom, // Border color
-                                                  width: 1,
-                                                ),
-                                              ),
+                                        SizedBox(width: 10,),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Eva I",
+                                              textAlign: TextAlign.start,
+                                              style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w600,
+                                                color: ColorManager.textBlack,),
                                             ),
-                                          ),
+                                            Text(
+                                              "Cancer",
+                                              textAlign: TextAlign.start,
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                fontSize: FontSize.s12,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorManager.mediumgrey,),
+                                            ),
+                                          ],
                                         ),
                                       ],
-                                    )
-                                )
-                              ],),
-                          ),
-                          Divider(color: ColorManager.dashDivider,height: 1,),
-                          SizedBox(height: AppSize.s5),
-                        ],
-                      );
-                    },
-                  )),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        children: [
-                          Text(
-                            "View More",
-                            textAlign: TextAlign.end,
-                            style: EmDashViewMoreText.customTextStyle(context),
-                          ),
-                          SizedBox(width: AppSize.s5),
-                          Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
-                        ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex:2,
+                                    child:  Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,size: IconSize.I18,),
+                                        SizedBox(width: 10,),
+                                        Expanded(
+                                          child: Text(
+                                            "Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
+                                            textAlign: TextAlign.start,
+                                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w500,
+                                              color: ColorManager.mediumgrey,),
+                                          ),
+                                        ),
+                                        SizedBox(width: 10,),
+                                      ],
+                                    ),),
+                                  Container(
+                                      width: 185,
+                                      height: 30,
+                                      child:Row(
+                                        children: [
+                                          Container(
+                                            width: 90,
+                                            child:  ElevatedButton.icon(onPressed: ()async{
+                                              await  showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return VendorSelectNoti(
+                                                    message: 'Please Select A File',
+                                                  );
+                                                },
+                                              );
+                                            },
+                                              label: Text("Auto", style: TextStyle(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w600,
+                                              color: ColorManager.white,
+                                              decoration: TextDecoration.none,
+                                            )),
+                                              //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
+                                              icon: Image.asset("images/sm/auto.png",height: 30,width: 18,),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:  ColorManager.bluebottom,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(12), // Round only the top-left corner
+                                                    bottomLeft: Radius.circular(12), // Round only the bottom-left corner
+                                                  ),
+                                                  side: BorderSide(
+                                                    color: ColorManager.bluebottom, // Border color
+                                                    width: 1,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 95,
+                                            child:  ElevatedButton.icon(onPressed: (){
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AddErrorPopup(
+                                                    message: 'File is too large!',
+                                                  );
+                                                },
+                                              );
+                                            },label: Text("Manual", style: TextStyle(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w600,
+                                              color: ColorManager.bluebottom,
+                                              decoration: TextDecoration.none,
+                                            )),
+                                              //icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
+                                              icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.only(
+                                                    topRight: Radius.circular(12), // Round only the top-left corner
+                                                    bottomRight: Radius.circular(12), // Round only the bottom-left corner
+                                                  ),
+                                                  side: BorderSide(
+                                                    color: ColorManager.bluebottom, // Border color
+                                                    width: 1,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                  )
+                                ],),
+                            ),
+                            Divider(color: ColorManager.dashDivider,height: 1,),
+                            SizedBox(height: AppSize.s5),
+                          ],
+                        );
+                      },
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Text(
+                              "View More",
+                              textAlign: TextAlign.end,
+                              style: EmDashViewMoreText.customTextStyle(context),
+                            ),
+                            SizedBox(width: AppSize.s8),
+                            Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
+                          ],
+                        ),
                       ),
-                    ),
-                  ],),
-              ),
-            ],
+                    ],),
+                ),
+              ],
+            ),
           ),));
   }
 }
@@ -594,222 +608,228 @@ class AllAvailableClinician extends StatelessWidget {
         flex: 5,
         child: JointContainerConst(
           height: 245,
-          childHeading: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'All Available Clinicians',
-                textAlign: TextAlign.start,
-                style: MenuContainerTextStylling.customTextStyle(context),
-              ),
-            ],
+          childHeading: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'All Available Clinicians',
+                  textAlign: TextAlign.start,
+                  style: MenuContainerTextStylling.customTextStyle(context),
+                ),
+              ],
+            ),
           ),
-          childBody: Column(
-            children: [
-              Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: 15,
-                    itemBuilder: (context, index) {
-                      //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                      // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                      // EmployeeDocumentModal employeedoc = paginatedData[index];
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  //flex: 2,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Stack(
-
-                                        children: [SizedBox(
-                                          height:50,
-                                          child: CircleAvatar(
-                                            child:
-                                            Image.asset('images/1.png'),
-                                          ),
-                                        ),
-                                          Positioned(
-                                            left:22,
-                                            bottom :0,
-                                            child: Container(
-                                              color: Color(0xFF527FB9),
-                                              width: 19,
-                                              height: 15,
-                                              child: Center(
-                                                child: Text("ST",style: TextStyle(
-                                                  // fontWeight: FontWeight.w600,
-                                                  fontSize: FontSize.s10,
-                                                  color: ColorManager.white,
-                                                  decoration: TextDecoration.none,
-                                                ),),
-                                              ),
-                                            ),)
-                                        ],
-                                      ),
-                                      SizedBox(width: 10,),
-                                      Text(
-                                        "Kia Steve Anderson",
-                                        textAlign: TextAlign.center,
-                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.textBlack,),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child:  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Caseload : ",
-                                        textAlign: TextAlign.start,
-                                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w500,
-                                          color: ColorManager.mediumgrey,),
-                                      ),
-                                      // SizedBox(width: 25,),
-                                      Text(
-                                        "24",
-                                        textAlign: TextAlign.start,
-                                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
-                                          fontWeight: FontWeight.w500,
-                                          color: ColorManager.mediumgrey,),
-                                      ),
-                                    ],
-                                  ),),
-                                Expanded(
-                                  //flex: 2,
-                                  child: Row(
-                                    children: [
-                                      Image.asset(
-                                        "images/sm/sm_dashboard/ProhealthCalenderIcon.png",
-                                        height: 25,width: 30,fit: BoxFit.fill,
-                                      ),
-                                      SizedBox(width: 20,),
-                                      SvgPicture.asset("images/sm/contact_sv.svg",
-                                        height: 30,width: 20,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                    width: 200,
-                                    height: 55,
-                                    child:Row(
+          childBody: ScrollConfiguration(
+            behavior: ScrollBehavior().copyWith(scrollbars: false),
+            child: Column(
+              children: [
+                Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: 15,
+                      itemBuilder: (context, index) {
+                        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                        // EmployeeDocumentModal employeedoc = paginatedData[index];
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    //flex: 2,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        Container(
-                                          width: 100,
-                                          child:  ElevatedButton.icon(onPressed: ()async{
-                                            await  showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return VendorSelectNoti(
-                                                  message: 'Please Select A File',
-                                                );
-                                              },
-                                            );
-                                          },label: Text("Auto", style: TextStyle(
-                                            fontSize: FontSize.s13,
-                                            fontWeight: FontWeight.w600,
-                                            color: ColorManager.white,
-                                            decoration: TextDecoration.none,
-                                          )),
-                                            //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
-                                            icon: Image.asset("images/sm/auto.png",height: 30,width: 18,),
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:  Color(0xFFB9DFEF),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(12), // Round only the top-left corner
-                                                  bottomLeft: Radius.circular(12), // Round only the bottom-left corner
-                                                ),
-                                                // side: BorderSide(
-                                                //   color: ColorManager.bluebottom, // Border color
-                                                //   width: 1,
-                                                // ),
-                                              ),
+                                        Stack(
+
+                                          children: [SizedBox(
+                                            height:50,
+                                            child: CircleAvatar(
+                                              child:
+                                              Image.asset('images/1.png'),
                                             ),
                                           ),
+                                            Positioned(
+                                              left:22,
+                                              bottom :0,
+                                              child: Container(
+                                                color: Color(0xFF527FB9),
+                                                width: 19,
+                                                height: 15,
+                                                child: Center(
+                                                  child: Text("ST",style: TextStyle(
+                                                    // fontWeight: FontWeight.w600,
+                                                    fontSize: FontSize.s10,
+                                                    color: ColorManager.white,
+                                                    decoration: TextDecoration.none,
+                                                  ),),
+                                                ),
+                                              ),)
+                                          ],
                                         ),
-                                        Container(
-                                          width: 100,
-                                          child:  ElevatedButton.icon(onPressed: (){
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AddErrorPopup(
-                                                  message: 'File is too large!',
-                                                );
-                                              },
-                                            );
-                                          },label: Text("Manual", style: TextStyle(
-                                            fontSize: FontSize.s13,
+                                        SizedBox(width: 10,),
+                                        Text(
+                                          "Kia Steve Anderson",
+                                          textAlign: TextAlign.center,
+                                          style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s14,
                                             fontWeight: FontWeight.w600,
-                                            color: ColorManager.bluebottom,
-                                            decoration: TextDecoration.none,
-                                          )),
-                                            //icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
-                                            icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.only(
-                                                  topRight: Radius.circular(12), // Round only the top-left corner
-                                                  bottomRight: Radius.circular(12), // Round only the bottom-left corner
-                                                ),
-                                                side: BorderSide(
-                                                  color: ColorManager.bluebottom, // Border color
-                                                  width: 1,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                            color: ColorManager.textBlack,),
                                         ),
                                       ],
-                                    )
-                                )
-                              ],),
-                          ),
-                          Divider(color: ColorManager.dashDivider,height: 1,),
-                          SizedBox(height: AppSize.s5),
-                        ],
-                      );
-                    },
-                  )),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        children: [
-                          Text(
-                            "View More",
-                            textAlign: TextAlign.end,
-                            style: EmDashViewMoreText.customTextStyle(context),
-                          ),
-                          SizedBox(width: AppSize.s5),
-                          Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
-                        ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child:  Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Caseload : ",
+                                          textAlign: TextAlign.start,
+                                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w500,
+                                            color: ColorManager.mediumgrey,),
+                                        ),
+                                        // SizedBox(width: 25,),
+                                        Text(
+                                          "24",
+                                          textAlign: TextAlign.start,
+                                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                                            fontWeight: FontWeight.w500,
+                                            color: ColorManager.mediumgrey,),
+                                        ),
+                                      ],
+                                    ),),
+                                  Expanded(
+                                    //flex: 2,
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          "images/sm/sm_dashboard/ProhealthCalenderIcon.png",
+                                          height: 25,width: 30,fit: BoxFit.fill,
+                                        ),
+                                        SizedBox(width: 20,),
+                                        SvgPicture.asset("images/sm/contact_sv.svg",
+                                          height: 30,width: 20,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                      width: 200,
+                                      height: 55,
+                                      child:Row(
+                                        children: [
+                                          Container(
+                                            width: 100,
+                                            child:  ElevatedButton.icon(onPressed: ()async{
+                                              await  showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return VendorSelectNoti(
+                                                    message: 'Please Select A File',
+                                                  );
+                                                },
+                                              );
+                                            },label: Text("Auto", style: TextStyle(
+                                              fontSize: FontSize.s13,
+                                              fontWeight: FontWeight.w600,
+                                              color: ColorManager.white,
+                                              decoration: TextDecoration.none,
+                                            )),
+                                              //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
+                                              icon: Image.asset("images/sm/auto.png",height: 30,width: 18,),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:  Color(0xFFB9DFEF),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(12), // Round only the top-left corner
+                                                    bottomLeft: Radius.circular(12), // Round only the bottom-left corner
+                                                  ),
+                                                  // side: BorderSide(
+                                                  //   color: ColorManager.bluebottom, // Border color
+                                                  //   width: 1,
+                                                  // ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 100,
+                                            child:  ElevatedButton.icon(onPressed: (){
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AddErrorPopup(
+                                                    message: 'File is too large!',
+                                                  );
+                                                },
+                                              );
+                                            },label: Text("Manual", style: TextStyle(
+                                              fontSize: FontSize.s13,
+                                              fontWeight: FontWeight.w600,
+                                              color: ColorManager.bluebottom,
+                                              decoration: TextDecoration.none,
+                                            )),
+                                              //icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
+                                              icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.only(
+                                                    topRight: Radius.circular(12), // Round only the top-left corner
+                                                    bottomRight: Radius.circular(12), // Round only the bottom-left corner
+                                                  ),
+                                                  side: BorderSide(
+                                                    color: ColorManager.bluebottom, // Border color
+                                                    width: 1,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                  )
+                                ],),
+                            ),
+                            Divider(color: ColorManager.dashDivider,height: 1,),
+                            SizedBox(height: AppSize.s5),
+                          ],
+                        );
+                      },
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Text(
+                              "View More",
+                              textAlign: TextAlign.end,
+                              style: EmDashViewMoreText.customTextStyle(context),
+                            ),
+                            SizedBox(width: AppSize.s8),
+                            Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
+                          ],
+                        ),
                       ),
-                    ),
-                  ],),
-              ),
+                    ],),
+                ),
 
-            ],
+              ],
+            ),
           ),));
   }
 }
@@ -848,9 +868,7 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
               },
               icon: Icon(
                 Icons.arrow_back_ios_new_outlined,
-                color: _currentPageIndex > 0
-                    ? ColorManager.mediumgrey
-                    : Colors.grey, // Disable icon if on the first page
+                color: ColorManager.mediumgrey, // Disable icon if on the first page
                 size: IconSize.I16,
               ),
             ),
@@ -906,6 +924,23 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
           padding: const EdgeInsets.all(10.0),
           child:  _currentPageIndex == 2
               ? Offstage()
+              : _currentPageIndex == 1
+              ? Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  children: [
+                    Text(
+                      "View More",
+                      textAlign: TextAlign.end,
+                      style: EmDashViewMoreText.customTextStyle(context),
+                    ),
+                  ],
+                ),
+              ),
+            ],)
               : Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -918,13 +953,13 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
                       textAlign: TextAlign.end,
                       style: EmDashViewMoreText.customTextStyle(context),
                     ),
-                    SizedBox(width: AppSize.s5),
+                    SizedBox(width: AppSize.s8),
                     Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
                   ],
                 ),
               ),
             ],),
-        ),// Space between ListView and indicators
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(3, (index) => _buildDot(index)),
@@ -933,47 +968,152 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
       ],
     );
   }
-
+  Widget _buildDot(int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _currentPageIndex = index;
+        });
+        _pageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        width: 8, //_currentPageIndex == index ? 12 : 8,
+        height: 8,
+        decoration: BoxDecoration(
+          color: _currentPageIndex == index
+              ? ColorManager.bluebottom // Active color
+              : ColorManager.transparentColor, // Inactive color
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ),
+    );
+  }
   Widget _buildClinicianName(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: 15,
-      itemBuilder: (context, index) {
-        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-        // EmployeeDocumentModal employeedoc = paginatedData[index];
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    //flex: 2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+    return ScrollConfiguration(
+      behavior: ScrollBehavior().copyWith(scrollbars: false),
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 15,
+        itemBuilder: (context, index) {
+          //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+          // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+          // EmployeeDocumentModal employeedoc = paginatedData[index];
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      //flex: 2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Stack(
+                            children: [SizedBox(
+                              height:50,
+                              child: CircleAvatar(
+                                child:
+                                Image.asset('images/1.png'),
+                              ),
+                            ),
+                              Positioned(
+                                left:22,
+                                bottom :0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3),
+                                    color: Color(0xFF527FB9),
+                                  ),
+                                  width: 19,
+                                  height: 15,
+                                  child: Center(
+                                    child: Text("ST",style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: FontSize.s10,
+                                      color: ColorManager.white,
+                                      decoration: TextDecoration.none,
+                                    ),),
+                                  ),
+                                ),)
+                            ],
+                          ),
+                          SizedBox(width: 10,),
+                          Text(
+                            "Michel Jackson",
+                            textAlign: TextAlign.start,
+                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w500,
+                              color: ColorManager.mediumgrey,),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child:  Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "24",
+                            textAlign: TextAlign.start,
+                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.blueprime,),
+                          ),
+                        ],
+                      ),),
+                  ],),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+  Widget _buildClinicianType(BuildContext context) {
+    return ScrollConfiguration(
+      behavior: ScrollBehavior().copyWith(scrollbars: false),
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 15,
+        itemBuilder: (context, index) {
+          //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+          // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+          // EmployeeDocumentModal employeedoc = paginatedData[index];
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Stack(
-                          children: [SizedBox(
-                            height:50,
-                            child: CircleAvatar(
-                              child:
-                              Image.asset('images/1.png'),
-                            ),
-                          ),
-                            Positioned(
-                              left:22,
-                              bottom :0,
-                              child: Container(
+                        Expanded(
+                         flex: 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(3),
-                                  color: Color(0xFF527FB9),
+                                  color: Color(0xFFF6928A)
+
                                 ),
-                                width: 19,
-                                height: 15,
+                                width: 26,
+                                height: 20,
                                 child: Center(
                                   child: Text("ST",style: TextStyle(
                                     fontWeight: FontWeight.w400,
@@ -982,180 +1122,96 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
                                     decoration: TextDecoration.none,
                                   ),),
                                 ),
-                              ),)
-                          ],
+                              ),
+                              SizedBox(width: 15,),
+                              Text(
+                                "Physical Therapy",
+                                textAlign: TextAlign.start,
+                                style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorManager.mediumgrey,),
+                              ),
+                            ],
+                          ),
                         ),
-                        SizedBox(width: 10,),
+                        Expanded(
+                          child:  Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "24",
+                                textAlign: TextAlign.start,
+                                style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorManager.blueprime,),
+                              ),
+                            ],
+                          ),),
+                      ],),
+                    SizedBox(height: 10,),
+                    GradientProgressIndicator(
+                      progress: totalValue / 100, // Pass your progress value here
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+  Widget _buildEmployeeType(BuildContext context) {
+    return ScrollConfiguration(
+      behavior: ScrollBehavior().copyWith(scrollbars: false),
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 15,
+        itemBuilder: (context, index) {
+          //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+          // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+          // EmployeeDocumentModal employeedoc = paginatedData[index];
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
                         Text(
-                          "Michel Jackson",
+                          "Temporery",
                           textAlign: TextAlign.start,
                           style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
                             fontWeight: FontWeight.w500,
                             color: ColorManager.mediumgrey,),
                         ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child:  Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
                         Text(
-                          "24",
+                          "30",
                           textAlign: TextAlign.start,
                           style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
                             fontWeight: FontWeight.w700,
                             color: ColorManager.blueprime,),
                         ),
-                      ],
-                    ),),
-                ],),
-            ),
-          ],
-        );
-      },
-    );
-  }
-  Widget _buildClinicianType(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: 15,
-      itemBuilder: (context, index) {
-        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-        // EmployeeDocumentModal employeedoc = paginatedData[index];
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                       flex: 2,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: Color(0xFFF6928A)
-
-                              ),
-                              width: 26,
-                              height: 20,
-                              child: Center(
-                                child: Text("ST",style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: FontSize.s10,
-                                  color: ColorManager.white,
-                                  decoration: TextDecoration.none,
-                                ),),
-                              ),
-                            ),
-                            SizedBox(width: 15,),
-                            Text(
-                              "Physical Therapy",
-                              textAlign: TextAlign.start,
-                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.mediumgrey,),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child:  Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "24",
-                              textAlign: TextAlign.start,
-                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.blueprime,),
-                            ),
-                          ],
-                        ),),
-                    ],),
-                  SizedBox(height: 10,),
-                  GradientProgressIndicator(
-                    progress: totalValue / 100, // Pass your progress value here
-                  ),
-                ],
+                      ],),
+                    SizedBox(height: 10,),
+                    GradientProgressIndicator(
+                      progress: totalValue / 100, // Pass your progress value here
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-  Widget _buildEmployeeType(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: 15,
-      itemBuilder: (context, index) {
-        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-        // EmployeeDocumentModal employeedoc = paginatedData[index];
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Temporery",
-                        textAlign: TextAlign.start,
-                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w500,
-                          color: ColorManager.mediumgrey,),
-                      ),
-                      Text(
-                        "30",
-                        textAlign: TextAlign.start,
-                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.blueprime,),
-                      ),
-                    ],),
-                  SizedBox(height: 10,),
-                  GradientProgressIndicator(
-                    progress: totalValue / 100, // Pass your progress value here
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _buildDot(int index) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      margin: const EdgeInsets.symmetric(horizontal: 4),
-      width: 8, //_currentPageIndex == index ? 12 : 8,
-      height: 8,
-      decoration: BoxDecoration(
-        color: _currentPageIndex == index
-            ? ColorManager.bluebottom // Active color
-            : ColorManager.transparentColor, // Inactive color
-        borderRadius: BorderRadius.circular(4),
+            ],
+          );
+        },
       ),
     );
   }
+
+
 }
 
 ///Most Missed visit
@@ -1191,9 +1247,10 @@ class _MostMissedVisitsListviewState extends State<MostMissedVisitsListview> {
               },
               icon: Icon(
                 Icons.arrow_back_ios_new_outlined,
-                color: _currentPageIndex > 0
-                    ? ColorManager.mediumgrey
-                    : Colors.grey, // Disable icon if on the first page
+                color: ColorManager.mediumgrey,
+                // _currentPageIndex > 0
+                //     ? ColorManager.mediumgrey
+                //     : Colors.grey, // Disable icon if on the first page
                 size: IconSize.I16,
               ),
             ),
@@ -1249,7 +1306,8 @@ class _MostMissedVisitsListviewState extends State<MostMissedVisitsListview> {
           padding: const EdgeInsets.all(10.0),
           child:  _currentPageIndex == 2
               ? Offstage()
-              : Row(
+              : _currentPageIndex == 1
+              ? Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
@@ -1261,12 +1319,28 @@ class _MostMissedVisitsListviewState extends State<MostMissedVisitsListview> {
                       textAlign: TextAlign.end,
                       style: EmDashViewMoreText.customTextStyle(context),
                     ),
-                    SizedBox(width: AppSize.s5),
-                    Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
-                  ],
+                   ],
                 ),
               ),
-            ],),
+            ],)
+              : Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+    GestureDetector(
+    onTap: () {},
+    child: Row(
+    children: [
+    Text(
+    "View More",
+    textAlign: TextAlign.end,
+    style: EmDashViewMoreText.customTextStyle(context),
+    ),
+    SizedBox(width: AppSize.s8),
+    Icon(Icons.arrow_forward,color: ColorManager.blueprime,size: IconSize.I16,)
+    ],
+    ),
+    ),
+    ],),
         ),// Space between ListView and indicators
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -1278,224 +1352,245 @@ class _MostMissedVisitsListviewState extends State<MostMissedVisitsListview> {
   }
 
   Widget _buildClinicianNameMissed(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: 15,
-      itemBuilder: (context, index) {
-        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-        // EmployeeDocumentModal employeedoc = paginatedData[index];
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    //flex: 2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+    return ScrollConfiguration(
+      behavior: ScrollBehavior().copyWith(scrollbars: false),
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 15,
+        itemBuilder: (context, index) {
+          //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+          // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+          // EmployeeDocumentModal employeedoc = paginatedData[index];
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      //flex: 2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Stack(
+                            children: [SizedBox(
+                              height:50,
+                              child: CircleAvatar(
+                                child:
+                                Image.asset('images/1.png'),
+                              ),
+                            ),
+                              Positioned(
+                                left:22,
+                                bottom :0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3),
+                                    color: Color(0xFFF6928A)
+                                  ),
+                                  width: 20,
+                                  height: 15,
+                                  child: Center(
+                                    child: Text("OT",style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: FontSize.s10,
+                                      color: ColorManager.white,
+                                      decoration: TextDecoration.none,
+                                    ),),
+                                  ),
+                                ),)
+                            ],
+                          ),
+                          SizedBox(width: 10,),
+                          Text(
+                            "Rose Galler",
+                            textAlign: TextAlign.start,
+                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w500,
+                              color: ColorManager.mediumgrey,),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child:  Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "25",
+                            textAlign: TextAlign.start,
+                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.blueprime,),
+                          ),
+                        ],
+                      ),),
+                  ],),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+  Widget _buildClinicianTypeMissed(BuildContext context) {
+    return ScrollConfiguration(
+      behavior: ScrollBehavior().copyWith(scrollbars: false),
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 15,
+        itemBuilder: (context, index) {
+          //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+          // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+          // EmployeeDocumentModal employeedoc = paginatedData[index];
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Stack(
-                          children: [SizedBox(
-                            height:50,
-                            child: CircleAvatar(
-                              child:
-                              Image.asset('images/1.png'),
-                            ),
-                          ),
-                            Positioned(
-                              left:22,
-                              bottom :0,
-                              child: Container(
+                        Expanded(
+                          flex: 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(3),
-                                  color: Color(0xFFF6928A)
+                                    borderRadius: BorderRadius.circular(3),
+                                    color: Color(0xFFF6928A)
+
                                 ),
-                                width: 20,
-                                height: 15,
+                                width: 26,
+                                height: 20,
                                 child: Center(
-                                  child: Text("OT",style: TextStyle(
+                                  child: Text("LVN",style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: FontSize.s10,
                                     color: ColorManager.white,
                                     decoration: TextDecoration.none,
                                   ),),
                                 ),
-                              ),)
-                          ],
+                              ),
+                              SizedBox(width: 15,),
+                              Text(
+                                "Occupational Therapy",
+                                textAlign: TextAlign.start,
+                                style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorManager.mediumgrey,),
+                              ),
+                            ],
+                          ),
                         ),
-                        SizedBox(width: 10,),
+                        Expanded(
+                          child:  Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "20",
+                                textAlign: TextAlign.start,
+                                style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorManager.blueprime,),
+                              ),
+                            ],
+                          ),),
+                      ],),
+                    SizedBox(height: 10,),
+                    GradientProgressIndicator(
+                      progress: totalValue / 100, // Pass your progress value here
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+  Widget _buildEmployeeTypeMissed(BuildContext context) {
+    return ScrollConfiguration(
+      behavior: ScrollBehavior().copyWith(scrollbars: false),
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+          // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+          // EmployeeDocumentModal employeedoc = paginatedData[index];
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
                         Text(
-                          "Rose Galler",
+                          "Salaried",
                           textAlign: TextAlign.start,
                           style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
                             fontWeight: FontWeight.w500,
                             color: ColorManager.mediumgrey,),
                         ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child:  Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
                         Text(
-                          "25",
+                          "24",
                           textAlign: TextAlign.start,
                           style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
                             fontWeight: FontWeight.w700,
                             color: ColorManager.blueprime,),
                         ),
-                      ],
-                    ),),
-                ],),
-            ),
-          ],
-        );
-      },
-    );
-  }
-  Widget _buildClinicianTypeMissed(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: 15,
-      itemBuilder: (context, index) {
-        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-        // EmployeeDocumentModal employeedoc = paginatedData[index];
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(3),
-                                  color: Color(0xFFF6928A)
-
-                              ),
-                              width: 26,
-                              height: 20,
-                              child: Center(
-                                child: Text("LVN",style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: FontSize.s10,
-                                  color: ColorManager.white,
-                                  decoration: TextDecoration.none,
-                                ),),
-                              ),
-                            ),
-                            SizedBox(width: 15,),
-                            Text(
-                              "Occupational Therapy",
-                              textAlign: TextAlign.start,
-                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.mediumgrey,),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child:  Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "20",
-                              textAlign: TextAlign.start,
-                              style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.blueprime,),
-                            ),
-                          ],
-                        ),),
-                    ],),
-                  SizedBox(height: 10,),
-                  GradientProgressIndicator(
-                    progress: totalValue / 100, // Pass your progress value here
-                  ),
-                ],
+                      ],),
+                    SizedBox(height: 10,),
+                    GradientProgressIndicator(
+                      progress: totalValue / 100, // Pass your progress value here
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-  Widget _buildEmployeeTypeMissed(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: 3,
-      itemBuilder: (context, index) {
-        //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-        // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-        // EmployeeDocumentModal employeedoc = paginatedData[index];
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Salaried",
-                        textAlign: TextAlign.start,
-                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w500,
-                          color: ColorManager.mediumgrey,),
-                      ),
-                      Text(
-                        "24",
-                        textAlign: TextAlign.start,
-                        style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.blueprime,),
-                      ),
-                    ],),
-                  SizedBox(height: 10,),
-                  GradientProgressIndicator(
-                    progress: totalValue / 100, // Pass your progress value here
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 
   Widget _buildDot(int index) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      margin: const EdgeInsets.symmetric(horizontal: 4),
-      width: 8, //_currentPageIndex == index ? 12 : 8,
-      height: 8,
-      decoration: BoxDecoration(
-        color: _currentPageIndex == index
-            ? ColorManager.bluebottom // Active color
-            : ColorManager.transparentColor, // Inactive color
-        borderRadius: BorderRadius.circular(4),
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _currentPageIndex = index;
+        });
+        _pageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        width: 8, //_currentPageIndex == index ? 12 : 8,
+        height: 8,
+        decoration: BoxDecoration(
+          color: _currentPageIndex == index
+              ? ColorManager.bluebottom // Active color
+              : ColorManager.transparentColor, // Inactive color
+          borderRadius: BorderRadius.circular(4),
+        ),
       ),
     );
   }

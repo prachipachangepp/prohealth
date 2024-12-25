@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/chart.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sm_const_widgets.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sm_dash_graph_data.dart';
@@ -15,9 +17,11 @@ import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../sm_Intake/widgets/intake_update_schedular/information_update.dart';
+import '../widgets/sm_desktop_screen.dart';
 
 class SMDashboardScreen extends StatefulWidget {
-  const SMDashboardScreen({super.key});
+  final PageController pageController;
+  const SMDashboardScreen({super.key, required this.pageController});
 
   @override
   State<SMDashboardScreen> createState() => _DashboardScreenState();
@@ -40,6 +44,8 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
 
   bool isSwitched = false;
   String selectedValue = "Daily";
+  final ButtonSelectionSMController myController = Get.find<ButtonSelectionSMController>();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -70,8 +76,11 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                     style: TextStyle(fontSize: FontSize.s14,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                                 ),
                                 CustomDropdownTextField(
-                                  width: 150,
+                                  width: 160,
+                                  iconColor: ColorManager.bluebottom,
+                                  icon: Icons.keyboard_arrow_down_outlined,
                                   isAstric:false,
+                                  fontsize:  FontSize.s14,
                                   // Adjust headText based on depId
                                   initialValue: 'Sacremento Office',
                                   headText: "", // Default fallback if depId doesn't match any of the expected values
@@ -93,7 +102,18 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                       ],),
                       ///row 2
                       Row(children: [
-                        AllVisitsUpdate(),
+                        AllVisitsUpdate(
+                          onNavigate: () {
+                            myController.selectButton(2);
+                            widget.pageController.animateToPage(
+                              2, // Scheduler page index
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.ease,
+                            );
+                          },
+                        ),
+
+                        // AllVisitsUpdate(onNavigate: () {  },),
                         SizedBox(width: AppPadding.p20,),
                         ScheduledToBeScheduledPatients(),
                         SizedBox(width: AppPadding.p20,),
@@ -114,7 +134,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                             child: Column(
                               children: [
                                 JointContainerConst(
-                                  height: 170,
+                                  height: 180,
                                     childHeading: Padding(
                                       padding: const EdgeInsets.only(left: 10.0),
                                       child: Row(
@@ -157,29 +177,32 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                         ],
                                       ),
                                     ),
-                                    childBody: SfCartesianChart(
-                                      backgroundColor: ColorManager.white,
-                                      primaryXAxis: CategoryAxis(),
-                                      primaryYAxis: NumericAxis(
-                                        minimum: 0,
-                                        maximum: 100,
-                                        interval: 25,
-                                        // axisLabelFormatter: (AxisLabelRenderDetails details) {
-                                        //   // Appends '%' symbol to the Y-axis labels
-                                        //   return ChartAxisLabel('${details.text}%', details.textStyle);
-                                        // },
-                                      ),
-                                      series: <CartesianSeries>[
-                                        ColumnSeries<SMChartData, String>(
-                                          color: ColorManager.blueprime,
-                                          dataSource: smChartData,
-                                          xValueMapper: (SMChartData data, _) => data.x,
-                                          yValueMapper: (SMChartData data, _) => data.y,
-                                         // borderRadius: BorderRadius.all(Radius.circular(8)),
-                                          width: 0.1,
-                                         // spacing: 0.5,
+                                    childBody: Padding(
+                                      padding: const EdgeInsets.only(bottom: 5.0),
+                                      child: SfCartesianChart(
+                                        backgroundColor: ColorManager.white,
+                                        primaryXAxis: CategoryAxis(),
+                                        primaryYAxis: NumericAxis(
+                                          minimum: 0,
+                                          maximum: 100,
+                                          interval: 25,
+                                          // axisLabelFormatter: (AxisLabelRenderDetails details) {
+                                          //   // Appends '%' symbol to the Y-axis labels
+                                          //   return ChartAxisLabel('${details.text}%', details.textStyle);
+                                          // },
                                         ),
-                                      ],
+                                        series: <CartesianSeries>[
+                                          ColumnSeries<SMChartData, String>(
+                                            color: ColorManager.blueprime,
+                                            dataSource: smChartData,
+                                            xValueMapper: (SMChartData data, _) => data.x,
+                                            yValueMapper: (SMChartData data, _) => data.y,
+                                           // borderRadius: BorderRadius.all(Radius.circular(8)),
+                                            width: 0.1,
+                                           // spacing: 0.5,
+                                          ),
+                                        ],
+                                      ),
                                     ),),
                                 SizedBox(height: AppPadding.p10,),
                                 JointContainerConst(
@@ -207,49 +230,105 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                children: [
                                                  Container(
-                                                    height: 140,
-                                                    width: 200,
-                                                    child: PieChart(
-                                                      PieChartData(
-                                                        sections: [
-                                                          PieChartSectionData(
-                                                            color: ColorManager.SMPurple,
-                                                            value: 40,
-                                                            title: '',
-                                                            //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                            radius: 20,
-                                                          ),
-                                                          PieChartSectionData(
-                                                            color: ColorManager.SMYellow,
-                                                            value: 20,
-                                                            title: '',
-                                                            //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                            radius: 20,
-                                                          ),
-                                                          PieChartSectionData(
-                                                            color: ColorManager.SMGreen,
-                                                            value: 10,
-                                                            title: '',
-                                                            //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                            radius: 20,
-                                                          ),
-                                                          PieChartSectionData(
-                                                            color: ColorManager.SMRed,
-                                                            value: 15,
-                                                            title: '',
-                                                            //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
-                                                            radius: 20,
-                                                          ),
-                                                        ],
-                                                        centerSpaceRadius: 60,
-                                                        centerSpaceColor: Colors.white,
-                                                        sectionsSpace: 3,
-                                                        borderData:
-                                                        FlBorderData(show: false),
-                                                        startDegreeOffset: -90,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                   height: 140,
+                                                   width: 200,
+                                                   child: Stack(
+                                                     alignment: Alignment.center,  // Centers the text within the container
+                                                     children: [
+                                                       PieChart(
+                                                         PieChartData(
+                                                           sections: [
+                                                             PieChartSectionData(
+                                                               color: ColorManager.SMPurple,
+                                                               value: 40,
+                                                               title: '',
+                                                               radius: 20,
+                                                             ),
+                                                             PieChartSectionData(
+                                                               color: ColorManager.SMYellow,
+                                                               value: 20,
+                                                               title: '',
+                                                               radius: 20,
+                                                             ),
+                                                             PieChartSectionData(
+                                                               color: ColorManager.SMGreen,
+                                                               value: 10,
+                                                               title: '',
+                                                               radius: 20,
+                                                             ),
+                                                             PieChartSectionData(
+                                                               color: ColorManager.SMRed,
+                                                               value: 15,
+                                                               title: '',
+                                                               radius: 20,
+                                                             ),
+                                                           ],
+                                                           centerSpaceRadius: 60,
+                                                           centerSpaceColor: Colors.white,
+                                                           sectionsSpace: 3,
+                                                           borderData: FlBorderData(show: false),
+                                                           startDegreeOffset: -90,
+                                                         ),
+                                                       ),
+                                                       // Centering the text
+                                                       Positioned(
+                                                         child: Text(
+                                                           "Visits",
+                                                           style: TextStyle(
+                                                             fontSize: FontSize.s12,
+                                                             fontWeight: FontWeight.w500,
+                                                             color: ColorManager.mediumgrey,
+                                                           ),
+                                                         ),
+                                                       ),
+                                                     ],
+                                                   ),
+                                                 ),
+
+                                                 // Container(
+                                                 //    height: 140,
+                                                 //    width: 200,
+                                                 //    child: PieChart(
+                                                 //      PieChartData(
+                                                 //        sections: [
+                                                 //          PieChartSectionData(
+                                                 //            color: ColorManager.SMPurple,
+                                                 //            value: 40,
+                                                 //            title: '',
+                                                 //            //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                 //            radius: 20,
+                                                 //          ),
+                                                 //          PieChartSectionData(
+                                                 //            color: ColorManager.SMYellow,
+                                                 //            value: 20,
+                                                 //            title: '',
+                                                 //            //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                 //            radius: 20,
+                                                 //          ),
+                                                 //          PieChartSectionData(
+                                                 //            color: ColorManager.SMGreen,
+                                                 //            value: 10,
+                                                 //            title: '',
+                                                 //            //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                 //            radius: 20,
+                                                 //          ),
+                                                 //          PieChartSectionData(
+                                                 //            color: ColorManager.SMRed,
+                                                 //            value: 15,
+                                                 //            title: '',
+                                                 //            //titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                                                 //            radius: 20,
+                                                 //          ),
+                                                 //        ],
+                                                 //        centerSpaceRadius: 60,
+                                                 //        centerSpaceColor: Colors.white,
+                                                 //        sectionsSpace: 3,
+                                                 //        borderData:
+                                                 //        FlBorderData(show: false),
+                                                 //        startDegreeOffset: -90,
+                                                 //      ),
+                                                 //    ),
+                                                 //  ),
                                                ],
                                              ),
                                            ),
@@ -275,7 +354,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                         Expanded(
                             flex: 3,
                             child: JointContainerConst(
-                              height: 400,
+                              height: 410,
                               childHeading: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -291,7 +370,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                         Expanded(
                             flex: 3,
                             child: JointContainerConst(
-                              height: 400,
+                              height: 410,
                               childHeading: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

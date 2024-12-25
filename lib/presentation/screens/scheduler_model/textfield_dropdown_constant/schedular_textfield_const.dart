@@ -13,6 +13,7 @@ import '../../../../app/resources/color.dart';
 
 class SchedularTextField extends StatefulWidget {
   final String labelText;
+  final String? hintText;
   final String? initialValue;
   final TextEditingController? controller;
   //final TextInputType keyboardType;
@@ -43,7 +44,7 @@ class SchedularTextField extends StatefulWidget {
      this.onChange,
      this.enable,
      this.prefixWidget,
-     this.showDatePicker = false,
+     this.showDatePicker = false, this.hintText,
   }) : super(key: key);
 
   @override
@@ -120,6 +121,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                     : widget.icon,
                 prefix: widget.prefixWidget,
                 prefixIcon: widget.suffixIcon,
+                hintText: widget.hintText,
                 prefixStyle: AllHRTableData.customTextStyle(context),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),

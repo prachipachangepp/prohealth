@@ -61,7 +61,8 @@ class MissedVisitPopup extends StatelessWidget {
           ),
           Container(
             height: 280,
-            child:  Expanded(
+            child:  ScrollConfiguration(
+              behavior: ScrollBehavior().copyWith(scrollbars: false),
               child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: 15,
