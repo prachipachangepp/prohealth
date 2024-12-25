@@ -29,10 +29,13 @@ class _PopupAddPhysicianState extends State<PopupAddPhysician> {
       height: 300,
       title: 'Add Physician',
       body: [
-        SchedularTextField(
-          width: 300,
-            controller: Selectphy,
-            labelText: "Select"),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SchedularTextField(
+           // width: 300,
+              controller: Selectphy,
+              labelText: "Select Physician"),
+        ),
 
         // HeaderContentConst(
         //   heading: AppString.upload_document,

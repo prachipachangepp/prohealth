@@ -52,6 +52,12 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
   String? selectedStateLOC;
   String? selectedCityLOC;
   String? selectedStatus;
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -261,7 +267,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             Flexible(
                 child: SchedularTextField(
                   controller: ctlrPhone,
-                    labelText: 'Phone',phoneField:true)
+                    labelText: 'Home',)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
@@ -381,6 +387,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+
                   controller: ctlrAdmitDate,
                     labelText: 'Admit Date',
                     showDatePicker:true
