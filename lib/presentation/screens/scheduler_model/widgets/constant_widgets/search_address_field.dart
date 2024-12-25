@@ -17,7 +17,8 @@ class SearchAddressMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return
+      ChangeNotifierProvider(
       create: (_) => AddressProvider(
         controller: controller,
         onChange:onChanged , // Pass the callback to the provider
@@ -25,48 +26,46 @@ class SearchAddressMap extends StatelessWidget {
       child: Consumer<AddressProvider>(
         builder: (context, provider, _) {
           return Column(
-            children: [
-              Container(
-                width: 320,
-                height: 35,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 5.0,
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  controller: controller,
-                  textInputAction: TextInputAction.search,
-                 onSubmitted: (value) => provider.getLatLngFromAddress(value),
-                  onChanged: (val){
-                    provider.showOverlay(context);
-                  },
-                  decoration: InputDecoration(
-                    hintText: "Search",
-                    suffixIcon: Icon(Icons.search,),
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical:4),
+          children: [
+            Container(
+              width: 320,
+              height: 35,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 5.0,
                   ),
+                ],
+              ),
+              child: TextField(
+                controller: controller,
+                textInputAction: TextInputAction.search,
+                onSubmitted: (value) =>  provider.getLatLngFromAddress(value),
+                onChanged: (value)=>provider.showOverlay(context),
+                decoration: InputDecoration(
+                  hintText: "Search",
+                  suffixIcon: Icon(Icons.search,),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical:4),
                 ),
               ),
-              // if (provider.suggestions.isNotEmpty)
-              //   _SuggestionOverlay(
-              //     suggestions: provider.suggestions,
-              //     onSuggestionSelected: (selected) {
-              //       controller.text = selected;
-              //       provider.removeOverlay();
-              //       if (onSuggestionSelected != null) {
-              //         onSuggestionSelected!(selected);
-              //       }
-              //     },
-              //   ),
-            ],
-          );
+            ),
+            // if (provider.suggestions.isNotEmpty)
+            //   _SuggestionOverlay(
+            //     suggestions: provider.suggestions,
+            //     onSuggestionSelected: (selected) {
+            //       controller.text = selected;
+            //       provider.removeOverlay();
+            //       if (onSuggestionSelected != null) {
+            //         onSuggestionSelected!(selected);
+            //       }
+            //     },
+            //   ),
+          ],
+        );
         },
       ),
     );
