@@ -57,7 +57,8 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
   TextEditingController insuranceVerifiedController =TextEditingController();
   TextEditingController commentController =TextEditingController();
   TextEditingController dummyCtrl = TextEditingController();
-
+  List<DropdownMenuItem<String>> primaryDropDownList = [];
+  List<String> primaryValue = ['Value 1', 'Value 2', 'Value 3'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,10 +91,16 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularTextField(
-                                controller: primaryinsuranceController,
-
-                                  labelText: 'Primary Insurance')
+                              child: CustomDropdownTextFieldsm(
+                                items: ['Value 1','Value 2','Value 3'],
+                                onChanged: (newValue) {
+                                },
+                                headText: 'Primary Insurance',
+                              ),
+                              // SchedularTextField(
+                              //   controller: primaryinsuranceController,
+                              //
+                              //     labelText: 'Primary Insurance')
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(

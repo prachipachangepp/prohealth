@@ -334,54 +334,57 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                               ),
                             );
                           }
-
-                          return Row(
-                            children: [
-                              StatefulBuilder(
-                                builder: (BuildContext context,
-                                    void Function(void Function()) setState) {
-                                  return Container(
-                                    width: 200,
-                                    height: 300,
-                                    child: ListView.builder(
-                                      itemCount: snapshot.data!.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        String zipCode =
-                                            snapshot.data![index].zipCode;
-                                        bool isChecked =
-                                            checkedZipCodes[zipCode] ?? false;
-                                        return CheckBoxTileConst(
-                                          text: zipCode,
-                                          value: isChecked,
-                                          onChanged: (bool? val) {
-                                            setState(() {
-                                              print('Clicked check box 1');
-                                              checkedZipCodes[zipCode] =
-                                                  val ?? false;
-                                              if (val == true) {
-                                                selectedZipCodes.add(zipCode);
-                                                zipCodes.add(int.parse(snapshot
-                                                    .data![index].zipCode));
-                                              } else {
-                                                selectedZipCodes
-                                                    .remove(zipCode);
-                                                zipCodes.remove(int.parse(
-                                                    snapshot
-                                                        .data![index].zipCode));
-                                              }
-                                              selectedZipCodesString =
-                                                  selectedZipCodes.join(', ');
-                                            });
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          );
+                          if(snapshot.hasData){
+                            return Row(
+                              children: [
+                                StatefulBuilder(
+                                  builder: (BuildContext context,
+                                      void Function(void Function()) setState) {
+                                    return Container(
+                                      width: 200,
+                                      height: 300,
+                                      child: ListView.builder(
+                                        itemCount: snapshot.data!.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          String zipCode =
+                                              snapshot.data![index].zipCode;
+                                          bool isChecked =
+                                              checkedZipCodes[zipCode] ?? false;
+                                          return CheckBoxTileConst(
+                                            text: zipCode,
+                                            value: isChecked,
+                                            onChanged: (bool? val) {
+                                              setState(() {
+                                                print('Clicked check box 1');
+                                                checkedZipCodes[zipCode] =
+                                                    val ?? false;
+                                                if (val == true) {
+                                                  selectedZipCodes.add(zipCode);
+                                                  zipCodes.add(int.parse(snapshot
+                                                      .data![index].zipCode));
+                                                } else {
+                                                  selectedZipCodes
+                                                      .remove(zipCode);
+                                                  zipCodes.remove(int.parse(
+                                                      snapshot
+                                                          .data![index].zipCode));
+                                                }
+                                                selectedZipCodesString =
+                                                    selectedZipCodes.join(', ');
+                                              });
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          }else{
+                            return SizedBox();
+                          }
                         },
                       ),
                     ),

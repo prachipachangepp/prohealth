@@ -30,7 +30,7 @@ class _PopupAddPhysicianState extends State<PopupAddPhysician> {
       title: 'Add Physician',
       body: [
         SchedularTextField(
-          width: 300,
+          width: 354,
             controller: Selectphy,
             labelText: "Select"),
 

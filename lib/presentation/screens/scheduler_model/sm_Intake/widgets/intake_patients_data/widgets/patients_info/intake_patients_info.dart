@@ -210,7 +210,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Status:',
+                                Text('Status',
                                     style: AllPopupHeadings.customTextStyle(context)),
                                 SizedBox(height: 1),
                                 Row(

@@ -228,7 +228,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                     Marker(
                       markerId: MarkerId(
                           'Search-${provider.latitudeL}-${provider.longitudeL}'),
-                      position: currentPosition,
+                      position: LatLng(provider.latitudeL!, provider.longitudeL!),
                       infoWindow: InfoWindow(title: 'Location'),
                     ),}:_markers,
                   polygons: _selectedView == 'Heat Map' ? _heatMapCircles : {},// Use the markers set here
@@ -241,12 +241,17 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                   children: [
                     SearchAddressMap(
                       controller: _searchController,
-                      onSubmit:(val)=> provider.getLatLngFromAddress(val),
+                      onSubmit:(val){
+                        provider.getLatLngFromAddress(val);
+                        setState(() {
+
+                        });
+                        },
                       onSuggestionSelected: (selected) {
                         print('Selected Address: $selected');
                       },
                       onChanged: (value) {
-                        // provider.showOverlay(context);
+                        provider.showOverlay(context);
                         print('Address Changed: $value');
                        // Triggered on every text change
                       },),

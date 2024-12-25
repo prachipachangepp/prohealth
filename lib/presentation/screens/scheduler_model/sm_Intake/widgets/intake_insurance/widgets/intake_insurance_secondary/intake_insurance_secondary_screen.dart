@@ -93,9 +93,15 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularTextField(
-                                controller: secondaryinsuranceController,
-                                  labelText: 'Secondary Insurance')
+                              child: CustomDropdownTextFieldsm(
+                                items: ['Value 1','Value 2','Value 3'],
+                                onChanged: (newValue) {
+                                },
+                                headText: 'Secondary Insurance',
+                              ),
+                              // SchedularTextField(
+                              //   controller: secondaryinsuranceController,
+                              //     labelText: 'Secondary Insurance')
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
