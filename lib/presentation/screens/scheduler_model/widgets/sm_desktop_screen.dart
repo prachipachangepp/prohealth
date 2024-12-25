@@ -51,133 +51,142 @@ class SMDesktopScreen extends StatelessWidget {
             const ApplicationAppBar(headingText: "Scheduling Manager"),
             ///2nd  buttons
             Container(
+             // color: Colors.pink,
               margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Obx(
-                            () => CustomTitleButton(
-                          height: AppSize.s30,
-                          width: AppSize.s100,
-                          onPressed: () {
-                            //companyAll(context);
-                            myController.selectButton(0);
-                            _pageController.animateToPage(0,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Dashboard',
-                          isSelected: myController.selectedIndex.value == 0,
-                        ),
+                  Expanded(
+                    child: Obx(
+                          () => CustomTitleButton(
+                        height: AppSize.s30,
+                        width: AppSize.s100,
+                        onPressed: () {
+                          //companyAll(context);
+                          myController.selectButton(0);
+                          _pageController.animateToPage(0,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease);
+                        },
+                        text: 'Dashboard',
+                        isSelected: myController.selectedIndex.value == 0,
                       ),
-                      SizedBox(
-                        width: AppSize.s10,
-                      ),
-                      Obx(
-                            () => CustomTitleButton(
-                          height: AppSize.s30,
-                          width: AppSize.s140,
-                          onPressed: () {
-
-                            //companyByIdApi(context,);
-                            // companyDetailsApi(context,5);
-                            myController.selectButton(1);
-                            _pageController.animateToPage(1,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Intake',
-                          isSelected: myController.selectedIndex.value == 1,
-                        ),
-                      ),
-
-                      SizedBox(
-                        width: 15,
-                      ),
-
-                      Obx(
-                            () => CustomTitleButton(
-                          height: AppSize.s30,
-                          width: AppSize.s140,
-                          onPressed: () {
-
-                            //companyByIdApi(context,);
-                            // companyDetailsApi(context,5);
-                            myController.selectButton(2);
-                            _pageController.animateToPage(2,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Scheduler',
-                          isSelected: myController.selectedIndex.value == 2,
-                        ),
-                      ),
-                      SizedBox(
-                        width: AppSize.s15,
-                      ),
-                      Obx(
-                            () => CustomTitleButton(
-                          height: AppSize.s30,
-                          width: AppSize.s140,
-                          onPressed: () {
-
-                            //companyByIdApi(context,);
-                            // companyDetailsApi(context,5);
-                            myController.selectButton(3);
-                            _pageController.animateToPage(3,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Calender',
-                          isSelected: myController.selectedIndex.value == 3,
-                        ),
-                      ),
-                      SizedBox(
-                        width: AppSize.s15,
-                      ),
-
-                      Obx(
-                            () => CustomTitleButton(
-                          height: AppSize.s30,
-                          width: AppSize.s140,
-                          onPressed: () {
-
-                            //companyByIdApi(context,);
-                            // companyDetailsApi(context,5);
-                            myController.selectButton(4);
-                            _pageController.animateToPage(4,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Live View',
-                          isSelected: myController.selectedIndex.value == 4,
-                        ),
-                      ),
-                      SizedBox(
-                        width: AppSize.s15,
-                      ),
-                      Obx(
-                            () => CustomTitleButton(
-                          height: AppSize.s30,
-                          width: AppSize.s140,
-                          onPressed: () {
-
-                            //companyByIdApi(context,);
-                            // companyDetailsApi(context,5);
-                            myController.selectButton(5);
-                            _pageController.animateToPage(5,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Today',
-                          isSelected: myController.selectedIndex.value == 5,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
+                  SizedBox(
+                    width: AppSize.s25,
+                  ),
+                  Expanded(
+                    child: Obx(
+                          () => CustomTitleButton(
+                        height: AppSize.s30,
+                        width: AppSize.s140,
+                        onPressed: () {
+
+                          //companyByIdApi(context,);
+                          // companyDetailsApi(context,5);
+                          myController.selectButton(1);
+                          _pageController.animateToPage(1,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease);
+                        },
+                        text: 'Intake',
+                        isSelected: myController.selectedIndex.value == 1,
+                      ),
+                    ),
+                  ),
+              
+                  SizedBox(
+                    width: AppSize.s25,
+                  ),
+              
+                  Expanded(
+                    child: Obx(
+                          () => CustomTitleButton(
+                        height: AppSize.s30,
+                        width: AppSize.s140,
+                        onPressed: () {
+
+                          //companyByIdApi(context,);
+                          // companyDetailsApi(context,5);
+                          myController.selectButton(2);
+                          _pageController.animateToPage(2,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease);
+                        },
+                        text: 'Scheduler',
+                        isSelected: myController.selectedIndex.value == 2,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: AppSize.s25,
+                  ),
+                  Expanded(
+                    child: Obx(
+                          () => CustomTitleButton(
+                        height: AppSize.s30,
+                        width: AppSize.s140,
+                        onPressed: () {
+
+                          //companyByIdApi(context,);
+                          // companyDetailsApi(context,5);
+                          myController.selectButton(3);
+                          _pageController.animateToPage(3,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease);
+                        },
+                        text: 'Calender',
+                        isSelected: myController.selectedIndex.value == 3,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: AppSize.s25,
+                  ),
+              
+                  Expanded(
+                    child: Obx(
+                          () => CustomTitleButton(
+                        height: AppSize.s30,
+                        width: AppSize.s140,
+                        onPressed: () {
+
+                          //companyByIdApi(context,);
+                          // companyDetailsApi(context,5);
+                          myController.selectButton(4);
+                          _pageController.animateToPage(4,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease);
+                        },
+                        text: 'Live View',
+                        isSelected: myController.selectedIndex.value == 4,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: AppSize.s25,
+                  ),
+                  Expanded(
+                    child: Obx(
+                          () => CustomTitleButton(
+                        height: AppSize.s30,
+                        width: AppSize.s140,
+                        onPressed: () {
+
+                          //companyByIdApi(context,);
+                          // companyDetailsApi(context,5);
+                          myController.selectButton(5);
+                          _pageController.animateToPage(5,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease);
+                        },
+                        text: 'Today',
+                        isSelected: myController.selectedIndex.value == 5,
+                      ),
+                    ),
+                  ),
+                  Expanded(child: Container(),flex: 4,)
                 ],
               ),
             ),
