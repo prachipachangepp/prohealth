@@ -398,6 +398,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrDC,
                     labelText: 'D/C',
+                    showDatePicker:true
                    )
             ),
             SizedBox(width: AppSize.s35),

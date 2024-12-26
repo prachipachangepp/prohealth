@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -369,13 +370,9 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       Container(
                                         width: 100,
                                         child:  ElevatedButton.icon(onPressed: ()async{
-                                          await  showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return VendorSelectNoti(
-                                                message: 'Please Select A File',
-                                              );
-                                            },
+                                          await  Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => Auto_Assign()),
                                           );
                                         },label: Text("Auto", style: TextStyle(
                                           fontSize: FontSize.s13,
@@ -513,84 +510,12 @@ class _PendingPageViewState extends State<PendingPageView> {
         ] ,
 
       ),
+
     );
   }
 
 
 
-  Widget buildDropdownButton(BuildContext context) {
-    final Map<String, String> displayTextMap = {
-      'Sort': 'Filter by',
-      'Opened': 'Opened',
-      'Notopen': 'Not Opened',
-      'Partial': 'Partial',
-      'Completed': 'Completed',
-    };
 
-    return Column(
-      children: [
-        DropdownButton2<String>(
-          value: _selectedValue,
-          onChanged: (String? newValue) {
-            setState(() {
-              _selectedValue = newValue!;
-              //filterData();
-            });
-          },
-          style: AllPopupHeadings.customTextStyle(context),
-          iconStyleData:  IconStyleData(
-            icon: Icon(
-              Icons.arrow_drop_down,
-              color: ColorManager.mediumgrey,
-            ),
-          ),
-          // iconSize: 20,
-          underline: const SizedBox(),
-          buttonStyleData: ButtonStyleData(
-            height: 32,
-            width: 130,
-            padding:
-            const EdgeInsets.symmetric(horizontal: 8), // Internal padding.
-            elevation: 2, // Shadow depth.
-            // decoration: BoxDecoration(
-            //   color: Colors.white,
-            //   border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-            //   borderRadius: BorderRadius.circular(12.0),
-            //   // boxShadow: [
-            //   //   BoxShadow(
-            //   //     color: const Color(0xff000000).withOpacity(0.25),
-            //   //     blurRadius: 2,
-            //   //     offset: const Offset(0, 2),
-            //   //   ),
-            //   // ],
-            // ),
-            overlayColor: WidgetStateProperty.all(
-                Colors.grey.withOpacity(0.1)), // Background color when pressed.
-          ),
-
-          /// buttonPadding: const EdgeInsets.symmetric(horizontal: 8),
-          // dropdownMaxHeight: 200,
-          // dropdownDecoration: BoxDecoration(
-          //   borderRadius: BorderRadius.circular(12),
-          //   color: Colors.white,
-          // ),
-          // itemPadding: const EdgeInsets.symmetric(horizontal: 8), // Updated padding
-          selectedItemBuilder: (context) =>
-              displayTextMap.keys.map((String value) {
-                return Align(
-                  alignment: Alignment.center,
-                  child: Text(displayTextMap[value]!),
-                );
-              }).toList(),
-          items: displayTextMap.keys.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(displayTextMap[value]!),
-            );
-          }).toList(),
-        ),
-      ],
-    );
-  }
 
 }

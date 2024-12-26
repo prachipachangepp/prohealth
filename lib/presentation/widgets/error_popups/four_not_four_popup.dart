@@ -27,7 +27,7 @@ class FourNotFourPopup extends StatelessWidget {
             textAlign: TextAlign.center,
             style: CustomTextStylesCommon.commonStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: FontSize.s12,
+                fontSize: FontSize.s14,
                 color: ColorManager.mediumgrey
             ),),
 

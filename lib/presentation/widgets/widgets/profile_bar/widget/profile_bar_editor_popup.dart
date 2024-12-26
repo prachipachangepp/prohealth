@@ -17,6 +17,7 @@ import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 import '../../../../screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../../../screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../screens/hr_module/register/offer_letter_screen.dart';
 
@@ -251,11 +252,11 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                             selectedZipCodeZone =
                                                 snapshotZone.data![0].zoneName;
                                           }
-                                          docZoneId = snapshotZone.data![0].zone_id;
+                                        //  docZoneId = snapshotZone.data![0].zone_id;
                                           return CICCDropdown(
                                               width: 354,
-                                              initialValue:
-                                              dropDownTypesList[0].value,
+                                              // initialValue:
+                                              // dropDownTypesList[0].value,
                                               onChange: (val) {
                                                 selectedZipCodeZone = val;
                                                 selectedCovrageZone = val;
@@ -305,7 +306,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                     child:
                     RichText(
                       text: TextSpan(
-                        text: "Zop Codes", // Main text
+                        text: "Zip Codes", // Main text
                         style: AllPopupHeadings.customTextStyle(context), // Main style
                         children: [
                           TextSpan(
@@ -406,7 +407,49 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
         height: AppSize.s30,
         width: AppSize.s100,
         text: 'Save',
-        onPressed: () {
+        onPressed: () async {
+
+          if (selectedCounty == null || selectedCounty!.isEmpty) {
+            await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AddErrorPopup(
+                message: 'Please select a county',
+              );
+            },
+            );
+            // _showErrorDialog('Please select a county.');
+            return;
+          }
+
+          if (selectedZipCodes.isEmpty) {
+            await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AddErrorPopup(
+                message: 'Please select at least one zip code',
+              );
+            },
+            );
+            // _showErrorDialog('Please select at least one zip code.');
+            return;
+          }
+
+          if (selectedZipCodeZone == null || selectedZipCodeZone!.isEmpty) {
+            await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AddErrorPopup(
+                message: 'Please select a zone',
+              );
+            },
+            );
+            // _showErrorDialog('Please select a zone.');
+            return;
+          }
+
+
+
           addCovrage.add(ApiPatchCovrageData(employeeEnrollCoverageId: widget.employeeEnrollCoverageId,
               city: "",
               countyId: selectedCountyId,
