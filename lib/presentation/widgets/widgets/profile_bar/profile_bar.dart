@@ -946,7 +946,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                 Expanded(
                                                                                                   child: Center(
                                                                                                     child: Text(
-                                                                                                        expiredLicenses[index].org,
+                                                                                                        expiredLicenses[index].licenseure,
                                                                                                         style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                     ),
                                                                                                   ),
@@ -954,7 +954,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                 Expanded(
                                                                                                   child: Center(
                                                                                                     child: Text(
-                                                                                                        expiredLicenses[index].issueDate,
+                                                                                                        expiredLicenses[index].expDate,
                                                                                                         style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                     ),
                                                                                                   ),
@@ -1186,7 +1186,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                   Expanded(
                                                                                                     child: Center(
                                                                                                       child: Text(
-                                                                                                          aboutToExpiredLicenses[index].org,
+                                                                                                          aboutToExpiredLicenses[index].licenseure,
                                                                                                           style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                       ),
                                                                                                     ),
@@ -1194,7 +1194,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                   Expanded(
                                                                                                     child: Center(
                                                                                                       child: Text(
-                                                                                                          aboutToExpiredLicenses[index].issueDate,
+                                                                                                          aboutToExpiredLicenses[index].expDate,
                                                                                                           style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                       ),
                                                                                                     ),
@@ -1427,7 +1427,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                   Expanded(
                                                                                                     child: Center(
                                                                                                       child: Text(
-                                                                                                          upToDateLicenses[index].org,
+                                                                                                          upToDateLicenses[index].licenseure,
                                                                                                           style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                       ),
                                                                                                     ),
@@ -1435,7 +1435,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                                   Expanded(
                                                                                                     child: Center(
                                                                                                       child: Text(
-                                                                                                          upToDateLicenses[index].issueDate,
+                                                                                                          upToDateLicenses[index].expDate,
                                                                                                           style: AboutExpiredLStyle.customEditTextStyle()
                                                                                                       ),
                                                                                                     ),

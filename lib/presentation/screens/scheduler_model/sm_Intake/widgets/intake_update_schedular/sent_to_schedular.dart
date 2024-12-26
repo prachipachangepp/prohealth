@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -93,7 +94,7 @@ class SentToSchedularScreen extends StatelessWidget {
                 ],
               ),
             ],
-          ),
+          ).paddingOnly(bottom: 10),
           Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,

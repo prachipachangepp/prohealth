@@ -47,6 +47,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
   TextEditingController numberIDController = TextEditingController();
   String docName ='';
   String docNameEdit ='';
+  String docNameAdd ='Select';
   @override
   void initState() {
     // TODO: implement initState
@@ -209,7 +210,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     livensureController.text,
                                     numberIDController.text,
                                     issuingOrganizationController.text,
-                                    docName.toString());
+                                    docNameAdd.toString());
                                var licenseResponse =  await approveOnboardQualifyLicensePatch(
                                     context,
                                     response.licenseId!);
@@ -275,16 +276,16 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                           ),
                                         );
                                       }
-                                      docName = snapshot.data![0].docName;
+                                     // docName = snapshot.data![0].docName;
                                       return CICCDropdown(
                                           // width: 200,
                                           width: MediaQuery.of(context).size.width / 6,
-                                          initialValue: dropDownMenuItems[0].value,
+                                          initialValue: docNameAdd,
                                           onChange: (val){
                                             for(var a in snapshot.data!){
                                               if(a.docName == val){
                                                 docType = a.docName;
-                                                docName = docType;
+                                                docNameAdd = docType;
                                                 //docMetaId = docType;
                                               }
                                             }

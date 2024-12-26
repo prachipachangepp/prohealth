@@ -141,9 +141,9 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                         suffixIcon: Icon(Icons.calendar_month_outlined,
                             color: ColorManager.blueprime),
                         onTap: () {
-                          errorStates["startDate"] =  widget.startDateContoller.text.isEmpty;
                           _selectDate(
                               widget.startDateContoller, _selectedStartDate);
+                          errorStates["startDate"] =  widget.startDateContoller.text.isEmpty;
                         }, hintText:'yyyy-mm-dd',
                       ),
                     ],
@@ -285,6 +285,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     bool isAsteric = true,
     VoidCallback? onTap,
     String? errorMessage,
+
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -461,6 +462,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         controller.text = DateFormat('yyyy-MM-dd').format(picked);
+        errorStates["startDate"] =  widget.startDateContoller.text.isEmpty;
       });
     }
   }
