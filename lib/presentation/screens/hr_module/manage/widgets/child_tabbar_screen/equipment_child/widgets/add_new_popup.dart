@@ -39,6 +39,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
   String? _idDocError;
   String? _nameDocError;
   String? _dateDocError;
+  String selectDescription = 'Select';
 
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
@@ -139,7 +140,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Text(
-                             '',
+                                selectDescription,
                                 style: DocumentTypeDataStyle.customTextStyle(context),
                               ),
                             ),
@@ -182,10 +183,10 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                       // print('Inventory name abcd ${inventoryName}');
                       //  print('Inventory Id abcd ${inventoryId}');
                       return CICCDropdown(
-
                           onChange: (val) {
                             for (var a in snapshot.data!) {
                               if (a.name == val) {
+                                selectDescription = val;
                                 inventoryName = a.name;
                                 inventoryId = a.inventoryId;
                                 //docMetaId = docType;
@@ -232,7 +233,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
               //   ),
               // ),
               SizedBox(
-                height: AppSize.s16,
+                height: AppSize.s18,
               ),
               RichText(
                 text: TextSpan(

@@ -1315,7 +1315,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                   Container(
                                                     width: 60,
                                                     height: 60,
-                                                    padding: EdgeInsets.all(3),
+                                                    padding: EdgeInsets.all(2),
                                                     decoration: BoxDecoration(
                                                       color: ColorManager.bluebottom,
                                                       borderRadius: BorderRadius.circular(30),
@@ -1356,7 +1356,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                 Container(
                                                   width: 60,
                                                   height: 60,
-                                                  padding: EdgeInsets.all(3),
+                                                  padding: EdgeInsets.all(2),
                                                   decoration: BoxDecoration(
                                                     color: ColorManager.bluebottom,
                                                     borderRadius: BorderRadius.circular(30),

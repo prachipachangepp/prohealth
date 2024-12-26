@@ -1,5 +1,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:prohealth/app/resources/const_string.dart';
@@ -117,6 +118,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
         if (showProfileBar) IntakeProfileBar(),
         SizedBox(height: AppSize.s15),
         Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          Text('Add New Patient').paddingOnly(right: 200),
           Container(
             width: MediaQuery.of(context).size.width /2.455,
             height: AppSize.s30,

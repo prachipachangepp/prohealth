@@ -30,15 +30,16 @@ Future<Map<String, List<LicensesData>>> getLicenseStatusWise(
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         String formatedDate = convertIsoToDayMonthYear(item['issueDate']);
+        String formatedExpDate = convertIsoToDayMonthYear(item['expDate']);
         LicensesData licenseData = LicensesData(
           country: item['country'],
           documentType: item['documentType'],
           employeeID: item['employeeId'],
-          expDate: item['expDate'],
+          expDate: formatedExpDate,
           issueDate: formatedDate,
           licenseNumber: item['licenseNumber'],
           licenseUrl: item['licenseUrl'],
-          licenseure: item['licensure'],
+          licenseure: item['licensure']??"--",
           org: item['org'],
           status: item['status'],
         );

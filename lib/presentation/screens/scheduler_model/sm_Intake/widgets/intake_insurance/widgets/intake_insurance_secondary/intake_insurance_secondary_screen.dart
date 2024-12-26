@@ -497,141 +497,67 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           SizedBox(width: AppSize.s35),
 
                           Flexible(
-                            child: FutureBuilder<List<CategoryData>>(
-                              future: getCategoryDropDown(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return SchedularTextField(
-                                    controller: dummyCtrl,
-                                    labelText: 'Category',
-                                    suffixIcon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,),);
-                                }
-                                if (snapshot.hasData) {
-                                  List<DropdownMenuItem<String>> dropDownList = [];
-
-
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(DropdownMenuItem<String>(
-                                      child: Text(i.idText!),
-                                      value: i.idText,
-                                    ));
-                                  }
-
-
-                                  return CustomDropdownTextFieldsm(
-                                    dropDownMenuList: dropDownList,
-
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.idText == newValue) {
-                                          selectedCategory = a.idText!;
-                                          //country = a
-                                          // int? docType = a.companyOfficeID;
-                                        }
-                                      }
-                                    },
-                                    headText: 'Category',
-                                  );
-
-
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
+                            child: Column(
+                              crossAxisAlignment:CrossAxisAlignment.start,
+                              children: [
+                                SchedularTextField(
+                                  controller: dummyCtrl,
+                                  labelText: '',
+                                  hintText: 'Medicare',
+                                  ),
+                                SizedBox(height: 2,),
+                                Text("Episodic", style: TransparentButtonTextConst.customTextStyle(context),),
+                              ],
                             ),
+                            // FutureBuilder<List<CategoryData>>(
+                            //   future: getCategoryDropDown(context),
+                            //   builder: (context, snapshot) {
+                            //     if (snapshot.connectionState ==
+                            //         ConnectionState.waiting) {
+                            //       return SchedularTextField(
+                            //         controller: dummyCtrl,
+                            //         labelText: 'Category',
+                            //         suffixIcon: Icon(Icons.arrow_drop_down,
+                            //           color: ColorManager.blueprime,),);
+                            //     }
+                            //     if (snapshot.hasData) {
+                            //       List<DropdownMenuItem<String>> dropDownList = [];
+                            //
+                            //
+                            //       for (var i in snapshot.data!) {
+                            //         dropDownList.add(DropdownMenuItem<String>(
+                            //           child: Text(i.idText!),
+                            //           value: i.idText,
+                            //         ));
+                            //       }
+                            //
+                            //
+                            //       return CustomDropdownTextFieldsm(
+                            //         dropDownMenuList: dropDownList,
+                            //
+                            //         onChanged: (newValue) {
+                            //           for (var a in snapshot.data!) {
+                            //             if (a.idText == newValue) {
+                            //               selectedCategory = a.idText!;
+                            //               //country = a
+                            //               // int? docType = a.companyOfficeID;
+                            //             }
+                            //           }
+                            //         },
+                            //         headText: 'Category',
+                            //       );
+                            //
+                            //
+                            //     } else {
+                            //       return const Offstage();
+                            //     }
+                            //   },
+                            // ),
 
 
                           ),
 
-                          // Flexible(
-                          //   child: FutureBuilder<List<CategoryData>>(
-                          //     future: getCategoryDropDown(context),
-                          //     builder: (context, snapshot) {
-                          //       if (snapshot.connectionState ==
-                          //           ConnectionState.waiting) {
-                          //         return SchedularTextField(
-                          //           controller: dummyCtrl,
-                          //           labelText: 'Category',
-                          //           suffixIcon: Icon(Icons.arrow_drop_down,
-                          //             color: ColorManager.blueprime,),);
-                          //       }
-                          //       if (snapshot.hasData) {
-                          //         List<String> dropDownList = [];
-                          //         for (var i in snapshot.data!) {
-                          //           dropDownList.add(i.idText!);
-                          //         }
-                          //
-                          //         return SizedBox(
-                          //           height: 27,
-                          //           child: DropdownButtonFormField<String>(
-                          //             decoration: InputDecoration(
-                          //               labelText: 'category',
-                          //               labelStyle: GoogleFonts.firaSans(
-                          //                 fontSize: 10.0,
-                          //                 fontWeight: FontWeight.w400,
-                          //                 color: ColorManager.greylight,
-                          //               ),
-                          //               focusedBorder: OutlineInputBorder(
-                          //                 borderSide: BorderSide(
-                          //                     color: ColorManager
-                          //                         .containerBorderGrey),
-                          //               ),
-                          //               border: OutlineInputBorder(
-                          //                 borderRadius:
-                          //                 BorderRadius.circular(4.0),
-                          //                 borderSide: const BorderSide(
-                          //                     color: Colors.grey),
-                          //               ),
-                          //               contentPadding:
-                          //               const EdgeInsets.symmetric(
-                          //                 //   //  vertical: 5,
-                          //                   horizontal: 12),
-                          //             ),
-                          //             // value: selectedCountry,
-                          //             icon: Icon(
-                          //               Icons.arrow_drop_down,
-                          //               color: ColorManager.blueprime,
-                          //             ),
-                          //             iconSize: 24,
-                          //             elevation: 16,
-                          //             style: GoogleFonts.firaSans(
-                          //               fontSize: 10.0,
-                          //               fontWeight: FontWeight.w400,
-                          //               color: const Color(0xff686464),
-                          //             ),
-                          //
-                          //             onChanged: (newValue) {
-                          //               for (var a in snapshot.data!) {
-                          //                 if (a.idText == newValue) {
-                          //                   selectedCategory = a.idText!;
-                          //                   //country = a
-                          //                   // int? docType = a.companyOfficeID;
-                          //                 }
-                          //               }
-                          //             },
-                          //             items: dropDownList.map((String value) {
-                          //               return DropdownMenuItem<String>(
-                          //                 value: value,
-                          //                 child: Text(
-                          //                   value,
-                          //                   style: GoogleFonts.firaSans(
-                          //                     fontSize: 12,
-                          //                     color: Color(0xff575757),
-                          //                     fontWeight: FontWeight.w400,
-                          //                   ),
-                          //                 ),
-                          //               );
-                          //             }).toList(),
-                          //           ),
-                          //         );
-                          //       } else {
-                          //         return const Offstage();
-                          //       }
-                          //     },
-                          //   ),
-                          // ),
+
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
