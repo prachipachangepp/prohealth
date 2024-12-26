@@ -370,10 +370,18 @@ class _PendingPageViewState extends State<PendingPageView> {
                                       Container(
                                         width: 100,
                                         child:  ElevatedButton.icon(onPressed: ()async{
-                                          await  Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => Auto_Assign()),
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AddErrorPopup(
+                                                message: 'Please select a county',
+                                              );
+                                            },
                                           );
+                                          // await  Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(builder: (context) => Auto_Assign()),
+                                          // );
                                         },label: Text("Auto", style: TextStyle(
                                           fontSize: FontSize.s13,
                                           fontWeight: FontWeight.w600,
