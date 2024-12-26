@@ -117,9 +117,9 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
             ),
             PageViewMenuButtonConst(
               onTap: (int index) {
-                intakeSelectButton(index);
+                //intakeSelectButton(index);
               },
-              index: 3,
+              index: 9,//3,
               grpIndex: _selectedIndex,
               heading: "Lab Results",
               enabled: patientId != 0,

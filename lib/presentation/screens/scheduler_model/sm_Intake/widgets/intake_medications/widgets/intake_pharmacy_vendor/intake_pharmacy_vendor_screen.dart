@@ -121,13 +121,16 @@ class _IntakePharmacyVendorScreenState
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(12),
+                  // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
+                  border: Border.all(width: 0.2,color: ColorManager.lightGrey),//all(width: 1, color: Color(0xFFBCBCBC)),
+
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 0,
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 4),
                     ),
                   ],
                 ),
@@ -192,6 +195,7 @@ class _IntakePharmacyVendorScreenState
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
+                                  phoneField: true,
                                   controller: dmephone, labelText: 'Phone')),
                           SizedBox(width: 35),
                           Flexible(
@@ -412,6 +416,7 @@ class _IntakePharmacyVendorScreenState
                   ),
                 ),
               ),
+              SizedBox(height: 19.5),
             ],
           ),
         ),
