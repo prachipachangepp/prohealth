@@ -24,10 +24,10 @@ class SMDashboardContainerConst extends StatelessWidget {
         // border: Border.symmetric(vertical: BorderSide.none,horizontal: BorderSide(width: 1,color: Color(0xFFBCBCBC)),),//all(width: 1, color: Color(0xFFBCBCBC)),
         boxShadow: [
           BoxShadow(
-            color: ColorManager.mediumgrey.withOpacity(0.4),
-            blurRadius: 4,
+            color: ColorManager.black.withOpacity(0.2),
+            blurRadius: 2,
             spreadRadius: 0,
-            offset: const Offset(0, 4), // Downward shadow
+            offset: const Offset(0, 1.2), // Downward shadow
           ),
         ],
       ),
@@ -46,7 +46,7 @@ class SMDashboadGraphContainer extends StatelessWidget {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(12),
         border: Border(top: BorderSide(
           color: Color(0xFF579EBA),
           width: 3,
@@ -55,9 +55,9 @@ class SMDashboadGraphContainer extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: ColorManager.black.withOpacity(0.2),
-            blurRadius: 4,
+            blurRadius: 2,
             spreadRadius: 0,
-            offset: const Offset(0, 4), // Downward shadow
+            offset: const Offset(0, 1.2), // Downward shadow
           ),
         ],
       ),
@@ -103,9 +103,9 @@ class JointContainerConst extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: ColorManager.black.withOpacity(0.2),
-                  blurRadius: 4,
+                  blurRadius: 2,
                   spreadRadius: 0,
-                  offset: const Offset(0, 4), // Downward shadow
+                  offset: const Offset(0, 1.2), // Downward shadow
                 ),
               ],
               border: Border(top: BorderSide.none,bottom: BorderSide(color: ColorManager.dashDivider,width: 1),
@@ -118,14 +118,6 @@ class JointContainerConst extends StatelessWidget {
   }
 }
 
-class ScheduledPatients extends StatelessWidget {
-  const ScheduledPatients({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
 
 ///small container widget const
 class SMSmallContainerData extends StatelessWidget {
@@ -134,9 +126,19 @@ class SMSmallContainerData extends StatelessWidget {
   final String imagePath;
   final int totalValue;
   final int? flex;
-  final Color indicatorColor;
+  final List<Color> indicatorGradientColors; // Accept gradient colors as a list
   final Color TextColor;
-  const SMSmallContainerData({super.key, required this.headingText, required this.totalCount, required this.imagePath, required this.totalValue, this.flex, required this.indicatorColor, required this.TextColor});
+
+  const SMSmallContainerData({
+    super.key,
+    required this.headingText,
+    required this.totalCount,
+    required this.imagePath,
+    required this.totalValue,
+    this.flex,
+    required this.indicatorGradientColors,
+    required this.TextColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -144,34 +146,59 @@ class SMSmallContainerData extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Text(headingText,
-              style: TextStyle(fontSize: FontSize.s12,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),
-              //EmDashContainerHeadTextStyle.customTextStyle(context)
-          ),
-        ],),
+        Row(
+          children: [
+            Text(
+              headingText,
+              style: TextStyle(
+                fontSize: FontSize.s12,
+                color: ColorManager.mediumgrey,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-          Expanded(
+            Expanded(
               flex: flex ?? 2,
-              child: Text(totalCount,style: TextStyle(fontSize: FontSize.s14,color: TextColor,fontWeight: FontWeight.w700),)),
+              child: Text(
+                totalCount,
+                style: TextStyle(
+                  fontSize: FontSize.s14,
+                  color: TextColor,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
             Expanded(
               child: Image.asset(
                 fit: BoxFit.fill,
                 imagePath,
                 height: 40, // Adjust the size as needed
-                //width: 45,
-                // color: ColorManager.bluebottom,
               ),
             )
-        ],),
-        LinearProgressIndicator(
-          backgroundColor: ColorManager.white,
-          color: indicatorColor,
-          value: totalValue/100,
-          minHeight: 5,
-        )
+          ],
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4), // Add rounded corners if needed
+          child: ShaderMask(
+            shaderCallback: (bounds) {
+              return LinearGradient(
+                colors: indicatorGradientColors,
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ).createShader(bounds);
+            },
+            child: LinearProgressIndicator(
+              backgroundColor: ColorManager.white,
+              value: totalValue / 100,
+              minHeight: 5,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white), // Set a placeholder value
+            ),
+          ),
+        ),
       ],
     );
   }
