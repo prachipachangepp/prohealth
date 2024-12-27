@@ -230,7 +230,7 @@ class AppString {
   static String create = "Create";
   static String contact = "Contact";
   static String category = "Category";
-  static String suite_Apt = "Suite/ Apt.";
+  static String suite_Apt = "Suite/ Apt#";
   static String comments = "Comments";
   static String specialisation = "Specialisation";
   static String status_completed = "Status Completed";

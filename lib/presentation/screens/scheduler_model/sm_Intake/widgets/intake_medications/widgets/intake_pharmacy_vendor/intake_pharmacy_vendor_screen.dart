@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
@@ -12,6 +13,7 @@ import '../../../../../../../../app/services/api/managers/sm_module_manager/phys
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
+import '../../../intake_flow_contgainer_const.dart';
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakePharmacyVendorScreen extends StatefulWidget {
@@ -114,27 +116,9 @@ class _IntakePharmacyVendorScreenState
                   ],
                 ),
               ),
-              SizedBox(height: 19.5),
-              Container(
-                // height: 490,
-                width: MediaQuery.of(context).size.width * 0.95,
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(12),
-                  // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
-                  border: Border.all(width: 0.2,color: ColorManager.lightGrey),//all(width: 1, color: Color(0xFFBCBCBC)),
-
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: SingleChildScrollView(
+              IntakeFlowContainerConst(
+                height: AppSize.s560,
+                //child: SingleChildScrollView(
                   child: Column(
                     children: [
                       Row(
@@ -267,6 +251,7 @@ class _IntakePharmacyVendorScreenState
                           Flexible(
                               child: SchedularTextField(
                                   controller: pharmacyphone,
+                                  phoneField: true,
                                   labelText: 'Phone')),
                           SizedBox(width: 35),
                           Flexible(
@@ -372,51 +357,55 @@ class _IntakePharmacyVendorScreenState
                       Row(
                         children: [
                           Flexible(
-                            child: Container(
-                              height: 99,
-                              child: TextFormField(
-                                controller: pharmacycontactsecond,
-                                maxLines: 3,
-                                cursorColor: Colors.black,
-                                decoration: InputDecoration(
-                                  labelText: 'Contact',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s10,
-                                    fontWeight: FontWeightManager.regular,
-                                    color: ColorManager.greylight,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.containerBorderGrey,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.containerBorderGrey,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.containerBorderGrey,
-                                      width: 1.0,
-                                    ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    "Contact",
+                                    style: AllPopupHeadings.customTextStyle(context)
+                                  //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+                                ),
+                                SizedBox(height: 5,),
+                                Container(
+                                  height: 99,
+                                  child: TextFormField(
+                                    controller: pharmacycontactsecond,
+                                    maxLines: 3,
+                                    cursorColor: Colors.black,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(
+                                          color: ColorManager.containerBorderGrey,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(
+                                          color: ColorManager.containerBorderGrey,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(
+                                          color: ColorManager.containerBorderGrey,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                   ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                ),
+               // ),
               ),
-              SizedBox(height: 19.5),
             ],
           ),
         ),

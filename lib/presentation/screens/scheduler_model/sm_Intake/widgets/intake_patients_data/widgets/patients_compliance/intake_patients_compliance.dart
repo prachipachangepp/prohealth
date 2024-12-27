@@ -421,7 +421,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                               if (snapshot.data!.isEmpty) {
                                 return Center(
                                   child: Text(
-                                    AppString.dataNotFound,
+                                    "No Available Compliance!",
                                     style: CustomTextStylesCommon.commonStyle(
                                       fontWeight: FontWeightManager.medium,
                                       fontSize: FontSize.s14,

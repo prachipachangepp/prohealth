@@ -5,6 +5,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_calender/sm_calender.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/sm_dashboard_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/widgets/sub_widgets/highest_code_view_more.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_live_view/sm_live_view_screen.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/app_bar/app_bar.dart';
@@ -14,22 +15,28 @@ import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../sm_Intake/intake_main_screen.dart';
 import '../sm_scheduler/widget/schedular/schedular_new_screen.dart';
 
-class SMDesktopScreen extends StatelessWidget {
-  final PageController _pageController = PageController();
-  final SMController smController = Get.put(SMController());
-  // final String? dropdownValue;
+class SMDesktopScreen extends StatefulWidget {
   final ValueChanged<String?>? onChanged;
-  final HRController hrController = Get.put(HRController());
   final VoidCallback? onItem2Selected;
+
+  SMDesktopScreen({this.onChanged,this.onItem2Selected,});
+
+  @override
+  State<SMDesktopScreen> createState() => _SMDesktopScreenState();
+}
+
+class _SMDesktopScreenState extends State<SMDesktopScreen> {
+  final PageController _pageController = PageController();
+
+  final SMController smController = Get.put(SMController());
+
+  final HRController hrController = Get.put(HRController());
+
   String selectedOption = 'Select';
 
   bool showSelectOption = true;
-  final ButtonSelectionSMController myController = Get.put(ButtonSelectionSMController());
-  SMDesktopScreen({
 
-    this.onChanged,
-    this.onItem2Selected,
-  });
+  final ButtonSelectionSMController myController = Get.put(ButtonSelectionSMController());
 
   void navigateToPage2() {
     if (_pageController.page != 2) {
@@ -40,6 +47,9 @@ class SMDesktopScreen extends StatelessWidget {
       );
     }
   }
+
+  bool _showHighestCaseViewMoreScreen = false;
+  bool _showHighesClinicianTypeViewMoreScreen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +84,7 @@ class SMDesktopScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: AppSize.s25,
+                    width: AppSize.s60,
                   ),
                   Expanded(
                     child: Obx(
@@ -95,11 +105,11 @@ class SMDesktopScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-              
+
                   SizedBox(
-                    width: AppSize.s25,
+                    width: AppSize.s60,
                   ),
-              
+
                   Expanded(
                     child: Obx(
                           () => CustomTitleButton(
@@ -120,7 +130,7 @@ class SMDesktopScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: AppSize.s25,
+                    width: AppSize.s60,
                   ),
                   Expanded(
                     child: Obx(
@@ -142,9 +152,9 @@ class SMDesktopScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: AppSize.s25,
+                    width: AppSize.s60,
                   ),
-              
+
                   Expanded(
                     child: Obx(
                           () => CustomTitleButton(
@@ -165,7 +175,7 @@ class SMDesktopScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: AppSize.s25,
+                    width: AppSize.s60,
                   ),
                   Expanded(
                     child: Obx(
@@ -186,20 +196,46 @@ class SMDesktopScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Expanded(child: Container(),flex: 4,)
+                  Expanded(child: Container(),flex: 2,)
                 ],
               ),
             ),
             Expanded(
               flex: 8,
-              child: PageView(
+              child: _showHighestCaseViewMoreScreen
+              ? HigestCaseViewMoreScreen(
+                onGoBackHigestCase:  () {
+                  setState(() {
+                    _showHighestCaseViewMoreScreen = false; // Show PageView
+                  });
+                },
+              )
+              : _showHighesClinicianTypeViewMoreScreen
+              ? HigestCaseClinicianTypeViewScreen(
+                onGoBackClinicianType: () {
+                  setState(() {
+                    _showHighesClinicianTypeViewMoreScreen = false; // Show PageView
+                  });
+                },)
+              : PageView(
                 controller: _pageController,
                 onPageChanged: (index){
                   myController.selectButton(index);
                 },
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  SMDashboardScreen(pageController: _pageController,),
+                  SMDashboardScreen(pageController: _pageController,
+                    onViewMoreTap: () {
+                      setState(() {
+                        _showHighestCaseViewMoreScreen = true; // Show view-more screen
+                      });
+                    },
+                  onViewMoreClinicianTypeTap: (){
+                    setState(() {
+                      _showHighesClinicianTypeViewMoreScreen = true; // Show view-more screen
+                    });
+                  },
+                  ),
                   IntakeMainScreen(),
                  // SMIntakeScreen(),
                   NewSchedulerScreen(),

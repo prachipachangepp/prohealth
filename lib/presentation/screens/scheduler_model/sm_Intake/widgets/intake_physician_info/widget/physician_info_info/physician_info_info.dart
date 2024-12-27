@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_flow_contgainer_const.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -78,22 +79,8 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
 
 
               SizedBox(height: AppSize.s10),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.95,
-                // height: 405,
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 0,
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
+              IntakeFlowContainerConst(
+                height: AppSize.s750,
                 child: Column(
                   children: [
                     SizedBox(height: AppSize.s16),

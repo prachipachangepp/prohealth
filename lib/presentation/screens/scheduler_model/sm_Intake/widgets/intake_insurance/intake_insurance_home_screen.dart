@@ -47,9 +47,9 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
               decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.5),
-                      offset: Offset(0, 4),
-                      blurRadius: 4,
+                      color: ColorManager.black.withOpacity(0.5),
+                      offset: Offset(0, 5.58),
+                      blurRadius: 5.58,
                       spreadRadius: 0,
                     ),
                   ],
@@ -59,13 +59,16 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
               child: Row(
                 children: [
                   InkWell(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     child: Container(
                       height: AppSize.s30,
                       width: MediaQuery.of(context).size.width / 10,
                       padding: EdgeInsets.symmetric(vertical: 6),
                       decoration: BoxDecoration(
 
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(12),
                         color: selectedIndex == 0
                             ? ColorManager.white
                             : null,
@@ -75,7 +78,7 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                           color: selectedIndex == 0
                               ? ColorManager.mediumgrey
                               : ColorManager.white,
@@ -85,12 +88,15 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
                     onTap: () => selectButton(0),
                   ),
                   InkWell(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     child: Container(
                       height: AppSize.s30,
                       width: MediaQuery.of(context).size.width / 10,
                       padding: EdgeInsets.symmetric(vertical: 6),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(12),
                         color: selectedIndex == 1
                             ? ColorManager.white
                             : null,
@@ -100,7 +106,7 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                           color: selectedIndex == 1
                               ? ColorManager.mediumgrey
                               : ColorManager.white,
