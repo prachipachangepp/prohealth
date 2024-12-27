@@ -426,9 +426,19 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.text,
-            style: AllPopupHeadings.customTextStyle(context),
+          RichText(
+            text: TextSpan(
+              text: widget.text, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: Colors.red, // Asterisk color
+                  ),
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 5),
           Container(

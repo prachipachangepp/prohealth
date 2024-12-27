@@ -64,7 +64,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s492,
+      height: AppSize.s500,
       title: "Add New Equipment",
       onClear: (){
         Navigator.pop(context);
@@ -81,7 +81,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SMTextFConst(
+              FirstSMTextFConst(
                 controller: idController,
                 keyboardType: TextInputType.number,
                 text: 'Id',
@@ -92,7 +92,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(
-                height: AppSize.s16,
+                height: AppSize.s14,
               ),
               FirstSMTextFConst(
                 controller: nameController,
@@ -106,100 +106,114 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(
-                height: AppSize.s16,
+                height: AppSize.s13,
               ),
-              RichText(
-                text: TextSpan(
-                  text: "Device Description", // Main text
-                  style: AllPopupHeadings.customTextStyle(context), // Main style
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextSpan(
-                      text: ' *', // Asterisk
-                      style: AllPopupHeadings.customTextStyle(context).copyWith(
-                        color: ColorManager.red, // Asterisk color
+                    RichText(
+                      text: TextSpan(
+                        text: "Device Description", // Main text
+                        style: AllPopupHeadings.customTextStyle(context), // Main style
+                        children: [
+                          TextSpan(
+                            text: ' *', // Asterisk
+                            style: AllPopupHeadings.customTextStyle(context).copyWith(
+                              color: ColorManager.red, // Asterisk color
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    //Text('Device Description', style: AllPopupHeadings.customTextStyle(context)),
+                    SizedBox(height: 5),
+                    FutureBuilder<List<InventoryDropdownData>>(
+                        future: getDropdownInventory(context),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Container(
+                              width: 350,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey, width: 1),
+                                borderRadius: BorderRadius.circular(5),),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                                    child: Text(
+                                      selectDescription,
+                                      style: DocumentTypeDataStyle.customTextStyle(context),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                                    child: Icon(Icons.arrow_drop_down),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                          if (snapshot.data!.isEmpty) {
+                            return Container(
+                              width: 350,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                                child: Text('No available devices', style: DocumentTypeDataStyle.customTextStyle(context)),
+                              ),
+                            );
+                          }
+                          if (snapshot.hasData) {
+                            List dropDown = [];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+
+                            for (var i in snapshot.data!) {
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(child: Text(i.name),
+                                  value: i.name,
+                                ),
+                              );
+                            }
+                            //inventoryName = snapshot.data![0].name;
+                            // inventoryId = snapshot.data![0].inventoryId;
+                            // print('Inventory name abcd ${inventoryName}');
+                            //  print('Inventory Id abcd ${inventoryId}');
+                            return CICCDropdown(
+                                onChange: (val) {
+                                  for (var a in snapshot.data!) {
+                                    if (a.name == val) {
+                                      selectDescription = val;
+                                      inventoryName = a.name;
+                                      inventoryId = a.inventoryId;
+                                      //docMetaId = docType;
+                                    }
+                                  }
+                                  print(":::${docType}");
+                                  //print(":::<>${docMetaId}");
+                                },
+                                items: dropDownMenuItems);
+                          } else {
+                            return SizedBox();
+                          }
+                        }),
                   ],
                 ),
               ),
-              //Text('Device Description', style: AllPopupHeadings.customTextStyle(context)),
-              SizedBox(height: 5),
-              FutureBuilder<List<InventoryDropdownData>>(
-                  future: getDropdownInventory(context),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Container(
-                        width: 350,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 1),
-                          borderRadius: BorderRadius.circular(5),),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              child: Text(
-                                selectDescription,
-                                style: DocumentTypeDataStyle.customTextStyle(context),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              child: Icon(Icons.arrow_drop_down),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                    if (snapshot.data!.isEmpty) {
-                      return Container(
-                        width: 350,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                          child: Text('No available devices', style: DocumentTypeDataStyle.customTextStyle(context)),
-                        ),
-                      );
-                    }
-                    if (snapshot.hasData) {
-                      List dropDown = [];
-                      int docType = 0;
-                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
-
-                      for (var i in snapshot.data!) {
-                        dropDownMenuItems.add(
-                          DropdownMenuItem<String>(child: Text(i.name),
-                            value: i.name,
-                          ),
-                        );
-                      }
-                      //inventoryName = snapshot.data![0].name;
-                      // inventoryId = snapshot.data![0].inventoryId;
-                      // print('Inventory name abcd ${inventoryName}');
-                      //  print('Inventory Id abcd ${inventoryId}');
-                      return CICCDropdown(
-                          onChange: (val) {
-                            for (var a in snapshot.data!) {
-                              if (a.name == val) {
-                                selectDescription = val;
-                                inventoryName = a.name;
-                                inventoryId = a.inventoryId;
-                                //docMetaId = docType;
-                              }
-                            }
-                            print(":::${docType}");
-                            //print(":::<>${docMetaId}");
-                          },
-                          items: dropDownMenuItems);
-                    } else {
-                      return SizedBox();
-                    }
-                  }),
+              if (_dateDocError != null) // Display error if any
+                Text(
+                  "",
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
               // Container(
               //   height: 30,
               //   padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
@@ -233,91 +247,100 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
               //   ),
               // ),
               SizedBox(
-                height: AppSize.s18,
+                height: AppSize.s13,
               ),
-              RichText(
-                text: TextSpan(
-                  text: "Assign Date", // Main text
-                  style: AllPopupHeadings.customTextStyle(context), // Main style
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextSpan(
-                      text: ' *', // Asterisk
-                      style: AllPopupHeadings.customTextStyle(context).copyWith(
-                        color: ColorManager.red, // Asterisk color
+                    RichText(
+                      text: TextSpan(
+                        text: "Assign Date", // Main text
+                        style: AllPopupHeadings.customTextStyle(context), // Main style
+                        children: [
+                          TextSpan(
+                            text: ' *', // Asterisk
+                            style: AllPopupHeadings.customTextStyle(context).copyWith(
+                              color: ColorManager.red, // Asterisk color
+                            ),
+                          ),
+                        ],
                       ),
+                    ),
+                                 // Text('Assign Date', style: AllPopupHeadings.customTextStyle(context)),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    FormField<String>(
+                      builder: (FormFieldState<String> field) {
+                        return SizedBox(
+                          width: 350,
+                          height: AppSize.s30,
+                          child: TextFormField(
+                            style: DocumentTypeDataStyle.customTextStyle(context),
+                            controller: calenderController,
+                            decoration: InputDecoration(
+                              focusColor: ColorManager.mediumgrey,
+                              hoverColor: ColorManager.mediumgrey,
+                              hintText: 'yyyy-mm-dd',
+                              hintStyle:
+                              DocumentTypeDataStyle.customTextStyle(context),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                    width: 1, color: ColorManager.mediumgrey),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: ColorManager
+                                        .mediumgrey), // Set focused border color to red
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: ColorManager
+                                        .mediumgrey), // Set enabled border color to red
+                              ),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                              suffixIcon: Icon(Icons.calendar_month_outlined,
+                                  color: ColorManager.blueprime),
+                              errorText: field.errorText,
+                            ),
+                            readOnly: true,
+                            onTap: () async {
+                              DateTime? date = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1100),
+                                lastDate: DateTime(2026),
+                              );
+                              if (date != null) {
+                                String formattedDate =
+                                DateFormat('yyyy-MM-dd').format(date);
+                                calenderController.text = formattedDate;
+                                field.didChange(formattedDate);
+                                // birthdayController.text =
+                                // date.toLocal().toString().split(' ')[0];
+                                // field.didChange(date.toLocal().toString().split(' ')[0]);
+                              }
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'please select date';
+                              }
+                              return null;
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
-              ),
-             // Text('Assign Date', style: AllPopupHeadings.customTextStyle(context)),
-              SizedBox(
-                height: 5,
-              ),
-              FormField<String>(
-                builder: (FormFieldState<String> field) {
-                  return SizedBox(
-                    width: 350,
-                    height: AppSize.s30,
-                    child: TextFormField(
-                      style: DocumentTypeDataStyle.customTextStyle(context),
-                      controller: calenderController,
-                      decoration: InputDecoration(
-                        focusColor: ColorManager.mediumgrey,
-                        hoverColor: ColorManager.mediumgrey,
-                        hintText: 'yyyy-mm-dd',
-                        hintStyle:
-                        DocumentTypeDataStyle.customTextStyle(context),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
-                              width: 1, color: ColorManager.mediumgrey),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
-                              width: 1,
-                              color: ColorManager
-                                  .mediumgrey), // Set focused border color to red
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
-                              width: 1,
-                              color: ColorManager
-                                  .mediumgrey), // Set enabled border color to red
-                        ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                        suffixIcon: Icon(Icons.calendar_month_outlined,
-                            color: ColorManager.blueprime),
-                        errorText: field.errorText,
-                      ),
-                      readOnly: true,
-                      onTap: () async {
-                        DateTime? date = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1100),
-                          lastDate: DateTime(2026),
-                        );
-                        if (date != null) {
-                          String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(date);
-                          calenderController.text = formattedDate;
-                          field.didChange(formattedDate);
-                          // birthdayController.text =
-                          // date.toLocal().toString().split(' ')[0];
-                          // field.didChange(date.toLocal().toString().split(' ')[0]);
-                        }
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'please select date';
-                        }
-                        return null;
-                      },
-                    ),
-                  );
-                },
               ),
               if (_dateDocError != null) // Display error if any
                 Text(

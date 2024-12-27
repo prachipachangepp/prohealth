@@ -723,10 +723,19 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                             minimum: 0,      // Minimum value of the gauge
                                             maximum: 100,    // Maximum value of the gauge
                                             ranges: <GaugeRange>[
-                                              GaugeRange(startValue: 0, endValue: 80, color: ColorManager.pieChartBBlue,
-                                                startWidth: 20,
+
+                                              GaugeRange(startValue: 0, endValue: 80,
+                                                gradient: SweepGradient(
+                                                  colors: [
+                                                    Color(0xFFA158F7), // Start color: #2B98D5
+                                                    Color(0xFF2B98D5), // End color: faint grey
+                                                  ],
+                                                  stops: [0.2, 0.8],
+                                                ),
+                                                //ColorManager.pieChartBBlue,
+                                                startWidth: 22,
                                                 endWidth: 20, ),
-                                              GaugeRange(startValue: 80, endValue: 100, color: ColorManager.faintGrey,
+                                              GaugeRange(startValue: 80, endValue: 100, color: Color(0xFFEAEAEA),
                                                 startWidth: 20,
                                                 endWidth: 20, ),
                                             ],

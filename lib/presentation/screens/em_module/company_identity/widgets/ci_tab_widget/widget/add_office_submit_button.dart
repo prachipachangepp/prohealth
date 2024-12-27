@@ -206,8 +206,8 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           style: CommonErrorMsg.customTextStyle(context),
                         ),
                       const SizedBox(height: AppSize.s9),
-                      //DemailSMTextFConst(
-                      SMTextfieldAsteric(
+                     DemailSMTextFConst(
+                     // SMTextfieldAsteric(
                         controller: widget.emailController,
                         keyboardType: TextInputType.emailAddress,
                         text: AppString.email,
