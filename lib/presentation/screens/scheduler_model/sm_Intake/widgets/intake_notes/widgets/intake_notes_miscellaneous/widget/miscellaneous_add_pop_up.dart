@@ -1,28 +1,19 @@
 import 'dart:async';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-
 import 'package:prohealth/data/api_data/sm_data/Intake_deta/notes_data/intake_misc_note_data.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
-
+import 'package:prohealth/presentation/screens/scheduler_model/textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../app/services/api/managers/sm_module_manager/notes_manager/notes_misc_manager.dart';
-import '../../../../../../../../../app/services/api/managers/sm_module_manager/patient_data/patient_data_compliance.dart';
 import '../../../../../../../../../data/api_data/api_data.dart';
 import '../../../../../../../../../data/api_data/sm_data/patient_data/patient_data_compliance.dart';
 import '../../../../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../../../../../../em_module/widgets/button_constant.dart';
-import '../../../../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
-import '../../../../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 class MiscellaneousAddPopUp extends StatefulWidget {
   final TextEditingController idDocController;
@@ -100,29 +91,29 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
         ),
         height: AppSize.s47,
         width: AppSize.s408,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 25.0,right: 15),
+          child: Row(
+            children: [
+              Text(
                 widget.title,
                 style:PopupBlueBarText.customTextStyle(context),
               ),
-            ),
-            Spacer(),
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.close,
-                color: ColorManager.white,
+              Spacer(),
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.close,
+                  color: ColorManager.white,
+                ),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
               ),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       content: Container(
@@ -145,7 +136,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(height: AppSize.s10),
+                SizedBox(height: AppSize.s5),
                 // FutureBuilder<List<MiscNotesDocTypeModal>>(
                 //   future:
                 //   getMisNotesDoc(context),
@@ -276,46 +267,9 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                   },
                 ),
                 SizedBox(height: AppSize.s10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                        AppString.name_of_the_document,
-                      style: AllPopupHeadings.customTextStyle(context)
-                    ),
-                  ],
-                ),
-                SizedBox(height: AppSize.s10),
-                Container(
-                  height: AppSize.s30,
-                  child: TextFormField(
-                    cursorColor: Colors.black,
-                    cursorHeight: 18,
-                    controller: widget.nameDocController,
-                    style: TableSubHeading.customTextStyle(context),
-                    textAlignVertical: TextAlignVertical.center,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorManager.containerBorderGrey,
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorManager.containerBorderGrey,
-                          width: 1.0,
-                        ),
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                    ),
-                  ),
-                ),
+                SchedularTextField(labelText:  AppString.name_of_the_document),
                 SizedBox(height: AppSize.s5),
                 widget.radioButton ?? Offstage(),
-                SizedBox(height: AppSize.s10),
                 SizedBox(height: AppSize.s10),
                 // FutureBuilder<List<EmployeeDocSetupModal>>(
                 //     future: getEmployeeDocSetupDropDown(context),
@@ -386,7 +340,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(height: AppSize.s10),
+                SizedBox(height: AppSize.s5),
                 Container(
                   height: AppSize.s30,
                   //width: AppSize.s650,

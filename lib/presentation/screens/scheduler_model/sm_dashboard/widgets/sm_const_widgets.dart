@@ -836,11 +836,12 @@ class AllAvailableClinician extends StatelessWidget {
 
 ///highest case load listview
 class HighestCaseLoadListview extends StatefulWidget {
-  const HighestCaseLoadListview({super.key});
+  final VoidCallback? onViewMoreTap;
+  final VoidCallback? onViewMoreClinicianTypeTap;
+  const HighestCaseLoadListview({super.key, this.onViewMoreTap, this.onViewMoreClinicianTypeTap});
 
   @override
-  _HighestCaseLoadListviewState createState() =>
-      _HighestCaseLoadListviewState();
+  _HighestCaseLoadListviewState createState() => _HighestCaseLoadListviewState();
 }
 
 class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
@@ -929,9 +930,7 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: () {
-
-                },
+                onTap: widget.onViewMoreClinicianTypeTap,//onViewMoreClinicianTypeTap,
                 child: Row(
                   children: [
                     Text(
@@ -947,7 +946,7 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: widget.onViewMoreTap,
                 child: Row(
                   children: [
                     Text(

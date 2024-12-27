@@ -19,6 +19,7 @@ import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 import '../../../../../widgets/constant_widgets/dropdown_constant_sm.dart';
+import '../../../intake_flow_contgainer_const.dart';
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakeInsuranceSecondaryScreen extends StatefulWidget {
@@ -69,24 +70,8 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
         child: SingleChildScrollView(
           child: Column(
             children: [
-
-              SizedBox(height: 19.5),
-              Container(
-                // height: 490,
-                width: MediaQuery.of(context).size.width * 0.95,
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 0,
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
+              IntakeFlowContainerConst(
+                height: AppSize.s580,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -1025,7 +1010,6 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                   ),
                 ),
               ),
-              SizedBox(height:AppSize.s35),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

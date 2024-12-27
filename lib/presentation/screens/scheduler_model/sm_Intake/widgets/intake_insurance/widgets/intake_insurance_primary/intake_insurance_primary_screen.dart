@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:intl/intl.dart';
-
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/insurance/primary_mamager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
@@ -14,11 +10,10 @@ import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/crea
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../textfield_dropdown_constant/double_date_picker_textfield.dart';
-import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 import '../../../../../widgets/constant_widgets/dropdown_constant_sm.dart';
-import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
+import '../../../intake_flow_contgainer_const.dart';
 
 class IntakeInsurancePrimaryScreen extends StatefulWidget {
   final int patientId;
@@ -67,24 +62,8 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
         child: SingleChildScrollView(
           child: Column(
             children: [
-
-              SizedBox(height: 19.5),
-              Container(
-                // height: 490,
-                width: MediaQuery.of(context).size.width * 0.95,
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 0,
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
+              IntakeFlowContainerConst(
+                height: AppSize.s580,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -323,11 +302,6 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                             initialValue: '2656845121',
                             buttonText: 'View Zone',
                           )),
-                          // Flexible(
-                          //     child: SchedularTextField(
-                          //       controller: zipcodeController,
-                          //         labelText:AppString.zip_code)
-                          // ),
                         ],
                       ),
                       SizedBox(height: AppSize.s16),
@@ -542,11 +516,6 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                       Row(
                         children: [
                           Flexible(
-
-
-
-
-
                             child: FutureBuilder<List<EligiblityStatusData>>(
                               future: getEligiblityStatusDropDown(context),
                               builder: (context, snapshot) {
@@ -571,7 +540,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                       value: i.idText,
                                     ));
                                   }
-return CustomDropdownTextFieldsm(
+                                  return CustomDropdownTextFieldsm(
   dropDownMenuList: dropDownList,
 
   onChanged: (newValue) {
@@ -746,7 +715,6 @@ return CustomDropdownTextFieldsm(
 
                           Flexible(
                             child: SchedularTextField(
-
                                 controller: groupNbrController,
                                 labelText:'Comments'),
                           ),
@@ -805,7 +773,7 @@ return CustomDropdownTextFieldsm(
                   ),
                 ),
               ),
-              SizedBox(height:AppSize.s35),
+              ///buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
