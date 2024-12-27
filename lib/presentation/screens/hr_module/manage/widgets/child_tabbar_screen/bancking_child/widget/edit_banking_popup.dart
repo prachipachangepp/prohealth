@@ -546,6 +546,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     ],
                                   ),
                                 ),
+
                                 // Text(
                                 //   'Verify Account Number',
                                 //   style: AllPopupHeadings.customTextStyle(context),
