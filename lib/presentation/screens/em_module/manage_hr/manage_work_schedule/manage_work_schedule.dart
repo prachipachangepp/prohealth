@@ -8,7 +8,6 @@ import 'work_schedule/define_work_weeks.dart';
 
 class WorkSchedule extends StatefulWidget {
   WorkSchedule({Key? key}) : super(key: key);
-
   @override
   State<WorkSchedule> createState() => _WorkScheduleState();
 }
