@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -594,15 +595,15 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                             border: Border.all(
                                 color: ColorManager.containerBorderGrey,
                                 width: AppSize.s1),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(5),
                           ),
                           child: Row(
                             children: [
                               SizedBox(width: AppSize.s8),
                               Expanded(
                                 child: Text(
-                                  "",
-                                  style: MobileMenuText.MenuTextConst(context),
+                                  selectedServiceName,
+                                  style: DocumentTypeDataStyle.customTextStyle(context),
                                 ),
                               ),
                               Padding(
@@ -737,6 +738,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                               );
                             }
                             return CICCDropdown(
+                              constraintHeight: 200,
                               initialValue: dropDownTypesList[0].value,
                               onChange: (val) {
                                 for (var a in snapshot.data!) {
