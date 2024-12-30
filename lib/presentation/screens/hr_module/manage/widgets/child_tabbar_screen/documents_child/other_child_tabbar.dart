@@ -90,6 +90,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
             // ),
           ],
         ),
+
         const SizedBox(
           height: 30,
         ),
