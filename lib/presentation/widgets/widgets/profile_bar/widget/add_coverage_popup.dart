@@ -17,6 +17,7 @@ import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../data/api_data/hr_module_data/profile_editor/profile_editor.dart';
 import '../../../../screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../../../screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../screens/hr_module/register/offer_letter_screen.dart';
 
@@ -404,6 +405,44 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
           width: AppSize.s100,
           text: 'Save',
           onPressed: () async {
+            if (selectedCounty == null || selectedCounty!.isEmpty) {
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddErrorPopup(
+                    message: 'Please select a county',
+                  );
+                },
+              );
+              // _showErrorDialog('Please select a county.');
+         return;
+            }
+
+            if (selectedZipCodes.isEmpty) {
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddErrorPopup(
+                    message: 'Please select at least one zip code',
+                  );
+                },
+              );
+              // _showErrorDialog('Please select at least one zip code.');
+           return;
+            }
+
+            if (selectedZipCodeZone == null || selectedZipCodeZone!.isEmpty) {
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddErrorPopup(
+                    message: 'Please select a zone',
+                  );
+                },
+              );
+              // _showErrorDialog('Please select a zone.');
+             return;
+            }
 
             addCovrage.add(await ApiAddCovrageData(
                 city: '',
@@ -431,8 +470,8 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
             // setState((){
 
             // });
-            widget.onRefresh();
-            Navigator.pop(context);
+          widget.onRefresh();
+           Navigator.pop(context);
 
 
 
@@ -443,4 +482,25 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
       // ),
     );
   }
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
+
+

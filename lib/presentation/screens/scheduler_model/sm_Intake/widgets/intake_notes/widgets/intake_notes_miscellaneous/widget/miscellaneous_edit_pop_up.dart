@@ -57,11 +57,11 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
         ),
         height: AppSize.s47,
         width: AppSize.s408,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 25.0,right: 15),
+          child: Row(
+            children: [
+              Text(
                 'Edit',
                 style: GoogleFonts.firaSans(
                   fontSize: FontSize.s14,
@@ -69,21 +69,21 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                   color: ColorManager.white,
                 ),
               ),
-            ),
-            Spacer(),
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.close,
-                color: ColorManager.white,
+              Spacer(),
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.close,
+                  color: ColorManager.white,
+                ),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
               ),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       content: SingleChildScrollView(

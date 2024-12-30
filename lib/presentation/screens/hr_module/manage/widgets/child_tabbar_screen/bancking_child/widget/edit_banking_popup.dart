@@ -314,17 +314,14 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     maxLength: 9,
                                     controller: routingnumber,
                                     hintText: 'Enter Number',
-                                    onChanged: (value){_validateFields();},
+                                   // onChanged: (value){_validateFields();},
                                     hintStyle:onlyFormDataStyle.customTextStyle(context),
                                     height: 30,
                                   ),
                                   if (_numberError != null) // Display error if any
                                     Text(
                                       _numberError!,
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: FontSize.s10,
-                                      ),
+                                      style: CommonErrorMsg.customTextStyle(context),
                                     ),
                                   SizedBox(
                                     height: 20,
@@ -358,7 +355,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                         width: 150,
                                         controller: requestammount,
                                         prefixText: '\$',
-                                        onChanged: (value){_validateFields();},
+                                       // onChanged: (value){_validateFields();},
                                         prefixStyle: onlyFormDataStyle.customTextStyle(context),
                                         height: 30,
                                         keyboardType: TextInputType.number,
@@ -388,10 +385,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   if (_amountError != null) // Display error if any
                                     Text(
                                       _amountError!,
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: FontSize.s10,
-                                      ),
+                                     style: CommonErrorMsg.customTextStyle(context),
                                     ),
 
                                 ],
@@ -453,10 +447,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                 if (_dateError != null) // Display error if any
                                   Text(
                                     _dateError!,
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: FontSize.s10,
-                                    ),
+                                    style: CommonErrorMsg.customTextStyle(context),
                                   ),
                                 SizedBox(
                                   height: 30,
@@ -486,17 +477,14 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   width: 240,
                                   controller: accountnumber,
                                   hintText: 'Enter AC Number',
-                                  onChanged: (value){_validateFields();},
+                                 // onChanged: (value){_validateFields();},
                                   hintStyle: onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
                                 if (_acError != null) // Display error if any
                                   Text(
                                     _acError!,
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: FontSize.s10,
-                                    ),
+                                    style: CommonErrorMsg.customTextStyle(context),
                                   ),
                                 SizedBox(
                                   height: 40,
@@ -532,17 +520,14 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   width: 240,
                                   controller: bankname,
                                   hintText: 'Enter Bank Name',
-                                  onChanged: (value){_validateFields();},
+                                  //onChanged: (value){_validateFields();},
                                   hintStyle:onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
                                 if (_banknameError != null) // Display error if any
                                   Text(
                                     _banknameError!,
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: FontSize.s10,
-                                    ),
+                                    style: CommonErrorMsg.customTextStyle(context),
                                   ),
                                 SizedBox(
                                   height: 30,
@@ -561,6 +546,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     ],
                                   ),
                                 ),
+
                                 // Text(
                                 //   'Verify Account Number',
                                 //   style: AllPopupHeadings.customTextStyle(context),
@@ -581,8 +567,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: Text(
                                       errorMessage!,
-                                      style: TextStyle(
-                                          color: Colors.red, fontSize: 10),
+                                      style: CommonErrorMsg.customTextStyle(context),
                                     ),
                                   ),
                                 SizedBox(
@@ -644,30 +629,28 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                       percentage: '',
                                       type: selectedtype.toString()
                                   );
-                                  var responseBank = await approveBankPatch(context,response.banckingId!);
+                                 // var responseBank = await approveBankPatch(context,response.banckingId!);
                                   await uploadBanckingDocument(
                                       context, response.banckingId!, pickedFile);
-                                  Navigator.pop(context);
-                                  if (responseBank.statusCode == 200 ||
-                                      responseBank.statusCode == 201) {
-                                    showDialog(
+                                 // Navigator.pop(context);
+                                  if (response.statusCode == 200 || response.statusCode == 201) {
+                                      Navigator.pop(context);
+                                    await showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return AddSuccessPopup(
-                                          message: 'Banking Added Successfully',
+                                        return AddSuccessPopup(message: 'Banking Added Successfully',
                                         );
                                       },
                                     );
                                   }else if(response.statusCode == 400 || response.statusCode == 404){
-                                    Navigator.pop(context);
-                                    showDialog(
+                                  //  await  Navigator.pop(context);
+                                    await  showDialog(
                                       context: context,
                                       builder: (BuildContext context) => const FourNotFourPopup(),
                                     );
                                   }
                                   else {
-                                    Navigator.pop(context);
-                                    showDialog(
+                                    await  showDialog(
                                       context: context,
                                       builder: (BuildContext context) => FailedPopup(text: response.message),
                                     );

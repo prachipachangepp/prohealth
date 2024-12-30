@@ -21,7 +21,9 @@ import '../widgets/sm_desktop_screen.dart';
 
 class SMDashboardScreen extends StatefulWidget {
   final PageController pageController;
-  const SMDashboardScreen({super.key, required this.pageController});
+  final VoidCallback? onViewMoreTap;
+  final VoidCallback? onViewMoreClinicianTypeTap;
+  const SMDashboardScreen({super.key, required this.pageController, this.onViewMoreTap, this.onViewMoreClinicianTypeTap});
 
   @override
   State<SMDashboardScreen> createState() => _DashboardScreenState();
@@ -76,11 +78,12 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                     style: TextStyle(fontSize: FontSize.s14,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                                 ),
                                 CustomDropdownTextField(
-                                  width: 160,
+                                  width: 180,
                                   iconColor: ColorManager.bluebottom,
                                   icon: Icons.keyboard_arrow_down_outlined,
                                   isAstric:false,
-                                  fontsize:  FontSize.s14,
+                                  fontwight: FontWeight.w700,
+                                  fontsize:  FontSize.s16,
                                   // Adjust headText based on depId
                                   initialValue: 'Sacremento Office',
                                   headText: "", // Default fallback if depId doesn't match any of the expected values
@@ -365,7 +368,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                   ),
                                 ],
                               ),
-                              childBody: HighestCaseLoadListview(),)),
+                              childBody: HighestCaseLoadListview(onViewMoreTap: widget.onViewMoreTap,onViewMoreClinicianTypeTap: widget.onViewMoreClinicianTypeTap,),)),
                         SizedBox(width: AppPadding.p20,),
                         Expanded(
                             flex: 3,

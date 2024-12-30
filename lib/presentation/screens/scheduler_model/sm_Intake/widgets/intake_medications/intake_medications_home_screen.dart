@@ -51,11 +51,14 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                     ),
                   ],
                   color: ColorManager.blueprime,
-                  borderRadius: BorderRadius.circular(14)
+                  borderRadius: BorderRadius.circular(20)
               ),
               child: Row(
                 children: [
                   InkWell(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     child: Container(
                       height: 30,
                       width: MediaQuery.of(context).size.width / 10,
@@ -82,6 +85,9 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                     onTap: () => selectButton(0),
                   ),
                   InkWell(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     child: Container(
                       height: 30,
                       width: MediaQuery.of(context).size.width / 10,

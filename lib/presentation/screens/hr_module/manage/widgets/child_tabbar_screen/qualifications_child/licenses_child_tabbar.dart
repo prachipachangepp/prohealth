@@ -45,9 +45,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
   TextEditingController issuingOrganizationController = TextEditingController();
   TextEditingController countryController = TextEditingController();
   TextEditingController numberIDController = TextEditingController();
-  String docName ='';
+  String docName ='Select';
+  String docNameadd ='Select';
   String docNameEdit ='';
-  String docNameAdd ='Select';
   @override
   void initState() {
     // TODO: implement initState
@@ -150,10 +150,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           ),
                         );
                       }
-                      docName = snapshot.data![0].docName;
+                     // docName = snapshot.data![0].docName;
                       return CICCDropdown(
                           width: 200,
-                          initialValue: dropDownMenuItems[0].value,
+                       initialValue: docName,
                           onChange: (val){
                             for(var a in snapshot.data!){
                               if(a.docName == val){
@@ -210,7 +210,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     livensureController.text,
                                     numberIDController.text,
                                     issuingOrganizationController.text,
-                                    docNameAdd.toString());
+                                    docNameadd.toString());
                                var licenseResponse =  await approveOnboardQualifyLicensePatch(
                                     context,
                                     response.licenseId!);
@@ -276,16 +276,16 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                           ),
                                         );
                                       }
-                                     // docName = snapshot.data![0].docName;
+                                      docNameadd = snapshot.data![0].docName;
                                       return CICCDropdown(
                                           // width: 200,
                                           width: MediaQuery.of(context).size.width / 6,
-                                          initialValue: docNameAdd,
+                                         // initialValue: dropDownMenuItems[0].value,
                                           onChange: (val){
                                             for(var a in snapshot.data!){
                                               if(a.docName == val){
                                                 docType = a.docName;
-                                                docNameAdd = docType;
+                                                docNameadd = docType;
                                                 //docMetaId = docType;
                                               }
                                             }
@@ -327,7 +327,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                   ),
                 );
               }
-              if (snapshot.data!.isEmpty) {
+              if (snapshot.data!.isEmpty ) {
                 return Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 100),

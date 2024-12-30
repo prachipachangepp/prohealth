@@ -210,6 +210,7 @@ class CustomDropdownTextField extends StatefulWidget {
   final void Function(String?)? onChanged;
   final double? width;
   final double? height;
+  final FontWeight? fontwight;
   final double? fontsize;
   final String? initialValue;
    final bool? isAstric;
@@ -227,7 +228,8 @@ class CustomDropdownTextField extends StatefulWidget {
     this.width,
     this.height,
     this.initialValue,
-    this.hintText, this.fontsize, this.icon, this.iconColor,
+    this.hintText, this.fontsize,
+     this.icon, this.iconColor, this.fontwight,
   }) : super(key: key);
 
   @override
@@ -403,7 +405,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                     Text(
                       _selectedValue ?? widget.hintText ?? 'Select',
                       style: TextStyle(
-                        fontWeight: FontWeight.w600,
+                        fontWeight:widget.fontwight ?? FontWeight.w600,
                         fontSize: widget.fontsize ?? FontSize.s13,
                         color: ColorManager.mediumgrey,
                         decoration: TextDecoration.none,

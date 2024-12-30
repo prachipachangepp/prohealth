@@ -1,6 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:prohealth/app/resources/const_string.dart';
@@ -15,6 +14,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_profile_bar.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../app/services/token/token_manager.dart';
@@ -117,163 +117,168 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
       children: [
         if (showProfileBar) IntakeProfileBar(),
         SizedBox(height: AppSize.s15),
-        Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-          Text('Add New Patient').paddingOnly(right: 200),
-          Container(
-            width: MediaQuery.of(context).size.width /2.455,
-            height: AppSize.s30,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.5),
-                  offset: Offset(0, 4),
-                  blurRadius: 4,
-                  spreadRadius: 0,
-                ),
-              ],
-              color: ColorManager.blueprime,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InkWell(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  child: Container(
-                    height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width / 10,
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: selectedIndex == 0 ? Colors.white : null,
-                    ),
-                    child: Text(
-                      'Info',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: selectedIndex == 0
-                            ? ColorManager.mediumgrey
-                            : Colors.white,
-                      ),
-                    ),
-                  ),
-                  onTap: () => selectButton(0),
-                ),
-                InkWell(
-                  child: Container(
-                    height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width / 10,
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: selectedIndex == 1 ? ColorManager.white : null,
-                    ),
-                    child: Text(
-                      'Compliance',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: patientId == 0
-                            ? ColorManager.fmediumgrey
-                            :( selectedIndex == 1
-                            ? ColorManager.mediumgrey
-                            : ColorManager.white),
-                      ),
-                    ),
-                  ),
-                  onTap: patientId != 0 ? () => selectButton(1) : null,
-                ),
-                // InkWell(
-                //   child: Container(
-                //     height: AppSize.s30,
-                //     width: MediaQuery.of(context).size.width / 10,
-                //     padding: EdgeInsets.symmetric(vertical: 6),
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(20),
-                //       color: selectedIndex == 2 ? ColorManager.white : null,
-                //     ),
-                //     child: Text(
-                //       'Plan of Care',
-                //       textAlign: TextAlign.center,
-                //       style: GoogleFonts.firaSans(
-                //         fontSize: FontSize.s14,
-                //         fontWeight: FontWeightManager.semiBold,
-                //         color: patientId == 0
-                //             ? ColorManager.fmediumgrey
-                //             :( selectedIndex == 2
-                //             ? ColorManager.mediumgrey
-                //             : Colors.white),
-                //       ),
-                //     ),
-                //   ),
-                //   onTap: patientId != 0 ? () => selectButton(2) : null,
-                // ),
-                InkWell(
-                  child: Container(
-                    height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width / 9.5,
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: selectedIndex == 3 ? ColorManager.white : null,
-                    ),
-                    child: Text(
-                      'Related Parties',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: patientId == 0
-                            ? ColorManager.fmediumgrey
-                            :(selectedIndex == 3
-                            ? ColorManager.mediumgrey
-                            : ColorManager.white),
-                      ),
-                    ),
-                  ),
-                  onTap: patientId != 0 ? () => selectButton(3) : null,
-                ),
-                InkWell(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  child: Container(
-                    height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width / 9.8,
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: selectedIndex == 4 ? ColorManager.white : null,
-                    ),
-                    child: Text(
-                      'Stay Info',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.semiBold,
-                        color:patientId == 0
-                            ? ColorManager.fmediumgrey
-                            :( selectedIndex == 4
-                            ? ColorManager.mediumgrey
-                            : Colors.white),
-                      ),
-                    ),
-                  ),
-                  onTap: patientId != 0 ? () => selectButton(4) : null,
-                ),
-              ],
+            Text(
+                "Add New Patients",
+                style: AllPopupHeadings.customTextStyle(context)
+              //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
             ),
-          ),
-          SizedBox(width: MediaQuery.of(context).size.width / 5),
-          if (selectedIndex == 0)
-            //
-            Padding(
-              padding: const EdgeInsets.only(right: 40.0),
-              child: Container(
+            Container(
+              width: MediaQuery.of(context).size.width /2.455,
+              height: AppSize.s30,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    offset: Offset(0, 4),
+                    blurRadius: 4,
+                    spreadRadius: 0,
+                  ),
+                ],
+                color: ColorManager.blueprime,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                children: [
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    child: Container(
+                      height: AppSize.s30,
+                      width: MediaQuery.of(context).size.width / 10,
+                      padding: EdgeInsets.symmetric(vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: selectedIndex == 0 ? Colors.white : null,
+                      ),
+                      child: Text(
+                        'Info',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          fontWeight: FontWeightManager.semiBold,
+                          color: selectedIndex == 0
+                              ? ColorManager.mediumgrey
+                              : Colors.white,
+                        ),
+                      ),
+                    ),
+                    onTap: () => selectButton(0),
+                  ),
+                  InkWell(
+                    child: Container(
+                      height: AppSize.s30,
+                      width: MediaQuery.of(context).size.width / 10,
+                      padding: EdgeInsets.symmetric(vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: selectedIndex == 1 ? ColorManager.white : null,
+                      ),
+                      child: Text(
+                        'Compliance',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          fontWeight: FontWeightManager.semiBold,
+                          color: patientId == 0
+                              ? ColorManager.fmediumgrey
+                              :( selectedIndex == 1
+                              ? ColorManager.mediumgrey
+                              : ColorManager.white),
+                        ),
+                      ),
+                    ),
+                    onTap: patientId != 0 ? () => selectButton(1) : null,
+                  ),
+                  // InkWell(
+                  //   child: Container(
+                  //     height: AppSize.s30,
+                  //     width: MediaQuery.of(context).size.width / 10,
+                  //     padding: EdgeInsets.symmetric(vertical: 6),
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(20),
+                  //       color: selectedIndex == 2 ? ColorManager.white : null,
+                  //     ),
+                  //     child: Text(
+                  //       'Plan of Care',
+                  //       textAlign: TextAlign.center,
+                  //       style: GoogleFonts.firaSans(
+                  //         fontSize: FontSize.s14,
+                  //         fontWeight: FontWeightManager.semiBold,
+                  //         color: patientId == 0
+                  //             ? ColorManager.fmediumgrey
+                  //             :( selectedIndex == 2
+                  //             ? ColorManager.mediumgrey
+                  //             : Colors.white),
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   onTap: patientId != 0 ? () => selectButton(2) : null,
+                  // ),
+                  InkWell(
+                    child: Container(
+                      height: AppSize.s30,
+                      width: MediaQuery.of(context).size.width / 9.5,
+                      padding: EdgeInsets.symmetric(vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: selectedIndex == 2 ? ColorManager.white : null,
+                      ),
+                      child: Text(
+                        'Related Parties',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          fontWeight: FontWeightManager.semiBold,
+                          color: patientId == 0
+                              ? ColorManager.fmediumgrey
+                              :(selectedIndex == 2
+                              ? ColorManager.mediumgrey
+                              : ColorManager.white),
+                        ),
+                      ),
+                    ),
+                    onTap: patientId != 0 ? () => selectButton(2) : null,
+                  ),
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    child: Container(
+                      height: AppSize.s30,
+                      width: MediaQuery.of(context).size.width / 9.8,
+                      padding: EdgeInsets.symmetric(vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: selectedIndex == 3 ? ColorManager.white : null,
+                      ),
+                      child: Text(
+                        'Stay Info',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          fontWeight: FontWeightManager.semiBold,
+                          color:patientId == 0
+                              ? ColorManager.fmediumgrey
+                              :( selectedIndex == 3
+                              ? ColorManager.mediumgrey
+                              : Colors.white),
+                        ),
+                      ),
+                    ),
+                    onTap: patientId != 0 ? () => selectButton(3) : null,
+                  ),
+                ],
+              ),
+            ),
+           // SizedBox(width: MediaQuery.of(context).size.width / 5),
+            if (selectedIndex == 0)
+              Container(
                 height: AppSize.s26,
                 width: AppSize.s102,
                 child:
@@ -394,14 +399,11 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ),
                   ),
                 ),
-              ),
-            )
-          else
-            Padding(
-              padding: const EdgeInsets.only(right: 40.0),
-              child: SizedBox(width: AppSize.s80),
-            ),
-        ]),
+              )
+            else
+              SizedBox(width: AppSize.s80),
+          ]),
+        ),
         const SizedBox(height: AppSize.s10),
         Expanded(
           flex: 10,

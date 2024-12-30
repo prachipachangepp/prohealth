@@ -12,6 +12,7 @@ import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -278,10 +279,14 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     ),
                     IconButton(
                       onPressed: () {
-                 Navigator.pop(context);
+          Navigator.pop(context);
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId, depID: 1,)),
+                        // )
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen(employeeId: widget.employeeId, depID: 1,)),
                         // );
 
                       },

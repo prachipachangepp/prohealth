@@ -15,6 +15,7 @@ import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 import '../../../../../widgets/constant_widgets/button_constant.dart';
+import '../../../intake_flow_contgainer_const.dart';
 
 
 class IntakePatientsStayInfoScreen extends StatefulWidget {
@@ -119,46 +120,28 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                    ],
                  ),
                ),
-              SizedBox(height: 19.5),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Container(
-                  // height: 423,
-                  width: MediaQuery.of(context).size.width * 0.95,
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: ColorManager.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 0,
-                        blurRadius: 10,
-                        offset: Offset(0, 5),
-                      ),
+              IntakeFlowContainerConst(
+                height: AppSize.s700,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Last Inpatient Stay Information',
+                          style: GoogleFonts.firaSans(
+                            fontSize: AppSize.s12,
+                            color: ColorManager.granitegray,
+                            fontWeight: FontWeightManager.semiBold,)),
+                      SizedBox(height: AppSize.s20),
+                      _buildInpatientStaySection(),
+                      SizedBox(height: AppSize.s30),
+                      Text('Location of Care',
+                          style: GoogleFonts.firaSans(
+                            fontSize: AppSize.s12,
+                            color: ColorManager.granitegray,
+                            fontWeight: FontWeightManager.semiBold,)),
+                      SizedBox(height: AppSize.s20),
+                      _buildLocationOfCareSection(),
                     ],
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Last Inpatient Stay Information',
-                            style: GoogleFonts.firaSans(
-                              fontSize: AppSize.s12,
-                              color: ColorManager.granitegray,
-                              fontWeight: FontWeightManager.semiBold,)),
-                        SizedBox(height: AppSize.s20),
-                        _buildInpatientStaySection(),
-                        SizedBox(height: AppSize.s30),
-                        Text('Location of Care',
-                            style: GoogleFonts.firaSans(
-                              fontSize: AppSize.s12,
-                              color: ColorManager.granitegray,
-                              fontWeight: FontWeightManager.semiBold,)),
-                        SizedBox(height: AppSize.s20),
-                        _buildLocationOfCareSection(),
-                      ],
-                    ),
                   ),
                 ),
               ),
@@ -398,6 +381,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrDC,
                     labelText: 'D/C',
+                    showDatePicker:true
                    )
             ),
             SizedBox(width: AppSize.s35),

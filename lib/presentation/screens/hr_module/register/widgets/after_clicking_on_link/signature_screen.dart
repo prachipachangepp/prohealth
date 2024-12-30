@@ -36,6 +36,7 @@ class _SignaturePageState extends State<SignaturePage> {
   bool _isDrawing = true;
   List<Offset?> _points = [];
   dynamic? _selectedImageBytes;
+  bool _showValidationMessage = false;
 
   @override
   Widget build(BuildContext context) {
@@ -180,80 +181,124 @@ class _SignaturePageState extends State<SignaturePage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 15),
-                      Padding(
-                        padding: EdgeInsets.only(left: 110.0),
-                        child: Row(
-                          children: [
-                            ElevatedButton(
+         SizedBox(height: MediaQuery.of(context).size.height /20 ),
+
+                      // Validation message conditionally displayed above the buttons
+                      if (_points.isEmpty && _selectedImageBytes == null)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left:100),
                               child: Text(
-                                'Cancel',
+                                'Please draw or upload a signature before saving.',
                                 style: TextStyle(
-                                  color: Color(0xFF50B5E5),
+                                  color: Colors.red,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  _isDrawing = true;
-                                  _points.clear();
-                                  _selectedImageBytes = null;
-                                });
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: Color(0xff50B5E5),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    side: BorderSide(color: Color(0xff50B5E5), width: 1.5)),
+                            ),
+                          ),
+                        ),
+
+
+                      Padding(
+                        padding: EdgeInsets.only(left: 110.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 100,
+                              child: ElevatedButton(
+                                child: Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    color: Color(0xFF50B5E5),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _isDrawing = true;
+                                    _points.clear();
+                                    _selectedImageBytes = null;
+                                  });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  foregroundColor: Color(0xff50B5E5),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      side: BorderSide(color: Color(0xff50B5E5), width: 1.5)),
+                                ),
                               ),
                             ),
                             SizedBox(width: MediaQuery.of(context).size.width / 5),
                             Row(
                               children: [
-                                ElevatedButton(
-                                  child: Text(
-                                    'Reset',
-                                    style: TextStyle(
-                                      color: Color(0xFF50B5E5),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
+                                Container(
+                                  width: 100,
+                                  child: ElevatedButton(
+
+                                    child: Text(
+                                      'Reset',
+                                      style: TextStyle(
+                                        color: Color(0xFF50B5E5),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _points.clear();
-                                      _selectedImageBytes = null;
-                                    });
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    foregroundColor: Color(0xff50B5E5),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        side: BorderSide(color: Color(0xff50B5E5), width: 1.5)),
+                                    onPressed: () {
+                                      setState(() {
+                                        _points.clear();
+                                        _selectedImageBytes = null;
+                                      });
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      foregroundColor: Color(0xff50B5E5),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                          side: BorderSide(color: Color(0xff50B5E5), width: 1.5)),
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                             SizedBox(width: MediaQuery.of(context).size.width / 80),
-                            ElevatedButton(
-                              child: Text(
-                                'Save',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              onPressed: () {
-                                _saveSignature();
-                                _showSaveConfirmationDialog();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff50B5E5),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                            Container(
+                              width: 100,
+                              child: ElevatedButton(
+                                child: Text(
+                                  'Save',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                onPressed: () {
+                                  // Check if user has drawn or uploaded a signature
+                                  if (_points.isEmpty && _selectedImageBytes == null) {
+                                    setState(() {
+                                      _showValidationMessage = true;
+                                    });
+                                  } else {
+                                    // Proceed with save
+                                    _saveSignature();
+                                    _showSaveConfirmationDialog();
+                                  }
+                                },
+
+                                // onPressed: () {
+                                //   _saveSignature();
+                                //   _showSaveConfirmationDialog();
+                                // },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xff50B5E5),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
                                 ),
                               ),
                             ),
@@ -273,7 +318,11 @@ class _SignaturePageState extends State<SignaturePage> {
     );
   }
   Future<void> _pickFile() async {
-    final result = await FilePicker.platform.pickFiles();
+
+    final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['svg','jpeg','jpg','png']
+    );
     if (result != null && result.files.single.bytes != null) {
       setState(() {
         _selectedImageBytes = result.files.single.bytes!;

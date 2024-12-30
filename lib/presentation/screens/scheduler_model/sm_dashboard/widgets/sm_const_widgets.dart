@@ -30,7 +30,7 @@ class AllVisitsUpdate extends StatelessWidget {
                 SMDashboardContainerConst(
                   child: SMSmallContainerData(headingText: 'No. of Clinicians working today', totalCount: '125',
                     imagePath: 'images/sm/sm_dashboard/clinician_work.png', totalValue: 75, flex: 4,
-                    indicatorColor: ColorManager.Violet,TextColor: ColorManager.greenDark,),
+                    indicatorGradientColors: [Color(0xFF834D9B), Color(0xFFD04ED6)],TextColor: ColorManager.greenDark,),
                 ),
                 const SizedBox(height: 10,),
                 ///Employee Ratio
@@ -40,9 +40,9 @@ class AllVisitsUpdate extends StatelessWidget {
                   },
                   child: SMDashboardContainerConst(
                     child: SMSmallContainerData(headingText: 'Missed Visit Count', totalCount: '03',
-                      imagePath: 'images/sm/sm_dashboard/missed_visit.png', totalValue: 50,
-                      indicatorColor: ColorManager.red,TextColor: ColorManager.rednew,),
-                  ),
+                    imagePath: 'images/sm/sm_dashboard/missed_visit.png', totalValue: 50,
+                    indicatorGradientColors: [Color(0xFFE21212),Color(0xFFF48C8C), ],TextColor: ColorManager.rednew,),
+                    )
                 ),
               ],
             ),
@@ -58,7 +58,7 @@ class AllVisitsUpdate extends StatelessWidget {
                   child: SMDashboardContainerConst(
                     child: SMSmallContainerData(headingText: 'No. of SOC\'s due today', totalCount: '92',
                       imagePath: 'images/sm/sm_dashboard/soc_due.png', totalValue: 92,
-                      indicatorColor: ColorManager.orange.withOpacity(0.5),TextColor: ColorManager.greenDark,),
+                      indicatorGradientColors: [Color(0xFFFC5286), Color(0xFFFBAAA2)],TextColor: ColorManager.greenDark,),
                   ),
                 ),
                 SizedBox(height: 10,),
@@ -66,7 +66,7 @@ class AllVisitsUpdate extends StatelessWidget {
                 SMDashboardContainerConst(
                   child: SMSmallContainerData(headingText: 'Todays Completed Visits', totalCount: '17/30',
                     imagePath: 'images/sm/sm_dashboard/completed_visit.png', totalValue: 40,
-                    indicatorColor: Colors.orangeAccent.withOpacity(0.4),TextColor: ColorManager.greenDark,),
+                    indicatorGradientColors: [Color(0xFFF7971E), Color(0xFFFFD200)],TextColor: ColorManager.greenDark,),
                 ),
               ],
             ),
@@ -745,7 +745,7 @@ class AllAvailableClinician extends StatelessWidget {
                                               decoration: TextDecoration.none,
                                             )),
                                               //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
-                                              icon: Image.asset("images/sm/auto.png",height: 30,width: 18,),
+                                              icon: Image.asset("images/sm/sm_dashboard/auto_blur_bg.jpg",height: 30,width: 18,),
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor:  Color(0xFFB9DFEF),
                                                 shape: RoundedRectangleBorder(
@@ -836,11 +836,12 @@ class AllAvailableClinician extends StatelessWidget {
 
 ///highest case load listview
 class HighestCaseLoadListview extends StatefulWidget {
-  const HighestCaseLoadListview({super.key});
+  final VoidCallback? onViewMoreTap;
+  final VoidCallback? onViewMoreClinicianTypeTap;
+  const HighestCaseLoadListview({super.key, this.onViewMoreTap, this.onViewMoreClinicianTypeTap});
 
   @override
-  _HighestCaseLoadListviewState createState() =>
-      _HighestCaseLoadListviewState();
+  _HighestCaseLoadListviewState createState() => _HighestCaseLoadListviewState();
 }
 
 class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
@@ -929,7 +930,7 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: widget.onViewMoreClinicianTypeTap,//onViewMoreClinicianTypeTap,
                 child: Row(
                   children: [
                     Text(
@@ -945,7 +946,7 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: widget.onViewMoreTap,
                 child: Row(
                   children: [
                     Text(

@@ -104,6 +104,7 @@ class _DoubleDatePickerTextFieldState extends State<DoubleDatePickerTextField> {
                   ? Icon(
                 Icons.calendar_month_outlined,
                 color: ColorManager.blueprime,
+                size: IconSize.I18,
               )
                   : null,
             ),
