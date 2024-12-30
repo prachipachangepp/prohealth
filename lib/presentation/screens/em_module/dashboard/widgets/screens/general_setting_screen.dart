@@ -327,7 +327,7 @@ class GeneralSettingScreen extends StatelessWidget {
                                   ],
                                   centerSpaceRadius: 100,
                                   centerSpaceColor: Colors.white,
-                                  sectionsSpace: 5,
+                                  sectionsSpace: 10,
                                   borderData: FlBorderData(show: true),
                                   startDegreeOffset: -90,
                                 ),

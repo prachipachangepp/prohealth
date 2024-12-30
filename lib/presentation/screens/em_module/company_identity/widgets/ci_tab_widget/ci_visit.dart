@@ -254,263 +254,266 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   return Column(
                     children: [
                       Expanded(
-                        child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: paginatedData.length,
-                            itemBuilder: (context, index) {
-                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                              String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                              CiVisit visitData = paginatedData[index];
-                              print("Length ::: ${snapshot.data![index].eligibleClinician.toString()}");
-                              List<Widget> clinical = [];
-                              for (var i in visitData.eligibleClinician!) {
-                                var hexColor = i.color.replaceAll("#", "");
-                                //var = i.color.trim();
-                                clinical.add(Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                      height: 30,
-                                      width: 30,
-                                      color: hexColor == 'string'
-                                          ? Colors.white
-                                          : Color(int.parse('0xFF$hexColor')),
-                                      child: Center(
-                                          child: Text(
-                                            i.eligibleClinician,
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: _isDarkColor(hexColor == 'string'
-                                                  ? Colors.white
-                                                  : Color(int.parse('0xFF$hexColor')))
-                                                  ? ColorManager.white
-                                                  : ColorManager.black,
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ))),
-                                ));
-                              }
-                              return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                          padding: EdgeInsets.only(bottom: AppPadding.p5),
-                                          decoration: BoxDecoration(
-                                            color: ColorManager.white,
-                                            borderRadius: BorderRadius.circular(4),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: ColorManager.grey.withOpacity(0.5),
-                                                spreadRadius: 1,
-                                                blurRadius: 4,
-                                                offset: Offset(0, 2),
+                        child: ScrollConfiguration(
+                          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount: paginatedData.length,
+                              itemBuilder: (context, index) {
+                                int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                                CiVisit visitData = paginatedData[index];
+                                print("Length ::: ${snapshot.data![index].eligibleClinician.toString()}");
+                                List<Widget> clinical = [];
+                                for (var i in visitData.eligibleClinician!) {
+                                  var hexColor = i.color.replaceAll("#", "");
+                                  //var = i.color.trim();
+                                  clinical.add(Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        color: hexColor == 'string'
+                                            ? Colors.white
+                                            : Color(int.parse('0xFF$hexColor')),
+                                        child: Center(
+                                            child: Text(
+                                              i.eligibleClinician,
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w500,
+                                                color: _isDarkColor(hexColor == 'string'
+                                                    ? Colors.white
+                                                    : Color(int.parse('0xFF$hexColor')))
+                                                    ? ColorManager.white
+                                                    : ColorManager.black,
+                                                decoration: TextDecoration.none,
                                               ),
-                                            ],
-                                          ),
-                                          height: AppSize.s56,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              // Expanded(flex: 2, child: Container()),
-                                              Expanded(
-                                                child: Text(
-                                                  formattedSerialNumber,
-                                                  style: DocumentTypeDataStyle.customTextStyle(context),
-                                                  textAlign: TextAlign.center,
+                                            ))),
+                                  ));
+                                }
+                                return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                            padding: EdgeInsets.only(bottom: AppPadding.p5),
+                                            decoration: BoxDecoration(
+                                              color: ColorManager.white,
+                                              borderRadius: BorderRadius.circular(4),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: ColorManager.grey.withOpacity(0.5),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 2),
                                                 ),
-                                              ),
-                                              // Expanded(flex: 1, child: Container()),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(right: 70.0),
+                                              ],
+                                            ),
+                                            height: AppSize.s56,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                // Expanded(flex: 2, child: Container()),
+                                                Expanded(
                                                   child: Text(
-                                                    visitData.typeofVisit.toString(),
+                                                    formattedSerialNumber,
+                                                    style: DocumentTypeDataStyle.customTextStyle(context),
                                                     textAlign: TextAlign.center,
-                                                    style:DocumentTypeDataStyle.customTextStyle(context),
                                                   ),
                                                 ),
-                                              ),
-                                              // Expanded(
-                                              //   child: Text(
-                                              //     "",
-                                              //     textAlign: TextAlign.center,
-                                              //     style:DocumentTypeDataStyle.customTextStyle(context),
-                                              //   ),
-                                              // ),
-                                              //  Expanded( child: Container()),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(left: 10.0),
-                                                  child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                      children: clinical),
+                                                // Expanded(flex: 1, child: Container()),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(right: 70.0),
+                                                    child: Text(
+                                                      visitData.typeofVisit.toString(),
+                                                      textAlign: TextAlign.center,
+                                                      style:DocumentTypeDataStyle.customTextStyle(context),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                              // Expanded(flex: 2, child: Container()),
-                                              Expanded(
-                                                child: Center(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    children: [
-                                                      IconButton(
+                                                // Expanded(
+                                                //   child: Text(
+                                                //     "",
+                                                //     textAlign: TextAlign.center,
+                                                //     style:DocumentTypeDataStyle.customTextStyle(context),
+                                                //   ),
+                                                // ),
+                                                //  Expanded( child: Container()),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(left: 10.0),
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                        children: clinical),
+                                                  ),
+                                                ),
+                                                // Expanded(flex: 2, child: Container()),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      children: [
+                                                        IconButton(
+                                                            splashColor: Colors.transparent,
+                                                            highlightColor: Colors.transparent,
+                                                            hoverColor: Colors.transparent,
+                                                            onPressed: () {
+                                                              showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context) {
+                                                                  return FutureBuilder<VisitListDataPrefill>(
+                                                                    future: getVisitListPrefill(context, visitData.visitId),
+                                                                    builder: (context, snapshotPrefill) {
+                                                                      if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                                        return Center(
+                                                                          child: CircularProgressIndicator(
+                                                                            color: ColorManager.blueprime,
+                                                                          ),
+                                                                        );
+                                                                      }
+                                                                      var visitName = snapshotPrefill.data!.visitType;
+                                                                      docNamecontroller = TextEditingController(
+                                                                        text: snapshotPrefill.data!.visitType.toString(),
+                                                                      );
+
+                                                                      return StatefulBuilder(
+                                                                        builder: (BuildContext context, setState) {
+                                                                          // Initialize the chips only once, when the dialog is first built
+                                                                          if (selectedEditChips.isEmpty) {
+                                                                            for (var i in snapshotPrefill.data!.eligibleClinicia) {
+                                                                              selectedEditChipsId.add(i.employeeTypeId);
+                                                                              editChipValues.add(i.eligibleClinician);
+                                                                              selectedEditChips.add(
+                                                                                Chip(
+                                                                                  backgroundColor: ColorManager.white,
+                                                                                  shape: StadiumBorder(
+                                                                                    side: BorderSide(color: ColorManager.blueprime),
+                                                                                  ),
+                                                                                  deleteIcon: Icon(
+                                                                                    Icons.close,
+                                                                                    color: ColorManager.blueprime,
+                                                                                    size: 17,
+                                                                                  ),
+                                                                                  label: Text(
+                                                                                    i.eligibleClinician,
+                                                                                    style: CustomTextStylesCommon.commonStyle(
+                                                                                      fontWeight:FontWeight.w500,
+                                                                                      fontSize: FontSize.s10,
+                                                                                      color: ColorManager.mediumgrey,
+                                                                                    ),
+                                                                                  ),
+                                                                                  onDeleted: () {
+                                                                                    setState(() {
+                                                                                      // Remove chip data
+                                                                                      editChipValues.remove(i.eligibleClinician);
+                                                                                      selectedEditChips.removeWhere((chip) {
+                                                                                        final chipText = (chip as Chip).label as Text;
+                                                                                        return chipText.data == i.eligibleClinician;
+                                                                                      });
+                                                                                      selectedEditChipsId.remove(i.employeeTypeId);
+                                                                                    });
+                                                                                  },
+                                                                                ),
+                                                                              );
+                                                                            }
+                                                                          }
+                                                                          return EditVisitPopup(
+                                                                            serviceNameSelected: TextEditingController(text:snapshotPrefill.data!.serviceId),
+                                                                            enable:false,
+                                                                            visitId: snapshotPrefill.data!.visitId,
+                                                                            nameOfDocumentController: docNamecontroller,
+                                                                            idOfDocumentController: docIdController,
+                                                                            prefilledClinicians: snapshotPrefill.data!.eligibleClinicia,
+
+
+                                                                            title: 'Edit Visit',
+
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                            icon: Icon(
+                                                              Icons.edit_outlined,
+                                                              size: IconSize.I18,
+                                                              color: IconColorManager.bluebottom,
+                                                            )),
+                                                        SizedBox(
+                                                          width: 3,
+                                                        ),
+                                                        IconButton(
                                                           splashColor: Colors.transparent,
                                                           highlightColor: Colors.transparent,
                                                           hoverColor: Colors.transparent,
                                                           onPressed: () {
-                                                            showDialog(
-                                                              context: context,
-                                                              builder: (BuildContext context) {
-                                                                return FutureBuilder<VisitListDataPrefill>(
-                                                                  future: getVisitListPrefill(context, visitData.visitId),
-                                                                  builder: (context, snapshotPrefill) {
-                                                                    if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                                      return Center(
-                                                                        child: CircularProgressIndicator(
-                                                                          color: ColorManager.blueprime,
-                                                                        ),
-                                                                      );
-                                                                    }
-                                                                    var visitName = snapshotPrefill.data!.visitType;
-                                                                    docNamecontroller = TextEditingController(
-                                                                      text: snapshotPrefill.data!.visitType.toString(),
-                                                                    );
-
-                                                                    return StatefulBuilder(
-                                                                      builder: (BuildContext context, setState) {
-                                                                        // Initialize the chips only once, when the dialog is first built
-                                                                        if (selectedEditChips.isEmpty) {
-                                                                          for (var i in snapshotPrefill.data!.eligibleClinicia) {
-                                                                            selectedEditChipsId.add(i.employeeTypeId);
-                                                                            editChipValues.add(i.eligibleClinician);
-                                                                            selectedEditChips.add(
-                                                                              Chip(
-                                                                                backgroundColor: ColorManager.white,
-                                                                                shape: StadiumBorder(
-                                                                                  side: BorderSide(color: ColorManager.blueprime),
-                                                                                ),
-                                                                                deleteIcon: Icon(
-                                                                                  Icons.close,
-                                                                                  color: ColorManager.blueprime,
-                                                                                  size: 17,
-                                                                                ),
-                                                                                label: Text(
-                                                                                  i.eligibleClinician,
-                                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                                    fontWeight:FontWeight.w500,
-                                                                                    fontSize: FontSize.s10,
-                                                                                    color: ColorManager.mediumgrey,
-                                                                                  ),
-                                                                                ),
-                                                                                onDeleted: () {
-                                                                                  setState(() {
-                                                                                    // Remove chip data
-                                                                                    editChipValues.remove(i.eligibleClinician);
-                                                                                    selectedEditChips.removeWhere((chip) {
-                                                                                      final chipText = (chip as Chip).label as Text;
-                                                                                      return chipText.data == i.eligibleClinician;
-                                                                                    });
-                                                                                    selectedEditChipsId.remove(i.employeeTypeId);
-                                                                                  });
-                                                                                },
-                                                                              ),
-                                                                            );
-                                                                          }
-                                                                        }
-                                                                        return EditVisitPopup(
-                                                                          serviceNameSelected: TextEditingController(text:snapshotPrefill.data!.serviceId),
-                                                                          enable:false,
-                                                                          visitId: snapshotPrefill.data!.visitId,
-                                                                          nameOfDocumentController: docNamecontroller,
-                                                                          idOfDocumentController: docIdController,
-                                                                          prefilledClinicians: snapshotPrefill.data!.eligibleClinicia,
-
-
-                                                                          title: 'Edit Visit',
+                                                            showDialog(context: context,
+                                                              builder: (context) =>
+                                                                  StatefulBuilder(
+                                                                    builder: (BuildContext context, void Function(void Function())
+                                                                    setState) {
+                                                                      return
+                                                                        DeletePopup(
+                                                                            title: 'Delete Visit',
+                                                                            loadingDuration: _isLoading,
+                                                                            onCancel: (){
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            onDelete:
+                                                                                () async {
+                                                                              setState(() {
+                                                                                _isLoading = true;
+                                                                              });
+                                                                              try {
+                                                                                await deleteVisit(context, snapshot.data![index].visitId);
+                                                                                getVisit(context, 1, 10).then((data) {
+                                                                                  _visitController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                                Navigator.pop(context);
+                                                                                showDialog(context: context, builder: (context) => DeleteSuccessPopup());
+                                                                              } finally {
+                                                                                setState(() {
+                                                                                  _isLoading = false;
+                                                                                });
+                                                                              }
+                                                                            }
 
                                                                         );
-                                                                      },
-                                                                    );
-                                                                  },
-                                                                );
-                                                              },
+                                                                    },
+                                                                  ),
                                                             );
+
                                                           },
                                                           icon: Icon(
-                                                            Icons.edit_outlined,
                                                             size: IconSize.I18,
-                                                            color: IconColorManager.bluebottom,
-                                                          )),
-                                                      SizedBox(
-                                                        width: 3,
-                                                      ),
-                                                      IconButton(
-                                                        splashColor: Colors.transparent,
-                                                        highlightColor: Colors.transparent,
-                                                        hoverColor: Colors.transparent,
-                                                        onPressed: () {
-                                                          showDialog(context: context,
-                                                            builder: (context) =>
-                                                                StatefulBuilder(
-                                                                  builder: (BuildContext context, void Function(void Function())
-                                                                  setState) {
-                                                                    return
-                                                                      DeletePopup(
-                                                                          title: 'Delete Visit',
-                                                                          loadingDuration: _isLoading,
-                                                                          onCancel: (){
-                                                                            Navigator.pop(context);
-                                                                          },
-                                                                          onDelete:
-                                                                              () async {
-                                                                            setState(() {
-                                                                              _isLoading = true;
-                                                                            });
-                                                                            try {
-                                                                              await deleteVisit(context, snapshot.data![index].visitId);
-                                                                              getVisit(context, 1, 10).then((data) {
-                                                                                _visitController.add(data);
-                                                                              }).catchError((error) {
-                                                                                // Handle error
-                                                                              });
-                                                                              Navigator.pop(context);
-                                                                              showDialog(context: context, builder: (context) => DeleteSuccessPopup());
-                                                                            } finally {
-                                                                              setState(() {
-                                                                                _isLoading = false;
-                                                                              });
-                                                                            }
-                                                                          }
+                                                            Icons.delete_outline,
+                                                            color: IconColorManager.red,
+                                                          ),
 
-                                                                      );
-                                                                  },
-                                                                ),
-                                                          );
-
-                                                        },
-                                                        icon: Icon(
-                                                          size: IconSize.I18,
-                                                          Icons.delete_outline,
-                                                          color: IconColorManager.red,
                                                         ),
-
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              // Expanded(flex: 3, child: Container())
-                                            ],
-                                          )),
-                                    )
-                                  ]);
-                            }),
+                                                // Expanded(flex: 3, child: Container())
+                                              ],
+                                            )),
+                                      )
+                                    ]);
+                              }),
+                        ),
                       ),
                       PaginationControlsWidget(
                         currentPage: currentPage,

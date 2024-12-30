@@ -324,6 +324,7 @@ class CICCDropdown extends StatefulWidget {
   final String? initialValue;
   final Function(String)? onChange;
   final bool? isEnabled;
+  final double? constraintHeight;
 
   const CICCDropdown({
     Key? key,
@@ -333,6 +334,7 @@ class CICCDropdown extends StatefulWidget {
     String? hintText,
     this.onChange,
     this.isEnabled,
+    this.constraintHeight = 250,
   }) : super(key: key);
 
   @override
@@ -368,7 +370,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
                 child: Container(
                   width: widget.width ?? size.width,
                   constraints: BoxConstraints(
-                    maxHeight: 250, // Limit height for scrolling
+                    maxHeight: widget.constraintHeight!, // Limit height for scrolling
                   ),
                   child: Scrollbar(
                     child: ListView(
