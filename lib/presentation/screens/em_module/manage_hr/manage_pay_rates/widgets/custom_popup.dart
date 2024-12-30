@@ -47,7 +47,7 @@ class PayRateAddPopup extends StatefulWidget {
 
 class _PayRateAddPopupState extends State<PayRateAddPopup> {
   bool isLoading = false;
-  String? docAddVisitTypeId;
+  String docAddVisitTypeId = 'Select Visit';
   // String serviceId = "";
 
   // Error messages
@@ -130,7 +130,7 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                           child: Padding(
                             padding:  EdgeInsets.symmetric(vertical: 5,horizontal: 5),
                             child: Text(
-                                "",
+                                docAddVisitTypeId,
                                 //AppString.dataNotFound,
                                 style: ConstTextFieldRegister.customTextStyle(context)
                             ),
@@ -174,10 +174,7 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                           );
                         }
                         return CICCDropDownExcel(
-                          initialValue:
-                          dropDownZoneList.isNotEmpty
-                              ? dropDownZoneList[0].value
-                              : null,
+                          initialValue:docAddVisitTypeId,
                           onChange: (val) {
                             for (var a in snapshot.data!) {
                               if (a.visitType == val) {

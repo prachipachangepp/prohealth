@@ -90,8 +90,9 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
             // ),
           ],
         ),
+
         const SizedBox(
-          height: 20,
+          height: 30,
         ),
         StreamBuilder(
           stream: _controller.stream,

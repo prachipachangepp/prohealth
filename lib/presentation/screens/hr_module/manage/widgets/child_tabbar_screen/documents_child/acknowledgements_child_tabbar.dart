@@ -127,7 +127,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
           ],
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         StreamBuilder(
             stream: _controller.stream,
@@ -152,7 +152,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    padding: const EdgeInsets.symmetric(vertical: 120),
                     child: Text(
                       AppStringHRNoData.ackNoData,
                       style: AllNoDataAvailable.customTextStyle(context),

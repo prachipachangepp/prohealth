@@ -246,9 +246,13 @@ class _PocPageViewState extends State<PocPageView> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                color: Color(0xFF527FB9).withOpacity(0.5),
-                                width: 19,
-                                height: 19,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF527FB9).withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(5), // Makes the borders curved with radius 5
+                                ),
+                                // color: Color(0xFF527FB9).withOpacity(0.5),
+                                width: 22,
+                                height: 20,
                                 child: Center(
                                   child: Text("ST",style: TextStyle(
                                     // fontWeight: FontWeight.w600,
@@ -263,16 +267,20 @@ class _PocPageViewState extends State<PocPageView> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                color: Color(0xFFFEBD4D).withOpacity(0.5),
-                                width: 19,
-                                height: 19,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFFEBD4D).withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(5), // Makes the borders curved with radius 5
+                                ),
+                                width: 22,
+                                height: 20,
                                 child: Center(
-                                  child: Text("OT",style: TextStyle(
-                                    // fontWeight: FontWeight.w600,
-                                    //     fontSize: FontSize.s13,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  ),),
+                                  child: Text(
+                                    "OT",
+                                    style: TextStyle(
+                                      color: ColorManager.white,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
                                 ),
                               ),
                             )

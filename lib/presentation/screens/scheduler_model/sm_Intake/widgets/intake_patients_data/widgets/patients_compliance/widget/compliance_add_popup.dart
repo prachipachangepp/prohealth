@@ -95,8 +95,8 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
   String? _uploadDocError;
   void _validateFields() {
     setState(() {
-      _nameDocError = widget.nameDocController.text.isEmpty ? 'Please Enter Document Name' : null;
-      _selectDocError = selectedDocType == "Select Document" ? 'Please Select Document' : null;
+      _nameDocError = widget.nameDocController.text.isEmpty ? 'Please enter document name' : null;
+      _selectDocError = selectedDocType == "Select Document" ? 'Please select document' : null;
       _selectExpTypeError = selectedExpiryType == null ? 'Please select expiry type': null;
       _uploadDocError = fileName == '' ? 'Please upload document':null;
     });
