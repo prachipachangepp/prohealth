@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -168,9 +167,9 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                     ),
                     SizedBox(width: AppSize.s25),
                     Container(
-                      padding: EdgeInsets.all(2),
-                      width: 62,
-                      height: 22,
+                      padding: EdgeInsets.all(AppPadding.p2),
+                      width: AppSize.s62,
+                      height: AppSize.s22,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2),
                         border: Border.all(
@@ -181,8 +180,8 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                       child: GestureDetector(
                         onTap: _openColorPicker,
                         child: Container(
-                          width: 60,
-                          height: 20,
+                          width: AppSize.s60,
+                          height: AppSize.s20,
                           decoration: BoxDecoration(
                             color: _selectedColors[0],
                             border: Border.all(
@@ -202,7 +201,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
         ),],
       bottomButtons:  isLoading
           ? SizedBox(
-          height: 25,width: 25,
+          height: AppSize.s25,width: AppSize.s25,
           child: CircularProgressIndicator( color: ColorManager.blueprime,))
           : CustomElevatedButton(
         width: AppSize.s105,

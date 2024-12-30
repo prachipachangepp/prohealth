@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -7,19 +6,13 @@ import 'package:prohealth/app/resources/establishment_resources/establishment_st
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
-import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/popup_const.dart';
-
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/font_manager.dart';
-import '../../../../app/resources/theme_manager.dart';
-import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import '../../../widgets/error_popups/delete_success_popup.dart';
-import '../../../widgets/establishment_text_const/text_widget_const.dart';
-import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -180,7 +173,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
           children: [
             ///Create User Button
             Padding(
-              padding: const EdgeInsets.only(right: 30),
+              padding: const EdgeInsets.only(right: AppPadding.p30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -215,7 +208,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: AppSize.s10,
             ),
             Column(
               children: [
@@ -234,7 +227,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 90),
+                            padding: const EdgeInsets.only(left: AppPadding.p90),
                             child:  Text(
                               AppString.srNo,
                               style:TableHeading.customTextStyle(context),
@@ -244,9 +237,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 60.0),
+                            padding: const EdgeInsets.only(left: AppPadding.p60),
                             child: Text(
-                              "User ID",
+                              AppString.userId,
                               style:TableHeading.customTextStyle(context),
                             ),
                           ),
@@ -254,7 +247,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
+                            padding: const EdgeInsets.only(left: AppPadding.p20),
                             child: Text(
                               AppString.fname,
                               style:TableHeading.customTextStyle(context),
@@ -264,7 +257,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 40.0),
+                            padding: const EdgeInsets.only(right: AppPadding.p40),
                             child: Text(
                               AppString.lname,
                               textAlign: TextAlign.start,
@@ -290,7 +283,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 40.0),
+                            padding: const EdgeInsets.only(left:AppPadding.p40),
                             child: Text(
                               AppString.actions,
                               textAlign: TextAlign.start,
@@ -352,7 +345,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 children: [
                                   SizedBox(height: 5),
                                   Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 30),
+                                    margin: EdgeInsets.symmetric(horizontal: AppPadding.p30),
                                     decoration: BoxDecoration(
                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(4),
@@ -372,10 +365,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     height: AppSize.s56,
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              50),
+                                          horizontal: MediaQuery.of(context).size.width / 50),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
@@ -384,7 +374,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             flex: 1,
                                             child: Text(
                                               formattedSerialNumber,
-
                                               style: TableSubHeading.customTextStyle(context),
                                               textAlign: TextAlign.center,
                                             ),
@@ -394,7 +383,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               user.userId.toString(),
                                               textAlign: TextAlign.center,
-
                                               style:  TableSubHeading.customTextStyle(context),
                                             ),
                                           ),
@@ -403,24 +391,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             child: Text(
                                               user.firstName,
                                               textAlign: TextAlign.center,
-                                              // style: GoogleFonts.firaSans(
-                                              //   fontSize: FontSize.s10,
-                                              //   fontWeight:
-                                              //       FontWeightManager.bold,
-                                              //   color: ColorManager.granitegray,
-                                              // ),
                                               style:  TableSubHeading.customTextStyle(context),
                                             ),
                                           ),
                                           Expanded(
                                             flex: 1,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 20.0),
+                                              padding: const EdgeInsets.only(left: AppPadding.p20),
                                               child: Text(
                                                 user.lastName,
                                                 textAlign: TextAlign.center,
-
                                                 style:  TableSubHeading.customTextStyle(context),
                                               ),
                                             ),
@@ -428,8 +408,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           Expanded(
                                             flex: 1,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 50.0),
+                                              padding: const EdgeInsets.only(left: AppPadding.p50),
                                               child: Text(
                                                 user.role,
                                                 textAlign: TextAlign.center,
@@ -440,8 +419,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 100.0),
+                                              padding: const EdgeInsets.only(left: AppPadding.p100),
                                               child: Text(
                                                 user.email,
                                                 textAlign: TextAlign.start,
@@ -494,45 +472,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                         .blueprime),
                                                               );
                                                             }
-                                                            // userIdController =
-                                                            //     TextEditingController(
-                                                            //         text: snapshotPrefill
-                                                            //                 .data!
-                                                            //                 .userId
-                                                            //                 .toString() ??
-                                                            //             "0");
-                                                            firstNameController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .firstName ??
-                                                                        " ");
-                                                            lastNameController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .lastName ??
-                                                                        "");
-                                                            emailController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .email ??
-                                                                        " ");
-                                                            companyIdController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .companyId
-                                                                        .toString() ??
-                                                                        "0");
+                                                            firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName ?? " ");
+                                                            lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName ?? "");
+                                                            emailController = TextEditingController(text: snapshotPrefill.data!.email ?? " ");
+                                                            companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString() ?? "0");
                                                             return EditUserPopUp(
                                                               title:
                                                               "Edit User ",
-                                                              // lastNameController: lastNameController,
-                                                              // emailController: emailController,
-                                                              // firstNameController: firstNameController,
-                                                              // passwordController: passwordController,
                                                               ///Role
                                                               deptName: 'Select Department',
                                                               userId: user.userId,
@@ -586,46 +532,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                             },
                                                           ),
                                                     );
-                                                    // await showDialog(
-                                                    //   context: context,
-                                                    //   builder: (context) =>
-                                                    //
-                                                    //       DeletePopup(
-                                                    //     title: 'Delete User',
-                                                    //     onCancel: () {
-                                                    //       Navigator.pop(
-                                                    //           context);
-                                                    //     },
-                                                    //     onDelete: () {
-                                                    //       setState(() async {
-                                                    //         await deleteUser(
-                                                    //             context,
-                                                    //             user.userId);
-                                                    //         getUser(context)
-                                                    //             .then((data) {
-                                                    //           _companyUsersList
-                                                    //               .add(data);
-                                                    //         }).catchError(
-                                                    //                 (error) {
-                                                    //           // Handle error
-                                                    //         });
-                                                    //         Navigator.pop(
-                                                    //             context);
-                                                    //       });
-                                                    //     },
-                                                    //   ),
-                                                    // );
                                                   },
                                                   child: Container(
                                                     height: MediaQuery.of(context).size.height / 30,
                                                     width: MediaQuery.of(context).size.width / 25,
                                                     decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      border: Border.all(
-                                                          color: ColorManager
-                                                              .bluebottom),
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      border: Border.all(color: ColorManager.bluebottom),
                                                     ),
                                                     child: Center(
                                                       child: Text(

@@ -125,15 +125,13 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
                                   return SchedularTextField(
+                                    width: 400,
                                     controller: dummyCtrl,
                                     labelText: 'City',
-                                    suffixIcon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,),);
+                                  );
                                 }
                                 if (snapshot.hasData) {
                                   List<DropdownMenuItem<String>> dropDownList = [];
-
-
                                   for (var i in snapshot.data!) {
                                     dropDownList.add(DropdownMenuItem<String>(
                                       child: Text(i.cityName!),
@@ -141,22 +139,16 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                     ));
                                   }
 
-
-                                  return CustomDropdownTextFieldsm(
-                                    dropDownMenuList: dropDownList,
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.cityName == newValue) {
-                                          selectedCity = a.cityName!;
-                                          //country = a
-                                          // int? docType = a.companyOfficeID;
+                                  return CustomDropdownTextFieldsm(headText: 'City',dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.cityName == newValue) {
+                                            selectedCity = a.cityName!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
                                         }
-                                      }
-                                    },
-                                    headText: 'City',
-                                  );
-
-
+                                      });
                                 } else {
                                   return const Offstage();
                                 }
@@ -269,95 +261,29 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
                                   return SchedularTextField(
-                                    controller: dummyCtrl,
-                                    labelText: 'State',
-                                    suffixIcon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,),);
+                                      width: 350,
+                                      controller: dummyCtrl,
+                                      labelText: 'State');
                                 }
                                 if (snapshot.hasData) {
                                   List<DropdownMenuItem<String>> dropDownList = [];
-
-
                                   for (var i in snapshot.data!) {
                                     dropDownList.add(DropdownMenuItem<String>(
-                                      child: Text(i.name!!),
-                                      value: i.name!,
+                                      child: Text(i.name!),
+                                      value: i.name,
                                     ));
                                   }
 
-                                  return CustomDropdownTextFieldsm(
-                                    dropDownMenuList:dropDownList,
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.name == newValue) {
-                                          selectedState = a.name!;
-                                          //country = a
-                                          // int? docType = a.companyOfficeID;
+                                  return CustomDropdownTextFieldsm(headText: 'State',dropDownMenuList: dropDownList,
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.name == newValue) {
+                                            selectedState = a.name!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
                                         }
-                                      }
-                                    },
-                                    headText: 'State',
-                                  );
-
-                                  // return SizedBox(
-                                  //   height: 27,
-                                  //   child: DropdownButtonFormField<String>(
-                                  //     decoration: InputDecoration(
-                                  //       labelText: 'State',
-                                  //       labelStyle: GoogleFonts.firaSans(
-                                  //         fontSize: 10.0,
-                                  //         fontWeight: FontWeight.w400,
-                                  //         color: ColorManager.greylight,
-                                  //       ),
-                                  //       focusedBorder: OutlineInputBorder(
-                                  //         borderSide: BorderSide(color: ColorManager.containerBorderGrey),
-                                  //       ),
-                                  //       border: OutlineInputBorder(
-                                  //         borderRadius:
-                                  //         BorderRadius.circular(4.0),
-                                  //         borderSide: const BorderSide(
-                                  //             color: Colors.grey),
-                                  //       ),
-                                  //       contentPadding:
-                                  //       const EdgeInsets.symmetric(
-                                  //         //   //  vertical: 5,
-                                  //           horizontal: 12),
-                                  //     ),
-                                  //     // value: selectedCountry,
-                                  //     icon: Icon(Icons.arrow_drop_down,
-                                  //         color: ColorManager.blueprime),
-                                  //     iconSize: 24,
-                                  //     elevation: 16,
-                                  //     style: GoogleFonts.firaSans(
-                                  //       fontSize: 10.0,
-                                  //       fontWeight: FontWeight.w400,
-                                  //       color: const Color(0xff686464),
-                                  //     ),
-                                  //
-                                  //     onChanged: (newValue) {
-                                  //       for (var a in snapshot.data!) {
-                                  //         if (a.name == newValue) {
-                                  //           selectedStateff = a.name!;
-                                  //           //country = a
-                                  //           // int? docType = a.companyOfficeID;
-                                  //         }
-                                  //       }
-                                  //     },
-                                  //     items: dropDownList.map((String value) {
-                                  //       return DropdownMenuItem<String>(
-                                  //         value: value,
-                                  //         child: Text(
-                                  //           value,
-                                  //           style: GoogleFonts.firaSans(
-                                  //             fontSize: 12,
-                                  //             color: Color(0xff575757),
-                                  //             fontWeight: FontWeight.w400,
-                                  //           ),
-                                  //         ),
-                                  //       );
-                                  //     }).toList(),
-                                  //   ),
-                                  // );
+                                      });
 
                                 } else {
                                   return const Offstage();
@@ -457,7 +383,6 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                             initialValue: '2656845121',
                             buttonText: 'View Zone',
                           )),
-
                           // Flexible(
                           //     child: SchedularTextField(
                           //       controller: zipcodeController,
@@ -483,18 +408,11 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           SizedBox(width: AppSize.s35),
 
                           Flexible(
-                            child: Column(
-                              crossAxisAlignment:CrossAxisAlignment.start,
-                              children: [
-                                SchedularTextField(
-                                  controller: dummyCtrl,
-                                  labelText: '',
-                                  hintText: 'Medicare',
-                                  ),
-                                SizedBox(height: 2,),
-                                Text("Episodic", style: TransparentButtonTextConst.customTextStyle(context),),
-                              ],
-                            ),
+                            child: SchedularTextField(
+                              controller: dummyCtrl,
+                              labelText: '',
+                              hintText: 'Medicare',
+                              ),
                             // FutureBuilder<List<CategoryData>>(
                             //   future: getCategoryDropDown(context),
                             //   builder: (context, snapshot) {
@@ -552,6 +470,42 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           ),
                         ],
                       ),
+                      SizedBox(height: AppSize.s6),
+                      ///text row
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Container(),
+                          ),
+                          SizedBox(width: AppSize.s35),
+                          Flexible(
+                            child: Container(),
+                          ),
+                          SizedBox(width: AppSize.s35),
+                          Flexible(
+                            child: Container(
+                              // color: ColorManager.red,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text("Episodic", style: TextStyle(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeight.w700,
+                                    color: ColorManager.blueprime,
+                                    decoration: TextDecoration.none,
+                                  ),),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(width: AppSize.s35),
+                          Flexible(
+                            child: Container(),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: AppSize.s16),
                       Row(
                         children: [
@@ -585,11 +539,6 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                       Row(
                         children: [
                           Flexible(
-
-
-
-
-
                             child: FutureBuilder<List<EligiblityStatusData>>(
                               future: getEligiblityStatusDropDown(context),
                               builder: (context, snapshot) {
@@ -598,8 +547,8 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                   return SchedularTextField(
                                     controller: dummyCtrl,
                                     labelText:'Eligibility Status',
-                                    suffixIcon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,),);
+                                  //  suffixIcon: Icon(Icons.arrow_drop_down, color: ColorManager.blueprime,),
+                                  );
                                 }
                                 if (snapshot.hasData) {
                                   // List<String> dropDownList = [];

@@ -3,6 +3,7 @@ import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/insurance/primary_mamager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
@@ -205,95 +206,6 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                             // ),
 
                           ),
-                          ///
-                          // Flexible(
-                          //
-                          //   child:FutureBuilder<List<StateData>>(
-                          //     future: getStateDropDown(context),
-                          //     builder: (context, snapshot) {
-                          //       if (snapshot.connectionState ==
-                          //           ConnectionState.waiting) {
-                          //         return SchedularTextField(
-                          //           controller: dummyCtrl,
-                          //           labelText: 'State',
-                          //           suffixIcon: Icon(Icons.arrow_drop_down,
-                          //             color: ColorManager.blueprime,),);
-                          //       }
-                          //       if (snapshot.hasData) {
-                          //         List<String> dropDownList = [];
-                          //         for (var i in snapshot.data!) {
-                          //           dropDownList.add(i.name!);
-                          //         }
-                          //
-                          //         return SizedBox(
-                          //           height: 27,
-                          //           child: DropdownButtonFormField<String>(
-                          //             decoration: InputDecoration(
-                          //               labelText: 'State',
-                          //               labelStyle: GoogleFonts.firaSans(
-                          //                 fontSize: 10.0,
-                          //                 fontWeight: FontWeight.w400,
-                          //                 color: ColorManager.greylight,
-                          //               ),
-                          //               focusedBorder: OutlineInputBorder(
-                          //                 borderSide: BorderSide(color: ColorManager.containerBorderGrey), // border color
-                          //               ),
-                          //               border: OutlineInputBorder(
-                          //                 borderRadius:
-                          //                 BorderRadius.circular(4.0),
-                          //                 borderSide: const BorderSide(
-                          //                     color: Colors.grey),
-                          //               ),
-                          //               contentPadding:
-                          //               const EdgeInsets.symmetric(
-                          //                 //   //  vertical: 5,
-                          //                   horizontal: 12),
-                          //             ),
-                          //             // value: selectedCountry,
-                          //             icon: Icon(Icons.arrow_drop_down,
-                          //               color: ColorManager.blueprime,),
-                          //             iconSize: 24,
-                          //             elevation: 16,
-                          //             style: GoogleFonts.firaSans(
-                          //               fontSize: 10.0,
-                          //               fontWeight: FontWeight.w400,
-                          //               color: const Color(0xff686464),
-                          //             ),
-                          //
-                          //             onChanged: (newValue) {
-                          //               for (var a in snapshot.data!) {
-                          //                 if (a.name == newValue) {
-                          //                   selectedState = a.name!;
-                          //                   //country = a
-                          //                   // int? docType = a.companyOfficeID;
-                          //                 }
-                          //               }
-                          //             },
-                          //             items: dropDownList.map((String value) {
-                          //               return DropdownMenuItem<String>(
-                          //                 value: value,
-                          //                 child: Text(
-                          //                   value,
-                          //                   style: GoogleFonts.firaSans(
-                          //                     fontSize: 12,
-                          //                     color: Color(0xff575757),
-                          //                     fontWeight: FontWeight.w400,
-                          //                   ),
-                          //                 ),
-                          //               );
-                          //             }).toList(),
-                          //           ),
-                          //         );
-                          //
-                          //       } else {
-                          //         return const Offstage();
-                          //       }
-                          //     },
-                          //   ),
-                          //     // child: SchedularTextField(
-                          //     //   controller: stateController,
-                          //     //   labelText: AppString.state,)
-                          // ),
                           SizedBox(width: AppSize.s35),
 
                           Flexible(child: SchedularTextFieldWithButton(
@@ -321,56 +233,62 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           ),
                           SizedBox(width: AppSize.s35),
 
+                          // Flexible(
+                          //   child: FutureBuilder<List<CategoryData>>(
+                          //     future: getCategoryDropDown(context),
+                          //     builder: (context, snapshot) {
+                          //       if (snapshot.connectionState ==
+                          //           ConnectionState.waiting) {
+                          //         return SchedularTextField(
+                          //           controller: dummyCtrl,
+                          //           labelText: 'Category',
+                          //           suffixIcon: Icon(Icons.arrow_drop_down,
+                          //             color: ColorManager.blueprime,),);
+                          //       }
+                          //       if (snapshot.hasData) {
+                          //         List<DropdownMenuItem<String>> dropDownList = [];
+                          //
+                          //
+                          //         for (var i in snapshot.data!) {
+                          //           dropDownList.add(DropdownMenuItem<String>(
+                          //             child: Text(i.idText!),
+                          //             value: i.idText,
+                          //           ));
+                          //         }
+                          //
+                          //
+                          //         return CustomDropdownTextFieldsm(
+                          //           dropDownMenuList: dropDownList,
+                          //
+                          //           onChanged: (newValue) {
+                          //             for (var a in snapshot.data!) {
+                          //               if (a.idText == newValue) {
+                          //                 selectedCategory = a.idText!;
+                          //                 //country = a
+                          //                 // int? docType = a.companyOfficeID;
+                          //               }
+                          //             }
+                          //           },
+                          //           headText: 'Category',
+                          //         );
+                          //
+                          //
+                          //       } else {
+                          //         return const Offstage();
+                          //       }
+                          //     },
+                          //   ),
+                          //
+                          //
+                          // ),
+
                           Flexible(
-                            child: FutureBuilder<List<CategoryData>>(
-                              future: getCategoryDropDown(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return SchedularTextField(
-                                    controller: dummyCtrl,
-                                    labelText: 'Category',
-                                    suffixIcon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,),);
-                                }
-                                if (snapshot.hasData) {
-                                  List<DropdownMenuItem<String>> dropDownList = [];
-
-
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(DropdownMenuItem<String>(
-                                      child: Text(i.idText!),
-                                      value: i.idText,
-                                    ));
-                                  }
-
-
-                                  return CustomDropdownTextFieldsm(
-                                    dropDownMenuList: dropDownList,
-
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.idText == newValue) {
-                                          selectedCategory = a.idText!;
-                                          //country = a
-                                          // int? docType = a.companyOfficeID;
-                                        }
-                                      }
-                                    },
-                                    headText: 'Category',
-                                  );
-
-
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
+                            child: SchedularTextField(
+                              controller: dummyCtrl,
+                              labelText: '',
+                              hintText: 'NPI#',
                             ),
-
-
                           ),
-
-
 
                           // Flexible(
                           //
@@ -482,6 +400,41 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           ),
                         ],
                       ),
+                      SizedBox(height: AppSize.s6),
+                      Row(
+                        children: [
+                          Flexible(
+                           child: Container(),
+                          ),
+                          SizedBox(width: AppSize.s35),
+                          Flexible(
+                            child: Container(),
+                          ),
+                          SizedBox(width: AppSize.s35),
+                          Flexible(
+                            child: Container(
+                             // color: ColorManager.red,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text("Check PECOS eligibility status", style: TextStyle(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeight.w700,
+                                    color: ColorManager.blueprime,
+                                    decoration: TextDecoration.none,
+                                  ),),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(width: AppSize.s35),
+                          Flexible(
+                            child: Container(),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: AppSize.s16),
                       Row(
                         children: [
@@ -519,13 +472,13 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                             child: FutureBuilder<List<EligiblityStatusData>>(
                               future: getEligiblityStatusDropDown(context),
                               builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
                                   return SchedularTextField(
                                     controller: dummyCtrl,
+                                   // hintText: "Select",
                                     labelText:'Eligibility Status',
-                                    suffixIcon: Icon(Icons.arrow_drop_down,
-                                      color: ColorManager.blueprime,),);
+                                   // suffixIcon: Icon(Icons.arrow_drop_down, color: ColorManager.blueprime,),
+                                  );
                                 }
                                 if (snapshot.hasData) {
                                   // List<String> dropDownList = [];
@@ -541,19 +494,19 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                     ));
                                   }
                                   return CustomDropdownTextFieldsm(
-  dropDownMenuList: dropDownList,
+                                dropDownMenuList: dropDownList,
 
-  onChanged: (newValue) {
-    for (var a in snapshot.data!) {
-      if (a.idText == newValue) {
-        eligiblityStatus = a.idText!;
-        //country = a
-        // int? docType = a.companyOfficeID;
-      }
-    }
-  },
-  headText: 'Eligibility Status',
-);
+                                onChanged: (newValue) {
+                                  for (var a in snapshot.data!) {
+                                    if (a.idText == newValue) {
+                                      eligiblityStatus = a.idText!;
+                                      //country = a
+                                      // int? docType = a.companyOfficeID;
+                                    }
+                                  }
+                                },
+                                headText: 'Eligibility Status',
+                              );
                                   // return SizedBox(
                                   //   height: 27,
                                   //   child: DropdownButtonFormField<String>(

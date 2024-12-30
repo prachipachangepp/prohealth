@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 
+import '../../../../app/resources/value_manager.dart';
+
 class TableHeadConstant extends StatelessWidget {
   final List<TableHeadItem> items;
 
@@ -13,8 +15,8 @@ class TableHeadConstant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(right: 30,),
-      height: 30,
+      padding: EdgeInsets.only(right: AppPadding.p30,),
+      height: AppSize.s30,
       decoration: BoxDecoration(
         color: ColorManager.fmediumgrey,
         borderRadius: BorderRadius.circular(12),

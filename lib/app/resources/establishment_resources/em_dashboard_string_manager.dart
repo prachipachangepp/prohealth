@@ -1,4 +1,19 @@
 class EmDashboardStringManager{
+  ///main tabbar
+  static const String em = "Establishment Manager";
+  static const String dashboard = "Dashboard";
+  static const String companyIdentity = "Company Identity";
+  static const String selectModule = "Select a Module";
+  static const String usermanagement = "User Management";
+  static const String Users = "Users";
+  static const String roleManager = "Role Manager";
+  static const String clinical = "Clinical";
+  static const String visits = "Visits";
+  static const String docDefination = "Document Defination";
+  static const String payRates = "Pay Rates";
+  static const String empDoc = "Employee Documents";
+  static const String workSchedule = "Work Schedule";
+  static const String designationSetting = "Designation Settings";
   ///dashboard tabbar
   static const String generalSetting = "General Settings & Security";
   static const String OfficeLocation= "Office Location";

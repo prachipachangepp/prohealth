@@ -2,11 +2,9 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
-import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
-
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
@@ -112,7 +110,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-        height: 370,
+        height: AppSize.s370,
         width: AppSize.s350,
         body: [Form(
           key: _formKey,
@@ -158,7 +156,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 3.0),
+                      padding: const EdgeInsets.only(left: AppPadding.p3),
                       child: Text(
                         AppStringEM.color,
                         style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
@@ -167,8 +165,8 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                     SizedBox(width: AppSize.s25),
                     Container(
                       padding: EdgeInsets.all(2),
-                      width: 62,
-                      height: 22,
+                      width: AppSize.s62,
+                      height: AppSize.s22,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2),
                         border: Border.all(
@@ -179,8 +177,8 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                       child: GestureDetector(
                         onTap: _openColorPicker,
                         child: Container(
-                          width: 60,
-                          height: 20,
+                          width: AppSize.s60,
+                          height: AppSize.s20,
                           decoration: BoxDecoration(
                             color: _selectedColors[0],
                             border: Border.all(
@@ -200,8 +198,8 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
         ),],
       bottomButtons: isLoading
           ? SizedBox(
-        height: 25,
-        width: 25,
+        width: AppSize.s25,
+        height: AppSize.s25,
         child: CircularProgressIndicator(color: ColorManager.blueprime),
       )
           : CustomElevatedButton(

@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -45,7 +43,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15,top: 20),
+            padding: const EdgeInsets.only(left: AppPadding.p15,top: AppPadding.p20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -54,7 +52,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     height: AppSize.s30,
-                    width:315,
+                    width:AppSize.s315,
                     //width: MediaQuery.of(context).size.width / 4.865,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -69,8 +67,8 @@ class _WorkScheduleState extends State<WorkSchedule> {
                           hoverColor: Colors.transparent,
                           onTap: () => _selectButton(0),
                           child: Container(
-                            height: 30,
-                            width: 160,
+                            width: AppSize.s30,
+                            height: AppSize.s160,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                               color: _selectedIndex == 0
@@ -91,8 +89,8 @@ class _WorkScheduleState extends State<WorkSchedule> {
                           hoverColor: Colors.transparent,
                           onTap: () => _selectButton(1),
                           child: Container(
-                            height: 30,
-                            width: 155,
+                            width: AppSize.s30,
+                            height: AppSize.s155,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                               color: _selectedIndex == 1

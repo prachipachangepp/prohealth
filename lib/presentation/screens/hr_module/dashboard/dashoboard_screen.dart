@@ -201,7 +201,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                   Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 40, horizontal: 80),
+                          vertical: 30, horizontal: 80),
                       child: Row(
                         children: [
                           Expanded(
@@ -313,8 +313,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       )),
                 ],
               ),
+              ///view text
               Padding(
-                padding: const EdgeInsets.only(right: 25.0,bottom: 10),
+                padding: const EdgeInsets.only(right: 25.0,bottom: 5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.end,

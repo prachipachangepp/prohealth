@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -14,46 +11,28 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
-import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'dart:math';
-
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
-import '../../../../widgets/error_popups/failed_popup.dart';
-import '../../../../widgets/error_popups/four_not_four_popup.dart';
-
 
 class CustomDialog extends StatefulWidget {
   final String title;
- // final String depTitle;
-   //VoidCallback onSubmit;
-  //final TextEditingController userIdController;
   final TextEditingController lastNameController;
   final TextEditingController emailController;
   final TextEditingController firstNameController;
- // final TextEditingController roleController;
   final TextEditingController passwordController;
   final VoidCallback? onCancel;
- // final TextEditingController companyIdController ;
-  //Widget child;
-
   CustomDialog({
-   // required this.child,
     required this.title,
      this.onCancel,
-   // required this.depTitle,
-   // required this.onSubmit,
-   // required this.userIdController,
     required this.lastNameController,
     required this.emailController,
     required this.firstNameController,
-    //required this.roleController,
     required this.passwordController,
-   // required this.companyIdController,
   });
 
   @override
@@ -123,7 +102,8 @@ class _CustomDialogState extends State<CustomDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return DialogueTemplate(width: 410,
+    return DialogueTemplate(
+        width: AppSize.s410,
         height: AppSize.s550,
         //title: "Create User",
         title: widget.title,
@@ -136,7 +116,7 @@ class _CustomDialogState extends State<CustomDialog> {
         },
         body: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -151,7 +131,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     _nameDocError!,
                     style: CommonErrorMsg.customTextStyle(context),
                   ),
-                SizedBox(height: 5,),
+                SizedBox(height: AppSize.s5,),
                 ///
                 SMTextfieldAsteric(
                   controller: widget.lastNameController,
@@ -163,7 +143,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     _stateDocError!,
                     style: CommonErrorMsg.customTextStyle(context),
                   ),
-                SizedBox(height: 10,),
+                SizedBox(height: AppSize.s10,),
                 RichText(
                   text: TextSpan(
                     text:"Select Department", // Main text
@@ -178,11 +158,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     ],
                   ),
                 ),
-                // Text(
-                //     'Select Department',
-                //     //  widget.depTitle,
-                //     style: AllPopupHeadings.customTextStyle(context)),
-                SizedBox(height: 5,),
+                SizedBox(height: AppSize.s5,),
                 FutureBuilder<List<HRHeadBar>>(
                   future: companyHRHeadApi(context, deptId),
                   builder: (context, snapshot) {
@@ -197,7 +173,7 @@ class _CustomDialogState extends State<CustomDialog> {
                             TextEditingController(
                                 text: ''
                             ),
-                            labelFontSize: 12,
+                            labelFontSize: FontSize.s12,
                             items:  dropDownServiceList,
                           )
                       );
@@ -237,7 +213,7 @@ class _CustomDialogState extends State<CustomDialog> {
                             controller: TextEditingController(
                                 text: selectedDeptName ?? ''),
                             hintText: "Department",
-                            labelFontSize: 12,
+                            labelFontSize: FontSize.s12,
                             items: dropDownServiceList,
                             onChanged: (val) {
                               setState(() {
@@ -256,7 +232,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     return const SizedBox();
                   },
                 ),
-                SizedBox(height: 14,),
+                SizedBox(height: AppSize.s14,),
                 SMTextfieldAsteric(controller: widget.emailController,
                     keyboardType: TextInputType.emailAddress,
                     text: 'Email'),
@@ -265,13 +241,13 @@ class _CustomDialogState extends State<CustomDialog> {
                     _emailDocError!,
                     style: CommonErrorMsg.customTextStyle(context),
                   ),
-                SizedBox(height: 14,),
+                SizedBox(height: AppSize.s14,),
                 Padding(
                   padding: const EdgeInsets.only(left: 1),
                   child: Text("Password",
                       style: AllPopupHeadings.customTextStyle(context)),
                 ),
-                SizedBox(height: 5,),
+                SizedBox(height: AppSize.s5,),
                 CustomTextFieldWithIcon(
                   controller: widget.passwordController,
                   // suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
@@ -281,7 +257,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   // labelText: "Password",
                   hintText: "Password",
                   labelStyle: TextStyle(),
-                  labelFontSize: 12,
+                  labelFontSize: FontSize.s12,
                   errorText: 'Password is required',
                   onSuffixIconPressed: _copyToClipboard,
                 ),
@@ -297,34 +273,27 @@ class _CustomDialogState extends State<CustomDialog> {
         ],
       bottomButtons: isLoading
           ? SizedBox(
-        height: 25,
-        width: 25,
+        height: AppSize.s25,
+        width: AppSize.s25,
         child: CircularProgressIndicator(
           color: ColorManager.blueprime,
         ),
       )
           : CustomElevatedButton(
-        height: 30,
-        width: 120,
+        height: AppSize.s30,
+        width: AppSize.s120,
         text: 'Create',
         onPressed: () async {
-          // Validate the form fields first
           _validateForm();
-
-          // Check if form is valid
           if (!_isFormValid) {
             return; // Do not proceed if form isn't valid
           }
-
-          // Check if password length is sufficient
           if (widget.passwordController.text.length < 6) {
             setState(() {
               _PasswordDocError = "Password must be longer than or equal to 6 characters";
             });
             return; // Exit if password validation fails
           }
-
-          // If validations are successful, show loader and proceed
           setState(() {
             isLoading = true;
           });
@@ -380,91 +349,23 @@ class _CustomDialogState extends State<CustomDialog> {
           }
         },
       ),
-
-
-
-
-
-      ///old
-        // CustomElevatedButton(
-        //     height: 30,
-        //     width: 120,
-        //     text: 'Create',
-        //     onPressed: () async {
-        //       _validateForm();
-        //       print('$selectedDeptId');
-        //       print('${widget.firstNameController.text}');
-        //       print('${widget.lastNameController.text}');
-        //       print('${widget.emailController.text}');
-        //       print('${widget.passwordController.text}');
-        //       if (_isFormValid) {
-        //         var response = await createUserPost(
-        //           context,
-        //           widget.firstNameController.text,
-        //           widget.lastNameController.text,
-        //           selectedDeptId!,
-        //           widget.emailController.text,
-        //           widget.passwordController.text,
-        //         );
-        //         widget.onCancel!();
-        //         widget.firstNameController.clear();
-        //         widget.lastNameController.clear();
-        //         widget.emailController.clear();
-        //         selectedDeptId = AppConfig.AdministrationId;
-        //         Navigator.pop(context);
-        //         if(response.statusCode == 200 || response.statusCode == 201){
-        //           showDialog(
-        //             context: context,
-        //             builder: (BuildContext context) {
-        //               return AddSuccessPopup(
-        //                 message: 'User Added Successfully',
-        //               );
-        //             },
-        //           );
-        //         }
-        //         // }
-        //       }
-        //     }
-        //   //},
-        // ),
         );
   }
 }
 
-
-
-
-
-
-
-
 class CustomDialogSEE extends StatefulWidget {
   final String title;
-  // final String depTitle;
-  //VoidCallback onSubmit;
-  //final TextEditingController userIdController;
   final TextEditingController lastNameController;
   final TextEditingController emailController;
   final TextEditingController firstNameController;
-  // final TextEditingController roleController;
   final TextEditingController passwordController;
-  //final VoidCallback? onCancel;
-  // final TextEditingController companyIdController ;
-  //Widget child;
 
   CustomDialogSEE({
-    // required this.child,
     required this.title,
-   // this.onCancel,
-    // required this.depTitle,
-    // required this.onSubmit,
-    // required this.userIdController,
     required this.lastNameController,
     required this.emailController,
     required this.firstNameController,
-    //required this.roleController,
     required this.passwordController,
-    // required this.companyIdController,
   });
 
   @override
@@ -547,7 +448,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
       },
       body: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -562,7 +463,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   _nameDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: 5,),
+              SizedBox(height: AppSize.s5,),
               ///
               SMTextfieldAsteric(
                 controller: widget.lastNameController,
@@ -574,7 +475,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   _stateDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: 10,),
+              SizedBox(height: AppSize.s10,),
               RichText(
                 text: TextSpan(
                   text:"Select Department", // Main text
@@ -589,11 +490,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   ],
                 ),
               ),
-              // Text(
-              //     'Select Department',
-              //     //  widget.depTitle,
-              //     style: AllPopupHeadings.customTextStyle(context)),
-              SizedBox(height: 5,),
+              SizedBox(height: AppSize.s5,),
               FutureBuilder<List<HRHeadBar>>(
                 future: companyHRHeadApi(context, deptId),
                 builder: (context, snapshot) {
@@ -608,7 +505,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                           TextEditingController(
                               text: ''
                           ),
-                          labelFontSize: 12,
+                          labelFontSize: FontSize.s12,
                           items:  dropDownServiceList,
                         )
                     );
@@ -648,7 +545,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                           controller: TextEditingController(
                               text: selectedDeptName ?? ''),
                           hintText: "Department",
-                          labelFontSize: 12,
+                          labelFontSize: FontSize.s12,
                           items: dropDownServiceList,
                           onChanged: (val) {
                             setState(() {
@@ -667,7 +564,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   return const SizedBox();
                 },
               ),
-              SizedBox(height: 14,),
+              SizedBox(height: AppSize.s14,),
               SMTextfieldAsteric(controller: widget.emailController,
                   keyboardType: TextInputType.emailAddress,
                   text: 'Email'),
@@ -676,13 +573,13 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   _emailDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ),
-              SizedBox(height: 14,),
+              SizedBox(height: AppSize.s14,),
               Padding(
                 padding: const EdgeInsets.only(left: 1),
                 child: Text("Password",
                     style: AllPopupHeadings.customTextStyle(context)),
               ),
-              SizedBox(height: 5,),
+              SizedBox(height: AppSize.s5,),
               CustomTextFieldWithIcon(
                 controller: widget.passwordController,
                 // suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
@@ -708,15 +605,15 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
       ],
       bottomButtons: isLoading
           ? SizedBox(
-        height: 25,
-        width: 25,
+        height: AppSize.s25,
+        width: AppSize.s25,
         child: CircularProgressIndicator(
           color: ColorManager.blueprime,
         ),
       )
           : CustomElevatedButton(
-        height: 30,
-        width: 120,
+        height: AppSize.s30,
+        width: AppSize.s120,
         text: 'Create',
         onPressed: () async {
           // Validate the form fields first
@@ -791,73 +688,9 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
           }
         },
       ),
-
-
-
-      ///old
-      // CustomElevatedButton(
-      //     height: 30,
-      //     width: 120,
-      //     text: 'Create',
-      //     onPressed: () async {
-      //       _validateForm();
-      //       print('$selectedDeptId');
-      //       print('${widget.firstNameController.text}');
-      //       print('${widget.lastNameController.text}');
-      //       print('${widget.emailController.text}');
-      //       print('${widget.passwordController.text}');
-      //       if (_isFormValid) {
-      //         var response = await createUserPost(
-      //           context,
-      //           widget.firstNameController.text,
-      //           widget.lastNameController.text,
-      //           selectedDeptId!,
-      //           widget.emailController.text,
-      //           widget.passwordController.text,
-      //         );
-      //         widget.onCancel!();
-      //         widget.firstNameController.clear();
-      //         widget.lastNameController.clear();
-      //         widget.emailController.clear();
-      //         selectedDeptId = AppConfig.AdministrationId;
-      //         Navigator.pop(context);
-      //         if(response.statusCode == 200 || response.statusCode == 201){
-      //           showDialog(
-      //             context: context,
-      //             builder: (BuildContext context) {
-      //               return AddSuccessPopup(
-      //                 message: 'User Added Successfully',
-      //               );
-      //             },
-      //           );
-      //         }
-      //         // }
-      //       }
-      //     }
-      //   //},
-      // ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ///
 class CustomTextFieldWithIcon extends StatefulWidget {
@@ -916,22 +749,6 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
         textAlignVertical: TextAlignVertical.center,
         cursorColor: ColorManager.black,
         textInputAction: TextInputAction.next,
-        // decoration: InputDecoration(
-        //   suffixIcon: IconButton(
-        //     icon: Padding(
-        //       padding: const EdgeInsets.only(bottom: 22),
-        //       child: widget.suffixIcon ?? Icon(Icons.copy,size:12, color: Colors.black),
-        //     ),
-        //     onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
-        //   ),
-        //  // prefix: widget.prefixWidget,
-        //   prefixStyle:AllHRTableData.customTextStyle(context),
-        //   border: InputBorder.none,
-        //   contentPadding: EdgeInsets.only(
-        //       bottom: 22,
-        //       left: AppPadding.p15),
-        // ),
-        ///
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(
               bottom: AppPadding.p3,
@@ -939,22 +756,22 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
               left: AppPadding.p12
           ),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFB1B1B1), width: 1),
+            borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: 1),
             borderRadius: BorderRadius.circular(8),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFB1B1B1), width: 1),
+            borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: 1),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFB1B1B1), width: 1),
+            borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: 1),
             borderRadius: BorderRadius.circular(8),
           ),
           labelText: widget.labelText,
           labelStyle: DocumentTypeDataStyle.customTextStyle(context),
            errorText: hasError ? widget.errorText : null,
           suffixIcon: IconButton(
-            icon: widget.suffixIcon ?? Icon(Icons.copy, size: 14,color: Colors.black),
+            icon: widget.suffixIcon ?? Icon(Icons.copy, size: IconSize.I14,color: Colors.black),
             onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
           ),
         ),
@@ -963,14 +780,6 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
     );
   }
 }
-
-
-
-
-
-
-
-
 
 
 /// edit user
@@ -983,24 +792,10 @@ class EditUserPopUp extends StatefulWidget {
   final String email;
   final int departmentId;
   final String department;
-
-  // final TextEditingController lastNameController;
-  // final TextEditingController emailController;
-  // final TextEditingController firstNameController;
-
-
   final bool? enable;
-
   EditUserPopUp(
       {required this.title,
         required this.userId,
-
-
-        // required this.lastNameController,
-        // required this.emailController,
-        // required this.firstNameController,
-        //
-
         this.enable,
         required this.deptName, required this.firstname, required this.lastname, required this.email, required this.departmentId, required this.department});
 
@@ -1016,12 +811,9 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   String? selectedDeptName;
   int? selectedDeptId;
 
-
   TextEditingController firstnameController = TextEditingController();
   TextEditingController lastnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-
-
 
   @override
   void initState() {
@@ -1029,16 +821,12 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
     firstnameController.text = widget.firstname;
     lastnameController.text = widget.lastname;
     emailController.text = widget.email;
-
-
   }
-
-
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-      height: 450,
-      width: 400,
+      height: AppSize.s450,
+      width: AppSize.s400,
       title: widget.title,
       body: [
         Padding(
@@ -1067,21 +855,16 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
               //     _stateDocError!,
               //     style: CommonErrorMsg.customTextStyle(context),
               //   ),
-              SizedBox(height: 10,),
+              SizedBox(height: AppSize.s10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left:0),
-                    child: Text(
-                        'Select Department',
-                        //  widget.depTitle,
-
-                        style: AllPopupHeadings.customTextStyle(context)),
-                  ),
+                  Text(
+                      'Select Department',
+                      style: AllPopupHeadings.customTextStyle(context)),
                 ],
               ),
-              SizedBox(height: 5,),
+              SizedBox(height: AppSize.s5,),
               FutureBuilder<List<HRHeadBar>>(
                 future: companyHRHeadApi(context, deptId),
                 builder: (context, snapshot) {
@@ -1092,9 +875,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         alignment: Alignment.center,
                         child:
                         HRUManageDropdown(
-                          controller: TextEditingController(
-                              text: ''),
-                          labelFontSize: 12,
+                          controller: TextEditingController(text: ''),
+                          labelFontSize: FontSize.s12,
                           items:  dropDownServiceList,
                         )
                     );
@@ -1153,18 +935,13 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
               SMTextfieldAsteric(controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   text: 'Email'),
-              // if (_emailDocError != null) // Display error if any
-              //   Text(
-              //     _emailDocError!,
-              //     style: CommonErrorMsg.customTextStyle(context),
-              //   ),
             ],
           ),
         )
       ],
       bottomButtons: ReusableLoadingButton(
-        height: 30,
-        width: 120,
+        height: AppSize.s30,
+        width: AppSize.s120,
         text: 'Submit',
         onPressed: ()  async{
 
@@ -1186,26 +963,10 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
           userId: widget.userId,
           firstName: FName,
           lastName:LDocName,
-
           deptId: selectedDeptId!,
-              // ??
-              // snapshotPrefill
-              //     .data!
-              //     .deptId,
           email:EDocName
 
           );
-          // getUser(context)
-          //     .then(
-          //         (data) {
-          //       _companyUsersList
-          //           .add(
-          //           data);
-          //     }).catchError(
-          //         (error) {
-          //       // Handle error
-          //     });
-
           if(responce.statusCode == 200 || responce.statusCode == 201){
             Navigator.pop(context);
             showDialog(
@@ -1222,16 +983,6 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
               builder: (BuildContext context) => FailedPopup(text: responce.message),
             );
           }
-          // firstNameController
-          //     .clear();
-          // lastNameController
-          //     .clear();
-          // roleController
-          //     .clear();
-          // emailController
-          //     .clear();
-          // companyIdController
-          //     .clear();
         },
         loadingDuration: 2,
       ),
@@ -1239,251 +990,3 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-// /// edit user
-// class EditUserPopUp extends StatefulWidget {
-//   final String title;
-//   final String deptName;
-//   final VoidCallback onSubmit;
-//   Widget child;
-//   final TextEditingController userIdController;
-//   final TextEditingController lastNameController;
-//   final TextEditingController emailController;
-//   final TextEditingController firstNameController;
-//    TextEditingController? roleController;
-//    final TextEditingController? passwordController;
-//   final TextEditingController companyIdController ;
-//   final bool ? enable;
-//
-//
-//    EditUserPopUp({
-//     required this.title,
-//     required this.child,
-//     required this.onSubmit,
-//     required this.userIdController,
-//     required this.lastNameController,
-//     required this.emailController,
-//     required this.firstNameController,
-//      this.roleController,
-//     required this.companyIdController,  this.passwordController,
-//    this.enable, required this.deptName});
-//
-//
-//   @override
-//   State<EditUserPopUp> createState() => _EditUserPopUpState();
-// }
-//
-// class _EditUserPopUpState extends State<EditUserPopUp> {
-//   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-//   @override
-//   Widget build(BuildContext context) {
-//     return Dialog(
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(8),
-//         ),
-//         elevation: 0.0,
-//         backgroundColor: Colors.transparent,
-//         child: Stack(
-//           children: <Widget>[
-//             Container(
-//               height: 490,
-//               width: 450,
-//               decoration: BoxDecoration(
-//                 color: Colors.white,
-//                 shape: BoxShape.rectangle,
-//                 borderRadius: BorderRadius.circular(20),
-//                 boxShadow: [
-//                   BoxShadow(
-//                     color: Colors.black26,
-//                     blurRadius: 10.0,
-//                     offset: const Offset(0.0,10.0),
-//                   ),
-//                 ],
-//               ),
-//               child: SingleChildScrollView(
-//                 child: Form(
-//                   key: _formKey,
-//                   child: Column(
-//                     mainAxisSize: MainAxisSize.min,
-//                     children: <Widget>[
-//                       Container(
-//                         height: 40,
-//                         width: 450,
-//                         //padding: EdgeInsets.all(5),
-//                         decoration: BoxDecoration(
-//                           color: ColorManager.bluebottom,
-//                           borderRadius: BorderRadius.only(
-//                             topLeft: Radius.circular(20),
-//                             topRight: Radius.circular(20),
-//                           ),
-//                         ),
-//                         child: Row(
-//                           crossAxisAlignment: CrossAxisAlignment.center,
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//                             Padding(
-//                               padding: const EdgeInsets.only(left: AppPadding.p35),
-//                               child: Text(
-//                                 widget.title,
-//                                 style: PopupBlueBarText.customTextStyle(context),
-//                               ),
-//                             ),
-//                             Padding(
-//                               padding: EdgeInsets.only(bottom: 5.0),
-//                               child: IconButton(
-//                                 splashColor: Colors.transparent,
-//                                 hoverColor: Colors.transparent,
-//                                 highlightColor: Colors.transparent,
-//                                 onPressed: () {
-//                                   Navigator.pop(context);
-//                                 },
-//                                 icon: Icon(
-//                                   Icons.close,
-//                                   color: Colors.white,
-//                                 ),
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                       SizedBox(height: 16.0),
-//
-//                       Padding(
-//                         padding: const EdgeInsets.only(top: 10, bottom: 10 ),
-//                         child: Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             Padding(
-//                               padding: const EdgeInsets.only(left: 4),
-//                               child: Text("First Name" ,
-//                                 style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
-//                             ),
-//                             SizedBox(height: 8,),
-//                             HRManageTextField(
-//                               height: 38,
-//                               width: 350,
-//                               controller: widget.firstNameController,
-//                               keyboardType: TextInputType.phone,
-//                               text: "First Name",
-//                               cursorHeight: 12,
-//                               // labelText: "First Name",
-//                               labelStyle: TextStyle(),
-//                               labelFontSize: 10,
-//                               errorText: 'First Name is required',
-//                               hintText: 'First Name',
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                       Padding(
-//                         padding: const EdgeInsets.only(top: 10, bottom: 10 ),
-//                         child: Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             Padding(
-//                               padding: const EdgeInsets.only(left: 4),
-//                               child: Text("Last Name", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
-//                             ),
-//                             SizedBox(height: 8,),
-//                             HRManageTextField(
-//                               height: 38,
-//                               width: 350,
-//                               controller: widget.lastNameController,
-//                               keyboardType: TextInputType.phone,
-//                               text: "Last Name",
-//                               cursorHeight: 12,
-//                               // labelText: "Last Name",
-//                               labelStyle: TextStyle(),
-//                               labelFontSize: 10,
-//                               errorText: 'Last Name is required', hintText: 'last Name',
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                       Padding(
-//                         padding: const EdgeInsets.only(top: 10, bottom: 10 ),
-//                         child: Column(
-//                           // crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             Padding(
-//                               padding: const EdgeInsets.only(right: 250 ),
-//                               child: Text(
-//                                 widget.deptName,
-//                                 style: TextStyle(
-//                                     fontSize: 10,
-//                                     color:  Color(0xff686464),
-//                                     fontWeight: FontWeight.w700),),
-//                             ),
-//                             SizedBox(height: 8,),
-//                             widget.child,
-//                           ],
-//                         ),
-//                       ),
-//                       Padding(
-//                         padding: const EdgeInsets.only(top: 10, bottom: 10 ),
-//                         child: Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             Padding(
-//                               padding: const EdgeInsets.only(left: 4),
-//                               child: Text("Email", style: TextStyle(fontSize: 10, color:  Color(0xff686464),fontWeight: FontWeight.w700),),
-//                             ),
-//                             SizedBox(height: 8,),
-//                             HRManageTextFieldEmail(
-//                               height: 38,
-//                               width: 350,
-//                               controller: widget.emailController,
-//                               keyboardType: TextInputType.phone,
-//                               text: "Email",
-//                               cursorHeight: 12,
-//                               // labelText: "Email",
-//
-//                               labelStyle: TextStyle(),
-//                               hintText: "Email",
-//                               labelFontSize: 10,
-//                               errorText: 'Email is required',
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                       SizedBox(height: 35),
-//                       ReusableLoadingButton(
-//                         height: 30,
-//                         width: 120,
-//                         text: 'Submit',
-//                         onPressed: (){
-//                           widget.onSubmit();
-//                         },
-//                         loadingDuration: 2,
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         )
-//     );
-//   }
-// }

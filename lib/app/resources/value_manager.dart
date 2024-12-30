@@ -138,6 +138,7 @@ class AppSize {
   static const double s144 = 144.0;
   static const double s150 = 150.0;
   static const double s152 = 152.0;
+  static const double s155 = 155.0;
   static const double s160 = 160.0;
   static const double s162 = 162.0;
   static const double s165 = 165.0;
@@ -162,10 +163,12 @@ class AppSize {
   static const double s280 = 280.0;
   static const double s282 = 282.0;
   static const double s300 = 300.0;
+  static const double s315 = 315.0;
   static const double s317 = 317.0;
   static const double s330 = 320.0;
   static const double s340 = 340.0;
   static const double s350 = 350.0;
+  static const double s370 = 370.0;
   static const double s354 = 354.0;
   static const double s360 = 360.0;
   static const double s367 = 367.0;
@@ -176,6 +179,7 @@ class AppSize {
   static const double s400 = 400.0;
   static const double s407 = 407.0;
   static const double s408 = 408.0;
+  static const double s410 = 410.0;
   static const double s420 = 420.0;
   static const double s430 = 430.0;
   static const double s440 = 440.0;
@@ -216,6 +220,7 @@ class AppSize {
 }
 
 class IconSize{
+  static const double I14 = 14;
   static const double I16 = 16;
   static const double I18 = 18;
   static const double I20 = 20;

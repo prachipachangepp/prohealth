@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-
-import '../../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 ///normal textfield
@@ -92,11 +88,11 @@ class _SMTextFConstState extends State<SMTextFConst> {
           //   //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
           // ),
           SizedBox(
-            height: 5,
+            height: AppSize.s5,
           ),
           Container(
-            width: widget.width ?? 354,
-            height: 30,
+            width: widget.width ?? AppSize.s354,
+            height: AppSize.s30,
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
               borderRadius: BorderRadius.circular(8),
@@ -214,8 +210,8 @@ class _SMTextfieldAstericState extends State<SMTextfieldAsteric> {
           ),
           const SizedBox(height: 5),
           Container(
-            width: widget.width ?? 354,
-            height: 30,
+            width: widget.width ?? AppSize.s354,
+            height: AppSize.s30,
             decoration: BoxDecoration(
               border: Border.all(color: const Color(0xFFB1B1B1), width: 1),
               borderRadius: BorderRadius.circular(8),
@@ -299,7 +295,7 @@ class _SMNumberTextFConstState extends State<SMNumberTextFConst> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: widget.width ?? 354,
+          width: widget.width ?? AppSize.s354,
           child: RichText(
             text: TextSpan(
               text: widget.text,
@@ -321,8 +317,8 @@ class _SMNumberTextFConstState extends State<SMNumberTextFConst> {
         ),
         const SizedBox(height: 5),
         Container(
-          width: widget.width ?? 354,
-          height: 30,
+          width: widget.width ?? AppSize.s354,
+          height: AppSize.s30,
           decoration: BoxDecoration(
             border: Border.all(color: const Color(0xFFB1B1B1), width: 1),
             borderRadius: BorderRadius.circular(8),
@@ -440,10 +436,10 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: AppSize.s5),
           Container(
-            width: 354,
-            height: 30,
+            width: AppSize.s354,
+            height: AppSize.s30,
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
               borderRadius: BorderRadius.circular(8),
@@ -540,8 +536,8 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
           // ),
           SizedBox(height: 5),
           Container(
-            width: 354,
-            height: 30,
+            width: AppSize.s354,
+            height: AppSize.s30,
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
               borderRadius: BorderRadius.circular(8),
@@ -700,11 +696,11 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
           //   style: AllPopupHeadings.customTextStyle(context),
           // ),
           SizedBox(
-            height: 5,
+            height: AppSize.s5,
           ),
           Container(
-            width: 354,
-            height: 30,
+            width: AppSize.s354,
+            height: AppSize.s30,
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
               borderRadius: BorderRadius.circular(8),
@@ -847,8 +843,8 @@ class _CapitalSMTextFConstState extends State<CapitalSMTextFConst> {
           height: 5,
         ),
         Container(
-          width: 354,
-          height: 30,
+          width: AppSize.s354,
+          height: AppSize.s30,
           decoration: BoxDecoration(
             border: Border.all(color: Color(0xFFB1B1B1), width: 1),
             borderRadius: BorderRadius.circular(8),
@@ -934,11 +930,11 @@ class EditTextField extends StatelessWidget {
           style: ConstTextFieldStyles.customTextStyle(textColor: textColor),
         ),
         SizedBox(
-          height: 5,
+          height: AppSize.s5,
         ),
         Container(
           width: MediaQuery.of(context).size.width / 5,
-          height: 30,
+          height: AppSize.s30,
           decoration: BoxDecoration(
             border: Border.all(color: Color(0xFFB1B1B1), width: 1),
             borderRadius: BorderRadius.circular(8),
@@ -1120,8 +1116,8 @@ class _SSNTextFConstState extends State<SSNTextFConst> {
             height: 5,
           ),
           Container(
-            width: 354,
-            height: 30,
+            width: AppSize.s354,
+            height: AppSize.s30,
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
               borderRadius: BorderRadius.circular(8),

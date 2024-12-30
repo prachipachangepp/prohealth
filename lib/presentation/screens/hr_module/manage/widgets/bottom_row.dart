@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'dart:convert';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
@@ -172,7 +173,7 @@ String? _city;
             Text(
               '--',
               style: TextStyle(
-                fontSize: 12, // FontSize.s12 or a constant value
+                fontSize: FontSize.s12,
                 fontWeight: FontWeight.w400,
                 color: Colors.grey, // ColorManager.grey or a color constant
                 decoration: TextDecoration.none,

@@ -203,10 +203,8 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                         child: Center(
                           child: Text(
                             AppString.dataNotFound,
-                            style: CustomTextStylesCommon
-                                .commonStyle(
-                              fontWeight:
-                              FontWeightManager.medium,
+                            style: CustomTextStylesCommon.commonStyle(
+                              fontWeight: FontWeightManager.medium,
                               fontSize: FontSize.s14,
                               color: ColorManager.mediumgrey,
                             ),
@@ -216,8 +214,6 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     }
                     if (snapshot.hasData) {
                       List<DropdownMenuItem<String>> dropDownList = [];
-
-
                       for (var i in snapshot.data!) {
                         dropDownList.add(DropdownMenuItem<String>(
                           child: Text(i.docType!!),

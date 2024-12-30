@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
-
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/value_manager.dart';
 
 ///button constant with transparent bg, colored text
 class CustomButtonTransparentSM extends StatelessWidget {
@@ -22,8 +22,8 @@ class CustomButtonTransparentSM extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       elevation: 4,
       child: Container(
-        height:25,
-        width: 100,
+        height:AppSize.s25,
+        width: AppSize.s100,
         child: ElevatedButton(
           onPressed: onPressed,
           child: Text(

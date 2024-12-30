@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../app/resources/screen_route_name.dart';
 import 'em_desktop_screen.dart';
 

@@ -71,13 +71,15 @@ class _HrDashboardContainerConstState extends State<HrDashboardContainerConst> {
             children: [
               Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
+                    padding: const EdgeInsets.only(top: 30.0),
                     child: Text(widget.subText,
                       style: CustomTextStylesCommon.commonStyle(fontSize: 32,
                           color: widget.headSubTextColor,fontWeight: FontWeight.w600),),
                   )),
               Expanded(child: Center(
                 child: Container(
+                 // color: Colors.greenAccent,
+                    padding: EdgeInsets.only(bottom: 10),
                     child:Image.asset(widget.imageTile,fit: BoxFit.cover,
                     height: 80,)),))
             ],)

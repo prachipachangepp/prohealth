@@ -7,11 +7,8 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/screen_route_name.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
@@ -168,11 +165,9 @@ class _HrWidgetState extends State<HrWidget> {
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       child: Container(
-                                        height: 30,
-                                        width:
-                                            MediaQuery.of(context).size.width / 8.421,
-                                        padding:
-                                            const EdgeInsets.symmetric(vertical: 6),
+                                        height: AppSize.s30,
+                                        width: MediaQuery.of(context).size.width / 8.421,
+                                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p6),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20),
                                           color: _selectedIndex == 0
@@ -191,11 +186,9 @@ class _HrWidgetState extends State<HrWidget> {
                                       }),
                                   InkWell(
                                       child: Container(
-                                        height: 30,
-                                        width:
-                                            MediaQuery.of(context).size.width / 8.421,
-                                        padding:
-                                            const EdgeInsets.symmetric(vertical: 6),
+                                        height: AppSize.s30,
+                                        width: MediaQuery.of(context).size.width / 8.421,
+                                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p6),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20),
                                           color: _selectedIndex == 1
@@ -217,11 +210,11 @@ class _HrWidgetState extends State<HrWidget> {
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       child: Container(
-                                        height: 30,
+                                        height: AppSize.s30,
                                         width:
                                             MediaQuery.of(context).size.width / 8.421,
                                         padding:
-                                            const EdgeInsets.symmetric(vertical: 6),
+                                            const EdgeInsets.symmetric(vertical: AppPadding.p6),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20),
                                           color: _selectedIndex == 2
@@ -238,16 +231,11 @@ class _HrWidgetState extends State<HrWidget> {
                                         _selectButton(2);
                                         // metaDocID = snapshot.data![index].employeeDocMetaDataId;
                                       }),
-
-
                                 ]),
                           ),
                         );
                       } else {
-                        return SizedBox(
-                          height: 1,
-                          width: 1,
-                        );
+                        return SizedBox(height: 1, width: 1,);
                       }
                     },
                   ),
@@ -255,7 +243,7 @@ class _HrWidgetState extends State<HrWidget> {
                 Padding(
                   padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width/24),
                   child: CustomIconButtonConst(
-                      width: 180,
+                      width: AppSize.s181,
                       text: AppString.addemployeetype,
                       icon: Icons.add,
                       onPressed: () {
@@ -320,58 +308,7 @@ class _HrWidgetState extends State<HrWidget> {
                                   _saveColor(1, seletedColor);
                                 });
                               },
-
                               title: AppStringEM.addEmp,
-                              ///all from hr dropdown CICCd
-                              // child: FutureBuilder<List<HRHeadBar>>(
-                              //     future: companyHRHeadApi(context,deptId),
-                              //     builder: (context,snapshot) {
-                              //       if(snapshot.connectionState == ConnectionState.waiting){
-                              //         List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                              //         return
-                              //           CICCDropdown(
-                              //               items:dropDownMenuItems
-                              //           );
-                              //       }
-                              //       if (snapshot.data!.isEmpty) {
-                              //         return Center(
-                              //           child: Text(
-                              //             AppString.dataNotFound,
-                              //             style: DocumentTypeDataStyle.customTextStyle(context),
-                              //           ),
-                              //         );
-                              //       }
-                              //       if(snapshot.hasData){
-                              //         List dropDown = [];
-                              //         int docType = 0;
-                              //         List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                              //         for(var i in snapshot.data!){
-                              //           dropDownMenuItems.add(
-                              //             DropdownMenuItem<String>(
-                              //               child: Text(i.deptName),
-                              //               value: i.deptName,
-                              //             ),
-                              //           );
-                              //         }
-                              //         return CICCDropdown(
-                              //             initialValue: dropDownMenuItems[1].value,
-                              //             onChange: (val){
-                              //               for(var a in snapshot.data!){
-                              //                 if(a.deptName == val){
-                              //                   docType = a.deptId;
-                              //                   deptId = docType;
-                              //                 }
-                              //               }
-                              //               print(":::${docType}");
-                              //               print(":::<>${deptId}");
-                              //             },
-                              //             items:dropDownMenuItems
-                              //         );
-                              //       }else{
-                              //         return SizedBox();
-                              //       }
-                              //     }
-                              // ),
                             );
                           },
                         );

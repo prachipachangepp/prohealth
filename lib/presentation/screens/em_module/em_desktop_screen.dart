@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
+import 'package:prohealth/app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/company_identity.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/manage_work_schedule.dart';
@@ -18,7 +18,6 @@ import '../../widgets/app_bar/app_bar.dart';
 import '../../widgets/widgets/const_appbar/controller.dart';
 import '../hr_module/manage/widgets/bottom_row.dart';
 import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
-import 'company_identity/company_identity_screen.dart';
 import 'company_identity/widgets/ci_tab_widget/ci_org_document.dart';
 import 'company_identity/widgets/ci_tab_widget/ci_role_manager.dart';
 import 'company_identity/widgets/ci_tab_widget/ci_visit.dart';
@@ -89,19 +88,6 @@ class EMDesktopScreen extends StatelessWidget {
           curve: Curves.ease);
       return false;
     }
-    // else if(pgeControllerId == 2){
-    //   myController.selectButton(1);
-    //   _pageController.animateToPage(1,
-    //       duration: Duration(milliseconds: 500),
-    //       curve: Curves.ease);
-    //   return false;
-    // }else if(pgeControllerId == 3){
-    //   myController.selectButton(2);
-    //   _pageController.animateToPage(2,
-    //       duration: Duration(milliseconds: 500),
-    //       curve: Curves.ease);
-    //   return false;
-    // }
     return true; // Allow the back navigation to exit the app
   }
   //final int companyId = await TokenManager.getCompanyId();
@@ -115,7 +101,7 @@ class EMDesktopScreen extends StatelessWidget {
         body: Stack(children: [
           Column(
             children: [
-              const ApplicationAppBar(headingText: "Establishment Manager"),
+              const ApplicationAppBar(headingText: EmDashboardStringManager.em),
               ///2nd  buttons
               Container(
                 margin: const EdgeInsets.symmetric(
@@ -128,8 +114,8 @@ class EMDesktopScreen extends StatelessWidget {
                       children: [
                         Obx(
                           () => CustomTitleButton(
-                            height: 30,
-                            width: 100,
+                            height: AppSize.s30,
+                            width: AppSize.s100,
                             onPressed: () {
                               myController.selectButton(0);
                               _pageController.animateToPage(0,
@@ -137,17 +123,17 @@ class EMDesktopScreen extends StatelessWidget {
                                   curve: Curves.ease);
                               pgeControllerId = 0;
                             },
-                            text: 'Dashboard',
+                            text: EmDashboardStringManager.dashboard,
                             isSelected: myController.selectedIndex.value == 0,
                           ),
                         ),
                         SizedBox(
-                          width: 10,
+                          width: AppSize.s10,
                         ),
                         Obx(
                           () => CustomTitleButton(
-                            height: 30,
-                            width: 140,
+                            height: AppSize.s30,
+                            width: AppSize.s140,
                             onPressed: () {
                               // uploadCompanyLogoApi(context, 5, "employ");
                               companyByIdApi(
@@ -158,24 +144,24 @@ class EMDesktopScreen extends StatelessWidget {
                                   curve: Curves.ease);
                               pgeControllerId = 1;
                             },
-                            text: 'Company Identity',
+                            text: EmDashboardStringManager.companyIdentity,
                             isSelected: myController.selectedIndex.value == 1,
                           ),
                         ),
-                        SizedBox(width: 15,),
+                        SizedBox(width: AppSize.s15,),
                         Obx(
                           () => Material(
                             elevation: 4,
                             borderRadius: BorderRadius.all(Radius.circular(12)),
                             child: CustomDropdownButton(
-                              height: 30,
-                              width: 170,
+                              height: AppSize.s30,
+                              width: AppSize.s170,
                               items: [
                                 DropdownMenuItem<String>(
                                   enabled:false,
-                                  value: 'Select a Module',
+                                  value: EmDashboardStringManager.selectModule,
                                   child: Text(
-                                    'Select a Module',
+                                    EmDashboardStringManager.selectModule,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: FontSize.s14,
@@ -187,20 +173,20 @@ class EMDesktopScreen extends StatelessWidget {
                                 ),
                                 DropdownMenuItem<String>(
                                   enabled:false,
-                                  value: 'User Management',
+                                  value: EmDashboardStringManager.usermanagement,
                                   child: Text(
-                                    'User Management',
+                                    EmDashboardStringManager.usermanagement,
                                     textAlign: TextAlign.center,
                                     style: AppbarCustomDropdownStyle.customTextStyle(context),
                                   ),
                                   onTap: () {  },
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'Users',
+                                  value: EmDashboardStringManager.Users,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 20.0),
+                                    padding: const EdgeInsets.only(left: AppPadding.p20),
                                     child: Text(
-                                      'Users',
+                                      EmDashboardStringManager.Users,
                                       textAlign: TextAlign.center,
                                       style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                     ),
@@ -218,11 +204,11 @@ class EMDesktopScreen extends StatelessWidget {
                                   },
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'Role Manager',
+                                  value: EmDashboardStringManager.roleManager,
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 20),
+                                    padding: EdgeInsets.only(left: AppPadding.p20),
                                     child: Text(
-                                      'Role Manager',
+                                        EmDashboardStringManager.roleManager,
                                       textAlign: TextAlign.center,
                                       style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                     ),
@@ -242,20 +228,20 @@ class EMDesktopScreen extends StatelessWidget {
                                 ///clinical
                                 DropdownMenuItem<String>(
                                   enabled:false,
-                                  value: 'Clinical',
+                                  value: EmDashboardStringManager.clinical,
                                   child: Text(
-                                    'Clinical',
+                                    EmDashboardStringManager.clinical,
                                     textAlign: TextAlign.center,
                                     style: AppbarCustomDropdownStyle.customTextStyle(context),
                                   ),
                                   onTap: () { },
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'Visits',
+                                  value: EmDashboardStringManager.visits,
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 20),
+                                    padding: EdgeInsets.only(left: AppPadding.p20),
                                     child: Text(
-                                      'Visits',
+                                      EmDashboardStringManager.visits,
                                       textAlign: TextAlign.center,
                                       style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                     ),
@@ -284,11 +270,11 @@ class EMDesktopScreen extends StatelessWidget {
                                   onTap: () { },
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'Designation Settings',
+                                  value: EmDashboardStringManager.designationSetting,
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 20),
+                                    padding: EdgeInsets.only(left: AppPadding.p20),
                                     child: Text(
-                                      'Designation Settings',
+                                      EmDashboardStringManager.designationSetting,
                                       textAlign: TextAlign.center,
                                       style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                     ),
@@ -305,11 +291,11 @@ class EMDesktopScreen extends StatelessWidget {
                                   },
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'Work Schedule',
+                                  value: EmDashboardStringManager.workSchedule,
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 20),
+                                    padding: EdgeInsets.only(left: AppPadding.p20),
                                     child: Text(
-                                      'Work Schedule',
+                                      EmDashboardStringManager.workSchedule,
                                       textAlign: TextAlign.center,
                                       style:AppbarCustomDropdownSubItem.customTextStyle(context)
                                     ),
@@ -326,11 +312,11 @@ class EMDesktopScreen extends StatelessWidget {
                                   },
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'Employee Documents',
+                                  value: EmDashboardStringManager.empDoc,
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 20),
+                                    padding: EdgeInsets.only(left: AppPadding.p20),
                                     child: Text(
-                                      'Employee Documents',
+                                      EmDashboardStringManager.empDoc,
                                       textAlign: TextAlign.center,
                                       style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                     ),
@@ -359,11 +345,11 @@ class EMDesktopScreen extends StatelessWidget {
                                   onTap: () {},
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'Pay Rates',
+                                  value: EmDashboardStringManager.payRates,
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 20),
+                                    padding: EdgeInsets.only(left: AppPadding.p20),
                                     child: Text(
-                                      'Pay Rates',
+                                      EmDashboardStringManager.payRates,
                                       textAlign: TextAlign.center,
                                       style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                     ),
@@ -393,11 +379,11 @@ class EMDesktopScreen extends StatelessWidget {
                                   onTap: () {},
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'Document Defination',
+                                  value: EmDashboardStringManager.docDefination,
                                   child: Padding(
-                                    padding: EdgeInsets.only(left: 20),
+                                    padding: EdgeInsets.only(left: AppPadding.p20),
                                     child: Text(
-                                        'Document Defination',
+                                        EmDashboardStringManager.docDefination,
                                         textAlign: TextAlign.center,
                                         style: AppbarCustomDropdownSubItem.customTextStyle(context)
                                     ),
@@ -414,29 +400,27 @@ class EMDesktopScreen extends StatelessWidget {
                                 ),
                               ],
                               selectedItem: myController.selectedIndex.value == 8
-                                  ? 'Visits'
+                                  ? EmDashboardStringManager.visits
                                   : myController.selectedIndex.value == 7
-                                      ? 'Role Manager'
+                                      ? EmDashboardStringManager.roleManager
                                       : myController.selectedIndex.value == 6
-                                          ? 'Users'
+                                          ? EmDashboardStringManager.Users
                                           : myController.selectedIndex.value == 2
-                                              ? 'Designation Settings'
+                                              ? EmDashboardStringManager.designationSetting
                                               : myController.selectedIndex.value == 3
-                                                  ? 'Work Schedule'
+                                                  ? EmDashboardStringManager.workSchedule
                                                   : myController.selectedIndex.value == 4
-                                                      ? 'Employee Documents'
+                                                      ? EmDashboardStringManager.empDoc
                                                       : myController.selectedIndex.value == 5
-                                                          ? 'Pay Rates'
+                                                          ? EmDashboardStringManager.payRates
                                                             : myController.selectedIndex.value == 9
-                                                            ? 'Document Defination'
-                                                               : 'Select a Module',
+                                                            ? EmDashboardStringManager.docDefination
+                                                               : EmDashboardStringManager.selectModule,
                               onChanged: (newValue) {},
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 15,
-                        ),
+                        SizedBox(width: AppSize.s15,),
                       ],
                     ),
                   ],
@@ -513,7 +497,7 @@ class CustomDropdownButton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       height: height + 5,
-      decoration: selectedItem != 'Select a Module'
+      decoration: selectedItem != EmDashboardStringManager.selectModule
           ? BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               gradient: const LinearGradient(
@@ -533,7 +517,7 @@ class CustomDropdownButton extends StatelessWidget {
           child: DropdownButton<String>(
             icon: Icon(
               Icons.arrow_drop_down,
-              color: selectedItem == 'Select a Module'
+              color: selectedItem == EmDashboardStringManager.selectModule
                   ? ColorManager.textPrimaryColor
                   : Colors.white,
             ),
@@ -550,7 +534,7 @@ class CustomDropdownButton extends StatelessWidget {
                     style: TextStyle(
                       fontSize: FontSize.s14,
                       fontWeight: FontWeight.w700,
-                      color: selectedItem == 'Select a Module'
+                      color: selectedItem == EmDashboardStringManager.selectModule
                           ? ColorManager.textPrimaryColor
                           : (selectedItem == item.value
                               ? Colors.white
@@ -568,368 +552,3 @@ class CustomDropdownButton extends StatelessWidget {
   }
 }
 
-///06
-// class EMDesktopScreen extends StatefulWidget {
-//   final String? dropdownValue;
-//   final ValueChanged<String?>? onChanged;
-//   final VoidCallback? onItem2Selected;
-//
-//   EMDesktopScreen({
-//     this.dropdownValue,
-//     this.onChanged,
-//     this.onItem2Selected,
-//   });
-//
-//   @override
-//   State<EMDesktopScreen> createState() => _EMDesktopScreenState();
-// }
-//
-// class _EMDesktopScreenState extends State<EMDesktopScreen> {
-//   final PageController _pageController = PageController();
-//
-//   final EMController smController = Get.put(EMController());
-//
-//   final HRController hrController = Get.put(HRController());
-//
-//   String selectedOption = 'Select';
-//
-//
-//   bool showSelectOption = true;
-//
-//   final ButtonSelectionController myController =
-//   Get.put(ButtonSelectionController());
-//
-//   void navigateToPage2() {
-//     if (_pageController.page != 2) {
-//       _pageController.animateToPage(
-//         2,
-//         duration: Duration(milliseconds: 500),
-//         curve: Curves.ease,
-//       );
-//     }
-//   }
-//
-//   String? selectedMainCategory;
-//
-//   String? selectedSubItem;
-//
-//   OverlayEntry? overlayEntry;
-//
-//   Map<String, List<Map<String, dynamic>>> menuOptions = {
-//     'User Management': [
-//       {'title': 'Users', 'pageIndex': 2},
-//       {'title': 'Role Manager', 'pageIndex': 3},
-//     ],
-//     'Clinical': [
-//       {'title': 'Visits', 'pageIndex': 4},
-//     ],
-//     'HR': [
-//       {'title': 'Designation Settings', 'pageIndex': 5},
-//       {'title': 'Work Schedule', 'pageIndex': 6},
-//       {'title': 'Employee Documents', 'pageIndex': 7},
-//     ],
-//     'Finance': [
-//       {'title': 'Pay Rates', 'pageIndex': 8},
-//     ],
-//   };
-//
-//   List<String> mainCategories = ['User Management', 'Clinical', 'HR', 'Finance'];
-//
-//   final GlobalKey mainDropdownKey = GlobalKey();
-//   String? isSelected;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: Stack(children: [
-//         Column(
-//           children: [
-//             const ApplicationAppBar(headingText: "Establishment Manager"),
-//             ///2nd  buttons
-//             Container(
-//               margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p20),
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.start,
-//                     children: [
-//                       Obx(
-//                             () => CustomTitleButton(
-//                           height: 30,
-//                           width: 100,
-//                           onPressed: () {
-//                             //companyAll(context);
-//                             myController.selectButton(0);
-//                             _pageController.animateToPage(0,
-//                                 duration: Duration(milliseconds: 500),
-//                                 curve: Curves.ease);
-//                           },
-//                           text: 'Dashboard',
-//                           isSelected: myController.selectedIndex.value == 0,
-//                         ),
-//                       ),
-//                       SizedBox(width: 10,),
-//                       Obx(
-//                             () => CustomTitleButton(
-//                           height: 30,
-//                           width: 140,
-//                           onPressed: () {
-//                             // uploadCompanyLogoApi(context, 5, "employ");
-//                             companyByIdApi(context,);
-//                             // companyDetailsApi(context,5);
-//                             myController.selectButton(1);
-//                             _pageController.animateToPage(1,
-//                                 duration: Duration(milliseconds: 500),
-//                                 curve: Curves.ease);
-//                           },
-//                           text: 'Company Identity',
-//                           isSelected: myController.selectedIndex.value == 1,
-//                         ),
-//                       ),
-//                       SizedBox(width: 15,),
-//                       Container(
-//                         padding: const EdgeInsets.symmetric(horizontal: 20),
-//                         height: 30,
-//                         decoration: selectedMainCategory == null || selectedMainCategory == 'Select a module'
-//                             ? const BoxDecoration(
-//                           borderRadius: BorderRadius.all(Radius.circular(10)),
-//                           color: Colors.white, // White color for initial state
-//                           boxShadow: [
-//                             BoxShadow(
-//                               color: Colors.black12, // Shadow color
-//                               blurRadius: 8,        // Softness of the shadow
-//                               offset: Offset(2, 2), // Position of the shadow (horizontal and vertical)
-//                             ),
-//                           ],
-//                         )
-//                             : BoxDecoration(
-//                           borderRadius: BorderRadius.circular(12),
-//                           gradient: const LinearGradient(
-//                             colors: [
-//                               Color(0xff51B5E6),
-//                               Color(0xff008ABD),
-//                             ],
-//                             begin: Alignment.topCenter,
-//                             end: Alignment.bottomCenter,
-//                           ),
-//                           boxShadow: [
-//                             BoxShadow(
-//                               color: Colors.black26, // Darker shadow for gradient state
-//                               blurRadius: 10,
-//                               offset: Offset(2, 4),
-//                             ),
-//                           ],
-//                         ),
-//                         child: DropdownButtonHideUnderline(
-//                           child: DropdownButton<String>(
-//                             key: mainDropdownKey,
-//                             hint: Text(
-//                               'Select a module',
-//                               style: GoogleFonts.firaSans(
-//                                 fontSize: FontSize.s12,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: selectedMainCategory == null || selectedMainCategory == 'Select a module'
-//                                     ? Colors.black
-//                                     : Colors.white,
-//                               ),
-//                             ),
-//                             value: selectedMainCategory == 'Select a module' ? null : selectedMainCategory,
-//                             icon: Icon(
-//                               Icons.arrow_drop_down,
-//                               color: selectedMainCategory == null || selectedMainCategory == 'Select a module'
-//                                   ? Colors.black
-//                                   : Colors.white,
-//                             ),
-//                             items: mainCategories.map((String category) {
-//                               return DropdownMenuItem<String>(
-//                                 value: category,
-//                                 child: Text(
-//                                   category,
-//                                   style: GoogleFonts.firaSans(
-//                                     fontSize: FontSize.s12,
-//                                     fontWeight: FontWeight.w700,
-//                                     color: selectedMainCategory == category
-//                                         ? Colors.white
-//                                         : ColorManager.textPrimaryColor,
-//                                   ),
-//                                 ),
-//                               );
-//                             }).toList(),
-//                             onChanged: (value) {
-//                               if (value != null) {
-//                                 setState(() {
-//                                   selectedMainCategory = value;
-//                                 });
-//
-//                                 showSubmenuDropdown(context, value);
-//                               }
-//                             },
-//                           ),
-//                         ),
-//                       )
-//
-//
-//
-//
-//                       ///
-//
-//
-//                       // Container(
-//                       //   padding: const EdgeInsets.symmetric(horizontal: 20),
-//                       //   height: 40,
-//                       //   decoration: selectedMainCategory != 'Select a module'
-//                       //       ? BoxDecoration(
-//                       //     borderRadius: BorderRadius.circular(12),
-//                       //     gradient: const LinearGradient(
-//                       //       colors: [
-//                       //         Color(0xff51B5E6),
-//                       //         Color(0xff008ABD),
-//                       //       ],
-//                       //       begin: Alignment.topCenter,
-//                       //       end: Alignment.bottomCenter,
-//                       //     ),
-//                       //   )
-//                       //       : const BoxDecoration(
-//                       //     borderRadius: BorderRadius.all(Radius.circular(10)),
-//                       //     color: Colors.white,
-//                       //   ),
-//                       //   child: DropdownButtonHideUnderline(
-//                       //     child: DropdownButton<String>(
-//                       //       key: mainDropdownKey,
-//                       //       hint: Text('Select a module',
-//                       //       style: GoogleFonts.firaSans(
-//                       //                 fontSize: FontSize.s12,
-//                       //                 fontWeight: FontWeight.w700,
-//                       //                 // color: ColorManager.textPrimaryColor
-//                       //               color: isSelected ? Colors.white : Colors.black,
-//                       //             ),),
-//                       //       value: selectedMainCategory,
-//                       //       items: mainCategories.map((String category) {
-//                       //         return DropdownMenuItem<String>(
-//                       //           value: category,
-//                       //           child: Text(category,
-//                       //             style: GoogleFonts.firaSans(
-//                       //             fontSize: FontSize.s12,
-//                       //             fontWeight: FontWeight.w700,
-//                       //             color: ColorManager.textPrimaryColor
-//                       //           ),),
-//                       //         );
-//                       //       }).toList(),
-//                       //       onChanged: (value) {
-//                       //         if (value != null) {
-//                       //           setState(() {
-//                       //             selectedMainCategory = value;
-//                       //           });
-//                       //           // Show the overlay dropdown for sub-items
-//                       //           showSubmenuDropdown(context, value);
-//                       //         }
-//                       //       },
-//                       //     ),
-//                       //   ),
-//                       // ),
-//
-//                     ],
-//                   ),
-//                       SizedBox(width: 15,),
-//                     ],
-//                   ),
-//
-//               ),
-//
-//             Expanded(
-//               flex: 8,
-//               child: PageView(
-//                 controller: _pageController,
-//                 physics: NeverScrollableScrollPhysics(),
-//                 children: [
-//                   Container(child:Image.asset('images/EMDASHBOARD.jpg',fit: BoxFit.contain,)),
-//                   CompanyIdentityScreen(),
-//                   SeeAllScreen(),
-//                   CiRoleManager(),
-//                   CiVisitScreen(),
-//                   HrScreen(),
-//                   ManageWorkSchedule(),
-//                   ManageEmployDocument(),
-//                   FinanceScreen(),
-//
-//                 ],
-//               ),
-//             ),
-//             BottomBarRow()
-//           ],
-//         ),
-//       ]),
-//     );
-//   }
-//
-//   // Show an overlay dropdown with submenu items for the selected main category
-//   void showSubmenuDropdown(BuildContext context, String mainCategory) {
-//     // Remove the previous overlay if it exists
-//     if (overlayEntry != null && overlayEntry!.mounted) {
-//       overlayEntry!.remove();
-//     }
-//
-//     // Get the position and size of the main dropdown
-//     final RenderBox renderBox = mainDropdownKey.currentContext!.findRenderObject() as RenderBox;
-//     final size = renderBox.size;
-//     final offset = renderBox.localToGlobal(Offset.zero);
-//
-//     // Create a new overlay entry for submenu
-//     overlayEntry = OverlayEntry(
-//       builder: (context) {
-//         return Positioned(
-//           left: offset.dx, // Position it below the dropdown
-//           top: offset.dy + size.height, // Just below the main dropdown
-//           width: size.width, // Use the same width as the main dropdown
-//           child: Material(
-//             elevation: 4.0,
-//             child: ConstrainedBox(
-//               constraints: BoxConstraints(maxHeight: 200), // Limit dropdown height if needed
-//               child: ListView(
-//                 padding: EdgeInsets.zero,
-//                 shrinkWrap: true,
-//                 children: menuOptions[mainCategory]!.map((subItem) {
-//                   return ListTile(
-//                     title: Text(subItem['title'],style: GoogleFonts.firaSans(
-//                       fontSize: FontSize.s12,
-//                       fontWeight: FontWeight.w700,
-//                       color: subItem.values == 'Select a module'
-//                           ? ColorManager.textPrimaryColor
-//                           : (selectedSubItem == subItem.values
-//                           ? Colors.white
-//                           : ColorManager.textPrimaryColor),
-//                     ),),
-//                     onTap: () {
-//                       setState(() {
-//                         selectedSubItem = subItem['title'];
-//                         if (overlayEntry != null) {
-//                           overlayEntry!.remove(); // Close the submenu when an item is selected
-//                         }
-//                       });
-//                       _navigateToPage(subItem['pageIndex']);
-//                     },
-//                   );
-//                 }).toList(),
-//               ),
-//             ),
-//           ),
-//         );
-//       },
-//     );
-//
-//     // Insert the overlay entry into the overlay stack
-//     Overlay.of(context)?.insert(overlayEntry!);
-//   }
-//
-//   void _navigateToPage(int pageIndex) {
-//     // Navigate to the corresponding page
-//     _pageController.animateToPage(
-//       pageIndex,
-//       duration: Duration(milliseconds: 500),
-//       curve: Curves.easeInOut,
-//     );
-//   }
-// }
-//
-//

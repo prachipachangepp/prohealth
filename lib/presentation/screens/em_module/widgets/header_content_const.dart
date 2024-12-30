@@ -47,30 +47,3 @@ class HeaderContentConst extends StatelessWidget {
     );
   }
 }
-
-// class HeaderContentConst extends StatelessWidget {
-//   final String heading;
-//   final Widget content;
-//   const HeaderContentConst(
-//       {super.key, required this.heading, required this.content});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: EdgeInsets.symmetric(vertical: 6),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(
-//             heading,
-//             style: AllPopupHeadings.customTextStyle(context),
-//           ),
-//           SizedBox(height: AppSize.s5),
-//
-//           /// upload  doc
-//           content,
-//         ],
-//       ),
-//     );
-//   }
-// }
