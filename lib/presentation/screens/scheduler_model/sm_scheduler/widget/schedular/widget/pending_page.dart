@@ -177,38 +177,42 @@ class _PendingPageViewState extends State<PendingPageView> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(right: 0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text("SOC",style: DocumentTypeDataStyle.customTextStyle(context),),
                       ),
-                      Container(
-                        child:  Switch(
-                          focusColor: Colors.transparent,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          child:  Switch(
+                            focusColor: Colors.transparent,
 
-                          hoverColor: Colors.transparent,
-                          value: isSwitched,
-                          onChanged: (value) {
-                            setState(() {
-                              isSwitched = value;
-                              print(isSwitched);
-                            });
-                          },
-                          activeTrackColor: ColorManager.bluebottom,
-                          inactiveTrackColor:ColorManager.bluebottom ,
-                          activeColor: ColorManager.white,
+                            hoverColor: Colors.transparent,
+                            value: isSwitched,
+                            onChanged: (value) {
+                              setState(() {
+                                isSwitched = value;
+                                print(isSwitched);
+                              });
+                            },
+                            activeTrackColor: ColorManager.bluebottom,
+                            inactiveTrackColor:ColorManager.bluebottom ,
+                            activeColor: ColorManager.white,
+                          ),
                         ),
                       ),
 
 
                       Padding(
-                        padding: const EdgeInsets.only(right: 8,left: 5),
+                        padding: const EdgeInsets.only(right: 20),
                         child: Text("POC",style: DocumentTypeDataStyle.customTextStyle(context),),
                       ),
 
                       Container(
-                        width: 130,
+                        width: 135,
                         height: 32,
                         child: ElevatedButton.icon(onPressed: (){}, label: Text("Bulk Assign", style: BlueButtonTextConst.customTextStyle(context),),
-                          icon: Icon( Icons.supervisor_account,color:ColorManager.white ,size: 18,),
+                          // icon: Icon( Icons.supervisor_account,color:ColorManager.white ,size: 18,),
+                          icon:SvgPicture.asset("images/sm/bulk_assign.svg",  height: 13,width: 0,),
                           style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
                             elevation: 5,
                             shape: RoundedRectangleBorder(
@@ -304,9 +308,13 @@ class _PendingPageViewState extends State<PendingPageView> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  color: Color(0xFF527FB9).withOpacity(0.5),
-                                  width: 19,
-                                  height: 19,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF527FB9).withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(5), // Makes the borders curved with radius 5
+                                  ),
+                                  // color: Color(0xFF527FB9).withOpacity(0.5),
+                                  width: 22,
+                                  height: 20,
                                   child: Center(
                                     child: Text("ST",style: TextStyle(
                                       // fontWeight: FontWeight.w600,
@@ -321,16 +329,20 @@ class _PendingPageViewState extends State<PendingPageView> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  color: Color(0xFFFEBD4D).withOpacity(0.5),
-                                  width: 19,
-                                  height: 19,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFFEBD4D).withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(5), // Makes the borders curved with radius 5
+                                  ),
+                                  width: 22,
+                                  height: 20,
                                   child: Center(
-                                    child: Text("OT",style: TextStyle(
-                                      // fontWeight: FontWeight.w600,
-                                      //     fontSize: FontSize.s13,
-                                      color: ColorManager.white,
-                                      decoration: TextDecoration.none,
-                                    ),),
+                                    child: Text(
+                                      "OT",
+                                      style: TextStyle(
+                                        color: ColorManager.white,
+                                        decoration: TextDecoration.none,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               )

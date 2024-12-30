@@ -245,9 +245,13 @@ class _SocPageViewState extends State<SocPageView> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                color: Color(0xFF527FB9).withOpacity(0.5),
-                                width: 19,
-                                height: 19,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF527FB9).withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(5), // Makes the borders curved with radius 5
+                                ),
+                                // color: Color(0xFF527FB9).withOpacity(0.5),
+                                width: 22,
+                                height: 20,
                                 child: Center(
                                   child: Text("ST",style: TextStyle(
                                     // fontWeight: FontWeight.w600,
@@ -262,19 +266,24 @@ class _SocPageViewState extends State<SocPageView> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                color: Color(0xFFFEBD4D).withOpacity(0.5),
-                                width: 19,
-                                height: 19,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFFEBD4D).withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(5), // Makes the borders curved with radius 5
+                                ),
+                                width: 22,
+                                height: 20,
                                 child: Center(
-                                  child: Text("OT",style: TextStyle(
-                                    // fontWeight: FontWeight.w600,
-                                    //     fontSize: FontSize.s13,
-                                    color: ColorManager.white,
-                                    decoration: TextDecoration.none,
-                                  ),),
+                                  child: Text(
+                                    "OT",
+                                    style: TextStyle(
+                                      color: ColorManager.white,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
                                 ),
                               ),
                             )
+
                           ],
                         ),
 
@@ -310,7 +319,7 @@ class _SocPageViewState extends State<SocPageView> {
                                 child: SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,)
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(right: 30,left: 10),
+                              padding: const EdgeInsets.only(right: 30,left: 50),
                               child: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,),
                             ),
                             // Container(
