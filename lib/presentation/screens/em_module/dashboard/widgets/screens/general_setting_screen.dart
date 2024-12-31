@@ -41,10 +41,6 @@ class GeneralSettingScreen extends StatelessWidget {
                                   height: AppSize.s50,
                                   color: ColorManager.bluebottom,
                                   child: Icon(Icons.lock_clock,color: ColorManager.white,size: IconSize.I24,)
-                                // Image.asset(
-                                //   imageTile, // Replace with your image path
-                                //   fit: BoxFit.cover,
-                                // ),
                               ),
                             ),
                             const SizedBox(width: AppSize.s20,),
@@ -52,7 +48,6 @@ class GeneralSettingScreen extends StatelessWidget {
                               style: EmDashText.customTextStyle(context),),
                           ],
                         ),
-
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +59,6 @@ class GeneralSettingScreen extends StatelessWidget {
                           ],
                         ),
                       ],)),
-
                   const SizedBox(height: AppPadding.p20,),
                   const Row(children: [
                     Expanded(

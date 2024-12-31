@@ -184,8 +184,19 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                       padding: const EdgeInsets.only(bottom: 5.0),
                                       child: SfCartesianChart(
                                         backgroundColor: ColorManager.white,
-                                        primaryXAxis: CategoryAxis(),
+                                        primaryXAxis: CategoryAxis(
+                                          labelStyle: TextStyle(
+                                            color: ColorManager.mediumgrey,
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
                                         primaryYAxis: NumericAxis(
+                                          labelStyle: TextStyle(
+                                            color: ColorManager.mediumgrey,
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                           minimum: 0,
                                           maximum: 100,
                                           interval: 25,

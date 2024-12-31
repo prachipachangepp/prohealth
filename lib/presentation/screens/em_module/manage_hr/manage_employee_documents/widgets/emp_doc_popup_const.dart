@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
-
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import '../../../../../../app/services/api/repository/establishment_manager/employee_doc_repository.dart';
 import '../../../company_identity/widgets/whitelabelling/success_popup.dart';
@@ -89,7 +85,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
       height: AppSize.s511,
       body: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -97,7 +93,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
               SMTextfieldAsteric(
                 controller: idDocController,
                 keyboardType: TextInputType.text,
-                text: 'ID of the Document',
+                text: AppStringEM.idOfDOc,
               ),
               if (_idError != null)
                 Text(
@@ -108,7 +104,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
               SMTextfieldAsteric(
                 controller: nameDocController,
                 keyboardType: TextInputType.text,
-                text: 'Name of the Document',
+                text: AppStringEM.NameOfDoc,
               ),
               if (_nameError != null)
                 Text(
@@ -116,17 +112,8 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                   style:  CommonErrorMsg.customTextStyle(context),
                 ),
               SizedBox(height: AppSize.s8),
-              // Text(
-              //   'Type of the Document',
-              //   style: GoogleFonts.firaSans(
-              //     fontSize: FontSize.s12,
-              //     fontWeight: FontWeight.w700,
-              //     color: ColorManager.mediumgrey,
-              //   ),
-              // ),
-              // SizedBox(height: 5),
               Padding(
-                padding: const EdgeInsets.only(left: 4.0),
+                padding: const EdgeInsets.only(left: AppPadding.p4),
                 child: Row(
                   children: [
                     HeaderContentConst(
@@ -179,13 +166,13 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 10,
+                            height: AppSize.s10,
                           ),
                           Row(
                             children: [
                               Container(
-                                height: 30,
-                                width: 50,
+                                height: AppSize.s30,
+                                width: AppSize.s50,
                                 //color: ColorManager.red,
                                 child: TextFormField(
                                   textAlign: TextAlign.center,
@@ -206,21 +193,19 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                                           width: 2),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 10),
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                   ),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
-                                    FilteringTextInputFormatter
-                                        .digitsOnly, // This ensures only digits are accepted
+                                    FilteringTextInputFormatter.digitsOnly, // This ensures only digits are accepted
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              SizedBox(width: AppSize.s10),
                               Container(
-                                height: 30,
-                                width: 80,
-                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                height: AppSize.s30,
+                                width: AppSize.s80,
+                                padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
                                 decoration: BoxDecoration(
                                   border:
                                       Border.all(color: ColorManager.fmediumgrey),
@@ -256,7 +241,7 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                                     focusedBorder: InputBorder.none,
                                     hintText: AppConfig.year,
                                     hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                    contentPadding: EdgeInsets.only(bottom: 20),
+                                    contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
                                   ),
                                   icon: Icon(
                                     Icons.arrow_drop_down,
@@ -279,35 +264,30 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
       ],
       bottomButtons: _isLoading
           ? SizedBox(
-              width: 25,
-              height: 25,
+              width: AppSize.s25,
+              height: AppSize.s25,
               child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
               ),
             )
           : Center(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(AppPadding.p8),
                 child: CustomElevatedButton(
                     width: AppSize.s105,
                     height: AppSize.s30,
                     text: AppStringEM.save,
                   onPressed: () async {
-                    // Validate fields
                     _validateFields();
-
-                    // Stop if form is not valid
                     if (!_isFormValid) {
                       setState(() {
                         _isLoading = false;
                       });
                       return;
                     }
-
                     setState(() {
                       _isLoading = true;
                     });
-
                     int threshold = 0;
                     if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
                       int enteredValue = int.parse(daysController.text);
@@ -317,7 +297,6 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                         threshold = enteredValue * 30;
                       }
                     }
-
                     var response = await addEmployeeDocSetup(
                       context: context,
                       docName: nameDocController.text,
@@ -353,55 +332,13 @@ class _EmpDocADDPopupState extends State<EmpDocADDPopup> {
                         builder: (BuildContext context) => FailedPopup(text: response.message),
                       );
                     }
-
                     print(nameDocController.text);
                     print(idDocController.text);
                     print(widget.Subdocid);
                     print(selectedExpiryType.toString());
-
-
                     nameDocController.clear();
                     dateController.clear();
                   },
-
-                  // onPressed: () async {
-                    //   _validateFields();
-                    //   setState(() {
-                    //     _isLoading = true;
-                    //   });
-                    //
-                    //   int threshold = 0;
-                    //   if (selectedExpiryType == AppConfig.scheduled &&
-                    //       daysController.text.isNotEmpty) {
-                    //     int enteredValue = int.parse(daysController.text);
-                    //     if (selectedYear == AppConfig.year) {
-                    //       threshold = enteredValue * 365;
-                    //     } else if (selectedYear == AppConfig.month) {
-                    //       threshold = enteredValue * 30;
-                    //     }
-                    //   }
-                    //   await addEmployeeDocSetup(
-                    //     context: context,
-                    //     docName: nameDocController.text,
-                    //     expiryDate: "", //expiryDate,
-                    //     remainderThreshold: selectedExpiryType.toString(),
-                    //     empDocMetaDataId: widget.Subdocid,
-                    //     idOfDoc: idDocController.text,
-                    //     expiryType: selectedExpiryType.toString(),
-                    //     threshold: threshold, // Pass calculated or 0
-                    //   );
-                    //
-                    //   print(nameDocController.text);
-                    //   print(idDocController.text);
-                    //   print(widget.Subdocid);
-                    //   print(selectedExpiryType.toString());
-                    //
-                    //   Navigator.pop(context);
-                    //   nameDocController.clear();
-                    //   dateController.clear();
-                    //
-                    //
-                    // }
                     ),
               ),
             ),
@@ -505,7 +442,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 enable: widget.enable ?? true,
                 controller: idOfDocController,
                 keyboardType: TextInputType.text,
-                text: 'ID of the Document',
+                text: AppStringEM.idOfDOc,
               ),
               if (_idError != null)
                 Text(
@@ -516,19 +453,19 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
               SMTextfieldAsteric(
                 controller: nameDocController,
                 keyboardType: TextInputType.text,
-                text: 'Name of the Document',
+                text: AppStringEM.NameOfDoc,
               ),
               if (_nameError != null)
                 Text(
                   _nameError!,
-                  style: TextStyle(color: Colors.red, fontSize: 12),
+                  style: TextStyle(color: Colors.red, fontSize: FontSize.s12),
                 ),
               SizedBox(height: AppSize.s8),
               HeaderContentConst(
                 heading: AppString.type_of_the_document,
                 content: Container(
-                  width: 354,
-                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                  width: AppSize.s354,
+                  padding: EdgeInsets.symmetric(vertical: AppPadding.p3, horizontal: AppPadding.p12),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(4),
@@ -549,7 +486,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                   ),
                 ),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: AppSize.s5),
               // Row(
               //   children: [
               //     HeaderContentConst(
@@ -705,15 +642,15 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
       ],
       bottomButtons: _isLoading
           ? SizedBox(
-        width: 25,
-        height: 25,
+        width: AppSize.s25,
+        height: AppSize.s25,
         child: CircularProgressIndicator(
           color: ColorManager.blueprime,
         ),
       )
           : Center(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(AppPadding.p8),
           child: CustomElevatedButton(
             width: AppSize.s105,
             height: AppSize.s30,
@@ -726,10 +663,6 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 });
 
                 try {
-                  // String expiryTypeToSend = selectedExpiryType == AppConfig.notApplicable
-                  //     ? AppConfig.notApplicable
-                  //     : daysController.text;
-
                   int threshold = 0;
                   String? expiryDateToSend = "";
                   if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
@@ -747,21 +680,9 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                   }
 
                   var response = await editEmployeeDocTypeSetupId(
-                    // context,
-                    // widget.empsetupId,
-                    // widget.docname,
-                    // widget.empdoctype,
-                    // selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString(): widget.expiryType!,
-                    // widget.employeeDocTypeMetaDataId,
-                    // idOfDocController.text,
-                    // selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString(): widget.expiryType!,
-                    // threshold,
                     context: context,
                     employeeDoctypeSetupId: widget.empsetupId,
                     docName: nameDocController.text,
-                    // expiry: '',
-                    // employeeDocTypeMetaDataId: widget.employeeDocTypeMetaDataId,
-                    // idOfDocument:  idOfDocController.text, expiryType: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString(): widget.expiryType!,
                     threshold: threshold,
                   );
                   if(response.statusCode == 200 || response.statusCode == 201){

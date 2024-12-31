@@ -98,29 +98,20 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                         ],
                       ),
                     ),
-                 //   Text('County', style: AllPopupHeadings.customTextStyle(context),),
                     const SizedBox(height: 5),
                     FutureBuilder<List<AllCountyGetList>>(
                       future: getCountyZoneList(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 7),
-                            child: CICCDropdown(
-                              hintText: 'Select County',
-                              items: [],
-                            ),
+                          return CICCDropdown(
+                            width: AppSize.s354,
+                            hintText: 'Select County',
+                            items: [],
                           );
                         } else if (snapshot.hasError) {
                           return const Text("Error fetching counties");
                         } else if (snapshot.hasData) {
                           countyDropDownList.clear();
-                          // countyDropDownList.add(
-                          //   const DropdownMenuItem<String>(
-                          //     child: Text('Select County'),
-                          //     value: 'Select County',
-                          //   ),
-                          // );
                           for (var county in snapshot.data!) {
                             countyDropDownList.add(
                               DropdownMenuItem<String>(
@@ -129,7 +120,6 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                               ),
                             );
                           }
-
                           return StatefulBuilder(
                             builder: (BuildContext context, StateSetter setState) {
                               return Column(
@@ -139,28 +129,23 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                   CICCDropdown(
                                     items: countyDropDownList,
                                     initialValue: selectedCounty,
-                                    width: 354,
+                                    width: AppSize.s354,
                                     onChange: (newValue) async {
                                       setState(() {
                                         selectedCounty = newValue;
                                         selectedCovrageCounty = newValue;
                                       });
-
-                                      // Get the county ID for the selected county
-                                      for (var county in snapshot.data!) {
+                                       for (var county in snapshot.data!) {
                                         if (county.countyName == newValue) {
                                           selectedCountyId = county.countyId;
                                           countyName = county.countyName;
                                           // break;
                                         }
                                       }
-
                                       print("Selected CountyId: $selectedCountyId");
                                     },
                                   ),
                                   const SizedBox(height: 15),
-
-                                  // Zone Label
                                   RichText(
                                     text: TextSpan(
                                       text: "Zone", // Main text
@@ -175,60 +160,35 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                       ],
                                     ),
                                   ),
-                                 // Text('Zone', style: AllPopupHeadings.customTextStyle(context),),
                                   const SizedBox(height: 5),
-
-                                  // Zone Dropdown with hint text
                                   StreamBuilder<List<CountyWiseZoneModal>>(
                                       stream: _zoneController.stream,
                                       builder: (context, snapshotZone) {
-                                        fetchCountyWiseZone(context, selectedCountyId)
-                                            .then((data) {
+                                        fetchCountyWiseZone(context, selectedCountyId).then((data) {
                                           _zoneController.add(data);
                                         }).catchError((error) {});
-                                        if (snapshotZone.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Container(
-                                            width: 354,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: ColorManager
-                                                      .containerBorderGrey,
-                                                  width: AppSize.s1),
-                                              borderRadius:
-                                              BorderRadius.circular(4),
-                                            ),
-                                            child: const Text(
-                                              "",
-                                              //AppString.dataNotFound,
-                                            ),
+                                        if (snapshotZone.connectionState == ConnectionState.waiting) {
+                                          return CICCDropdown(
+                                            width: AppSize.s354,
+                                            hintText: 'Select Zone',
+                                            items: [],
                                           );
                                         }
                                         if (snapshotZone.data!.isEmpty) {
                                           return Container(
-                                            width: 354,
+                                            width: AppSize.s354,
                                             height: 30,
                                             decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: ColorManager
-                                                      .containerBorderGrey,
-                                                  width: AppSize.s1),
-                                              borderRadius:
-                                              BorderRadius.circular(4),
+                                              border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                              borderRadius: BorderRadius.circular(4),
                                             ),
                                             child: Align(
                                               alignment: Alignment.centerLeft,
                                               child: Padding(
-                                                padding: const EdgeInsets
-                                                    .symmetric(
-                                                    horizontal: 10),
+                                                padding: const EdgeInsets.symmetric(horizontal: 10),
                                                 child: Text(
-                                                  ErrorMessageString
-                                                      .noZones,
-                                                  //  AppString.dataNotFound,
-                                                  style:
-                                                  AllNoDataAvailable.customTextStyle(context),
+                                                  ErrorMessageString.noZones,
+                                                  style: AllNoDataAvailable.customTextStyle(context),
                                                 ),
                                               ),
                                             ),
@@ -239,7 +199,6 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                           int docType = 0;
                                           List<DropdownMenuItem<String>>
                                           dropDownTypesList = [];
-
                                           for (var i in snapshotZone.data!) {
                                             dropDownTypesList.add(
                                               DropdownMenuItem<String>(
@@ -252,11 +211,8 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                             selectedZipCodeZone =
                                                 snapshotZone.data![0].zoneName;
                                           }
-                                        //  docZoneId = snapshotZone.data![0].zone_id;
                                           return CICCDropdown(
-                                              width: 354,
-                                              // initialValue:
-                                              // dropDownTypesList[0].value,
+                                              width: AppSize.s354,
                                               onChange: (val) {
                                                 selectedZipCodeZone = val;
                                                 selectedCovrageZone = val;
@@ -275,7 +231,6 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                         }
                                         return const SizedBox();
                                       }),
-
                                 ],
                               );
                             },

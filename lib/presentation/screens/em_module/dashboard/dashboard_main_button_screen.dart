@@ -59,7 +59,7 @@ class _DashboardMainButtonScreenState extends State<DashboardMainButtonScreen> {
                     index: 1,
                     grpIndex: _selectedIndex,
                     heading: EmDashboardStringManager.OfficeLocation),
-                SizedBox(width: 10,),
+                SizedBox(width: AppSize.s10,),
                 EMDashboardMenuButtons(
                     onTap: (int index) {
                       _selectButton(index);
@@ -124,21 +124,4 @@ class NonScrollablePageView extends StatelessWidget {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:prohealth/app/resources/screen_route_name.dart';
-//
-// class DashboardMainButtonScreen extends StatelessWidget {
-//   static const String routeName = RouteStrings.emMainDashboard;
-//   const DashboardMainButtonScreen({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         child: Image.asset(
-//           'images/EMDASHBOARD.jpg',
-//           fit: BoxFit.contain,
-//         ));
-//   }
-// }
 

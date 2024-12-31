@@ -642,7 +642,7 @@ class AllAvailableClinician extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    //flex: 2,
+                                    flex: 2,
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -686,6 +686,7 @@ class AllAvailableClinician extends StatelessWidget {
                                     ),
                                   ),
                                   Expanded(
+                                    flex:2,
                                     child:  Row(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -707,9 +708,12 @@ class AllAvailableClinician extends StatelessWidget {
                                         ),
                                       ],
                                     ),),
+
                                   Expanded(
-                                    //flex: 2,
+                                    flex:3,
                                     child: Row(
+                                     // crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Image.asset(
                                           "images/sm/sm_dashboard/ProhealthCalenderIcon.png",
@@ -718,85 +722,86 @@ class AllAvailableClinician extends StatelessWidget {
                                         SizedBox(width: 20,),
                                         SvgPicture.asset("images/sm/contact_sv.svg",
                                           height: 30,width: 20,
-                                        )
+                                        ),
+                                        SizedBox(width: 20,),
+                                        Container(
+                                            width: 200,
+                                            height: 55,
+                                            child:Row(
+                                              children: [
+                                                Container(
+                                                  width: 100,
+                                                  child:  ElevatedButton.icon(onPressed: ()async{
+                                                    await  showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext context) {
+                                                        return VendorSelectNoti(
+                                                          message: 'Please Select A File',
+                                                        );
+                                                      },
+                                                    );
+                                                  },label: Text("Auto", style: TextStyle(
+                                                    fontSize: FontSize.s13,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.white,
+                                                    decoration: TextDecoration.none,
+                                                  )),
+                                                    //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
+                                                    icon: Image.asset("images/sm/sm_dashboard/auto_blur_bg.jpg",height: 30,width: 18,),
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor:  Color(0xFFB9DFEF),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.only(
+                                                          topLeft: Radius.circular(12), // Round only the top-left corner
+                                                          bottomLeft: Radius.circular(12), // Round only the bottom-left corner
+                                                        ),
+                                                        // side: BorderSide(
+                                                        //   color: ColorManager.bluebottom, // Border color
+                                                        //   width: 1,
+                                                        // ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 100,
+                                                  child:  ElevatedButton.icon(onPressed: (){
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext context) {
+                                                        return AddErrorPopup(
+                                                          message: 'File is too large!',
+                                                        );
+                                                      },
+                                                    );
+                                                  },label: Text("Manual", style: TextStyle(
+                                                    fontSize: FontSize.s13,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.bluebottom,
+                                                    decoration: TextDecoration.none,
+                                                  )),
+                                                    //icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
+                                                    icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Colors.white,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.only(
+                                                          topRight: Radius.circular(12), // Round only the top-left corner
+                                                          bottomRight: Radius.circular(12), // Round only the bottom-left corner
+                                                        ),
+                                                        side: BorderSide(
+                                                          color: ColorManager.bluebottom, // Border color
+                                                          width: 1,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                  Container(
-                                      width: 200,
-                                      height: 55,
-                                      child:Row(
-                                        children: [
-                                          Container(
-                                            width: 100,
-                                            child:  ElevatedButton.icon(onPressed: ()async{
-                                              await  showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return VendorSelectNoti(
-                                                    message: 'Please Select A File',
-                                                  );
-                                                },
-                                              );
-                                            },label: Text("Auto", style: TextStyle(
-                                              fontSize: FontSize.s13,
-                                              fontWeight: FontWeight.w600,
-                                              color: ColorManager.white,
-                                              decoration: TextDecoration.none,
-                                            )),
-                                              //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
-                                              icon: Image.asset("images/sm/sm_dashboard/auto_blur_bg.jpg",height: 30,width: 18,),
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor:  Color(0xFFB9DFEF),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(12), // Round only the top-left corner
-                                                    bottomLeft: Radius.circular(12), // Round only the bottom-left corner
-                                                  ),
-                                                  // side: BorderSide(
-                                                  //   color: ColorManager.bluebottom, // Border color
-                                                  //   width: 1,
-                                                  // ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 100,
-                                            child:  ElevatedButton.icon(onPressed: (){
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return AddErrorPopup(
-                                                    message: 'File is too large!',
-                                                  );
-                                                },
-                                              );
-                                            },label: Text("Manual", style: TextStyle(
-                                              fontSize: FontSize.s13,
-                                              fontWeight: FontWeight.w600,
-                                              color: ColorManager.bluebottom,
-                                              decoration: TextDecoration.none,
-                                            )),
-                                              //icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
-                                              icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.white,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.only(
-                                                    topRight: Radius.circular(12), // Round only the top-left corner
-                                                    bottomRight: Radius.circular(12), // Round only the bottom-left corner
-                                                  ),
-                                                  side: BorderSide(
-                                                    color: ColorManager.bluebottom, // Border color
-                                                    width: 1,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
                                   )
                                 ],),
                             ),

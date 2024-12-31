@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_week_data.dart';
@@ -13,8 +11,6 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
-import 'package:shimmer/shimmer.dart';
-
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../widgets/error_popups/delete_success_popup.dart';
 
@@ -67,12 +63,12 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                         topRight: Radius.circular(8),
                       ),
                     ),
-                    height: 40,
+                    height: AppSize.s40,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 25),
+                          padding: const EdgeInsets.symmetric(vertical: AppPadding.p8,horizontal: AppPadding.p25),
                           child: Text("Batches",style: TextStyle(
                             fontSize: FontSize.s16,
                             fontWeight: FontWeight.w700,
@@ -105,7 +101,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                         }
                         if (snapshot.data!.isEmpty) {
                           return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 100),
+                            padding: const EdgeInsets.symmetric(vertical: AppPadding.p100),
                             child: Center(
                               child: Text(
                                 "No available batches!",
@@ -126,13 +122,13 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    height: 30,
+                                    height: AppSize.s30,
                                     decoration: BoxDecoration(
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 15, right: 20),
+                                      padding: const EdgeInsets.only(left: AppPadding.p15, right: AppPadding.p20),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
@@ -147,14 +143,14 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                           //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                                           Expanded(
                                             child: Center(
-                                              child: Text( 'Start Time',         //AppStringEM.startTime,
+                                              child: Text(AddPopupString.startTime,         //AppStringEM.startTime,
                                                   textAlign: TextAlign.start,
                                                   style: TableHeading.customTextStyle(context)),
                                             ),
                                           ),
                                           Expanded(
                                             child: Center(
-                                              child: Text(   "End Time",       //AppStringEM.endTime,
+                                              child: Text( AddPopupString.endTime,       //AppStringEM.endTime,
                                                   textAlign: TextAlign.start,
                                                   style: TableHeading.customTextStyle(context)),
                                             ),
@@ -171,7 +167,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                     ),
                                   ),
                                   const SizedBox(
-                                    height: 10,
+                                    height: AppSize.s10,
                                   ),
                                   Container(
                                     height: MediaQuery.of(context).size.height/1.5,
@@ -203,9 +199,9 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                         ),
                                                       ],
                                                     ),
-                                                    height: 50,
+                                                    height: AppSize.s50,
                                                     child: Padding(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
                                                       child: Row(
                                                         mainAxisAlignment:
                                                         MainAxisAlignment.spaceAround,

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_org_document.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_role_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_visit.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/company_identity.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/upper_menu_buttons.dart';
 
@@ -52,13 +50,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     grpIndex: _selectedIndex,
                     heading: "Company Identity"),
                 SizedBox(width: 10,),
-                // UpperMenuButtons(
-                //     onTap: (int index) {
-                //       _selectButton(index);
-                //     },
-                //     index: 1,
-                //     grpIndex: _selectedIndex,
-                //     heading: "Visits"),
                 UpperMenuButtons(
                     onTap: (int index) {
                       _selectButton(index);
@@ -66,13 +57,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     index: 1,
                     grpIndex: _selectedIndex,
                     heading: "Document Definitions"),
-                // UpperMenuButtons(
-                //     onTap: (int index) {
-                //       _selectButton(index);
-                //     },
-                //     index: 3,
-                //     grpIndex: _selectedIndex,
-                //     heading: "Role Manager"),
               ],
             ),
           ),
@@ -88,14 +72,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
               },
               children: [
                 CompanyIdentity(),
-                // Page 1
-                // CiVisitScreen(),
-                // Page 2
                 CiOrgDocument()
-                  // (officeId: widget.officeId ?? 'Office 01',
-                  // companyId: widget.companyId,),
-                // Page 3
-                // CiRoleManager()
               ],
             ),
           ),

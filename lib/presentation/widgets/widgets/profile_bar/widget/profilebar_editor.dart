@@ -825,23 +825,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 FutureBuilder<List<GenderData>>(
                                                   future: getGenderDropdown(context),
                                                   builder: (context, snapshot) {
-                                                    if (snapshot.connectionState ==
-                                                        ConnectionState.waiting) {
+                                                    if (snapshot.connectionState == ConnectionState.waiting) {
                                                       return HRUManageDropdown(
-                                                        hintText: "Gender",
+                                                        hintText: "",
                                                         // width: 320,
                                                         // height: 40,
                                                         controller: TextEditingController(text: ''),
                                                         items: ['item 1', 'item 2'],
-                                                        // labelText: 'Reporting Office',
-                                                        // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                        //   color: const Color(0xff575757),
-                                                        //   fontWeight: FontWeight.w400,),
-                                                        // GoogleFonts.firaSans(
-                                                        //   fontSize: 12,
-                                                        //   color: Color(0xff575757),
-                                                        //   fontWeight: FontWeight.w400,
-                                                        // ),
+
                                                         labelFontSize: 12,
                                                       );
                                                     }
@@ -977,7 +968,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     if (snapshot.connectionState == ConnectionState.waiting) {
                                                       // Show loading indicator or dummy dropdown
                                                       return HRUManageDropdown(
-                                                        hintText: 'Select Service',
+                                                        hintText: '',
                                                         controller: TextEditingController(text: ''),
                                                         // labelText: 'Select Service',
                                                         // labelStyle: TextStyle(fontSize: 14),

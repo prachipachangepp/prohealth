@@ -70,6 +70,8 @@ class AppStringHr{
 
 }
 
-class ValidationMessage{
-
+class NoDataMessage{
+  static String noexpiredlicense = "No available expired licenses!";
+  static String noabouttoexpired = "No available about to expired licenses!";
+  static String nouptodate = "No available up to date licenses!";
 }

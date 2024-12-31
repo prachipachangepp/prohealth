@@ -84,7 +84,6 @@ class AverageClinicianListview extends StatelessWidget {
                 flex: 3,
                 child: Container(
                   height: AppSize.s30,
-                  // margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
                   padding: EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p12),
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -260,7 +259,7 @@ class AverageClinicianListview extends StatelessWidget {
                         ),
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 60.0),
+                            padding: const EdgeInsets.only(bottom: AppPadding.p60),
                             child: RichText(
                                 text: TextSpan(
                                   text: '5',
@@ -346,7 +345,7 @@ class OfficeHighestPatientList extends StatelessWidget {
                     style: EmDashContainerHeadTextStyle.customTextStyle(context),
                   ),
                 ),
-                SizedBox(width: 30,),
+                SizedBox(width: AppSize.s30,),
                 Padding(
                   padding: const EdgeInsets.only(right: AppPadding.p40),
                   child: Text(

@@ -54,8 +54,10 @@ class AppStringEM{
   ///sm hr clinical
   static const String licensevocnurse = 'license Vocational Nurse';
   static const String nc = 'NC';
+
 ///sales
   static const String addemployeetype = 'Add Employee Type';
+  static const String adddoctype = 'Add Doctype';
   static const String employeetype = 'Employee Type';
   static const String addnewvisit = "Add New Visit";
   static const String visit = "Visit";
@@ -71,8 +73,7 @@ class AppStringEM{
   static const String street = "Street";
   static const String primaryEmail = "Primary Email";
   ///Document definition
-  static String corporateAndComplianceDocuments =
-      "Corporate & Compliance Documents";
+  static String corporateAndComplianceDocuments = "Corporate & Compliance Documents";
   static String vendorContracts = "Vendor Contracts";
   static String policiesAndProcedures = "Policies & Procedures";
 
@@ -99,6 +100,14 @@ class AppStringEM{
   static const String pickDept = "Pick Department";
   static const String pickEmpType = "Pick Employee Type";
 
+  ///payrates
+  static const String typeVisit = 'Type of Visit';
+  static const String rate = 'Rate';
+  static const String payrates = 'Payrates';
+  static const String outOfZone = 'Out of Zone';
+  static const String fixrate = 'Fixed Rate';
+  static const String perMile = 'Per Mile';
+
   ///work schedule
   static const String shiftbatch = "Shift & Batches";
   static const String defineHoliday = "Define Holidays";
@@ -119,6 +128,10 @@ class AppStringEM{
   static const String performance = "Performance";
   static const String vendor = "Vendor";
   static const String contract = "Contract";
+  static const String idOfDOc = "ID of the Document";
+  static const String NameOfDoc = "Name of the Document";
+  // static const String contract = "Contract";
+  // static const String contract = "Contract";
 }
 
 class ErrorMessageString{
@@ -211,12 +224,21 @@ class DeletePopupString{
 
 class AddPopupString{
   static const String addDocType = 'Add Doctype';
+  static const String addPayrate = 'Add Payrate';
   static const String addDocument = 'Add Document';
   static const String addNewHoliday = "Add New Holiday";
   static const String addPolicy = 'Add Policies & Procedures';
   static const String addCorporate = 'Add Corporate & Compliance';
   static const String addVendor= 'Add Vendor Contract';
-  // static const String addLicenses = 'Delete Licenses';
+  static const String startTime = 'Start Time';
+  static const String endTime = 'End Time';
+  static const String addShift = 'Add Shift';
+  static const String shiftName = 'Shift Name';
+  static const String addHoliday = 'Add Holiday';
+  static const String holidayName  = 'Holiday Name';
+  static const String holidayDate = 'Holiday Date';
+  //static const String  = '';
+  //static const String  = '';
   // static const String addAdr = 'Delete ADR';
   // static const String addMCR = 'Delete Medical Cost Reports';
   // static const String addCap = 'Delete Cap Reports';
