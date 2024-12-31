@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_face_to_face/physician_info_face_to_face.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_info/physician_info_info.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_orders/physician_info_orders.dart';
@@ -75,13 +75,22 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                       child: Text(
                         'Info',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight:selectedIndex == 0
+                              ? FontWeight.w600
+                              : FontWeight.w500,
                           color: selectedIndex == 0
                               ? ColorManager.mediumgrey
-                              : ColorManager.white,
+                            : ColorManager.white,
                         ),
+                        // style: GoogleFonts.firaSans(
+                        //   fontSize: FontSize.s14,
+                        //   fontWeight: FontWeightManager.semiBold,
+                        //   color: selectedIndex == 0
+                        //       ? ColorManager.mediumgrey
+                        //       : ColorManager.white,
+                        // ),
                       ),
                     ),
                     onTap: () => selectButton(0),
@@ -100,13 +109,22 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                       child: Text(
                         'Referring Diagnosis',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight:selectedIndex == 1
+                              ? FontWeight.w600
+                              : FontWeight.w500,
                           color: selectedIndex == 1
                               ? ColorManager.mediumgrey
                               : ColorManager.white,
                         ),
+                        // style: GoogleFonts.firaSans(
+                        //   fontSize: FontSize.s14,
+                        //   fontWeight: FontWeightManager.semiBold,
+                        //   color: selectedIndex == 1
+                        //       ? ColorManager.mediumgrey
+                        //       : ColorManager.white,
+                        // ),
                       ),
                     ),
                     onTap: () => selectButton(1),
@@ -125,13 +143,22 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                       child: Text(
                         'Physician Orders',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight:selectedIndex == 2
+                              ? FontWeight.w600
+                              : FontWeight.w500,
                           color: selectedIndex == 2
                               ? ColorManager.mediumgrey
                               : ColorManager.white,
                         ),
+                        // style: GoogleFonts.firaSans(
+                        //   fontSize: FontSize.s14,
+                        //   fontWeight: FontWeightManager.semiBold,
+                        //   color: selectedIndex == 2
+                        //       ? ColorManager.mediumgrey
+                        //       : ColorManager.white,
+                        // ),
                       ),
                     ),
                     onTap: () => selectButton(2),
@@ -153,13 +180,22 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                       child: Text(
                         'Face To Face',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                       style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight:selectedIndex == 3
+                              ? FontWeight.w600
+                              : FontWeight.w500,
                           color: selectedIndex == 3
                               ? ColorManager.mediumgrey
                               : ColorManager.white,
                         ),
+                        // style: GoogleFonts.firaSans(
+                        //   fontSize: FontSize.s14,
+                        //   fontWeight: FontWeightManager.semiBold,
+                        //   color: selectedIndex == 3
+                        //       ? ColorManager.mediumgrey
+                        //       : ColorManager.white,
+                        // ),
                       ),
                     ),
                     onTap: () => selectButton(3),

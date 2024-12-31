@@ -596,7 +596,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Insurance Verified',
-                                      style: AllPopupHeadings.customTextStyle(context)
+                                      style: DocumentTypeDataStyle.customTextStyle(context)
                                   ),
                                   SizedBox(height: 1),
                                   Row(
@@ -668,7 +668,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
 
                           Flexible(
                             child: SchedularTextField(
-                                controller: groupNbrController,
+                                controller: commentController,
                                 labelText:'Comments'),
                           ),
                           SizedBox(width: AppSize.s35),

@@ -333,7 +333,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                         ),
 
                         SizedBox(
-                            height: MediaQuery.of(context).size.height / 20),
+                            height: MediaQuery.of(context).size.height / 30),
 
                         /// Allergies and Start Effective Date Heading
                         Container(

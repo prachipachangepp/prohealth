@@ -753,7 +753,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Insurance Verified',
-                                      style: AllPopupHeadings.customTextStyle(context)
+                                      style: DocumentTypeDataStyle.customTextStyle(context)
                                   ),
                                   SizedBox(height: 1),
                                   Row(

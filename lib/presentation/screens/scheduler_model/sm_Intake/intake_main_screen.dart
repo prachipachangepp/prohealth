@@ -3,11 +3,14 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/sm_inta
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/information_update.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/sent_to_schedular.dart';
 
+import '../../../../app/resources/color.dart';
 import '../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
+import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
+import '../../../widgets/app_clickable_widget.dart';
 import '../../em_module/company_identity/company_identity_screen.dart';
-import '../../em_module/dashboard/widgets/em_dashboard_const.dart';
-import '../sm_scheduler/widget/schedular/schedular_new_screen.dart';
+
+
 
 class IntakeMainScreen extends StatefulWidget {
   const IntakeMainScreen({super.key});
@@ -69,6 +72,7 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
                   index: 0,
                   grpIndex: _selectedIndex,
                   heading: "Information Update",
+                    badgeNumber: 55
                 ),
                 SizedBox(width: 20),
                 SMTabbar(
@@ -78,6 +82,7 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
                   index: 1,
                   grpIndex: _selectedIndex,
                   heading: "Send to Scheduler",
+                    badgeNumber: 55
                 ),
               ],
             ),
@@ -128,6 +133,108 @@ class NonScrollablePageView extends StatelessWidget {
         onPageChanged: onPageChanged,
         physics: const NeverScrollableScrollPhysics(), // Disables scrolling
         children: children,
+      ),
+    );
+  }
+}
+
+
+
+class SMTabbar extends StatelessWidget {
+  const SMTabbar({
+    super.key,
+    required this.onTap,
+    required this.index,
+    required this.grpIndex,
+    required this.heading,
+    this.badgeNumber,
+  });
+
+  final OnManuButtonTapCallBack onTap;
+  final int index;
+  final int grpIndex;
+  final String heading;
+  final int? badgeNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppClickableWidget(
+      onTap: () {
+        onTap(index);
+      },
+      onHover: (bool val) {},
+      child: Column(
+        children: [
+          Stack(
+            clipBehavior: Clip.none, // Allows badge to overflow
+            children: [
+              Container(
+                width: 160, // Fixed width for the heading container
+                height: 40, // Fixed height for the heading container
+                child: Align(
+                  alignment: Alignment.center, // Align text to the left
+                  child: Text(
+                    heading,
+                    style: TextStyle(
+                      fontSize: FontSize.s14,
+                      fontWeight: grpIndex == index
+                          ? FontWeight.w700
+                          : FontWeight.w500,
+                      color: grpIndex == index
+                          ? ColorManager.blueprime
+                          : ColorManager.mediumgrey,
+                    ),
+                  ),
+                ),
+              ),
+              if (badgeNumber != null) // Only show badge if badgeNumber is not null
+                Positioned(
+                  // top: -5, // Adjust position of the badge
+                  right: -5, // Adjust position of the badge
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: ColorManager.blueprime, // Badge color
+                      borderRadius: BorderRadius.circular(12), // Rounded badge
+                    ),
+                    child: Text(
+                      badgeNumber!.toString(),
+                      style: TextStyle(
+                        fontSize: FontSize.s10, // Adjust font size
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white, // Badge text color
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final textPainter = TextPainter(
+                text: TextSpan(
+                  text: heading,
+                  style: TextStyle(
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                textDirection: TextDirection.ltr,
+              )..layout();
+
+              final textWidth = textPainter.size.width;
+
+              return Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                height: 2,
+                width: textWidth + 60, // Adjust padding around text
+                color: grpIndex == index
+                    ? ColorManager.blueprime
+                    : Colors.transparent,
+              );
+            },
+          ),
+        ],
       ),
     );
   }
