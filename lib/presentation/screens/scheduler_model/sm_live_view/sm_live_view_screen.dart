@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
@@ -6,7 +8,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/search_address_field.dart';
 import 'package:provider/provider.dart';
-
+import 'package:http/http.dart' as http;
 import '../../em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
 
 class SmLiveViewMapScreen extends StatefulWidget {
@@ -19,7 +21,7 @@ class SmLiveViewMapScreen extends StatefulWidget {
 class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
   late GoogleMapController mapController;
   BitmapDescriptor? customIcon;
-  final LatLng _initialPosition = const LatLng(37.7749, -122.4194); // San Francisco coordinates
+   LatLng _initialPosition =  LatLng(37.7749, -122.4194); // San Francisco coordinates
   TextEditingController _searchController = TextEditingController();
   final List<double> _intensities = [0.1, 0.3, 0.6, 0.8, 1.0];
   // Set to hold the current circles
@@ -204,6 +206,57 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
       _markers = markers;
     });
   }
+  double? latitudeL;
+  double? longitudeL;
+  List<LatLng> _polygonCoordinates = [];
+  Future<void> getLatLngFromAddress(String address) async {
+    final String apiKey = AppConfig.googleApiKey; // Replace with your API key.
+    final String url =
+        'https://maps.googleapis.com/maps/api/geocode/json?address=${Uri.encodeComponent(address)}&key=$apiKey';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+
+        if (data['status'] == 'OK' && data['results'].isNotEmpty) {
+          final location = data['results'][0]['geometry']['location'];
+          final viewport = data['results'][0]['geometry']['viewport'];
+          latitudeL = location['lat'];
+          longitudeL = location['lng'];
+          setState(() {
+            _initialPosition = LatLng(latitudeL!, longitudeL!);
+            _polygonCoordinates = [
+              LatLng(viewport['northeast']['lat'], viewport['northeast']['lng']),
+              LatLng(viewport['northeast']['lat'], viewport['southwest']['lng']),
+              LatLng(viewport['southwest']['lat'], viewport['southwest']['lng']),
+              LatLng(viewport['southwest']['lat'], viewport['northeast']['lng']),
+            ];
+          });
+
+          // setState(() {
+          //  _initialPosition = LatLng(latitudeL!, longitudeL!);
+          // });
+          mapController.animateCamera(
+            CameraUpdate.newLatLngZoom(_initialPosition, 14),
+          );
+          // Notify parent widget with the latitude and longitude
+          // if (onLatLngFetched != null) {
+          //   onLatLngFetched!(latitudeL!, longitudeL!);
+          // }
+
+          print("Latitude: $latitudeL, Longitude: $longitudeL");
+          print('Get location lat: $latitudeL and long: $longitudeL');
+        } else {
+          print("No coordinates found for this address.");
+        }
+      } else {
+        print("Failed to fetch coordinates: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error fetching lat/lng: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,26 +265,31 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
           controller: TextEditingController(text:""), onChange: (String ) {  }),
       child: Consumer<AddressProvider>(
         builder: (context, provider, _) {
-          LatLng currentPosition = provider.latitudeL != null && provider.longitudeL != null
-              ? LatLng(provider.latitudeL!, provider.longitudeL!)
-              : _initialPosition;
+
           return Stack(
             children: [
               SizedBox.expand(
                 child: GoogleMap(
                   onMapCreated: _onMapCreated,
                   initialCameraPosition: CameraPosition(
-                    target: provider.latitudeL == null ?_initialPosition: LatLng(provider.latitudeL!, provider.latitudeL!),
+                    target: _initialPosition,
                     zoom: 12.0,
                   ),
-                  markers: _selectedView == ''? {if (provider.latitudeL != null && provider.longitudeL != null)
+                  markers: _selectedView == ''? {if (latitudeL != null && longitudeL != null)
                     Marker(
                       markerId: MarkerId(
-                          'Search-${provider.latitudeL}-${provider.longitudeL}'),
-                      position: LatLng(provider.latitudeL!, provider.longitudeL!),
+                          'Search-${latitudeL}-${longitudeL}'),
+                      position: LatLng(latitudeL!, longitudeL!),
                       infoWindow: InfoWindow(title: 'Location'),
                     ),}:_markers,
-                  polygons: _selectedView == 'Heat Map' ? _heatMapCircles : {},// Use the markers set here
+                  polygons: _selectedView == 'Heat Map' ? _heatMapCircles : {if (_polygonCoordinates.isNotEmpty)
+                    Polygon(
+                      polygonId: PolygonId('highlightedArea'),
+                      points: _polygonCoordinates,
+                      fillColor: Colors.red.withOpacity(0.3),
+                      strokeColor: Colors.red,
+                      strokeWidth: 2,
+                    ),},// Use the markers set here
                 ),
               ),
               Positioned(
@@ -242,9 +300,8 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                     SearchAddressMap(
                       controller: _searchController,
                       onSubmit:(val){
-                        provider.getLatLngFromAddress(val);
                         setState(() {
-
+                          getLatLngFromAddress(val);
                         });
                         },
                       onSuggestionSelected: (selected) {
