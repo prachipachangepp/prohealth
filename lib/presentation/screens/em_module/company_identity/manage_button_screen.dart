@@ -10,7 +10,6 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/zone.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/policies_procedures/policies_procedures.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
-import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../app/resources/value_manager.dart';
@@ -85,8 +84,6 @@ class _ManageWidgetState extends State<ManageWidget> {
   }
 
   String officeName = '';  // local state for office name
-
-  // Function to update the office name from the second screen
   void updateOfficeName(String newName) {
     setState(() {
       officeName = newName;
@@ -104,17 +101,13 @@ class _ManageWidgetState extends State<ManageWidget> {
       color: Colors.white,
       child: Column(
         children: [
-          // _selectedIndex != 0
-          //     ? Container(height: AppSize.s15)
-          //     :
           Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 140, vertical: AppPadding.p20),
+                      horizontal: AppSize.s140, vertical: AppPadding.p20),
                   child: Row(
                     children: [
                       Text(
                         officeName,
-                        // widget.officeName,
                         style: CompanyIdentityManageHeadings.customTextStyle(context),
                       ),
                     ],
@@ -135,11 +128,11 @@ class _ManageWidgetState extends State<ManageWidget> {
                           children: [
                             Icon(
                               Icons.arrow_back,
-                              size: 15,
+                              size: IconSize.I16,
                               color: ColorManager.mediumgrey,
 
                             ),
-                            SizedBox(width: 1,),
+                            SizedBox(width: AppSize.s1,),
                             Text(
                               'Go Back',
                               style: DefineWorkWeekStyle.customTextStyle(context),
@@ -209,7 +202,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         child: Container(
                           height: AppSize.s30,
                           width: MediaQuery.of(context).size.width / 5.5,
-                          padding: EdgeInsets.symmetric(vertical: 6),
+                          padding: EdgeInsets.symmetric(vertical: AppPadding.p6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
                             color: _selectedIndex == 2
@@ -228,7 +221,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         child: Container(
                           height: AppSize.s30,
                           width: MediaQuery.of(context).size.width / 8.7,
-                          padding: EdgeInsets.symmetric(vertical: 6),
+                          padding: EdgeInsets.symmetric(vertical: AppPadding.p6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
                             color: _selectedIndex == 3
@@ -247,7 +240,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         child: Container(
                           height: AppSize.s30,
                           width: MediaQuery.of(context).size.width / 8.4,
-                          padding: EdgeInsets.symmetric(vertical: 6),
+                          padding: EdgeInsets.symmetric(vertical: AppPadding.p6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
                             color: _selectedIndex == 4
@@ -266,7 +259,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         child: Container(
                           height: AppSize.s30,
                           width: MediaQuery.of(context).size.width / 8.4,
-                          padding: EdgeInsets.symmetric(vertical: 6),
+                          padding: EdgeInsets.symmetric(vertical: AppPadding.p6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
                             color: _selectedIndex == 5
@@ -288,7 +281,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         child: Container(
                           height: AppSize.s30,
                           width: MediaQuery.of(context).size.width / 8.11,
-                          padding: EdgeInsets.symmetric(vertical: 6),
+                          padding: EdgeInsets.symmetric(vertical: AppPadding.p6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
                             color: _selectedIndex == 6
