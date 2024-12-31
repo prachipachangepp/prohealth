@@ -492,6 +492,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                                     isOptForCAHPSSurvey = value!;
                                   });
                                 },
+
                                 checkColor: Colors.white, // Color of the check mark
                                 activeColor: Color(0xff50B5E5), // Color of the checkbox when selected
                                 side: BorderSide(color: Colors.blue, width: 2), // Border color of the checkbox
