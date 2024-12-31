@@ -16,7 +16,8 @@ import '../../../../textfield_dropdown_constant/chatbotContainer.dart';
 import '../../../../widgets/constant_widgets/button_constant.dart';
 
 class PendingPageView extends StatefulWidget {
-  const PendingPageView({super.key});
+  final VoidCallback? onAutoTap;
+  const PendingPageView({super.key, this.onAutoTap});
 
   @override
   State<PendingPageView> createState() => _PendingPageViewState();
@@ -381,21 +382,24 @@ class _PendingPageViewState extends State<PendingPageView> {
                                     children: [
                                       Container(
                                         width: 100,
-                                        child:  ElevatedButton.icon(onPressed: ()async{
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AddErrorPopup(
-                                                message: 'Please select a county',
-                                              );
-                                            },
-                                          );
+                                        child:  ElevatedButton.icon(
+                                          onPressed: widget.onAutoTap,
+                                          //     ()async{
+                                          // showDialog(
+                                          //   context: context,
+                                          //   builder: (BuildContext context) {
+                                          //     return AddErrorPopup(
+                                          //       message: 'Please select a county',
+                                          //     );
+                                          //   },
+                                          // );
 
                                           // await  Navigator.push(
                                           //   context,
                                           //   MaterialPageRoute(builder: (context) => Auto_Assign()),
                                           // );
-                                        },label: Text("Auto", style: TextStyle(
+                                        //},
+                                        label: Text("Auto", style: TextStyle(
                                           fontSize: FontSize.s13,
                                           fontWeight: FontWeight.w600,
                                           color: ColorManager.white,

@@ -5,6 +5,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widg
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/pending_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/poc_page.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/soc_page.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -27,16 +28,6 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
   void _selectButton(int index) {
     setState(() {
       _selectedIndex = index;
-    //
-    //   _updateSelectedSubDocId(index == 0
-    //       ? AppConfig.subDocId1Licenses
-    //       : index == 1
-    //       ? AppConfig.subDocId2Adr
-    //       : index == 2
-    //       ? AppConfig.subDocId3CICCMedicalCR
-    //       : index == 3
-    //       ? AppConfig.subDocId4CapReport
-    //       : AppConfig.subDocId5BalReport);
     });
     _tabPageController.animateToPage(
       index,
@@ -44,11 +35,12 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
       curve: Curves.ease,
     );
   }
-
+  bool _showAutoScreen = false;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        if (!_showAutoScreen)
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 200,),
           child: Row(
@@ -83,7 +75,16 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
           child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 60),
-            child: NonScrollablePageView(
+            child:_showAutoScreen
+                ? Auto_Assign(
+              onGoBackAuto: () {
+                setState(() {
+                  _showAutoScreen = false; // Show PageView
+                });
+              },
+            )
+                :
+             NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {
                 setState(() {
@@ -93,6 +94,11 @@ class _NewSchedulerScreenState extends State<NewSchedulerScreen> {
               children: [
                 // Page 1
                 PendingPageView(
+                  onAutoTap: () {
+                    setState(() {
+                      _showAutoScreen = true; // Show view-more screen
+                    });
+                  },
                   // docId: widget.docId,
                   // subDocId: AppConfig.subDocId1Licenses,
                   // officeId: widget.officeId,
