@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/common_resources/em_dashboard_theme.dart';
 import 'package:prohealth/app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-
 import '../../../../../../../app/resources/color.dart';
-import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
@@ -94,7 +92,7 @@ class _UserRoleDistributionState extends State<UserRoleDistribution> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 25.0),
+                    padding: const EdgeInsets.only(right: AppPadding.p25),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
-
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../em_dashboard_const.dart';

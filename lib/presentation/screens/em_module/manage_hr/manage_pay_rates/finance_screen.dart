@@ -1,20 +1,14 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
-import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
-import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_pay_rates/widgets/custom_popup.dart';
@@ -22,20 +16,13 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
-import 'package:prohealth/presentation/widgets/establishment_text_const/text_widget_const.dart';
-import 'package:shimmer/shimmer.dart';
-
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
-import '../../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../widgets/error_popups/delete_success_popup.dart';
-import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../scheduler_model/textfield_dropdown_constant/schedular_textfield_const.dart';
-import '../../widgets/button_constant.dart';
 import '../../widgets/table_constant.dart';
 import '../../widgets/text_form_field_const.dart';
 
@@ -83,28 +70,13 @@ class _FinanceScreenState extends State<FinanceScreen> {
     _loadPayRatesData();
   }
 
-  // List<PayRatesGet> allData = [];
-  //
-  // Future<void> fetchData() async {
-  //   try {
-  //     List<PayRatesGet> data = await companyPayratesGet(context);
-  //     setState(() {
-  //       allData = data;
-  //     });
-  //     _payRatesController.add(data);
-  //   } catch (error) {
-  //     // Handle error
-  //   }
-  // }
   void _loadPayRatesData() async {
     try {
       List<PayRatesGet> data = await companyPayratesGet(context);
       setState(() {
         _fullPayRatesList = data;
       });
-      // _filterPayRatesByZone();
     } catch (error) {
-      // Handle error
     }
   }
 
@@ -128,7 +100,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
               ],
             ),
             const SizedBox(
-              height: 30,
+              height: AppSize.s30,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -155,8 +127,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
                               return Container(
-                                width: 300,
-                                height: 30,
+                                width: AppSize.s300,
+                                height: AppSize.s30,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: ColorManager.containerBorderGrey,
@@ -183,8 +155,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             }
                             if (snapshot.data!.isEmpty) {
                               return Container(
-                                width: 300,
-                                height: 30,
+                                width: AppSize.s300,
+                                height: AppSize.s30,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: ColorManager.containerBorderGrey,
@@ -193,7 +165,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
+                                      horizontal: AppPadding.p10, vertical: AppPadding.p5),
                                   child: Text(
                                     ErrorMessageString.noserviceAdded,
                                     style:
@@ -226,7 +198,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 builder: (BuildContext context,
                                     void Function(void Function()) setState) {
                                   return CICCDropdown(
-                                    width: 300,
+                                    width: AppSize.s300,
                                     initialValue: selectedServiceName,
                                     onChange: (val) {
                                       setState(() {
@@ -249,7 +221,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                           },
                         ),
                         SizedBox(
-                          width: 10,
+                          width: AppSize.s10,
                         ),
                         FutureBuilder<List<HRAllData>>(
                           future:
@@ -258,8 +230,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             if (snapshotAbbreavition.connectionState ==
                                 ConnectionState.waiting) {
                               return Container(
-                                width: 300,
-                                height: 30,
+                                width: AppSize.s300,
+                                height: AppSize.s30,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: ColorManager.containerBorderGrey,
@@ -286,8 +258,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             }
                             if (snapshotAbbreavition.data!.isEmpty) {
                               return Container(
-                                height: 30,
-                                width: 300,
+                                width: AppSize.s300,
+                                height: AppSize.s30,
                                 child: Center(
                                   child: Text(
                                     ErrorMessageString.noserviceAdded,
@@ -319,7 +291,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 builder: (BuildContext context,
                                     void Function(void Function()) setState) {
                                   return CICCDropdown(
-                                    width: 300,
+                                    width: AppSize.s300,
                                     initialValue: abbNameVal,
                                     onChange: (val) {
                                       setState(() {
@@ -346,7 +318,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     ),
                     // SizedBox(width: 10,),
                     CustomIconButton(
-                      text: 'Add Payrate',
+                      text: AddPopupString.addPayrate,
                       icon: Icons.add,
                       onPressed: () async {
                         payRatesController.clear();
@@ -363,7 +335,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                               visitTypeTextActive: true,
                               payRatesController: payRatesController,
                               perMilesController: perMilesController,
-                              title: 'Add Payrates',
+                              title: AddPopupString.addPayrate,
                             );
                           },
                         );
@@ -378,16 +350,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
             ),
             const TableHeadConstant(
               items: [
-                TableHeadItem(text: 'Sr No.', textAlign: TextAlign.center),
-                TableHeadItem(
-                    text: 'Type of Visit', textAlign: TextAlign.start),
-                TableHeadItem(text: 'Rate', textAlign: TextAlign.center),
-                //TableHeadItem(text: 'Zone', textAlign: TextAlign.center),
-                TableHeadItem(text: 'Actions', textAlign: TextAlign.center),
+                TableHeadItem(text: AppStringEM.srNo, textAlign: TextAlign.center),
+                TableHeadItem(text: AppStringEM.typeVisit, textAlign: TextAlign.start),
+                TableHeadItem(text: AppStringEM.rate, textAlign: TextAlign.center),
+                TableHeadItem(text: AppStringEM.actions, textAlign: TextAlign.center),
               ],
             ),
-            const SizedBox(
-              height: 5,
+            SizedBox(
+              height: AppSize.s5,
             ),
 
             /// List
@@ -431,59 +401,32 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       children: [
                         Expanded(
                           child: ListView.builder(
-                              // scrollDirection: Axis.vertical,
-                              // itemCount: paginatedData.length,
-                              // itemBuilder: (context, index) {
-                              //   int serialNumber = index +
-                              //       1 +
-                              //       (currentPage - 1) * itemsPerPage;
-                              //   String formattedSerialNumber =
-                              //       serialNumber.toString().padLeft(2, '0');
-                              //   PayRatesGetByServiceId finance = paginatedData[index];
-                              ///
-                              //       scrollDirection: Axis.vertical,
-                              //       itemCount: paginatedData.length,
-                              //       itemBuilder: (context, index) {
-                              //         // Reverse the data by using the last index first
-                              //         int reverseIndex = paginatedData.length - 1 - index;
-                              //         int serialNumber = reverseIndex + 1 + (currentPage - 1) * itemsPerPage;
-                              //         String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                              //         PayRatesGetByServiceId finance = paginatedData[reverseIndex];
-                              ///
                               scrollDirection: Axis.vertical,
                               itemCount: paginatedData.length,
                               itemBuilder: (context, index) {
-                                // Reverse the data by using the last index first
-                                int reverseIndex =
-                                    paginatedData.length - 1 - index;
-
-                                // Serial number starts from 1 and increments with each item
+                                int reverseIndex = paginatedData.length - 1 - index;
                                 int serialNumber = index + 1;
-                                String formattedSerialNumber =
-                                    serialNumber.toString().padLeft(2, '0');
-
+                                String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                                 PayRatesGetByServiceId finance =
                                     paginatedData[reverseIndex];
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(height: 5),
+                                    const SizedBox(height: AppSize.s5),
                                     Container(
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(4),
+                                          borderRadius: BorderRadius.circular(4),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: const Color(0xff000000)
-                                                  .withOpacity(0.25),
+                                              color: const Color(0xff000000).withOpacity(0.25),
                                               spreadRadius: 0,
                                               blurRadius: 4,
                                               offset: const Offset(0, 2),
                                             ),
                                           ],
                                         ),
-                                        height: 50,
+                                        height: AppSize.s50,
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
@@ -519,112 +462,52 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     IconButton(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                       onPressed: () {
-                                                        payRatesController
-                                                            .clear();
-                                                        perMilesController
-                                                            .clear();
+                                                        payRatesController.clear();
+                                                        perMilesController.clear();
                                                         showDialog(
                                                           context: context,
-                                                          builder: (BuildContext
-                                                              context) {
-                                                            return FutureBuilder<
-                                                                    PayRatePrefillFinanceData>(
-                                                                future: payPrefillRatesDataGet(
-                                                                    context,
-                                                                    finance
-                                                                        .payratesId),
-                                                                builder: (context,
-                                                                    snapshotPrefill) {
-                                                                  if (snapshotPrefill
-                                                                          .connectionState ==
-                                                                      ConnectionState
-                                                                          .waiting) {
+                                                          builder: (BuildContext context) {
+                                                            return FutureBuilder<PayRatePrefillFinanceData>(
+                                                                future: payPrefillRatesDataGet(context, finance.payratesId),
+                                                                builder: (context, snapshotPrefill) {
+                                                                  if (snapshotPrefill.connectionState ==
+                                                                      ConnectionState.waiting) {
                                                                     return Center(
-                                                                      child:
-                                                                          CircularProgressIndicator(
-                                                                        color: ColorManager
-                                                                            .blueprime,
+                                                                      child: CircularProgressIndicator(
+                                                                        color: ColorManager.blueprime,
                                                                       ),
                                                                     );
                                                                   }
-                                                                  var fixPayRates =
-                                                                      snapshotPrefill
-                                                                          .data
-                                                                          ?.outOfZoneRate;
-                                                                  var payRates =
-                                                                      snapshotPrefill
-                                                                          .data
-                                                                          ?.payratesId;
-                                                                  var visitTypeId =
-                                                                      snapshotPrefill
-                                                                          .data
-                                                                          ?.typeOfVisitId;
-                                                                  var perMile =
-                                                                      snapshotPrefill
-                                                                          .data
-                                                                          ?.outOfZoneperMile;
-                                                                  print(
-                                                                      ":::PAYRATESTYPE${visitTypeId}");
-                                                                  // var zoneTypeId =
-                                                                  //     snapshotPrefill
-                                                                  //         .data
-                                                                  //         ?.ZoneId;
-                                                                  fixedPayRatesController = TextEditingController(
-                                                                      text: snapshotPrefill
-                                                                          .data
-                                                                          ?.outOfZoneRate
-                                                                          .toString());
-                                                                  payRatesController = TextEditingController(
-                                                                      text: snapshotPrefill
-                                                                          .data
-                                                                          ?.rate
-                                                                          .toString());
-                                                                  perMilesController = TextEditingController(
-                                                                      text: snapshotPrefill
-                                                                          .data
-                                                                          ?.outOfZoneperMile
-                                                                          .toString());
+                                                                  var fixPayRates = snapshotPrefill.data?.outOfZoneRate;
+                                                                  var payRates = snapshotPrefill.data?.payratesId;
+                                                                  var visitTypeId = snapshotPrefill.data?.typeOfVisitId;
+                                                                  var perMile = snapshotPrefill.data?.outOfZoneperMile;
+                                                                  print(":::PAYRATESTYPE${visitTypeId}");
+                                                                  fixedPayRatesController = TextEditingController(text: snapshotPrefill.data?.outOfZoneRate.toString());
+                                                                  payRatesController = TextEditingController(text: snapshotPrefill.data?.rate.toString());
+                                                                  perMilesController = TextEditingController(text: snapshotPrefill.data?.outOfZoneperMile.toString());
                                                                   return PayRatesEditsPopup(
-                                                                    visitTypeTextActive:
-                                                                        false,
-                                                                    title:
-                                                                        'Edit Payrate',
-                                                                    child1:
-                                                                        SMTextFConst(
-                                                                      enable:
-                                                                          false,
-                                                                      readOnly:
-                                                                          true,
-                                                                      controller:
-                                                                          TextEditingController(
-                                                                        text: visitTypeId
-                                                                            .toString(),
+                                                                    visitTypeTextActive: false,
+                                                                    title: 'Edit Payrate',
+                                                                    child1: SMTextFConst(
+                                                                      enable: false,
+                                                                      readOnly: true,
+                                                                      controller: TextEditingController(
+                                                                        text: visitTypeId.toString(),
                                                                       ),
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .number,
-                                                                      text:
-                                                                          'Type of Visit',
+                                                                      keyboardType: TextInputType.number,
+                                                                      text: 'Type of Visit',
                                                                     ),
-                                                                    child2: FutureBuilder<
-                                                                            List<
-                                                                                SortByZoneData>>(
-                                                                        future: PayRateZoneDropdown(
-                                                                            context),
-                                                                        builder:
-                                                                            (context,
-                                                                                snapshot) {
-                                                                          if (snapshot.connectionState ==
-                                                                              ConnectionState.waiting) {
+                                                                    child2: FutureBuilder<List<SortByZoneData>>(
+                                                                        future: PayRateZoneDropdown(context),
+                                                                        builder: (context, snapshot) {
+                                                                          if (snapshot.connectionState == ConnectionState.waiting) {
                                                                             return CICCDropDownExcel(
-                                                                              width: 354,
+                                                                              width: AppSize.s354,
                                                                               initialValue: 'Select',
                                                                               items: [],
                                                                             );
@@ -635,26 +518,15 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                             return Center(
                                                                               child: Text(
                                                                                 AppString.dataNotFound,
-                                                                                style: CustomTextStylesCommon.commonStyle(
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontSize: FontSize.s14,
-                                                                                  color: ColorManager.mediumgrey,
-                                                                                ),
+                                                                                style: AllNoDataAvailable.customTextStyle(context),
                                                                               ),
                                                                             );
                                                                           }
-                                                                          if (snapshot
-                                                                              .hasData) {
-                                                                            List
-                                                                                dropDown =
-                                                                                [];
-                                                                            int docType =
-                                                                                0;
-                                                                            List<DropdownMenuItem<String>>
-                                                                                dropDownTypesList =
-                                                                                [];
-                                                                            for (var i
-                                                                                in snapshot.data!) {
+                                                                          if (snapshot.hasData) {
+                                                                            List dropDown = [];
+                                                                            int docType = 0;
+                                                                            List<DropdownMenuItem<String>>dropDownTypesList = [];
+                                                                            for (var i in snapshot.data!) {
                                                                               dropDownTypesList.add(
                                                                                 DropdownMenuItem<String>(
                                                                                   child: Text(i.zoneName),
@@ -678,36 +550,25 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                           }
                                                                           return const SizedBox();
                                                                         }),
-                                                                    payRatesController:
-                                                                        payRatesController,
-                                                                    perMilesController:
-                                                                        perMilesController,
-                                                                    fixPayRatesController:
-                                                                        fixedPayRatesController,
+                                                                    payRatesController: payRatesController,
+                                                                    perMilesController: perMilesController,
+                                                                    fixPayRatesController: fixedPayRatesController,
                                                                     onPressed:
                                                                         () async {
                                                                      var response = await updatePayRatesSetupPost(
-                                                                          context:
-                                                                              context,
-                                                                          payratesId: finance
-                                                                              .payratesId,
+                                                                          context: context,
+                                                                          payratesId: finance.payratesId,
                                                                           rate: payRates == int.parse(payRatesController.text)
                                                                               ? payRates!
-                                                                              : int.parse(payRatesController
-                                                                                  .text),
-                                                                          typeOfVisitId:
-                                                                              visitTypeId!,
+                                                                              : int.parse(payRatesController.text),
+                                                                          typeOfVisitId: visitTypeId!,
                                                                           outOfZoneperMile: perMile == int.parse(perMilesController.text)
                                                                               ? perMile!
-                                                                              : int.parse(perMilesController
-                                                                                  .text),
+                                                                              : int.parse(perMilesController.text),
                                                                           outOfZoneRate: fixPayRates == int.parse(fixedPayRatesController.text)
                                                                               ? fixPayRates!
-                                                                              : int.parse(fixedPayRatesController
-                                                                                  .text),
-                                                                          serviceId: snapshotPrefill
-                                                                              .data!
-                                                                              .serviceId);
+                                                                              : int.parse(fixedPayRatesController.text),
+                                                                          serviceId: snapshotPrefill.data!.serviceId);
                                                                      if(response.statusCode == 200 || response.statusCode == 201){
                                                                        Navigator.pop(context);
                                                                        showDialog(
@@ -732,13 +593,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                          builder: (BuildContext context) => FailedPopup(text: response.message),
                                                                        );
                                                                      }
-
-                                                                      payRatesController
-                                                                          .clear();
-                                                                      perMilesController
-                                                                          .clear();
-                                                                      fixedPayRatesController
-                                                                          .clear();
+                                                                      payRatesController.clear();
+                                                                      perMilesController.clear();
+                                                                      fixedPayRatesController.clear();
                                                                     },
                                                                   );
                                                                 });
@@ -747,18 +604,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                       },
                                                       icon: Icon(
                                                         Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager
-                                                            .blueprime,
+                                                        size: IconSize.I18,
+                                                        color: ColorManager.blueprime,
                                                       ),
                                                     ),
                                                     IconButton(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,
@@ -796,17 +649,15 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                   ));
                                                         },
                                                         icon: Icon(
-                                                          Icons
-                                                              .delete_outline_outlined,
-                                                          size: 18,
-                                                          color:
-                                                              ColorManager.red,
+                                                          Icons.delete_outline_outlined,
+                                                          size: IconSize.I18,
+                                                          color: ColorManager.red,
                                                         ))
                                                   ],
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(width: 30),
+                                            SizedBox(width: AppSize.s30),
                                           ],
                                         )),
                                   ],
@@ -849,109 +700,4 @@ class _FinanceScreenState extends State<FinanceScreen> {
       ),
     );
   }
-  //
-  // Widget buildDropdownButton(BuildContext context) {
-  //   return FutureBuilder<List<SortByZoneData>>(
-  //     future: PayRateZoneDropdown(context),
-  //     builder: (context, snapshot) {
-  //       if (snapshot.connectionState == ConnectionState.waiting) {
-  //         return Container(
-  //           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-  //           decoration: BoxDecoration(
-  //             color: Colors.white,
-  //             border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-  //             borderRadius: BorderRadius.circular(12.0),
-  //             boxShadow: [
-  //               BoxShadow(
-  //                 color: const Color(0xff000000).withOpacity(0.25),
-  //                 blurRadius: 2,
-  //                 offset: const Offset(0, 2),
-  //               ),
-  //             ],
-  //           ),
-  //           child: Text(
-  //             "No available zone",
-  //             style: GoogleFonts.firaSans(
-  //               fontSize: FontSize.s12,
-  //               fontWeight: FontWeight.w700,
-  //               color: ColorManager.blueprime,
-  //               decoration: TextDecoration.none,
-  //             ),
-  //           ),
-  //         );
-  //       } else if (snapshot.hasError) {
-  //         return Text('Error: ${snapshot.error}');
-  //       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-  //         return Text(
-  //           ErrorMessageString.noZoneAdded,
-  //           style: CustomTextStylesCommon.commonStyle(
-  //             fontWeight: FontWeight.w500,
-  //             fontSize: FontSize.s12,
-  //             color: ColorManager.mediumgrey,
-  //           ),
-  //         );
-  //       } else {
-  //         List<SortByZoneData> zoneList = snapshot.data!;
-  //         return Container(
-  //           height: 31,
-  //           width: 110,
-  //           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-  //           decoration: BoxDecoration(
-  //             color: Colors.white,
-  //             border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-  //             borderRadius: BorderRadius.circular(12.0),
-  //             boxShadow: [
-  //               BoxShadow(
-  //                 color: const Color(0xff000000).withOpacity(0.25),
-  //                 blurRadius: 2,
-  //                 offset: const Offset(0, 2),
-  //               ),
-  //             ],
-  //           ),
-  //           child: DropdownButton<String>(
-  //             value: _selectedZone,
-  //             hint: Text(
-  //               'Sort By',
-  //               style: GoogleFonts.firaSans(
-  //                 fontSize: FontSize.s12,
-  //                 fontWeight: FontWeight.w700,
-  //                 color: ColorManager.blueprime,
-  //                 decoration: TextDecoration.none,
-  //               ),
-  //             ),
-  //             icon: const Icon(
-  //               Icons.arrow_drop_down,
-  //               color: Color(0xff50B5E5),
-  //             ),
-  //             iconSize: 20,
-  //             underline: const SizedBox(),
-  //             onChanged: (String? newValue) {
-  //               setState(() {
-  //                 _selectedZone = newValue;
-  //                // _filterPayRatesByZone();
-  //               });
-  //             },
-  //             isDense: true,
-  //             items:
-  //                 zoneList.map<DropdownMenuItem<String>>((SortByZoneData zone) {
-  //               String dropdownValue = "${zone.zoneId}-${zone.zoneName}";
-  //               return DropdownMenuItem<String>(
-  //                 value: dropdownValue,
-  //                 child: Text(
-  //                   zone.zoneName,
-  //                   style: GoogleFonts.firaSans(
-  //                     fontSize: FontSize.s12,
-  //                     fontWeight:FontWeight.w500,
-  //                     color: ColorManager.blueprime,
-  //                     decoration: TextDecoration.none,
-  //                   ),
-  //                 ),
-  //               );
-  //             }).toList(),
-  //           ),
-  //         );
-  //       }
-  //     },
-  //   );
-  // }
 }

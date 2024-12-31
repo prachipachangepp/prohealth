@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
-
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/pay_rates_manager.dart';
@@ -18,12 +16,9 @@ import '../../../company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../widgets/dialogue_template.dart';
 
 class PayRateAddPopup extends StatefulWidget {
-  //final Widget child1;
-  // final Widget child2;
   final String title;
   final String serviceId;
   final int empTypeId;
-  // final Future<void> Function() onPressed;
   final TextEditingController fixPayRatesController;
   final TextEditingController payRatesController;
   final TextEditingController perMilesController;
@@ -31,10 +26,7 @@ class PayRateAddPopup extends StatefulWidget {
 
   PayRateAddPopup({
     super.key,
-    // required this.child1,
-    //  required this.child2,
     required this.payRatesController,
-    // required this.onPressed,
     required this.title,
     required this.serviceId,
     required this.empTypeId,
@@ -48,9 +40,6 @@ class PayRateAddPopup extends StatefulWidget {
 class _PayRateAddPopupState extends State<PayRateAddPopup> {
   bool isLoading = false;
   String docAddVisitTypeId = 'Select Visit';
-  // String serviceId = "";
-
-  // Error messages
   String? payRatesError;
   String? perMilesError;
   String? fixPayRatesError;
@@ -73,16 +62,13 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-
       width: AppSize.s400,
       height: AppSize.s460,
       title: widget.title,
 
       body: [
-
         Padding(
           padding: const EdgeInsets.symmetric(
-
             horizontal: AppPadding.p10,
           ),
           child: Column(
@@ -95,7 +81,7 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                   widget.visitTypeTextActive ?
                   RichText(
                     text: TextSpan(
-                      text:"Type of Visit", // Main text
+                      text:AppStringEM.typeVisit, // Main text
                       style: AllPopupHeadings.customTextStyle(context), // Main style
                       children: [
                         TextSpan(
@@ -107,12 +93,8 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                       ],
                     ),
                   )
-                  // Text(
-                  //   'Type of Visit',
-                  //   style:  DefineWorkWeekStyle.customTextStyle(context),
-                  // )
                       : Offstage(),
-                  SizedBox(height: 5,),
+                  SizedBox(height: AppSize.s5,),
                   //widget.child1,
                   FutureBuilder<List<VisitListDataByServiceId>>(
                     future: getVisitListByServiceId(context:context, serviceId: widget.serviceId,),
@@ -120,43 +102,35 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                       if (snapshot.connectionState ==
                           ConnectionState.waiting) {
                         return Container(
-                          width:  354,
-                          height: 30,
+                          width: AppSize.s354,
+                          height: AppSize.s30,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: ColorManager.containerBorderGrey, width: AppSize.s1),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
-                            padding:  EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                            padding:  EdgeInsets.symmetric(vertical: AppPadding.p5,horizontal: AppPadding.p5),
                             child: Text(
                                 docAddVisitTypeId,
-                                //AppString.dataNotFound,
                                 style: ConstTextFieldRegister.customTextStyle(context)
                             ),
                           ),
                         );
-                        //   CICCDropDownExcel(
-                        //   width: 354,
-                        //   initialValue: 'Select',
-                        //   items: [],
-                        // );
                       }
-                      if (snapshot.hasData &&
-                          snapshot.data!.isEmpty) {
+                      if (snapshot.hasData && snapshot.data!.isEmpty) {
                         return Container(
-                          width:  354,
-                          height: 30,
+                          width: AppSize.s354,
+                          height: AppSize.s30,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: ColorManager.containerBorderGrey, width: AppSize.s1),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
-                            padding:  EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                            padding:  EdgeInsets.symmetric(vertical: AppPadding.p5,horizontal: AppPadding.p5),
                             child: Text(
-                                "No available visits!",
-                                //AppString.dataNotFound,
+                                ErrorMessageString.noVisit,
                                 style: ConstTextFieldRegister.customTextStyle(context)
                             ),
                           ),
@@ -189,7 +163,7 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                       return const SizedBox();
                     },
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -197,11 +171,11 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                         prefixWidget: Text("\$ "),
                         controller: widget.payRatesController,
                         keyboardType: TextInputType.number,
-                        text: 'Payrates',
+                        text: AppStringEM.payrates,
                       ),
                       if (payRatesError != null)
                         Padding(
-                          padding: const EdgeInsets.only(top: 5),
+                          padding: const EdgeInsets.only(top: AppPadding.p5),
                           child: Text(
                             payRatesError!,
                             style:  CommonErrorMsg.customTextStyle(context),
@@ -209,10 +183,10 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                         ),
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  Text("Out of Zone",
+                  SizedBox(height: AppSize.s20,),
+                  Text(AppStringEM.outOfZone,
                     style:  DefineWorkWeekStyle.customTextStyle(context),),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   //////////////
 
 
@@ -223,11 +197,11 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SMTextfieldAsteric(
-                            width: 150,
+                            width: AppSize.s150,
                             prefixWidget: Text("\$ "),
                             controller: widget.fixPayRatesController,
                             keyboardType: TextInputType.number,
-                            text: 'Fixed Rate',
+                            text: AppStringEM.fixrate,
                           ),
                           if (fixPayRatesError != null)
                             Text(
@@ -237,16 +211,16 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                         ],
                       ),
 
-                      SizedBox(height: 20,),
+                      SizedBox(height: AppSize.s20,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SMTextfieldAsteric(
-                            width: 150,
+                            width: AppSize.s150,
                             prefixWidget: Text("\$ "),
                             controller: widget.perMilesController,
                             keyboardType: TextInputType.number,
-                            text: 'Per Mile',
+                            text: AppStringEM.perMile,
                           ),
                           if (perMilesError != null)
                             Text(
@@ -255,8 +229,6 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
                             ),
                         ],
                       ),
-
-
                     ],
                   ),
                 ],
@@ -268,8 +240,8 @@ class _PayRateAddPopupState extends State<PayRateAddPopup> {
 
       ], bottomButtons:  isLoading
         ? SizedBox(
-        height: 25,
-        width: 25,
+        height: AppSize.s25,
+        width: AppSize.s25,
         child: CircularProgressIndicator(color: ColorManager.blueprime,)
     )
         : CustomElevatedButton(
@@ -402,18 +374,12 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-
       width: AppSize.s400,
       height: AppSize.s460,
       title: widget.title,
-
       body: [
-
         Padding(
-          padding: const EdgeInsets.symmetric(
-
-            horizontal: AppPadding.p10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10,),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -422,26 +388,26 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   widget.visitTypeTextActive ? Text(
-                    'Type of Visit',
+                    AppStringEM.typeVisit,
                     style:  DefineWorkWeekStyle.customTextStyle(context),
                   ) : Offstage(),
-                  SizedBox(height: 5,),
+                  SizedBox(height: AppSize.s5,),
                   widget.child1,
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   SMTextfieldAsteric(
                     prefixWidget: Text("\$ "),
                     controller: widget.payRatesController,
                     keyboardType: TextInputType.number,
-                    text: 'Payrates',
+                    text: AppStringEM.payrates,
                   ),
                   if (perError != null)
                     Text(
                       perError!,
                       style:  CommonErrorMsg.customTextStyle(context),
                     ),
-                  SizedBox(height: 17,),
-                  Text("Out of Zone", style:  DefineWorkWeekStyle.customTextStyle(context),),
-                  SizedBox(height: 17,),
+                  SizedBox(height: AppSize.s17,),
+                  Text(AppStringEM.outOfZone, style:  DefineWorkWeekStyle.customTextStyle(context),),
+                  SizedBox(height: AppSize.s17,),
                   //////////////
 
 
@@ -452,11 +418,11 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SMTextfieldAsteric(
-                            width: 150,
+                            width: AppSize.s150,
                             prefixWidget: Text("\$ "),
                             controller: widget.fixPayRatesController,
                             keyboardType: TextInputType.number,
-                            text: 'Fixed Rate',
+                            text: AppStringEM.fixrate,
                           ),
                           if (payRatesError != null)
                             Text(
@@ -466,16 +432,16 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
                         ],
                       ),
 
-                      SizedBox(height: 20,),
+                      SizedBox(height: AppSize.s20,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SMTextfieldAsteric(
-                            width: 150,
+                            width: AppSize.s150,
                             prefixWidget: Text("\$ "),
                             controller: widget.perMilesController,
                             keyboardType: TextInputType.number,
-                            text: 'Per Mile',
+                            text: AppStringEM.perMile,
                           ),
                           if (perMilesError != null)
                             Text(
@@ -484,8 +450,6 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
                             ),
                         ],
                       ),
-
-
                     ],
                   ),
                 ],
@@ -498,8 +462,8 @@ class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
       ],
       bottomButtons:  isLoading
           ? SizedBox(
-          height: 25,
-          width: 25,
+          height: AppSize.s25,
+          width: AppSize.s25,
           child: CircularProgressIndicator(color: ColorManager.blueprime,)
       )
           : CustomElevatedButton(

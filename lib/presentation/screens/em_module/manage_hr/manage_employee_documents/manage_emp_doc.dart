@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/health.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/emp_doc_popup_const.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 
 class ManageEmployDocument extends StatefulWidget {
   const ManageEmployDocument({super.key});
@@ -119,8 +110,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CustomIconButtonConst(
-                        width: 170,
-                        text: 'Add Doctype',
+                        width: AppSize.s170,
+                        text: AppStringEM.adddoctype,
                         onPressed: () async {
                           idDocController.clear();
                           nameDocController.clear();
@@ -199,9 +190,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
 
           /// tab bar
           Padding(
-            padding: const EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: AppPadding.p15),
             child: Container(
-              height: 30,
+              height: AppSize.s30,
               width: MediaQuery.of(context).size.width / 1.2025,
               decoration: BoxDecoration(
                 boxShadow: [
@@ -224,9 +215,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       highlightColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 8.422,
-                        padding: const EdgeInsets.symmetric(vertical: 3),
+                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 0
@@ -245,9 +236,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       }),
                   InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 3),
+                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 1
@@ -266,9 +257,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       }),
                   InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 3),
+                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 2
@@ -287,9 +278,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       }),
                   InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 3),
+                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 3
@@ -308,9 +299,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       }),
                   InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 3),
+                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 4
@@ -329,9 +320,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       }),
                   InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 3),
+                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 5
@@ -353,9 +344,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       highlightColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 8.421,
-                        padding: const EdgeInsets.symmetric(vertical: 3),
+                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: _selectedIndex == 6
@@ -376,7 +367,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
               ),
             ),
           ),
-          const SizedBox(height: 30,),
+          const SizedBox(height: AppSize.s30,),
           Expanded(
             flex: 10,
             child: Stack(children: [

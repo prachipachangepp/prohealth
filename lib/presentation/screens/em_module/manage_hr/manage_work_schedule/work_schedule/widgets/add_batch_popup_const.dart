@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
-import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
-import '../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 
 class AddBatchPopup extends StatefulWidget {
   final TextEditingController controller1;
@@ -111,12 +109,12 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: AppSize.s40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 23.0),
+                    padding: const EdgeInsets.only(left: AppSize.s23),
                     child: Text(
                       widget.title,
                       style: PopupBlueBarText.customTextStyle(context),
@@ -143,24 +141,24 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     onChange: () => _selectStartTime(context),
                     controller: widget.controller1,
                     keyboardType: TextInputType.text,
-                    text: 'Start Time',
+                    text: AddPopupString.startTime,
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 17,),
 
                   ),
                   if (startTimeError != null)
                     Padding(
-                      padding: const EdgeInsets.only(top: 1),
+                      padding: const EdgeInsets.only(top: AppPadding.p1),
                       child: Text(
                         startTimeError!,
                         style: CommonErrorMsg.customTextStyle(context),
                       ),
                     ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   SMTextfieldAsteric(
                     onChange: () => _selectEndTime(context),
                     controller: widget.controller2,
                     keyboardType: TextInputType.text,
-                    text: 'End Time',
+                    text: AddPopupString.endTime,
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 17,),
                   ),
                   if (endTimeError != null)
@@ -180,14 +178,14 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
               child: Center(
                 child: isLoading
                     ? SizedBox(
-                    height: 25,
-                    width: 25,
+                    height: AppSize.s25,
+                    width: AppSize.s25,
                     child: CircularProgressIndicator(color: ColorManager.blueprime,)
                 )
                     : CustomElevatedButton(
                     width: AppSize.s120,
                     height: AppSize.s30,
-                    text: " Save ",
+                    text: AppStringEM.save,
                     onPressed: () {
                       setState(() {
                         isLoading = true;

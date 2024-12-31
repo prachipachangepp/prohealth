@@ -11,7 +11,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
-import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../em_dashboard_const.dart';
@@ -325,27 +324,6 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
               ],
             ),
           )
-            // Container(
-            //         height: AppSize.s210,
-            //         child: SfCartesianChart(
-            //             primaryYAxis: NumericAxis(
-            //               axisLabelFormatter: (AxisLabelRenderDetails details) {
-            //                 // Format the y-axis label to append '%'
-            //                 return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: 12));
-            //               },
-            //             ),
-            //             series: <CartesianSeries>[
-            //               // Renders spline chart
-            //               SplineSeries<ChartData, int>(
-            //                   dataSource: chartData,
-            //                   xValueMapper:
-            //                       (ChartData data, _) =>
-            //                   data.x,
-            //                   yValueMapper:
-            //                       (ChartData data, _) =>
-            //                   data.y)
-            //             ]),
-            //                       ),
                   ],
                 ),)),
           SizedBox(width: AppSize.s15,),
@@ -393,7 +371,7 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                             showTitles: false, // Disable Y-axis tick labels
                           ),
                           axisNameWidget: Padding(
-                            padding: const EdgeInsets.only(right: 50.0),
+                            padding: const EdgeInsets.only(right: AppPadding.p50),
                             child: Text(
                               'Clinician Score',
                               style: EmDashContainerHeadTextStyle.customTextStyle(context),
@@ -608,11 +586,11 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                           AttendanceRatioConst(officeName: "Office 1", attendance: "80%", containerColor: ColorManager.mediumgrey),
-                          SizedBox(height: 20,),
+                          SizedBox(height: AppSize.s20,),
                           AttendanceRatioConst(officeName: "Office 2", attendance: "95%", containerColor: ColorManager.pieChartGreen),
-                          SizedBox(height: 20,),
+                          SizedBox(height: AppSize.s20,),
                           AttendanceRatioConst(officeName: "Office 3", attendance: "50%", containerColor: ColorManager.pieChartBlue),
-                            SizedBox(height: 20,),
+                            SizedBox(height: AppSize.s20,),
                             AttendanceRatioConst(officeName: "Office 4", attendance: "20%", containerColor: ColorManager.relativeResult),
                         ],),
                       )
@@ -681,7 +659,6 @@ class _OfficeClinicianScreenState extends State<OfficeClinicianScreen> {
                       ),
                     ),
                   )
-
                 ],
               ))),
         ],),
