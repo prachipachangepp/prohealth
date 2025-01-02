@@ -359,7 +359,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                       children: [
                         Flexible(child: SchedularTextField(
                           controller: contractFFPhysician,
-                            labelText: 'Certifying or F2F Physician')
+                            labelText: 'Certifying of F2F Physician')
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(

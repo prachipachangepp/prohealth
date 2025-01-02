@@ -218,6 +218,7 @@ class CustomTextStylesCommon {
       fontSize: fontSize ?? FontSize.s15,
       color: color ?? Color(0xff4B89BA),
       fontWeight: fontWeight ?? FontWeight.w600,
+      decoration: TextDecoration.none,
     );
   }
 }

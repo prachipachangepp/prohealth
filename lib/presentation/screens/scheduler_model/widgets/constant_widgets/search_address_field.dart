@@ -43,7 +43,7 @@ class SearchAddressMap extends StatelessWidget {
               child: TextField(
                 controller: controller,
                 textInputAction: TextInputAction.search,
-                onSubmitted: (value) =>  provider.getLatLngFromAddress(value),
+                onSubmitted: onSubmit,
                 onChanged: (value)=>provider.showOverlay(context),
                 decoration: InputDecoration(
                   hintText: "Search",

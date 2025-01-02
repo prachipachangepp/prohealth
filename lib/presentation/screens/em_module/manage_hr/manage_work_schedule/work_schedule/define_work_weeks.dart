@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
-import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -15,11 +13,10 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/add_shift_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/view_batch_popup_const.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
-
+import '../../../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../widgets/error_popups/delete_success_popup.dart';
@@ -54,11 +51,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
       // Handle error
     });
   }
-
-
-  // Future<void> reloadBatch(String shiftName, String weekName) async{
-  //   List<ShiftBachesData> shiftBachesData = await  shiftBatchesGet(context,shiftName,weekName);
-  // }
  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -121,11 +113,10 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                         quarterTurns: 3,
                                         child: Text(
                                           data.weekDays,
-                                          style: TextStyle(
+                                          style: CustomTextStylesCommon.commonStyle(
                                             fontSize: FontSize.s16,
                                             fontWeight: FontWeight.w600,
                                             color: ColorManager.white,
-                                            decoration: TextDecoration.none,
                                           ),
                                         ),
                                       ),
@@ -146,7 +137,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                             )),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 2),
+                                              horizontal: AppPadding.p8, vertical: AppPadding.p2),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -183,23 +174,19 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                             Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                      horizontal: 8,
-                                                      vertical: 8),
+                                                      horizontal: AppPadding.p8,
+                                                      vertical: AppPadding.p8),
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Container(
-                                                    height:
-                                                        mediaQuery.height / 20,
-                                                    width:
-                                                        mediaQuery.width / 15,
+                                                    height: mediaQuery.height / 20,
+                                                    width: mediaQuery.width / 15,
                                                     decoration: BoxDecoration(
                                                         border: Border.all(
                                                             color: Colors.grey,
                                                             width: 1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
+                                                        borderRadius: BorderRadius.circular(10)),
                                                     child: Center(
                                                       child: Row(
                                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -207,8 +194,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                           Text(data.officeStartTime,
                                                               style: DefineWorkWeekStyle.customTextStyle(context)),
                                                           const Icon(
-                                                            Icons
-                                                                .timer_outlined,
+                                                            Icons.timer_outlined,
                                                             size: AppSize.s20,
                                                           )
                                                         ],
@@ -229,74 +215,14 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                       child: Row(
                                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                         children: [
-                                                          Text(
-                                                              data.officeEndTime,
+                                                          Text(data.officeEndTime,
                                                               style: DefineWorkWeekStyle.customTextStyle(context)),
-                                                          const Icon(
-                                                              Icons.timer_outlined,
+                                                          const Icon(Icons.timer_outlined,
                                                               size: AppSize.s20)
                                                         ],
                                                       ),
                                                     ),
                                                   ),
-                                                  // Padding(
-                                                  //   padding:
-                                                  //       const EdgeInsets.only(
-                                                  //           left: 15),
-                                                  //   child: Container(
-                                                  //       height: mediaQuery.height / 23,
-                                                  //       width: mediaQuery.width / 50,
-                                                  //       decoration: BoxDecoration(
-                                                  //           color: ColorManager.blueprime,
-                                                  //           borderRadius: BorderRadius.circular(5)),
-                                                  //       child: InkWell(
-                                                  //           onTap: () {
-                                                  //             showDialog(
-                                                  //                 context:
-                                                  //                     context,
-                                                  //                 builder:
-                                                  //                     (BuildContext
-                                                  //                         context) {
-                                                  //                   return DeletePopup(
-                                                  //                       title: DeletePopupString.deleteworkWeek,
-                                                  //                       onCancel:
-                                                  //                           () {
-                                                  //                         Navigator.pop(context);
-                                                  //                           },
-                                                  //                       onDelete:
-                                                  //                           () async{
-                                                  //                             setState(() {
-                                                  //                               _isLoading = true;
-                                                  //                             });
-                                                  //                             try {
-                                                  //                               await deleteWorkWeekSchedule(context, snapshot.data![index].weekScheduleId);
-                                                  //                               setState(() async {
-                                                  //                                 await workWeekScheduleGet(context).then((data) {
-                                                  //                                   workWeekController.add(data);
-                                                  //                                 }).catchError((error) {
-                                                  //                                   // Handle error
-                                                  //                                 });
-                                                  //                                 Navigator.pop(context);
-                                                  //                               });
-                                                  //                             } finally {
-                                                  //                               setState(() {
-                                                  //                                 _isLoading = false;
-                                                  //                               });
-                                                  //                             }
-                                                  //                           });
-                                                  //                 });
-                                                  //           },
-                                                  //           child: Icon(
-                                                  //             Icons
-                                                  //                 .delete_outline,
-                                                  //             color:
-                                                  //                 ColorManager
-                                                  //                     .white,
-                                                  //             size: mediaQuery
-                                                  //                     .width /
-                                                  //                 70,
-                                                  //           ))),
-                                                  // )
                                                 ],
                                               ),
                                             ),
@@ -311,59 +237,40 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                             //snapshot.data![index].companyId,
                                                             data.weekDays),
                                                     builder: (context, snapshotShift) {
-                                                      if (snapshotShift
-                                                          .connectionState ==
-                                                          ConnectionState
-                                                              .waiting) {
+                                                      if (snapshotShift.connectionState == ConnectionState.waiting) {
                                                         return Center(
-                                                          child:
-                                                              CircularProgressIndicator(
+                                                          child: CircularProgressIndicator(
                                                             strokeWidth: 2,
-                                                            color: ColorManager
-                                                                .blueprime,
+                                                            color: ColorManager.blueprime,
                                                           ),
                                                         );
                                                       }
-                                                      if (snapshotShift
-                                                          .data!.isEmpty) {
+                                                      if (snapshotShift.data!.isEmpty) {
                                                         return Center(
                                                             child: Text(
                                                             ErrorMessageString.noShift,
                                                           style: AllNoDataAvailable.customTextStyle(context)
                                                         ));
                                                       }
-                                                      if (snapshotShift
-                                                          .hasData) {
+                                                      if (snapshotShift.hasData) {
                                                         return ListView.builder(
-                                                            itemCount:
-                                                                snapshotShift
-                                                                    .data!
-                                                                    .length,
+                                                            itemCount: snapshotShift.data!.length,
                                                             itemBuilder:
-                                                                (context,
-                                                                    index) {
+                                                                (context, index) {
                                                               return Column(
                                                                 children: [
                                                                   Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                        horizontal:
-                                                                            5,
-                                                                        vertical:
-                                                                            3),
+                                                                    padding: const EdgeInsets.symmetric(
+                                                                        horizontal: AppPadding.p5,
+                                                                        vertical: AppPadding.p3),
                                                                     child:
                                                                         Container(
                                                                       decoration: BoxDecoration(
-                                                                          color: Color(
-                                                                              0xFFF5F5F5),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(10)),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: const EdgeInsets
-                                                                            .symmetric(
-                                                                            vertical:
-                                                                                5),
+                                                                          color: Color(0xFFF5F5F5),
+                                                                          borderRadius: BorderRadius.circular(10)),
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets.symmetric(
+                                                                            vertical: AppPadding.p5),
                                                                         child:
                                                                             Padding(
                                                                               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -402,7 +309,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                   )),
                                                                                             );
                                                                                           }),
-                                                                                          SizedBox(width:10),
+                                                                                          SizedBox(width:AppSize.s10),
                                                                                           snapshot.data!.length <= 1 ? SizedBox(width: 60,):
                                                                                           InkWell(
                                                                                             onTap: () {
@@ -416,9 +323,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                   });
                                                                                             },
                                                                                             child: Text(
-                                                                                              'View more',
+                                                                                              EmDashboardStringManager.viewMore,
                                                                                               style: TextStyle(
-                                                                                                fontSize: 12,
+                                                                                                fontSize: FontSize.s12,
                                                                                                 fontWeight:FontWeight.w300,
                                                                                                 color: ColorManager.faintgrey,
                                                                                                 decoration: TextDecoration.none,
@@ -493,7 +400,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                           size: mediaQuery.width / 80,
                                                                                         ),
                                                                                       )),
-                                                                                  SizedBox(width:5),
+                                                                                  SizedBox(width:AppSize.s5),
                                                                                   Container(
                                                                                       height: mediaQuery.height / 26,
                                                                                       width: mediaQuery.width / 55,
@@ -561,7 +468,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                             ),
                                             const Spacer(),
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                                              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
                                               child: Align(alignment: Alignment.bottomRight,
                                                   child: CustomeTransparentAddShift(
                                                     text: 'Add Shift',

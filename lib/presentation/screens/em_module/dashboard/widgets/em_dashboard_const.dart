@@ -61,7 +61,7 @@ class EMDashboardMenuButtons extends StatelessWidget {
 
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: AppMargin.m5),
-                height: 6,
+                height: AppSize.s6,
                 width: textWidth + 10,
                 decoration: BoxDecoration(
                   color: grpIndex == index
@@ -179,7 +179,7 @@ class BlueBorderContainerConst extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(30),
                   child: Container(
-                    padding: EdgeInsets.all(12),
+                    padding: EdgeInsets.all(AppPadding.p12),
                       width: AppSize.s50,
                       height: AppSize.s50,
                       color: ColorManager.bluebottom,

@@ -3,7 +3,6 @@ class BarChartEMData {
   final String x;
   final double? y;
   final double? y1;
-
 }
 
 class ChartData {

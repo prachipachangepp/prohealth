@@ -486,14 +486,27 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Checkbox(
-                                // checkColor: Color(0xff50B5E5),
                                 value: isOptForCAHPSSurvey,
                                 onChanged: (value) {
                                   setState(() {
                                     isOptForCAHPSSurvey = value!;
                                   });
                                 },
+
+                                checkColor: Colors.white, // Color of the check mark
+                                activeColor: Color(0xff50B5E5), // Color of the checkbox when selected
+                                side: BorderSide(color: Colors.blue, width: 2), // Border color of the checkbox
                               ),
+
+                              // Checkbox(
+                              //   // checkColor: Color(0xff50B5E5),
+                              //   value: isOptForCAHPSSurvey,
+                              //   onChanged: (value) {
+                              //     setState(() {
+                              //       isOptForCAHPSSurvey = value!;
+                              //     });
+                              //   },
+                              // ),
                               Expanded(
                                   child: SchedularTextField(
                                     controller: optforChaps,

@@ -1,14 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/const_linear_widget.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/widgets/screens/widgets/office_location_const.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/em_dashboard_theme.dart';
 import '../../../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
-import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../em_dashboard_const.dart';
 

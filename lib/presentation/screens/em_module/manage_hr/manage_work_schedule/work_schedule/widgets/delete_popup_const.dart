@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-
-
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
-import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 class DeletePopup extends StatefulWidget {
   final VoidCallback onCancel;
@@ -58,16 +52,10 @@ class _DeletePopupState extends State<DeletePopup> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
+                    padding: const EdgeInsets.only(left: AppPadding.p15),
                     child: Text(
                       widget.title,
                       style: PopupBlueBarText.customTextStyle(context),
-                      // style: GoogleFonts.firaSans(
-                      //   fontSize: FontSize.s12,
-                      //   fontWeight: FontWeight.w600,
-                      //   color: ColorManager.white,
-                      //   decoration: TextDecoration.none,
-                      // ),
                     ),
                   ),
                   IconButton(
@@ -89,11 +77,6 @@ class _DeletePopupState extends State<DeletePopup> {
                 children: [
                   Text( widget.text ?? 'Do you really want to delete?',
                   style: PopupTextConst.customTextStyle(context)
-                  //   style:CustomTextStylesCommon.commonStyle(
-                  //     fontWeight: FontWeight.w600,
-                  //     fontSize: FontSize.s12,
-                  //     color: ColorManager.mediumgrey
-                  // ),
                   ),
                 ],
               ),
@@ -105,7 +88,7 @@ class _DeletePopupState extends State<DeletePopup> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: AppPadding.p24),
                   child:  SizedBox(
-                    width: 100,
+                    width: AppSize.s100,
                     child: ElevatedButton(
                       onPressed: widget.onCancel,
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
@@ -122,13 +105,13 @@ class _DeletePopupState extends State<DeletePopup> {
                       ),),
                   )
                 ),
-                SizedBox(width: 20,),
+                SizedBox(width: AppSize.s20,),
                 Padding(
                 padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
                 child: widget.loadingDuration == true
                     ? SizedBox(
-                  height: 25,
-                  width: 25,
+                  height: AppSize.s25,
+                  width: AppSize.s25,
                   child: CircularProgressIndicator(
                     color: ColorManager.blueprime,
                   ),
@@ -189,21 +172,15 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
+                    padding: const EdgeInsets.only(left: AppPadding.p15),
                     child: Text(
                       widget.title,
                       style: PopupBlueBarText.customTextStyle(context),
-                      // style: GoogleFonts.firaSans(
-                      //   fontSize: FontSize.s12,
-                      //   fontWeight: FontWeight.w600,
-                      //   color: ColorManager.white,
-                      //   decoration: TextDecoration.none,
-                      // ),
                     ),
                   ),
                   IconButton(
@@ -236,7 +213,7 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
                   Padding(
                       padding: const EdgeInsets.only(bottom: AppPadding.p24),
                       child:  SizedBox(
-                        width: 100,
+                        width: AppSize.s100,
                         child: ElevatedButton(
                           onPressed: widget.onCancel,
                           style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
@@ -253,7 +230,7 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
                           ),),
                       )
                   ),
-                  SizedBox(width: 20,),
+                  SizedBox(width: AppSize.s20,),
                   Padding(
                     padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
                     child: CustomElevatedButton(
@@ -323,8 +300,8 @@ class _ReusableLoadingButtonState extends State<ReusableLoadingButton> {
   Widget build(BuildContext context) {
     return _isLoading
         ? SizedBox(
-      width: 30,
-      height: 30,
+      width: AppSize.s30,
+      height: AppSize.s30,
       child: CircularProgressIndicator(
         color: Colors.blue,
 
@@ -349,10 +326,6 @@ class _ReusableLoadingButtonState extends State<ReusableLoadingButton> {
         child: Text(
           widget.text,
           style: BlueButtonTextConst.customTextStyle(context),
-          // style: GoogleFonts.firaSans(
-          //   fontSize: 12,
-          //   fontWeight: FontWeight.w700,
-          // ),
         ),
       ),
     );

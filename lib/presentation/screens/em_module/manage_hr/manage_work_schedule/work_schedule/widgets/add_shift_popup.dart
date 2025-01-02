@@ -5,7 +5,6 @@ import 'package:prohealth/app/resources/establishment_resources/establishment_st
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
-import '../../../../../../../app/resources/font_manager.dart';
 
 class AddShiftPopup extends StatefulWidget {
   final TextEditingController controller1;
@@ -116,14 +115,14 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: AppSize.s40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 23.0),
+                    padding: const EdgeInsets.only(left: AppPadding.p23),
                     child: Text(
-                      'Add Shift',
+                      AddPopupString.addShift,
                       style: BlueButtonTextConst.customTextStyle(context),
                     ),
                   ),
@@ -147,19 +146,19 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                   SMTextfieldAsteric(
                     controller: widget.shiftNameController,
                     keyboardType: TextInputType.text,
-                    text: 'Shift Name',
+                    text: AddPopupString.shiftName,
                   ),
                   if (shiftNameError != null)
                     Text(
                       shiftNameError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: AppSize.s10,),
                   SMTextfieldAsteric(
                     onChange: () => _selectStartTime(context),
                     controller: widget.controller1,
                     keyboardType: TextInputType.text,
-                    text: 'Start Time',
+                    text: AddPopupString.startTime,
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: IconSize.I18,),
                   ),
                   if (startTimeError != null)
@@ -167,12 +166,12 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                       startTimeError!,
                       style: CommonErrorMsg.customTextStyle(context),
                     ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: AppSize.s10,),
                   SMTextfieldAsteric(
                     onChange: () => _selectEndTime(context),
                     controller: widget.controller2,
                     keyboardType: TextInputType.text,
-                    text: 'End Time',
+                    text: AddPopupString.endTime,
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: IconSize.I18,),
                   ),
                   if (endTimeError != null)
@@ -189,8 +188,8 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
               child: Center(
                 child: isLoading
                     ? SizedBox(
-                    height: 25,
-                    width: 25,
+                    height: AppSize.s25,
+                    width: AppSize.s25,
                     child: CircularProgressIndicator(color: ColorManager.blueprime,)
                 )
                     : CustomElevatedButton(

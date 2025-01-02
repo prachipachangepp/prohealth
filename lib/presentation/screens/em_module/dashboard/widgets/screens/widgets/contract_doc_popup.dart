@@ -25,10 +25,8 @@ class ContractDocAuditPopup extends StatelessWidget {
                 Text(
                   EmDashboardStringManager.NoOfOffice,
                   textAlign: TextAlign.start,
-                 // style: EmDashListviewHeadText.customTextStyle(context)
                   style: PopupCompStyle.customTextStyle(context)
                 ),
-                //Expanded(flex:1 ,child: Container()),
                 Padding(
                   padding: const EdgeInsets.only(left: AppPadding.p60),
                   child: Text(
@@ -37,7 +35,6 @@ class ContractDocAuditPopup extends StatelessWidget {
                     style: PopupCompStyle.customTextStyle(context)
                   ),
                 ),
-                //SizedBox(width: 30,),
                 Text(
                     EmDashboardStringManager.randomNum ,
                   textAlign: TextAlign.center,
@@ -231,7 +228,7 @@ class FullScreenPopup extends StatelessWidget {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: FontSize.s24,
                     fontWeight: FontWeight.w800,
                     color: ColorManager.mediumgrey,
                   ),
@@ -258,7 +255,6 @@ class FullScreenPopup extends StatelessWidget {
                   SizedBox(height: AppSize.s30),
                   ElevatedButton(
                     onPressed: () {
-                      // Add your auto-renew logic here
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: ColorManager.EMbrightred,

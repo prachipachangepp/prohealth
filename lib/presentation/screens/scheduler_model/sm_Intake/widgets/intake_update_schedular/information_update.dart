@@ -294,7 +294,7 @@ class _InformationUpdateScreenState extends State<InformationUpdateScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 20,),
                       ///conditional button don't delete
                       //   Container(
                       //     height:33,

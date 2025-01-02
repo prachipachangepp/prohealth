@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/licenses_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
@@ -455,14 +457,6 @@ class _ProfileBarState extends State<ProfileBar> {
                                         highlightColor: Colors.transparent,
                                         hoverColor: Colors.transparent,
                                         child: Icon(Icons.edit_outlined, size: 14, color: IconColorManager.bluebottom,)),
-                                    // IconButton(
-                                    //   onPressed: widget.onEditPressed,
-                                    //   icon: Icon(Icons.edit_outlined, size: 14, color: IconColorManager.bluebottom,),
-                                    //   splashColor: Colors.transparent,
-                                    //   highlightColor: Colors.transparent,
-                                    //   hoverColor: Colors.transparent,
-                                    //   visualDensity: VisualDensity.compact,
-                                    // ),
                                   ],
                                 ),
                                 Container(
@@ -840,11 +834,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                         return Center(
                                                                             child: Padding(padding:
                                                                               const EdgeInsets.symmetric(vertical: 150),
-                                                                              child: Text(AppString.dataNotFound,
-                                                                                style: CustomTextStylesCommon.commonStyle(
-                                                                                    fontWeight: FontWeight.w400,
-                                                                                    fontSize: FontSize.s14,
-                                                                                    color: ColorManager.mediumgrey),
+                                                                              child: Text(NoDataMessage.noexpiredlicense,
+                                                                                style: AllNoDataAvailable.customTextStyle(context),
                                                                               ),
                                                                             ));
                                                                       }
@@ -1061,21 +1052,13 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                     .symmetric(
                                                                                     vertical:
                                                                                     150),
-                                                                                child: Text(
-                                                                                  AppString
-                                                                                      .dataNotFound,
-                                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                                      fontWeight:FontWeight.w500,
-                                                                                      fontSize:
-                                                                                      FontSize
-                                                                                          .s14,
-                                                                                      color: ColorManager
-                                                                                          .mediumgrey),
+                                                                                child: Text(NoDataMessage.noabouttoexpired,
+                                                                                  style: AllNoDataAvailable.customTextStyle(context),
+
                                                                                 ),
                                                                               ));
                                                                         }
-                                                                        if (snapshot
-                                                                            .hasData) {
+                                                                        if (snapshot.hasData) {
                                                                           final aboutToExpiredLicenses =
                                                                           snapshot.data![
                                                                           'About to Expire']!;
@@ -1303,19 +1286,10 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                     .symmetric(
                                                                                     vertical:
                                                                                     150),
-                                                                                child: Text(
-                                                                                  AppString
-                                                                                      .dataNotFound,
-                                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                                      fontWeight:
-                                                                                      FontWeightManager
-                                                                                          .medium,
-                                                                                      fontSize:
-                                                                                      FontSize
-                                                                                          .s14,
-                                                                                      color: ColorManager
-                                                                                          .mediumgrey),
+                                                                                child: Text(NoDataMessage.nouptodate,
+                                                                                  style: AllNoDataAvailable.customTextStyle(context),
                                                                                 ),
+
                                                                               ));
                                                                         }
                                                                         if (snapshot

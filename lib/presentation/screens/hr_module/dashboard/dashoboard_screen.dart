@@ -345,16 +345,26 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                         onTap: (){
                                           Navigator.pop(context);
                                         },
-                                        child: Text(
-                                          "Go Back",
-                                          textAlign: TextAlign.end,
-                                          style: TextStyle(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorManager.mediumgrey,
-                                            decoration: TextDecoration.underline,
-                                          ),
-                                        ),
+                                        child: Row(
+                                          children: [
+                                            //SizedBox(width: AppSize.s25,),
+                                            Icon(
+                                              Icons.arrow_back,
+                                              size: IconSize.I16,
+                                              color: ColorManager.mediumgrey,
+
+                                            ),
+                                            SizedBox(width: AppSize.s5,),
+                                            Text(
+                                              'Go Back',
+                                              style:TextStyle(
+                                                fontSize: FontSize.s14,
+                                                fontWeight: FontWeight.w700,
+                                                color: ColorManager.mediumgrey,
+                                              ),
+                                            ),
+                                          ],
+                                        )
                                       )
                                     ],),
                                     SizedBox(height: 20,),
@@ -1482,21 +1492,24 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
                       ///listview section
                       Expanded(
-                        child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: 15,
-                          itemBuilder: (context, index) {
-                            //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                            // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            // EmployeeDocumentModal employeedoc = paginatedData[index];
-                            return const Column(
-                              children: [
-                                SizedBox(height: AppSize.s5),
-                                HRDashboardListViewData(),
-                                SizedBox(height: AppSize.s5),
-                              ],
-                            );
-                          },
+                        child: ScrollConfiguration(
+                          behavior: ScrollBehavior().copyWith(scrollbars: false),
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: 15,
+                            itemBuilder: (context, index) {
+                              //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                              // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                              // EmployeeDocumentModal employeedoc = paginatedData[index];
+                              return const Column(
+                                children: [
+                                  SizedBox(height: AppSize.s5),
+                                  HRDashboardListViewData(),
+                                  SizedBox(height: AppSize.s5),
+                                ],
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],

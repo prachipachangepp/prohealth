@@ -81,7 +81,6 @@ class AuditPrepTimeOffice extends StatelessWidget {
               //flex: 3,
               child: Container(
                 height: AppSize.s30,
-                // margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
                 padding: EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p60),
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -92,7 +91,6 @@ class AuditPrepTimeOffice extends StatelessWidget {
                         offset: Offset(0, 2))
                   ],
                   color: ColorManager.pieChartGreen.withOpacity(0.78),
-
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -323,7 +321,7 @@ class AvgComRatingOffice extends StatelessWidget {
                                   starOffColor: ColorManager.grey, // Unselected stars
                                   starColor: Colors.orange, // Selected stars
                                 ),
-                            SizedBox(width: 20,),
+                            SizedBox(width: AppSize.s20,),
                             Text(
                               "5",
                               textAlign: TextAlign.center,
@@ -331,18 +329,6 @@ class AvgComRatingOffice extends StatelessWidget {
                               ],
                             ),
                           ),
-                          // Expanded(
-                          //   flex:1,
-                          //   child: Text(
-                          //     "5",
-                          //     textAlign: TextAlign.center,
-                          //     style: CustomTextStylesCommon.commonStyle(
-                          //       fontSize: FontSize.s12,
-                          //       fontWeight: FontWeight.w400,
-                          //       color: ColorManager.black,
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                       SizedBox(height: AppSize.s6,),
@@ -498,7 +484,6 @@ class AuditDates extends StatelessWidget {
                                   ],
                                 ),
                               ),
-
                             ],
                           ),
                           Divider(color: ColorManager.containerBorderGrey,height: 1,thickness: 1,)
@@ -555,8 +540,7 @@ class UpcomingCpmDeadlines extends StatelessWidget {
                         offset: Offset(0, 2))
                   ],
                   color: Color(0xFFC8CFF9),
-
-    borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

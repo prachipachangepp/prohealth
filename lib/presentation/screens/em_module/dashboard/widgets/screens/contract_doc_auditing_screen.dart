@@ -1,5 +1,4 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/em_dashboard_string_manager.dart';
@@ -67,22 +66,6 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
     ChartedDataLine(20000, 5),
   ];
 
-  // List<ChartedDataLine> chartedDataline = [
-  //   ChartedDataLine(10000, 100000),
-  //   ChartedDataLine(11000, 200000),
-  //   ChartedDataLine(12000, 700000),
-  //   ChartedDataLine(13000, 150000),
-  //   ChartedDataLine(14000, 500000),
-  //   ChartedDataLine(15000, 200000),
-  // ];
-  // List<ChartedDataLine> chartedDatalineNew = [
-  //   ChartedDataLine(10000, 100000),
-  //   ChartedDataLine(11000, 150000),
-  //   ChartedDataLine(12000, 200000),
-  //   ChartedDataLine(13000, 150000),
-  //   ChartedDataLine(14000, 100000),
-  //   ChartedDataLine(15000, 50000),
-  // ];
   List<ChartedDataLine> chartedDatalineNew = [
     ChartedDataLine(7500, 1),
     ChartedDataLine(10000, 2),
@@ -387,96 +370,6 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                           ],
                         ),
                       ),
-
-                      // Container(
-                      //   height: AppSize.s240,
-                      //   padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
-                      //   child: SfCartesianChart(
-                      //     primaryXAxis: NumericAxis(
-                      //       title: AxisTitle(text: ""), // Optional title for the X-axis
-                      //       majorGridLines: MajorGridLines(width: 0),
-                      //       minimum: 10000, // Start of the X-axis range
-                      //       maximum: 20000, // End of the X-axis range
-                      //       interval: 2500, // Interval between the X-axis labels
-                      //       axisLabelFormatter: (AxisLabelRenderDetails details) {
-                      //         // Format X-axis labels as integers
-                      //         return ChartAxisLabel(
-                      //           details.value.toInt().toString(),
-                      //           TextStyle(fontSize: FontSize.s12),
-                      //         );
-                      //       },
-                      //     ),
-                      //     primaryYAxis: NumericAxis(
-                      //       title: AxisTitle(text: ""), // Optional title for the Y-axis
-                      //       majorGridLines: MajorGridLines(width: 0.5),
-                      //       minimum: 1, // Start of the Y-axis range
-                      //       maximum: 10, // End of the Y-axis range
-                      //       interval: 1, // Interval between the Y-axis labels
-                      //       axisLabelFormatter: (AxisLabelRenderDetails details) {
-                      //         // Format Y-axis labels as integers
-                      //         return ChartAxisLabel(
-                      //           details.value.toInt().toString(),
-                      //           TextStyle(fontSize: FontSize.s12),
-                      //         );
-                      //       },
-                      //     ),
-                      //     series: <SplineSeries<ChartedDataLine, int>>[
-                      //       // First line
-                      //       SplineSeries<ChartedDataLine, int>(
-                      //         dataSource: chartedDataline, // Replace with your data
-                      //         xValueMapper: (ChartedDataLine data, _) => data.x,
-                      //         yValueMapper: (ChartedDataLine data, _) => data.y,
-                      //         color: ColorManager.bluebottom,
-                      //         width: 2,
-                      //       ),
-                      //       // Second line
-                      //       SplineSeries<ChartedDataLine, int>(
-                      //         dataSource: chartedDatalineNew, // Replace with your data
-                      //         xValueMapper: (ChartedDataLine data, _) => data.x,
-                      //         yValueMapper: (ChartedDataLine data, _) => data.y,
-                      //         color: ColorManager.red,
-                      //         width: 2,
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      ///
-                      // Container(
-                      //   height: AppSize.s240,
-                      //   padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
-                      //   child: SfCartesianChart(
-                      //     primaryXAxis: NumericAxis(
-                      //       title: AxisTitle(text: ""),
-                      //       majorGridLines: MajorGridLines(width: 0),
-                      //     ),
-                      //     primaryYAxis: NumericAxis(
-                      //       axisLabelFormatter: (AxisLabelRenderDetails details) {
-                      //         return ChartAxisLabel(
-                      //           '${details.value.toInt()}',
-                      //           TextStyle(fontSize: FontSize.s12),
-                      //         );
-                      //       },
-                      //       majorGridLines: MajorGridLines(width: 0.5),
-                      //     ),
-                      //     series: <SplineSeries<ChartedDataLine, int>>[
-                      //       // Single solid line
-                      //       SplineSeries<ChartedDataLine, int>(
-                      //         dataSource: chartedDataline, // Replace with your data
-                      //         xValueMapper: (ChartedDataLine data, _) => data.x,
-                      //         yValueMapper: (ChartedDataLine data, _) => data.y,
-                      //         color: ColorManager.bluebottom,
-                      //         width: 2,
-                      //       ),
-                      //       SplineSeries<ChartedDataLine, int>(
-                      //         dataSource: chartedDatalineNew, // Replace with your data
-                      //         xValueMapper: (ChartedDataLine data, _) => data.x,
-                      //         yValueMapper: (ChartedDataLine data, _) => data.y,
-                      //         color: ColorManager.red,
-                      //         width: 2,
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),)),
               SizedBox(width: AppSize.s15,),
@@ -670,7 +563,7 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                           ),
                       ],),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: AppSize.s10,),
                     Padding(
                       padding: const EdgeInsets.only(left: AppPadding.p8,right: AppPadding.p30),
                       child: Row(
@@ -723,37 +616,6 @@ class _ContractDocAuditingScreenState extends State<ContractDocAuditingScreen> {
                         ],
                       ),
                     )
-
-                  //     Container(
-                //   height: AppSize.s210,
-                //   child: SfCartesianChart(
-                //       primaryYAxis: NumericAxis(
-                //         minimum: 0,
-                //         maximum: 70,
-                //         interval: 10,
-                //         // axisLabelFormatter: (AxisLabelRenderDetails details) {
-                //         //   // Format the y-axis label to append '%'
-                //         //   return ChartAxisLabel('${details.value.toInt()}%', TextStyle(fontSize: FontSize.s12));
-                //         // },
-                //       ),
-                //       series: <CartesianSeries>[
-                //         // Renders spline chart
-                //         SplineSeries<ChartDataLine, String>(
-                //             dataSource: chartDataline,
-                //             xValueMapper: (ChartDataLine data, _) => data.x,
-                //             yValueMapper: (ChartDataLine data, _) => data.y,
-                //           color: ColorManager.EMCyan,
-                //           width: 2,),
-                //         SplineSeries<ChartDataLine, String>(
-                //           dataSource: chartDatalineDotted, // Replace with your dotted line data
-                //           xValueMapper: (ChartDataLine data, _) => data.x,
-                //           yValueMapper: (ChartDataLine data, _) => data.y,
-                //           color: ColorManager.EMDCyan,
-                //           width: 2,
-                //           dashArray: [5, 5], // Creates a dashed effect
-                //         )
-                //       ]),
-                // ),
                   ],
                 ),)),
               ],),

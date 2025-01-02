@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 class CustomRadioListTile extends StatefulWidget {
@@ -39,7 +40,7 @@ class _CustomRadioListTileState extends State<CustomRadioListTile> {
             widget.title,
             style: DocumentTypeDataStyle.customTextStyle(context),
           ),
-        SizedBox( width: 40,)
+        SizedBox( width: AppSize.s40,)
         ],
       ),
     );
