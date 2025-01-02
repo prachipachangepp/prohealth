@@ -64,7 +64,16 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
   String zoneName = "";
 
   List<ApiAddCovrageData> addCovrage = [];
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetchCountyWiseZone(
+        context, selectedCountyId)
+        .then((data) {
+      _zoneController.add(data);
+    }).catchError((error) {});
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
@@ -93,13 +102,12 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 7),
-                            child: CICCDropdown(
+                          return  CICCDropdown(
+                              width: 354,
                               hintText: 'Select County',
                               items: [],
-                            ),
-                          );
+                            );
+
                         } else if (snapshot.hasError) {
                           return const Text("Error fetching counties");
                         } else if (snapshot.hasData) {
@@ -179,6 +187,24 @@ class _ProfileBarAddPopupState extends State<ProfileBarAddPopup> {
                                                   width: AppSize.s1),
                                               borderRadius:
                                                   BorderRadius.circular(4),
+                                            ),
+                                            child: const Text(
+                                              "",
+                                              //AppString.dataNotFound,
+                                            ),
+                                          );
+                                        }
+                                        if(selectedCountyId == 0){
+                                          return Container(
+                                            width: 354,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: ColorManager
+                                                      .containerBorderGrey,
+                                                  width: AppSize.s1),
+                                              borderRadius:
+                                              BorderRadius.circular(4),
                                             ),
                                             child: const Text(
                                               "",
