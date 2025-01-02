@@ -62,7 +62,6 @@ class AppStringEM{
   ///sm hr clinical
   static const String licensevocnurse = 'license Vocational Nurse';
   static const String nc = 'NC';
-
 ///sales
   static const String addemployeetype = 'Add Employee Type';
   static const String adddoctype = 'Add Doctype';
