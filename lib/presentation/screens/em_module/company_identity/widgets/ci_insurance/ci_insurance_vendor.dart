@@ -1,29 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
-import 'package:pdf/pdf.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/custome_dialog.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
-import '../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
-import '../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../../widgets/error_popups/delete_success_popup.dart';
-import '../../../../../widgets/error_popups/failed_popup.dart';
-import '../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import '../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
-import '../whitelabelling/success_popup.dart';
 
 class CiInsuranceVendor extends StatefulWidget {
   final String officeId;
@@ -70,9 +58,9 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(AppPadding.p8),
             child: Container(
-              height: 30,
+              height: AppSize.s30,
               decoration: BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(12),
@@ -144,7 +132,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(AppPadding.p8),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -159,10 +147,10 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                               ),
                                             ],
                                           ),
-                                          height: 50,
+                                          height: AppSize.s50,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
+                                                horizontal: AppPadding.p15),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -170,7 +158,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                 Expanded(
                                                   flex: 1,
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(left: 165.0),
+                                                    padding: const EdgeInsets.only(left: AppSize.s165),
                                                     child: Text(
                                                       formattedSerialNumber,
                                                       textAlign: TextAlign.center,

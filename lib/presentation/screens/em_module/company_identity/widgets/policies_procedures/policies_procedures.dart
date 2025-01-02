@@ -88,11 +88,11 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
     return Material(
       color: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 10,right: 10),
+              padding: const EdgeInsets.only(top: AppPadding.p10,right: AppPadding.p10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -140,7 +140,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: AppSize.s10),
             Expanded(
               child: StreamBuilder<List<MCorporateComplianceModal>>(
                   stream: _controller.stream,
@@ -205,7 +205,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                       errorBuilder: (context, error, stackTrace) {
                                         return Icon(
                                           Icons.broken_image,
-                                          size: 45,
+                                          size: IconSize.I45,
                                           color: ColorManager.faintGrey,
                                         );
                                       },
@@ -214,13 +214,13 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                   else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
                                     fileWidget = Icon(
                                       Icons.description,
-                                      size: 45,
+                                      size: IconSize.I45,
                                       color: ColorManager.faintGrey,
                                     );
                                   } else {
                                     fileWidget = Icon(
                                       Icons.insert_drive_file,
-                                      size: 45,
+                                      size: IconSize.I45,
                                       color: ColorManager.faintGrey,
                                     );
                                   }
@@ -230,7 +230,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     children: [
                                       //SizedBox(height: 5),
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(AppPadding.p8),
                                         child: Container(
                                             decoration: BoxDecoration(
                                               color: Colors.white,
@@ -250,7 +250,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                      horizontal: 15),
+                                                      horizontal: AppPadding.p15),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -330,28 +330,6 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                       ///download saloni
                                                       PdfDownloadButton(apiUrl: policiesdata.docurl,
                                                           documentName: policiesdata.docName!),
-                                                      // IconButton(
-                                                      //   onPressed: () {
-                                                      //     print(
-                                                      //         "FileExtension:${fileExtension}");
-                                                      //     DowloadFile()
-                                                      //         .downloadPdfFromBase64(
-                                                      //             fileExtension,
-                                                      //             "DME.pdf");
-                                                      //     downloadFile(fileUrl);
-                                                      //   },
-                                                      //   icon: Icon(
-                                                      //     Icons
-                                                      //         .print,
-                                                      //     size:IconSize.I18,color: IconColorManager.bluebottom,
-                                                      //   ),
-                                                      //   splashColor:
-                                                      //       Colors.transparent,
-                                                      //   highlightColor:
-                                                      //       Colors.transparent,
-                                                      //   hoverColor:
-                                                      //       Colors.transparent,
-                                                      // ),
                                                       ///edit
                                                       IconButton(
                                                         onPressed: () {
@@ -392,9 +370,6 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                         .data!
                                                                         .expiry_date,
                                                                   );
-
-                                                                  //fileName = snapshotPrefill.data!.url;
-
                                                                   return StatefulBuilder(
                                                                     builder: (BuildContext
                                                                             context,

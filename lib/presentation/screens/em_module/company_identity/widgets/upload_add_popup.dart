@@ -6,13 +6,11 @@ import 'package:prohealth/app/resources/common_resources/common_theme_const.dart
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
-
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
@@ -151,7 +149,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
               : widget.height!,
       body: [
         Padding(
-          padding: const EdgeInsets.only(left: 5.0),
+          padding: const EdgeInsets.only(left: AppPadding.p5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,7 +184,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     isAsterisk: true,
                     heading: AppString.type_of_the_document,
                     content:  CICCDropdown(
-                      width: 354,
+                      width: AppSize.s354,
                       initialValue: dropDownMenuItems.isEmpty ? "No available documents":"Select",
                       onChange: (val) {
                         setState(() {
@@ -213,8 +211,8 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                       content: FormField<String>(
                         builder: (FormFieldState<String> field) {
                           return SizedBox(
-                            width: 354,
-                            height: 30,
+                            height: AppSize.s30,
+                            width: AppSize.s354,
                             child: TextFormField(
                               controller: expiryDateController,
                               cursorColor: ColorManager.black,
@@ -234,9 +232,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 hintText: 'yyyy-mm-dd',
-                                hintStyle:
-                                    DocumentTypeDataStyle.customTextStyle(
-                                        context),
+                                hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(6),
                                   borderSide: BorderSide(
@@ -244,7 +240,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                       color: ColorManager.fmediumgrey),
                                 ),
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 16),
+                                    EdgeInsets.symmetric(horizontal: AppPadding.p16),
                                 suffixIcon: Icon(Icons.calendar_month_outlined,
                                     color: ColorManager.blueprime),
                                 errorText: field.errorText,
@@ -311,13 +307,13 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                       ),
                                     ),
                                     IconButton(
-                                      padding: EdgeInsets.all(4),
+                                      padding: EdgeInsets.all(AppPadding.p4),
                                       onPressed:
                                           _pickFile, // Keep file picker here as well for icon press
                                       icon: Icon(
                                         Icons.file_upload_outlined,
                                         color: ColorManager.black,
-                                        size: 17,
+                                        size: IconSize.I16,
                                       ),
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
@@ -330,7 +326,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                           ),
                           if (isFileErrorVisible)
                             Padding(
-                              padding: const EdgeInsets.only(top: 5),
+                              padding: const EdgeInsets.only(top: AppPadding.p5),
                               child: Text(
                                 'Please upload a document',
                                 style: CommonErrorMsg.customTextStyle(context),
@@ -350,7 +346,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   SMTextfieldAsteric(
                     controller: nameDocController,
                     keyboardType: TextInputType.text,
-                    text: 'Name of the Document',
+                    text: AppStringEM.NameOfDoc,
                   ),
                   if (_nameDocError != null) // Display error if any
                   Text(
@@ -363,7 +359,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   SMTextfieldAsteric(
                     controller: idDocController,
                     keyboardType: TextInputType.text,
-                    text: 'ID of the Document',
+                    text: AppStringEM.idOfDOc,
                   ),
                   if (_idDocError != null) // Display error if any
                   Text(
@@ -376,9 +372,9 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   HeaderContentConst(
                     heading: AppString.type_of_the_document,
                     content: Container(
-                      width: 354,
-                      height: 30,
-                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                      height: AppSize.s30,
+                      width: AppSize.s354,
+                      padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p12),
                       decoration: BoxDecoration(
                         color: ColorManager.white,
                         borderRadius: BorderRadius.circular(8),
@@ -404,9 +400,9 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     isAsterisk: true,
                     heading: AppString.sub_type_of_the_document,
                     content: Container(
-                      width: 354,
-                      height: 30,
-                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                      height: AppSize.s30,
+                      width: AppSize.s354,
+                      padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p12),
                       decoration: BoxDecoration(
                         color: ColorManager.white,
                         borderRadius: BorderRadius.circular(8),
@@ -459,13 +455,13 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                       ),
                                     ),
                                     IconButton(
-                                      padding: EdgeInsets.all(4),
+                                      padding: EdgeInsets.all(AppPadding.p4),
                                       onPressed:
                                       _pickFile, // Keep file picker here as well for icon press
                                       icon: Icon(
                                         Icons.file_upload_outlined,
                                         color: ColorManager.black,
-                                        size: 17,
+                                        size: IconSize.I16,
                                       ),
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
@@ -478,7 +474,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                           ),
                           if (isFileErrorVisible)
                             Padding(
-                              padding: const EdgeInsets.only(top: 5),
+                              padding: const EdgeInsets.only(top: AppPadding.p5),
                               child: Text(
                                 'Please upload a document',
                                 style: CommonErrorMsg.customTextStyle(context),
@@ -541,13 +537,13 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                           child: Column(
                             children: [
                               SizedBox(
-                                height: 20,
+                                height: AppSize.s20,
                               ),
                               Row(
                                 children: [
                                   Container(
-                                    height: 30,
-                                    width: 50,
+                                    height: AppSize.s30,
+                                    width: AppSize.s50,
                                     //color: ColorManager.red,
                                     child: TextFormField(
                                       textAlign: TextAlign.center,
@@ -568,15 +564,13 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color:
-                                                  ColorManager.fmediumgrey,
+                                              color: ColorManager.fmediumgrey,
                                               width: 2),
                                           borderRadius:
                                               BorderRadius.circular(8),
                                         ),
                                         contentPadding:
-                                            EdgeInsets.symmetric(
-                                                horizontal: 10),
+                                            EdgeInsets.symmetric(horizontal: AppPadding.p10),
                                       ),
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [
@@ -585,53 +579,45 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 10),
+                                  SizedBox(width: AppSize.s10),
                                   Container(
-                                    height: 30,
-                                    width: 80,
+                                    height: AppSize.s30,
+                                    width: AppSize.s80,
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 5),
+                                        EdgeInsets.symmetric(horizontal: AppPadding.p5),
                                     decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ColorManager.fmediumgrey),
-                                      borderRadius:
-                                          BorderRadius.circular(8),
+                                      border: Border.all(color: ColorManager.fmediumgrey),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: DropdownButtonFormField<String>(
-                                      value:
-                                          selectedYear, // Initial value (you should define this variable)
+                                      value: selectedYear, // Initial value (you should define this variable)
                                       items: [
                                         DropdownMenuItem(
                                           value: AppConfig.year,
                                           child: Text(
                                             AppConfig.year,
-                                            style: DocumentTypeDataStyle
-                                                .customTextStyle(context),
+                                            style: DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                         DropdownMenuItem(
                                           value: AppConfig.month,
                                           child: Text(
                                             AppConfig.month,
-                                            style: DocumentTypeDataStyle
-                                                .customTextStyle(context),
+                                            style: DocumentTypeDataStyle.customTextStyle(context),
                                           ),
                                         ),
                                       ],
                                       onChanged: (value) {
                                         setState(() {
-                                          selectedYear =
-                                              value; // Update the selected option (Year/Month)
+                                          selectedYear = value; // Update the selected option (Year/Month)
                                         });
                                       },
                                       decoration: InputDecoration(
                                         enabledBorder: InputBorder.none,
                                         focusedBorder: InputBorder.none,
                                         hintText: AppConfig.year,
-                                        hintStyle: DocumentTypeDataStyle
-                                            .customTextStyle(context),
-                                        contentPadding:
-                                            EdgeInsets.only(bottom: 20),
+                                        hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                        contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
                                       ),
                                       icon: Icon(
                                         Icons.arrow_drop_down,
@@ -662,8 +648,8 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                           content: FormField<String>(
                             builder: (FormFieldState<String> field) {
                               return SizedBox(
-                                width: 354,
-                                height: 30,
+                                height: AppSize.s30,
+                                width: AppSize.s354,
                                 child: TextFormField(
                                   controller: expiryDateController,
                                   cursorColor: ColorManager.black,
@@ -693,7 +679,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                           color: ColorManager.fmediumgrey),
                                     ),
                                     contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 16),
+                                        EdgeInsets.symmetric(horizontal: AppPadding.p16),
                                     suffixIcon: Icon(
                                         Icons.calendar_month_outlined,
                                         color: ColorManager.blueprime),
@@ -713,12 +699,6 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                               .format(pickedDate);
                                     }
                                   },
-                                  // validator: (value) {
-                                  //   if (value == null || value.isEmpty) {
-                                  //     return 'Please select a date';
-                                  //   }
-                                  //   return null;
-                                  // },
                                 ),
                               );
                             },
@@ -726,7 +706,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         ),
                         if (_issueDateError != null) // Display error if any
                           Padding(
-                            padding: const EdgeInsets.only(left: 5.0),
+                            padding: const EdgeInsets.only(left: AppPadding.p5),
                             child: Text(
                               _issueDateError!,
                               style:CommonErrorMsg.customTextStyle(context),
@@ -1109,210 +1089,3 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
 //     ),
 //   ),
 // ),
-///predefine posy api button
-// CustomElevatedButton(
-//             width: AppSize.s105,
-//             height: AppSize.s30,
-//             text: AppStringEM.add, // submit
-//             onPressed: () async {
-//               setState(() {
-//                 isFileErrorVisible = !isFileSelected;
-//               });
-//
-//               // Ensure the file is selected before proceeding
-//               if (!isFileSelected) {
-//                 return;
-//               }
-//
-//               setState(() {
-//                 load = true;
-//               });
-//
-//               try {
-//                 String? expiryDate;
-//                 if (expiryDateController.text.isEmpty) {
-//                   expiryDate = null;
-//                 } else {
-//                   expiryDate = datePicked!.toIso8601String() + "Z";
-//                 }
-//                 ApiData response = await addOrgDocPPPost(
-//                   context: context,
-//                   orgDocumentSetupid: docTypeId,
-//                   idOfDocument: documentTypeName,
-//                   expiryDate: expiryDate,
-//                   docCreated: DateTime.now().toIso8601String() + "Z",
-//                   url: "url",
-//                   officeId: widget.officeId,
-//                   fileName: fileName,
-//                 );
-//                 expiryDateController.clear();
-//                 if (response.statusCode == 200 || response.statusCode == 201) {
-//                 print("id >>>>>>>>>>>>>>>>>>>>>..... ${response.orgOfficeDocumentId}");
-//                 var uploadDocNew =   await uploadDocumentsoffice(
-//                     context: context,
-//                     documentFile: filePath,
-//                     orgOfficeDocumentId: response.orgOfficeDocumentId!,
-//                     fileName: fileName,
-//                   );
-//                 // if (uploadDocNew.statusCode == 413) {
-//                 //   Navigator.pop(context);
-//                 //   showDialog(
-//                 //     context: context,
-//                 //     builder: (BuildContext context) {
-//                 //       return AddErrorPopup(
-//                 //         message: 'Request entity to large!',
-//                 //       );
-//                 //     },
-//                 //   );
-//                 // }
-//
-//                 if (uploadDocNew.statusCode == 413) {
-//                   Navigator.pop(context);
-//                   showDialog(
-//                     context: context,
-//                     builder: (BuildContext context) {
-//                       return AddErrorPopup(
-//                         message: 'Request entity too large!',
-//                       );
-//                     },
-//                   );
-//                 } else {
-//                   Navigator.pop(context);
-//                   showDialog(
-//                     context: context,
-//                     builder: (BuildContext context) {
-//                       return CountySuccessPopup(
-//                         message: 'Saved Successfully',
-//                       );
-//                     },
-//                   );
-//                 }
-//                 } else if (response.statusCode == 400 || response.statusCode == 404) {
-//                   Navigator.pop(context);
-//                   showDialog(
-//                     context: context,
-//                     builder: (BuildContext context) => const FourNotFourPopup(),
-//                   );
-//                 } else {
-//                   Navigator.pop(context);
-//                   showDialog(
-//                     context: context,
-//                     builder: (BuildContext context) {
-//                       return FailedPopup(
-//                         text: response.message,
-//                       );
-//                     },
-//                   );
-//                 }
-//               } finally {
-//                 setState(() {
-//                   // // Navigator.pop(context);
-//                   // Navigator.pop(context);
-//                   // showDialog(
-//                   //   context: context,
-//                   //   builder: (BuildContext context) {
-//                   //     return CountySuccessPopup(
-//                   //       message: 'Save Successfully',
-//                   //     );
-//                   //   },
-//                   // );
-//
-//                   load = false;
-//                 });
-//               }
-//             },
-//           )
-
-///other doc upload button
-
-// CustomElevatedButton(
-//             width: AppSize.s105,
-//             height: AppSize.s30,
-//             text: AppStringEM.add, // submit
-//             onPressed: () async {
-//               _validateForm(); // Validate the form on button press
-//               if (!_isFormValid) {
-//                 return; // Stop here if the form is not valid
-//                 }
-//
-//               if (!isFileSelected) {
-//                 return;
-//               }
-//
-//               setState(() {
-//                 load = true;
-//               });
-//
-//               try{
-//                 String? expiryDate;
-//                 if (expiryDateController.text.isEmpty) {
-//                   expiryDate = null;
-//                 } else {
-//                   expiryDate = datePicked!.toIso8601String() + "Z";
-//                 }
-//
-//                 int threshold = 0;
-//                 if (selectedExpiryType == AppConfig.scheduled &&
-//                     daysController.text.isNotEmpty) {
-//                   int enteredValue = int.parse(daysController.text);
-//                   if (selectedYear == AppConfig.year) {
-//                     threshold = enteredValue * 365;
-//                   } else if (selectedYear == AppConfig.month) {
-//                     threshold = enteredValue * 30;
-//                   }
-//                 }
-//                 ApiData newResponse = await addOtherOfficeDocPost(
-//                     context: context,
-//                     docTypeid: widget.docTypeMetaIdCC,
-//                     docSubTypeid: widget.selectedSubDocId == AppConfig.subDocId0 ? AppConfig.subDocId0 : widget.selectedSubDocId,
-//                     documentName: nameDocController.text,
-//                     expiryType: selectedExpiryType.toString(),
-//                     threshold: threshold,
-//                     expiryDate: expiryDate,
-//                     expiryReminder: selectedExpiryType.toString(),
-//                     idOfDoc: idDocController.text,
-//                     docCreated: DateTime.now().toIso8601String() + "Z",
-//                     fileName: fileName,
-//                     url: 'url',
-//                  officeId: widget.officeId);
-//                 if (newResponse.statusCode == 200 || newResponse.statusCode == 201) {
-//                   print("id >>>>>>>>>>>>>>>>>>>>>..... ${newResponse.orgOfficeDocumentId}");
-//                  var uploadDocNew = await uploadDocumentsoffice(
-//                     context: context,
-//                     documentFile: filePath,
-//                     fileName: fileName,
-//                     orgOfficeDocumentId: newResponse.orgOfficeDocumentId!,
-//                   );
-//                   if (uploadDocNew.statusCode == 413) {
-//                     Navigator.pop(context);
-//                     showDialog(
-//                       context: context,
-//                       builder: (BuildContext context) {
-//                         return AddErrorPopup(
-//                           message: 'Request entity to large!',
-//                         );
-//                       },
-//                     );
-//                   }
-//                 }
-//
-//               }
-//               finally {
-//                 setState(() {
-//                   // Navigator.pop(context);
-//                   Navigator.pop(context);
-//                   showDialog(
-//                     context: context,
-//                     builder: (BuildContext context) {
-//                       return CountySuccessPopup(
-//                         message: 'Save Successfully',
-//                       );
-//                     },
-//                   );
-//
-//                   load = false;
-//                 });
-//               }
-//
-//             }
-//           ),

@@ -115,31 +115,21 @@ class _CIDetailsDropdownState extends State<CIDetailsDropdown> {
   Widget build(BuildContext context) {
     return Container(
       key: _dropdownKey,
-      width: 300,
-      height: 30,
+      height: AppSize.s30,
+      width: AppSize.s300,
       decoration: BoxDecoration(
         border: Border.all(color: Color(0xFFB1B1B1), width: 1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         children: [
-          SizedBox(width: 8),
+          SizedBox(width: AppSize.s8),
           Expanded(
             child: Text(
               _selectedValue ?? '',
               style: DefineWorkWeekStyle.customTextStyle(context),
             ),
           ),
-          // IconButton(
-          //   icon: Icon(
-          //     Icons.edit_outlined,
-          //     size: 18,
-          //     color: ColorManager.blueprime,
-          //   ),
-          //   onPressed: widget.onEditIconTap,
-          //   padding: EdgeInsets.zero,
-          //   constraints: BoxConstraints(),
-          // ),
           GestureDetector(
             onTap: _showCustomDropdown,
             child: Icon(Icons.arrow_drop_down),
@@ -151,7 +141,6 @@ class _CIDetailsDropdownState extends State<CIDetailsDropdown> {
 }
 
 ///details screen popup constant
-
 class CIDetailsDropdownPopup extends StatefulWidget {
   final TextEditingController hcoNumController;
   final TextEditingController medicareController;

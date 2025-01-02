@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
-import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../widgets/button_constant.dart';
 

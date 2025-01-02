@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-
+import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
@@ -40,10 +40,10 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
           widget.labelText,
           style:ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
         ),
-        SizedBox(height: 5),
+        SizedBox(height: AppSize.s5),
         Container(
-          width: 354,
-          height: 60, // Increased height for better UI
+          height: AppSize.s60,
+          width: AppSize.s354, // Increased height for better UI
           decoration: BoxDecoration(
             border: Border.all(color: Color(0xFFB1B1B1), width: 1),
             borderRadius: BorderRadius.circular(8),
@@ -75,7 +75,7 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
               prefix: widget.prefixWidget,
               prefixStyle: AllHRTableData.customTextStyle(context),
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom: 18, left: 15),
+              contentPadding: EdgeInsets.only(bottom: AppPadding.p18, left: AppPadding.p15),
             ),
           ),
         ),

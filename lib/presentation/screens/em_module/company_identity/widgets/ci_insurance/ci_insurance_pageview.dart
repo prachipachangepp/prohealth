@@ -1,14 +1,6 @@
-
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_contract.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-
+import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 
@@ -38,9 +30,9 @@ class CiPageview extends StatelessWidget {
       color: Colors.transparent,
       child: Column(children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8),
+          padding: const EdgeInsets.symmetric(vertical: AppPadding.p12,horizontal: AppPadding.p8),
           child: Container(
-            height: 40,
+            height: AppSize.s40,
             width: MediaQuery.of(context).size.width / mediaQueryWidth,
             color: Colors.transparent,
             child: Row(
@@ -54,7 +46,7 @@ class CiPageview extends StatelessWidget {
                   highlightColor: Color(0xFFF2F9FC),
                   hoverColor: Color(0xFFF2F9FC),
                   child: Container(
-                    height: 40,
+                    height: AppSize.s40,
                     width: MediaQuery.of(context).size.width / 10,
                     child: Column(
                       children: [
