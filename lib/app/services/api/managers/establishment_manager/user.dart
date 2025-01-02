@@ -214,7 +214,14 @@ Future<ApiData> createUserPost(
           statusCode: response.statusCode!,
           success: false,
           message: response.data['message']);
-    } else {
+    } else if (response.statusCode == 400) {
+      // If the API returns 409, it's usually a conflict (like duplicate email)
+      print("Email must be email");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: "Email must be email");
+    }else {
       print("Error 1");
       return ApiData(
           statusCode: response.statusCode!,
