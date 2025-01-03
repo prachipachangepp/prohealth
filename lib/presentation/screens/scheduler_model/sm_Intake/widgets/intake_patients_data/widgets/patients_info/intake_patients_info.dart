@@ -121,9 +121,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: Center(
-        child: ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
             child: Column(
               children: [
                 IntakeFlowContainerConst(
@@ -481,7 +479,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
               ],
             ),
           ),
-        ),
+
       ),
     );
   }
