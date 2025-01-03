@@ -130,7 +130,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                           style: GoogleFonts.firaSans(
                             fontSize: AppSize.s12,
                             color: ColorManager.granitegray,
-                            fontWeight: FontWeightManager.semiBold,)),
+                            fontWeight: FontWeightManager.bold,)),
                       SizedBox(height: AppSize.s20),
                       _buildInpatientStaySection(),
                       SizedBox(height: AppSize.s30),
@@ -138,7 +138,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                           style: GoogleFonts.firaSans(
                             fontSize: AppSize.s12,
                             color: ColorManager.granitegray,
-                            fontWeight: FontWeightManager.semiBold,)),
+                            fontWeight: FontWeightManager.bold,)),
                       SizedBox(height: AppSize.s20),
                       _buildLocationOfCareSection(),
                     ],
@@ -163,10 +163,11 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return SchedularTextField(
-                      controller: dummyCtrl,
-                      labelText: 'Facility',
-                      );
+                    return CustomDropdownTextFieldsm(
+                      initialValue: 'Select',
+                      headText: 'Facility',items: [],
+                      onChanged: (newValue) {
+                      },);
                   }
                   if (snapshot.hasData) {
                     List<DropdownMenuItem<String>> dropDownList = [];
@@ -265,9 +266,11 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return SchedularTextField(
-                      controller: dummyCtrl,
-                      labelText: 'City');
+                    return CustomDropdownTextFieldsm(
+                      initialValue: 'Select',
+                      headText: 'City',items: [],
+                      onChanged: (newValue) {
+                      },);
                   }
                   if (snapshot.hasData) {
                     List<DropdownMenuItem<String>> dropDownList = [];
@@ -303,10 +306,11 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return SchedularTextField(
-                      controller: dummyCtrl,
-                      labelText: 'State',
-                      );
+                    return CustomDropdownTextFieldsm(
+                      initialValue: 'Select',
+                      headText: 'State',items: [],
+                      onChanged: (newValue) {
+                      },);
                   }
                   if (snapshot.hasData) {
                     List<DropdownMenuItem<String>> dropDownList = [];
@@ -472,10 +476,11 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return SchedularTextField(
-                      controller: dummyCtrl,
-                      labelText: 'City',
-                      );
+                    return CustomDropdownTextFieldsm(
+                      initialValue: 'Select',
+                      headText: 'City',items: [],
+                      onChanged: (newValue) {
+                      },);
                   }
                   if (snapshot.hasData) {
                     List<DropdownMenuItem<String>> dropDownList = [];
@@ -515,10 +520,11 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return SchedularTextField(
-                      controller: dummyCtrl,
-                      labelText: 'State',
-                      );
+                    return CustomDropdownTextFieldsm(
+                      initialValue: 'Select',
+                      headText: 'State',items: [],
+                      onChanged: (newValue) {
+                      },);
                   }
                   if (snapshot.hasData) {
                     List<DropdownMenuItem<String>> dropDownList = [];

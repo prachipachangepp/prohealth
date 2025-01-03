@@ -42,6 +42,8 @@ class _OfferLetterDescriptionScreenState
   @override
   void initState() {
     super.initState();
+    GetOfferLetter(
+        context, widget.employeeId, AppConfig.templateId);
     // Initialize the signatureBytes with the value passed from the previous screen
     signatureBytes = widget.signatureBytes;
   }
