@@ -23,477 +23,483 @@ class _PhysicianOrderState extends State<PhysicianOrder> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 100,),
-      child: SingleChildScrollView(
-        child: Column(
-         children: [
-           SizedBox(height: 40,),
-           Row(
-             mainAxisAlignment: MainAxisAlignment.end,
-             children: [
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: SingleChildScrollView(
+          child: Column(
+           children: [
+             SizedBox(height: 40,),
+             Row(
+               mainAxisAlignment: MainAxisAlignment.end,
+               children: [
 
-               Column(
-                 children: [
-                   Container(
-                     width: 130,
-                     height: 35,
-                     child: SchedularIconButtonConst(
-                         text: 'Add Physician',
-                       icon: Icons.add,
-                       onPressed: () {
-                         showDialog(
-                             context: context,
-                             builder: (BuildContext context) {
-                               return PopupAddPhysician();
-                             });
-                       }
-                       // onPressed: () {}
-                     ),
-                   ),
-                 ],
-               ),
-             ],
-           ),
-           SizedBox(height: 50,),
-        
-           Container(
-             height: 900,
-             child: ListView.builder(
-               itemCount: 3,
-               itemBuilder: (BuildContext context, int index) {  return Padding(
-                 padding: const EdgeInsets.only(bottom: 50),
-                 child: Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
+                 Column(
                    children: [
-                     Padding(
-                       padding: const EdgeInsets.only(bottom: 5),
-                       child: Text("Physician #1",style: AllPopupHeadings.customTextStyle(context),),
-                     ),
                      Container(
-                       // color: Colors.red,
-                       height: 70,
-                       decoration: BoxDecoration(
-                         color: Colors.white,
-                         borderRadius:
-                         BorderRadius.circular(8),
-                         boxShadow: [
-                           BoxShadow(
-                             color: Colors.grey
-                                 .withOpacity(0.5),
-                             spreadRadius: 1,
-                             blurRadius: 2,
-                             offset: const Offset(0, 2),
-                           ),
-                         ],
+                       width: 130,
+                       height: 35,
+                       child: SchedularIconButtonConst(
+                           text: 'Add Physician',
+                         icon: Icons.add,
+                         onPressed: () {
+                           showDialog(
+                               context: context,
+                               builder: (BuildContext context) {
+                                 return PopupAddPhysician();
+                               });
+                         }
+                         // onPressed: () {}
                        ),
+                     ),
+                   ],
+                 ),
+               ],
+             ),
+             SizedBox(height: 50,),
 
-                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         children: [
-                           Padding(
-                             padding: const EdgeInsets.only(left: 30),
-                             child: Row(
-                               children: [
-                                 // CircleAvatar(
-                                 //   child:
-                                 //   Image.asset('images/1.png'),
-                                 // ),
-                                 // SizedBox(width: AppSize.s7),
-                                 Text(
-                                   'Jeh Tiwari',
-                                   style:DocumentTypeDataStyle.customTextStyle(context),
-                                 ),
-                               ],
+             Container(
+               height: 900,
+               child: ListView.builder(
+                 itemCount: 3,
+                 itemBuilder: (BuildContext context, int index) {  return Padding(
+                   padding: const EdgeInsets.only(bottom: 50),
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Padding(
+                         padding: const EdgeInsets.only(bottom: 5),
+                         child: Text("Physician #1",style: AllPopupHeadings.customTextStyle(context),),
+                       ),
+                       Container(
+                         // color: Colors.red,
+                         height: 70,
+                         decoration: BoxDecoration(
+                           color: Colors.white,
+                           borderRadius:
+                           BorderRadius.circular(8),
+                           boxShadow: [
+                             BoxShadow(
+                               color: Colors.grey
+                                   .withOpacity(0.5),
+                               spreadRadius: 1,
+                               blurRadius: 2,
+                               offset: const Offset(0, 2),
                              ),
-                           ),
-                           Row(
-                             children: [
-                               Padding(
-                                 padding: const EdgeInsets.all(8.0),
-                                 child: Icon(Icons.call,color: Colors.blueAccent,),
-                               ),
-                               Container(
-                                 width: 120,
-                                 child:Text("+49 4464646548",
-                                   style:DocumentTypeDataStyle.customTextStyle(context),) ,
-                               )
-                             ],
-                           ),
-                           Row(
-                             children: [
-                               Padding(
-                                 padding: const EdgeInsets.all(8.0),
-                                 child: Icon(Icons.location_on_outlined),
-                               ),
-                               Container(
-                                 width: 200,
+                           ],
+                         ),
 
-                                 child:Text("Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
-                                   textAlign: TextAlign.start,
-                                   style:DocumentTypeDataStyle.customTextStyle(context),
-                                 ) ,
-                               )
-                             ],
-                           ),
-                           Padding(
-                             padding: const EdgeInsets.only(right: 20),
-                             child: Column(
-                               mainAxisAlignment: MainAxisAlignment.center,
-                               children: [
-                                 Container(
-                                   width: 200,
-                                   height: 40,
-                                   child: ElevatedButton.icon(onPressed: (){
-    showDialog(
-    context: context,
-    builder: (BuildContext context) {
-     return Add_Prescription();
-    });
-                                   }, label: Text("prescription", style: TransparentButtonTextConst.customTextStyle(context),),
-                                     icon: Icon(Icons.file_upload_outlined,color:ColorManager.blueprime ,),
-                                     style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
-                                       elevation: 5,
-                                       shape: RoundedRectangleBorder(
-                                         borderRadius: BorderRadius.circular(20),
-                                         side: BorderSide(
-                                           color: ColorManager.bluebottom,
-                                           width: 1,
-                                         ),
-                                       ),),
+                         child: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                             Padding(
+                               padding: const EdgeInsets.only(left: 30),
+                               child: Row(
+                                 children: [
+                                   // CircleAvatar(
+                                   //   child:
+                                   //   Image.asset('images/1.png'),
+                                   // ),
+                                   // SizedBox(width: AppSize.s7),
+                                   Text(
+                                     'Jeh Tiwari',
+                                     style:DocumentTypeDataStyle.customTextStyle(context),
                                    ),
+                                 ],
+                               ),
+                             ),
+                             Row(
+                               children: [
+                                 Padding(
+                                   padding: const EdgeInsets.all(8.0),
+                                   child: Icon(Icons.call,color: Colors.blueAccent,),
+                                 ),
+                                 Container(
+                                   width: 120,
+                                   child:Text("+49 4464646548",
+                                     style:DocumentTypeDataStyle.customTextStyle(context),) ,
                                  )
                                ],
                              ),
-                           ),
-                         ],
-                       ),
-
-                     ),
-
-                     SingleChildScrollView(
-                       child: Container(
-                         height: 300,  // Fixed height for the container
-                         child: ListView.builder(
-                           itemCount: 3,
-                           itemBuilder: (BuildContext context, int index) {
-                             return Padding(
-                               padding: const EdgeInsets.only(top: 5),
-                               child: Container(
-                                 // color: Colors.red,
-                                 height: 80,
-                                 decoration: BoxDecoration(
-                                   color: Colors.white,
-                                   borderRadius: BorderRadius.circular(8),
-                                   border: Border(left: BorderSide(
-                                     color: ColorManager.blueprime,
-                                     width: 5,
-                                   )),
-                                   boxShadow: [
-                                     BoxShadow(
-                                       color: Colors.grey.withOpacity(0.5),
-                                       spreadRadius: 1,
-                                       blurRadius: 4,
-                                       offset: const Offset(0, 2),
-                                     ),
-                                   ],
+                             Row(
+                               children: [
+                                 Padding(
+                                   padding: const EdgeInsets.all(8.0),
+                                   child: Icon(Icons.location_on_outlined),
                                  ),
-                                 child: Row(
-                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                   children: [
-                                     Padding(
-                                       padding: const EdgeInsets.only(left: 20, top: 15),
-                                       child: Column(
-                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                         children: [
-                                           Text(
-                                             'Prescription 1',
-                                             style: AllPopupHeadings.customTextStyle(context),
+                                 Container(
+                                   width: 200,
+
+                                   child:Text("Tufts International Center, 20 Sawyer Ave, Medford MA 02155 ",
+                                     textAlign: TextAlign.start,
+                                     style:DocumentTypeDataStyle.customTextStyle(context),
+                                   ) ,
+                                 )
+                               ],
+                             ),
+                             Padding(
+                               padding: const EdgeInsets.only(right: 20),
+                               child: Column(
+                                 mainAxisAlignment: MainAxisAlignment.center,
+                                 children: [
+                                   Container(
+                                     width: 200,
+                                     height: 40,
+                                     child: ElevatedButton.icon(onPressed: (){
+            showDialog(
+            context: context,
+            builder: (BuildContext context) {
+             return Add_Prescription();
+            });
+                                     }, label: Text("prescription", style: TransparentButtonTextConst.customTextStyle(context),),
+                                       icon: Icon(Icons.file_upload_outlined,color:ColorManager.blueprime ,),
+                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                                         elevation: 5,
+                                         shape: RoundedRectangleBorder(
+                                           borderRadius: BorderRadius.circular(20),
+                                           side: BorderSide(
+                                             color: ColorManager.bluebottom,
+                                             width: 1,
                                            ),
-                                           Row(
-                                             children: [
-                                               Text(
-                                                 'Prescription added on:  ',
-                                                 style: DocumentTypeDataStyle.customTextStyle(context),
-                                               ),
-                                               Text(
-                                                 '2024/04/03',
-                                                 style: DocumentTypeDataStyle.customTextStyle(context),
-                                               ),
-                                             ],
-                                           ),
-                                           Row(
-                                             children: [
-                                               Text(
-                                                 'Treatment for ',
-                                                 style: DocumentTypeDataStyle.customTextStyle(context),
-                                               ),
-                                               Text(
-                                                 'Covid 19',
-                                                 style: DocumentTypeDataStyle.customTextStyle(context),
-                                               ),
-                                             ],
-                                           ),
-                                         ],
-                                       ),
+                                         ),),
                                      ),
-                                     Padding(
-                                       padding: const EdgeInsets.only(right: 70),
-                                       child: Row(
-                                         children: [
-                                           IconButton(
-                                             splashColor: Colors.transparent,
-                                             highlightColor: Colors.transparent,
-                                             hoverColor: Colors.transparent,
-                                             icon: Icon(
-                                               size: 20,
-                                               Icons.history,
-                                               color: ColorManager.granitegray,
-                                             ),
-                                             onPressed: () {},
-                                           ),
-                                           SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                           IconButton(
-                                             splashColor: Colors.transparent,
-                                             highlightColor: Colors.transparent,
-                                             hoverColor: Colors.transparent,
-                                             icon: Icon(
-                                               size: 20,
-                                               Icons.print_outlined,
-                                               color: ColorManager.granitegray,
-                                             ),
-                                             onPressed: () {},
-                                           ),
-                                           SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                           IconButton(
-                                             splashColor: Colors.transparent,
-                                             highlightColor: Colors.transparent,
-                                             hoverColor: Colors.transparent,
-                                             icon: Icon(
-                                               size: 20,
-                                               Icons.file_download_outlined,
-                                               color: Color(0xff686464),
-                                             ),
-                                             onPressed: () {
-                                               // Your download logic
-                                             },
-                                           ),
-                                           SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                           IconButton(
-                                             splashColor: Colors.transparent,
-                                             highlightColor: Colors.transparent,
-                                             hoverColor: Colors.transparent,
-                                             onPressed: () {},
-                                             icon: Icon(
-                                               Icons.delete_outline,
-                                               size: 20,
-                                               color: Color(0xff686464),
-                                             ),
-                                           ),
-                                         ],
-                                       ),
-                                     ),
-                                   ],
-                                 ),
+                                   )
+                                 ],
                                ),
-                             );
-                           },
+                             ),
+                           ],
                          ),
+
                        ),
-                     )
+
+                       ScrollConfiguration(
+                         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                         child: SingleChildScrollView(
+                           child: Container(
+                             height: 300,  // Fixed height for the container
+                             child: ListView.builder(
+                               itemCount: 3,
+                               itemBuilder: (BuildContext context, int index) {
+                                 return Padding(
+                                   padding: const EdgeInsets.only(top: 5),
+                                   child: Container(
+                                     // color: Colors.red,
+                                     height: 80,
+                                     decoration: BoxDecoration(
+                                       color: Colors.white,
+                                       borderRadius: BorderRadius.circular(8),
+                                       border: Border(left: BorderSide(
+                                         color: ColorManager.blueprime,
+                                         width: 5,
+                                       )),
+                                       boxShadow: [
+                                         BoxShadow(
+                                           color: Colors.grey.withOpacity(0.5),
+                                           spreadRadius: 1,
+                                           blurRadius: 4,
+                                           offset: const Offset(0, 2),
+                                         ),
+                                       ],
+                                     ),
+                                     child: Row(
+                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                       children: [
+                                         Padding(
+                                           padding: const EdgeInsets.only(left: 20, top: 15),
+                                           child: Column(
+                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                             children: [
+                                               Text(
+                                                 'Prescription 1',
+                                                 style: AllPopupHeadings.customTextStyle(context),
+                                               ),
+                                               Row(
+                                                 children: [
+                                                   Text(
+                                                     'Prescription added on:  ',
+                                                     style: DocumentTypeDataStyle.customTextStyle(context),
+                                                   ),
+                                                   Text(
+                                                     '2024/04/03',
+                                                     style: DocumentTypeDataStyle.customTextStyle(context),
+                                                   ),
+                                                 ],
+                                               ),
+                                               Row(
+                                                 children: [
+                                                   Text(
+                                                     'Treatment for ',
+                                                     style: DocumentTypeDataStyle.customTextStyle(context),
+                                                   ),
+                                                   Text(
+                                                     'Covid 19',
+                                                     style: DocumentTypeDataStyle.customTextStyle(context),
+                                                   ),
+                                                 ],
+                                               ),
+                                             ],
+                                           ),
+                                         ),
+                                         Padding(
+                                           padding: const EdgeInsets.only(right: 70),
+                                           child: Row(
+                                             children: [
+                                               IconButton(
+                                                 splashColor: Colors.transparent,
+                                                 highlightColor: Colors.transparent,
+                                                 hoverColor: Colors.transparent,
+                                                 icon: Icon(
+                                                   size: 20,
+                                                   Icons.history,
+                                                   color: ColorManager.granitegray,
+                                                 ),
+                                                 onPressed: () {},
+                                               ),
+                                               SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                               IconButton(
+                                                 splashColor: Colors.transparent,
+                                                 highlightColor: Colors.transparent,
+                                                 hoverColor: Colors.transparent,
+                                                 icon: Icon(
+                                                   size: 20,
+                                                   Icons.print_outlined,
+                                                   color: ColorManager.granitegray,
+                                                 ),
+                                                 onPressed: () {},
+                                               ),
+                                               SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                               IconButton(
+                                                 splashColor: Colors.transparent,
+                                                 highlightColor: Colors.transparent,
+                                                 hoverColor: Colors.transparent,
+                                                 icon: Icon(
+                                                   size: 20,
+                                                   Icons.file_download_outlined,
+                                                   color: Color(0xff686464),
+                                                 ),
+                                                 onPressed: () {
+                                                   // Your download logic
+                                                 },
+                                               ),
+                                               SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                               IconButton(
+                                                 splashColor: Colors.transparent,
+                                                 highlightColor: Colors.transparent,
+                                                 hoverColor: Colors.transparent,
+                                                 onPressed: () {},
+                                                 icon: Icon(
+                                                   Icons.delete_outline,
+                                                   size: 20,
+                                                   color: Color(0xff686464),
+                                                 ),
+                                               ),
+                                             ],
+                                           ),
+                                         ),
+                                       ],
+                                     ),
+                                   ),
+                                 );
+                               },
+                             ),
+                           ),
+                         ),
+                       )
 
 
-                     // Container(
-                     //   height: 300,
-                     //   child: ListView.builder(
-                     //     itemCount: 5,
-                     //     itemBuilder: (BuildContext context, int index) { return Container(
-                     //     // color: Colors.red,
-                     //       height: 80,
-                     //       decoration: BoxDecoration(
-                     //         color: Colors.white,
-                     //         borderRadius: BorderRadius.circular(8),
-                     //         border: Border(left: BorderSide(
-                     //           color: ColorManager.blueprime,
-                     //           width: 5,
-                     //         ),),
-                     //         boxShadow: [
-                     //           BoxShadow(
-                     //             color: Colors.grey
-                     //                 .withOpacity(0.5),
-                     //             spreadRadius: 1,
-                     //             blurRadius: 4,
-                     //             offset: const Offset(0, 2),
-                     //           ),
-                     //         ],
-                     //       ),
-                     //
-                     //       child: Row(
-                     //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     //         children: [
-                     //           Padding(
-                     //             padding: const EdgeInsets.only(left: 20,top: 15),
-                     //             child: Column(
-                     //               crossAxisAlignment: CrossAxisAlignment.start,
-                     //               children: [
-                     //
-                     //                 Text(
-                     //                   'Prescription 1',
-                     //                   style:AllPopupHeadings.customTextStyle(context),
-                     //                 ),
-                     //                 Row(
-                     //                   children: [
-                     //                     Text(
-                     //                       'Prescription added on:  ',
-                     //                       style:DocumentTypeDataStyle.customTextStyle(context),
-                     //                     ),
-                     //                     Text(
-                     //                       '2024/04/03',
-                     //                       style:DocumentTypeDataStyle.customTextStyle(context),
-                     //                     ),
-                     //                   ],
-                     //                 ),
-                     //                 Row(
-                     //                   children: [
-                     //                     Text(
-                     //                       'Treatment for ',
-                     //                       style:DocumentTypeDataStyle.customTextStyle(context),
-                     //                     ),
-                     //                     Text(
-                     //                       'Covid 19',
-                     //                       style:DocumentTypeDataStyle.customTextStyle(context),
-                     //                     ),
-                     //                   ],
-                     //                 ),
-                     //               ],
-                     //             ),
-                     //           ),
-                     //
-                     //           Padding(
-                     //             padding: const EdgeInsets.only(
-                     //                 right: 50.0),
-                     //             child: Row(
-                     //               children: [
-                     //                 IconButton(
-                     //                   icon: Icon(
-                     //                       size: 20,
-                     //                       Icons.history,
-                     //                       color: ColorManager.granitegray
-                     //                   ),
-                     //                   onPressed: () {},
-                     //                 ),
-                     //                 SizedBox(width: MediaQuery.of(context).size.width / 120),
-                     //                 IconButton(
-                     //                   icon: Icon(
-                     //                       size: 20,
-                     //                       Icons.print_outlined,
-                     //                       color:  ColorManager.granitegray
-                     //                   ),
-                     //                   onPressed: () {},
-                     //                 ),
-                     //                 SizedBox(width: MediaQuery.of(context).size.width / 120),
-                     //
-                     //                 IconButton(
-                     //                   icon: Icon(
-                     //                     size: 20,
-                     //                     Icons
-                     //                         .file_download_outlined,
-                     //                     color: Color(0xff686464),
-                     //                   ),
-                     //                   onPressed: () {
-                     //                     // print("FileExtension:${fileExtension}");
-                     //                     // DowloadFile().downloadPdfFromBase64(fileExtension,"MicNotes.pdf");
-                     //                     // downloadFile(fileUrl);
-                     //                     // // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
-                     //
-                     //
-                     //                   },
-                     //                 ),
-                     //                 SizedBox(
-                     //                     width:
-                     //                     MediaQuery.of(context)
-                     //                         .size
-                     //                         .width /
-                     //                         120),
-                     //                 IconButton(
-                     //                   onPressed: () {
-                     //
-                     //                   },
-                     //                   icon: Icon(
-                     //                     Icons.delete_outline,
-                     //                     size: 20,
-                     //                     color: Color(0xff686464),
-                     //                   ),
-                     //                 ),
-                     //
-                     //                 // SizedBox(
-                     //                 //     width:
-                     //                 //     MediaQuery.of(context)
-                     //                 //         .size
-                     //                 //         .width /
-                     //                 //         100),
-                     //                 // ElevatedButton(
-                     //                 //   onPressed: () {
-                     //                 //     showDialog(
-                     //                 //       context: context,
-                     //                 //       builder: (BuildContext
-                     //                 //       context) {
-                     //                 //         return MiscellaneousEditPopUp();
-                     //                 //       },
-                     //                 //     );
-                     //                 //   },
-                     //                 //   child: Row(
-                     //                 //     children: [
-                     //                 //       Icon(
-                     //                 //         Icons
-                     //                 //             .mode_edit_outlined,
-                     //                 //         color: ColorManager
-                     //                 //             .white,
-                     //                 //         size: 20,
-                     //                 //       ),
-                     //                 //       SizedBox(
-                     //                 //           width: MediaQuery.of(
-                     //                 //               context)
-                     //                 //               .size
-                     //                 //               .width /
-                     //                 //               160),
-                     //                 //       Text(
-                     //                 //           'Edit',
-                     //                 //           style: BlueButtonTextConst.customTextStyle(context)
-                     //                 //       ),
-                     //                 //     ],
-                     //                 //   ),
-                     //                 //   style: ElevatedButton
-                     //                 //       .styleFrom(
-                     //                 //     shape: RoundedRectangleBorder(  borderRadius: BorderRadius.circular(12),),
-                     //                 //     padding:
-                     //                 //     EdgeInsets.symmetric(
-                     //                 //         horizontal: 15,
-                     //                 //         vertical: 12),
-                     //                 //     backgroundColor:
-                     //                 //     ColorManager
-                     //                 //         .blueprime,
-                     //                 //   ),
-                     //                 // ),
-                     //               ],
-                     //             ),
-                     //           ),
-                     //         ],
-                     //       ),
-                     //
-                     //     );  },
-                     //
-                     //   ),
-                     // ),
+                       // Container(
+                       //   height: 300,
+                       //   child: ListView.builder(
+                       //     itemCount: 5,
+                       //     itemBuilder: (BuildContext context, int index) { return Container(
+                       //     // color: Colors.red,
+                       //       height: 80,
+                       //       decoration: BoxDecoration(
+                       //         color: Colors.white,
+                       //         borderRadius: BorderRadius.circular(8),
+                       //         border: Border(left: BorderSide(
+                       //           color: ColorManager.blueprime,
+                       //           width: 5,
+                       //         ),),
+                       //         boxShadow: [
+                       //           BoxShadow(
+                       //             color: Colors.grey
+                       //                 .withOpacity(0.5),
+                       //             spreadRadius: 1,
+                       //             blurRadius: 4,
+                       //             offset: const Offset(0, 2),
+                       //           ),
+                       //         ],
+                       //       ),
+                       //
+                       //       child: Row(
+                       //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       //         children: [
+                       //           Padding(
+                       //             padding: const EdgeInsets.only(left: 20,top: 15),
+                       //             child: Column(
+                       //               crossAxisAlignment: CrossAxisAlignment.start,
+                       //               children: [
+                       //
+                       //                 Text(
+                       //                   'Prescription 1',
+                       //                   style:AllPopupHeadings.customTextStyle(context),
+                       //                 ),
+                       //                 Row(
+                       //                   children: [
+                       //                     Text(
+                       //                       'Prescription added on:  ',
+                       //                       style:DocumentTypeDataStyle.customTextStyle(context),
+                       //                     ),
+                       //                     Text(
+                       //                       '2024/04/03',
+                       //                       style:DocumentTypeDataStyle.customTextStyle(context),
+                       //                     ),
+                       //                   ],
+                       //                 ),
+                       //                 Row(
+                       //                   children: [
+                       //                     Text(
+                       //                       'Treatment for ',
+                       //                       style:DocumentTypeDataStyle.customTextStyle(context),
+                       //                     ),
+                       //                     Text(
+                       //                       'Covid 19',
+                       //                       style:DocumentTypeDataStyle.customTextStyle(context),
+                       //                     ),
+                       //                   ],
+                       //                 ),
+                       //               ],
+                       //             ),
+                       //           ),
+                       //
+                       //           Padding(
+                       //             padding: const EdgeInsets.only(
+                       //                 right: 50.0),
+                       //             child: Row(
+                       //               children: [
+                       //                 IconButton(
+                       //                   icon: Icon(
+                       //                       size: 20,
+                       //                       Icons.history,
+                       //                       color: ColorManager.granitegray
+                       //                   ),
+                       //                   onPressed: () {},
+                       //                 ),
+                       //                 SizedBox(width: MediaQuery.of(context).size.width / 120),
+                       //                 IconButton(
+                       //                   icon: Icon(
+                       //                       size: 20,
+                       //                       Icons.print_outlined,
+                       //                       color:  ColorManager.granitegray
+                       //                   ),
+                       //                   onPressed: () {},
+                       //                 ),
+                       //                 SizedBox(width: MediaQuery.of(context).size.width / 120),
+                       //
+                       //                 IconButton(
+                       //                   icon: Icon(
+                       //                     size: 20,
+                       //                     Icons
+                       //                         .file_download_outlined,
+                       //                     color: Color(0xff686464),
+                       //                   ),
+                       //                   onPressed: () {
+                       //                     // print("FileExtension:${fileExtension}");
+                       //                     // DowloadFile().downloadPdfFromBase64(fileExtension,"MicNotes.pdf");
+                       //                     // downloadFile(fileUrl);
+                       //                     // // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
+                       //
+                       //
+                       //                   },
+                       //                 ),
+                       //                 SizedBox(
+                       //                     width:
+                       //                     MediaQuery.of(context)
+                       //                         .size
+                       //                         .width /
+                       //                         120),
+                       //                 IconButton(
+                       //                   onPressed: () {
+                       //
+                       //                   },
+                       //                   icon: Icon(
+                       //                     Icons.delete_outline,
+                       //                     size: 20,
+                       //                     color: Color(0xff686464),
+                       //                   ),
+                       //                 ),
+                       //
+                       //                 // SizedBox(
+                       //                 //     width:
+                       //                 //     MediaQuery.of(context)
+                       //                 //         .size
+                       //                 //         .width /
+                       //                 //         100),
+                       //                 // ElevatedButton(
+                       //                 //   onPressed: () {
+                       //                 //     showDialog(
+                       //                 //       context: context,
+                       //                 //       builder: (BuildContext
+                       //                 //       context) {
+                       //                 //         return MiscellaneousEditPopUp();
+                       //                 //       },
+                       //                 //     );
+                       //                 //   },
+                       //                 //   child: Row(
+                       //                 //     children: [
+                       //                 //       Icon(
+                       //                 //         Icons
+                       //                 //             .mode_edit_outlined,
+                       //                 //         color: ColorManager
+                       //                 //             .white,
+                       //                 //         size: 20,
+                       //                 //       ),
+                       //                 //       SizedBox(
+                       //                 //           width: MediaQuery.of(
+                       //                 //               context)
+                       //                 //               .size
+                       //                 //               .width /
+                       //                 //               160),
+                       //                 //       Text(
+                       //                 //           'Edit',
+                       //                 //           style: BlueButtonTextConst.customTextStyle(context)
+                       //                 //       ),
+                       //                 //     ],
+                       //                 //   ),
+                       //                 //   style: ElevatedButton
+                       //                 //       .styleFrom(
+                       //                 //     shape: RoundedRectangleBorder(  borderRadius: BorderRadius.circular(12),),
+                       //                 //     padding:
+                       //                 //     EdgeInsets.symmetric(
+                       //                 //         horizontal: 15,
+                       //                 //         vertical: 12),
+                       //                 //     backgroundColor:
+                       //                 //     ColorManager
+                       //                 //         .blueprime,
+                       //                 //   ),
+                       //                 // ),
+                       //               ],
+                       //             ),
+                       //           ),
+                       //         ],
+                       //       ),
+                       //
+                       //     );  },
+                       //
+                       //   ),
+                       // ),
 
-                   ],
-                 ),
-               ); },
+                     ],
+                   ),
+                 ); },
 
+               ),
              ),
-           ),
-        
-           // SizedBox(height: MediaQuery.of(context).size.height / 25),
-         ],
-        
+
+             // SizedBox(height: MediaQuery.of(context).size.height / 25),
+           ],
+
+          ),
         ),
       ),
     );

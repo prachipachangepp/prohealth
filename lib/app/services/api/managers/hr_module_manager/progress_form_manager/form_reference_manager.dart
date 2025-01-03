@@ -55,18 +55,18 @@ Future<ApiDataRegister> postreferencescreenData(
           success: true,
           message: response.statusMessage!);
     } else {
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) => const FourNotFourPopup(),
-      );
       // await showDialog(
       //   context: context,
-      //   builder: (BuildContext context) {
-      //     return AddSuccessPopup(
-      //       message: 'Failed To Save Reference Data',
-      //     );
-      //   },
+      //   builder: (BuildContext context) => const FourNotFourPopup(),
       // );
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AddSuccessPopup(
+            message: response.statusMessage!,
+          );
+        },
+      );
       print("Error 1");
       return ApiDataRegister(
           statusCode: response.statusCode!,
