@@ -365,7 +365,6 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                         else{
                           return const SizedBox();
                         }
-        
                     }
                   ),
                 ],
