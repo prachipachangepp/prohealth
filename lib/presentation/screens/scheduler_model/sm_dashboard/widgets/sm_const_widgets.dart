@@ -381,7 +381,9 @@ class ScheduledPatientsList extends StatelessWidget {
 
 ///row 3 part 1
 class PatientsToBeScheduledList extends StatelessWidget {
-  const PatientsToBeScheduledList({super.key});
+  final VoidCallback? onAutoTap;
+  //final VoidCallback? onViewMoreClinicianTypeTap;
+  const PatientsToBeScheduledList({super.key, this.onAutoTap});
 
   @override
   Widget build(BuildContext context) {
@@ -494,16 +496,17 @@ class PatientsToBeScheduledList extends StatelessWidget {
                                         children: [
                                           Container(
                                             width: 90,
-                                            child:  ElevatedButton.icon(onPressed: ()async{
-                                              await  showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return VendorSelectNoti(
-                                                    message: 'Please Select A File',
-                                                  );
-                                                },
-                                              );
-                                            },
+                                            child:  ElevatedButton.icon(onPressed: onAutoTap,
+                                            //     ()async{
+                                            //   await  showDialog(
+                                            //     context: context,
+                                            //     builder: (BuildContext context) {
+                                            //       return VendorSelectNoti(
+                                            //         message: 'Please Select A File',
+                                            //       );
+                                            //     },
+                                            //   );
+                                            // },
                                               label: Text("Auto", style: TextStyle(
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w600,
@@ -530,14 +533,14 @@ class PatientsToBeScheduledList extends StatelessWidget {
                                           Container(
                                             width: 95,
                                             child:  ElevatedButton.icon(onPressed: (){
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return AddErrorPopup(
-                                                    message: 'File is too large!',
-                                                  );
-                                                },
-                                              );
+                                              // showDialog(
+                                              //   context: context,
+                                              //   builder: (BuildContext context) {
+                                              //     return AddErrorPopup(
+                                              //       message: 'File is too large!',
+                                              //     );
+                                              //   },
+                                              // );
                                             },label: Text("Manual", style: TextStyle(
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w600,

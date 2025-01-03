@@ -1,19 +1,13 @@
 import 'dart:async';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
-import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/error_pop_up.dart';
-
-import '../../../../../../../app/resources/color.dart';
-import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -67,9 +61,7 @@ class _CiCorporateComplianceScreenState
   String selectedSubDocType = "";
   dynamic filePath;
   late Future<List<DocumentTypeData>> docTypeFuture;
-  bool showExpiryDateField = false; // Declare the state variable
-  // showExpiryDateField = doc.expiryreminder.isNotEmpty;
-
+  bool showExpiryDateField = false;
   TextEditingController expiryDateController = TextEditingController();
   String fileName = '';
   Future<void> _pickFile() async {
@@ -153,7 +145,7 @@ class _CiCorporateComplianceScreenState
             Expanded(
               flex: 5,
               child: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(top: AppPadding.p10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -180,7 +172,7 @@ class _CiCorporateComplianceScreenState
 
            ///button
             Padding(
-              padding: const EdgeInsets.only(bottom: 5, right: 20),
+              padding: const EdgeInsets.only(bottom: AppPadding.p5, right: AppPadding.p20),
               child: CustomIconButton(
                   icon: CupertinoIcons.plus,
                   text: "Add Document",
@@ -274,4 +266,3 @@ class _CiCorporateComplianceScreenState
     );
   }
 }
-

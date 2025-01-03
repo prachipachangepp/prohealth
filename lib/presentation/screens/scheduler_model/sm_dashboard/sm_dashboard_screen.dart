@@ -22,8 +22,9 @@ import '../widgets/sm_desktop_screen.dart';
 class SMDashboardScreen extends StatefulWidget {
   final PageController pageController;
   final VoidCallback? onViewMoreTap;
+  final VoidCallback? onAutoTap;
   final VoidCallback? onViewMoreClinicianTypeTap;
-  const SMDashboardScreen({super.key, required this.pageController, this.onViewMoreTap, this.onViewMoreClinicianTypeTap});
+  const SMDashboardScreen({super.key, required this.pageController, this.onViewMoreTap, this.onViewMoreClinicianTypeTap, this.onAutoTap});
 
   @override
   State<SMDashboardScreen> createState() => _DashboardScreenState();
@@ -125,7 +126,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                       SizedBox(height: AppPadding.p20,),
                       ///row 3
                       Row(children: [
-                        PatientsToBeScheduledList(),
+                        PatientsToBeScheduledList(onAutoTap: widget.onAutoTap,),
                         SizedBox(width: AppPadding.p20,),
                         AllAvailableClinician(),
                       ],),

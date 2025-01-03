@@ -47,21 +47,19 @@ class _DeleteSuccessPopupState extends State<DeleteSuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: AppPadding.p10),
                     child: Text(
                       "Success",
                       style:  PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
-                      //Navigator.of(context).pop();
-                    },
+                    onPressed: () {},
                     icon: Icon(Icons.close, color: ColorManager.white),
                   ),
                 ],

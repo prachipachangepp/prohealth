@@ -9,11 +9,8 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
-import '../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -134,7 +131,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(AppPadding.p8),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -151,23 +148,13 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                           height: AppSize.s50,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
+                                                horizontal: AppPadding.p15),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
-                                                    // InkWell(
-                                                    //   onTap: () {
-                                                    //   },
-                                                    //   child: Image.asset(
-                                                    //     'images/eye.png',
-                                                    //     height: AppSize.s15,
-                                                    //     width: AppSize.s22,
-                                                    //   ),
-                                                    // ),
-                                                    //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(width: AppSize.s10),
+                                                   SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       mainAxisAlignment: MainAxisAlignment.center,

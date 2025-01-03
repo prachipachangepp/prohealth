@@ -293,7 +293,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                      builder: (BuildContext context) => FailedPopup(text: response.message),
                                                                                    );
                                                                                  }
-                                                                                }, title: 'Edit Batches',
+                                                                                }, title: 'Edit Batch',
                                                                               );
                                                                             }
                                                                           );

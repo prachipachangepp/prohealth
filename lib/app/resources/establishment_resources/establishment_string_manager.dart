@@ -62,6 +62,7 @@ class AppStringEM{
   ///sm hr clinical
   static const String licensevocnurse = 'license Vocational Nurse';
   static const String nc = 'NC';
+  static const String serviceName = 'Service Name';
 ///sales
   static const String addemployeetype = 'Add Employee Type';
   static const String adddoctype = 'Add Doctype';
@@ -69,16 +70,26 @@ class AppStringEM{
   static const String addnewvisit = "Add New Visit";
   static const String visit = "Visit";
   static const String editVisit = "Edit Visit";
-  static const String addNewvisit = "'Add New Visit'";
+  static const String addNewvisit = "Add New Visit";
   static const String actions = "Actions";
   static const String salesManager = "Sales Manager";
   static const String sm = "SM";
   ///whitelabelling
+  static const String addNewOffice = 'Add New Office';
+  static const String officeName = 'Office Name :';
+  static const String manage = 'Manage';
+  static const String officeAddress = "Office Address :";
+  static const String whitelabelling = 'White Labelling  ';
+  static const String headOffice = 'Head Office';
   static const String companyName = "Company Name";
   static const String primaryNo = "Primary No.";
   static const String secondaryNo = "Secondary No.";
   static const String alternativeNo = "Alternative No.";
+  static const String alternativePhone = "Alternative Phone";
+  static const String primaryPhone = 'Primary Phone';
   static const String fax = "Fax";
+  static const String secondaryPhone = 'Secondary Phone';
+  static const String state = 'State';
   static const String street = "Street";
   static const String primaryEmail = "Primary Email";
   ///Document definition

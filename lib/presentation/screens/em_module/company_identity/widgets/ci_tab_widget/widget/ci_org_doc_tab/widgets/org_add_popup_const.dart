@@ -5,7 +5,6 @@ import 'package:prohealth/app/resources/common_resources/common_theme_const.dart
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
-
 import '../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -139,8 +138,8 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
               // isAsterisk: true,
                heading: AppString.type_of_the_document,
                content: Container(
-                 width: 354,
-                 height: 30,
+                 width: AppSize.s354,
+                 height: AppSize.s30,
                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
                  decoration: BoxDecoration(
                    color: ColorManager.white,
@@ -168,8 +167,8 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                heading: AppString.sub_type_of_the_document,
                //isAsterisk: true,
                content: Container(
-                 height: 30,
-                 width: 354,
+                 width: AppSize.s354,
+                 height: AppSize.s30,
                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
                  decoration: BoxDecoration(
                    color: ColorManager.white,
@@ -251,12 +250,12 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                        visible: selectedExpiryType == AppConfig.scheduled,
                        child: Column(
                          children: [
-                           SizedBox(height: 20,),
+                           SizedBox(height: AppSize.s20,),
                            Row(
                              children: [
                                Container(
-                                 height: 30,
-                                 width: 50,
+                                 width: AppSize.s50,
+                                 height: AppSize.s30,
                                  //color: ColorManager.red,
                                  child: TextFormField(
                                    textAlign: TextAlign.center,
@@ -288,10 +287,10 @@ class _AddOrgDocButtonState extends State<AddNewOrgDocButton> {
                                    ],
                                  ),
                                ),
-                               SizedBox(width: 10),
+                               SizedBox(width: AppSize.s10,),
                                Container(
-                                 height: 30,
-                                 width: 80,
+                                 width: AppSize.s80,
+                                 height: AppSize.s30,
                                  padding: EdgeInsets.symmetric(horizontal: 5),
                                  decoration: BoxDecoration(
                                    border:
@@ -527,8 +526,8 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
         HeaderContentConst(
           heading: AppString.id_of_the_document,
           content: Container(
-            width: 354,
-            height: 30,
+            width: AppSize.s354,
+            height: AppSize.s30,
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
             decoration: BoxDecoration(
               color: ColorManager.white,
@@ -559,7 +558,8 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 4.0, left: 15),
+                padding: EdgeInsets.only(top: AppPadding.p4, left: AppPadding.p15
+                ),
                 child: Text(
                   _nameDocError!,
                   style: TextStyle(
@@ -575,8 +575,8 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
         HeaderContentConst(
           heading: AppString.type_of_the_document,
           content: Container(
-            width: 354,
-            height: 30,
+            width: AppSize.s354,
+            height: AppSize.s30,
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
             decoration: BoxDecoration(
               color: ColorManager.white,
@@ -603,8 +603,8 @@ class _OrgDocNewEditPopupState extends State<OrgDocNewEditPopup> {
             : HeaderContentConst(
           heading: AppString.sub_type_of_the_document,
           content: Container(
-            height: 30,
-            width: 354,
+            width: AppSize.s354,
+            height: AppSize.s30,
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
             decoration: BoxDecoration(
               color: ColorManager.white,

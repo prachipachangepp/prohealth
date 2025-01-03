@@ -9,7 +9,6 @@ import '../../company_identity_screen.dart';
 
 class CiRoleManager extends StatefulWidget {
   const CiRoleManager({super.key});
-
   @override
   State<CiRoleManager> createState() => _CiRoleManagerState();
 }
