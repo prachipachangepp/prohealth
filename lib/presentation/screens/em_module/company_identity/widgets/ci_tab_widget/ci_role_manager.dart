@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/role_manager_clinician.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/rolemanager_role_rules.dart';
 import '../../../../../../app/resources/color.dart';
@@ -33,14 +34,14 @@ class _CiRoleManagerState extends State<CiRoleManager> {
     return Column(
       children: [
         SizedBox(
-          height: 10,
+          height: AppSize.s10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 280,
-              height: 30,
+              width: AppSize.s280,
+              height: AppSize.s30,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: ColorManager.blueprime,
@@ -61,8 +62,8 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                     hoverColor: Colors.transparent,
                     onTap: () => _selectButton(0),
                     child: Container(
-                      height: 30,
-                      width: 150,
+                      height: AppSize.s30,
+                      width: AppSize.s150,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         color: _selectedIndex == 0
@@ -83,8 +84,8 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                     hoverColor: Colors.transparent,
                     onTap: () => _selectButton(1),
                     child: Container(
-                      height: 30,
-                      width: 130,
+                      height: AppSize.s30,
+                      width: AppSize.s130,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         color: _selectedIndex == 1
@@ -105,7 +106,7 @@ class _CiRoleManagerState extends State<CiRoleManager> {
             )
           ],
         ),
-        SizedBox(height: 30,),
+        SizedBox(height: AppSize.s30,),
         Expanded(
           flex: 12,
           child: Opacity(

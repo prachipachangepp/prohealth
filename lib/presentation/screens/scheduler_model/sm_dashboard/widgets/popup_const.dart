@@ -13,12 +13,12 @@ class MissedVisitPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-        width: AppSize.s650,
-        height: AppSize.s450,
+        width: AppSize.s750,
+        height: AppSize.s500,
         body: [
           Container(
             height: AppSize.s35,
-            padding: EdgeInsets.only(left: 10,right: 10),
+            padding: EdgeInsets.only(left: 20,right: 20),
             decoration: BoxDecoration(
               color: ColorManager.lightBlue,
               borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12),),
@@ -60,7 +60,7 @@ class MissedVisitPopup extends StatelessWidget {
             ),
           ),
           Container(
-            height: 280,
+            height: 330,
             child:  ScrollConfiguration(
               behavior: ScrollBehavior().copyWith(scrollbars: false),
               child: ListView.builder(

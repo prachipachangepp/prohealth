@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/color.dart';
-import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../app/resources/font_manager.dart';
-import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
-import '../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
-import '../../widgets/button_constant.dart';
 ///policies old implemented
 class ManageHistoryPopup extends StatefulWidget {
   final List<dynamic> docHistory;
@@ -40,14 +36,14 @@ class _ManageHistoryPopupState extends State<ManageHistoryPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
+                    padding: const EdgeInsets.only(left: AppPadding.p15),
                     child: Text(
-                      "Version History",
+                      AppStringEM.versionHistory,
                       style:PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
@@ -70,7 +66,7 @@ class _ManageHistoryPopupState extends State<ManageHistoryPopup> {
                 child: widget.docHistory.isEmpty
                     ? Center(
                   child: Text(
-                    'No History Available',
+                    ErrorMessageString.noHistory,
                     style: DefineWorkWeekStyle.customTextStyle(context),
                   ),
                 )
@@ -94,26 +90,6 @@ class _ManageHistoryPopupState extends State<ManageHistoryPopup> {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(
-            //     vertical: AppPadding.p20,
-            //     horizontal: AppPadding.p20,
-            //   ),
-            //   child: Center(
-            //     child: Row(
-            //       children: [
-            //         Text('Do you really want to delete?',
-            //           style:CustomTextStylesCommon.commonStyle(
-            //               fontWeight: FontWeightManager.semiBold,
-            //               fontSize: FontSize.s12,
-            //               color: ColorManager.mediumgrey
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            //
           ],
         ),
       ),

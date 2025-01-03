@@ -1,32 +1,16 @@
 import 'dart:async';
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
-import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
-import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-import '../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/zone_manager.dart';
-import '../../../../../../../data/api_data/establishment_data/ci_manage_button/manage_zone_data.dart';
 import '../../../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import 'location_screen.dart';
 
 class CiZoneZipcode extends StatefulWidget {
   final int companyID;
@@ -66,36 +50,27 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
     return Column(
       children: [
         Container(
-          height: 30,
+          height: AppSize.s30,
           decoration: BoxDecoration(
             color: Colors.grey,
             borderRadius: BorderRadius.circular(12),
           ),
           ///heading
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                // Text(''),
-                // Expanded(
-                //   child: Center(
-                //     child: Text(
-                //       'City Name',
-                //style:AllHRTableHeading.customTextStyle(context),
-                //     ),
-                //   ),
-                // ),
                 Expanded(
                   child: Center(
-                    child: Text('Zip Code',textAlign: TextAlign.start,
+                    child: Text(AppStringEM.zipCode,textAlign: TextAlign.start,
                       style:TableHeading.customTextStyle(context),),
                   ),
                 ),
 
                 Expanded(
                   child: Center(
-                    child: Text('Map',
+                    child: Text(AppStringEM.map,
                         textAlign: TextAlign.start,
                       style:TableHeading.customTextStyle(context),),
                   ),
@@ -116,7 +91,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      'Actions',
+                      AppStringEM.actions,
                       style:TableHeading.customTextStyle(context),
                     ),
                   ),
@@ -126,7 +101,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
           ),
         ),
         SizedBox(
-          height: 10,
+          height: AppSize.s10,
         ),
         Expanded(
           child:
@@ -187,7 +162,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                     ),
                                   ],
                                 ),
-                                height: 50,
+                                height: AppSize.s50,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 15),
                                   child: Row(
@@ -301,24 +276,6 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                             },
                                                 icon: Icon(Icons.edit_outlined,
                                                   size:IconSize.I18,color: IconColorManager.bluebottom,),),
-                                            // IconButton(
-                                            //     splashColor: Colors.transparent,
-                                            //     hoverColor: Colors.transparent,
-                                            //     highlightColor: Colors.transparent,
-                                            //     onPressed: (){
-                                            //   showDialog(context: context, builder: (context) => DeletePopup(
-                                            //       title: 'Delete Zipcode',
-                                            //       onCancel: (){
-                                            //     Navigator.pop(context);
-                                            //   }, onDelete: () async{
-                                            //     await deleteZipCodeSetup(context, zipcode.zipcodeSetupId!);
-                                            //     getZipcodeSetup(context, widget.officeId, 1, 20).then((data){
-                                            //       _zipcodeController.add(data);
-                                            //     }).catchError((error){
-                                            //     });
-                                            //     Navigator.pop(context);
-                                            //   }));
-                                            // }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                           ],
                                         ),
                                       )

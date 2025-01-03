@@ -8,14 +8,11 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/header_content_const.dart';
-
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../widgets/error_popups/failed_popup.dart';
 import '../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -196,33 +193,14 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
           : widget.height == null ? AppSize.s580 : widget.height! ,
 
       body: [
-        // Padding(
-        //   padding: const EdgeInsets.only(left: 5.0),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.start,
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       CustomRadioListTile(
-        //         title:  widget.isOthersDocs == false ? 'Pre-defined' : 'Other',
-        //         value: widget.isOthersDocs == false ? 'Pre-defined' : 'Other',
-        //         groupValue: widget.isOthersDocs == false ?  'Pre-defined' : 'Other',
-        //         onChanged: (value) {
-        //           setState(() {
-        //             selectedRadio = value!;
-        //           });
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // ),
         widget.isOthersDocs == false
             ? Column(
           children: [
             HeaderContentConst(
               heading: AppString.type_of_the_document,
               content: Container(
-                width: 354,
-                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                width: AppSize.s354,
+                padding: EdgeInsets.symmetric(vertical: AppPadding.p3, horizontal: AppPadding.p12),
                 decoration: BoxDecoration(
                   color: ColorManager.white,
                   borderRadius: BorderRadius.circular(4),
@@ -276,12 +254,12 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                 ),
                               ),
                               IconButton(
-                                padding: EdgeInsets.all(4),
+                                padding: EdgeInsets.all(AppPadding.p4),
                                 onPressed: _pickFile,
                                 icon: Icon(
                                   Icons.file_upload_outlined,
                                   color: ColorManager.black,
-                                  size: 17,
+                                  size: IconSize.I16,
                                 ),
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
@@ -303,8 +281,8 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 content: FormField<String>(
                   builder: (FormFieldState<String> field) {
                     return SizedBox(
-                      width: 354,
-                      height: 30,
+                      height: AppSize.s30,
+                      width: AppSize.s354,
                       child: TextFormField(
                         controller: expiryDateController,
                         cursorColor: ColorManager.black,
@@ -327,7 +305,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                             borderSide: BorderSide(
                                 width: 1, color: ColorManager.fmediumgrey),
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                          contentPadding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
                           suffixIcon: Icon(Icons.calendar_month_outlined,
                               color: ColorManager.blueprime),
                           errorText: field.errorText,
@@ -431,7 +409,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                   icon: Icon(
                                     Icons.file_upload_outlined,
                                     color: ColorManager.black,
-                                    size: 17,
+                                    size: IconSize.I16,
                                   ),
                                   splashColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
@@ -444,7 +422,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                       ),
                       if (isFileErrorVisible)
                         Padding(
-                          padding: const EdgeInsets.only(top: 5),
+                          padding: const EdgeInsets.only(top: AppPadding.p5),
                           child: Text(
                             'Please upload a document',
                             style: CommonErrorMsg.customTextStyle(context),
@@ -557,13 +535,13 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 20,
+                            height: AppSize.s20,
                           ),
                           Row(
                             children: [
                               Container(
-                                height: 30,
-                                width: 50,
+                                height: AppSize.s30,
+                                width: AppSize.s50,
                                 //color: ColorManager.red,
                                 child: TextFormField(
                                   textAlign: TextAlign.center,
@@ -592,7 +570,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                     ),
                                     contentPadding:
                                     EdgeInsets.symmetric(
-                                        horizontal: 10),
+                                        horizontal: AppPadding.p10),
                                   ),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
@@ -601,10 +579,10 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              SizedBox(width: AppSize.s10),
                               Container(
-                                height: 30,
-                                width: 80,
+                                height: AppSize.s30,
+                                width: AppSize.s80,
                                 padding:
                                 EdgeInsets.symmetric(horizontal: 5),
                                 decoration: BoxDecoration(
@@ -621,36 +599,31 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                       value: AppConfig.year,
                                       child: Text(
                                         AppConfig.year,
-                                        style: DocumentTypeDataStyle
-                                            .customTextStyle(context),
+                                        style: DocumentTypeDataStyle.customTextStyle(context),
                                       ),
                                     ),
                                     DropdownMenuItem(
                                       value: AppConfig.month,
                                       child: Text(
                                         AppConfig.month,
-                                        style: DocumentTypeDataStyle
-                                            .customTextStyle(context),
+                                        style: DocumentTypeDataStyle.customTextStyle(context),
                                       ),
                                     ),
                                   ],
                                   onChanged: (value) {
                                     setState(() {
-                                      selectedYear =
-                                          value; // Update the selected option (Year/Month)
+                                      selectedYear = value; // Update the selected option (Year/Month)
                                     });
                                   },
                                   decoration: InputDecoration(
                                     enabledBorder: InputBorder.none,
                                     focusedBorder: InputBorder.none,
                                     hintText: AppConfig.year,
-                                    hintStyle: DocumentTypeDataStyle
-                                        .customTextStyle(context),
-                                    contentPadding:
-                                    EdgeInsets.only(bottom: 20),
+                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                    contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
                                   ),
                                   icon: Padding(
-                                    padding: const EdgeInsets.only(top: 4.0),
+                                    padding: const EdgeInsets.only(top: AppPadding.p4),
                                     child: Icon(
                                       Icons.arrow_drop_down,
                                       color: ColorManager.black,
@@ -686,8 +659,8 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                         content: FormField<String>(
                           builder: (FormFieldState<String> field) {
                             return SizedBox(
-                              width: 354,
-                              height: 30,
+                              height: AppSize.s30,
+                              width: AppSize.s354,
                               child: TextFormField(
                                 controller: expiryDateController,
                                 cursorColor: ColorManager.black,
@@ -717,7 +690,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                         color: ColorManager.fmediumgrey),
                                   ),
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 16),
+                                  EdgeInsets.symmetric(horizontal: AppPadding.p16),
                                   suffixIcon: Icon(
                                       Icons.calendar_month_outlined,
                                       color: ColorManager.blueprime),
@@ -752,7 +725,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                   ),
                   if (_expiryTypeError != null)
                     Padding(
-                      padding: const EdgeInsets.only(left: 5.0),
+                      padding: const EdgeInsets.only(left: AppPadding.p5),
                       child: Text(
                         _expiryTypeError!,
                         style:  CommonErrorMsg.customTextStyle(context),
@@ -1068,70 +1041,3 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
     );
   }
 }
-
-///predefine patch api
-// CustomElevatedButton(
-//   width: AppSize.s105,
-//   height: AppSize.s30,
-//   text: AppStringEM.save, //submit
-//   onPressed: () async {
-//     setState(() {
-//       loading = true;
-//     });
-//     try {
-//       String? expiryDate;
-//       expiryDate = widget.selectedExpiryType == AppConfig.issuer
-//           ? datePicked!.toIso8601String() + "Z"
-//           : null;
-//       var response = await updateOrgDoc(
-//         context: context,
-//         orgDocId: widget.orgDocId,
-//         orgDocumentSetupid: widget.orgDocumentSetupid,
-//         idOfDocument: widget.docName,
-//         expiryDate: expiryDate,
-//         docCreatedat: DateTime.now().toIso8601String() + "Z",
-//         url: widget.url,
-//         fileName: fileIsPicked ? fileName: widget.fileName,
-//         officeid: widget.officeId,
-//       );
-//
-//       if (response.statusCode == 200 ||
-//           response.statusCode == 201) {
-//         if (fileIsPicked) {
-//           var uploadDocNew =   await uploadDocumentsoffice(
-//               context: context,
-//               documentFile: filePath,
-//               fileName: fileName,
-//               orgOfficeDocumentId: response.orgOfficeDocumentId!);
-//           if (uploadDocNew.statusCode == 413) {
-//             Navigator.pop(context);
-//             showDialog(
-//               context: context,
-//               builder: (BuildContext context) {
-//                 return AddErrorPopup(
-//                   message: 'Request entity to large!',
-//                 );
-//               },
-//             );
-//           }
-//         }
-//         setState(() {
-//           loading = false;
-//         });
-//       }
-//     } finally {
-//       setState(() {
-//         loading = false;
-//       });
-//       Navigator.pop(context);
-//       showDialog(
-//         context: context,
-//         builder: (BuildContext context) {
-//           return CountySuccessPopup(
-//             message: 'Save Successfully',
-//           );
-//         },
-//       );
-//     }
-//   },
-// )

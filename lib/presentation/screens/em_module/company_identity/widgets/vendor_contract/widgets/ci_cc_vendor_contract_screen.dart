@@ -10,7 +10,6 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/snf.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../app/resources/color.dart';
-import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
@@ -138,7 +137,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 30.0),
+          padding: const EdgeInsets.only(right: AppPadding.p30),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -148,7 +147,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
               Expanded(
                 flex: 5,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: AppPadding.p10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,7 +219,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
           ),
         ),
         SizedBox(
-          height: 20,
+          height: AppSize.s20,
         ),
         Expanded(
           child: Padding(
@@ -330,7 +329,7 @@ class EMTabbar extends StatelessWidget {
               final textWidth = textPainter.size.width;
 
               return Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
+                margin: const EdgeInsets.symmetric(vertical: AppPadding.p5),
                 height: 2,
                 width: textWidth + 20, // Adjust padding around text
                 color: grpIndex == index

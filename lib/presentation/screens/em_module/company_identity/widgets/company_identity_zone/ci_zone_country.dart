@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -8,15 +7,10 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/zone_m
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
-import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
-import '../../../../../../app/resources/const_string.dart';
-import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_zone_data.dart';
 import '../../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../whitelabelling/success_popup.dart';
 
 class CIZoneCountry extends StatefulWidget {
@@ -65,14 +59,14 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
                   child: Center(
                     child: Text(
-                      'Sr No.',
+                        AppStringEM.srno,
                       style: TableHeading.customTextStyle(context)
                     ),
                   ),
@@ -80,7 +74,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      'Name',
+                        AppStringEM.name,
                       style: TableHeading.customTextStyle(context)
                     ),
                   ),
@@ -88,7 +82,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      'Zones',
+                        AppStringEM.zones,
                       style: TableHeading.customTextStyle(context)
                     ),
                   ),
@@ -169,7 +163,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                 ),
                                 height: AppSize.s56,
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
                                   child: Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -275,23 +269,6 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                 });
                                               }, icon: Icon(Icons.edit_outlined,
                                                 size:IconSize.I18,color: IconColorManager.bluebottom,),),
-                                              // IconButton(
-                                              //     splashColor: Colors.transparent,
-                                              //     hoverColor: Colors.transparent,
-                                              //     highlightColor: Colors.transparent,
-                                              //     onPressed: (){
-                                              //   showDialog(context: context, builder: (context) => NotAllowDeletePopup(
-                                              //       title: 'Delete County',
-                                              //       onCancel: (){
-                                              //     Navigator.pop(context);
-                                              //   }, onDelete: ()async{
-                                              //     Navigator.pop(context);
-                                              //     // await deleteCounty(context, county.countyId);
-                                              //     // getZoneBYcompOffice(context, widget.officeId, 1, 15).then((data){
-                                              //     //   _contyController.add(data);
-                                              //     // }).catchError((error){});
-                                              //   }));
-                                              // }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                             ],
                                           ),
                                         ),

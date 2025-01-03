@@ -66,8 +66,8 @@ class _WorkScheduleState extends State<WorkSchedule> {
                           hoverColor: Colors.transparent,
                           onTap: () => _selectButton(0),
                           child: Container(
-                            width: AppSize.s30,
-                            height: AppSize.s160,
+                            height: AppSize.s30,
+                            width: AppSize.s160,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                               color: _selectedIndex == 0
@@ -88,8 +88,8 @@ class _WorkScheduleState extends State<WorkSchedule> {
                           hoverColor: Colors.transparent,
                           onTap: () => _selectButton(1),
                           child: Container(
-                            width: AppSize.s30,
-                            height: AppSize.s155,
+                            height: AppSize.s30,
+                            width: AppSize.s155,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                               color: _selectedIndex == 1
@@ -112,7 +112,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
               ],
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: AppSize.s20,),
           Expanded(
             flex: 10,
             child: Stack(

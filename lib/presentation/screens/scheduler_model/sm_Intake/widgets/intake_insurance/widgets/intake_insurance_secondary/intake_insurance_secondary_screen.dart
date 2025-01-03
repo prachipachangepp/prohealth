@@ -825,8 +825,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
 
                           Flexible(
                             child: SchedularTextField(
-
-                                controller: groupNbrController,
+                                controller: commentController,
                                 labelText:'Comments'),
                           ),
                           SizedBox(width: AppSize.s35),

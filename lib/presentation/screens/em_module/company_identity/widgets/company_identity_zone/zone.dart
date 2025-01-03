@@ -1,17 +1,10 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
-
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
-import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_country.dart';
@@ -20,10 +13,8 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/location_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../company_identity_screen.dart';
 import '../vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
@@ -172,7 +163,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
                               child: Icon(Icons.arrow_drop_down),
                             ),
                           ],
@@ -181,8 +172,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                     }
                     if (snapshotZone.data!.isEmpty) {
                       return Container(
-                        width: 354,
-                        height: 30,
+                        height: AppSize.s30,
+                        width: AppSize.s354,
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: ColorManager.containerBorderGrey,
@@ -263,7 +254,7 @@ class _CiOrgDocumentState extends State<CiZone> {
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: AppPadding.p10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -507,7 +498,7 @@ class _CiOrgDocumentState extends State<CiZone> {
           ),
         ),
         const SizedBox(
-          height: 20,
+          height: AppSize.s20,
         ),
         Expanded(
           child: Padding(
@@ -543,39 +534,3 @@ class _CiOrgDocumentState extends State<CiZone> {
     );
   }
 }
-
-///old
-// void _pickLocation() async {
-//   final pickedLocation = await Navigator.of(context).push<LatLng>(
-//     MaterialPageRoute(
-//       builder: (context) =>
-//           MapScreen(
-//             initialLocation: _selectedLocation,
-//
-//             onLocationPicked: (location) {
-//               setState(() {
-//                 _selectedLocation = location;
-//                 _latitude = location.latitude;
-//                 _longitude = location.longitude;
-//                 // Update _location with the new values
-//                 _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-//                 print("Selected LatLong :: ${_latitude} + ${_longitude}");
-//                 // _selectedLocation = location;
-//                 // print("Selected LatLong :: ${_selectedLocation
-//                 //     .latitude} + ${_selectedLocation.longitude}");
-//               });
-//             },
-//           ),
-//     ),
-//   );
-//
-//   if (pickedLocation != null) {
-//     setState(() {
-//       _selectedLocation = pickedLocation;
-//       _latitude = pickedLocation.latitude;
-//       _longitude = pickedLocation.longitude;
-//       _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-//       // _selectedLocation = pickedLocation;
-//     });
-//   }
-// }
