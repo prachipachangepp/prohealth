@@ -1,14 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/login_resources/login_flow_theme_const.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../../app/resources/color.dart';
-import 'package:get/get.dart';
 
  /// new code
 class LoginBaseConstant extends StatelessWidget {

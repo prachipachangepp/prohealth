@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -66,18 +65,18 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
                 children: [
                   Text(
                     AppString.forgotenter,
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       letterSpacing: 0.5,
                       color: ColorManager.mediumgrey,
                       fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   TextFormField(
                     controller: emailController,
                     style: CustomTextStylesCommon.commonStyle(
                       color: Color(0xff000000).withOpacity(0.5),
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                       //fontSize: MediaQuery.of(context).size.width / 92,
                       fontSize: FontSize.s14,
                     ),
@@ -119,9 +118,9 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
                       height: MediaQuery.of(context).size.height / 18,
                       width: MediaQuery.of(context).size.width / 6,
                       text: AppString.continuet,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         fontSize: 12,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),

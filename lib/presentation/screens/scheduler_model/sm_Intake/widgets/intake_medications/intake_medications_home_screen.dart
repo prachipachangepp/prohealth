@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/widgets/intake_medication_profile/intake_medication_profile_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/widgets/intake_pharmacy_vendor/intake_pharmacy_vendor_screen.dart';
 import '../../../../../../app/resources/color.dart';
@@ -73,9 +72,9 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                       child: Text(
                         'Pharmacy Vendor',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                           color: selectedIndex == 0
                               ? ColorManager.mediumgrey
                               : Colors.white,
@@ -101,9 +100,9 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                       child: Text(
                         'Medication Profile',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                           color: selectedIndex == 1
                               ? ColorManager.mediumgrey
                               : Colors.white,

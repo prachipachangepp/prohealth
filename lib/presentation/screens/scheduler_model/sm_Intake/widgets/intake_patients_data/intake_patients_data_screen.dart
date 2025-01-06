@@ -1,7 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_info_manager.dart';
@@ -16,6 +14,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
@@ -159,9 +158,9 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       child: Text(
                         'Info',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                           color: selectedIndex == 0
                               ? ColorManager.mediumgrey
                               : Colors.white,
@@ -182,9 +181,9 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       child: Text(
                         'Compliance',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                           color: patientId == 0
                               ? ColorManager.fmediumgrey
                               :( selectedIndex == 1
@@ -232,9 +231,9 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       child: Text(
                         'Related Parties',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                           color: patientId == 0
                               ? ColorManager.fmediumgrey
                               :(selectedIndex == 2
@@ -260,9 +259,9 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       child: Text(
                         'Stay Info',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                           color:patientId == 0
                               ? ColorManager.fmediumgrey
                               :( selectedIndex == 3
@@ -382,9 +381,9 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   },
                   child: Text(
                     AppString.save,
-                    style: GoogleFonts.firaSans(
+                    style: CustomTextStylesCommon.commonStyle(
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.bold,
+                      fontWeight: FontWeight.w700,
                       color: ColorManager.white,
                     ),
                   ),

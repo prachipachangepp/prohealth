@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -7,6 +6,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_plan_care/planer_notifier.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../../../../app/services/api/managers/establishment_manager/ci_visit_manager.dart';
@@ -88,9 +88,9 @@ class _IntakePlanCareScreenState extends State<IntakePlanCareScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 5.0),
                           child: Text(
                             'Add Clinician',
-                            style: GoogleFonts.firaSans(
+                            style: CustomTextStylesCommon.commonStyle(
                               fontSize: FontSize.s14,
-                              fontWeight: FontWeightManager.bold,
+                              fontWeight: FontWeight.w700,
                               color: ColorManager.white,
                             ),
                           ),
@@ -198,7 +198,7 @@ class _IntakePlanCareScreenState extends State<IntakePlanCareScreen> {
                 children: [
                   Text(
                     'Completed',
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       decoration: TextDecoration.none,
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -214,7 +214,7 @@ class _IntakePlanCareScreenState extends State<IntakePlanCareScreen> {
                       icon: Icon(Icons.add, color: Colors.white, size: 20),
                       label: Text(
                         'Add Clinician',
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                           color: Colors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -350,7 +350,7 @@ class ContainerWidget extends StatelessWidget {
                   icon: Icon(Icons.add, color: Colors.white, size: 20),
                   label: Text(
                     'Add Week',
-                    style: GoogleFonts.firaSans(
+                    style: CustomTextStylesCommon.commonStyle(
                       color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -400,7 +400,7 @@ class PlanOfCareTextField extends StatelessWidget {
       width: 118,
       child: TextFormField(
         initialValue: initialValue,
-        style: GoogleFonts.firaSans(
+        style: CustomTextStylesCommon.commonStyle(
           fontSize: AppSize.s12,
           fontWeight: FontWeight.w400,
           color: Colors.black,
@@ -408,7 +408,7 @@ class PlanOfCareTextField extends StatelessWidget {
         cursorColor: Colors.black,
         decoration: InputDecoration(
           labelText: labelText,
-          labelStyle: GoogleFonts.firaSans(
+          labelStyle: CustomTextStylesCommon.commonStyle(
             fontSize: AppSize.s10,
             color: ColorManager.greylight,
           ),
@@ -457,12 +457,12 @@ class _CustomDropDownPOCState extends State<CustomDropDownPOC> {
         decoration: InputDecoration(
           labelText: widget.labelText,
           hintText: widget.hintText,
-          hintStyle: widget.hintStyle ?? GoogleFonts.firaSans(
+          hintStyle: widget.hintStyle ?? CustomTextStylesCommon.commonStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             color: Color(0xff575757),
           ),
-          labelStyle: GoogleFonts.firaSans(
+          labelStyle: CustomTextStylesCommon.commonStyle(
             fontSize: 10,
             fontWeight: FontWeight.w400,
             color: Color(0xff575757),
@@ -494,7 +494,7 @@ class _CustomDropDownPOCState extends State<CustomDropDownPOC> {
             value: value,
             child: Text(
               value,
-              style: GoogleFonts.firaSans(
+              style: CustomTextStylesCommon.commonStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
                 color: Color(0xff575757),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../app/resources/color.dart';
@@ -38,11 +37,11 @@ class MobMenuScreenConst extends StatelessWidget {
                 child: Text(
                   text,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.firaSans(
+                  style: TextStyle(
                     color: ColorManager.mediumgrey,
                    // fontSize: MediaQuery.of(context).size.height / 90,
                     fontSize: FontSize.s10,
-                    fontWeight: FontWeightManager.medium,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),

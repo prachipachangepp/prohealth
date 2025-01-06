@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_secondary/intake_insurance_secondary_screen.dart';
@@ -76,7 +75,7 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
                       child: Text(
                         'Primary',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: FontSize.s14,
                           fontWeight: FontWeight.w600,
                           color: selectedIndex == 0
@@ -104,7 +103,7 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
                       child: Text(
                         'Secondary',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: FontSize.s14,
                           fontWeight: FontWeight.w600,
                           color: selectedIndex == 1

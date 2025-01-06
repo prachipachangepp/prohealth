@@ -618,7 +618,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                 color: Colors.white,
                                                 fontSize: FontSize.s10,
                                                 fontWeight:
-                                                    FontWeightManager.regular,
+                                                    FontWeight.w400,
                                               ),
                                             ),
                                           );

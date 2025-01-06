@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -71,10 +70,10 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                 children: [
                   Text(
                     'Status: Not Completed',
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                         decoration: TextDecoration.none,
                         fontSize: 12.0,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.burnt_red),
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width / 60),
@@ -194,7 +193,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                   child: Text(
                                     AppString.dataNotFound,
                                     style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       fontSize: FontSize.s14,
                                       color: ColorManager.mediumgrey,
                                     ),
@@ -308,50 +307,31 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                           //                                                                 .toString(),
                                                           Text(
                                                             snapshot.data![index].docType.toString(),
-                                                            style: GoogleFonts.firaSans(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .none,
+                                                            style: TextStyle(
+                                                                decoration: TextDecoration.none,
                                                                 fontSize:
-                                                                    FontSize
-                                                                        .s10,
-                                                                fontWeight:
-                                                                    FontWeightManager
-                                                                        .medium,
-                                                                color: ColorManager
-                                                                    .granitegray),
+                                                                FontSize.s10,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: ColorManager.granitegray),
                                                           ),
                                                           SizedBox(height: 3.5),
                                                           Text(
                                                             snapshot.data![index].labReportId.toString(),
-                                                            style: GoogleFonts.firaSans(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .none,
-                                                                fontSize:
-                                                                    FontSize
-                                                                        .s14,
-                                                                fontWeight:
-                                                                    FontWeightManager
-                                                                        .bold,
-                                                                color: ColorManager
-                                                                    .granitegray),
+                                                            style: TextStyle(
+                                                                decoration: TextDecoration.none,
+                                                                fontSize: FontSize.s14,
+                                                                fontWeight: FontWeight.w700,
+                                                                color: ColorManager.granitegray),
                                                           ),
                                                           SizedBox(
                                                               height:
                                                                   AppSize.s1),
                                                           Text(
                                                               snapshot.data![index].expDate.toString(),
-                                                            style: GoogleFonts.firaSans(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .none,
-                                                                fontSize:
-                                                                    FontSize
-                                                                        .s10,
-                                                                fontWeight:
-                                                                    FontWeightManager
-                                                                        .lightbold,
+                                                            style: TextStyle(
+                                                                decoration: TextDecoration.none,
+                                                                fontSize: FontSize.s10,
+                                                                fontWeight: FontWeight.w600,
                                                                 color: ColorManager
                                                                     .granitegray),
                                                           )

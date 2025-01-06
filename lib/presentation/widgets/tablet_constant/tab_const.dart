@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../../app/resources/color.dart';
 import '../../../app/resources/const_string.dart';
 import '../../../app/resources/font_manager.dart';
@@ -115,14 +113,14 @@ class LoginBaseConstTab extends StatelessWidget {
                                     Text(
                                       titleText,
                                       textAlign: TextAlign.start,
-                                      style: GoogleFonts.firaSans(
+                                      style: TextStyle(
                                         color: ColorManager.mediumgrey,
                                         // fontSize: FontSize.s38,
                                         //fontSize: 28,
                                         fontSize:
                                             MediaQuery.of(context).size.width /
                                                 41,
-                                        fontWeight: FontWeightManager.extrabold,
+                                        fontWeight: FontWeight.w800,
                                       ),
                                     ),
                                   ],
@@ -145,7 +143,7 @@ class LoginBaseConstTab extends StatelessWidget {
                                                   .size
                                                   .height /
                                               60,
-                                          fontWeight: FontWeightManager.medium,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ),
@@ -176,10 +174,10 @@ class LoginBaseConstTab extends StatelessWidget {
               children: [
                 Text(
                   AppString.poweredby,
-                  style: GoogleFonts.firaSans(
+                  style: TextStyle(
                     color: ColorManager.black,
                     fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.regular,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(

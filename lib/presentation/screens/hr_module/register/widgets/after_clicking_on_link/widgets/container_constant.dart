@@ -1,6 +1,5 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
@@ -73,7 +72,7 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
                     flex: 1,
                     child:  Text(
                       'Physical Exam',
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: const Color(0xff686464),
@@ -99,7 +98,7 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
       children: [
         Text(
           'Physical Exam',
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
             color: const Color(0xff686464),
@@ -108,7 +107,7 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
         const SizedBox(height: 8),
         Text(
           'Valid within 1 year of test',
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             color: const Color(0xff686464),
@@ -117,7 +116,7 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
         const SizedBox(height: 16),
         Text(
           'Date Administered',
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             color: const Color(0xff575757),
@@ -130,13 +129,13 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
           child: TextField(
 
             controller: _dateController,
-            style: GoogleFonts.firaSans(
+            style: TextStyle(
               fontSize: FontSize.s14,
             ),
             decoration: InputDecoration(
 
               hintText: 'dd-mm-yyyy',
-              hintStyle: GoogleFonts.firaSans(
+              hintStyle: TextStyle(
                 fontSize: 10.0,
                 fontWeight: FontWeight.w400,
                 color: const Color(0xff9B9B9B),
@@ -166,7 +165,7 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
       children: [
         Text(
           'Upload Physical Exam records in pdf, jpg or png format',
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             color: const Color(0xff686464),
@@ -194,7 +193,7 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
                       ),
                       child: Text(
                         'Choose File',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 11.3,
                           color: const Color(0xff686464),
@@ -203,7 +202,7 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
                     ),
                     Text(
                       _selectedFileName ?? 'No file chosen',
-                      style: GoogleFonts.roboto(
+                      style: TextStyle(
                         fontSize: 11.3,
                         fontWeight: FontWeight.w400,
                         color: const Color(0xff575757),
@@ -317,7 +316,7 @@ class _VaccineContainerState extends State<VaccineContainer> {
         const SizedBox(height: 16),
         Text(
           'Date Administered',
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             color: const Color(0xff575757),
@@ -329,12 +328,12 @@ class _VaccineContainerState extends State<VaccineContainer> {
           width: 242,
           child: TextField(
             controller: _dateController,
-            style: GoogleFonts.firaSans(
+            style: TextStyle(
               fontSize: FontSize.s14,
             ),
             decoration: InputDecoration(
               hintText: 'dd-mm-yyyy',
-              hintStyle: GoogleFonts.firaSans(
+              hintStyle: TextStyle(
                 fontSize: 10.0,
                 fontWeight: FontWeight.w400,
                 color: const Color(0xff9B9B9B),
@@ -366,7 +365,7 @@ class _VaccineContainerState extends State<VaccineContainer> {
           padding: const EdgeInsets.only(top: 40.0),
           child: Text(
             'Upload Vaccination Records in pdf, jpg or png format',
-            style: GoogleFonts.firaSans(
+            style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
               color: const Color(0xff686464),
@@ -395,7 +394,7 @@ class _VaccineContainerState extends State<VaccineContainer> {
                       ),
                       child: Text(
                         'Choose File',
-                        style: GoogleFonts.firaSans(
+                        style:TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 11.3,
                           color: const Color(0xff686464),
@@ -404,7 +403,7 @@ class _VaccineContainerState extends State<VaccineContainer> {
                     ),
                     Text(
                       _selectedFileName ?? 'No file chosen',
-                      style: GoogleFonts.roboto(
+                      style: TextStyle(
                         fontSize: 11.3,
                         fontWeight: FontWeight.w400,
                         color: const Color(0xff575757),

@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/schedular_success_popup.dart';
-
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 
 class ReferralSubmitPopup extends StatefulWidget {
@@ -33,7 +32,7 @@ class _ReferralSubmitPopupState extends State<ReferralSubmitPopup> {
               padding: const EdgeInsets.only(top: 27.0),
               child: Text(
                 'Are you sure you want to submit this intake information for John Scott ?',
-                style: GoogleFonts.firaSans(
+                style: CustomTextStylesCommon.commonStyle(
                     fontSize: AppSize.s12,
                   fontWeight: FontWeight.w700,
                   color: ColorManager.granitegray
@@ -48,8 +47,8 @@ class _ReferralSubmitPopupState extends State<ReferralSubmitPopup> {
                 children: [
                   TextButton(
                     child: Text(AppString.no,
-                        style: GoogleFonts.firaSans(
-                          fontWeight: FontWeightManager.bold,
+                        style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeight.w700,
                             fontSize: AppSize.s12,
                             color: ColorManager.granitegray)),
                     onPressed: () => Navigator.of(context).pop(),
@@ -72,8 +71,8 @@ class _ReferralSubmitPopupState extends State<ReferralSubmitPopup> {
                       ),
                       child: ElevatedButton(
                         child: Text(AppString.yes,
-                          style: GoogleFonts.firaSans(
-                            fontWeight: FontWeightManager.bold,
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeight.w700,
                             fontSize: AppSize.s12,
                             color: ColorManager.white,
                           ),

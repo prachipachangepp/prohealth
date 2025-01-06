@@ -37,7 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: any
   persistent_bottom_nav_bar: any
-  google_fonts: any
   font_awesome_flutter: any
   lottie: any
   dio: any
@@ -154,11 +153,14 @@ flutter:
   fonts:
     - family: Fira_Sans
       fonts:
+               - asset: build/web/assets/fonts/Fira_Sans/FiraSans-Regular.ttf
+               - asset: build/web/assets/fonts/Fira_Sans/FiraSans-Bold.ttf
                - asset: images/fonts/FiraSans_Bold.ttf
                - asset: images/fonts/FiraSans_italic.ttf
                - asset: images/fonts/FiraSans_Medium.ttf
                - asset: images/fonts/FiraSans_Regular.ttf
                - asset: images/fonts/FiraSans_SemiBold.ttf
+
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

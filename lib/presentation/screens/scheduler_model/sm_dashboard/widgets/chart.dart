@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import '../../../../../app/resources/color.dart';
 
@@ -42,10 +41,10 @@ class _VisitsForCliniciansGraphState extends State<VisitsForCliniciansGraph> {
                   children: [
                     Text(
                       'Number of Visits for Clinicians',
-                      style: GoogleFonts.kanit(
+                      style: TextStyle(
                         color: Color(0xff271E4A),
                         fontSize: FontSize.s16,
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     Spacer(),
@@ -68,7 +67,7 @@ class _VisitsForCliniciansGraphState extends State<VisitsForCliniciansGraph> {
                                   value: value,
                                   child: Text(
                                     value,
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                       decoration: TextDecoration.none,
                                       fontSize: MediaQuery.of(context).size.width * 0.008, //12
                                       fontWeight: FontWeight.w500,
@@ -139,10 +138,10 @@ class _VisitsForCliniciansGraphState extends State<VisitsForCliniciansGraph> {
                             getTitlesWidget: (value, meta) {
                               return Text(
                                 value.toInt().toString(),
-                                style: GoogleFonts.kanit(
+                                style: TextStyle(
                                   color: Color(0xffB6B6B6),
                                   fontSize: FontSize.s16,
-                                  fontWeight: FontWeightManager.regular,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               );
                             },
@@ -153,9 +152,9 @@ class _VisitsForCliniciansGraphState extends State<VisitsForCliniciansGraph> {
                             showTitles: true,
                             interval: 1, // Set the interval to avoid overlapping
                             getTitlesWidget: (value, meta) {
-                              final style = GoogleFonts.kanit(
+                              final style = TextStyle(
                                   color: ColorManager.darkblue,
-                                  fontWeight: FontWeightManager.regular,
+                                  fontWeight: FontWeight.w400,
                                   fontSize: FontSize.s16
                               );
                               switch (value.toInt()) {

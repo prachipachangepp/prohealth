@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import '../../../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../widgets/constant_widgets/textfield_constant.dart';
 
 class AssignVisitPopUp extends StatefulWidget {
@@ -50,7 +50,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Text(
                 'Assign Visit',
-                style: GoogleFonts.firaSans(
+                style: CustomTextStylesCommon.commonStyle(
                   fontSize: FontSize.s14,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
@@ -91,7 +91,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -109,7 +109,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -131,7 +131,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -153,7 +153,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -275,7 +275,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -298,7 +298,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -325,7 +325,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -345,8 +345,8 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                 children: [
                   TextButton(
                     child: Text('Cancel',
-                        style: GoogleFonts.firaSans(
-                            fontWeight: FontWeightManager.bold,
+                        style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeight.w700,
                             fontSize: FontSize.s14,
                             color: ColorManager.mediumgrey)),
                     onPressed: () => Navigator.of(context).pop(),
@@ -370,8 +370,8 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                       child: ElevatedButton(
                         child: Text(
                           'Add',
-                          style: GoogleFonts.firaSans(
-                            fontWeight: FontWeightManager.bold,
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeight.w700,
                             fontSize: FontSize.s14,
                             color: Colors.white,
                           ),

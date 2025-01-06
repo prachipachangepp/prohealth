@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/role_manager.dart';
@@ -68,7 +67,7 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Pick Employee Type',
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         fontSize: FontSize.s10,
                         fontWeight: FontWeight.w700,
                         color: ColorManager.fmediumgrey,
@@ -158,7 +157,7 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
 
                                     },
                                     value:  dropDownList[0],
-                                    style: GoogleFonts.firaSans(
+                                    style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
                                       color: Color(0xff686464),

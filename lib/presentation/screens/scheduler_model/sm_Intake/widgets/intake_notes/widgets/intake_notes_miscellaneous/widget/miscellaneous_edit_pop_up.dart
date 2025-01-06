@@ -1,9 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-
 import '../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../widgets/constant_widgets/schedular_success_popup.dart';
@@ -63,9 +61,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
             children: [
               Text(
                 'Edit',
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                   fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.bold,
+                  fontWeight: FontWeight.w700,
                   color: ColorManager.white,
                 ),
               ),
@@ -102,9 +100,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(AppString.type_of_the_document,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                             color: ColorManager.granitegray
                         ),),
                     ],
@@ -118,17 +116,17 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                       cursorColor: ColorManager.black,
                       cursorHeight: 18,
                       controller: _typeDocumentController,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.regular,
+                          fontWeight: FontWeight.w400,
                           color: ColorManager.greylight
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                         labelText: 'Miscellaneous',
-                        labelStyle: GoogleFonts.firaSans(
+                        labelStyle: TextStyle(
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                             color: ColorManager.greylight
                         ),
                         border: OutlineInputBorder(),
@@ -154,9 +152,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                               return PopupMenuItem(
                                 value: value,
                                 child: Text(value,
-                                  style: GoogleFonts.firaSans(
+                                  style: TextStyle(
                                       fontSize: FontSize.s14,
-                                      fontWeight: FontWeightManager.regular,
+                                      fontWeight: FontWeight.w400,
                                       color: ColorManager.greylight
                                   ),),
                               );
@@ -173,9 +171,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(AppString.name_of_the_document,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                             color: ColorManager.textPrimaryColor
                         ),),
                     ],
@@ -189,9 +187,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                       cursorColor: Colors.black,
                       cursorHeight: 18,
                       controller: _nameDocumentController,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.regular,
+                          fontWeight: FontWeight.w400,
                           color: ColorManager.greylight
                       ),
                       textAlignVertical: TextAlignVertical.center,
@@ -214,9 +212,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                     children: [
                       Text(
                         'Expiry Type',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                             color: ColorManager.greylight
                         ),
                       ),
@@ -225,9 +223,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                         visualDensity: VisualDensity(horizontal: -4, vertical: -4),
                         title: Text(
                           'Not Applicable',
-                          style: GoogleFonts.firaSans(
+                          style: TextStyle(
                               fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.regular
+                              fontWeight: FontWeight.w400
                           ),),
                         value: 'Not Applicable',
                         groupValue: _selectedExpiryType,
@@ -242,9 +240,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                         visualDensity: VisualDensity(horizontal: -4, vertical: -2),
                         title: Text(
                           'Scheduled',
-                          style: GoogleFonts.firaSans(
+                          style: TextStyle(
                               fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.regular
+                              fontWeight: FontWeight.w400
                           ),),
                         value: 'Scheduled',
                         groupValue: _selectedExpiryType,
@@ -259,9 +257,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                         visualDensity: VisualDensity(horizontal: -4, vertical: -4),
                         title: Text(
                           'Issuer Expiry',
-                          style: GoogleFonts.firaSans(
+                          style: TextStyle(
                               fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.regular
+                              fontWeight: FontWeight.w400
                           ),),
                         value: 'Issuer Expiry',
                         groupValue: _selectedExpiryType,
@@ -290,9 +288,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                       );
                     },
                     child: Text(AppString.submit,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.white,
                       ),
                     ),

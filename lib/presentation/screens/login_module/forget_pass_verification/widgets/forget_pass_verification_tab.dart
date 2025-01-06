@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -105,7 +104,7 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.semiBold,
+                            fontWeight: FontWeight.w600,
                           )),
                     ),
 
@@ -132,7 +131,7 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                             style: CustomTextStylesCommon.commonStyle(
                               color: ColorManager.black.withOpacity(0.7),
                               fontSize: FontSize.s14,
-                              fontWeight: FontWeightManager.medium,
+                              fontWeight: FontWeight.w500,
                             ),
                             controller: _otpControllers[index],
                             cursorColor: ColorManager.black,
@@ -182,7 +181,7 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                       style: CustomTextStylesCommon.commonStyle(
                         color: ColorManager.orange,
                         fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
 
@@ -193,9 +192,9 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                         height: MediaQuery.of(context).size.height / 20,
                         width: MediaQuery.of(context).size.width / 6,
                         text: AppString.continuet,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: 12,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                           color: ColorManager.white,
                           decoration: TextDecoration.none,
                         ),
@@ -212,7 +211,7 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.red,
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
@@ -222,11 +221,11 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(AppString.didntrecieveCode,
-                            style: GoogleFonts.firaSans(
+                            style: TextStyle(
                               color: ColorManager.darkgrey,
                               //fontSize: FontSize.s10,
                               fontSize: MediaQuery.of(context).size.width / 77,
-                              fontWeight: FontWeightManager.semiBold,
+                              fontWeight: FontWeight.w600,
                             )),
                         TextButton(
                           onPressed: () {
@@ -236,7 +235,7 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                               style: CustomTextStylesCommon.commonStyle(
                                 color: ColorManager.blueprime,
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.semiBold,
+                                fontWeight: FontWeight.w600,
                               )),
                         )
                       ],

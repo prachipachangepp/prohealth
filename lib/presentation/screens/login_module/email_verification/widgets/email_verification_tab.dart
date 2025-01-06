@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -76,7 +74,7 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                   style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.darkgrey,
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.bold),
+                      fontWeight: FontWeight.w700),
                 ),
               ),
 
@@ -139,11 +137,11 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(AppString.didntrecieveCode,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         color: ColorManager.darkgrey,
                         //fontSize: FontSize.s10,
                         fontSize: MediaQuery.of(context).size.width / 77,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                       )),
                   TextButton(
                     onPressed: () {},
@@ -151,7 +149,7 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                         style: CustomTextStylesCommon.commonStyle(
                           color: ColorManager.blueprime,
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.semiBold,
+                          fontWeight: FontWeight.w600,
                         )),
                   )
                 ],
@@ -164,9 +162,9 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                 height: MediaQuery.of(context).size.height / 24,
                 width: MediaQuery.of(context).size.width / 3,
                 text: _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
-                  style: GoogleFonts.firaSans(
+                  style: TextStyle(
                     fontSize: 12,
-                    fontWeight: FontWeightManager.semiBold,
+                    fontWeight: FontWeight.w600,
                     color: ColorManager.white,
                     decoration: TextDecoration.none,
                   ),
@@ -182,7 +180,7 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                     style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.red,
                       fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.bold,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
@@ -196,7 +194,7 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                     style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.blueprime,
                       fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   onTap: () {
