@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -8,19 +7,12 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_related_party_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
-import '../../../../../sm_scheduler/widget/schedular_create/widget/assign_visit_pop_up.dart';
-import '../../../../../sm_scheduler/widget/schedular_create/widget/edit_appointment_pop_up.dart';
-import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 import '../../../../../widgets/constant_widgets/button_constant.dart';
 import '../../../intake_flow_contgainer_const.dart';
-import '../../../intake_physician_info/widget/physician_info_info/physician_info_info.dart';
-import '../../../intake_referral/widget/referral_agency_info/intake_referral_submit_popup.dart';
 
 class IntakeRelatedPartiesScreen extends StatefulWidget {
   final int patientId;
@@ -140,7 +132,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           'Emergency Contact Information',
                           style: TextStyle(
                               fontSize: FontSize.s14,
-                              fontWeight: FontWeightManager.bold,
+                              fontWeight: FontWeight.w700,
                               color: ColorManager.mediumgrey),
                         )
                       ],
@@ -452,7 +444,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           'Primary Care Giver',
                           style: TextStyle(
                               fontSize: FontSize.s14,
-                              fontWeight: FontWeightManager.bold,
+                              fontWeight: FontWeight.w700,
                               color: ColorManager.mediumgrey),
                         )
                       ],

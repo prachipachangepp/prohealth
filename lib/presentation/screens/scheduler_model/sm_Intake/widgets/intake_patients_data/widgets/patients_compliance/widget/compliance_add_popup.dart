@@ -204,7 +204,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                           child: Text(
                             AppString.dataNotFound,
                             style: CustomTextStylesCommon.commonStyle(
-                              fontWeight: FontWeightManager.medium,
+                              fontWeight: FontWeight.w500,
                               fontSize: FontSize.s14,
                               color: ColorManager.mediumgrey,
                             ),

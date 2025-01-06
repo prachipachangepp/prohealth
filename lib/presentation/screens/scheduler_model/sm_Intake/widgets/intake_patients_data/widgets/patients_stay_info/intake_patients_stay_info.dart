@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -8,6 +7,7 @@ import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_da
 import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_stay_info_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
+import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
@@ -73,10 +73,10 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(AppString.status_completed,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                           decoration: TextDecoration.none,
                           fontSize: AppSize.s12,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.greenDark
                       ),
                     ),
@@ -127,18 +127,18 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Last Inpatient Stay Information',
-                          style: GoogleFonts.firaSans(
+                          style: CustomTextStylesCommon.commonStyle(
                             fontSize: AppSize.s12,
                             color: ColorManager.granitegray,
-                            fontWeight: FontWeightManager.bold,)),
+                            fontWeight: FontWeight.w700,)),
                       SizedBox(height: AppSize.s20),
                       _buildInpatientStaySection(),
                       SizedBox(height: AppSize.s30),
                       Text('Location of Care',
-                          style: GoogleFonts.firaSans(
+                          style: CustomTextStylesCommon.commonStyle(
                             fontSize: AppSize.s12,
                             color: ColorManager.granitegray,
-                            fontWeight: FontWeightManager.bold,)),
+                            fontWeight: FontWeight.w700,)),
                       SizedBox(height: AppSize.s20),
                       _buildLocationOfCareSection(),
                     ],

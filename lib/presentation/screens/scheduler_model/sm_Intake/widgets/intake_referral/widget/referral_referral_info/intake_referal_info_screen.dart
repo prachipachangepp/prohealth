@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -9,6 +7,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 
@@ -55,10 +54,10 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text('Status Completed',
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                           decoration: TextDecoration.none,
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.greenDark
                       ),),
                     SizedBox(width: 15,),
@@ -199,8 +198,8 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Episode timing override (first 30 days)',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10, fontWeight: FontWeightManager.regular)
+                                  style: CustomTextStylesCommon.commonStyle(
+                                      fontSize: FontSize.s10, fontWeight: FontWeight.w400)
                               ),
                               SizedBox(height: AppSize.s1),
                               Row(
@@ -211,8 +210,8 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                                     onChanged: (value) => setState(() => status = value),
                                   ),
                                   Text('Early',
-                                      style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s14, fontWeight: FontWeightManager.regular)
+                                      style: CustomTextStylesCommon.commonStyle(
+                                          fontSize: FontSize.s14, fontWeight: FontWeight.w400)
                                   ),
                                   SizedBox(width: AppSize.s35),
                                   Radio<String>(
@@ -221,9 +220,9 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                                     onChanged: (value) => setState(() => status = value),
                                   ),
                                   Text('Late',
-                                      style: GoogleFonts.firaSans(
+                                      style: CustomTextStylesCommon.commonStyle(
                                           fontSize: FontSize.s14,
-                                          fontWeight: FontWeightManager.regular)
+                                          fontWeight: FontWeight.w400)
                                   ),
                                 ],
                               ),

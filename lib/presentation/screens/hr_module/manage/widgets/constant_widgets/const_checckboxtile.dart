@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+
+import '../../../../../../app/resources/theme_manager.dart';
 
 class CheckboxTile extends StatefulWidget {
   final String title;
@@ -52,7 +53,10 @@ class _CheckboxTileState extends State<CheckboxTile> {
           ),
         ),
         SizedBox(width: 10,),
-        Text(widget.title,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: ColorManager.mediumgrey,),),
+        Text(widget.title,style: CustomTextStylesCommon.commonStyle(
+          fontSize: AppSize.s12,
+          fontWeight: FontWeight.w500,
+          color: ColorManager.mediumgrey,),),
       ],
 
 
@@ -103,7 +107,8 @@ class _CheckboxTileDetailsState extends State<CheckboxTileDetails> {
           },
         ),
         SizedBox(width: 10,),
-        Text(widget.title,style: GoogleFonts.firaSans(fontSize: AppSize.s12,fontWeight: FontWeightManager.medium,color: Colors.white),),
+        Text(widget.title,style: CustomTextStylesCommon.commonStyle(fontSize: AppSize.s12,
+            fontWeight: FontWeight.w500,color: Colors.white),),
       ],
 
 

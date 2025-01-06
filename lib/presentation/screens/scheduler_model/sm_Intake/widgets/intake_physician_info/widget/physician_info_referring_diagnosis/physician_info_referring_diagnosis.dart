@@ -311,7 +311,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                 'Last Inpatient Stay Information',
                                 style: TextStyle(
                                     fontSize: FontSize.s14,
-                                    fontWeight: FontWeightManager.bold,
+                                    fontWeight: FontWeight.w700,
                                     color: ColorManager.textPrimaryColor),
                               ),
                             ),

@@ -1,12 +1,9 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-
 import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/theme_manager.dart';
 
@@ -105,11 +102,11 @@ class MobileConst extends StatelessWidget {
                             flex: 1,
                             child: Text(
                               titleText,
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 color: ColorManager.mediumgrey,
                                 fontSize: FontSize.s24,
                              //   fontSize: MediaQuery.of(context).size.width / 18,
-                                fontWeight: FontWeightManager.extrabold,
+                                fontWeight: FontWeight.w800,
                               ),
                             )),
                         ///child
@@ -128,7 +125,7 @@ class MobileConst extends StatelessWidget {
                                 style: CustomTextStylesCommon.commonStyle(
                                   color: ColorManager.blueprime,
                                   fontSize: FontSize.s10,
-                                  fontWeight: FontWeightManager.medium,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             )),
@@ -144,10 +141,10 @@ class MobileConst extends StatelessWidget {
             children: [
               Text(
                 AppString.poweredby,
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                   color: ColorManager.black,
                   fontSize: FontSize.s10,
-                  fontWeight: FontWeightManager.medium,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               SizedBox(

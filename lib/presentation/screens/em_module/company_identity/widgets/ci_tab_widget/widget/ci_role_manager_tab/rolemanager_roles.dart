@@ -1,7 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/role_manager_administration.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/role_manager_clinician.dart';
@@ -9,6 +8,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/rolemanager_role_rules.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../company_identity_screen.dart';
 
 class RoleManagerRoles extends StatefulWidget {
@@ -54,7 +54,7 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                       children: [
                         Text(
                           AppString.clinician,
-                          style:  GoogleFonts.firaSans(
+                          style:  CustomTextStylesCommon.commonStyle(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 0?
                             FontWeight.w700
@@ -79,7 +79,7 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                       children: [
                         Text(
                          AppString.sales,
-                          style:  GoogleFonts.firaSans(
+                          style: CustomTextStylesCommon.commonStyle(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 1?
                             FontWeight.w700
@@ -104,7 +104,7 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                       children: [
                         Text(
                           AppString.administration,
-                          style: GoogleFonts.firaSans(
+                          style: CustomTextStylesCommon.commonStyle(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 2?
                             FontWeight.w700

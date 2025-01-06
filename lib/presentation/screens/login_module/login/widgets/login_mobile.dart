@@ -53,7 +53,7 @@ class _LoginMobileState extends State<LoginMobile> {
                 child: TextFormField(
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.black.withOpacity(0.5),
-                    fontWeight: FontWeightManager.medium,
+                    fontWeight: FontWeight.w500,
                     fontSize: FontSize.s14,
                   ),
                   focusNode: emailFocusNode,
@@ -71,7 +71,7 @@ class _LoginMobileState extends State<LoginMobile> {
                     errorStyle: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.red,
                       fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.bold,
+                      fontWeight: FontWeight.w700,
                     ),
                     labelText: AppString.email,
                     hintText: AppString.emailhint,
@@ -128,7 +128,7 @@ class _LoginMobileState extends State<LoginMobile> {
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.white,
                     fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {

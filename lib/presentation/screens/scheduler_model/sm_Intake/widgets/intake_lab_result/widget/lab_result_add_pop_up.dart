@@ -1,6 +1,5 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
@@ -64,9 +63,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 'Add New Lab Result',
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                   fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.bold,
+                  fontWeight: FontWeight.w700,
                   color: ColorManager.white,
                 ),
               ),
@@ -104,9 +103,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                     children: [
                       Text(
                         'Type of the Document',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                             color: ColorManager.granitegray
                         ),),
                     ],
@@ -120,17 +119,17 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                       cursorColor: Colors.black,
                       cursorHeight: 18,
                       controller: _typeDocumentController,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.regular,
+                          fontWeight: FontWeight.w400,
                           color: ColorManager.greylight
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                         labelText: 'Compliance Type 1',
-                        labelStyle: GoogleFonts.firaSans(
+                        labelStyle: TextStyle(
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                             color: ColorManager.greylight
                         ),
                         border: OutlineInputBorder(),
@@ -160,9 +159,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                               return PopupMenuItem(
                                 value: value,
                                 child: Text(value,
-                                  style: GoogleFonts.firaSans(
+                                  style: TextStyle(
                                       fontSize: FontSize.s14,
-                                      fontWeight: FontWeightManager.regular,
+                                      fontWeight: FontWeight.w400,
                                       color: ColorManager.greylight
                                   ),),
                               );
@@ -182,9 +181,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                     children: [
                       Text(
                         'Name of the Document',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                             color: ColorManager.granitegray
                         ),),
                     ],
@@ -198,9 +197,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                       cursorColor: ColorManager.black,
                       cursorHeight: AppSize.s18,
                       controller: _nameDocumentController,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.regular,
+                          fontWeight: FontWeight.w400,
                           color: ColorManager.greylight
                       ),
                       textAlignVertical: TextAlignVertical.center,
@@ -225,9 +224,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                     children: [
                       Text(
                         'Expiry Type',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                             color: ColorManager.textPrimaryColor
                         ),
                       ),
@@ -236,9 +235,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                         visualDensity: VisualDensity(horizontal: -4, vertical: -4),
                         title: Text(
                           'Not Applicable',
-                          style: GoogleFonts.firaSans(
+                          style: TextStyle(
                               fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.regular
+                              fontWeight: FontWeight.w400
                           ),),
                         value: 'Not Applicable',
                         groupValue: _selectedExpiryType,
@@ -252,9 +251,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                         contentPadding: EdgeInsets.zero,
                         visualDensity: VisualDensity(horizontal: -4, vertical: -2),
                         title: Text(AppString.scheduled,
-                          style: GoogleFonts.firaSans(
+                          style: TextStyle(
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                           ),),
                         value: 'Scheduled',
                         groupValue: _selectedExpiryType,
@@ -269,9 +268,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                         visualDensity: VisualDensity(horizontal: -4, vertical: -4),
                         title: Text(
                           'Issuer Expiry',
-                          style: GoogleFonts.firaSans(
+                          style: TextStyle(
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                           ),),
                         value: 'Issuer Expiry',
                         groupValue: _selectedExpiryType,
@@ -291,9 +290,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                     children: [
                       Text(
                         'Upload Document',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                             color: ColorManager.textPrimaryColor
                         ),),
                     ],
@@ -321,9 +320,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                               padding: const EdgeInsets.only(left: 16.0),
                               child: Text(
                                 _fileName,
-                                style: GoogleFonts.firaSans(
+                                style: TextStyle(
                                   fontSize: FontSize.s14,
-                                  fontWeight: FontWeightManager.regular,
+                                  fontWeight: FontWeight.w400,
                                   color: ColorManager.greylight,
                                 ),
                               ),
@@ -354,9 +353,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
 
                     },
                     child: Text(AppString.submit,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.white,
                       ),
                     ),

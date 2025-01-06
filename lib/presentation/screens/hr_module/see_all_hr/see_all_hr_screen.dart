@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -10,226 +9,226 @@ import '../../../../app/services/api/managers/hr_module_manager/manage_emp/searc
 import 'administration_hr.dart';
 import 'clinical_hr.dart';
 
-class SeeAllHrScreen extends StatefulWidget {
-  const SeeAllHrScreen({super.key});
-
-  @override
-  State<SeeAllHrScreen> createState() => _SeeAllHrScreenState();
-}
-
-class _SeeAllHrScreenState extends State<SeeAllHrScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  int adminCount = 0;
-  int clinicalCount = 0;
-  int salesCount = 0;
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-    _tabController.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  void updateAdminCount(int count) {
-    setState(() {
-      adminCount = count;
-      print('......${adminCount}');
-    });
-  }
-
-  void updateClinicalCount(int count) {
-    setState(() {
-      clinicalCount = count;
-      print('clinical......${clinicalCount}');
-    });
-  }
-
-  void updateSalesCount(int count) {
-    setState(() {
-      salesCount = count;
-      print('sales......${salesCount}');
-    });
-  }
-
-  Widget _buildTabWithCircle(int selectedIndex) {
-    return Container(
-      height: 30,
-      width: MediaQuery.of(context).size.width / 3,
-      decoration: BoxDecoration(
-        color: Color(0xff50B5E5),
-        borderRadius: BorderRadius.circular(40),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          _buildSingleTab('Clinical', clinicalCount.toString(),
-              selectedIndex == 0, true, false),
-          _buildSingleTab(
-              'Sales', salesCount.toString(), selectedIndex == 1, false, false),
-          _buildSingleTab('Administration', adminCount.toString(),
-              selectedIndex == 2, false, true),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSingleTab(
-      String text, String number, bool isSelected, bool isLeft, bool isRight) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          int index = isLeft ? 0 : (isRight ? 2 : 1);
-          setState(() {
-            _tabController.index = index;
-          });
-        },
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-          decoration: BoxDecoration(
-            color: isSelected ? Colors.white : Color(0xff50B5E5),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40),
-              bottomLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
-              bottomRight: Radius.circular(40),
-            ),
-            boxShadow: isSelected
-                ? [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 5,
-                      blurRadius: 5,
-                      offset: Offset(0, 3),
-                    ),
-                  ]
-                : [],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                text,
-                style: TextStyle(
-                  color: isSelected ? Color(0xff686464) : Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
-                ),
-              ),
-              if (isSelected && number.isNotEmpty)
-                Container(
-                  height: 40, // Increased height of container
-                  width: 40, // Increased width
-                  margin: EdgeInsets.only(left: 5),
-                  decoration: BoxDecoration(
-                    color: Color(0xff50B5E5),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      number,
-                      style: GoogleFonts.firaSans(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 10,
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 49.0, right: 49.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  'Go Back',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF686464),
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
-              _buildTabWithCircle(_tabController.index),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     showDialog(
-              //       context: context,
-              //       builder: (BuildContext context) {
-              //         return ProfilePatientPopUp(onSearch: () {  },);
-              //       },
-              //     );
-              //   },
-              //   child: SvgPicture.asset('images/menu_lines.svg'),
-              //   style: ElevatedButton.styleFrom(
-              //     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              //     backgroundColor: Color(0xff50B5E5),
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(9),
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                ClinicalHrScreen(
-                  onClinicalCountChange: updateClinicalCount,
-                ),
-                SalesHrScreen(
-                  onSalesCountChange: updateSalesCount,
-                ),
-                AdministrationHrScreen(onAdminCountChange: updateAdminCount),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+// class SeeAllHrScreen extends StatefulWidget {
+//   const SeeAllHrScreen({super.key});
+//
+//   @override
+//   State<SeeAllHrScreen> createState() => _SeeAllHrScreenState();
+// }
+//
+// class _SeeAllHrScreenState extends State<SeeAllHrScreen>
+//     with SingleTickerProviderStateMixin {
+//   late TabController _tabController;
+//   int adminCount = 0;
+//   int clinicalCount = 0;
+//   int salesCount = 0;
+//   @override
+//   void initState() {
+//     super.initState();
+//     _tabController = TabController(length: 3, vsync: this);
+//     _tabController.addListener(() {
+//       setState(() {});
+//     });
+//   }
+//
+//   @override
+//   void dispose() {
+//     _tabController.dispose();
+//     super.dispose();
+//   }
+//
+//   void updateAdminCount(int count) {
+//     setState(() {
+//       adminCount = count;
+//       print('......${adminCount}');
+//     });
+//   }
+//
+//   void updateClinicalCount(int count) {
+//     setState(() {
+//       clinicalCount = count;
+//       print('clinical......${clinicalCount}');
+//     });
+//   }
+//
+//   void updateSalesCount(int count) {
+//     setState(() {
+//       salesCount = count;
+//       print('sales......${salesCount}');
+//     });
+//   }
+//
+//   Widget _buildTabWithCircle(int selectedIndex) {
+//     return Container(
+//       height: 30,
+//       width: MediaQuery.of(context).size.width / 3,
+//       decoration: BoxDecoration(
+//         color: Color(0xff50B5E5),
+//         borderRadius: BorderRadius.circular(40),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.grey.withOpacity(0.5),
+//             spreadRadius: 2,
+//             blurRadius: 5,
+//             offset: Offset(0, 3),
+//           ),
+//         ],
+//       ),
+//       child: Row(
+//         children: [
+//           _buildSingleTab('Clinical', clinicalCount.toString(),
+//               selectedIndex == 0, true, false),
+//           _buildSingleTab(
+//               'Sales', salesCount.toString(), selectedIndex == 1, false, false),
+//           _buildSingleTab('Administration', adminCount.toString(),
+//               selectedIndex == 2, false, true),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildSingleTab(
+//       String text, String number, bool isSelected, bool isLeft, bool isRight) {
+//     return Expanded(
+//       child: GestureDetector(
+//         onTap: () {
+//           int index = isLeft ? 0 : (isRight ? 2 : 1);
+//           setState(() {
+//             _tabController.index = index;
+//           });
+//         },
+//         child: Container(
+//           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+//           decoration: BoxDecoration(
+//             color: isSelected ? Colors.white : Color(0xff50B5E5),
+//             borderRadius: BorderRadius.only(
+//               topLeft: Radius.circular(40),
+//               bottomLeft: Radius.circular(40),
+//               topRight: Radius.circular(40),
+//               bottomRight: Radius.circular(40),
+//             ),
+//             boxShadow: isSelected
+//                 ? [
+//                     BoxShadow(
+//                       color: Colors.grey.withOpacity(0.2),
+//                       spreadRadius: 5,
+//                       blurRadius: 5,
+//                       offset: Offset(0, 3),
+//                     ),
+//                   ]
+//                 : [],
+//           ),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Text(
+//                 text,
+//                 style: TextStyle(
+//                   color: isSelected ? Color(0xff686464) : Colors.white,
+//                   fontWeight: FontWeight.w700,
+//                   fontSize: 12,
+//                 ),
+//               ),
+//               if (isSelected && number.isNotEmpty)
+//                 Container(
+//                   height: 40, // Increased height of container
+//                   width: 40, // Increased width
+//                   margin: EdgeInsets.only(left: 5),
+//                   decoration: BoxDecoration(
+//                     color: Color(0xff50B5E5),
+//                     shape: BoxShape.circle,
+//                     boxShadow: [
+//                       BoxShadow(
+//                         color: Colors.grey.withOpacity(0.5),
+//                         spreadRadius: 2,
+//                         blurRadius: 5,
+//                         offset: Offset(0, 3),
+//                       ),
+//                     ],
+//                   ),
+//                   child: Center(
+//                     child: Text(
+//                       number,
+//                       style: TextStyle(
+//                         color: Colors.white,
+//                         fontWeight: FontWeight.w400,
+//                         fontSize: FontSize.s10,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: EdgeInsets.only(left: 49.0, right: 49.0),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               InkWell(
+//                 onTap: () {
+//                   Navigator.pop(context);
+//                 },
+//                 child: Text(
+//                   'Go Back',
+//                   style: TextStyle(
+//                     fontSize: FontSize.s12,
+//                     fontWeight: FontWeight.bold,
+//                     color: Color(0xFF686464),
+//                     decoration: TextDecoration.underline,
+//                   ),
+//                 ),
+//               ),
+//               _buildTabWithCircle(_tabController.index),
+//               // ElevatedButton(
+//               //   onPressed: () {
+//               //     showDialog(
+//               //       context: context,
+//               //       builder: (BuildContext context) {
+//               //         return ProfilePatientPopUp(onSearch: () {  },);
+//               //       },
+//               //     );
+//               //   },
+//               //   child: SvgPicture.asset('images/menu_lines.svg'),
+//               //   style: ElevatedButton.styleFrom(
+//               //     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+//               //     backgroundColor: Color(0xff50B5E5),
+//               //     shape: RoundedRectangleBorder(
+//               //       borderRadius: BorderRadius.circular(9),
+//               //     ),
+//               //   ),
+//               // ),
+//             ],
+//           ),
+//           Expanded(
+//             child: TabBarView(
+//               controller: _tabController,
+//               children: [
+//                 ClinicalHrScreen(
+//                   onClinicalCountChange: updateClinicalCount,
+//                 ),
+//                 SalesHrScreen(
+//                   onSalesCountChange: updateSalesCount,
+//                 ),
+//                 AdministrationHrScreen(onAdminCountChange: updateAdminCount),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 
 
@@ -639,7 +638,7 @@ class _ConstantContainerWithTextState extends State<ConstantContainerWithText> {
         child: Center(
           child: Text(
             widget.text,
-            style: GoogleFonts.firaSans(
+            style: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w400,
               color: _isSelected ? Colors.white : Colors.black,

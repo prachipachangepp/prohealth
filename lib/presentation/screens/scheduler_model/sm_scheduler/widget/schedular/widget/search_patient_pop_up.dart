@@ -642,12 +642,12 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../app/resources/theme_manager.dart';
 
 class SearchPatientPopUp extends StatefulWidget {
   const SearchPatientPopUp({super.key});
@@ -716,9 +716,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 'Search Patient',
-                style: GoogleFonts.firaSans(
+                style: CustomTextStylesCommon.commonStyle(
                   fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.bold,
+                  fontWeight: FontWeight.w700,
                   color: ColorManager.white,
                 ),
               ),
@@ -755,9 +755,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                         child: TextField(
                           decoration: InputDecoration(
                             labelText: 'Search for a patient',
-                            labelStyle: GoogleFonts.firaSans(
+                            labelStyle: CustomTextStylesCommon.commonStyle(
                               fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.regular,
+                              fontWeight: FontWeight.w400,
                               color: ColorManager.greylight,
                             ),
                             border: OutlineInputBorder(
@@ -793,8 +793,8 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                         onPressed: () {},
                         child: Text(
                           'DZ',
-                          style: GoogleFonts.firaSans(
-                            fontWeight: FontWeightManager.regular,
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeight.w400,
                             fontSize: FontSize.s13,
                             color: ColorManager.black,
                           ),
@@ -832,9 +832,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 'Sr.No.',
-                                style: GoogleFonts.firaSans(
+                                style: CustomTextStylesCommon.commonStyle(
                                   fontSize: FontSize.s14,
-                                  fontWeight: FontWeightManager.bold,
+                                  fontWeight: FontWeight.w700,
                                   color: ColorManager.white,
                                 ),
                               ),
@@ -849,9 +849,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 AppString.type,
-                                style: GoogleFonts.firaSans(
+                                style: CustomTextStylesCommon.commonStyle(
                                   fontSize: FontSize.s14,
-                                  fontWeight: FontWeightManager.bold,
+                                  fontWeight: FontWeight.w700,
                                   color: ColorManager.white,
                                 ),
                               ),
@@ -866,9 +866,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 AppString.name,
-                                style: GoogleFonts.firaSans(
+                                style: CustomTextStylesCommon.commonStyle(
                                   fontSize: FontSize.s14,
-                                  fontWeight: FontWeightManager.bold,
+                                  fontWeight: FontWeight.w700,
                                   color: ColorManager.white,
                                 ),
                               ),
@@ -883,9 +883,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 AppString.location,
-                                style: GoogleFonts.firaSans(
+                                style: CustomTextStylesCommon.commonStyle(
                                   fontSize: FontSize.s14,
-                                  fontWeight: FontWeightManager.bold,
+                                  fontWeight: FontWeight.w700,
                                   color: ColorManager.white,
                                 ),
                               ),
@@ -900,9 +900,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 'Case',
-                                style: GoogleFonts.firaSans(
+                                style: CustomTextStylesCommon.commonStyle(
                                   fontSize: FontSize.s14,
-                                  fontWeight: FontWeightManager.bold,
+                                  fontWeight: FontWeight.w700,
                                   color: ColorManager.white,
                                 ),
                               ),
@@ -917,9 +917,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 AppString.status,
-                                style: GoogleFonts.firaSans(
+                                style: CustomTextStylesCommon.commonStyle(
                                   fontSize: FontSize.s14,
-                                  fontWeight: FontWeightManager.bold,
+                                  fontWeight: FontWeight.w700,
                                   color: ColorManager.white,
                                 ),
                               ),
@@ -955,9 +955,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['srNo']!,
-                                      style: GoogleFonts.firaSans(
+                                      style: CustomTextStylesCommon.commonStyle(
                                         fontSize: FontSize.s10,
-                                        fontWeight: FontWeightManager.medium,
+                                        fontWeight: FontWeight.w500,
                                         color: ColorManager.darkgray,
                                       ),
                                     ),
@@ -972,9 +972,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['type']!,
-                                      style: GoogleFonts.firaSans(
+                                      style: CustomTextStylesCommon.commonStyle(
                                         fontSize: FontSize.s10,
-                                        fontWeight: FontWeightManager.medium,
+                                        fontWeight: FontWeight.w500,
                                         color: ColorManager.darkgray,
                                       ),
                                     ),
@@ -989,9 +989,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['name']!,
-                                      style: GoogleFonts.firaSans(
+                                      style: CustomTextStylesCommon.commonStyle(
                                         fontSize: FontSize.s10,
-                                        fontWeight: FontWeightManager.medium,
+                                        fontWeight: FontWeight.w500,
                                         color: ColorManager.darkgray,
                                       ),
                                     ),
@@ -1006,9 +1006,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['location']!,
-                                      style: GoogleFonts.firaSans(
+                                      style: CustomTextStylesCommon.commonStyle(
                                         fontSize: FontSize.s10,
-                                        fontWeight: FontWeightManager.medium,
+                                        fontWeight: FontWeight.w500,
                                         color: ColorManager.darkgray,
                                       ),
                                     ),
@@ -1023,9 +1023,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['case']!,
-                                      style: GoogleFonts.firaSans(
+                                      style: CustomTextStylesCommon.commonStyle(
                                         fontSize: FontSize.s10,
-                                        fontWeight: FontWeightManager.medium,
+                                        fontWeight: FontWeight.w500,
                                         color: ColorManager.darkgray,
                                       ),
                                     ),
@@ -1040,9 +1040,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['status']!,
-                                      style: GoogleFonts.firaSans(
+                                      style: CustomTextStylesCommon.commonStyle(
                                         fontSize: FontSize.s10,
-                                        fontWeight: FontWeightManager.medium,
+                                        fontWeight: FontWeight.w500,
                                         color: statusColor,
                                       ),
                                     ),

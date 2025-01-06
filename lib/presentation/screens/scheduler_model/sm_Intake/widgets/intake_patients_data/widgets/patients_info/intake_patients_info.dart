@@ -1,20 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_info_manager.dart';
-import 'package:prohealth/app/services/token/token_manager.dart';
-import 'package:prohealth/data/api_data/api_data.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-
-import '../../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
-import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
-import '../../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';

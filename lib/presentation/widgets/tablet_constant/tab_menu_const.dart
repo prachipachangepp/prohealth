@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../app/resources/color.dart';
 import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/value_manager.dart';
@@ -40,10 +39,10 @@ class TabMenuConst extends StatelessWidget {
                 child: Text(
                   text,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.firaSans(
+                  style: TextStyle(
                     color: ColorManager.mediumgrey,
                     fontSize: FontSize.s10,
-                    fontWeight: FontWeightManager.extrabold,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
               ),

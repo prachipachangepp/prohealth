@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
@@ -50,7 +49,7 @@ class _SchedularInfoSuccessPopupState extends State<SchedularInfoSuccessPopup> {
                   'Successfully Saved!',
                   textAlign: TextAlign.center,
                   style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                     fontSize: FontSize.s22,
                     color: ColorManager.mediumgrey,
                   ),
@@ -68,9 +67,9 @@ class _SchedularInfoSuccessPopupState extends State<SchedularInfoSuccessPopup> {
                 },
                 child: Text(
                   'Continue',
-                  style: GoogleFonts.firaSans(
+                  style:TextStyle(
                     fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.semiBold,
+                    fontWeight: FontWeight.w600,
                     color: ColorManager.white,
                   ),
                 ),

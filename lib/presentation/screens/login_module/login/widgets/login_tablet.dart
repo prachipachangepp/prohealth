@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/navigator_arguments/screen_arguments.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
@@ -64,7 +63,7 @@ class _LoginTabletState extends State<LoginTablet> {
                           child: TextFormField(
                             style: CustomTextStylesCommon.commonStyle(
                               color: ColorManager.black.withOpacity(0.5),
-                              fontWeight: FontWeightManager.medium,
+                              fontWeight: FontWeight.w500,
                               fontSize: FontSize.s14,
                             ),
                             focusNode: emailFocusNode,
@@ -127,7 +126,7 @@ class _LoginTabletState extends State<LoginTablet> {
                             height: MediaQuery.of(context).size.height / 22,
                             width: MediaQuery.of(context).size.height / 6,
                             text: AppString.next,
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: ColorManager.white,

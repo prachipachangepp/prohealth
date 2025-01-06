@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -57,10 +56,10 @@ class _ForgetPasswordMobileState extends State<ForgetPasswordMobile> {
             children: [
               Text(
                 AppString.forgotentermobile,
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                   color: ColorManager.mediumgrey,
                   fontSize: FontSize.s10,
-                  fontWeight: FontWeightManager.medium,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               TextFormField(
@@ -69,7 +68,7 @@ class _ForgetPasswordMobileState extends State<ForgetPasswordMobile> {
                 controller: emailController,
                 style: CustomTextStylesCommon.commonStyle(
                   color: Color(0xff000000).withOpacity(0.5),
-                  fontWeight: FontWeightManager.medium,
+                  fontWeight: FontWeight.w500,
                   //fontSize: MediaQuery.of(context).size.width / 92,
                   fontSize: FontSize.s14,
                 ),
@@ -79,7 +78,7 @@ class _ForgetPasswordMobileState extends State<ForgetPasswordMobile> {
                   errorStyle: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.red,
                     fontSize: FontSize.s10,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                   contentPadding: const EdgeInsets.only(top: 2),
                   hintText: AppString.emailhint,
@@ -119,7 +118,7 @@ class _ForgetPasswordMobileState extends State<ForgetPasswordMobile> {
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.white,
                     fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                   onPressed: submitForm,
                 ),

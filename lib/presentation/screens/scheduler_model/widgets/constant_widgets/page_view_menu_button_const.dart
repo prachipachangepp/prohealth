@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
@@ -35,7 +33,7 @@ class PageViewMenuButtonConst extends StatelessWidget {
               heading,
               style: TextStyle(
                 fontSize: FontSize.s14,
-                fontWeight: FontWeightManager.bold,
+                fontWeight: FontWeight.w700,
                 color: grpIndex == index
                     ? ColorManager.blueprime
                     : const Color(0xff686464),

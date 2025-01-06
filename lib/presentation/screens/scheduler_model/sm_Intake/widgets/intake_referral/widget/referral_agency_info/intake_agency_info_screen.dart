@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/referral_data/agency_info_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/button_constant.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
@@ -52,10 +51,10 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                   children: [
                     Text(
                       'Status Completed',
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                           decoration: TextDecoration.none,
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.greenDark),
                     ),
                     SizedBox(width: 8,),
@@ -177,7 +176,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                                   child: DropdownButtonFormField<String>(
                                     decoration: InputDecoration(
                                       labelText: 'City',
-                                      labelStyle: GoogleFonts.firaSans(
+                                      labelStyle: CustomTextStylesCommon.commonStyle(
                                         fontSize: 10.0,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.greylight,
@@ -205,7 +204,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                                     ),
                                     iconSize: 24,
                                     elevation: 16,
-                                    style: GoogleFonts.firaSans(
+                                    style: CustomTextStylesCommon.commonStyle(
                                       fontSize: 10.0,
                                       fontWeight: FontWeight.w400,
                                       color: const Color(0xff686464),
@@ -225,7 +224,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                                         value: value,
                                         child: Text(
                                           value,
-                                          style: GoogleFonts.firaSans(
+                                          style: CustomTextStylesCommon.commonStyle(
                                             fontSize: 12,
                                             color: Color(0xff575757),
                                             fontWeight: FontWeight.w400,
@@ -268,7 +267,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                                   child: DropdownButtonFormField<String>(
                                     decoration: InputDecoration(
                                       labelText: 'State',
-                                      labelStyle: GoogleFonts.firaSans(
+                                      labelStyle: CustomTextStylesCommon.commonStyle(
                                         fontSize: 10.0,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.greylight,
@@ -292,7 +291,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                                       color: ColorManager.blueprime,),
                                     iconSize: 24,
                                     elevation: 16,
-                                    style: GoogleFonts.firaSans(
+                                    style: CustomTextStylesCommon.commonStyle(
                                       fontSize: 10.0,
                                       fontWeight: FontWeight.w400,
                                       color: const Color(0xff686464),
@@ -312,7 +311,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                                         value: value,
                                         child: Text(
                                           value,
-                                          style: GoogleFonts.firaSans(
+                                          style: CustomTextStylesCommon.commonStyle(
                                             fontSize: 12,
                                             color: Color(0xff575757),
                                             fontWeight: FontWeight.w400,
