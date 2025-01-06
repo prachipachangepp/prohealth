@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/profile_editor/profile_editor.dart';
@@ -8,6 +9,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/form_status.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profilebar_editor.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../widgets/widgets/profile_bar/profile_bar.dart';
@@ -53,6 +55,7 @@ class _ManageScreenState extends State<ManageScreen> {
   // final ValueNotifier<bool> _isEditMode = ValueNotifier<bool>(false); // Use ValueNotifier to track edit mode
   @override
   Widget build(BuildContext context) {
+    final tabState = Provider.of<RouteProvider>(context, listen: false);
     return Scaffold(
         backgroundColor: Colors.white,
         body: Column(children: [
@@ -85,10 +88,15 @@ class _ManageScreenState extends State<ManageScreen> {
                         ///sub tab bar
                         DefaultTabController(
                           length: 7,
+                          initialIndex: tabState.currentTab,
                           child: Column(
                             ///sub tab bar
                             children: [
                               TabBar(
+                                onTap: (index) {
+                                  tabState.setTab(index); // Update the active tab
+                                  print('Tab index $index');
+                                },
                                 indicatorWeight: 6,
                                 overlayColor: MaterialStateProperty.all(
                                     Colors.transparent),
@@ -129,6 +137,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 5),
                                       child: DefaultTabController(
+                                        initialIndex: tabState.qulificationModuleTab,
                                         length: 4,
                                         child: Column(
                                           children: [
@@ -157,6 +166,9 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 // width: 720.0,
                                                 child: TabBar(
                                                   isScrollable: false,
+                                                  onTap: (index) {
+                                                    tabState.setQulificationModuleTab(index); // Update the active tab
+                                                  },
                                                   tabs: [
                                                     Tab(
                                                       text: AppStringHr
@@ -269,6 +281,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                       child: DefaultTabController(
                                         length: widget
                                             .searchByEmployeeIdProfileData!.departmentId == 1?6:5,
+                                        initialIndex: tabState.qulificationModuleTab,
                                         child: Column(
                                           children: [
                                             Padding(
@@ -298,6 +311,9 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 // width: 820.0,
                                                 child: TabBar(
                                                   isScrollable: false,
+                                                  onTap: (index){
+                                                    tabState.setDocumentsModuleTab(index);
+                                                  },
                                                   tabs: [
                                                     Tab(
                                                         text: AppStringHr

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/licenses_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
@@ -14,6 +15,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_but
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/expired_license_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profile_clipoval_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profilebar_editor.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../app/resources/color.dart';
@@ -41,6 +43,7 @@ class _ProfileBarState extends State<ProfileBar> {
   int expiredCount = 0;
   int upToDateCount = 0;
   int aboutToCount = 0;
+
   @override
   void initState() {
     super.initState();
@@ -54,7 +57,14 @@ class _ProfileBarState extends State<ProfileBar> {
     if (widget.searchByEmployeeIdProfileData?.dateofHire != null) {
       totalDateStamp = _calculateHireDateTimeStamp(widget.searchByEmployeeIdProfileData!.dateofHire);
     }
-    sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   final profileBarState =
+    //   Provider.of<RouteProvider>(context, listen: false);
+    //   profileBarState.updateAddress(widget.searchByEmployeeIdProfileData!.finalAddress);
+    //   profileBarState.updateSummery(widget.searchByEmployeeIdProfileData!.summary);
+    //   profileBarState.maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
+    // });
+    //sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
    // fetchData();
   }
   // Stream method to fetch license data periodically
@@ -94,13 +104,7 @@ class _ProfileBarState extends State<ProfileBar> {
     return address;
   }
 
-  String _trimSummery(String address) {
-    const int maxLength = 15;
-    if (address.length > maxLength) {
-      return '${address.substring(0, maxLength)}...';
-    }
-    return address;
-  }
+
 
   var hexColor;
   String? sSNNBR;
@@ -290,6 +294,10 @@ class _ProfileBarState extends State<ProfileBar> {
   }
   @override
   Widget build(BuildContext context) {
+    final profileState = Provider.of<RouteProvider>(context, listen: false);
+    profileState.updateAddress(widget.searchByEmployeeIdProfileData!.finalAddress);
+    profileState.updateSummery(widget.searchByEmployeeIdProfileData!.summary);
+    profileState.maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
     int currentPage = 1;
     int itemsPerPage = 30;
     return Container(
@@ -506,9 +514,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                       context, event.position),
                                   onExit: (_) => _removeOverlayAddress(),
                                   child: Text(
-                                      _trimAddress(widget
-                                          .searchByEmployeeIdProfileData!
-                                          .finalAddress),
+                                      profileState.trimmedAddress,
                                       textAlign: TextAlign.start,
                                       style:
                                       ThemeManagerAddressPB.customTextStyle(
@@ -547,7 +553,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                   style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
                                 Text(
-                                  sSNNBR!,
+                                  profileState.maskedString,
                                   style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                 ),
 
@@ -668,9 +674,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                       _showOverlay(context, event.position),
                                   onExit: (_) => _removeOverlay(),
                                   child: Text(
-                                    _trimSummery(widget
-                                        .searchByEmployeeIdProfileData!
-                                        .summary),
+                                    profileState.trimmedSummery,
                                     style: ProfileBarTextBoldStyle
                                         .customEditTextStyle(),
                                   ),

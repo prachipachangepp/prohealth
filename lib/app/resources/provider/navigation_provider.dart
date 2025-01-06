@@ -11,16 +11,87 @@ import 'package:http/http.dart' as http;
 
 class RouteProvider with ChangeNotifier {
   String _currentRoute = '/';
+  String _trimmedAddress = '';
+  String _trimmedSummery = '';
+  String _maskedString = '';
+
+
+  String get maskedString => _maskedString;
+  String get trimmedAddress => _trimmedAddress;
+  String get trimmedSummery => _trimmedSummery;
+
+  /// Tab bar private veriables HR
+  int _currentTab = 0;
+  int _qulificationModuleTab = 0;
+  int _documentsModuleTab = 0;
+
+  int get currentTab => _currentTab;
+  int get qulificationModuleTab => _qulificationModuleTab;
+  int get documentsModuleTab => _documentsModuleTab;
+
 
   String get currentRoute => _currentRoute;
 
   RouteProvider() {
     _loadLastRoute();
   }
+  /// Main Tab bar methods
+  void setTab(int tabIndex) {
+    _currentTab = tabIndex;
+    notifyListeners();
+  }
 
+  /// Quilification tab bar
+  void setQulificationModuleTab(int tabIndex) {
+    _qulificationModuleTab = tabIndex;
+    notifyListeners();
+  }
+
+  /// Document Tab bar
+  void setDocumentsModuleTab(int tabIndex) {
+    _documentsModuleTab = tabIndex;
+    notifyListeners();
+  }
+  /// Constant route management
   Future<void> _loadLastRoute() async {
     final prefs = await SharedPreferences.getInstance();
     _currentRoute = prefs.getString('lastRoute') ?? '/';
+    notifyListeners();
+  }
+
+  /// HR profile bar Address trim
+  void updateAddress(String address) {
+    const int maxLength = 15;
+    if (address.length > maxLength) {
+      _trimmedAddress = '${address.substring(0, maxLength)}...';
+    } else {
+      _trimmedAddress = address;
+    }
+    notifyListeners();
+  }
+
+  /// HR profile trim summery
+  void updateSummery(String symmery) {
+    const int maxLength = 15;
+    if (symmery.length > maxLength) {
+      _trimmedSummery = '${symmery.substring(0, maxLength)}...';
+    }else{
+      _trimmedSummery = symmery;
+    }
+    notifyListeners();
+  }
+
+  /// HR profile bar maske number
+  void maskString(String input, int visibleDigits) {
+    int maskLength = input.length - visibleDigits;
+
+    if (maskLength > 0) {
+      String masked = '*' * maskLength;
+      _maskedString = masked + input.substring(maskLength);
+    } else {
+      _maskedString = input;
+    }
+
     notifyListeners();
   }
 
@@ -47,9 +118,6 @@ class RouteProvider with ChangeNotifier {
       MaterialPageRoute(builder: pageBuilder),
     );
   }
-
-
-
 }
 
 class AddressProvider with ChangeNotifier{
