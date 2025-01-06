@@ -1,8 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/screen_route_name.dart';
 import 'package:prohealth/presentation/widgets/tablet_constant/tab_menu_const.dart';
 import 'package:provider/provider.dart';
@@ -92,8 +90,8 @@ class HomeScreenTab extends StatelessWidget {
                                     Text(
                                       'Select a Module',
                                       textAlign: TextAlign.center,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 14,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontSize: FontSize.s14,
                                         fontWeight: FontWeight.w700,
                                         color: ColorManager.darkgrey,
                                       ),
@@ -307,7 +305,7 @@ class HomeScreenTab extends StatelessWidget {
           children: [
             Text(
               AppString.poweredby,
-              style: GoogleFonts.firaSans(
+              style: CustomTextStylesCommon.commonStyle(
                 color: ColorManager.black,
                 fontSize: FontSize.s10,
                 fontWeight: FontWeight.w400,

@@ -107,7 +107,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                       result,
                                       style: TextStyle(
                                         fontSize: FontSize.s14,
-                                        fontWeight: FontWeightManager.regular,
+                                        fontWeight: FontWeight.w400,
                                         color: ColorManager.mediumgrey,
                                       ),
                                     ),

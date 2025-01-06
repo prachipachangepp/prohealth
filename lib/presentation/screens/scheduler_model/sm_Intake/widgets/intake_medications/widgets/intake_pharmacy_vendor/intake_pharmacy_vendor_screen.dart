@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/dropdown_constant_sm.dart';
-
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
@@ -62,10 +60,10 @@ class _IntakePharmacyVendorScreenState
                   children: [
                     Text(
                       'Status Completed',
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                           decoration: TextDecoration.none,
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.greenDark),
                     ),
                     SizedBox(
@@ -96,9 +94,9 @@ class _IntakePharmacyVendorScreenState
                       },
                       child: Text(
                         AppString.save,
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.white,
                         ),
                       ),

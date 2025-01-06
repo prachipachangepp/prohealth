@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-
+import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 
 
@@ -30,9 +29,9 @@ class TopRowConstant extends StatelessWidget {
             Expanded(
               child: RichText(
                 text: TextSpan(
-                  style: GoogleFonts.firaSans(
+                  style: CustomTextStylesCommon.commonStyle(
                     fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.semiBold,
+                    fontWeight: FontWeight.w600,
                     color: ColorManager.granitegray,
                   ),
                   children: [
@@ -51,11 +50,10 @@ class TopRowConstant extends StatelessWidget {
             SizedBox(width: AppSize.s12), // Adjust spacing as needed
             RichText(
               text: TextSpan(
-                style: GoogleFonts.firaSans(
+                style: CustomTextStylesCommon.commonStyle(
                   fontSize: FontSize.s16,
-                  fontWeight: FontWeightManager.bold,
+                  fontWeight: FontWeight.w700,
                   color: ColorManager.calandercolour,
-                  decoration: TextDecoration.underline,
                 ),
                 children: [
                   TextSpan(text: '(4088) '),

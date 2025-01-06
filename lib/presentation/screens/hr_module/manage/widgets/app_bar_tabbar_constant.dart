@@ -51,7 +51,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                         fontFamily: 'FiraSans',
                         fontSize: FontSize.s14,
                         color: Color(0xFF686464),
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                       ),
                       unselectedLabelColor: ColorManager.black,
                        physics: NeverScrollableScrollPhysics(),
@@ -85,7 +85,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                                         hintStyle:TextStyle(color: Color(0xff686464),
                                           fontFamily: 'FiraSans',
                                           fontSize: FontSize.s10,
-                                          fontWeight: FontWeightManager.regular),
+                                          fontWeight: FontWeight.w400),
                                       ),
                                     ),
                                   ),
@@ -138,7 +138,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                                 style: TextStyle(
                                   fontFamily: 'FiraSans',
                                   fontSize: FontSize.s13,
-                                  fontWeight: FontWeightManager.regular,
+                                  fontWeight: FontWeight.w400,
                                 ),textAlign: TextAlign.center,),
                             )),
                         const SizedBox(
@@ -153,7 +153,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                             style: TextStyle(
                                 fontFamily: 'FiraSans',
                                 fontSize: FontSize.s13,
-                                fontWeight: FontWeightManager.semiBold,
+                                fontWeight: FontWeight.w600,
                                 color: Colors.white),
                           ),
                           style: ElevatedButton.styleFrom(

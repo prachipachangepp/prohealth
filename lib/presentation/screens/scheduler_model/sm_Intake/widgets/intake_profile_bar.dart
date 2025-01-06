@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -8,6 +7,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../app/resources/color.dart';
+import '../../../../../app/resources/theme_manager.dart';
 
 class IntakeProfileBar extends StatefulWidget {
   const IntakeProfileBar({super.key});
@@ -67,19 +67,19 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Text(
                         'JOHN SCOTT',
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s10,
                           // fontSize: MediaQuery.of(context).size.width * 0.006,
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         AppString.active,
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s10,
                           // fontSize: MediaQuery.of(context).size.width * 0.006,
-                          fontWeight: FontWeightManager.bold,
+                          fontWeight: FontWeight.w700,
                           color: ColorManager.textPrimaryColor,
                         ),
                       ),
@@ -95,29 +95,29 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(AppString.zone,
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                             color: ColorManager.textPrimaryColor),
                       ),
                       Text(
                         'DOB',
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                             color: ColorManager.textPrimaryColor),
                       ),
                       Text(
                         'Phone',
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                             color: ColorManager.textPrimaryColor,),
                       ),
                       Text(AppString.email,
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                             color: ColorManager.textPrimaryColor),
                       ),
                     ],
@@ -132,9 +132,9 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                       children: [
                         Text(
                           'ProHealth, San Jose2',
-                          style: GoogleFonts.firaSans(
+                          style: CustomTextStylesCommon.commonStyle(
                               fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.regular,
+                              fontWeight: FontWeight.w400,
                               color: ColorManager.textBlack),
                         ),
                         SizedBox(
@@ -153,7 +153,7 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                               }
                             },
                             child: Text(AppString.viewzone,
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: FontSize.s10,
                                 fontWeight: FontWeight.w400,
                                 color: ColorManager.white,
@@ -173,23 +173,23 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                     ),
                     Text(
                       '25-05-1999',
-                      style: GoogleFonts.firaSans(
+                      style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.regular,
+                          fontWeight: FontWeight.w400,
                           color: ColorManager.textBlack),
                     ),
                     Text(
                       '+49 5684654545',
-                      style: GoogleFonts.firaSans(
+                      style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.regular,
+                          fontWeight: FontWeight.w400,
                           color: ColorManager.textBlack),
                     ),
                     Text(
                       'john@gmail.com',
-                      style: GoogleFonts.firaSans(
+                      style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.regular,
+                          fontWeight: FontWeight.w400,
                           color: ColorManager.textBlack),
                     ),
                   ],
@@ -204,23 +204,23 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                     children: [
                       Text(
                         AppString.address,
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                             color: ColorManager.textPrimaryColor),
                       ),
                       Text(
                         'Patient Status',
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                             color: ColorManager.textPrimaryColor),
                       ),
                       Text(
                         'Diagnosis',
-                        style: GoogleFonts.firaSans(
+                        style: CustomTextStylesCommon.commonStyle(
                             fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.regular,
+                            fontWeight: FontWeight.w400,
                             color: ColorManager.textPrimaryColor),
                       ),
                     ],
@@ -237,9 +237,9 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                           width: AppSize.s95,
                           child: Text(
                             '5445 Alvilde CT, Rio Linda CA 5645451516',
-                            style: GoogleFonts.firaSans(
+                            style: CustomTextStylesCommon.commonStyle(
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.regular,
+                                fontWeight: FontWeight.w400,
                                 color: ColorManager.textBlack),
                           ),
                         ),
@@ -260,9 +260,9 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                             },
                             child: Text(
                               AppString.viewzone,
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.regular,
+                                fontWeight: FontWeight.w400,
                                 color: ColorManager.white,
                                 decoration: TextDecoration.underline,
                               ),
@@ -280,16 +280,16 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                     ),
                     Text(
                       'Lead',
-                      style: GoogleFonts.firaSans(
+                      style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.regular,
+                          fontWeight: FontWeight.w400,
                           color: ColorManager.textBlack),
                     ),
                     Text(
                       'Alzeimer’s Care',
-                      style: GoogleFonts.firaSans(
+                      style: CustomTextStylesCommon.commonStyle(
                           fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.regular,
+                          fontWeight: FontWeight.w400,
                           color: ColorManager.textBlack),
                     ),
                   ],
@@ -329,9 +329,9 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                             },
                             child: Text(
                               'View map',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.regular,
+                                fontWeight: FontWeight.w400,
                                 color: ColorManager.white,
                                 decoration: TextDecoration.underline,
                               ),
@@ -384,10 +384,10 @@ class SummaryRowConst extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 title,
-                style: GoogleFonts.firaSans(
+                style: CustomTextStylesCommon.commonStyle(
                   // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                     color: ColorManager.blueprime
                 ),
               ),
@@ -398,10 +398,10 @@ class SummaryRowConst extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 count1,
-                style: GoogleFonts.firaSans(
+                style: CustomTextStylesCommon.commonStyle(
                   // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
-                    fontWeight: FontWeightManager.regular,
+                    fontWeight: FontWeight.w400,
                     color: ColorManager.textBlack
                 ),
               ),
@@ -412,10 +412,10 @@ class SummaryRowConst extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 count2,
-                style: GoogleFonts.firaSans(
+                style: CustomTextStylesCommon.commonStyle(
                   // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
-                    fontWeight: FontWeightManager.regular,
+                    fontWeight: FontWeight.w400,
                     color: ColorManager.textBlack
                 ),
               ),
@@ -451,10 +451,10 @@ class ComplianceRowConst extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 title,
-                style: GoogleFonts.firaSans(
+                style: CustomTextStylesCommon.commonStyle(
                   // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                     color: ColorManager.blueprime
                 ),
               ),
@@ -465,10 +465,10 @@ class ComplianceRowConst extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: Text(
                 count1,
-                style: GoogleFonts.firaSans(
+                style: CustomTextStylesCommon.commonStyle(
                   // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
-                    fontWeight: FontWeightManager.regular,
+                    fontWeight: FontWeight.w400,
                     color: ColorManager.textBlack
                 ),
               ),

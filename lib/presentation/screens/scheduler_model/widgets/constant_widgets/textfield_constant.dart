@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -91,18 +90,18 @@ try{
       height: AppSize.s30,
       child: TextFormField(
         controller: widget.controller,
-        style: GoogleFonts.firaSans(
+        style: TextStyle(
           fontSize: FontSize.s14,
-          fontWeight: FontWeightManager.regular,
+          fontWeight: FontWeight.w400,
           color: ColorManager.black,
         ),
         cursorColor: ColorManager.black,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 5,horizontal: 6),
           labelText: '',
-          labelStyle: GoogleFonts.firaSans(
+          labelStyle: TextStyle(
             fontSize: FontSize.s10,
-            fontWeight: FontWeightManager.regular,
+            fontWeight: FontWeight.w400,
             color: ColorManager.greylight,
           ),
           border: OutlineInputBorder(
@@ -167,16 +166,16 @@ class PopUpDropdown extends StatelessWidget {
       height: AppSize.s30, // DROPDOWN CONTAINER HEIGHT
       child: DropdownButtonFormField<String>(
         value: initialValue,
-        style: GoogleFonts.firaSans(
+        style: TextStyle(
           fontSize: FontSize.s10,
-          fontWeight: FontWeightManager.regular,
+          fontWeight: FontWeight.w400,
           color: ColorManager.black,
         ),
         decoration: InputDecoration(
           labelText: 'visit',
-          labelStyle: GoogleFonts.firaSans(
+          labelStyle: TextStyle(
             fontSize: FontSize.s10,
-            fontWeight: FontWeightManager.regular,
+            fontWeight: FontWeight.w400,
             color: ColorManager.greylight,
           ),
           border: OutlineInputBorder(

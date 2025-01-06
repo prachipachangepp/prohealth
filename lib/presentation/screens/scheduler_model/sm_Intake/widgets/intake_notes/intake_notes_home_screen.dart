@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/widgets/intake_notes_miscellaneous/intake_notes_miscellaneous_screen.dart';
 import '../../../../../../app/resources/color.dart';
@@ -63,9 +62,9 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                   child: Text(
                     'Physician',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                       color: selectedIndex == 0
                           ? ColorManager.mediumgrey
                           : ColorManager.white,
@@ -88,9 +87,9 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                   child: Text(
                     'Supervisory',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                       color: selectedIndex == 1
                           ? ColorManager.mediumgrey
                           : ColorManager.white,
@@ -113,9 +112,9 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                   child: Text(
                     'Nurses Clinical',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                       color: selectedIndex == 2
                           ? ColorManager.mediumgrey
                           : ColorManager.white,
@@ -138,9 +137,9 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                   child: Text(
                     'Speech Therapy',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                       color: selectedIndex == 3
                           ? ColorManager.mediumgrey
                           : ColorManager.white,
@@ -163,9 +162,9 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                   child: Text(
                     'Home Health Aid',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                       color: selectedIndex == 4
                           ? ColorManager.mediumgrey
                           : ColorManager.white,
@@ -188,9 +187,9 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                   child: Text(
                     'Spiritual',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                       color: selectedIndex == 5
                           ? ColorManager.mediumgrey
                           : ColorManager.white,
@@ -207,7 +206,7 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                 highlightColor: Colors.transparent,
                 child: Container(
                   height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 9.8,
+                  width: MediaQuery.of(context).size.width / 9.79,
                   padding: EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -216,9 +215,9 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                   child: Text(
                     'Miscellaneous',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeight.w600,
                       color: selectedIndex == 6
                           ? ColorManager.mediumgrey
                           : ColorManager.white,

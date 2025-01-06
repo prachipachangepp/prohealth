@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -77,10 +75,10 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                 children: [
                   Text(
                     'Status: Not Completed',
-                    style: GoogleFonts.firaSans(
+                    style: TextStyle(
                         decoration: TextDecoration.none,
                         fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                         color: ColorManager.burnt_red),
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width / 60),
@@ -122,9 +120,9 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                         children: [
                                           Text(
                                             fileName,
-                                            style: GoogleFonts.firaSans(
+                                            style: CustomTextStylesCommon.commonStyle(
                                               fontSize: FontSize.s14,
-                                              fontWeight: FontWeightManager.regular,
+                                              fontWeight: FontWeight.w400,
                                               color: ColorManager.greylight,
                                             ),
                                           ),
@@ -166,7 +164,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                             style: CustomTextStylesCommon
                                                 .commonStyle(
                                               fontWeight:
-                                              FontWeightManager.medium,
+                                              FontWeight.w500,
                                               fontSize: FontSize.s14,
                                               color: ColorManager.mediumgrey,
                                             ),
@@ -219,7 +217,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                     children: [
                                       Text(
                                         "Expiry Type",
-                                        style: GoogleFonts.firaSans(
+                                        style: TextStyle(
                                           fontSize: FontSize.s14,
                                           fontWeight: FontWeight.w700,
                                           color: ColorManager.mediumgrey,
@@ -268,7 +266,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                       children: [
                                         Text(
                                           "Expiry Date",
-                                          style: GoogleFonts.firaSans(
+                                          style: TextStyle(
                                             fontSize: FontSize.s14,
                                             fontWeight: FontWeight.w700,
                                             color: ColorManager.mediumgrey,
@@ -284,7 +282,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                               child: TextFormField(
                                                 controller: calenderController,
                                                 cursorColor: ColorManager.black,
-                                                style: GoogleFonts.firaSans(
+                                                style: TextStyle(
                                                   fontSize: FontSize.s14,
                                                   fontWeight: FontWeight.w700,
                                                   color:
@@ -314,11 +312,10 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                   ),
                                                   hintText: 'mm-dd-yyyy',
                                                   hintStyle:
-                                                      GoogleFonts.firaSans(
+                                                      TextStyle(
                                                     fontSize: FontSize.s14,
                                                     fontWeight: FontWeight.w700,
-                                                    color:
-                                                        ColorManager.mediumgrey,
+                                                    color: ColorManager.mediumgrey,
                                                     //decoration: TextDecoration.none,
                                                   ),
                                                   border: OutlineInputBorder(
@@ -423,7 +420,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                   child: Text(
                                     "No Available Compliance!",
                                     style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeightManager.medium,
+                                      fontWeight: FontWeight.w500,
                                       fontSize: FontSize.s14,
                                       color: ColorManager.mediumgrey,
                                     ),
@@ -545,7 +542,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                                 .data![index]
                                                                 .complianceId
                                                                 .toString(),
-                                                            style: GoogleFonts.firaSans(
+                                                            style: TextStyle(
                                                                 decoration:
                                                                     TextDecoration
                                                                         .none,
@@ -553,8 +550,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                                     FontSize
                                                                         .s10,
                                                                 fontWeight:
-                                                                    FontWeightManager
-                                                                        .medium,
+                                                                    FontWeight.w500,
                                                                 color: ColorManager
                                                                     .textPrimaryColor),
                                                           ),
@@ -565,15 +561,14 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                                 .docName
                                                                 .toString(),
                                                             // textAlign:TextAlign.center,
-                                                            style: GoogleFonts.firaSans(
+                                                            style: TextStyle(
                                                                 decoration:
                                                                     TextDecoration
                                                                         .none,
                                                                 fontSize:
                                                                     AppSize.s12,
                                                                 fontWeight:
-                                                                    FontWeightManager
-                                                                        .bold,
+                                                                    FontWeight.w700,
                                                                 color: ColorManager
                                                                     .textPrimaryColor),
                                                           ),
@@ -584,7 +579,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                                 .expDate
                                                                 .toString(),
                                                             // textAlign:TextAlign.center,
-                                                            style: GoogleFonts.firaSans(
+                                                            style: TextStyle(
                                                                 decoration:
                                                                     TextDecoration
                                                                         .none,
@@ -592,8 +587,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                                     FontSize
                                                                         .s10,
                                                                 fontWeight:
-                                                                    FontWeightManager
-                                                                        .lightbold,
+                                                                    FontWeight.w600,
                                                                 color: ColorManager
                                                                     .textPrimaryColor),
                                                           )

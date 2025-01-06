@@ -88,7 +88,7 @@ class _EmailVerifyMobileState extends State<EmailVerifyMobile> {
               style: CustomTextStylesCommon.commonStyle(
                   color: ColorManager.mediumgrey,
                   fontSize: FontSize.s10,
-                  fontWeight: FontWeightManager.medium),
+                  fontWeight: FontWeight.w500),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.width / 60,
@@ -156,7 +156,7 @@ class _EmailVerifyMobileState extends State<EmailVerifyMobile> {
                     style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.mediumgrey,
                       fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                     )),
                 TextButton(
                   onPressed: () {},
@@ -164,7 +164,7 @@ class _EmailVerifyMobileState extends State<EmailVerifyMobile> {
                       style: CustomTextStylesCommon.commonStyle(
                         color: ColorManager.blueprime,
                         fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                       )),
                 )
               ],
@@ -180,7 +180,7 @@ class _EmailVerifyMobileState extends State<EmailVerifyMobile> {
               style: CustomTextStylesCommon.commonStyle(
                 color: ColorManager.white,
                 fontSize: FontSize.s14,
-                fontWeight: FontWeightManager.bold,
+                fontWeight: FontWeight.w700,
               ),
               onPressed: () {
                 _verifyOTPAndLogin();
@@ -194,7 +194,7 @@ class _EmailVerifyMobileState extends State<EmailVerifyMobile> {
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.red,
                     fontSize: FontSize.s10,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),

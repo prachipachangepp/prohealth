@@ -175,3 +175,14 @@ class NumberTExtFieldLegalDoc {
     );
   }
 }
+
+class APIErrorTextConst{
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontSize: FontSize.s16,
+      color: Colors.black,
+      fontWeight: FontWeight.w700,
+      decoration: TextDecoration.none,
+    );
+  }
+}

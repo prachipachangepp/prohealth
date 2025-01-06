@@ -104,7 +104,7 @@ class _VerifyForgotPassMobileState extends State<VerifyForgotPassMobile> {
                   color: ColorManager.mediumgrey,
                   fontSize: FontSize.s10,
                   //fontSize: MediaQuery.of(context).size.width/32,
-                  fontWeight: FontWeightManager.medium,
+                  fontWeight: FontWeight.w500,
                 )),
 
             ///txtfield
@@ -127,7 +127,7 @@ class _VerifyForgotPassMobileState extends State<VerifyForgotPassMobile> {
                     style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.black.withOpacity(0.7),
                       fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                     ),
                     controller: _otpControllers[index],
                     cursorColor: ColorManager.black,
@@ -142,7 +142,7 @@ class _VerifyForgotPassMobileState extends State<VerifyForgotPassMobile> {
                       errorStyle: CustomTextStylesCommon.commonStyle(
                         color: ColorManager.red,
                         fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.bold,
+                        fontWeight: FontWeight.w700,
                       ),
                       contentPadding:
                           const EdgeInsets.only(bottom: AppPadding.p14),
@@ -192,7 +192,7 @@ class _VerifyForgotPassMobileState extends State<VerifyForgotPassMobile> {
                       color: ColorManager.mediumgrey,
                       fontSize: FontSize.s10,
                       //  fontSize: MediaQuery.of(context).size.width / 120,
-                      fontWeight: FontWeightManager.medium,
+                      fontWeight: FontWeight.w500,
                     )),
                 TextButton(
                   onPressed: () {
@@ -202,7 +202,7 @@ class _VerifyForgotPassMobileState extends State<VerifyForgotPassMobile> {
                       style: CustomTextStylesCommon.commonStyle(
                         color: ColorManager.blueprime,
                         fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                       )),
                 )
               ],
@@ -219,7 +219,7 @@ class _VerifyForgotPassMobileState extends State<VerifyForgotPassMobile> {
                 style: CustomTextStylesCommon.commonStyle(
                   color: ColorManager.white,
                   fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.bold,
+                  fontWeight: FontWeight.w700,
                 ),
                 onPressed: () {
                   navigateToNextScreen();
@@ -234,7 +234,7 @@ class _VerifyForgotPassMobileState extends State<VerifyForgotPassMobile> {
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.red,
                     fontSize: FontSize.s10,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),

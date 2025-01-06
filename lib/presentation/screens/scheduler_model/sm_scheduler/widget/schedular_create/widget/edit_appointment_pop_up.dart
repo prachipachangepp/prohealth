@@ -1,8 +1,5 @@
-
-import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
@@ -43,7 +40,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 'Edit Appointment',
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
@@ -84,7 +81,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -102,7 +99,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -124,7 +121,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -150,7 +147,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -168,7 +165,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -190,7 +187,7 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           style: TextStyle(
                             color: ColorManager.mediumgrey,
                             fontSize: FontSize.s14,
-                            fontWeight: FontWeightManager.bold,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(height: 5),
@@ -208,8 +205,8 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                 children: [
                   TextButton(
                     child: Text('Cancel',
-                        style: GoogleFonts.firaSans(
-                            fontWeight: FontWeightManager.bold,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
                             fontSize: FontSize.s14,
                             color: ColorManager.mediumgrey)),
                     onPressed: () => Navigator.of(context).pop(),
@@ -233,8 +230,8 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                       child: ElevatedButton(
                         child: Text(
                           'Add',
-                          style: GoogleFonts.firaSans(
-                            fontWeight: FontWeightManager.bold,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
                             fontSize: FontSize.s14,
                             color: Colors.white,
                           ),

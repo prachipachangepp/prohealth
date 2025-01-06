@@ -1,17 +1,5 @@
-import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
-
-import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/face_to_face_manager.dart';
-import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
-
 class PhysicianFaceToFace extends StatefulWidget {
   final int patientId;
   PhysicianFaceToFace({super.key, required this.patientId});
