@@ -14,8 +14,9 @@ class RouteProvider with ChangeNotifier {
   String _trimmedAddress = '';
   String _trimmedSummery = '';
   String _maskedString = '';
+  String _hireDateTimeStamp = '';
 
-
+  String get hireDateTimeStamp => _hireDateTimeStamp;
   String get maskedString => _maskedString;
   String get trimmedAddress => _trimmedAddress;
   String get trimmedSummery => _trimmedSummery;
@@ -91,7 +92,30 @@ class RouteProvider with ChangeNotifier {
     } else {
       _maskedString = input;
     }
+    notifyListeners();
+  }
 
+  /// HR profile bar hoire date trimme
+  void calculateHireDateTimeStamp(String hireDate) {
+    DateTime convertedDate = DateTime.parse(hireDate);
+    DateTime today = DateTime.now();
+    int years = today.year - convertedDate.year;
+    int months = today.month - convertedDate.month;
+    int days = today.day - convertedDate.day;
+
+    if (days < 0) {
+      months--;
+      int prevMonthLastDay = DateTime(today.year, today.month, 0).day;
+      days += prevMonthLastDay;
+    }
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    _hireDateTimeStamp = "$years yr, $months m, $days d";
+
+    // Notify listeners about the updated result
     notifyListeners();
   }
 

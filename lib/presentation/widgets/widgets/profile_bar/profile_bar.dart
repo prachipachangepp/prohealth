@@ -54,9 +54,7 @@ class _ProfileBarState extends State<ProfileBar> {
       dobTimestamp = _calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth);
       setState(() {});  // Ensure the UI rebuilds with the new data
     }
-    if (widget.searchByEmployeeIdProfileData?.dateofHire != null) {
-      totalDateStamp = _calculateHireDateTimeStamp(widget.searchByEmployeeIdProfileData!.dateofHire);
-    }
+
     // WidgetsBinding.instance.addPostFrameCallback((_) {
     //   final profileBarState =
     //   Provider.of<RouteProvider>(context, listen: false);
@@ -103,8 +101,6 @@ class _ProfileBarState extends State<ProfileBar> {
     }
     return address;
   }
-
-
 
   var hexColor;
   String? sSNNBR;
@@ -155,65 +151,35 @@ class _ProfileBarState extends State<ProfileBar> {
     return dobTimestamp!;
   }
 
-  String? totalDateStamp;
-  String _calculateHireDateTimeStamp(String hireDate) {
-    DateTime convertedDate = DateTime.parse(hireDate);
-    DateTime today = DateTime.now();
-    int years = today.year - convertedDate.year;
-    int months = today.month - convertedDate.month;
-    int days = today.day - convertedDate.day;
+  // String? totalDateStamp;
+  // String _calculateHireDateTimeStamp(String hireDate) {
+  //   DateTime convertedDate = DateTime.parse(hireDate);
+  //   DateTime today = DateTime.now();
+  //   int years = today.year - convertedDate.year;
+  //   int months = today.month - convertedDate.month;
+  //   int days = today.day - convertedDate.day;
+  //
+  //   if (days < 0) {
+  //     months--;
+  //     int prevMonthLastDay = DateTime(today.year, today.month, 0).day;
+  //     days += prevMonthLastDay;
+  //   }
+  //   if (months < 0) {
+  //     years--;
+  //     months += 12;
+  //   }
+  //   String result = "$years yr, $months m, $days d";
+  //   // String result = '';
+  //   // if (years > 0) result += "$years yr, ";
+  //   // result += "$months m, ";
+  //   // result += "$days d";
+  //
+  //   print('Timestamp Hiredate: $result');
+  //   return result;
+  //
+  //   //return "$totalDateStamp years";
+  // }
 
-    if (days < 0) {
-      months--;
-      int prevMonthLastDay = DateTime(today.year, today.month, 0).day;
-      days += prevMonthLastDay;
-    }
-    if (months < 0) {
-      years--;
-      months += 12;
-    }
-    String result = "$years yr, $months m, $days d";
-    // String result = '';
-    // if (years > 0) result += "$years yr, ";
-    // result += "$months m, ";
-    // result += "$days d";
-
-    print('Timestamp Hiredate: $result');
-    return result;
-
-    //return "$totalDateStamp years";
-  }
-
-  Future<void> fetchData() async {
-    try {
-      Map<String, List<LicensesData>> data = await getLicenseStatusWise(
-          context, widget.searchByEmployeeIdProfileData!.employeeId!);
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        // Update the count after the current build phase
-        expiredCount = data['Expired']!.length;
-        aboutToCount = data['About to Expire']!.length;
-        upToDateCount = data['Upto date']!.length;
-        //print("EEE ${expiredCount}");
-      });
-    } catch (error) {
-      print("Error fetching data: $error");
-    }
-  }
-
-  String maskString(String input, int visibleDigits) {
-
-    int maskLength = input.length - visibleDigits;
-
-    if (maskLength > 0) {
-
-      String masked = '*' * maskLength;
-
-      return masked + input.substring(maskLength);
-    } else {
-
-      return input;
-    }
-  }
   bool _isDarkColor(Color color) {
     double perceivedBrightness =
         color.red * 0.299 + color.green * 0.587 + color.blue * 0.114;
@@ -298,6 +264,9 @@ class _ProfileBarState extends State<ProfileBar> {
     profileState.updateAddress(widget.searchByEmployeeIdProfileData!.finalAddress);
     profileState.updateSummery(widget.searchByEmployeeIdProfileData!.summary);
     profileState.maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
+    if (widget.searchByEmployeeIdProfileData?.dateofHire != null) {
+      profileState.calculateHireDateTimeStamp(widget.searchByEmployeeIdProfileData!.dateofHire);
+    }
     int currentPage = 1;
     int itemsPerPage = 30;
     return Container(
@@ -603,7 +572,6 @@ class _ProfileBarState extends State<ProfileBar> {
                                   ),
                                   onTap: () async {
                                     String? email = widget.searchByEmployeeIdProfileData!.personalEmail;
-
                                     if (email != null && email.isNotEmpty) {
                                       // Create a mailto Uri with the email address
                                       final Uri emailUri = Uri(
@@ -717,7 +685,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text("${widget.searchByEmployeeIdProfileData!.dateofHire} (${totalDateStamp ?? ''})",
+                                        Text("${widget.searchByEmployeeIdProfileData!.dateofHire} (${profileState.hireDateTimeStamp ?? ''})",
                                             style: ProfileBarTextBoldStyle.customEditTextStyle(),),
                                         SizedBox(height: 10,),
                                         Text('1.2', style: ProfileBarTextBoldStyle.customEditTextStyle(),),
