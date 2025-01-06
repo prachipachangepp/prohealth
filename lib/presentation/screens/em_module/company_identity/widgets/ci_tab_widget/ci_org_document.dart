@@ -15,10 +15,7 @@ import '../../../../../../app/resources/establishment_resources/establish_theme_
 import '../../company_identity_screen.dart';
 
 class CiOrgDocument extends StatefulWidget {
- // final String officeId;
-  //final int? companyId;
   const CiOrgDocument({super.key,
-  //  required this.officeId, this.companyId
   });
 
   @override

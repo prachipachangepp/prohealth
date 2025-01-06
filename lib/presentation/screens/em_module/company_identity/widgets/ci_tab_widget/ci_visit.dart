@@ -191,7 +191,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   // style: RegisterTableHead.customTextStyle(context),
                 ),
               ),
-              // Expanded(flex: 2, child: Container())
             ],
           ),
         ),
@@ -210,7 +209,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 });
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 150),
+                    padding: EdgeInsets.symmetric(vertical: AppPadding.p150),
                     child: Center(
                       child: CircularProgressIndicator(
                         color: ColorManager.blueprime,
@@ -252,10 +251,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   var hexColor = i.color.replaceAll("#", "");
                                   //var = i.color.trim();
                                   clinical.add(Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(AppPadding.p8),
                                     child: Container(
-                                        height: 30,
-                                        width: 30,
+                                        height: AppSize.s30,
+                                        width: AppSize.s30,
                                         color: hexColor == 'string'
                                             ? Colors.white
                                             : Color(int.parse('0xFF$hexColor')),
@@ -263,7 +262,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                             child: Text(
                                               i.eligibleClinician,
                                               style: TextStyle(
-                                                fontSize: 10,
+                                                fontSize: FontSize.s10,
                                                 fontWeight: FontWeight.w500,
                                                 color: _isDarkColor(hexColor == 'string'
                                                     ? Colors.white

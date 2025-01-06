@@ -1,4 +1,3 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -8,7 +7,6 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
@@ -33,7 +31,6 @@ class AddOfficeSumbitButton extends StatefulWidget {
   final TextEditingController secNumController;
   final TextEditingController OptionalController;
   final List<ServicesMetaData> servicesList;
-  //final Widget checkBoxHeadOffice;
   final Future<void> Function() onPressed;
   final GlobalKey<FormState> formKey;
   AddOfficeSumbitButton({
@@ -49,7 +46,6 @@ class AddOfficeSumbitButton extends StatefulWidget {
     required this.stateController,
     required this.countryController,
     required this.servicesList,
-    // required this.checkBoxHeadOffice,
   });
 
   @override
@@ -181,7 +177,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
     return DialogueTemplate(
       width: AppSize.s800,
       height: AppSize.s650,
-      title: 'Add New Office',
+      title: AppStringEM.addNewOffice,
       body: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +217,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       SMTextfieldAsteric(
                         controller: widget.countryController,
                         keyboardType: TextInputType.text,
-                        text: 'Country',
+                        text: AppStringEM.county,
                       ),
                       if (_countryDocError != null) // Display error if any
                         Text(
@@ -232,7 +228,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       SMTextFConstPhone(
                         controller: widget.secNumController,
                         keyboardType: TextInputType.number,
-                        text: 'Secondary Phone',
+                        text: AppStringEM.secondaryPhone,
                       ),
                       if (_sphoneDocError != null) // Display error if any
                         Text(
@@ -254,17 +250,13 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           ],
                         ),
                       ),
-                      // Text(
-                      //   'Services',
-                      //   style: AllPopupHeadings.customTextStyle(context),
-                      // ),
-                      SizedBox(height: 3),
+                      SizedBox(height: AppSize.s3),
                       StatefulBuilder(
                         builder: (BuildContext context,
                             void Function(void Function()) setState) {
                           return Container(
-                            height: 100,
-                            width: 300,
+                            width: AppSize.s300,
+                            height: AppSize.s100,
                             child: StatefulBuilder(
                               builder: (BuildContext context,
                                   void Function(void Function()) setState) {
@@ -276,7 +268,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                                     bool isSelected =
                                         selectedServices.contains(serviceID);
                                     return Container(
-                                        width: 150,
+                                        width: AppSize.s150,
                                         child: Center(
                                           child: CheckboxTile(
                                             title: widget.servicesList[index]
@@ -312,7 +304,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       )
                     ],
                   ),
-                  const SizedBox(width: 20),
+                  SizedBox(width: AppSize.s20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -334,12 +326,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           });
                         },
                       ),
-
-                      // SMTextFConst(
-                      //   controller: widget.addressController,
-                      //   keyboardType: TextInputType.streetAddress,
-                      //   text: AppString.officeaddress,
-                      // ),
                       if (_addressDocError != null) // Display error if any
                         Text(
                           _addressDocError!,
@@ -353,7 +339,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       FirstSMTextFConst(
                         controller: widget.stateController,
                         keyboardType: TextInputType.text,
-                        text: 'State',
+                        text: AppStringEM.state,
                       ),
                       if (_stateDocError != null) // Display error if any
                         Text(
@@ -364,7 +350,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       SMTextFConstPhone(
                         controller: widget.mobNumController,
                         keyboardType: TextInputType.number,
-                        text: 'Primary Phone',
+                        text: AppStringEM.primaryPhone,
                       ),
                       if (_pPhoneDocError != null) // Display error if any
                         Text(
@@ -375,7 +361,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       SMTextFConstPhone(
                         controller: widget.OptionalController,
                         keyboardType: TextInputType.number,
-                        text: 'Alternative Phone',
+                        text: AppStringEM.alternativePhone,
                       ),
                       if (_aphoneDocError != null) // Display error if any
                         Text(
@@ -584,7 +570,7 @@ class _AddressInputState extends State<AddressInput> {
             ),Positioned(
               left: position.dx,
               top: position.dy + renderBox.size.height,
-              width: 354,
+              width: AppSize.s354,
               child: Material(
                 elevation: 4.0,
                 borderRadius: BorderRadius.circular(8),
@@ -654,31 +640,6 @@ class _AddressInputState extends State<AddressInput> {
           keyboardType: TextInputType.streetAddress,
           text: AppString.officeaddress,
         ),
-        // Row(
-        //   children: [
-        //     Text(
-        //       'Address',
-        //       style:AllPopupHeadings.customTextStyle(context),
-        //     ),
-        //   ],
-        // ),
-        // SizedBox(
-        //     height:
-        //     MediaQuery.of(context).size.height / 60),
-        // CustomTextFieldRegister(
-        //   controller: widget.controller,
-        //   hintText: 'Enter Address',
-        //   hintStyle: onlyFormDataStyle.customTextStyle(context),
-        //   validator: (value) {
-        //     if (value == null || value.isEmpty) {
-        //       return 'Please enter some text';
-        //     }
-        //     return null;
-        //   },
-        //   height: 32,
-        //   onChanged: widget.onChanged,
-        // ),
-
       ],
     );
   }

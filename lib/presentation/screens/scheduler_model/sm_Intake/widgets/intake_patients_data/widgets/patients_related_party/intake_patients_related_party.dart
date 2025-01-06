@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -139,7 +140,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           'Emergency Contact Information',
                           style: TextStyle(
                               fontSize: FontSize.s14,
-                              fontWeight: FontWeightManager.semiBold,
+                              fontWeight: FontWeightManager.bold,
                               color: ColorManager.mediumgrey),
                         )
                       ],
@@ -166,10 +167,12 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return SchedularTextField(
-                                  controller: dummyCtrl,
-                                  labelText: 'Relationship',
-                                  );
+                                return CustomDropdownTextFieldsm(
+                                  initialValue: 'Select',
+                                  headText: 'Relationship',items: [],
+                                  onChanged: (newValue) {
+
+                                  },);
                               }
                               if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
@@ -215,9 +218,12 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return SchedularTextField(
-                                  controller: dummyCtrl,
-                                  labelText: 'City',);
+                                return CustomDropdownTextFieldsm(
+                                  initialValue: 'Select',
+                                  headText: 'City',items: [],
+                                  onChanged: (newValue) {
+
+                                  },);
                               }
                               if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
@@ -318,10 +324,12 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return SchedularTextField(
-                                  controller: dummyCtrl,
-                                  labelText: 'State',
-                                  );
+                                return CustomDropdownTextFieldsm(
+                                  initialValue: 'Select',
+                                  headText: 'State',items: [],
+                                  onChanged: (newValue) {
+
+                                  },);
                               }
                               if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
@@ -385,10 +393,12 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return SchedularTextField(
-                                  controller: dummyCtrl,
-                                  labelText: 'Priority/Disaster Code',
-                                  );
+                                return CustomDropdownTextFieldsm(
+                                  initialValue: 'Select',
+                                  headText: 'Priority/Disaster Code',items: [],
+                                  onChanged: (newValue) {
+
+                                  },);
                               }
                               if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
@@ -442,7 +452,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           'Primary Care Giver',
                           style: TextStyle(
                               fontSize: FontSize.s14,
-                              fontWeight: FontWeightManager.semiBold,
+                              fontWeight: FontWeightManager.bold,
                               color: ColorManager.mediumgrey),
                         )
                       ],
@@ -451,8 +461,15 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                     Row(
                       children: [
                         Flexible(
-                            child: SchedularTextField(
-                                controller: ctlrPreffix, labelText: 'Prefix')),
+                            child: CustomDropdownTextFieldsm(
+                    initialValue: 'Prefix',
+                    headText: '',
+                      items: ['Item 1','Item 2'],
+                      onChanged: (newValue) {
+                      },)
+                            // SchedularTextField(
+                            //     controller: ctlrPreffix, labelText: 'Prefix')
+    ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
@@ -479,7 +496,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                                controller: ctlrSuffix, labelText: 'Suffix')),
+                                controller: ctlrSuffix, labelText: '',hintText: 'Suffix',)),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                           child: Row(
@@ -496,7 +513,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                                 checkColor: Colors.white, // Color of the check mark
                                 activeColor: Color(0xff50B5E5), // Color of the checkbox when selected
                                 side: BorderSide(color: Colors.blue, width: 2), // Border color of the checkbox
-                              ),
+                              ).paddingOnly(bottom: 4),
 
                               // Checkbox(
                               //   // checkColor: Color(0xff50B5E5),
@@ -510,7 +527,8 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                               Expanded(
                                   child: SchedularTextField(
                                     controller: optforChaps,
-                                      labelText: 'Opt for CAHPS Survey')),
+                                      labelText: '',
+                                      hintText: 'Opt for CAHPS Survey')),
                             ],
                           ),
                         ),
@@ -518,7 +536,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                         Flexible(
                             child: SchedularTextField(
                                 controller: ctlrAddress,
-                                labelText: AppString.address)),
+                                labelText: AppStringSMModule.addressSM)),
                         SizedBox(width: 35),
                         Flexible(
                             child: SchedularTextField(
@@ -535,10 +553,11 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return SchedularTextField(
-                                  controller: dummyCtrl,
-                                  labelText: 'City',
-                                  );
+                                return CustomDropdownTextFieldsm(
+                                  initialValue: 'Select',
+                                  headText: 'City',items: [],
+                                  onChanged: (newValue) {
+                                  },);
                               }
                               if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
@@ -573,10 +592,13 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return SchedularTextField(
-                                  controller: dummyCtrl,
-                                  labelText: 'State',
-                                  );
+                                return CustomDropdownTextFieldsm(
+                                  initialValue: 'Select',
+                                  headText: 'State',items: [],
+                                  onChanged: (newValue) {
+
+                                  },);
+
                               }
                               if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];
@@ -634,10 +656,11 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return SchedularTextField(
-                                  controller: dummyCtrl,
-                                  labelText: 'Relationship',
-                                  );
+                                return CustomDropdownTextFieldsm(
+                                  initialValue: 'Select',
+                                  headText: 'Relationship',items: [],
+                                  onChanged: (newValue) {
+                                  },);
                               }
                               if (snapshot.hasData) {
                                 List<DropdownMenuItem<String>> dropDownList = [];

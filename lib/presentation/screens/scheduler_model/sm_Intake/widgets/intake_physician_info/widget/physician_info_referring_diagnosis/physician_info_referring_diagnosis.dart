@@ -87,8 +87,8 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
             padding: EdgeInsets.only(left: 29.0, right: 32.0),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: ColorManager.containerBorderGrey),
-                borderRadius: BorderRadius.circular(15.0),
+                // border: Border.all(color: ColorManager.containerBorderGrey),
+                // borderRadius: BorderRadius.circular(15.0),
                 color: Colors.white,
               ),
               //height: MediaQuery.of(context).size.height / 0.9,
@@ -311,7 +311,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                 'Last Inpatient Stay Information',
                                 style: TextStyle(
                                     fontSize: FontSize.s14,
-                                    fontWeight: FontWeightManager.semiBold,
+                                    fontWeight: FontWeightManager.bold,
                                     color: ColorManager.textPrimaryColor),
                               ),
                             ),

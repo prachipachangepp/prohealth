@@ -14,6 +14,7 @@ import '../../hr_module/manage/widgets/bottom_row.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../sm_Intake/intake_main_screen.dart';
 import '../sm_scheduler/widget/schedular/schedular_new_screen.dart';
+import '../sm_scheduler/widget/schedular/widget/tab_widget/auto_tab.dart';
 
 class SMDesktopScreen extends StatefulWidget {
   final ValueChanged<String?>? onChanged;
@@ -50,6 +51,7 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
 
   bool _showHighestCaseViewMoreScreen = false;
   bool _showHighesClinicianTypeViewMoreScreen = false;
+  bool _showAutoScreen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,9 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
           children: [
             const ApplicationAppBar(headingText: "Scheduling Manager"),
             ///2nd  buttons
-            Container(
+            _showAutoScreen
+                ? SizedBox(height: 30,)
+                : Container(
              // color: Colors.pink,
               margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p20),
               child: Row(
@@ -217,6 +221,14 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                     _showHighesClinicianTypeViewMoreScreen = false; // Show PageView
                   });
                 },)
+              : _showAutoScreen
+              ? Auto_Assign(
+                onGoBackAuto: (){
+                  setState(() {
+                    _showAutoScreen = false;
+                  });
+                },
+              )
               : PageView(
                 controller: _pageController,
                 onPageChanged: (index){
@@ -235,6 +247,11 @@ class _SMDesktopScreenState extends State<SMDesktopScreen> {
                       _showHighesClinicianTypeViewMoreScreen = true; // Show view-more screen
                     });
                   },
+                    onAutoTap: (){
+                      setState(() {
+                        _showAutoScreen = true; // Show view-more screen
+                      });
+                    },
                   ),
                   IntakeMainScreen(),
                  // SMIntakeScreen(),

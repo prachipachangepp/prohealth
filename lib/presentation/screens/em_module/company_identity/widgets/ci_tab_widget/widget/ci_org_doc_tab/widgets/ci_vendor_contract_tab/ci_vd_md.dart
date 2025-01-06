@@ -72,7 +72,6 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                         child: CircularProgressIndicator(color: ColorManager.blueprime,),
                       );
                     }
-
                     var name = snapshotPrefill.data!.docName;
                     docNameController = TextEditingController(text: snapshotPrefill.data!.docName);
 
