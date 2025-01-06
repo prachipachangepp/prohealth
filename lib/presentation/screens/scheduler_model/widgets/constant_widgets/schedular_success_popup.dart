@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -38,9 +37,9 @@ class SchedularSuccessPopup extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
                       title,
-                      style: GoogleFonts.firaSans(
+                      style: TextStyle(
                         fontSize: FontSize.s14,
-                        fontWeight: FontWeightManager.semiBold,
+                        fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
@@ -64,7 +63,7 @@ class SchedularSuccessPopup extends StatelessWidget {
                 width: AppSize.s210,
                 child: Text('Saved Successfully. \nThank You!',textAlign: TextAlign.center,
                   style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.regular,
+                      fontWeight: FontWeight.w400,
                       fontSize: FontSize.s16,
                       color: ColorManager.mediumgrey
                   ),),

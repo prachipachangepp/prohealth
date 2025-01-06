@@ -1137,7 +1137,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                             child: Text(
                                                               "No available coverage!",
                                                               style: CustomTextStylesCommon.commonStyle(
-                                                                  fontWeight: FontWeightManager.medium,
+                                                                  fontWeight: FontWeight.w500,
                                                                   fontSize: FontSize.s14,
                                                                   color: ColorManager.mediumgrey),
                                                             ),

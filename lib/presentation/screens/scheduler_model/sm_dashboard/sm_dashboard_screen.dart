@@ -450,7 +450,7 @@ class CustomContainer extends StatelessWidget {
                     decoration: TextDecoration.none,
                     color: ColorManager.granitegray,
                     fontSize: FontSize.s16,
-                    fontWeight: FontWeightManager.semiBold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
@@ -459,7 +459,7 @@ class CustomContainer extends StatelessWidget {
                     decoration: TextDecoration.none,
                     color: ColorManager.granitegray,
                     fontSize: FontSize.s16,
-                    fontWeight: FontWeightManager.semiBold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],

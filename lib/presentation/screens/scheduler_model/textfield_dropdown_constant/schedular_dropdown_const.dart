@@ -1,77 +1,4 @@
-//
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
-//
-// import '../../../../app/resources/color.dart';
-// import '../../../../app/resources/font_manager.dart';
-// import '../../../../app/resources/value_manager.dart';
-//
-// class SchedularDropdown extends StatelessWidget {
-//   final String labelText;
-//   final List<String>? items;
-//   final String? initialValue;
-//
-//   const SchedularDropdown({
-//     super.key,
-//     required this.labelText,
-//     this.items,
-//     this.initialValue,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 25.38,
-//       child: DropdownButtonFormField<String>(
-//         value: initialValue,
-//         style: GoogleFonts.firaSans(
-//           fontSize: AppSize.s12,
-//           fontWeight: FontWeightManager.regular,
-//           color: ColorManager.black,
-//         ),
-//         decoration: InputDecoration(
-//           labelText: labelText,
-//           labelStyle: GoogleFonts.firaSans(
-//             fontSize: 10,
-//             fontWeight: FontWeightManager.regular,
-//             color: ColorManager.greylight, // text color in dropdown
-//           ),
-//           border: OutlineInputBorder(),
-//           focusedBorder: OutlineInputBorder(
-//             borderSide: BorderSide(color: Color(0XFFB1B1B1)),                                   // border color
-//           ),
-//           contentPadding: EdgeInsets.symmetric(vertical: 2,horizontal: 10),
-//         ),
-//         items: items?.map((value) => DropdownMenuItem<String>(
-//           value: value,
-//           child: Text(value),
-//         )).toList(),
-//         onChanged: (value) {
-//           // Handle dropdown change
-//         },
-//         icon: Padding(
-//           padding:  EdgeInsets.only(right: 8),
-//           child: Align(
-//             alignment: Alignment.center,
-//             child: Icon(
-//               Icons.arrow_drop_down,
-//               color: ColorManager.blueprime,                                                 // dropdown icon color
-//               size: 24,                                                                      // size of icon
-//             ),
-//           ),
-//         ),
-//         isDense: true,
-//       ),
-//     );
-//   }
-// }
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
@@ -110,16 +37,16 @@ class _SchedularDropdownState extends State<SchedularDropdown> {
       height: 25.38,
       child: DropdownButtonFormField<String>(
         value: _selectedValue,
-        style: GoogleFonts.firaSans(
+        style: TextStyle(
           fontSize: AppSize.s12,
-          fontWeight: FontWeightManager.regular,
+          fontWeight: FontWeight.w400,
           color: ColorManager.black,
         ),
         decoration: InputDecoration(
           labelText: widget.labelText,
-          labelStyle: GoogleFonts.firaSans(
+          labelStyle: TextStyle(
             fontSize: FontSize.s10,
-            fontWeight: FontWeightManager.regular,
+            fontWeight: FontWeight.w400,
             color: ColorManager.greylight, // text color in dropdown
           ),
           border: const OutlineInputBorder(),

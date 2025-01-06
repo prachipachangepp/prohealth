@@ -6,8 +6,9 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+
+import '../../../../../../../../app/resources/theme_manager.dart';
 
 class OtherEditAddPopup extends StatefulWidget {
   final TextEditingController idController;
@@ -176,7 +177,7 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                     children: [
                       Text(
                         'Expiry Type',
-                        style: GoogleFonts.firaSans(
+                        style: TextStyle(
                           fontSize: FontSize.s14,
                           fontWeight: FontWeight.w700,
                           color: ColorManager.mediumgrey,
@@ -190,9 +191,9 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                           RadioListTile<String>(
                             title: Text(
                               'Not Applicable',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
+                                fontWeight: FontWeight.w500,
                                 color: ColorManager.mediumgrey,
                                 decoration: TextDecoration.none,
                               ),
@@ -209,9 +210,9 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                           RadioListTile<String>(
                             title: Text(
                               'Scheduled',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
+                                fontWeight: FontWeight.w500,
                                 color: ColorManager.mediumgrey,
                                 decoration: TextDecoration.none,
                               ),
@@ -228,9 +229,9 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                           RadioListTile<String>(
                             title: Text(
                               'Issuer Expiry',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
+                                fontWeight: FontWeight.w500,
                                 color: ColorManager.mediumgrey,
                                 decoration: TextDecoration.none,
                               ),

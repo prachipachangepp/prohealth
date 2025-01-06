@@ -80,204 +80,205 @@ class _IntakeNotesMiscellaneousScreenState
                       String? selectedDocType;
                       String? selectedExpiryType = expiryType;
                       String? expDate = calenderController.text;
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return MiscellaneousAddPopUp(
-                              title: 'Add New Notes',
-                              patientId: widget.patientId,
-                              fileName: fileName,
-                              filePath: filePath,
-                              idDocController: docIdController,
-                              nameDocController: docNamecontroller,
-                              calenderController: calenderController,
-
-                              // child2: ,
-                              radioButton: StatefulBuilder(
-                                builder: (BuildContext context,
-                                    void Function(void Function()) setState) {
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        AppString.expiry_type,
-                                        style: AllPopupHeadings.customTextStyle(context)
-                                      ),
-                                      CustomRadioListTile(
-                                        value: "Not Applicable",
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                            if (selectedExpiryType ==
-                                                "Not Applicable") {
-                                              expDate = "";
-                                            }
-                                          });
-                                        },
-                                        title: "Not Applicable",
-                                      ),
-                                      CustomRadioListTile(
-                                        value: 'Scheduled',
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: 'Scheduled',
-                                      ),
-                                      CustomRadioListTile(
-                                        value: 'Issuer Expiry',
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: 'Issuer Expiry',
-                                      ),
-                                      Visibility(
-                                        visible:
-                                            selectedExpiryType == "Scheduled" ||
-                                                selectedExpiryType ==
-                                                    "Issuer Expiry",
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              AppString.expiry_date,
-                                              style: AllPopupHeadings.customTextStyle(context)
-                                            ),
-                                            SizedBox(height: AppSize.s10),
-                                            FormField<String>(
-                                              builder: (FormFieldState<String>
-                                                  field) {
-                                                return SizedBox(
-                                                  width: AppSize.s354,
-                                                  height: AppSize.s30,
-                                                  child: TextFormField(
-                                                    controller:
-                                                        calenderController,
-                                                    cursorColor:
-                                                        ColorManager.black,
-                                                    style:TableSubHeading.customTextStyle(context),
-                                                    decoration: InputDecoration(
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color: ColorManager
-                                                                .fmediumgrey,
-                                                            width: AppSize.s1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                      ),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color: ColorManager
-                                                                .fmediumgrey,
-                                                            width: AppSize.s1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                      ),
-                                                      hintText: 'mm-dd-yyyy',
-                                                      hintStyle:
-                                                      TableSubHeading.customTextStyle(context),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        borderSide: BorderSide(
-                                                            width: AppSize.s1,
-                                                            color: ColorManager
-                                                                .fmediumgrey),
-                                                      ),
-                                                      contentPadding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 16),
-                                                      suffixIcon: Icon(
-                                                          Icons
-                                                              .calendar_month_outlined,
-                                                          color: ColorManager
-                                                              .blueprime),
-                                                      errorText:
-                                                          field.errorText,
-                                                    ),
-                                                    onTap: () async {
-                                                      DateTime? pickedDate =
-                                                          await showDatePicker(
-                                                        context: context,
-                                                        initialDate:
-                                                            DateTime.now(),
-                                                        firstDate:
-                                                            DateTime(2000),
-                                                        lastDate:
-                                                            DateTime(3101),
-                                                      );
-                                                      if (pickedDate != null) {
-                                                        calenderController
-                                                            .text = DateFormat(
-                                                                'MM-dd-yyyy')
-                                                            .format(pickedDate);
-                                                      }
-                                                    },
-                                                    validator: (value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) {
-                                                        return 'Please select date';
-                                                      }
-                                                      return null;
-                                                    },
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                              onPressed: () async {
-                                print('File path on pressed ${filePath}');
-                                setState(() {
-                                  _isLoading = true;
-                                });
-                                String expiryTypeToSend =
-                                selectedExpiryType == "Not Applicable"
-                                    ? "--"
-                                    : calenderController.text;
-                                try {
-                                  await addNotesMiscPost(
-                                    context: context,
-                                    patientId: widget.patientId,
-                                    docTypeId: docTypeId, //  docTypeId,
-                                    docName: docNamecontroller.text,
-                                    docUrl: "some_doc_url",
-                                    createdAt: calenderController.text,
-                                    docType: selectedDocType!,
-                                    // expDate: "${calenderController.text}T09:39:48.030Z",
-                                     expDate: "2024-08-16T09:39:48.030Z",
-                                  );
-                                  print("DocName${docNamecontroller.text}");
-                                } catch (e) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content:
-                                              Text("An error occurred: $e")));
-                                }
-                              }
-                              );
-                            },
-                      );
+                    ///dont delete api integrated
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) {
+                      //     return MiscellaneousAddPopUp(
+                      //         title: 'Add New Notes',
+                      //         patientId: widget.patientId,
+                      //         fileName: fileName,
+                      //         filePath: filePath,
+                      //         idDocController: docIdController,
+                      //         nameDocController: docNamecontroller,
+                      //         calenderController: calenderController,
+                      //
+                      //         // child2: ,
+                      //         radioButton: StatefulBuilder(
+                      //           builder: (BuildContext context,
+                      //               void Function(void Function()) setState) {
+                      //             return Column(
+                      //               mainAxisAlignment: MainAxisAlignment.start,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   AppString.expiry_type,
+                      //                   style: AllPopupHeadings.customTextStyle(context)
+                      //                 ),
+                      //                 CustomRadioListTile(
+                      //                   value: "Not Applicable",
+                      //                   groupValue: selectedExpiryType,
+                      //                   onChanged: (value) {
+                      //                     setState(() {
+                      //                       selectedExpiryType = value;
+                      //                       if (selectedExpiryType ==
+                      //                           "Not Applicable") {
+                      //                         expDate = "";
+                      //                       }
+                      //                     });
+                      //                   },
+                      //                   title: "Not Applicable",
+                      //                 ),
+                      //                 CustomRadioListTile(
+                      //                   value: 'Scheduled',
+                      //                   groupValue: selectedExpiryType,
+                      //                   onChanged: (value) {
+                      //                     setState(() {
+                      //                       selectedExpiryType = value;
+                      //                     });
+                      //                   },
+                      //                   title: 'Scheduled',
+                      //                 ),
+                      //                 CustomRadioListTile(
+                      //                   value: 'Issuer Expiry',
+                      //                   groupValue: selectedExpiryType,
+                      //                   onChanged: (value) {
+                      //                     setState(() {
+                      //                       selectedExpiryType = value;
+                      //                     });
+                      //                   },
+                      //                   title: 'Issuer Expiry',
+                      //                 ),
+                      //                 Visibility(
+                      //                   visible:
+                      //                       selectedExpiryType == "Scheduled" ||
+                      //                           selectedExpiryType ==
+                      //                               "Issuer Expiry",
+                      //                   child: Column(
+                      //                     crossAxisAlignment:
+                      //                         CrossAxisAlignment.start,
+                      //                     children: [
+                      //                       Text(
+                      //                         AppString.expiry_date,
+                      //                         style: AllPopupHeadings.customTextStyle(context)
+                      //                       ),
+                      //                       SizedBox(height: AppSize.s10),
+                      //                       FormField<String>(
+                      //                         builder: (FormFieldState<String>
+                      //                             field) {
+                      //                           return SizedBox(
+                      //                             width: AppSize.s354,
+                      //                             height: AppSize.s30,
+                      //                             child: TextFormField(
+                      //                               controller:
+                      //                                   calenderController,
+                      //                               cursorColor:
+                      //                                   ColorManager.black,
+                      //                               style:TableSubHeading.customTextStyle(context),
+                      //                               decoration: InputDecoration(
+                      //                                 enabledBorder:
+                      //                                     OutlineInputBorder(
+                      //                                   borderSide: BorderSide(
+                      //                                       color: ColorManager
+                      //                                           .fmediumgrey,
+                      //                                       width: AppSize.s1),
+                      //                                   borderRadius:
+                      //                                       BorderRadius
+                      //                                           .circular(8),
+                      //                                 ),
+                      //                                 focusedBorder:
+                      //                                     OutlineInputBorder(
+                      //                                   borderSide: BorderSide(
+                      //                                       color: ColorManager
+                      //                                           .fmediumgrey,
+                      //                                       width: AppSize.s1),
+                      //                                   borderRadius:
+                      //                                       BorderRadius
+                      //                                           .circular(8),
+                      //                                 ),
+                      //                                 hintText: 'mm-dd-yyyy',
+                      //                                 hintStyle:
+                      //                                 TableSubHeading.customTextStyle(context),
+                      //                                 border:
+                      //                                     OutlineInputBorder(
+                      //                                   borderRadius:
+                      //                                       BorderRadius
+                      //                                           .circular(8),
+                      //                                   borderSide: BorderSide(
+                      //                                       width: AppSize.s1,
+                      //                                       color: ColorManager
+                      //                                           .fmediumgrey),
+                      //                                 ),
+                      //                                 contentPadding:
+                      //                                     EdgeInsets.symmetric(
+                      //                                         horizontal: 16),
+                      //                                 suffixIcon: Icon(
+                      //                                     Icons
+                      //                                         .calendar_month_outlined,
+                      //                                     color: ColorManager
+                      //                                         .blueprime),
+                      //                                 errorText:
+                      //                                     field.errorText,
+                      //                               ),
+                      //                               onTap: () async {
+                      //                                 DateTime? pickedDate =
+                      //                                     await showDatePicker(
+                      //                                   context: context,
+                      //                                   initialDate:
+                      //                                       DateTime.now(),
+                      //                                   firstDate:
+                      //                                       DateTime(2000),
+                      //                                   lastDate:
+                      //                                       DateTime(3101),
+                      //                                 );
+                      //                                 if (pickedDate != null) {
+                      //                                   calenderController
+                      //                                       .text = DateFormat(
+                      //                                           'MM-dd-yyyy')
+                      //                                       .format(pickedDate);
+                      //                                 }
+                      //                               },
+                      //                               validator: (value) {
+                      //                                 if (value == null ||
+                      //                                     value.isEmpty) {
+                      //                                   return 'Please select date';
+                      //                                 }
+                      //                                 return null;
+                      //                               },
+                      //                             ),
+                      //                           );
+                      //                         },
+                      //                       ),
+                      //                     ],
+                      //                   ),
+                      //                 ),
+                      //               ],
+                      //             );
+                      //           },
+                      //         ),
+                      //         onPressed: () async {
+                      //           print('File path on pressed ${filePath}');
+                      //           setState(() {
+                      //             _isLoading = true;
+                      //           });
+                      //           String expiryTypeToSend =
+                      //           selectedExpiryType == "Not Applicable"
+                      //               ? "--"
+                      //               : calenderController.text;
+                      //           try {
+                      //             await addNotesMiscPost(
+                      //               context: context,
+                      //               patientId: widget.patientId,
+                      //               docTypeId: docTypeId, //  docTypeId,
+                      //               docName: docNamecontroller.text,
+                      //               docUrl: "some_doc_url",
+                      //               createdAt: calenderController.text,
+                      //               docType: selectedDocType!,
+                      //               // expDate: "${calenderController.text}T09:39:48.030Z",
+                      //                expDate: "2024-08-16T09:39:48.030Z",
+                      //             );
+                      //             print("DocName${docNamecontroller.text}");
+                      //           } catch (e) {
+                      //             ScaffoldMessenger.of(context).showSnackBar(
+                      //                 SnackBar(
+                      //                     content:
+                      //                         Text("An error occurred: $e")));
+                      //           }
+                      //         }
+                      //         );
+                      //       },
+                      // );
                     },
                   ),
                 ),
@@ -309,11 +310,7 @@ class _IntakeNotesMiscellaneousScreenState
                        return Center(
                          child: Text(
                            AppString.dataNotFound,
-                           style: CustomTextStylesCommon.commonStyle(
-                             fontWeight: FontWeightManager.medium,
-                             fontSize: FontSize.s14,
-                             color: ColorManager.mediumgrey,
-                           ),
+                           style: AllNoDataAvailable.customTextStyle(context),
                          ),
                        );
                      }
@@ -687,13 +684,14 @@ class _IntakeNotesMiscellaneousScreenState
                                            SizedBox(width: 20),
                                            ElevatedButton(
                                              onPressed: () {
-                                               showDialog(
-                                                 context: context,
-                                                 builder: (BuildContext
-                                                     context) {
-                                                   return MiscellaneousEditPopUp();
-                                                 },
-                                               );
+                                               ///dont delte commeneted as prototype not there
+                                               // showDialog(
+                                               //   context: context,
+                                               //   builder: (BuildContext
+                                               //       context) {
+                                               //     return MiscellaneousEditPopUp();
+                                               //   },
+                                               // );
                                              },
                                              child: Row(
                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,

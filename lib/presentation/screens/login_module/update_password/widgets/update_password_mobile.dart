@@ -92,12 +92,12 @@ class _MobileUpdatePassState extends State<MobileUpdatePass> {
                     color: ColorManager.mediumgrey,
                     fontSize: FontSize.s10,
                     // fontSize: MediaQuery.of(context).size.width/33,
-                    fontWeight: FontWeightManager.medium),
+                    fontWeight: FontWeight.w500),
               ),
               TextFormField(
                 style: CustomTextStylesCommon.commonStyle(
                   color: ColorManager.black.withOpacity(0.5),
-                  fontWeight: FontWeightManager.medium,
+                  fontWeight: FontWeight.w500,
                   fontSize: FontSize.s14,
                 ),
                 focusNode: newPasswordFocusNode,
@@ -144,7 +144,7 @@ class _MobileUpdatePassState extends State<MobileUpdatePass> {
                   errorStyle: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.red,
                     fontSize: FontSize.s10,
-                    fontWeight: FontWeightManager.semiBold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 validator: (value) {
@@ -164,7 +164,7 @@ class _MobileUpdatePassState extends State<MobileUpdatePass> {
                 controller: controllerConfirm,
                 style: CustomTextStylesCommon.commonStyle(
                   color: ColorManager.black.withOpacity(0.5),
-                  fontWeight: FontWeightManager.medium,
+                  fontWeight: FontWeight.w500,
                   fontSize: FontSize.s14,
                 ),
                 cursorColor: ColorManager.black,
@@ -203,7 +203,7 @@ class _MobileUpdatePassState extends State<MobileUpdatePass> {
                   errorStyle: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.red,
                     fontSize: FontSize.s10,
-                    fontWeight: FontWeightManager.semiBold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 validator: (value) {
@@ -228,7 +228,7 @@ class _MobileUpdatePassState extends State<MobileUpdatePass> {
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.white,
                     fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                   backgroundColor: ColorManager.blueprime,
                   onPressed: () async {
@@ -280,7 +280,7 @@ class _MobileUpdatePassState extends State<MobileUpdatePass> {
                                         ColorManager.mediumgrey,
                                         fontSize: FontSize.s18,
                                         fontWeight:
-                                        FontWeightManager.bold,
+                                        FontWeight.w700,
                                       ),
                                     ),
                                     Text(
@@ -291,7 +291,7 @@ class _MobileUpdatePassState extends State<MobileUpdatePass> {
                                         ColorManager.mediumgrey,
                                         fontSize: FontSize.s10,
                                         fontWeight:
-                                        FontWeightManager.medium,
+                                        FontWeight.w500,
                                       ),
                                     ),
                                     CustomButton(
@@ -302,8 +302,7 @@ class _MobileUpdatePassState extends State<MobileUpdatePass> {
                                           .commonStyle(
                                         color: ColorManager.white,
                                         fontSize: FontSize.s10,
-                                        fontWeight: FontWeightManager
-                                            .semiBold,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                       borderRadius: 19.37,
                                       onPressed: () {
@@ -400,7 +399,7 @@ class _MobileUpdatePassState extends State<MobileUpdatePass> {
                     style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.red,
                       fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.bold,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),

@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -97,11 +96,10 @@ class HomeScreenMobile extends StatelessWidget {
                                       //SizedBox(height: 10,),
                                       Text(
                                         'Select a Module',
-                                        style: GoogleFonts.firaSans(
+                                        style: CustomTextStylesCommon.commonStyle(
                                           color: ColorManager.mediumgrey,
                                           fontSize: FontSize.s16,
-                                          fontWeight:
-                                          FontWeight.w600,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                     ],
@@ -292,7 +290,7 @@ class HomeScreenMobile extends StatelessWidget {
               children: [
                 Text(
                   AppString.poweredby,
-                  style: GoogleFonts.firaSans(
+                  style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.black,
                     fontSize: FontSize.s14,
                     fontWeight: FontWeight.w400,

@@ -1,7 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -157,7 +156,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 padding: const EdgeInsets.only(right: 60),
                 child: Text(
                   pickedFileName!,
-                  style: GoogleFonts.firaSans(
+                  style: CustomTextStylesCommon.commonStyle(
                       fontSize: FontSize.s10,
                       color: ColorManager.mediumgrey),
                 ),

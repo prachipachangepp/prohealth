@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+
+import '../../../../../../../app/resources/theme_manager.dart';
 
 class EditTimeOffPopup extends StatefulWidget {
   final TextEditingController ptoController;
@@ -168,9 +169,9 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
             padding: EdgeInsets.only(left: 25.0),
             child: Text(
               widget.labelName,
-              style: GoogleFonts.firaSans(
+              style: CustomTextStylesCommon.commonStyle(
                 fontSize: FontSize.s14,
-                fontWeight: FontWeightManager.bold,
+                fontWeight: FontWeight.w700,
                 color: ColorManager.white,
               ),
             ),

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../../../resources/common_resources/common_theme_const.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/sm_repository/patient_data/patient_data_info_repo.dart';
@@ -141,10 +141,7 @@ Future<ApiData> IntakeRelatedPartyAdd(
                   SizedBox(height: 20.0),
                   Text(
                     "Successfully Add !",
-                    style: GoogleFonts.firaSans(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700),
+                    style: APIErrorTextConst.customTextStyle(context),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 30.0),
@@ -218,10 +215,7 @@ Future<ApiData> IntakeRelatedPartyAdd(
                   SizedBox(height: 20.0),
                   Text(
                     "Failed, Please Try Again !",
-                    style: GoogleFonts.firaSans(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700),
+                    style: APIErrorTextConst.customTextStyle(context),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 30.0),
@@ -277,10 +271,7 @@ Future<ApiData> IntakeRelatedPartyAdd(
                 SizedBox(height: 20.0),
                 Text(
                   "Please Try Again !",
-                  style: GoogleFonts.firaSans(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700),
+                  style: APIErrorTextConst.customTextStyle(context),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 30.0),

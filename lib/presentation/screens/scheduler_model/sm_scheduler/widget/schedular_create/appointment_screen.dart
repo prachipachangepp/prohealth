@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/scheduler/scheduler_create_manager.dart';
@@ -419,10 +417,10 @@ class SummaryRowConst extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 title,
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                     // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                     color: ColorManager.blueprime),
               ),
             ),
@@ -432,10 +430,10 @@ class SummaryRowConst extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 count1,
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                     // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
-                    fontWeight: FontWeightManager.regular,
+                    fontWeight: FontWeight.w400,
                     color: ColorManager.textBlack),
               ),
             ),
@@ -445,10 +443,10 @@ class SummaryRowConst extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 count2,
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                     // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
-                    fontWeight: FontWeightManager.regular,
+                    fontWeight: FontWeight.w400,
                     color: ColorManager.textBlack),
               ),
             ),
@@ -482,10 +480,10 @@ class ComplianceRowConst extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 title,
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                     // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
-                    fontWeight: FontWeightManager.bold,
+                    fontWeight: FontWeight.w700,
                     color: ColorManager.blueprime),
               ),
             ),
@@ -495,10 +493,10 @@ class ComplianceRowConst extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: Text(
                 count1,
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                     // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
-                    fontWeight: FontWeightManager.regular,
+                    fontWeight: FontWeight.w400,
                     color: ColorManager.textBlack),
               ),
             ),

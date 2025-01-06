@@ -353,7 +353,6 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:calendar_view/calendar_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -527,9 +526,9 @@ class _CalenderConstantState extends State<CalenderConstant> {
                           onPressed: widget.onBack,
                           label: Text(
                             'Back',
-                            style: GoogleFonts.firaSans(
+                            style: CustomTextStylesCommon.commonStyle(
                                 fontSize: FontSize.s14,
-                                fontWeight: FontWeightManager.medium,
+                                fontWeight: FontWeight.w500,
                                 color: ColorManager.textBlack),
                           ),
                           icon: Icon(Icons.keyboard_arrow_left_rounded, color: ColorManager.textBlack),
@@ -778,21 +777,21 @@ class _CalenderConstantState extends State<CalenderConstant> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(event.title, style: GoogleFonts.firaSans(
-                            fontWeight: FontWeightManager.bold,
+                          Text(event.title, style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeight.w700,
                             color: ColorManager.mediumgrey,
                           )),
-                          Text(event.description!,style: GoogleFonts.firaSans(
-                            fontWeight: FontWeightManager.bold,
+                          Text(event.description!,style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeight.w700,
                             color: ColorManager.mediumgrey,
                           )),
-                          Text('Start: ${DateFormat('hh:mm a').format(event.startTime!)}', style: GoogleFonts.firaSans(
-                            fontWeight: FontWeightManager.bold,
+                          Text('Start: ${DateFormat('hh:mm a').format(event.startTime!)}', style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeight.w700,
                             fontSize: FontSize.s10,
                             color: ColorManager.mediumgrey,
                           )),
-                          Text('End: ${DateFormat('hh:mm a').format(event.endTime!)}', style: GoogleFonts.firaSans(
-                            fontWeight: FontWeightManager.bold,
+                          Text('End: ${DateFormat('hh:mm a').format(event.endTime!)}', style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeight.w700,
                             fontSize: FontSize.s10,
                             color: ColorManager.mediumgrey,
                           )),
@@ -931,7 +930,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
                 child: Text(
                   AppString.dataNotFound,
                   style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
+                    fontWeight: FontWeight.w500,
                     fontSize: FontSize.s14,
                     color: ColorManager.mediumgrey,
                   ),
@@ -1009,7 +1008,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
                         SizedBox(height: 20.0),
                         Text(
                           "Successfully Add !",
-                          style: GoogleFonts.firaSans(
+                          style: CustomTextStylesCommon.commonStyle(
                               fontSize: 16.0,
                               color: Colors.black,
                               fontWeight: FontWeight.w700),

@@ -15,7 +15,7 @@ class TextInkwellButton extends StatelessWidget {
       onTap: onTap,
       child: Text(text,style: TextStyle(
         fontFamily: 'FiraSans',
-        fontWeight: FontWeightManager.bold,
+        fontWeight: FontWeight.w700,
         fontSize: FontSize.s12,
         color: ColorManager.blueprime,
       ),),

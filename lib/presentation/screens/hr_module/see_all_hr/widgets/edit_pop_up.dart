@@ -698,7 +698,6 @@
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../app/resources/color.dart';
@@ -752,7 +751,7 @@ class _EditPopUpState extends State<EditPopUp> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 'Edit',
-                style: GoogleFonts.firaSans(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
@@ -803,7 +802,7 @@ class _EditPopUpState extends State<EditPopUp> {
                             padding: EdgeInsets.only(left: 10.0, top: 10),
                             child: Text(
                               'Gender',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
                                 color: Color(0xff575757),
@@ -866,7 +865,7 @@ class _EditPopUpState extends State<EditPopUp> {
                             padding: EdgeInsets.only(left: 10.0, top: 10),
                             child: Text(
                               'Race',
-                              style: GoogleFonts.firaSans(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
                                 color: Color(0xff575757),
