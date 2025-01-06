@@ -8,8 +8,6 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
@@ -84,7 +82,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SizedBox(
-            height: 5,
+            height: AppSize.s5,
           ),
           Expanded(
             child: StreamBuilder<List<MCorporateComplianceModal>>(
@@ -134,7 +132,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(AppPadding.p8),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -149,7 +147,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                             ],
                                           ),
                                           height: AppSize.s50,
-                                          child: Padding(padding: const EdgeInsets.symmetric(horizontal: 15),
+                                          child: Padding(padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [

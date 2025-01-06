@@ -1,11 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
-
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-// import 'package:google_maps_flutter_web/google_maps_flutter_web.dart';
 
 class MapScreen extends StatefulWidget {
   final LatLng initialLocation;

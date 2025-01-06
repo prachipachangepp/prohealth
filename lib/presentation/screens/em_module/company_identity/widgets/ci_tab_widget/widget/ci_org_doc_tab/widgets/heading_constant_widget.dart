@@ -10,8 +10,8 @@ class TableHeadingConst extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: AppSize.s30,
-      margin: EdgeInsets.symmetric(horizontal: 48,vertical: 10),
-      padding: EdgeInsets.only(left: 100,right: 50),
+      margin: EdgeInsets.symmetric(horizontal: AppMargin.m48,vertical: AppMargin.m10),
+      padding: EdgeInsets.only(left: AppPadding.p100,right: AppPadding.p50),
       decoration: BoxDecoration(
         color: ColorManager.fmediumgrey,
         borderRadius: BorderRadius.circular(12),
@@ -28,7 +28,7 @@ class TableHeadingConst extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.only(right: 90),
+              padding: EdgeInsets.only(right: AppPadding.p90),
               child: Text(
                 AppStringEM.docID,
                 textAlign: TextAlign.start,
@@ -39,7 +39,7 @@ class TableHeadingConst extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.only(right: 55.0),
+              padding: const EdgeInsets.only(right: AppPadding.p55),
               child: Text(
                 AppStringEM.name,
                 style: TableHeading.customTextStyle(context),
@@ -49,7 +49,7 @@ class TableHeadingConst extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.only(left: 20.0),
+              padding: const EdgeInsets.only(left: AppPadding.p20),
               child: Text(
                 AppStringEM.reminderthershold,
                 style: TableHeading.customTextStyle(context),

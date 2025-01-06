@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/font_manager.dart';
@@ -37,9 +38,9 @@ class UpperMenuButtons extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            height: 2,
-            width: 150,
+            margin: EdgeInsets.symmetric(vertical: AppMargin.m10),
+            width: AppSize.s150,
+            height: AppSize.s2,
             color:
                 grpIndex == index ? ColorManager.blueprime : Colors.transparent,
           ),

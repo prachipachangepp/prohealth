@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-
-import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../../../widgets/error_popups/failed_popup.dart';
 import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
@@ -73,7 +69,7 @@ class _CustomPopupState extends State<CustomPopup> {
                   SMTextfieldAsteric(
                     controller: nameController,
                     keyboardType: TextInputType.text,
-                    text: 'Vendor Name',
+                    text: AppStringEM.vendorName,
                   ),
                   if (!_isNameValid) // Show error text if name is invalid
                     Text(
@@ -89,7 +85,7 @@ class _CustomPopupState extends State<CustomPopup> {
         bottomButtons: CustomElevatedButton(
           width: AppSize.s105,
           height: AppSize.s30,
-          text: "Save",
+          text: AppStringEM.save,
           onPressed: () async{
             _validateInputs(); // Perform validation
             if (_isNameValid) {
@@ -150,7 +146,7 @@ class _CustomPopupState extends State<CustomPopup> {
               }
             }
           },
-        ), title: 'Edit Vendor',
+        ), title: AppStringEM.Editvendor,
 
     );
   }
@@ -203,7 +199,7 @@ class _AddVendorPopupState extends State<AddVendorPopup> {
               SMTextfieldAsteric(
                 controller: widget.namecontroller,
                 keyboardType: TextInputType.text,
-                text: 'Vendor Name',
+                text: AppStringEM.vendorName,
               ),
               if (!_isNameValid) // Show error text if name is invalid
                 Text(
@@ -253,7 +249,7 @@ class _AddVendorPopupState extends State<AddVendorPopup> {
             nameController.clear();
           }
         },
-      ), title:'Add Vendor',
+      ), title:AppStringEM.Addvendor,
 
     );
   }

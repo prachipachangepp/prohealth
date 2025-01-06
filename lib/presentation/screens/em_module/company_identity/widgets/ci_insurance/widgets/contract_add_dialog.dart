@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
-
 import '../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/const_string.dart';
@@ -81,14 +78,14 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
       height: AppSize.s500,
       body: [
        Padding(
-         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
          child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
              SMTextfieldAsteric(
                controller: contractNmaeController,
                keyboardType: TextInputType.text,
-               text: 'Contract Name',
+               text: AppStringEM.contractName,
              ),
              if (_nameDocError != null) // Display error if any
                Text(
@@ -100,11 +97,11 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
              SMTextfieldAsteric(
                controller: contractIdController,
                keyboardType: TextInputType.text,
-               text: 'Contract ID',
+               text: AppStringEM.contractId,
              ),
              if (_idDocError != null)
                Padding(
-                 padding: const EdgeInsets.only(top: 2.0),
+                 padding: const EdgeInsets.only(top: AppPadding.p2),
                  child: Text(
                    _idDocError!,
                    style: CommonErrorMsg.customTextStyle(context),
@@ -157,8 +154,8 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                      child: Row(
                        children: [
                          Container(
-                           height: 30,
-                           width: 50,
+                           height: AppSize.s30,
+                           width: AppSize.s50,
                            //color: ColorManager.red,
                            child: TextFormField(
                              textAlign: TextAlign.center,
@@ -180,7 +177,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                  borderRadius: BorderRadius.circular(8),
                                ),
                                contentPadding:
-                               EdgeInsets.symmetric(horizontal: 10),
+                               EdgeInsets.symmetric(horizontal: AppPadding.p10),
                              ),
                              keyboardType: TextInputType.number,
                              inputFormatters: [
@@ -189,11 +186,11 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                              ],
                            ),
                          ),
-                         SizedBox(width: 10),
+                         SizedBox(width: AppSize.s10),
                          Container(
-                           height: 30,
-                           width: 80,
-                           padding: EdgeInsets.symmetric(horizontal: 5),
+                           height: AppSize.s30,
+                           width: AppSize.s80,
+                           padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
                            decoration: BoxDecoration(
                              border: Border.all(
                                  color: ColorManager.fmediumgrey),
@@ -229,12 +226,12 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                focusedBorder: InputBorder.none,
                                hintText: AppConfig.year,
                                hintStyle:   DocumentTypeDataStyle.customTextStyle(context),
-                               contentPadding: EdgeInsets.only(bottom: 20),
+                               contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
                              ),
                              icon: Icon(
                                Icons.arrow_drop_down,
                                color: ColorManager.black,
-                               size: 16,
+                               size: IconSize.I16,
                              ),
                            ),
                          ),
@@ -254,8 +251,8 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                  content: FormField<String>(
                    builder: (FormFieldState<String> field) {
                      return SizedBox(
-                       width: 354,
-                       height: 30,
+                       height: AppSize.s30,
+                       width: AppSize.s354,
                        child: TextFormField(
                          controller: expiryDateController,
                          cursorColor: ColorManager.black,
@@ -279,7 +276,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                  width: 1, color: ColorManager.fmediumgrey),
                            ),
                            contentPadding:
-                           EdgeInsets.symmetric(horizontal: 16),
+                           EdgeInsets.symmetric(horizontal: AppPadding.p16),
                            suffixIcon: Icon(Icons.calendar_month_outlined,
                                color: ColorManager.blueprime),
                            errorText: field.errorText,

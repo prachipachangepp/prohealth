@@ -26,16 +26,24 @@ class AppStringEM{
   static const String roleManager =  "Role Manager";
   static const String orgdoc =   "Org Document";
   static const String Add =   "Add";
+  static const String logos =   "Logos";
+  //static const String Add =   "Add";
 
   ///CI Zone
   static const String countyName = "County Name";
   static const String county = "County";
   static const String zipCode = "Zip Code";
+  static const String zipCodes = "Zip Codes";
   static const String map = "Map";
   static const String landmark = "Landmark";
   static const String zones = "Zones";
   static const String zone = "Zone";
+  static const String zoneName = "Zone Name";
+  static const String vendorName = "Vendor Name";
+  static const String Addvendor = "Add Vendor";
+  static const String Editvendor = "Edit Vendor";
   static const String name = "Name";
+  static const String addTemplate = "Add Template";
 
   ///all hr screen
   static const String cancel = 'Cancel';
@@ -54,22 +62,34 @@ class AppStringEM{
   ///sm hr clinical
   static const String licensevocnurse = 'license Vocational Nurse';
   static const String nc = 'NC';
-
+  static const String serviceName = 'Service Name';
 ///sales
   static const String addemployeetype = 'Add Employee Type';
   static const String adddoctype = 'Add Doctype';
   static const String employeetype = 'Employee Type';
   static const String addnewvisit = "Add New Visit";
   static const String visit = "Visit";
+  static const String editVisit = "Edit Visit";
+  static const String addNewvisit = "Add New Visit";
   static const String actions = "Actions";
   static const String salesManager = "Sales Manager";
   static const String sm = "SM";
   ///whitelabelling
+  static const String addNewOffice = 'Add New Office';
+  static const String officeName = 'Office Name :';
+  static const String manage = 'Manage';
+  static const String officeAddress = "Office Address :";
+  static const String whitelabelling = 'White Labelling  ';
+  static const String headOffice = 'Head Office';
   static const String companyName = "Company Name";
   static const String primaryNo = "Primary No.";
   static const String secondaryNo = "Secondary No.";
   static const String alternativeNo = "Alternative No.";
+  static const String alternativePhone = "Alternative Phone";
+  static const String primaryPhone = 'Primary Phone';
   static const String fax = "Fax";
+  static const String secondaryPhone = 'Secondary Phone';
+  static const String state = 'State';
   static const String street = "Street";
   static const String primaryEmail = "Primary Email";
   ///Document definition
@@ -128,10 +148,12 @@ class AppStringEM{
   static const String performance = "Performance";
   static const String vendor = "Vendor";
   static const String contract = "Contract";
+  static const String contractId = 'Contract ID';
+  static const String contractName = 'Contract Name';
   static const String idOfDOc = "ID of the Document";
   static const String NameOfDoc = "Name of the Document";
-  // static const String contract = "Contract";
-  // static const String contract = "Contract";
+  static const String versionHistory = "Version History";
+  static const String hcoNum = "HCO Number";
 }
 
 class ErrorMessageString{
@@ -155,8 +177,10 @@ class ErrorMessageString{
   static const String noMD =  "No available MD!";
   static const String noMISC = "No available MISC!";
   static const String noPolicyProcedure = "No available policies & procedures!";
+  static const String noTemplate = "No Templates available!";
 
   static const String noShift =   "No available shift!";
+  static const String noHistory =   "No available history!";
 
   ///company idenetity screen
   static const String noOffice =  "No available offices!";

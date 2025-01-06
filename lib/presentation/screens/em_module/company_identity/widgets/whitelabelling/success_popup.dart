@@ -6,7 +6,6 @@ import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import 'dart:async';
 
-
 class CCSuccessPopup extends StatefulWidget {
   const CCSuccessPopup({super.key});
 
@@ -27,8 +26,6 @@ class _CCSuccessPopupState extends State<CCSuccessPopup> {
       }
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +53,7 @@ class _CCSuccessPopupState extends State<CCSuccessPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
+                    padding: const EdgeInsets.only(left: AppPadding.p15),
                     child: Text(
                       "Success",
                       style:PopupBlueBarText.customTextStyle(context),
@@ -139,12 +136,12 @@ class _EditSuccessPopupState extends State<EditSuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: AppPadding.p10),
                     child: Text(
                       "Success",
                       style: PopupBlueBarText.customTextStyle(context),
@@ -218,12 +215,12 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: AppPadding.p10),
                     child: Text(
                       "Required",
                       style:  PopupBlueBarText.customTextStyle(context),
@@ -259,7 +256,6 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
 
 class AddSuccessPopup extends StatefulWidget {
   final String message;
-
   const AddSuccessPopup({super.key, required this.message});
 
   @override
@@ -303,7 +299,7 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -387,7 +383,7 @@ class _CountySuccessPopupState extends State<CountySuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -469,7 +465,7 @@ class _AddErrorPopupState extends State<AddErrorPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: AppSize.s40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -508,16 +504,7 @@ class _AddErrorPopupState extends State<AddErrorPopup> {
   }
 }
 
-
-
-
-
-
-
-
 ///Add Fail Popup
-
-
 class AddFailePopup extends StatefulWidget {
   final String message;
 
@@ -564,7 +551,7 @@ class _AddFailePopupState extends State<AddFailePopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: AppSize.s40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -617,20 +604,6 @@ class offerSuccessPopup extends StatefulWidget {
 
 class _offerSuccessPopupState extends State<offerSuccessPopup> {
 
-
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //   Timer(Duration(seconds: 3), () {
-  //     if (Navigator.of(context).canPop()) {
-  //       Navigator.of(context).pop();
-  //     }
-  //   });
-  // }
-
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -652,7 +625,7 @@ class _offerSuccessPopupState extends State<offerSuccessPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

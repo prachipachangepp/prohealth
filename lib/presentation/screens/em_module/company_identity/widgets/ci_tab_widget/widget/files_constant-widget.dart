@@ -114,7 +114,6 @@ class PoliciesProcedureList extends StatelessWidget {
                                     padding: const EdgeInsets.only(left: 115.0),
                                     child: Text(
                                       policiesdata.idOfDocument,
-                                      // snapshot.data![index].name.toString(),
                                       style: DocumentTypeDataStyle.customTextStyle(context),
                                       textAlign: TextAlign.start,
                                     ),
@@ -126,7 +125,7 @@ class PoliciesProcedureList extends StatelessWidget {
                                 Expanded(
                                   flex: flexVal,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 20.0),
+                                    padding: EdgeInsets.only(left: AppPadding.p20),
                                     child: Text(
                                       policiesdata.docName,
                                       textAlign: TextAlign.start,

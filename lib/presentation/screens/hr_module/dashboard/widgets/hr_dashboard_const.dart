@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/bottomsheet_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/widgets/view_details_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/font_manager.dart';
-import '../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
@@ -362,7 +360,7 @@ class HRDashBottomSheetData extends StatelessWidget {
         Expanded(
           flex: 3,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Padding(

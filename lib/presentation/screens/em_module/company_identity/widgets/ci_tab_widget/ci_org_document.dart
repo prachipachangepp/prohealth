@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
@@ -12,15 +11,11 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_vendor_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/org_add_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../company_identity_screen.dart';
 
 class CiOrgDocument extends StatefulWidget {
- // final String officeId;
-  //final int? companyId;
   const CiOrgDocument({super.key,
-  //  required this.officeId, this.companyId
   });
 
   @override
@@ -135,24 +130,23 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
     return Column(
       children: [
         SizedBox(
-          height: 20,
+          height: AppSize.s20,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 45.0),
+          padding: const EdgeInsets.symmetric(horizontal: AppSize.s45),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: 20,
-                width: 150,
+                height: AppSize.s20,
+                width: AppSize.s150,
               ),
-
               Material(
                 elevation: 4,
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 child: Container(
                   width: 840,
-                  height: 30,
+                  height: AppSize.s30,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       color: ColorManager.blueprime),
@@ -168,9 +162,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               _selectButton(0);
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 2),
-                              height: 30,
-                              width: 380,
+                              padding: EdgeInsets.symmetric(horizontal: AppPadding.p2),
+                              height: AppSize.s30,
+                              width: AppSize.s380,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(20)),
                                 color: _selectedIndex == 0
@@ -194,8 +188,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               _selectButton(1);
                             },
                             child: Container(
-                              height: 30,
-                              width: 210,
+                              height: AppSize.s30,
+                              width: AppSize.s210,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(20)),
                                 color: _selectedIndex == 1
@@ -219,8 +213,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               _selectButton(2);
                             },
                             child: Container(
-                              height: 30,
-                              width: 210,
+                              height: AppSize.s30,
+                              width: AppSize.s210,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(20)),
                                 color: _selectedIndex == 2
@@ -247,8 +241,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                   ? Align(
                 alignment: Alignment.bottomRight,
                 child: Container(
-                  height: 30,
-                  width: 150,
+                  height: AppSize.s30,
+                  width: AppSize.s150,
                   child: CustomIconButton(
                     icon: Icons.add,
                     text: AddPopupString.addDocType,
@@ -288,8 +282,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                   ? Align(
                 alignment: Alignment.bottomRight,
                 child: Container(
-                  height: 30,
-                  width: 150,
+                  height: AppSize.s30,
+                  width: AppSize.s150,
                   child: CustomIconButton(
                     icon: Icons.add,
                     text: AddPopupString.addDocType,
@@ -331,8 +325,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                   : Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
-                    height: 30,
-                    width: 150,
+                    height: AppSize.s30,
+                    width: AppSize.s150,
                     child: CustomIconButton(
                       icon: Icons.add,
                       text: AddPopupString.addDocType,
@@ -374,7 +368,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
           ),
         ),
         SizedBox(
-          height: 30,
+          height: AppSize.s30,
         ),
         Expanded(
           child: Stack(

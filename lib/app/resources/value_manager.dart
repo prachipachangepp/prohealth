@@ -10,6 +10,7 @@ class AppMargin {
   static const double m30 = 30.0;
   static const double m35 = 35.0;
   static const double m40 = 40.0;
+  static const double m48 = 48.0;
   static const double m50 = 50.0;
   static const double m70 = 70.0;
 }
@@ -162,6 +163,7 @@ class AppSize {
   static const double s275 = 275.0;
   static const double s280 = 280.0;
   static const double s282 = 282.0;
+  static const double s285 = 285.0;
   static const double s300 = 300.0;
   static const double s315 = 315.0;
   static const double s317 = 317.0;
@@ -172,6 +174,7 @@ class AppSize {
   static const double s354 = 354.0;
   static const double s360 = 360.0;
   static const double s367 = 367.0;
+  static const double s380 = 380.0;
   static const double s383 = 383.0;
   static const double s374 = 374.0;
   static const double s390 = 390.0;
@@ -226,5 +229,6 @@ class IconSize{
   static const double I20 = 20;
   static const double I24 = 24;
   static const double I30 = 30;
+  static const double I45 = 45;
   static const double I40 = 52;
 }

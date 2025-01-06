@@ -9,8 +9,6 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../../app/resources/font_manager.dart';
-import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -139,7 +137,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+                                      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p5),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: ColorManager.white,
@@ -156,7 +154,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                           height: AppSize.s50,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
+                                                horizontal: AppPadding.p15),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment

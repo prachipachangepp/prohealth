@@ -127,7 +127,6 @@ class _VendorContractADRState extends State<VendorContractADR> {
                           _isLoading = false;
                         });
                       }
-
                     });
                   },
 

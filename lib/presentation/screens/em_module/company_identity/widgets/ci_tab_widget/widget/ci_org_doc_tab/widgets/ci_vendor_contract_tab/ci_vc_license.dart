@@ -74,7 +74,6 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
 
                     var name = snapshotPrefill.data!.docName;
                     docNameController = TextEditingController(text: snapshotPrefill.data!.docName);
-
                     var expiry = snapshotPrefill.data!.expiryType;
                     String? selectedExpiryType = expiry;
 
@@ -122,7 +121,6 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                           _isLoading = false;
                         });
                       }
-
                     });
                   },
 

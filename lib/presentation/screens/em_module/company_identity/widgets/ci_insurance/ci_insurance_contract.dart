@@ -1,15 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/Contract_edit_dialog.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
@@ -17,9 +10,7 @@ import '../../../../../../app/services/api/managers/establishment_manager/manage
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import '../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import 'widgets/contract_add_dialog.dart';
 
 class CiInsuranceContract extends StatefulWidget {
   final int insuranceVendorId;
@@ -141,10 +132,10 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                         ),
                                       ],
                                     ),
-                                    height: 50,
+                                    height: AppSize.s50,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 15),
+                                          horizontal: AppPadding.p15),
                                       child: Row(
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -154,7 +145,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                               Padding(
                                                 padding:
                                                 const EdgeInsets.symmetric(
-                                                    horizontal: 10),
+                                                    horizontal: AppPadding.p10),
                                                 // child: InkWell(
                                                 //   onTap: () {
                                                 //     // Implement the view action
@@ -270,34 +261,6 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                           },
 
                                                         ));
-                                                    // showDialog(
-                                                    //     context: context,
-                                                    //     builder: (context) =>
-                                                    //         DeletePopup(
-                                                    //             title:
-                                                    //             DeletePopupString.deleteContract,
-                                                    //             onCancel: () {
-                                                    //               Navigator.pop(context);
-                                                    //             },
-                                                    //             onDelete: () {
-                                                    //               Navigator.pop(context);
-                                                    //               print("${contract.insuranceVendorContracId}");
-                                                    //               setState(() async {
-                                                    //                 await deleteContract(context, contract.insuranceVendorContracId);
-                                                    //                 // await companyContractGetByVendorId(
-                                                    //                 //   context,
-                                                    //                 //   widget.officeId,
-                                                    //                 //   widget.insuranceVendorId,
-                                                    //                 //   currentPage,
-                                                    //                 //   itemsPerPage,
-                                                    //                 // ).then((data) {
-                                                    //                 //   _controller.add(data);
-                                                    //                 // }).catchError((error) {
-                                                    //                 //   // Handle error
-                                                    //                 //   //_controller.addError(error);
-                                                    //                 // });
-                                                    //               });
-                                                    //             }));
                                                   },
                                                   icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
                                             ],

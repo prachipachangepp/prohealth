@@ -7,10 +7,13 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
 class SentToSchedularScreen extends StatelessWidget {
-  const SentToSchedularScreen({super.key});
-
+  SentToSchedularScreen({super.key});
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
   @override
   Widget build(BuildContext context) {
     TextEditingController _searchController = TextEditingController();
@@ -53,7 +56,7 @@ class SentToSchedularScreen extends StatelessWidget {
               Row(
                 children: [
                   CustomDropdownTextField(
-                    width: 150,
+                    width: 140,
                     isAstric:false,
                     // Adjust headText based on depId
                     initialValue: 'Employee Type',
@@ -71,9 +74,9 @@ class SentToSchedularScreen extends StatelessWidget {
                       // }
                     },
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(width: 20,),
                   CustomDropdownTextField(
-                    width:150,
+                    width:140,
                     isAstric:false,
                     // Adjust headText based on depId
                     initialValue: 'Clinician Type',
@@ -96,225 +99,247 @@ class SentToSchedularScreen extends StatelessWidget {
             ],
           ).paddingOnly(bottom: 10),
           Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: 15,
-                itemBuilder: (context, index) {
-                  //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                  // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                  // EmployeeDocumentModal employeedoc = paginatedData[index];
-                  return Column(
-                    children: [
-                      SizedBox(height: AppSize.s5),
-                      Container(
-                        height: AppSize.s88,
-                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p40),
-                        margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
-                        decoration: BoxDecoration(
-                          color: ColorManager.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorManager.black.withOpacity(0.2),
-                              spreadRadius: 0,
-                              blurRadius: 2,
-                              offset: Offset(0, 2),
+              child: ScrollConfiguration(
+                behavior: ScrollBehavior().copyWith(scrollbars: false),
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: 15,
+                  itemBuilder: (context, index) {
+                    //int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                    // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                    // EmployeeDocumentModal employeedoc = paginatedData[index];
+                    return Column(
+                      children: [
+                        SizedBox(height: AppSize.s5),
+                        Container(
+                          height: AppSize.s88,
+                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p40),
+                          margin: EdgeInsets.symmetric(horizontal: AppMargin.m2),
+                          decoration: BoxDecoration(
+                            color: ColorManager.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: ColorManager.black.withOpacity(0.2),
+                                spreadRadius: 0,
+                                blurRadius: 2,
+                                offset: Offset(0, 2),
+                              ),
+                            ]
+                          ),
+                          child: Row(
+                            children: [
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset(
+                                          'images/hr_dashboard/man.png', // Replace with your image path
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "John smith",
+                                        textAlign: TextAlign.center,
+                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w700,
+                                          color: ColorManager.mediumgrey,),
+                                      ),
+                                      Text(
+                                        "Intake Date: 09/15/2024",
+                                        textAlign: TextAlign.center,
+                                        style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w600,
+                                          color: ColorManager.mediumgrey,),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ]
+                            SizedBox(width: 20,),
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                children: [
+                                  Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
+                                  // Image.asset(
+                                  //   "images/sm/location.png",
+                                  //   height: 25,width: 26,fit: BoxFit.fill,
+                                  // ),
+                                  SizedBox(width: 25,),
+                                  Text(
+                                    "Tufts International Center, 20 Sawyer Ave,\nMedford MA 02155 ",
+                                    textAlign: TextAlign.start,
+                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w400,
+                                      color: ColorManager.textBlack,),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  // Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                  //  Padding(
+                                  //    padding: const EdgeInsets.all(8.0),
+                                  //    child: Container(
+                                  //      color: Color(0xFF527FB9),
+                                  //      width: 19,
+                                  //      height: 19,
+                                  //      child: Center(
+                                  //        child: Text("ST",style: TextStyle(
+                                  //          // fontWeight: FontWeight.w600,
+                                  //          // fontSize: FontSize.s13,
+                                  //          color: ColorManager.white,
+                                  //          decoration: TextDecoration.none,
+                                  //        ),),
+                                  //      ),
+                                  //    ),
+                                  //  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      color: Color(0xFFFEBD4D),
+                                      width: 19,
+                                      height: 19,
+                                      child: Center(
+                                        child: Text("OT",style: TextStyle(
+                                          // fontWeight: FontWeight.w600,
+                                          //     fontSize: FontSize.s13,
+                                          color: ColorManager.white,
+                                          decoration: TextDecoration.none,
+                                        ),),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset(
+                                          'images/hr_dashboard/man.png', // Replace with your image path
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Text(
+                                    "Kia",
+                                    textAlign: TextAlign.center,
+                                    style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w400,
+                                      color: ColorManager.textBlack,),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Scheduled",
+                                    textAlign: TextAlign.start,
+                                    style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.Violet,),
+                                  ),
+                               SizedBox(width: 25,),
+                                  Text(
+                                    "SOC Completed",
+                                    textAlign: TextAlign.start,
+                                    style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.greenDark,),
+                                  ),
+                                  ///dont delete these r conditional text
+                                  // Text(
+                                  //   "SMissed on 13/05/2022",
+                                  //   textAlign: TextAlign.start,
+                                  //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                  //     fontWeight: FontWeight.w500,
+                                  //     color: ColorManager.tangerine,),
+                                  // ),
+                                  // Text(
+                                  //   "Rescheduled on 15/08/2022",
+                                  //   textAlign: TextAlign.start,
+                                  //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                  //     fontWeight: FontWeight.w500,
+                                  //     color: ColorManager.mediumgrey,),
+                                  // ),
+                                  // Text(
+                                  //   "SOC Pending",
+                                  //   textAlign: TextAlign.start,
+                                  //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                  //     fontWeight: FontWeight.w500,
+                                  //     color: ColorManager.EMbrightred,),
+                                  // ),
+
+                                ],
+                              ),
+                            ),
+
+
+                              Padding(
+                                padding: const EdgeInsets.only(right: 40.0),
+                                child: SvgPicture.asset("images/sm/contact_s.svg",height: 30,width: 20,fit: BoxFit.fill,),
+                              ),
+                          ],),
                         ),
-                        child: Row(
-                          children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: Image.asset(
-                                        'images/hr_dashboard/man.png', // Replace with your image path
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 10,),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "John smith",
-                                      textAlign: TextAlign.center,
-                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w700,
-                                        color: ColorManager.mediumgrey,),
-                                    ),
-                                    Text(
-                                      "Intake Date: 09/15/2024",
-                                      textAlign: TextAlign.center,
-                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w600,
-                                        color: ColorManager.mediumgrey,),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(width: 20,),
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              children: [
-                                Icon(Icons.location_on_outlined,size: IconSize.I18,color: ColorManager.bluebottom,),
-                                // Image.asset(
-                                //   "images/sm/location.png",
-                                //   height: 25,width: 26,fit: BoxFit.fill,
-                                // ),
-                                SizedBox(width: 25,),
-                                Text(
-                                  "Tufts International Center, 20 Sawyer Ave,\nMedford MA 02155 ",
-                                  textAlign: TextAlign.start,
-                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w400,
-                                    color: ColorManager.textBlack,),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                // Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                //  Padding(
-                                //    padding: const EdgeInsets.all(8.0),
-                                //    child: Container(
-                                //      color: Color(0xFF527FB9),
-                                //      width: 19,
-                                //      height: 19,
-                                //      child: Center(
-                                //        child: Text("ST",style: TextStyle(
-                                //          // fontWeight: FontWeight.w600,
-                                //          // fontSize: FontSize.s13,
-                                //          color: ColorManager.white,
-                                //          decoration: TextDecoration.none,
-                                //        ),),
-                                //      ),
-                                //    ),
-                                //  ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    color: Color(0xFFFEBD4D),
-                                    width: 19,
-                                    height: 19,
-                                    child: Center(
-                                      child: Text("OT",style: TextStyle(
-                                        // fontWeight: FontWeight.w600,
-                                        //     fontSize: FontSize.s13,
-                                        color: ColorManager.white,
-                                        decoration: TextDecoration.none,
-                                      ),),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: Image.asset(
-                                        'images/hr_dashboard/man.png', // Replace with your image path
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 10,),
-                                Text(
-                                  "Kia",
-                                  textAlign: TextAlign.center,
-                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w400,
-                                    color: ColorManager.textBlack,),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Scheduled",
-                                  textAlign: TextAlign.start,
-                                  style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.Violet,),
-                                ),
-                             SizedBox(width: 25,),
-                                Text(
-                                  "SOC Completed",
-                                  textAlign: TextAlign.start,
-                                  style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.greenDark,),
-                                ),
-                                ///dont delete these r conditional text
-                                // Text(
-                                //   "SMissed on 13/05/2022",
-                                //   textAlign: TextAlign.start,
-                                //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                //     fontWeight: FontWeight.w500,
-                                //     color: ColorManager.tangerine,),
-                                // ),
-                                // Text(
-                                //   "Rescheduled on 15/08/2022",
-                                //   textAlign: TextAlign.start,
-                                //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                //     fontWeight: FontWeight.w500,
-                                //     color: ColorManager.mediumgrey,),
-                                // ),
-                                // Text(
-                                //   "SOC Pending",
-                                //   textAlign: TextAlign.start,
-                                //   style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                //     fontWeight: FontWeight.w500,
-                                //     color: ColorManager.EMbrightred,),
-                                // ),
-
-                              ],
-                            ),
-                          ),
-
-
-                            Padding(
-                              padding: const EdgeInsets.only(right: 40.0),
-                              child: SvgPicture.asset("images/sm/contact_s.svg",height: 30,width: 20,fit: BoxFit.fill,),
-                            ),
-                        ],),
-                      ),
-                      SizedBox(height: AppSize.s5),
-                    ],
-                  );
-                },
+                        SizedBox(height: AppSize.s5),
+                      ],
+                    );
+                  },
+                ),
               )),
+          ///pagination code dont delete
+          // PaginationControlsWidget(
+          //   currentPage: currentPage,
+          //   items: [], //snapshot.data!,
+          //   itemsPerPage: itemsPerPage,
+          //   onPreviousPagePressed: () {
+          //     if (currentPage > 1) {
+          //       currentPage--;
+          //     }
+          //   },
+          //   onPageNumberPressed: (pageNumber) {
+          //     currentPage = pageNumber;
+          //   },
+          //   onNextPagePressed: () {
+          //     if (currentPage < totalPages) {
+          //       currentPage++;
+          //     }
+          //   },
+          // ),
         ],
       ),
     );

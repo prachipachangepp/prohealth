@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
@@ -9,7 +10,6 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_license.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_medical_cost_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_quarterly_balance_report.dart';
-
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 
@@ -93,21 +93,18 @@ class _CICorporateCompilianceDocumentState
   void initState() {
     super.initState();
     selectedSubDocType = getSubDocTypeForIndex(_selectedIndex);
-    // subDocId = getSubDocIdForIndex(
-    //     _selectedIndex); // Initialize subDocId based on the default tab
-    identityDocumentTypeGet(context, widget.docID);
+     identityDocumentTypeGet(context, widget.docID);
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 10),
+        SizedBox(height: AppSize.s10),
         Center(
           child: Container(
             width: MediaQuery.of(context).size.width / 1.6,
-           // color: Colors.greenAccent,
-            height: 50,
+            height: AppSize.s50,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -117,7 +114,7 @@ class _CICorporateCompilianceDocumentState
                   highlightColor: Color(0xFFF2F9FC),
                   hoverColor: Color(0xFFF2F9FC),
                   child: Container(
-                    height: 50,
+                    height: AppSize.s50,
                     width: MediaQuery.of(context).size.width / 10,
                     child: Column(
                       children: [
@@ -143,7 +140,7 @@ class _CICorporateCompilianceDocumentState
                   highlightColor: Color(0xFFF2F9FC),
                   hoverColor: Color(0xFFF2F9FC),
                   child: Container(
-                    height: 50,
+                    height: AppSize.s50,
                     width: MediaQuery.of(context).size.width / 10,
                     child: Column(
                       children: [
@@ -169,7 +166,7 @@ class _CICorporateCompilianceDocumentState
                   highlightColor: Color(0xFFF2F9FC),
                   hoverColor: Color(0xFFF2F9FC),
                   child: Container(
-                    height: 50,
+                    height: AppSize.s50,
                     width: MediaQuery.of(context).size.width / 8,
                     child: Column(
                       children: [
@@ -195,7 +192,7 @@ class _CICorporateCompilianceDocumentState
                   highlightColor: Color(0xFFF2F9FC),
                   hoverColor: Color(0xFFF2F9FC),
                   child: Container(
-                    height: 50,
+                    height: AppSize.s50,
                     width: MediaQuery.of(context).size.width / 10,
                     child: Column(
                       children: [
@@ -222,7 +219,7 @@ class _CICorporateCompilianceDocumentState
                   hoverColor: Color(0xFFF2F9FC),
                   child: Container(
                     //color: Colors.purple,
-                    height: 50,
+                    height: AppSize.s50,
                     width: MediaQuery.of(context).size.width / 7,
                     child: Column(
                       children: [
@@ -249,7 +246,7 @@ class _CICorporateCompilianceDocumentState
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+            padding: EdgeInsets.only(top: AppPadding.p15),
             child: NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {

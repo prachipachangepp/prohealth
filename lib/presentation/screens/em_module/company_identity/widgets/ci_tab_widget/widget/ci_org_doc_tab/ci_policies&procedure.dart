@@ -7,7 +7,6 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
-import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
@@ -20,7 +19,7 @@ class CIPoliciesProcedure extends StatefulWidget {
   const CIPoliciesProcedure({
     super.key,
     required this.docId,
-    required this.subDocId, //required this.officeId,
+    required this.subDocId,
   });
 
   @override
