@@ -230,271 +230,274 @@ class _PendingPageViewState extends State<PendingPageView> {
 
               SizedBox(height: 30,),
               Expanded(
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (BuildContext context, int index) { return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 1,
-                      vertical: 5,),
-                    child: Container(
-                      // color: Colors.red,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey
-                                .withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                  child: ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (BuildContext context, int index) { return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 1,
+                        vertical: 5,),
+                      child: Container(
+                        // color: Colors.red,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                          BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey
+                                  .withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
 
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  child:
-                                  Image.asset('images/1.png'),
-                                ),
-                                SizedBox(width: AppSize.s7),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 18),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Jeh Tiwari',
-                                        style:AllHRTableData.customTextStyle(context)
-                                      ),
-                                      SizedBox(height: AppSize.s3),
-                                      Text(
-                                        'Anxiety',
-                                        style:DocumentTypeDataStyle.customTextStyle(context),
-                                      ),
-                                    ],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    child:
+                                    Image.asset('images/1.png'),
                                   ),
+                                  SizedBox(width: AppSize.s7),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 18),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Jeh Tiwari',
+                                          style:AllHRTableData.customTextStyle(context)
+                                        ),
+                                        SizedBox(height: AppSize.s3),
+                                        Text(
+                                          'Anxiety',
+                                          style:DocumentTypeDataStyle.customTextStyle(context),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
                                 ),
+                                Container(
+                                  width: 200,
+
+                                  child:Text("132 My Street, Kingston, New York 12401",
+                                    textAlign: TextAlign.start,
+                                    style:DocumentTypeDataStyle.customTextStyle(context),
+                                  ) ,
+                                )
                               ],
                             ),
-                          ),
 
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
-                              ),
-                              Container(
-                                width: 200,
-
-                                child:Text("132 My Street, Kingston, New York 12401",
-                                  textAlign: TextAlign.start,
-                                  style:DocumentTypeDataStyle.customTextStyle(context),
-                                ) ,
-                              )
-                            ],
-                          ),
-
-                          Row(
-                            children: [
-                              // Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF527FB9).withOpacity(0.5),
-                                    borderRadius: BorderRadius.circular(5), // Makes the borders curved with radius 5
-                                  ),
-                                  // color: Color(0xFF527FB9).withOpacity(0.5),
-                                  width: 22,
-                                  height: 20,
-                                  child: Center(
-                                    child: Text("ST",style: TextStyle(
-                                      // fontWeight: FontWeight.w600,
-                                      // fontSize: FontSize.s13,
-                                      color: ColorManager.white,
-                                      decoration: TextDecoration.none,
-                                    ),),
-                                  ),
-                                ),
-                              ),
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFFEBD4D).withOpacity(0.5),
-                                    borderRadius: BorderRadius.circular(5), // Makes the borders curved with radius 5
-                                  ),
-                                  width: 22,
-                                  height: 20,
-                                  child: Center(
-                                    child: Text(
-                                      "OT",
-                                      style: TextStyle(
+                            Row(
+                              children: [
+                                // Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF527FB9).withOpacity(0.5),
+                                      borderRadius: BorderRadius.circular(5), // Makes the borders curved with radius 5
+                                    ),
+                                    // color: Color(0xFF527FB9).withOpacity(0.5),
+                                    width: 22,
+                                    height: 20,
+                                    child: Center(
+                                      child: Text("ST",style: TextStyle(
+                                        // fontWeight: FontWeight.w600,
+                                        // fontSize: FontSize.s13,
                                         color: ColorManager.white,
                                         decoration: TextDecoration.none,
-                                      ),
+                                      ),),
                                     ),
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text("Pending",style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: FontSize.s13,
-                                color: Color(0xFFD00101),
-                                decoration: TextDecoration.none,
-                              ),)
-                            ],
-                          ),
 
-                          Row(
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(right: 0),
-                                  child:
-                                  InkWell(
-                                    child: SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,)
-                                 ,onTap: _toggleChatbotVisibility,)
-                              ),
-                            ],
-                          ),
-
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                  width: 200,
-                                  height: 55,
-                                  child:Row(
-                                    children: [
-                                      Container(
-                                        width: 100,
-                                        child:  ElevatedButton.icon(
-                                          onPressed: widget.onAutoTap,
-                                          //     ()async{
-                                          // showDialog(
-                                          //   context: context,
-                                          //   builder: (BuildContext context) {
-                                          //     return AddErrorPopup(
-                                          //       message: 'Please select a county',
-                                          //     );
-                                          //   },
-                                          // );
-
-                                          // await  Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(builder: (context) => Auto_Assign()),
-                                          // );
-                                        //},
-                                        label: Text("Auto", style: TextStyle(
-                                          fontSize: FontSize.s13,
-                                          fontWeight: FontWeight.w600,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFFEBD4D).withOpacity(0.5),
+                                      borderRadius: BorderRadius.circular(5), // Makes the borders curved with radius 5
+                                    ),
+                                    width: 22,
+                                    height: 20,
+                                    child: Center(
+                                      child: Text(
+                                        "OT",
+                                        style: TextStyle(
                                           color: ColorManager.white,
                                           decoration: TextDecoration.none,
-                                        )),
-                                          //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
-                                          icon: Image.asset("images/sm/auto.png",height: 30,width: 18,),
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor:  ColorManager.bluebottom,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(12), // Round only the top-left corner
-                                                bottomLeft: Radius.circular(12), // Round only the bottom-left corner
-                                              ),
-                                              side: BorderSide(
-                                                color: Color(0xFF0A74DA), // Border color
-                                                width: 1,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text("Pending",style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: FontSize.s13,
+                                  color: Color(0xFFD00101),
+                                  decoration: TextDecoration.none,
+                                ),)
+                              ],
+                            ),
+
+                            Row(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(right: 0),
+                                    child:
+                                    InkWell(
+                                      child: SvgPicture.asset("images/sm/contact_s.svg",  height: 30,width: 20,)
+                                   ,onTap: _toggleChatbotVisibility,)
+                                ),
+                              ],
+                            ),
+
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                    width: 200,
+                                    height: 55,
+                                    child:Row(
+                                      children: [
+                                        Container(
+                                          width: 100,
+                                          child:  ElevatedButton.icon(
+                                            onPressed: widget.onAutoTap,
+                                            //     ()async{
+                                            // showDialog(
+                                            //   context: context,
+                                            //   builder: (BuildContext context) {
+                                            //     return AddErrorPopup(
+                                            //       message: 'Please select a county',
+                                            //     );
+                                            //   },
+                                            // );
+
+                                            // await  Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(builder: (context) => Auto_Assign()),
+                                            // );
+                                          //},
+                                          label: Text("Auto", style: TextStyle(
+                                            fontSize: FontSize.s13,
+                                            fontWeight: FontWeight.w600,
+                                            color: ColorManager.white,
+                                            decoration: TextDecoration.none,
+                                          )),
+                                            //icon: Icon(Icons.flash_auto,color:ColorManager.white ,size: 16,),
+                                            icon: Image.asset("images/sm/auto.png",height: 30,width: 18,),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:  ColorManager.bluebottom,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(12), // Round only the top-left corner
+                                                  bottomLeft: Radius.circular(12), // Round only the bottom-left corner
+                                                ),
+                                                side: BorderSide(
+                                                  color: Color(0xFF0A74DA), // Border color
+                                                  width: 1,
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        width: 100,
-                                        child:  ElevatedButton.icon(onPressed: (){
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AddErrorPopup(
-                                                message: 'File is too large!',
-                                              );
-                                            },
-                                          );
-                                        },label: Text("Manual", style: TextStyle(
-                                          fontSize: FontSize.s13,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.bluebottom,
-                                          decoration: TextDecoration.none,
-                                        )),
-                                          //icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
-                                          icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(12), // Round only the top-left corner
-                                                bottomRight: Radius.circular(12), // Round only the bottom-left corner
-                                              ),
-                                              side: BorderSide(
-                                                color: Color(0xFF0A74DA), // Border color
-                                                width: 1,
+                                        Container(
+                                          width: 100,
+                                          child:  ElevatedButton.icon(onPressed: (){
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AddErrorPopup(
+                                                  message: 'File is too large!',
+                                                );
+                                              },
+                                            );
+                                          },label: Text("Manual", style: TextStyle(
+                                            fontSize: FontSize.s13,
+                                            fontWeight: FontWeight.w600,
+                                            color: ColorManager.bluebottom,
+                                            decoration: TextDecoration.none,
+                                          )),
+                                            //icon: Icon(Icons.swipe_rounded,color:ColorManager.bluebottom ,size: 16,),
+                                            icon: Image.asset("images/sm/manual.png",height: 30,width: 18,),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(12), // Round only the top-left corner
+                                                  bottomRight: Radius.circular(12), // Round only the bottom-left corner
+                                                ),
+                                                side: BorderSide(
+                                                  color: Color(0xFF0A74DA), // Border color
+                                                  width: 1,
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
 
 
-                                    ],
-                                  )
-                              )
-                            ],
-                          ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Container(
-                          //       width: 150,
-                          //       height: 31,
-                          //       child: ElevatedButton.icon(onPressed: (){}, label: Text("Auto Assign", style: BlueButtonTextConst.customTextStyle(context),),
-                          //         icon: Icon( FontAwesomeIcons.userCheck,color:ColorManager.white ,size: 16,),
-                          //         style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
-                          //           elevation: 5,
-                          //           shape: RoundedRectangleBorder(
-                          //             borderRadius: BorderRadius.circular(12),
-                          //
-                          //           ),),
-                          //       ),
-                          //     )
-                          //   ],
-                          // ),
+                                      ],
+                                    )
+                                )
+                              ],
+                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     Container(
+                            //       width: 150,
+                            //       height: 31,
+                            //       child: ElevatedButton.icon(onPressed: (){}, label: Text("Auto Assign", style: BlueButtonTextConst.customTextStyle(context),),
+                            //         icon: Icon( FontAwesomeIcons.userCheck,color:ColorManager.white ,size: 16,),
+                            //         style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
+                            //           elevation: 5,
+                            //           shape: RoundedRectangleBorder(
+                            //             borderRadius: BorderRadius.circular(12),
+                            //
+                            //           ),),
+                            //       ),
+                            //     )
+                            //   ],
+                            // ),
 
-                          Row(
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(right: 15),
-                                  child: SizedBox()
-                              ),
-                            ],
-                          ),
-                        ],
+                            Row(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: SizedBox()
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ); },
+                    ); },
 
+                  ),
                 ),
               ),
 

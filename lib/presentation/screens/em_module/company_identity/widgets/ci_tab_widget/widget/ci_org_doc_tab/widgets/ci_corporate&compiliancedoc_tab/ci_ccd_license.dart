@@ -84,7 +84,6 @@ class _CICcdLicenseState extends State<CICcdLicense> {
 
                       var name = snapshotPrefill.data!.docName;
                       docNameController = TextEditingController(text: snapshotPrefill.data!.docName);
-
                       var expiry = snapshotPrefill.data!.expiryType;
                       String? selectedExpiryType = expiry;
 

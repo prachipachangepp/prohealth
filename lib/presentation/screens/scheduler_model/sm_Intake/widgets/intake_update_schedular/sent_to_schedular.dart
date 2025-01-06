@@ -7,10 +7,13 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
 class SentToSchedularScreen extends StatelessWidget {
-  const SentToSchedularScreen({super.key});
-
+  SentToSchedularScreen({super.key});
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
   @override
   Widget build(BuildContext context) {
     TextEditingController _searchController = TextEditingController();
@@ -318,6 +321,25 @@ class SentToSchedularScreen extends StatelessWidget {
                   },
                 ),
               )),
+          ///pagination code dont delete
+          // PaginationControlsWidget(
+          //   currentPage: currentPage,
+          //   items: [], //snapshot.data!,
+          //   itemsPerPage: itemsPerPage,
+          //   onPreviousPagePressed: () {
+          //     if (currentPage > 1) {
+          //       currentPage--;
+          //     }
+          //   },
+          //   onPageNumberPressed: (pageNumber) {
+          //     currentPage = pageNumber;
+          //   },
+          //   onNextPagePressed: () {
+          //     if (currentPage < totalPages) {
+          //       currentPage++;
+          //     }
+          //   },
+          // ),
         ],
       ),
     );

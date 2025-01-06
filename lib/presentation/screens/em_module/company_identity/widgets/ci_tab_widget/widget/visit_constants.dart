@@ -30,8 +30,6 @@ class EditVisitPopup extends StatefulWidget {
   final String title;
   final int visitId;
   final List<EligibleClinician> prefilledClinicians;
-  //final Widget dropdownServices;
- // final Future<void> Function() onClosePressed;
 
   const EditVisitPopup({
     super.key,
@@ -83,7 +81,7 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
           deleteIcon: Icon(
             Icons.close,
             color: ColorManager.blueprime,
-            size: 17,
+            size: IconSize.I16,
           ),
           label: Text(
             clinician.eligibleClinician,
@@ -129,12 +127,6 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
         _isNameOfDocumentValid = false;
         _nameOfDocumentErrorText = 'Please Enter Type of Visit';
       }
-      // else if (nameOfDocumentText.isNotEmpty &&
-      //     nameOfDocumentText[0] != nameOfDocumentText[0].toUpperCase())
-      // {
-      //   _isNameOfDocumentValid = false;
-      //   _nameOfDocumentErrorText = 'First letter must be capitalized';
-      // }
       else {
         _isNameOfDocumentValid = true;
         _nameOfDocumentErrorText = '';
@@ -164,16 +156,8 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                           enable: widget.enable,
                           controller: widget.nameOfDocumentController,
                           keyboardType: TextInputType.text,
-                          text: 'Type of Visit',
+                          text: AppStringEM.typeVisit,
                         ),
-                        // if (!_isNameOfDocumentValid)
-                        //   Padding(
-                        //     padding: const EdgeInsets.only(top: 4.0),
-                        //     child: Text(
-                        //       _nameOfDocumentErrorText,
-                        //       style: CommonErrorMsg.customTextStyle(context),
-                        //     ),
-                        //   ),
                       ],
                     ),
                     SizedBox(height: AppSize.s10),
@@ -184,7 +168,7 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                           enable: false,
                           controller: widget.serviceNameSelected,
                           keyboardType: TextInputType.text,
-                          text: 'Service Name',
+                          text: AppStringEM.serviceName,
                         ),
                         ],
                     ),
@@ -206,10 +190,6 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                             ],
                           ),
                         ),
-                        // Text(
-                        //   'Select Eligible Clinician',
-                        //   style: AllPopupHeadings.customTextStyle(context),
-                        // ),
                         SizedBox(height: AppSize.s5),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -551,7 +531,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     enable: widget.enable,
                     controller: widget.nameOfDocumentController,
                     keyboardType: TextInputType.text,
-                    text: 'Type of Visit',
+                    text: AppStringEM.typeVisit,
                   ),
                   if (!_isNameOfDocumentValid)
                     Text(
@@ -579,18 +559,14 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       ],
                     ),
                   ),
-                  // Text(
-                  //   'Select services',
-                  //   style: AllPopupHeadings.customTextStyle(context),
-                  // ),
                   SizedBox(height: AppSize.s5),
                   FutureBuilder<List<ServicesMetaData>>(
                     future: getServicesMetaData(context),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Container(
-                          width: 354,
-                          height: 30,
+                          width: AppSize.s354,
+                          height: AppSize.s30,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: ColorManager.containerBorderGrey,
@@ -607,7 +583,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(right: 10),
+                                padding: EdgeInsets.only(right: AppPadding.p10),
                                 child: Icon(Icons.arrow_drop_down),
                               ),
                             ],
@@ -616,8 +592,8 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       }
                       if (snapshot.data!.isEmpty) {
                         return Container(
-                          width: 354,
-                          height: 30,
+                          width: AppSize.s354,
+                          height: AppSize.s30,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: ColorManager.containerBorderGrey,
@@ -625,8 +601,8 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: AppPadding.p10, vertical: AppPadding.p5),
                             child: Text(
                               ErrorMessageString.noserviceAdded,
                               style: AllNoDataAvailable.customTextStyle(context),
@@ -635,13 +611,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                         );
                       }
                       if (snapshot.hasData) {
-                        // Only set the default values if they haven't been set yet.
-                        // if (selectedServiceName == null && serviceId == null) {
-                        //   selectedServiceName = snapshot.data![0].serviceName;
-                        //   serviceId = snapshot.data![0].serviceId;
-                        // }
-
-                        List<DropdownMenuItem<String>> dropDownServiceList = [];
+                       List<DropdownMenuItem<String>> dropDownServiceList = [];
                         for (var service in snapshot.data!) {
                           dropDownServiceList.add(
                             DropdownMenuItem<String>(
@@ -789,8 +759,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                                           ),
                                         );
                                         selectedEditChipsId.add(docType);
-
-                                        // Hide the clinician error message after a valid selection
                                         _isClinicianValid = true; // Assuming you have this for validation
                                         _clinicianErrorText = ''; // Clear the error text for the dropdown
                                       });
@@ -798,56 +766,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                                   }
                                 }
                               },
-
-
-                              // onChange: (val) {
-                              //   for (var a in snapshot.data!) {
-                              //     if (a.abbrivation == val) {
-                              //       docType = a.employeeTypesId;
-                              //       empTypeId = docType;
-                              //
-                              //       // Check if the clinician is already selected
-                              //       if (!editChipValues.contains(val)) {
-                              //         setState(() {
-                              //           editChipValues.add(val);
-                              //           selectedEditChips.add(
-                              //             Chip(
-                              //               backgroundColor: ColorManager.white,
-                              //               shape: StadiumBorder(
-                              //                 side: BorderSide(
-                              //                     color: ColorManager.blueprime),
-                              //               ),
-                              //               deleteIcon: Icon(
-                              //                 Icons.close,
-                              //                 color: ColorManager.blueprime,
-                              //                 size: IconSize.I16,
-                              //               ),
-                              //               label: Text(
-                              //                 val,
-                              //                 style: CustomTextStylesCommon.commonStyle(
-                              //                   fontWeight: FontWeight.w500,
-                              //                   fontSize: FontSize.s10,
-                              //                   color: ColorManager.mediumgrey,
-                              //                 ),
-                              //               ),
-                              //               onDeleted: () {
-                              //                 setState(() {
-                              //                   editChipValues.remove(val);
-                              //                   selectedEditChips.removeWhere((chip) {
-                              //                     final chipText = (chip as Chip).label as Text;
-                              //                     return chipText.data == val;
-                              //                   });
-                              //                   selectedEditChipsId.remove(docType);
-                              //                 });
-                              //               },
-                              //             ),
-                              //           );
-                              //           selectedEditChipsId.add(docType);
-                              //         });
-                              //       }
-                              //     }
-                              //   }
-                              // },
                               items: dropDownTypesList,
                             );
                           }
@@ -874,8 +792,8 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
       ],
       bottomButtons: isLoading
           ? SizedBox(
-        height:25,
-            width:25,
+        width: AppSize.s25,
+        height: AppSize.s25,
             child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
               ),
@@ -885,10 +803,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
               height: AppSize.s30,
               text: AppStringEM.save,
               onPressed: () async {
-                //  Navigator.pop(context);
-                  // editChipValues.clear();
-                  // selectedEditChipsId.clear();
-                  // selectedEditChips.clear();
                   _validateInputs();
                 if (_isNameOfDocumentValid && _isServiceSelected && _isClinicianSelected) {
                   setState(() {
@@ -927,7 +841,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                         builder: (BuildContext context) => FailedPopup(text: response.message),
                       );
                     }
-
                     selectedChipsId.clear();
                     selectedChips.clear();
                   //  nameOfDocumentController.clear();
@@ -935,7 +848,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     setState(() {
                       isLoading = false;
                     });
-
                     widget.idOfDocumentController.clear();
                     widget.nameOfDocumentController.clear();
                   }

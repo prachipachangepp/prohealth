@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_vendor_contract_tab/ci_vc_snf.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_vendor_contract_tab/ci_vc_license.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_vendor_contract_tab/ci_vc_dme.dart';
@@ -99,14 +99,14 @@ class _CIVendorContractState extends State<CIVendorContract> {
     return Column(
       children: [
         SizedBox(
-          height: 10,
+          height: AppSize.s10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               width: MediaQuery.of(context).size.width / 2,
-              height: 50,
+              height: AppSize.s50,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -116,7 +116,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     highlightColor: Color(0xFFF2F9FC),
                     hoverColor: Color(0xFFF2F9FC),
                     child: Container(
-                      height: 50,
+                      height: AppSize.s50,
                       width: MediaQuery.of(context).size.width / 10,
                       child: Column(
                         children: [
@@ -144,7 +144,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     highlightColor: Color(0xFFF2F9FC),
                     hoverColor: Color(0xFFF2F9FC),
                     child: Container(
-                      height: 50,
+                      height: AppSize.s50,
                       width: MediaQuery.of(context).size.width / 10,
                       child: Column(
                         children: [
@@ -172,7 +172,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     highlightColor: Color(0xFFF2F9FC),
                     hoverColor: Color(0xFFF2F9FC),
                     child: Container(
-                      height: 50,
+                      height: AppSize.s50,
                       width: MediaQuery.of(context).size.width / 10,
                       child: Column(
                         children: [
@@ -200,7 +200,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     highlightColor: Color(0xFFF2F9FC),
                     hoverColor: Color(0xFFF2F9FC),
                     child: Container(
-                      height: 50,
+                      height: AppSize.s50,
                       width: MediaQuery.of(context).size.width / 10,
                       child: Column(
                         children: [
@@ -228,7 +228,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     highlightColor: Color(0xFFF2F9FC),
                     hoverColor: Color(0xFFF2F9FC),
                     child: Container(
-                      height: 50,
+                      height: AppSize.s50,
                       width: MediaQuery.of(context).size.width / 10,
                       child: Column(
                         children: [
@@ -258,7 +258,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(top: 10.0),
+            padding: EdgeInsets.only(top: AppPadding.p10),
             child: NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {

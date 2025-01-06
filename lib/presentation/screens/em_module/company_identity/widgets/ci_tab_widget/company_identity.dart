@@ -20,10 +20,6 @@ import '../../../../../../data/api_data/establishment_data/company_identity/comp
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../widgets/button_constant.dart';
-import '../../../widgets/text_form_field_const.dart';
-import '../company_identity_zone/widgets/location_screen.dart';
-import '../company_identity_zone/widgets/zone_widgets_constants.dart';
 
 class CompanyIdentity extends StatefulWidget {
   const CompanyIdentity({Key? key}) : super(key: key);
@@ -55,8 +51,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   @override
   void initState() {
     super.initState();
-    // currentPage = 1;
-    // itemsPerPage = 30;
   }
 
   String selectedOfficeID = '';
@@ -133,14 +127,14 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         /// Render top row with buttons only if both manage and whitelabelling screens are not shown
         if (!showManageScreen && !showWhitelabellingScreen)
           Padding(
-            padding: const EdgeInsets.only(right: 50.0, bottom: 10),
+            padding: const EdgeInsets.only(right: AppPadding.p50, bottom: AppPadding.p8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CustomIconButtonConst(
                   // paddingVertical: 1,
                   // borderRadius: 12,
-                  text: 'White Labelling  ',
+                  text: AppStringEM.whitelabelling,
                   //style: PopupBlueBarText.customTextStyle(context),
                   width: AppSize.s150,
                   // height: 26,
@@ -151,13 +145,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 ),
                 CustomIconButtonConst(
                   width: AppSize.s150,
-                  text: 'Add New Office',
+                  text: AppStringEM.addNewOffice,
                   onPressed: () {
-                    // setState((){
-                    //   String generated = generateRandomString(1);
-                    //   generatedString = "Office ${generated}";
-                    // });
-                    // print("Generated String ${generatedString}");
                     nameController.clear();
                     addressController.clear();
                     emailController.clear();
@@ -253,7 +242,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               .toList();
 
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                             child: Column(
                               children: [
                                 Expanded(
@@ -293,11 +282,10 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                         gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount:
-                                          columns, // Number of columns in the grid
-                                          crossAxisSpacing:
-                                          25, // Horizontal space between items
+                                          columns,
+                                          crossAxisSpacing: 25,
                                           mainAxisSpacing:
-                                          25, // Vertical space between items
+                                          25,
                                           childAspectRatio:childAspectRatio, // Aspect ratio of each grid item
                                         ),
                                         itemCount: paginatedData.length,
@@ -352,7 +340,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       ),
                                                       child: Center(
                                                         child: Text(
-                                                          'Head Office',
+                                                          AppStringEM.headOffice,
                                                           style: TableHeading
                                                               .customTextStyle(
                                                               context),
@@ -371,9 +359,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       children: [
 
                                                         Container(
-                                                          height: AppSize.s181,// Adjust the height as needed
-                                                          //height: MediaQuery.of(context).size.height * 0.3,
-                                                          //  width: double.infinity,
+                                                          height: AppSize.s181,
                                                           child: GoogleMap(
                                                             initialCameraPosition:
                                                             CameraPosition(
@@ -432,7 +418,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                                 Column(
                                                                   children: [
                                                                     Text(
-                                                                      'Office Name :',
+                                                                      AppStringEM.officeName,
                                                                       textAlign: TextAlign.start,
                                                                       style: TableSubHeading.customTextStyle(context),
                                                                     ),
@@ -464,11 +450,9 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                                 Column(
                                                                   children: [
                                                                     Text(
-                                                                      "Office Address :",
+                                                                      AppStringEM.officeAddress,
                                                                       textAlign: TextAlign.start,
-                                                                      style: TableSubHeading
-                                                                          .customTextStyle(
-                                                                          context),
+                                                                      style: TableSubHeading.customTextStyle(context),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -503,7 +487,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       CustomIconButton(
-                                                        text: 'Manage',
+                                                        text: AppStringEM.manage,
                                                         onPressed: ()async {
                                                           showManageScreenFunction(
                                                             officeId:

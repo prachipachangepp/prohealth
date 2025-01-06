@@ -393,3 +393,7 @@ class AppStringLegalDocument {
 
 
 }
+
+class AppStringSMModule{
+  static const String addressSM = 'Address';
+}

@@ -10,6 +10,7 @@ import '../../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../widgets/app_clickable_widget.dart';
+import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../hr_module/dashboard/widgets/view_details_popup.dart';
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../textfield_dropdown_constant/chatbotContainer.dart';
@@ -37,6 +38,9 @@ class _InformationUpdateScreenState extends State<InformationUpdateScreen> {
       _isChatbotVisible = !_isChatbotVisible;
     });
   }
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -384,6 +388,25 @@ class _InformationUpdateScreenState extends State<InformationUpdateScreen> {
                               },
                               ),
                 )),
+            ///pagination code dont delete
+            // PaginationControlsWidget(
+            //   currentPage: currentPage,
+            //   items: [],//snapshot.data!,
+            //   itemsPerPage: itemsPerPage,
+            //   onPreviousPagePressed: () {
+            //     if (currentPage > 1) {
+            //       currentPage--;
+            //     }
+            //   },
+            //   onPageNumberPressed: (pageNumber) {
+            //     currentPage = pageNumber;
+            //   },
+            //   onNextPagePressed: () {
+            //     if (currentPage < totalPages) {
+            //       currentPage++;
+            //     }
+            //   },
+            // ),
           ],
         ),
       ),
