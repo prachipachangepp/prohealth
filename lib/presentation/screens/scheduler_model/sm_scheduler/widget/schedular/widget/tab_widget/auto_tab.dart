@@ -8,6 +8,7 @@ import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 
 class Auto_Assign extends StatefulWidget {
   final VoidCallback? onGoBackAuto;
@@ -19,7 +20,11 @@ class Auto_Assign extends StatefulWidget {
 
 class _Auto_AssignState extends State<Auto_Assign> {
 
-  TextEditingController DSummarycont = TextEditingController();
+  TextEditingController noteone = TextEditingController();
+  TextEditingController notetow = TextEditingController();
+
+  String? assintype="Direct Assignment";
+  String? assintypeB="Direct Assignment";
 
   @override
   Widget build(BuildContext context) {
@@ -259,6 +264,51 @@ class _Auto_AssignState extends State<Auto_Assign> {
               },
             ),
 
+
+            SizedBox(height: AppSize.s25,),
+            Container(
+             // width: 500,
+              child:     Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          'Assignment Type',
+                          style: AllPopupHeadings.customTextStyle(context),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      CustomRadioListTile(
+                        title:'Direct Assignment',
+                        value: 'Direct Assignment',
+                        groupValue: assintype,
+                        onChanged: (value) {
+                          setState(() {
+                            assintype = value;
+                          });
+                        },
+                      ),
+                      CustomRadioListTile(
+                        title:'Send assignment as a request',
+                        value: 'Send assignment as a request',
+                        groupValue: assintype,
+                        onChanged: (value) {
+                          setState(() {
+                            assintype = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: AppSize.s25,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -496,7 +546,8 @@ class _Auto_AssignState extends State<Auto_Assign> {
               height: AppSize.s60,
               width: 650,
               child: TextFormField(
-                controller: DSummarycont,
+                style: TableSubHeading.customTextStyle(context),
+                controller: noteone,
                 maxLines: 3,
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
@@ -580,98 +631,142 @@ class _Auto_AssignState extends State<Auto_Assign> {
                 // }
               },
             ),
-
             SizedBox(height: AppSize.s25,),
-
-            Row(
-              children: [
-                Container(
-                  width: 300,
-                  height: 35,
-                  child: TextField(
-                    // controller: _controller,
-                    textCapitalization:
-                    TextCapitalization.words,
-                    style: DocumentTypeDataStyle.customTextStyle(context),
-                    // onChanged: _search,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xFFF8F8F8),
-                        hintText: 'Search',
-                        alignLabelWithHint: true,
-                        // hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color:Color(0xFFC9C9C9)),
-                          borderRadius: BorderRadius.circular(20),
+            Container(
+              // width: 500,
+              child:     Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          'Assignment Type',
+                          style: AllPopupHeadings.customTextStyle(context),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color:ColorManager.greylight ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        // border: OutlineInputBorder(
-                        //
-                        //     borderRadius: BorderRadius.all(
-                        //
-                        //         Radius.circular(20))),
-                        prefixIcon: IconButton(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          icon: Center(
-                            child: Icon(
-                              Icons.search,
-                              size: 18,
-                              color:  ColorManager.greylight,
-                            ),
-                          ),
-                          onPressed: () {},
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5)),
+                      )
+                    ],
                   ),
-
-                ),SizedBox(width: 20,),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-
-                    decoration: BoxDecoration(
-                        border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(8))
-                    ),
-                    // child:buildDropdownButton(context),
-                    child: CustomDropdownTextField(
-                      width:100,
-
-                      isAstric:false,
-                      // Adjust headText based on depId
-                      initialValue: 'Filter by',
-                      headText: "", // Default fallback if depId doesn't match any of the expected values
-                      items: ['Weekly','Monthly',],
-                      onChanged: (newValue) {
-                        // for (var a in snapshot.data!) {
-                        //   if (a.empType == newValue) {
-                        //     clinicialName = a.empType!;
-                        //     clinicalId = a.employeeTypesId!;
-                        //     print("Dept ID'''''' ${clinicalId}");
-                        //     print("';';';''''''''Dept ID ${clinicialName}");
-                        //     // Do something with docType
-                        //   }
-                        // }
-                      },
-                    ),
+                  Row(
+                    children: [
+                      CustomRadioListTile(
+                        title:'Direct Assignment',
+                        value: 'Direct Assignment',
+                        groupValue: assintypeB,
+                        onChanged: (value) {
+                          setState(() {
+                            assintypeB = value;
+                          });
+                        },
+                      ),
+                      CustomRadioListTile(
+                        title:'Send assignment as a request',
+                        value: 'Send assignment as a request',
+                        groupValue: assintypeB,
+                        onChanged: (value) {
+                          setState(() {
+                            assintypeB = value;
+                          });
+                        },
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
+
             SizedBox(height: AppSize.s25,),
-            Text("Suggestions", style:TextStyle(
-              fontSize: FontSize.s14,
-              fontWeight: FontWeight.w700,
-              color: ColorManager.mediumgrey,
-            ),),
-            SizedBox(height: AppSize.s25,),
+
+            // Row(
+            //   children: [
+            //     Container(
+            //       width: 300,
+            //       height: 35,
+            //       child: TextField(
+            //         // controller: _controller,
+            //         textCapitalization:
+            //         TextCapitalization.words,
+            //         style: DocumentTypeDataStyle.customTextStyle(context),
+            //         // onChanged: _search,
+            //         decoration: InputDecoration(
+            //             filled: true,
+            //             fillColor: Color(0xFFF8F8F8),
+            //             hintText: 'Search',
+            //             alignLabelWithHint: true,
+            //             // hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+            //             enabledBorder: OutlineInputBorder(
+            //               borderSide: BorderSide(color:Color(0xFFC9C9C9)),
+            //               borderRadius: BorderRadius.circular(20),
+            //             ),
+            //             focusedBorder: OutlineInputBorder(
+            //               borderSide: BorderSide(color:ColorManager.greylight ),
+            //               borderRadius: BorderRadius.circular(20),
+            //             ),
+            //             // border: OutlineInputBorder(
+            //             //
+            //             //     borderRadius: BorderRadius.all(
+            //             //
+            //             //         Radius.circular(20))),
+            //             prefixIcon: IconButton(
+            //               splashColor: Colors.transparent,
+            //               highlightColor: Colors.transparent,
+            //               hoverColor: Colors.transparent,
+            //               icon: Center(
+            //                 child: Icon(
+            //                   Icons.search,
+            //                   size: 18,
+            //                   color:  ColorManager.greylight,
+            //                 ),
+            //               ),
+            //               onPressed: () {},
+            //             ),
+            //             contentPadding: EdgeInsets.symmetric(
+            //                 horizontal: 20, vertical: 5)),
+            //       ),
+            //
+            //     ),SizedBox(width: 20,),
+            //     Padding(
+            //       padding: const EdgeInsets.all(10),
+            //       child: Container(
+            //
+            //         decoration: BoxDecoration(
+            //             border:  Border.all(color: Color(0xFFC9C9C9), width: 0.86),
+            //             borderRadius: BorderRadius.all(
+            //                 Radius.circular(8))
+            //         ),
+            //         // child:buildDropdownButton(context),
+            //         child: CustomDropdownTextField(
+            //           width:100,
+            //
+            //           isAstric:false,
+            //           // Adjust headText based on depId
+            //           initialValue: 'Filter by',
+            //           headText: "", // Default fallback if depId doesn't match any of the expected values
+            //           items: ['Weekly','Monthly',],
+            //           onChanged: (newValue) {
+            //             // for (var a in snapshot.data!) {
+            //             //   if (a.empType == newValue) {
+            //             //     clinicialName = a.empType!;
+            //             //     clinicalId = a.employeeTypesId!;
+            //             //     print("Dept ID'''''' ${clinicalId}");
+            //             //     print("';';';''''''''Dept ID ${clinicialName}");
+            //             //     // Do something with docType
+            //             //   }
+            //             // }
+            //           },
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(height: AppSize.s25,),
+            // Text("Suggestions", style:TextStyle(
+            //   fontSize: FontSize.s14,
+            //   fontWeight: FontWeight.w700,
+            //   color: ColorManager.mediumgrey,
+            // ),),
+            // SizedBox(height: AppSize.s25,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -908,7 +1003,8 @@ class _Auto_AssignState extends State<Auto_Assign> {
               height: AppSize.s60,
               width: 650,
               child: TextFormField(
-                controller: DSummarycont,
+                style: TableSubHeading.customTextStyle(context),
+                controller: notetow,
                 maxLines: 3,
                 cursorColor: Colors.black,
                 decoration: InputDecoration(

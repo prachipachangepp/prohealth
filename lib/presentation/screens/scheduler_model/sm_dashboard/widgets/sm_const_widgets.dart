@@ -187,7 +187,7 @@ class ScheduledPatientsList extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
+                  padding: const EdgeInsets.only(right: 13.0),
                   child: Text(
                     'Status',
                     textAlign: TextAlign.start,
@@ -323,23 +323,26 @@ class ScheduledPatientsList extends StatelessWidget {
                                     ),),
                                   Expanded(
                                     //flex: 2,
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          "Completed",
-                                          textAlign: TextAlign.end,
-                                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w600,
-                                            color: ColorManager.greenDark,),
-                                        ),
-                                        // SizedBox(width: 20,),
-                                        // Image.asset(
-                                        //   "images/sm/contact.png",
-                                        //   height: 45,width: 55,fit: BoxFit.fill,
-                                        // ),
-                                      ],
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 5),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            "Completed",
+                                            textAlign: TextAlign.end,
+                                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w600,
+                                              color: ColorManager.greenDark,),
+                                          ),
+                                          // SizedBox(width: 20,),
+                                          // Image.asset(
+                                          //   "images/sm/contact.png",
+                                          //   height: 45,width: 55,fit: BoxFit.fill,
+                                          // ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],),
@@ -688,6 +691,7 @@ class AllAvailableClinician extends StatelessWidget {
                                       ],
                                     ),
                                   ),
+                                  SizedBox(width: AppSize.s8),
                                   Expanded(
                                     flex:2,
                                     child:  Row(
@@ -702,12 +706,15 @@ class AllAvailableClinician extends StatelessWidget {
                                             color: ColorManager.mediumgrey,),
                                         ),
                                         // SizedBox(width: 25,),
-                                        Text(
-                                          "24",
-                                          textAlign: TextAlign.start,
-                                          style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
-                                            fontWeight: FontWeight.w500,
-                                            color: ColorManager.mediumgrey,),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 2),
+                                          child: Text(
+                                            "24",
+                                            textAlign: TextAlign.start,
+                                            style: CustomTextStylesCommon.commonStyle( fontSize: FontSize.s14,
+                                              fontWeight: FontWeight.w500,
+                                              color: ColorManager.mediumgrey,),
+                                          ),
                                         ),
                                       ],
                                     ),),
@@ -805,7 +812,8 @@ class AllAvailableClinician extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                  )
+                                  ),
+                                  SizedBox(width: AppSize.s8),
                                 ],),
                             ),
                             Divider(color: ColorManager.dashDivider,height: 1,),
