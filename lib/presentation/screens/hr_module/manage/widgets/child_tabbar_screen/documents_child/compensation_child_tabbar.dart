@@ -30,7 +30,7 @@ import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 
-class CompensationChildTabbar extends StatefulWidget {
+class CompensationChildTabbar extends StatelessWidget {
   final int employeeId;
   final String? base64PdfString; // This should be your Base64 string
   final String? fileUrl;
@@ -38,27 +38,11 @@ class CompensationChildTabbar extends StatefulWidget {
       {super.key, required this.employeeId, this.fileUrl,  this.base64PdfString});
 
   @override
-  State<CompensationChildTabbar> createState() =>
-      _CompensationChildTabbarState();
-}
-
-class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
-  TextEditingController editCompensationIdController = TextEditingController();
-  TextEditingController editCompensationNameController =
-      TextEditingController();
-  TextEditingController compensitionAddIdController = TextEditingController();
-  TextEditingController compensitionAddNameController = TextEditingController();
-  final StreamController<List<OnboardingAckHealthData>>
-      _controllerCompensation =
-      StreamController<List<OnboardingAckHealthData>>();
-  String compensationExpiryType = '';
-  final StreamController<List<EmployeeDocumentModal>> _controller =
-      StreamController<List<EmployeeDocumentModal>>();
-  String expiryType = '';
-  bool _isLoading = false;
-
-  @override
   Widget build(BuildContext context) {
+    final StreamController<List<OnboardingAckHealthData>>
+    _controllerCompensation =
+    StreamController<List<OnboardingAckHealthData>>();
+    bool _isLoading = false;
     return Column(
       children: [
         Row(
@@ -86,7 +70,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                 if (snapshot.hasData) {
                                   return CustomDocumedAddPopup(
                                     title: 'Add Compensation',
-                                    employeeId: widget.employeeId,
+                                    employeeId: employeeId,
                                     dataList: snapshot.data!,
                                   );
                                 } else {
@@ -108,7 +92,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
             stream: _controllerCompensation.stream,
             builder: (context, snapshot) {
               getAckHealthRecord(context, AppConfig.compensationDocId,
-                      widget.employeeId, 'no')
+                      employeeId, 'no')
                   .then((data) {
                 _controllerCompensation.add(data);
               }).catchError((error) {
@@ -291,7 +275,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                                         labelName:
                                                             'Edit Compensation',
                                                         employeeId:
-                                                            widget.employeeId,
+                                                            employeeId,
                                                         docName: compaensation
                                                             .DocumentName,
                                                         docMetaDataId: compaensation

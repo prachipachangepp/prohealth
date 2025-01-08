@@ -491,7 +491,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                 )
                               ],
                             )),
-
                             Expanded(child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -546,7 +545,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     ],
                                   ),
                                 ),
-
                                 // Text(
                                 //   'Verify Account Number',
                                 //   style: AllPopupHeadings.customTextStyle(context),
@@ -575,12 +573,10 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                 )
                               ],
                             )),
-
                           ],
                         ),
                       ],
                     ),
-
                     SizedBox(
                       height: 20,
                     ),
@@ -638,8 +634,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     await showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return AddSuccessPopup(message: 'Banking Added Successfully',
-                                        );
+                                        return AddSuccessPopup(message: 'Banking Added Successfully');
                                       },
                                     );
                                   }else if(response.statusCode == 400 || response.statusCode == 404){
@@ -661,7 +656,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                 }
                               }
                             ),
-
                       ],
                     )
                   ],

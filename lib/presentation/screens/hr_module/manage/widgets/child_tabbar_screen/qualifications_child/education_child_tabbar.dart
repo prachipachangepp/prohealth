@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
@@ -16,95 +17,30 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_ca
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 
-class EducationChildTabbar extends StatefulWidget {
+class EducationChildTabbar extends StatelessWidget {
   final int employeeId;
   const EducationChildTabbar({super.key, required this.employeeId});
 
   @override
-  State<EducationChildTabbar> createState() => _EducationChildTabbarState();
-}
-
-class _EducationChildTabbarState extends State<EducationChildTabbar> {
-  final StreamController<List<EducationData>> educationStreamController = StreamController<List<EducationData>>();
-  TextEditingController collegeUniversityController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController calenderController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController degreeController = TextEditingController();
-  TextEditingController stateController = TextEditingController();
-  TextEditingController majorSubjectController = TextEditingController();
-  TextEditingController countryNameController = TextEditingController();
-  String expiryType = 'No';
-  @override
-  void initState() {
-    // TODO: implement initState
-
-
-    super.initState();
-  }
-
-  String _trimAddress(String address) {
-    const int maxLength = 22;
-    if (address.length > maxLength) {
-      return '${address.substring(0, maxLength)}...';
-    }
-    return address;
-  }
-
-  OverlayEntry? _overlayEntry;
-  final LayerLink _layerLink = LayerLink();
-  bool _isOverlayVisible = false;
-
-  OverlayEntry _createOverlayEntry(BuildContext context, Offset position, String text) {
-    return OverlayEntry(
-      builder: (context) {
-        return Positioned(
-          left: position.dx,
-          top: position.dy,
-          child: Material(
-            elevation: 8.0,
-            child: Container(
-              width: 150,
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                text,
-                style: ThemeManagerDarkFont.customTextStyle(context)
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-  // Show overlay
-  void _showOverlay(BuildContext context, Offset position, String text) {
-    if (_isOverlayVisible) return;
-
-    _overlayEntry = _createOverlayEntry(context, position, text);
-    Overlay.of(context)?.insert(_overlayEntry!);
-    _isOverlayVisible = true;
-  }
-
-  // Remove overlay
-  void _removeOverlay() {
-    if (_overlayEntry != null && _isOverlayVisible) {
-      _overlayEntry?.remove();
-      _overlayEntry = null;
-      _isOverlayVisible = false;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final educationProviderState = Provider.of<HrManageProvider>(context, listen: false);
+    final LayerLink _layerLink = LayerLink();
+    final StreamController<List<EducationData>> educationStreamController = StreamController<List<EducationData>>();
+    TextEditingController collegeUniversityController = TextEditingController();
+    TextEditingController phoneController = TextEditingController();
+    TextEditingController calenderController = TextEditingController();
+    TextEditingController cityController = TextEditingController();
+    TextEditingController degreeController = TextEditingController();
+    TextEditingController stateController = TextEditingController();
+    TextEditingController majorSubjectController = TextEditingController();
+    TextEditingController countryNameController = TextEditingController();
+    String expiryType = 'No';
     return Column(
       children: [
         Row(
@@ -145,7 +81,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                             onpressedSave: () async {
                               var response = await addEmployeeEducation(
                                   context,
-                                  widget.employeeId,
+                                  employeeId,
                                   expiryType.toString(),
                                   degreeController.text,
                                   majorSubjectController.text,
@@ -228,7 +164,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
         StreamBuilder<List<EducationData>>(
           stream: educationStreamController.stream,
           builder: (context,snapshot) {
-            getEmployeeEducation(context,widget.employeeId).then((data) {
+            getEmployeeEducation(context,employeeId).then((data) {
               educationStreamController.add(data);
             }).catchError((error) {
               // Handle error
@@ -254,241 +190,248 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   ));
             }
             if(snapshot.hasData){
-              return WrapWidget(
-                  children: List.generate(snapshot.data!.length, (index){
-                return CardDetails(childWidget: DetailsFormate(
-                  title:  'Education #${index + 1}',
-                    row1Child1:  [
-                      Text('Degree :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: AppSize.s10,),
-                      Text('Graduate :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: AppSize.s10),
-                      Text('Educational Institute :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: AppSize.s10),
-                      Text('Major Subject :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                    ],
-                    row1Child2: [
-                      MouseRegion(
-                        onHover: (event){
-                          _showOverlay(context, event.position, snapshot.data![index].degree ?? '--');
-                        },
-                        onExit: (_) {
-                          // Remove overlay when the cursor exits the widget
-                          _removeOverlay();
-                        },
-                        child: CompositedTransformTarget(link: _layerLink,
+              return Consumer<HrManageProvider>(
+                builder: (context,providerState,child) {
+                  return WrapWidget(
+                      children: List.generate(snapshot.data!.length, (index){
+                        providerState.trimDegreeString(snapshot.data![index].degree);
+                        providerState.trimCollegeString(snapshot.data![index].college);
+                        providerState.trimMajorString(snapshot.data![index].major);
+                    return CardDetails(childWidget: DetailsFormate(
+                      title:  'Education #${index + 1}',
+                        row1Child1:  [
+                          Text('Degree :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: AppSize.s10,),
+                          Text('Graduate :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: AppSize.s10),
+                          Text('Educational Institute :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: AppSize.s10),
+                          Text('Major Subject :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                        ],
+                        row1Child2: [
+                          MouseRegion(
+                            onHover: (event){
+                              educationProviderState.showOverlay(context, event.position, snapshot.data![index].degree ?? '--');
+                            },
+                            onExit: (_) {
+                              // Remove overlay when the cursor exits the widget
+                              educationProviderState.removeOverlay();
+                            },
+                            child: CompositedTransformTarget(link: _layerLink,
+                              child: Text(
+                                educationProviderState.trimmedDegree,
+                                style: ThemeManagerDarkFont.customTextStyle(context),
+                              ),),
+                          ),
+                          // Text(snapshot.data![index].degree,
+                          //   style: ThemeManagerDarkFont.customTextStyle(context),),
+                          const SizedBox(height: AppSize.s10,),
+                          Text(snapshot.data![index].graduate,
+                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                          const SizedBox(height: AppSize.s10,),
+                         MouseRegion(
+                          onHover: (event){
+                            educationProviderState.showOverlay(context, event.position, snapshot.data![index].college ?? '--');
+                          },
+                          onExit: (_) {
+                            // Remove overlay when the cursor exits the widget
+                            educationProviderState.removeOverlay();
+                          },
+                          child: CompositedTransformTarget(link: _layerLink,
                           child: Text(
-                            _trimAddress(snapshot.data![index].degree ?? '--'),
-                            style: ThemeManagerDarkFont.customTextStyle(context),
-                          ),),
-                      ),
-                      // Text(snapshot.data![index].degree,
-                      //   style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: AppSize.s10,),
-                      Text(_trimAddress(snapshot.data![index].graduate),
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: AppSize.s10,),
-                     MouseRegion(
-                      onHover: (event){
-                        _showOverlay(context, event.position, snapshot.data![index].college ?? '--');
-                      },
-                      onExit: (_) {
-                        // Remove overlay when the cursor exits the widget
-                        _removeOverlay();
-                      },
-                      child: CompositedTransformTarget(link: _layerLink,
-                      child: Text(
-                            _trimAddress(snapshot.data![index].college ?? '--'),
-                            style: ThemeManagerDarkFont.customTextStyle(context),
-                          ),),
-                    ),
-                    // MouseRegion(
-                    //   onEnter: (event) {
-                    //     RenderBox box = context.findRenderObject() as RenderBox;
-                    //     Offset position = box.localToGlobal(Offset.zero);
-                    //     _showOverlayAddress(context, position, snapshot.data![index].college ?? '--');
-                    //   },
-                    //   onExit: (_) {
-                    //     _removeOverlayAddress();
-                    //   },
-                    //   child: Text(
-                    //     _trimAddress(snapshot.data![index].college ?? '--'),
-                    //     style: ThemeManagerDarkFont.customTextStyle(context),
-                    //   ),
-                    // ),
-                    ///plain text
-                    // Text(_trimAddress(snapshot.data![index].college),
-                    //     style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: AppSize.s10),
-                      Text(_trimAddress(snapshot.data![index].major),
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                    ],
-                    row2Child1: [
-                      Text('Phone :',
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: AppSize.s10,),
-                      Text("City :",
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: AppSize.s10),
-                      Text("State :",
-                          style: ThemeManagerDark.customTextStyle(context)),
-                      const SizedBox(height: AppSize.s10),
-                      Text("Country :",
-                          style: ThemeManagerDark.customTextStyle(context)),
-                    ],
-                    row2Child2: [
-                      Text(snapshot.data![index].phone,
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: AppSize.s10),
-                      Text(snapshot.data![index].city,
-                        style: ThemeManagerDarkFont.customTextStyle(context),),
-                      const SizedBox(height: AppSize.s10),
-                      Text(snapshot.data![index].state,
-                          style: ThemeManagerDarkFont.customTextStyle(context)),
-                      const SizedBox(height: AppSize.s10),
-                      Text(snapshot.data![index].country,
-                          style: ThemeManagerDarkFont.customTextStyle(context)),
-                    ],
-                    button: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        snapshot.data![index].approved == null ?
-                        SizedBox(
-                          height: 25,
-                        ):
-                      BorderIconButton(iconData: Icons.edit_outlined,
-                          buttonText: 'Edit', onPressed: (){
-                            showDialog(context: context, builder: (BuildContext context){
-                              return FutureBuilder<EducationPrefillData>(
-                                  future: getPrefillEmployeeEducation(context,snapshot.data![index].educationId),
-                                  builder: (context, snapshotPrefill) {
-                                    if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                      return Center(
-                                        child: CircularProgressIndicator(
-                                          color: ColorManager.blueprime,
-                                        ),
-                                      );
-                                    }
-                                    var college = snapshotPrefill.data!.college;
-                                    collegeUniversityController = TextEditingController(text: snapshotPrefill.data!.college);
-
-                                    var phone = snapshotPrefill.data!.phone;
-                                    phoneController = TextEditingController(text: snapshotPrefill.data!.phone);
-
-                                    var city = snapshotPrefill.data!.city;
-                                    cityController = TextEditingController(text: snapshotPrefill.data!.city);
-
-                                    var degree = snapshotPrefill.data!.degree;
-                                    degreeController = TextEditingController(text: snapshotPrefill.data!.degree);
-
-                                    var state = snapshotPrefill.data!.state;
-                                    stateController = TextEditingController(text: snapshotPrefill.data!.state);
-
-                                    var majorSubject = snapshotPrefill.data!.major;
-                                    majorSubjectController = TextEditingController(text: snapshotPrefill.data!.major);
-
-                                    var graduate = snapshotPrefill.data!.graduate;
-                                    expiryType = snapshotPrefill.data!.graduate.toString();
-
-                                    var country = snapshotPrefill.data!.country;
-                                    countryNameController = TextEditingController(text: snapshotPrefill.data!.country);
-
-                                    var startDate = snapshotPrefill.data!.startDate;
-                                    calenderController = TextEditingController(text: snapshotPrefill.data!.startDate);
-                                    //countryNameController = TextEditingController(text: "")
-
-                                    return StatefulBuilder(
-                                      builder: (BuildContext context, void Function(void Function()) setState) {
-                                        return  AddEducationPopup(collegeUniversityController: collegeUniversityController,
-                                          phoneController: phoneController,
-                                          calenderController: calenderController, cityController: cityController,
-                                          degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
-                                          countryNameController: countryNameController, onpressedClose: (){
-                                            Navigator.pop(context);
-                                          }, onpressedSave: () async{
-                                            var response = await updateEmployeeEducation(context,
-                                              snapshot.data![index].educationId,
-                                              widget.employeeId,
-                                              graduate == expiryType.toString() ? graduate.toString() : expiryType.toString(),
-                                              degree == degreeController.text ? degree.toString() : degreeController.text,
-                                              majorSubject == majorSubjectController.text ? majorSubject.toString() : majorSubjectController.text,
-                                              city == cityController.text ? city.toString() : cityController.text,
-                                              college == collegeUniversityController.text ? college.toString() : collegeUniversityController.text,
-                                              phone == phoneController.text ? phone.toString() : phoneController.text,
-                                              state == stateController.text ? state.toString() : stateController.text,
-                                              country == countryNameController.text ?  country.toString() : countryNameController.text,
-                                              startDate == calenderController.text ? startDate : calenderController.text,
-                                            );
-                                            Navigator.pop(context);
-                                            if(response.statusCode == 200 || response.statusCode == 201){
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return AddSuccessPopup(
-                                                    message: 'Education Edit Successfully',
-                                                  );
-                                                },
-                                              );
-                                            }else if(response.statusCode == 400 || response.statusCode == 404){
-                                              Navigator.pop(context);
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) => const FourNotFourPopup(),
-                                              );
-                                            }
-                                            else {
-                                              Navigator.pop(context);
-                                              showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) => FailedPopup(text: response.message),
-                                              );
-                                            }
-                                            expiryType = '';
-                                          },
-                                          radioButton:Container(
-                                            width: AppSize.s280,
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  child: CustomRadioListTile(
-                                                    value: "Yes",
-                                                    groupValue: expiryType.toString(),
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        expiryType = value!;
-                                                      });
-                                                    },
-                                                    title: "Yes",
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: CustomRadioListTile(
-                                                    value: "No",
-                                                    groupValue: expiryType.toString(),
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        expiryType = value!;
-                                                      });
-                                                    },
-                                                    title: "No",
-                                                  ),
-                                                ),
-                                              ],
+                            educationProviderState.trimmedCollege,
+                                style: ThemeManagerDarkFont.customTextStyle(context),
+                              ),),
+                        ),
+                        // MouseRegion(
+                        //   onEnter: (event) {
+                        //     RenderBox box = context.findRenderObject() as RenderBox;
+                        //     Offset position = box.localToGlobal(Offset.zero);
+                        //     _showOverlayAddress(context, position, snapshot.data![index].college ?? '--');
+                        //   },
+                        //   onExit: (_) {
+                        //     _removeOverlayAddress();
+                        //   },
+                        //   child: Text(
+                        //     _trimAddress(snapshot.data![index].college ?? '--'),
+                        //     style: ThemeManagerDarkFont.customTextStyle(context),
+                        //   ),
+                        // ),
+                        ///plain text
+                        // Text(_trimAddress(snapshot.data![index].college),
+                        //     style: ThemeManagerDarkFont.customTextStyle(context),),
+                          const SizedBox(height: AppSize.s10),
+                          Text(educationProviderState.trimmedMajor,
+                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                        ],
+                        row2Child1: [
+                          Text('Phone :',
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: AppSize.s10,),
+                          Text("City :",
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: AppSize.s10),
+                          Text("State :",
+                              style: ThemeManagerDark.customTextStyle(context)),
+                          const SizedBox(height: AppSize.s10),
+                          Text("Country :",
+                              style: ThemeManagerDark.customTextStyle(context)),
+                        ],
+                        row2Child2: [
+                          Text(snapshot.data![index].phone,
+                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                          const SizedBox(height: AppSize.s10),
+                          Text(snapshot.data![index].city,
+                            style: ThemeManagerDarkFont.customTextStyle(context),),
+                          const SizedBox(height: AppSize.s10),
+                          Text(snapshot.data![index].state,
+                              style: ThemeManagerDarkFont.customTextStyle(context)),
+                          const SizedBox(height: AppSize.s10),
+                          Text(snapshot.data![index].country,
+                              style: ThemeManagerDarkFont.customTextStyle(context)),
+                        ],
+                        button: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            snapshot.data![index].approved == null ?
+                            SizedBox(
+                              height: 25,
+                            ):
+                          BorderIconButton(iconData: Icons.edit_outlined,
+                              buttonText: 'Edit', onPressed: (){
+                                showDialog(context: context, builder: (BuildContext context){
+                                  return FutureBuilder<EducationPrefillData>(
+                                      future: getPrefillEmployeeEducation(context,snapshot.data![index].educationId),
+                                      builder: (context, snapshotPrefill) {
+                                        if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              color: ColorManager.blueprime,
                                             ),
-                                          ), title: 'Edit Education',);
-                                      },
-                                    );
-                                  }
-                              );
-                            });
-                          })
-                      ],
-                    )),);
-              }));
+                                          );
+                                        }
+                                        var college = snapshotPrefill.data!.college;
+                                        collegeUniversityController = TextEditingController(text: snapshotPrefill.data!.college);
+
+                                        var phone = snapshotPrefill.data!.phone;
+                                        phoneController = TextEditingController(text: snapshotPrefill.data!.phone);
+
+                                        var city = snapshotPrefill.data!.city;
+                                        cityController = TextEditingController(text: snapshotPrefill.data!.city);
+
+                                        var degree = snapshotPrefill.data!.degree;
+                                        degreeController = TextEditingController(text: snapshotPrefill.data!.degree);
+
+                                        var state = snapshotPrefill.data!.state;
+                                        stateController = TextEditingController(text: snapshotPrefill.data!.state);
+
+                                        var majorSubject = snapshotPrefill.data!.major;
+                                        majorSubjectController = TextEditingController(text: snapshotPrefill.data!.major);
+
+                                        var graduate = snapshotPrefill.data!.graduate;
+                                        expiryType = snapshotPrefill.data!.graduate.toString();
+
+                                        var country = snapshotPrefill.data!.country;
+                                        countryNameController = TextEditingController(text: snapshotPrefill.data!.country);
+
+                                        var startDate = snapshotPrefill.data!.startDate;
+                                        calenderController = TextEditingController(text: snapshotPrefill.data!.startDate);
+                                        //countryNameController = TextEditingController(text: "")
+
+                                        return StatefulBuilder(
+                                          builder: (BuildContext context, void Function(void Function()) setState) {
+                                            return  AddEducationPopup(collegeUniversityController: collegeUniversityController,
+                                              phoneController: phoneController,
+                                              calenderController: calenderController, cityController: cityController,
+                                              degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
+                                              countryNameController: countryNameController, onpressedClose: (){
+                                                Navigator.pop(context);
+                                              }, onpressedSave: () async{
+                                                var response = await updateEmployeeEducation(context,
+                                                  snapshot.data![index].educationId,
+                                                  employeeId,
+                                                  graduate == expiryType.toString() ? graduate.toString() : expiryType.toString(),
+                                                  degree == degreeController.text ? degree.toString() : degreeController.text,
+                                                  majorSubject == majorSubjectController.text ? majorSubject.toString() : majorSubjectController.text,
+                                                  city == cityController.text ? city.toString() : cityController.text,
+                                                  college == collegeUniversityController.text ? college.toString() : collegeUniversityController.text,
+                                                  phone == phoneController.text ? phone.toString() : phoneController.text,
+                                                  state == stateController.text ? state.toString() : stateController.text,
+                                                  country == countryNameController.text ?  country.toString() : countryNameController.text,
+                                                  startDate == calenderController.text ? startDate : calenderController.text,
+                                                );
+                                                Navigator.pop(context);
+                                                if(response.statusCode == 200 || response.statusCode == 201){
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return AddSuccessPopup(
+                                                        message: 'Education Edit Successfully',
+                                                      );
+                                                    },
+                                                  );
+                                                }else if(response.statusCode == 400 || response.statusCode == 404){
+                                                  Navigator.pop(context);
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext context) => const FourNotFourPopup(),
+                                                  );
+                                                }
+                                                else {
+                                                  Navigator.pop(context);
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext context) => FailedPopup(text: response.message),
+                                                  );
+                                                }
+                                                expiryType = '';
+                                              },
+                                              radioButton:Container(
+                                                width: AppSize.s280,
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: CustomRadioListTile(
+                                                        value: "Yes",
+                                                        groupValue: expiryType.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            expiryType = value!;
+                                                          });
+                                                        },
+                                                        title: "Yes",
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: CustomRadioListTile(
+                                                        value: "No",
+                                                        groupValue: expiryType.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            expiryType = value!;
+                                                          });
+                                                        },
+                                                        title: "No",
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ), title: 'Edit Education',);
+                                          },
+                                        );
+                                      }
+                                  );
+                                });
+                              })
+                          ],
+                        )),);
+                  }));
+                }
+              );
             }else{
               return SizedBox();
             }

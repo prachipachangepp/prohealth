@@ -5,6 +5,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/references_data.dart';
@@ -15,97 +16,37 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/const_ca
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../icon_button_constant.dart';
 
 ///done by saloni
-class ReferencesChildTabbar extends StatefulWidget {
+class ReferencesChildTabbar extends StatelessWidget {
   final int employeeId;
-  const ReferencesChildTabbar({super.key, required this.employeeId});
+   ReferencesChildTabbar({super.key, required this.employeeId});
 
-  @override
-  State<ReferencesChildTabbar> createState() => _ReferencesChildTabbarState();
-}
-
-class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
-  final StreamController<List<ReferenceData>> referenceStreamController =
-  StreamController<List<ReferenceData>>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController titlePositionController = TextEditingController();
-  TextEditingController knowPersonController = TextEditingController();
-  TextEditingController companyNameController = TextEditingController();
-  TextEditingController associationLengthController = TextEditingController();
-  TextEditingController mobileNumberController = TextEditingController();
-  TextEditingController referredBController = TextEditingController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
-
-  String _trimAddress(String address) {
-    const int maxLength = 22;
-    if (address.length > maxLength) {
-      return '${address.substring(0, maxLength)}...';
-    }
-    return address;
-  }
-
+  // String _trimAddress(String address) {
   OverlayEntry? _overlayEntry;
-  final LayerLink _layerLink = LayerLink();
+
   bool _isOverlayVisible = false;
 
-  OverlayEntry _createOverlayEntry(BuildContext context, Offset position, String text) {
-    return OverlayEntry(
-      builder: (context) {
-        return Positioned(
-          left: position.dx,
-          top: position.dy,
-          child: Material(
-            elevation: 8.0,
-            child: Container(
-              width: 150,
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                  text,
-                  style: ThemeManagerDarkFont.customTextStyle(context)
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-  // Show overlay
-  void _showOverlay(BuildContext context, Offset position, String text) {
-    if (_isOverlayVisible) return;
-
-    _overlayEntry = _createOverlayEntry(context, position, text);
-    Overlay.of(context)?.insert(_overlayEntry!);
-    _isOverlayVisible = true;
-  }
-
-  // Remove overlay
-  void _removeOverlay() {
-    if (_overlayEntry != null && _isOverlayVisible) {
-      _overlayEntry?.remove();
-      _overlayEntry = null;
-      _isOverlayVisible = false;
-    }
-  }
-
+  // OverlayEntry _createOverlayEntry(BuildContext context, Offset position, String text) {
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context).size;
+   final referenceProviderState = Provider.of<HrManageProvider>(context,listen: false,);
+   final LayerLink _layerLink = LayerLink();
+    final StreamController<List<ReferenceData>> referenceStreamController =
+    StreamController<List<ReferenceData>>();
+    TextEditingController nameController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController titlePositionController = TextEditingController();
+    TextEditingController knowPersonController = TextEditingController();
+    TextEditingController companyNameController = TextEditingController();
+    TextEditingController associationLengthController = TextEditingController();
+    TextEditingController mobileNumberController = TextEditingController();
+    TextEditingController referredBController = TextEditingController();
     return Column(
       children: [
         ///add button
@@ -147,7 +88,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                   'Reference',
                                   companyNameController.text,
                                   emailController.text,
-                                  widget.employeeId!,
+                                  employeeId!,
                                   mobileNumberController.text,
                                   nameController.text,
                                   knowPersonController.text,
@@ -195,7 +136,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
         StreamBuilder<List<ReferenceData>>(
             stream: referenceStreamController.stream,
             builder: (context, snapshot) {
-              getReferences(context, widget.employeeId).then((data) {
+              getReferences(context, employeeId).then((data) {
                 referenceStreamController.add(data);
               }).catchError((error) {
                 // Handle error
@@ -223,6 +164,9 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
               if (snapshot.hasData) {
                 return WrapWidget(
                     children: List.generate(snapshot.data!.length, (index) {
+                      referenceProviderState.trimCompanyString(snapshot.data![index].company ?? '--');
+                      referenceProviderState.trimTitleString(snapshot.data![index].title ?? '--');
+                      referenceProviderState.trimReferenceString(snapshot.data![index].references ?? '--');
                       return CardDetails(
                         childWidget: DetailsFormate(
                             title: 'References #${index + 1}',
@@ -256,15 +200,15 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                               ),
                               MouseRegion(
                                 onHover: (event){
-                                  _showOverlay(context, event.position, snapshot.data![index].title ?? '--');
+                                  referenceProviderState.showOverlay(context, event.position, snapshot.data![index].title ?? '--');
                                 },
                                 onExit: (_) {
                                   // Remove overlay when the cursor exits the widget
-                                  _removeOverlay();
+                                  referenceProviderState.removeOverlay();
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
-                                    _trimAddress(snapshot.data![index].title ?? '--'),
+                                    referenceProviderState.trimmedTitle,
                                     style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
@@ -316,15 +260,15 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                             row2Child2: [
                               MouseRegion(
                                 onHover: (event){
-                                  _showOverlay(context, event.position, snapshot.data![index].company ?? '--');
+                                  referenceProviderState.showOverlay(context, event.position, snapshot.data![index].company ?? '--');
                                 },
                                 onExit: (_) {
                                   // Remove overlay when the cursor exits the widget
-                                  _removeOverlay();
+                                  referenceProviderState.removeOverlay();
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
-                                    _trimAddress(snapshot.data![index].company ?? '--'),
+                                    referenceProviderState.trimmedCompanyName,
                                     style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
@@ -337,15 +281,15 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                               ),
                               MouseRegion(
                                 onHover: (event){
-                                  _showOverlay(context, event.position, snapshot.data![index].references ?? '--');
+                                  referenceProviderState.showOverlay(context, event.position, snapshot.data![index].references ?? '--');
                                 },
                                 onExit: (_) {
                                   // Remove overlay when the cursor exits the widget
-                                  _removeOverlay();
+                                  referenceProviderState.removeOverlay();
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
-                                    _trimAddress(snapshot.data![index].references ?? '--'),
+                                    referenceProviderState.trimmedReference,
                                     style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
@@ -529,7 +473,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                                 .toString()
                                                                 : emailController
                                                                 .text,
-                                                            widget.employeeId,
+                                                            employeeId,
                                                             ////////////////////////
                                                             mobileNumber ==
                                                                 mobileNumberController

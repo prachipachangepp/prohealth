@@ -30,6 +30,9 @@ Future<void> main() async {
           ChangeNotifierProvider(
             create: (_) => PageIndexProvider(),
           ),
+          ChangeNotifierProvider(
+              create: (_)=>HrManageProvider()
+          ),
           ChangeNotifierProvider(create: (context)=>AddressProvider(controller: '' as TextEditingController,onChange: '' as Function(String p1)?))
         ],
 

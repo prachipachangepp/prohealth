@@ -13,22 +13,17 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
-class ClinicalLicensesDoc extends StatefulWidget {
+class ClinicalLicensesDoc extends StatelessWidget {
   final int employeeId;
   const ClinicalLicensesDoc({super.key, required this.employeeId});
 
   @override
-  State<ClinicalLicensesDoc> createState() => _ClinicalLicensesDocState();
-}
-
-class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
-  final StreamController<List<ClinicalLicenseDataModel>> drivingLicenseController =
-  StreamController<List<ClinicalLicenseDataModel>>();
-  final StreamController<List<PractitionerLicenseDataModel>> practitionerLicenseController =
-  StreamController<List<PractitionerLicenseDataModel>>();
-  bool _isLoading = false;
-  @override
   Widget build(BuildContext context) {
+    final StreamController<List<ClinicalLicenseDataModel>> drivingLicenseController =
+    StreamController<List<ClinicalLicenseDataModel>>();
+    final StreamController<List<PractitionerLicenseDataModel>> practitionerLicenseController =
+    StreamController<List<PractitionerLicenseDataModel>>();
+    bool _isLoading = false;
     return Column(
       children: [
         // Row(
@@ -84,7 +79,7 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
               child: StreamBuilder<List<ClinicalLicenseDataModel>>(
                 stream: drivingLicenseController.stream,
                 builder: (context,snapshot) {
-                  getDrivingLicenseRecord(context,widget.employeeId,"yes")
+                  getDrivingLicenseRecord(context,employeeId,"yes")
                       .then((data) {
                     drivingLicenseController.add(data);
                   }).catchError((error) {
@@ -190,7 +185,7 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
                                           }
                                           return ClinicalLicensesAddPopup(
                                             title: 'Edit Driving Licenses',
-                                            employeeId: widget.employeeId,
+                                            employeeId: employeeId,
                                             drivingList: snapshotPrefill.data!,
                                             docId: drivingLicense.drivingLicenseId.toString(),
                                             licenseName: 'Driving License',
@@ -325,7 +320,7 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
               child: StreamBuilder<List<PractitionerLicenseDataModel>>(
                 stream: practitionerLicenseController.stream,
                 builder: (context,snapshot) {
-                  getPractitionerLicenseRecord(context,widget.employeeId,"yes")
+                  getPractitionerLicenseRecord(context,employeeId,"yes")
                       .then((data) {
 
                   practitionerLicenseController.add(data);
@@ -432,7 +427,7 @@ class _ClinicalLicensesDocState extends State<ClinicalLicensesDoc> {
                                           }
                                           return ClinicalLicensesAddPopup(
                                             title: 'Edit Practitioner Licenses',
-                                            employeeId: widget.employeeId,
+                                            employeeId: employeeId,
                                             practionerData: snapshotPrefill.data!,
                                             docId: practionerlicense.practitionerLicenceId.toString(),
                                             licenseName: 'Practitioner Licenses',
