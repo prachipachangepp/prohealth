@@ -95,7 +95,7 @@ class ScheduledToBeScheduledPatients extends StatelessWidget {
                       Text("Number of Patients",
                         style: TextStyle(fontSize: FontSize.s12,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                       CustomDropdownTextField(
-                        width: 80,
+                        width: 90,
                         isAstric:false,
                         icon: Icons.keyboard_arrow_down_outlined,
                         // Adjust headText based on depId
@@ -691,7 +691,7 @@ class AllAvailableClinician extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: AppSize.s8),
+                                  SizedBox(width: AppSize.s15),
                                   Expanded(
                                     flex:2,
                                     child:  Row(
