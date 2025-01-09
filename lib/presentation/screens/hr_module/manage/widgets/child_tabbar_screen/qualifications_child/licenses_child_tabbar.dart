@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
@@ -21,6 +22,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_but
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -29,30 +31,9 @@ import '../../../../../../../data/api_data/hr_module_data/manage/qualification_l
 import '../../custom_icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 ///done by saloni
-class LicensesChildTabbar extends StatefulWidget {
+class LicensesChildTabbar extends StatelessWidget {
   final int employeeId;
-  const LicensesChildTabbar({super.key, required this.employeeId});
-
-  @override
-  State<LicensesChildTabbar> createState() => _LicensesChildTabbarState();
-}
-
-class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
-  final StreamController<List<QulificationLicensesFilteredData>> streamController = StreamController<List<QulificationLicensesFilteredData>>();
-  TextEditingController livensureController = TextEditingController();
-  TextEditingController issueDateController = TextEditingController();
-  TextEditingController expiryDateController = TextEditingController();
-  TextEditingController issuingOrganizationController = TextEditingController();
-  TextEditingController countryController = TextEditingController();
-  TextEditingController numberIDController = TextEditingController();
-  String docName ='Select';
-  String docNameadd ='Select';
-  String docNameEdit ='';
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+   LicensesChildTabbar({super.key, required this.employeeId});
 
   String _trimAddress(String address) {
     const int maxLength = 35;
@@ -63,52 +44,24 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
   }
 
   OverlayEntry? _overlayEntry;
-  final LayerLink _layerLink = LayerLink();
+
   bool _isOverlayVisible = false;
 
-  OverlayEntry _createOverlayEntry(BuildContext context, Offset position, String text) {
-    return OverlayEntry(
-      builder: (context) {
-        return Positioned(
-          left: position.dx,
-          top: position.dy,
-          child: Material(
-            elevation: 8.0,
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                  text,
-                  style: ThemeManagerDarkFont.customTextStyle(context)
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-  // Show overlay
-  void _showOverlay(BuildContext context, Offset position, String text) {
-    if (_isOverlayVisible) return;
-
-    _overlayEntry = _createOverlayEntry(context, position, text);
-    Overlay.of(context)?.insert(_overlayEntry!);
-    _isOverlayVisible = true;
-  }
-
-  // Remove overlay
-  void _removeOverlay() {
-    if (_overlayEntry != null && _isOverlayVisible) {
-      _overlayEntry?.remove();
-      _overlayEntry = null;
-      _isOverlayVisible = false;
-    }
-  }
+  // OverlayEntry _createOverlayEntry(BuildContext context, Offset position, String text) {
   @override
   Widget build(BuildContext context) {
+    final licenseProviderState = Provider.of<HrManageProvider>(context,listen: false);
+    final LayerLink _layerLink = LayerLink();
+    final StreamController<List<QulificationLicensesFilteredData>> streamController = StreamController<List<QulificationLicensesFilteredData>>();
+    TextEditingController livensureController = TextEditingController();
+    TextEditingController issueDateController = TextEditingController();
+    TextEditingController expiryDateController = TextEditingController();
+    TextEditingController issuingOrganizationController = TextEditingController();
+    TextEditingController countryController = TextEditingController();
+    TextEditingController numberIDController = TextEditingController();
+    String docName ='Select';
+    String docNameadd ='Select';
+    String docNameEdit ='';
     return Column(
       children: [
         Padding(
@@ -203,7 +156,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                               onpressedSave: () async {
                                 var response = await addLicensePost(context,
                                     countryController.text,
-                                    widget.employeeId,
+                                    employeeId,
                                     expiryDateController.text,
                                     issueDateController.text,
                                     'url',
@@ -312,7 +265,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
         StreamBuilder<List<QulificationLicensesFilteredData>>(
             stream: streamController.stream,
             builder: (context,snapshot) {
-              getEmployeeLicensesFilteredData(context,widget.employeeId,docName).then((data) {
+              getEmployeeLicensesFilteredData(context,employeeId,docName).then((data) {
                 streamController.add(data);
               }).catchError((error) {
                 // Handle error
@@ -340,6 +293,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
               if(snapshot.hasData){
                 return WrapWidget(
                     children: List.generate(snapshot.data!.length, (index){
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        licenseProviderState.trimOrgString(snapshot.data![index].org ?? '--');
+                      });
                       return CardDetails(childWidget: DetailsFormate(
                         titleRow: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -396,7 +352,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                             var response = await updateLicensePatch(context,
                                                 snapshot.data![index].licenseId,
                                                 country == countryController.text ? country.toString() : countryController.text,
-                                                widget.employeeId,
+                                                employeeId,
                                                 expDate == expiryDateController.text ? expDate.toString() : expiryDateController.text,
                                                 issueDate == issueDateController.text ? issueDate.toString() : issueDateController.text,
                                                 licenseUrl,
@@ -510,14 +466,14 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           const SizedBox(height: 10,),
                           MouseRegion(
                             onHover: (event){
-                              _showOverlay(context, event.position, snapshot.data![index].org ?? '--');
+                              licenseProviderState.showOverlay(context, event.position, snapshot.data![index].org ?? '--');
                             },
                             onExit: (_) {
-                              _removeOverlay();
+                              licenseProviderState.removeOverlay();
                             },
                             child: CompositedTransformTarget(link: _layerLink,
                               child: Text(
-                                _trimAddress(snapshot.data![index].org ?? '--'),
+                                licenseProviderState.trimmedOrg,
                                 style: ThemeManagerDarkFont.customTextStyle(context),
                               ),),
                           ),

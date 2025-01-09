@@ -55,7 +55,7 @@ class _ManageScreenState extends State<ManageScreen> {
   // final ValueNotifier<bool> _isEditMode = ValueNotifier<bool>(false); // Use ValueNotifier to track edit mode
   @override
   Widget build(BuildContext context) {
-    final tabState = Provider.of<RouteProvider>(context, listen: false);
+    final tabState = Provider.of<HrManageProvider>(context, listen: false);
     return Scaffold(
         backgroundColor: Colors.white,
         body: Column(children: [
