@@ -3,7 +3,14 @@ import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_provider.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/delete_user.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_create_provider.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_delete_provider.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_edit_provider.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'app/app.dart';
@@ -30,9 +37,22 @@ Future<void> main() async {
           ChangeNotifierProvider(
             create: (_) => PageIndexProvider(),
           ),
-          ChangeNotifierProvider(create: (context)=>AddressProvider(controller: '' as TextEditingController,onChange: '' as Function(String p1)?))
+          ChangeNotifierProvider(
+            create: (_) => SeeAllPaginationProvider(itemsPerPage: 10),
+          ),
+          ChangeNotifierProvider(create: (_) => SeeAllProvider()),
+          ChangeNotifierProvider(create: (_) => UserCreationProvider()),
+          ChangeNotifierProvider(
+            create: (context) => DeleteUserPopupProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => EditUserProvider(),
+          ),
+          ChangeNotifierProvider(
+              create: (context) => AddressProvider(
+                  controller: '' as TextEditingController,
+                  onChange: '' as Function(String p1)?))
         ],
-
         child: App(
           signedIn: token,
         ),
