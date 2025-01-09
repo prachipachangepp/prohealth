@@ -221,10 +221,13 @@ class EmploymentContainerConstant extends StatelessWidget {
                 return WrapWidget(
                     children: List.generate(snapshot.data!.length, (index) {
                       var fileUrl = snapshot.data![index].documentUrl;
-                      employeementProviderState.trimEmpAddress(
-                          snapshot.data![index].reason);
-                      employeementProviderState.trimSupervisor(
-                          snapshot.data![index].supervisor);
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        employeementProviderState.trimEmpAddress(
+                            snapshot.data![index].reason);
+                        employeementProviderState.trimSupervisor(
+                            snapshot.data![index].supervisor);
+                      });
+
                       return CardDetails(
                           childWidget: DetailsFormate(
                             row1Child1: [

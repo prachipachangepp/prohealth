@@ -164,9 +164,11 @@ class ReferencesChildTabbar extends StatelessWidget {
               if (snapshot.hasData) {
                 return WrapWidget(
                     children: List.generate(snapshot.data!.length, (index) {
-                      referenceProviderState.trimCompanyString(snapshot.data![index].company ?? '--');
-                      referenceProviderState.trimTitleString(snapshot.data![index].title ?? '--');
-                      referenceProviderState.trimReferenceString(snapshot.data![index].references ?? '--');
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        referenceProviderState.trimCompanyString(snapshot.data![index].company ?? '--');
+                        referenceProviderState.trimTitleString(snapshot.data![index].title ?? '--');
+                        referenceProviderState.trimReferenceString(snapshot.data![index].references ?? '--');
+                      });
                       return CardDetails(
                         childWidget: DetailsFormate(
                             title: 'References #${index + 1}',

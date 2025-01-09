@@ -636,8 +636,11 @@ class CustomDocumedEditPopup extends StatelessWidget {
     String? selectedDocType;
     TextEditingController expiryDateController = TextEditingController();
     final docEditProviderState = Provider.of<HrManageProvider>(context,listen: false);
-    docEditProviderState.assignedValue(documentFileName);
-    docEditProviderState.editDocumentValue(selectedExpiryType,expiryDate,expiryDateController);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      docEditProviderState.assignedValue(documentFileName);
+      docEditProviderState.editDocumentValue(selectedExpiryType,expiryDate,expiryDateController);
+    });
+
     return Consumer<HrManageProvider>(
       builder: (context, editDocProvider,child) {
         return DialogueTemplate(
@@ -948,9 +951,10 @@ class CustomDocumedAddPopup extends StatelessWidget {
     TextEditingController expiryDateController = TextEditingController();
 
     DateTime? datePicked;
-    final docAddProviderState = Provider.of<HrManageProvider>(
-      context, listen: false,);
-    docAddProviderState.loadDropDown(dataList);
+    final docAddProviderState = Provider.of<HrManageProvider>(context, listen: false,);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      docAddProviderState.loadDropDown(dataList);
+    });
     return
       Consumer<HrManageProvider>(
           builder: (context, addDocProvider, child) {

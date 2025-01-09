@@ -45,16 +45,19 @@ class ProfileBar extends StatelessWidget {
 
     final profileState = Provider.of<HrManageProvider>(context, listen: false);
     hexColor = searchByEmployeeIdProfileData?.color.replaceAll("#", "");
-    profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
-    profileState.updateAddress(searchByEmployeeIdProfileData!.finalAddress);
-    profileState.updateSummery(searchByEmployeeIdProfileData!.summary);
-    profileState.maskString(searchByEmployeeIdProfileData!.SSNNbr, 4);
-    if (searchByEmployeeIdProfileData?.dateofHire != null) {
-      profileState.calculateHireDateTimeStamp(searchByEmployeeIdProfileData!.dateofHire);
-    }
-    if (searchByEmployeeIdProfileData?.dateOfBirth != null) {
-      profileState.calculateAge(searchByEmployeeIdProfileData!.dateOfBirth);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
+      profileState.updateAddress(searchByEmployeeIdProfileData!.finalAddress);
+      profileState.updateSummery(searchByEmployeeIdProfileData!.summary);
+      profileState.maskString(searchByEmployeeIdProfileData!.SSNNbr, 4);
+      if (searchByEmployeeIdProfileData?.dateofHire != null) {
+        profileState.calculateHireDateTimeStamp(searchByEmployeeIdProfileData!.dateofHire);
+      }
+      if (searchByEmployeeIdProfileData?.dateOfBirth != null) {
+        profileState.calculateAge(searchByEmployeeIdProfileData!.dateOfBirth);
+      }
+    });
+
     int currentPage = 1;
     int itemsPerPage = 30;
     return Container(

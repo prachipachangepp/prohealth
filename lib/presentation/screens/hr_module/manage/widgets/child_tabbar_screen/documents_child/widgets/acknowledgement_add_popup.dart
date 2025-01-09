@@ -81,7 +81,10 @@ class AcknowledgementAddPopup extends StatelessWidget {
     DateTime? datePicked;
     final ackProviderState = Provider.of<HrManageProvider>(
       context, listen: false,);
-    ackProviderState.loadDropDown(dataList);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ackProviderState.loadDropDown(dataList);
+    });
+
     return
       Consumer<HrManageProvider>(
         builder: (context,loaderProvider,child) {

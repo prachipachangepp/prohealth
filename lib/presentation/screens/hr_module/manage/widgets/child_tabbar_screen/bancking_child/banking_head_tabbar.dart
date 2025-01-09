@@ -21,39 +21,22 @@ import '../../../../../../../app/resources/common_resources/common_theme_const.d
 import '../../../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../const_wrap_widget.dart';
 
-class BankingHeadTabbar extends StatefulWidget {
+class BankingHeadTabbar extends StatelessWidget {
   final int employeeID;
   BankingHeadTabbar({
     super.key,
     required this.employeeID,
   });
-  @override
-  _BankingHeadTabbarState createState() => _BankingHeadTabbarState();
-}
-
-class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
-  bool checkBox1 = false;
-  bool checkBox2 = false;
-  bool checkBox3 = false;
-  bool checkBox4 = false;
-  String? selectedType;
-  TextEditingController effectiveDateController = TextEditingController();
-  TextEditingController bankNameController = TextEditingController();
-  TextEditingController accountNumberController = TextEditingController();
-  TextEditingController verifyAccountController = TextEditingController();
-  TextEditingController routingNumberController = TextEditingController();
-  TextEditingController specificAmountController = TextEditingController();
-  final StreamController<List<EmployeeBankingData>> bankingStreamController =
-      StreamController<List<EmployeeBankingData>>();
-
-  String expiryType = 'No';
-  @override
-  void initState() {
-    // TODO: implement initState
-  }
-
-  @override
   Widget build(BuildContext context) {
+    String? selectedType;
+    TextEditingController effectiveDateController = TextEditingController();
+    TextEditingController bankNameController = TextEditingController();
+    TextEditingController accountNumberController = TextEditingController();
+    TextEditingController verifyAccountController = TextEditingController();
+    TextEditingController routingNumberController = TextEditingController();
+    TextEditingController specificAmountController = TextEditingController();
+    final StreamController<List<EmployeeBankingData>> bankingStreamController =
+    StreamController<List<EmployeeBankingData>>();
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -76,7 +59,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => AddBankingPopup(
-                                employeeID: widget.employeeID,
+                                employeeID: employeeID,
                                 banckId: 0,
                               ));
 
@@ -176,7 +159,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
           StreamBuilder<List<EmployeeBankingData>>(
               stream: bankingStreamController.stream,
               builder: (context, snapshot) {
-                getEmployeeBanking(context, widget.employeeID).then((data) {
+                getEmployeeBanking(context, employeeID).then((data) {
                   bankingStreamController.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -222,11 +205,11 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                         focusColor: Colors.transparent,
                                         value: snapshot.data![index].approve,
                                         onChanged: (value) {
-                                          setState(() {
-                                            // snapshot.data![index].approve == true ?
-                                            //  rejectBankPatch(context, snapshot.data![index].empBankingId):
-                                            // approveBankPatch(context,snapshot.data![index].empBankingId);
-                                          });
+                                          // setState(() {
+                                          //   // snapshot.data![index].approve == true ?
+                                          //   //  rejectBankPatch(context, snapshot.data![index].empBankingId):
+                                          //   // approveBankPatch(context,snapshot.data![index].empBankingId);
+                                          // });
                                         },
                                       )
                                     : Offstage(),
@@ -242,7 +225,6 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                       snapshot.data![index].percentage,
                                   bankName: snapshot.data![index].bankName,
                                   routinNo: snapshot.data![index].routinNumber,
-                                  selectedType: selectedType,
                                   effectiveDateController:
                                       effectiveDateController,
                                   bankNameController: bankNameController,
@@ -658,7 +640,6 @@ class BankingContainerConst extends StatelessWidget {
   String requestPercentage;
   String bankName;
   String routinNo;
-  String? selectedType;
   final VoidCallback onPressed;
   final VoidCallback onPressedPrint;
   final TextEditingController effectiveDateController;
@@ -672,7 +653,6 @@ class BankingContainerConst extends StatelessWidget {
     Key? key,
     required this.index,
     required this.bankId,
-    this.selectedType,
     required this.typeName,
     required this.acNumber,
     required this.effectiveDate,

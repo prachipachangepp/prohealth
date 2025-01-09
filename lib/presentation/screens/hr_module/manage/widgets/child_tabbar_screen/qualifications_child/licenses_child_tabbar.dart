@@ -293,7 +293,9 @@ class LicensesChildTabbar extends StatelessWidget {
               if(snapshot.hasData){
                 return WrapWidget(
                     children: List.generate(snapshot.data!.length, (index){
-                      licenseProviderState.trimOrgString(snapshot.data![index].org ?? '--');
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        licenseProviderState.trimOrgString(snapshot.data![index].org ?? '--');
+                      });
                       return CardDetails(childWidget: DetailsFormate(
                         titleRow: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -194,9 +194,12 @@ class EducationChildTabbar extends StatelessWidget {
                 builder: (context,providerState,child) {
                   return WrapWidget(
                       children: List.generate(snapshot.data!.length, (index){
-                        providerState.trimDegreeString(snapshot.data![index].degree);
-                        providerState.trimCollegeString(snapshot.data![index].college);
-                        providerState.trimMajorString(snapshot.data![index].major);
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          providerState.trimDegreeString(snapshot.data![index].degree);
+                          providerState.trimCollegeString(snapshot.data![index].college);
+                          providerState.trimMajorString(snapshot.data![index].major);
+                        });
+
                     return CardDetails(childWidget: DetailsFormate(
                       title:  'Education #${index + 1}',
                         row1Child1:  [
