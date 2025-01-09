@@ -166,7 +166,7 @@ class ScheduledPatientsList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Patients Name',
+                  'Patient Name',
                   textAlign: TextAlign.start,
                   style: MenuContainerTextStylling.customTextStyle(context),
                 ),
@@ -573,7 +573,7 @@ class PatientsToBeScheduledList extends StatelessWidget {
                                 ],),
                             ),
                             Divider(color: ColorManager.dashDivider,height: 1,),
-                            SizedBox(height: AppSize.s5),
+                            SizedBox(height: AppSize.s7),
                           ],
                         );
                       },
@@ -1192,7 +1192,7 @@ class _HighestCaseLoadListviewState extends State<HighestCaseLoadListview> {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 30.0,right:50,top: 10,bottom: 15),
+                padding: const EdgeInsets.only(left: 30.0,right:50,top: 7,bottom: 15),
                 child: Column(
                   children: [
                     Row(

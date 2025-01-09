@@ -820,14 +820,14 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
               children: [
                 _buildHeaderWithUpload(),
                 SizedBox(height: MediaQuery.of(context).size.height / 30),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Column(
+                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _buildFirstColumn()),
-                    SizedBox(width: 20),
-                    Expanded(child: _buildSecondColumn()),
-                    SizedBox(width: 20),
-                    Expanded(child: _buildThirdColumn()),
+                    _buildFirstColumn(),
+                    SizedBox(height: 20),
+                    _buildSecondColumn(),
+                    SizedBox(height: 20),
+                    _buildThirdColumn(),
                   ],
                 ),
               ],
@@ -939,156 +939,122 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   }
 
   Widget _buildFirstColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text(
-          'Type',
-          style: AllPopupHeadings.customTextStyle(context),
-        ),
-        FormField<String>(
-          key: _typeFieldKey,
-          initialValue: widget.selectedType,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select an account type';
-            }
-            return null;
-          },
-          builder: (state) {
-            print("IIII:::::${ gropvalue}");
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Type',
+              style: AllPopupHeadings.customTextStyle(context),
+            ),
+            FormField<String>(
+              key: _typeFieldKey,
+              initialValue: widget.selectedType,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please select an account type';
+                }
+                return null;
+              },
+              builder: (state) {
+                print("IIII:::::${ gropvalue}");
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Radio(
-                      value: 'Checking',
-                      groupValue: gropvalue,
-                      onChanged: (value) {
-                        setState(() {
-                          gropvalue = value.toString();
-                          _typeFieldKey.currentState
-                              ?.didChange(value.toString());
-                        });
-                      },
-                    ),
-                    Text(
-                      'Checking',
-                      style: TextStyle(
-                          fontSize: AppSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black),
-                    ),
-                    SizedBox(width: 5,),
-                    Radio(
-                      value: 'Savings',
-                      groupValue: gropvalue,
-                      onChanged: (value) {
-                        setState(() {
-                          gropvalue = value.toString();
-                          _typeFieldKey.currentState
-                              ?.didChange(value.toString());
-                        });
-                      },
-                    ),
+                    Container(width: 260,
 
-                    Text(
-                      'Savings',
-                      style: TextStyle(
-                          fontSize: AppSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black),
-                    ),
-                  ],
-                ),
-                // Row(
-                //   children: [
-                //     CustomRadioListTile(
-                //       title: 'Checking',
-                //       value: 'Checking',
-                //       groupValue: widget.selectedType,
-                //       onChanged: (value) {
-                //         setState(() {
-                //           widget.selectedType = value;
-                //         });
-                //       },
-                //     ),
-                //     CustomRadioListTile(
-                //       title: 'Savings',
-                //       value: 'Savings',
-                //       groupValue: widget.selectedType,
-                //       onChanged: (value) {
-                //         setState(() {
-                //           widget.selectedType = value;
-                //         });
-                //       },
-                //     ),
-                //   ],
-                // ),
-                if (state.hasError)
-                  Padding(
-                    padding: const EdgeInsets.only(top:1),
-                    child: Text(
-                      state.errorText!,
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 12,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Radio(
+                                value: 'Checking',
+                                groupValue: gropvalue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    gropvalue = value.toString();
+                                    _typeFieldKey.currentState
+                                        ?.didChange(value.toString());
+                                  });
+                                },
+                              ),
+                              Text(
+                                'Checking',
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                              ),
+                            ],
+                          ),
+                         // SizedBox(width: 8,),
+                          Row(
+                            children: [
+                              Radio(
+                                value: 'Savings',
+                                groupValue: gropvalue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    gropvalue = value.toString();
+                                    _typeFieldKey.currentState
+                                        ?.didChange(value.toString());
+                                  });
+                                },
+                              ),
+
+                              Text(
+                                'Savings',
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-              ],
-            );
-          },
-        ),
-         SizedBox(height: MediaQuery.of(context).size.height / 20),
-        _buildTextField(
-            capitalIsSelect:false,
-          controller:widget.routingNumberController,
-          labelText: 'Routing Number/ Transit Number',
-          errorText: rnumber?"Please Enter Routing Number" : null, ),
-          SizedBox(height: MediaQuery.of(context).size.height / 30),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(
-              child: _buildTextField(
-                capitalIsSelect:false,
-                  prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
-                errorText: sac?"Please Enter Specific Amount" : null,
-              ),
-            ),
-            SizedBox(width: 10),
-            ElevatedButton(
-              onPressed: () {
-                widget.specificAmountController.clear();
+                    // Row(
+                    //   children: [
+                    //     CustomRadioListTile(
+                    //       title: 'Checking',
+                    //       value: 'Checking',
+                    //       groupValue: widget.selectedType,
+                    //       onChanged: (value) {
+                    //         setState(() {
+                    //           widget.selectedType = value;
+                    //         });
+                    //       },
+                    //     ),
+                    //     CustomRadioListTile(
+                    //       title: 'Savings',
+                    //       value: 'Savings',
+                    //       groupValue: widget.selectedType,
+                    //       onChanged: (value) {
+                    //         setState(() {
+                    //           widget.selectedType = value;
+                    //         });
+                    //       },
+                    //     ),
+                    //   ],
+                    // ),
+                    if (state.hasError)
+                      Padding(
+                        padding: const EdgeInsets.only(top:1),
+                        child: Text(
+                          state.errorText!,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                  ],
+                );
               },
-              child: Text(
-                'Reset',
-                style: TextStyle(
-                  fontSize: AppSize.s12,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF27A3E0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
             ),
           ],
         ),
-      ],
-    );
-  }
-
-  Widget _buildSecondColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+        SizedBox(width: MediaQuery.of(context).size.width / 50),
         _buildTextField(
           capitalIsSelect:false,
           errorText: eDate?"Please Enter Effective Date" : null,
@@ -1104,8 +1070,44 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             onPressed: _selectDate,
           ), controller:  widget.effectiveDateController, labelText: 'Effective Date',
         ),
-        SizedBox(height: MediaQuery.of(context).size.height / 22),
-        _buildTextField(capitalIsSelect:false, controller:widget.accountNumberController, labelText: 'Account Number' , errorText: ac?"Please Enter Account Number" : null,),
+        SizedBox(width: MediaQuery.of(context).size.width / 50),
+        _buildTextField(
+          controller: widget.bankNameController,
+          labelText: 'Bank Name',
+          capitalIsSelect: true,
+          errorText: bankname ? "Please Enter Bank Name" : null,
+        ),
+         //SizedBox(height: MediaQuery.of(context).size.height / 20),
+
+          // SizedBox(height: MediaQuery.of(context).size.height / 30),
+      ],
+    );
+  }
+
+  Widget _buildSecondColumn() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+
+        _buildTextField(
+          capitalIsSelect:false,
+          controller:widget.routingNumberController,
+          labelText: 'Routing Number/ Transit Number',
+          errorText: rnumber?"Please Enter Routing Number" : null, ),
+        SizedBox(width: MediaQuery.of(context).size.width / 50),
+        _buildTextField(
+          capitalIsSelect:false,
+          controller:widget.accountNumberController,
+          labelText: 'Account Number' ,
+          errorText: ac?"Please Enter Account Number" : null,),
+        SizedBox(width: MediaQuery.of(context).size.width / 50),
+        _buildTextField(
+          capitalIsSelect: false,
+          controller: widget.verifyAccountController,
+          labelText: 'Verify Account Number',
+          errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
+        ),
       ],
     );
   }
@@ -1131,7 +1133,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     Widget? suffixIcon,
     String? prefixText,
     required bool capitalIsSelect,
-    VoidCallback? onTap,
+    VoidCallback? onTap,double? width,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1156,6 +1158,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           capitalIsSelect: capitalIsSelect,
           phoneNumberField:false, // Specify if this is the phone field
           height: AppSize.s30,
+         // width:250 ,
+          width: width ?? 260,
           controller: controller,
 
           keyboardType: labelText == "Phone" ? TextInputType.phone : TextInputType.text,
@@ -1243,22 +1247,56 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   }
 
   Widget _buildThirdColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+     // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTextField(
-          controller: widget.bankNameController,
-          labelText: 'Bank Name',
-          capitalIsSelect: true,
-          errorText: bankname ? "Please Enter Bank Name" : null,
+
+        Row(
+         crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            _buildTextField(
+              capitalIsSelect:false,
+              prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
+              errorText: sac?"Please Enter Specific Amount" : null,
+              width: 150
+            ),
+            SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: () {
+                widget.specificAmountController.clear();
+              },
+              child: Text(
+                'Reset',
+                style: TextStyle(
+                  fontSize: AppSize.s12,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF27A3E0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+          ],
         ),
-        SizedBox(height: MediaQuery.of(context).size.height / 22),
-        _buildTextField(
-          capitalIsSelect: false,
-          controller: widget.verifyAccountController,
-          labelText: 'Verify Account Number',
-          errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
-        ),
+
+        // _buildTextField(
+        //   controller: widget.bankNameController,
+        //   labelText: 'Bank Name',
+        //   capitalIsSelect: true,
+        //   errorText: bankname ? "Please Enter Bank Name" : null,
+        // ),
+       // SizedBox(height: MediaQuery.of(context).size.height / 22),
+       //  _buildTextField(
+       //    capitalIsSelect: false,
+       //    controller: widget.verifyAccountController,
+       //    labelText: 'Verify Account Number',
+       //    errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
+       //  ),
       ],
     );
   }

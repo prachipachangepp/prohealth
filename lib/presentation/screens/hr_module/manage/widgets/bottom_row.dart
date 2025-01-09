@@ -187,9 +187,9 @@ String? _city;
                   if(snapshot.connectionState == ConnectionState.waiting){
                     return Center(child: Text("Loading.."));
                   }
-                  if(snapshot.data!.isEmpty){
+                  if(snapshot.data== null){
                     return Text(
-                      '--',
+                      '--          --',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
