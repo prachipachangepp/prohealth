@@ -4,6 +4,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../app/services/api/managers/sm_module_manager/medications/pharmacy_vendor_manager.dart';
@@ -367,6 +368,7 @@ class _IntakePharmacyVendorScreenState
                                 Container(
                                   height: 99,
                                   child: TextFormField(
+                                    style: TableSubHeading.customTextStyle(context),
                                     controller: pharmacycontactsecond,
                                     maxLines: 3,
                                     cursorColor: Colors.black,

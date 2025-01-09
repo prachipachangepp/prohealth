@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 
@@ -189,7 +190,9 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                                 SizedBox(width: AppSize.s7),
                                 Text(
                                   'John Smith',
-                                  style:DocumentTypeDataStyle.customTextStyle(context),
+                                  style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w700,
+                                    color: ColorManager.mediumgrey,),
                                 ),
                               ],
                             ),
