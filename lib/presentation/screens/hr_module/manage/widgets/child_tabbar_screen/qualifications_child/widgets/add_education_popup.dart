@@ -290,7 +290,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
           phoneNumberField: labelText == "Phone", // Specify if this is the phone field
           height: AppSize.s30,
           controller: controller,
-hintText:hintText ,
+          hintText:hintText ,
           keyboardType: labelText == "Phone" ? TextInputType.phone : TextInputType.text,
           padding: EdgeInsets.only(bottom: AppPadding.p1, left: 2),
           suffixIcon: suffixIcon,
@@ -314,14 +314,14 @@ hintText:hintText ,
             return null;
           },
         ),
-        if (errorText != null)
+        errorText != null ?
           Padding(
             padding: EdgeInsets.only(top: 1),
             child: Text(
               errorText,
               style: CommonErrorMsg.customTextStyle(context),
             ),
-          ),
+          ) : SizedBox(height: 13,)
       ],
     );
   }

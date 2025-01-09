@@ -96,6 +96,7 @@ String? _city;
 
   /// Fetch live geo Location
  Future<String> getStateFromLatLng(double latitude, double longitude) async {
+
    try {
      // Initialize the GoogleGeocodingApi with the API key
      final googleGeocodingApi = GoogleGeocodingApi(AppConfig.googleApiKey);
@@ -115,9 +116,9 @@ String? _city;
            }
          }
        }
-       return 'State not found in the response.';
+       return 'State response.';
      } else {
-       return 'No address found for the provided coordinates.';
+       return 'No coordinates.';
      }
    } catch (e) {
      print('Error occurred while fetching the state: $e');
@@ -130,14 +131,16 @@ String? _city;
 
    serviceEnabled = await Geolocator.isLocationServiceEnabled();
    if (!serviceEnabled) {
-     return Future.error('Location services are disabled.');
+     print('location des');
+     return Future.error('Location disabled.');
    }
 
    permission = await Geolocator.checkPermission();
    if (permission == LocationPermission.denied) {
      permission = await Geolocator.requestPermission();
      if (permission == LocationPermission.denied) {
-       return Future.error('Location permissions are denied');
+       print('permission des');
+       return Future.error('Location denied');
      }
    }
 
@@ -187,9 +190,9 @@ String? _city;
                   if(snapshot.connectionState == ConnectionState.waiting){
                     return Center(child: Text("Loading.."));
                   }
-                  if(snapshot.data== null){
+                  if(snapshot.data == null){
                     return Text(
-                      '--          --',
+                      '--',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,

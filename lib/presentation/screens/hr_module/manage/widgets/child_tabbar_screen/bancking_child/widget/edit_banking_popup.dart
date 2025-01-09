@@ -94,7 +94,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
     // Add listeners to controllers
     accountnumber.addListener(validateAccounts);
     verifyaccountnumber.addListener(validateAccounts);
-   // _initializeFormWithPrefilledData();
+    // _initializeFormWithPrefilledData();
   }
 
   @override
@@ -203,7 +203,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                       children: [
                         Text(
                           // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
-                         'Bank',
+                          'Bank',
                           style:TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w600,
@@ -251,7 +251,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //  crossAxisAlignment: CrossAxisAlignment.start,
+                          //  crossAxisAlignment: CrossAxisAlignment.start,
                           //mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SizedBox(
@@ -418,7 +418,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                         ),
                         SizedBox(height: 20),
                         Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
 
 
@@ -496,7 +496,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   width: 240,
                                   controller: accountnumber,
                                   hintText: 'Enter AC Number',
-                                 // onChanged: (value){_validateFields();},
+                                  // onChanged: (value){_validateFields();},
                                   hintStyle: onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
@@ -561,7 +561,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                         SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         // crossAxisAlignment: CrossAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -670,58 +670,58 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                               color: ColorManager.blueprime,
                             ))
                             : CustomElevatedButton(
-                              width: 100,
-                              text: "Save",
-                              onPressed: ()async {
-                                _validateFields();
-                                if (_isFormValid) {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  var response = await addNewEmployeeBanking(
-                                      context: context,
-                                      employeeId: widget.employeeID,
-                                      accountNumber: accountnumber.text,
-                                      bankName: bankname.text,
-                                      amountRequested: int.parse(requestammount.text),
-                                      checkUrl: '--',
-                                      effectiveDate: effectivecontroller.text,
-                                      routingNumber: routingnumber.text,
-                                      percentage: '',
-                                      type: selectedtype.toString()
+                            width: 100,
+                            text: "Save",
+                            onPressed: ()async {
+                              _validateFields();
+                              if (_isFormValid) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                var response = await addNewEmployeeBanking(
+                                    context: context,
+                                    employeeId: widget.employeeID,
+                                    accountNumber: accountnumber.text,
+                                    bankName: bankname.text,
+                                    amountRequested: int.parse(requestammount.text),
+                                    checkUrl: '--',
+                                    effectiveDate: effectivecontroller.text,
+                                    routingNumber: routingnumber.text,
+                                    percentage: '',
+                                    type: selectedtype.toString()
+                                );
+                                // var responseBank = await approveBankPatch(context,response.banckingId!);
+                                await uploadBanckingDocument(
+                                    context, response.banckingId!, pickedFile);
+                                // Navigator.pop(context);
+                                if (response.statusCode == 200 || response.statusCode == 201) {
+                                  Navigator.pop(context);
+                                  await showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AddSuccessPopup(message: 'Banking Added Successfully',
+                                      );
+                                    },
                                   );
-                                 // var responseBank = await approveBankPatch(context,response.banckingId!);
-                                  await uploadBanckingDocument(
-                                      context, response.banckingId!, pickedFile);
-                                 // Navigator.pop(context);
-                                  if (response.statusCode == 200 || response.statusCode == 201) {
-                                      Navigator.pop(context);
-                                    await showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AddSuccessPopup(message: 'Banking Added Successfully',
-                                        );
-                                      },
-                                    );
-                                  }else if(response.statusCode == 400 || response.statusCode == 404){
+                                }else if(response.statusCode == 400 || response.statusCode == 404){
                                   //  await  Navigator.pop(context);
-                                    await  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) => const FourNotFourPopup(),
-                                    );
-                                  }
-                                  else {
-                                    await  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) => FailedPopup(text: response.message),
-                                    );
-                                  }
-                                  setState(() {
-                                    isLoading = false;
-                                  });
+                                  await  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => const FourNotFourPopup(),
+                                  );
                                 }
+                                else {
+                                  await  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => FailedPopup(text: response.message),
+                                  );
+                                }
+                                setState(() {
+                                  isLoading = false;
+                                });
                               }
-                            ),
+                            }
+                        ),
 
                       ],
                     )
@@ -778,24 +778,24 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   final _typeFieldKey = GlobalKey<FormFieldState<String>>();
   String? pickedFileName;
   dynamic pickedFile;
- // Map<String, bool> errorStates = {
- //    'name': false,
- //    'email': false,
- bool   rnumber = false;
-      bool eDate = false;
-    bool bankname = false;
+  // Map<String, bool> errorStates = {
+  //    'name': false,
+  //    'email': false,
+  bool   rnumber = false;
+  bool eDate = false;
+  bool bankname = false;
   bool sac= false;
-   bool ac= false;
-    bool vac= false;
- // };
+  bool ac= false;
+  bool vac= false;
+  // };
 
   String?  errorKey;
   String gropvalue ='';
 
-@override
+  @override
   void initState() {
     // TODO: implement initState
-  gropvalue =widget.selectedType!;
+    gropvalue =widget.selectedType!;
     super.initState();
   }
   @override
@@ -874,8 +874,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-         // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
-         'Bank',
+          // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+          'Bank',
           style:TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.w600,
@@ -989,7 +989,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                               ),
                             ],
                           ),
-                         // SizedBox(width: 8,),
+                          // SizedBox(width: 8,),
                           Row(
                             children: [
                               Radio(
@@ -1077,9 +1077,9 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           capitalIsSelect: true,
           errorText: bankname ? "Please Enter Bank Name" : null,
         ),
-         //SizedBox(height: MediaQuery.of(context).size.height / 20),
+        //SizedBox(height: MediaQuery.of(context).size.height / 20),
 
-          // SizedBox(height: MediaQuery.of(context).size.height / 30),
+        // SizedBox(height: MediaQuery.of(context).size.height / 30),
       ],
     );
   }
@@ -1121,7 +1121,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     );
     if (pickedDate != null) {
       widget.effectiveDateController.text =
-          "${pickedDate.toLocal()}".split(' ')[0];
+      "${pickedDate.toLocal()}".split(' ')[0];
     }
   }
 
@@ -1158,7 +1158,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           capitalIsSelect: capitalIsSelect,
           phoneNumberField:false, // Specify if this is the phone field
           height: AppSize.s30,
-         // width:250 ,
+          // width:250 ,
           width: width ?? 260,
           controller: controller,
 
@@ -1197,7 +1197,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     );
   }
 
- String? errorVerifyAccountMessage = "Account Number does not match";
+  String? errorVerifyAccountMessage = "Account Number does not match";
   void _handleSave() async {
     setState(() {
       isLoading = true;
@@ -1248,18 +1248,18 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
 
   Widget _buildThirdColumn() {
     return Row(
-     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-     // crossAxisAlignment: CrossAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
 
         Row(
-         crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             _buildTextField(
-              capitalIsSelect:false,
-              prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
-              errorText: sac?"Please Enter Specific Amount" : null,
-              width: 150
+                capitalIsSelect:false,
+                prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
+                errorText: sac?"Please Enter Specific Amount" : null,
+                width: 150
             ),
             SizedBox(width: 10),
             ElevatedButton(
@@ -1290,13 +1290,13 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         //   capitalIsSelect: true,
         //   errorText: bankname ? "Please Enter Bank Name" : null,
         // ),
-       // SizedBox(height: MediaQuery.of(context).size.height / 22),
-       //  _buildTextField(
-       //    capitalIsSelect: false,
-       //    controller: widget.verifyAccountController,
-       //    labelText: 'Verify Account Number',
-       //    errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
-       //  ),
+        // SizedBox(height: MediaQuery.of(context).size.height / 22),
+        //  _buildTextField(
+        //    capitalIsSelect: false,
+        //    controller: widget.verifyAccountController,
+        //    labelText: 'Verify Account Number',
+        //    errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
+        //  ),
       ],
     );
   }

@@ -1,11 +1,10 @@
 import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_provider.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/delete_user.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_create_provider.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_delete_provider.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_edit_provider.dart';
@@ -51,8 +50,16 @@ Future<void> main() async {
           ChangeNotifierProvider(
               create: (context) => AddressProvider(
                   controller: '' as TextEditingController,
-                  onChange: '' as Function(String p1)?))
+                  onChange: '' as Function(String p1)?)),
+          ChangeNotifierProvider(
+              create: (_)=>HrManageProvider()
+          ),
+          ChangeNotifierProvider(
+              create: (_)=>HrRegisterProvider()
+          ),
+          ChangeNotifierProvider(create: (context)=>AddressProvider(controller: '' as TextEditingController,onChange: '' as Function(String p1)?))
         ],
+
         child: App(
           signedIn: token,
         ),

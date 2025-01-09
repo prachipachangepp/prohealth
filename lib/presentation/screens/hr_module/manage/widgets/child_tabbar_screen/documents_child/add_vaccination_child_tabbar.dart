@@ -20,33 +20,23 @@ import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import 'dart:typed_data';
-class AdditionalVaccinationsChildBar extends StatefulWidget {
+class AdditionalVaccinationsChildBar extends StatelessWidget {
   final int employeeId;
   final String? fileUrl;
   final String? fileExtension;
   const AdditionalVaccinationsChildBar({super.key, required this.employeeId, this.fileUrl, this.fileExtension});
 
   @override
-  State<AdditionalVaccinationsChildBar> createState() => _AdditionalVaccinationsChildBarState();
-}
-
-class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsChildBar> {
-  TextEditingController editIdController = TextEditingController();
-  TextEditingController nameIdController = TextEditingController();
-  TextEditingController healthRecordAddIdController = TextEditingController();
-  TextEditingController healthRecordAddNameController = TextEditingController();
-  final StreamController<List<OnboardingAckHealthData>> _controller = StreamController<List<OnboardingAckHealthData>>();
-  String expiryType ='';
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-  int documentMetaDataId = 0;
-  int documentSetupId = 0;
-  bool _isLoading = false;
-  @override
   Widget build(BuildContext context) {
+    int documentMetaDataId = 0;
+    int documentSetupId = 0;
+    bool _isLoading = false;
+    TextEditingController editIdController = TextEditingController();
+    TextEditingController nameIdController = TextEditingController();
+    TextEditingController healthRecordAddIdController = TextEditingController();
+    TextEditingController healthRecordAddNameController = TextEditingController();
+    final StreamController<List<OnboardingAckHealthData>> _controller = StreamController<List<OnboardingAckHealthData>>();
+    String expiryType ='';
     return Column(
       children: [
         Row(
@@ -73,7 +63,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                 if (snapshot.hasData) {
                                   return CustomDocumedAddPopup(
                                     title: 'Add Health Record',
-                                    employeeId: widget.employeeId,
+                                    employeeId: employeeId,
                                     // docTypeMetaIdCC: 10,
                                     // selectedSubDocId: 48,
                                     dataList: snapshot.data!,
@@ -97,7 +87,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
         StreamBuilder(
           stream: _controller.stream,
           builder: (context,snapshot) {
-            getAckHealthRecord(context, AppConfig.healthDocId,widget.employeeId,'no').then((data) {
+            getAckHealthRecord(context, AppConfig.healthDocId,employeeId,'no').then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -246,7 +236,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                                   if (snapshotPreFill.hasData) {
                                                     return CustomDocumedEditPopup(
                                                       labelName: 'Edit Health Record',
-                                                      employeeId: widget.employeeId,
+                                                      employeeId: employeeId,
                                                       docName: health.DocumentName,
                                                       docMetaDataId: health.EmployeeDocumentTypeMetaDataId,
                                                       docSetupId: health.EmployeeDocumentTypeSetupId,
