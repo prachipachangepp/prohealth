@@ -37,6 +37,9 @@ Future<void> main() async {
           ChangeNotifierProvider(
               create: (_)=>HrRegisterProvider()
           ),
+          ChangeNotifierProvider(
+              create: (_)=>HrEnrollEmployeeProvider()
+          ),
           ChangeNotifierProvider(create: (context)=>AddressProvider(controller: '' as TextEditingController,onChange: '' as Function(String p1)?))
         ],
 
