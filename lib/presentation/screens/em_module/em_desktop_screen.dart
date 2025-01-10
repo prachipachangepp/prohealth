@@ -445,7 +445,7 @@ class EMDesktopScreen extends StatelessWidget {
                      create: (_) => SeeAllProvider(),
                       child: SeeAllScreen(),
                     ),
-                    SeeAllScreen(),
+                   // SeeAllScreen(),
                      CiRoleManager(),
                     CiVisitScreen(),
                     CiOrgDocument
