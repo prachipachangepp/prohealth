@@ -6,7 +6,7 @@ import '../../../../../../../app/resources/establishment_resources/establish_the
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import '../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-
+///stl
 class PoliciesProcedureList extends StatelessWidget {
   final StreamController<List<NewOrgDocument>> controller;
   final Future<List<NewOrgDocument>> Function(BuildContext context) fetchDocuments;

@@ -220,7 +220,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 1),
+                    padding: EdgeInsets.symmetric(horizontal: AppPadding.p1),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -343,7 +343,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 5),
+                                  SizedBox(height: AppSize.s5),
                                   Container(
                                     margin: EdgeInsets.symmetric(horizontal: AppPadding.p30),
                                     decoration: BoxDecoration(
@@ -444,7 +444,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        "Edit",
+                                                      AppStringEM.edit,
                                                         style: TextStyle(fontSize: FontSize.s12,fontWeight:FontWeight.w500,color: ColorManager.mediumgrey),
                                                       ),
                                                     ),
