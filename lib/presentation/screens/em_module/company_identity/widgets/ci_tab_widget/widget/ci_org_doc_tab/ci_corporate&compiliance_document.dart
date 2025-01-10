@@ -2,69 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
-import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_adr.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_cap_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_license.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_medical_cost_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_quarterly_balance_report.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 
-class CICorporateCompilianceDocument extends StatefulWidget {
-  final int docID;
-  final Function(int) onSubDocIdSelected;
-  String selectedSubDocType;
-
-  CICorporateCompilianceDocument({
-    super.key,
-    required this.docID,
-    required this.selectedSubDocType,
-    required this.onSubDocIdSelected,
-  });
-
-  @override
-  State<CICorporateCompilianceDocument> createState() =>
-      _CICorporateCompilianceDocumentState();
-}
-
-class _CICorporateCompilianceDocumentState
-    extends State<CICorporateCompilianceDocument> {
-  final PageController _tabPageController = PageController();
+class CICorporateComplianceState with ChangeNotifier {
   int _selectedIndex = 0;
-  String selectedSubDocType = "";
- // int subDocId = 0; // Initialize subDocId
+  String _selectedSubDocType = "";
 
-  void _selectButton(int index) {
-    setState(() {
-      _selectedIndex = index;
-      selectedSubDocType = getSubDocTypeForIndex(index);
-      widget.onSubDocIdSelected(getSubDocIdForIndex(index));
-    });
-    _tabPageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
+  String get selectedSubDocType => _selectedSubDocType;
 
-  int getSubDocIdForIndex(int index) {
-    switch (index) {
-      case 0:
-        return AppConfig.subDocId1Licenses;
-      case 1:
-        return AppConfig.subDocId2Adr;
-      case 2:
-        return AppConfig.subDocId3CICCMedicalCR;
-      case 3:
-        return AppConfig.subDocId4CapReport;
-      case 4:
-        return AppConfig.subDocId5BalReport;
-      default:
-        return 0;
-    }
+  int get selectedIndex => _selectedIndex;
+
+  void setSelectedIndex(int index) {
+    _selectedIndex = index;
+    _selectedSubDocType = getSubDocTypeForIndex(index);
+    notifyListeners();
   }
 
   String getSubDocTypeForIndex(int index) {
@@ -83,205 +41,161 @@ class _CICorporateCompilianceDocumentState
         return "";
     }
   }
-  List<IdentityDocumentIdData> docSubTypeData = [];
 
-  void loadData() async {
-    docSubTypeData = await identityDocumentTypeGet(context, widget.docID);
+  int getSubDocIdForIndex(int index) {
+    switch (index) {
+      case 0:
+        return AppConfig.subDocId1Licenses;
+      case 1:
+        return AppConfig.subDocId2Adr;
+      case 2:
+        return AppConfig.subDocId3CICCMedicalCR;
+      case 3:
+        return AppConfig.subDocId4CapReport;
+      case 4:
+        return AppConfig.subDocId5BalReport;
+      default:
+        return 0;
+    }
   }
+}
 
-  @override
-  void initState() {
-    super.initState();
-    selectedSubDocType = getSubDocTypeForIndex(_selectedIndex);
-     identityDocumentTypeGet(context, widget.docID);
-  }
+class CICorporateCompilianceDocument extends StatelessWidget {
+  final int docID;
+  final Function(int) onSubDocIdSelected;
+  final String selectedSubDocType;
+
+  const CICorporateCompilianceDocument({
+    Key? key,
+    required this.docID,
+    required this.onSubDocIdSelected,
+    required this.selectedSubDocType,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: AppSize.s10),
-        Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width / 1.6,
-            height: AppSize.s50,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Licenses tab
-                InkWell(
-                  highlightColor: Color(0xFFF2F9FC),
-                  hoverColor: Color(0xFFF2F9FC),
-                  child: Container(
+    final pageController = PageController();
+
+    return ChangeNotifierProvider(
+      create: (_) => CICorporateComplianceState(),
+      child: Consumer<CICorporateComplianceState>(
+        builder: (context, corporateState, child) {
+          // Sync PageController with selectedIndex
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (pageController.hasClients &&
+                pageController.page?.round() != corporateState.selectedIndex) {
+              pageController.jumpToPage(corporateState.selectedIndex);
+            }
+          });
+
+          return Column(
+            children: [
+              SizedBox(height: AppSize.s10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.8,
                     height: AppSize.s50,
-                    width: MediaQuery.of(context).size.width / 10,
-                    child: Column(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          AppStringEM.licenses,
-                          style: TransparentBgTabbar.customTextStyle(0, _selectedIndex)
-                        ),
-                        _selectedIndex == 0
-                            ? Divider(
-                                color: ColorManager.blueprime,
-                                thickness: 2,
-                              )
-                            : Offstage()
+                        // Repeatable Tab Item
+                        for (int index = 0; index < 5; index++)
+                          InkWell(
+                            highlightColor: const Color(0xFFF2F9FC),
+                            hoverColor: const Color(0xFFF2F9FC),
+                            child: Container(
+                              height: AppSize.s50,
+                              width: index == 4
+                                  ? MediaQuery.of(context).size.width / 9
+                                  : MediaQuery.of(context).size.width / 10,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    corporateState.getSubDocTypeForIndex(index),
+                                    style: TransparentBgTabbar.customTextStyle(
+                                      index,
+                                      corporateState.selectedIndex,
+                                    ),
+                                  ),
+                                  corporateState.selectedIndex == index
+                                      ? Divider(
+                                    color: ColorManager.blueprime,
+                                    thickness: 2,
+                                  )
+                                      : const Offstage(),
+                                ],
+                              ),
+                            ),
+                            onTap: () {
+                              corporateState.setSelectedIndex(index);
+                              onSubDocIdSelected(
+                                  corporateState.getSubDocIdForIndex(index));
+                              pageController.animateToPage(
+                                index,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                          ),
                       ],
                     ),
                   ),
-                  onTap: () {
-                    _selectButton(0);
-                  },
-                ),
-                // ADR tab
-                InkWell(
-                  highlightColor: Color(0xFFF2F9FC),
-                  hoverColor: Color(0xFFF2F9FC),
-                  child: Container(
-                    height: AppSize.s50,
-                    width: MediaQuery.of(context).size.width / 10,
-                    child: Column(
-                      children: [
-                        Text(
-                            AppStringEM.ard,
-                          style: TransparentBgTabbar.customTextStyle(1, _selectedIndex)
+                ],
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: AppPadding.p10),
+                  child: PageView(
+                    controller: pageController,
+                    onPageChanged: (index) {
+                      corporateState.setSelectedIndex(index);
+                      onSubDocIdSelected(
+                          corporateState.getSubDocIdForIndex(index));
+                    },
+                    children: [
+                      ChangeNotifierProvider(
+                      create: (_) => CICcdLicenseProvider(),
+                      child: CICcdLicense(subDocID: docID, docID: AppConfig.subDocId1Licenses),
+                      ),
+                      ChangeNotifierProvider(
+                        create: (_) => CICcdADRProvider(),
+                        child: CICcdADR(
+                          docID: docID,
+                          subDocID: AppConfig.subDocId2Adr,
                         ),
-                        _selectedIndex == 1
-                            ? Divider(
-                                color: ColorManager.blueprime,
-                                thickness: 2,
-                              )
-                            : Offstage()
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    _selectButton(1);
-                  },
-                ),
-                // Medical Cost Reports tab
-                InkWell(
-                  highlightColor: Color(0xFFF2F9FC),
-                  hoverColor: Color(0xFFF2F9FC),
-                  child: Container(
-                    height: AppSize.s50,
-                    width: MediaQuery.of(context).size.width / 8,
-                    child: Column(
-                      children: [
-                        Text(
-                            AppStringEM.mcr,
-                          style: TransparentBgTabbar.customTextStyle(2, _selectedIndex)
+                      ),
+                      ChangeNotifierProvider(
+                        create: (_) => CiCcdMedicalCostReportProvider(),
+                        child: CiCcdMedicalCostReport(
+                          docID: docID,
+                          subDocID: AppConfig.subDocId3CICCMedicalCR,
                         ),
-                        _selectedIndex == 2
-                            ? Divider(
-                                color: ColorManager.blueprime,
-                                thickness: 2,
-                              )
-                            : Offstage()
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    _selectButton(2);
-                  },
-                ),
-                // Cap Reports tab
-                InkWell(
-                  highlightColor: Color(0xFFF2F9FC),
-                  hoverColor: Color(0xFFF2F9FC),
-                  child: Container(
-                    height: AppSize.s50,
-                    width: MediaQuery.of(context).size.width / 10,
-                    child: Column(
-                      children: [
-                        Text(
-                            AppStringEM.capReport,
-                          style: TransparentBgTabbar.customTextStyle(3, _selectedIndex)
+                      ),
+                      ChangeNotifierProvider(
+                        create: (_) => CiCcdCapReportsProvider(),
+                        child: CiCcdCapReports(
+                          docID: docID,
+                          subDocId: AppConfig.subDocId4CapReport,
                         ),
-                        _selectedIndex == 3
-                            ? Divider(
-                                color: ColorManager.blueprime,
-                                thickness: 2,
-                              )
-                            : Offstage()
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    _selectButton(3);
-                  },
-                ),
-                // Quarterly Balance Reports tab
-                InkWell(
-                  highlightColor: Color(0xFFF2F9FC),
-                  hoverColor: Color(0xFFF2F9FC),
-                  child: Container(
-                    //color: Colors.purple,
-                    height: AppSize.s50,
-                    width: MediaQuery.of(context).size.width / 7,
-                    child: Column(
-                      children: [
-                        Text(
-                            AppStringEM.qbr,
-                          style: TransparentBgTabbar.customTextStyle(4, _selectedIndex)
+                      ),
+                      ChangeNotifierProvider(
+                        create: (_) => CICcdQuarteryBalanceReportProvider(),
+                        child: CICcdQuarteryBalanceReport(
+                          docId: docID,
+                          subDocID: AppConfig.subDocId5BalReport,
                         ),
-                        _selectedIndex == 4
-                            ? Divider(
-                                color: ColorManager.blueprime,
-                                thickness: 2,
-                              )
-                            : Offstage()
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  onTap: () {
-                    _selectButton(4);
-                  },
                 ),
-              ],
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(top: AppPadding.p15),
-            child: NonScrollablePageView(
-              controller: _tabPageController,
-              onPageChanged: (index) {
-                _selectedIndex = index;
-                setState(() {
-                  selectedSubDocType = getSubDocTypeForIndex(index);
-                  //subDocId = getSubDocIdForIndex(index); // Update subDocId on page change
-                });
-              },
-              children: [
-                CICcdLicense(
-                  subDocID: AppConfig.subDocId1Licenses,
-                  docID: widget.docID,
-                ),
-                CICcdADR(
-                  subDocID: AppConfig.subDocId2Adr,
-                  docID: widget.docID,
-                ),
-                CiCcdMedicalCostReport(
-                  subDocID: AppConfig.subDocId3CICCMedicalCR,
-                  docID: widget.docID,
-                ),
-                CiCcdCapReports(
-                  docID: widget.docID,
-                  subDocId: AppConfig.subDocId4CapReport,
-                ),
-                CICcdQuarteryBalanceReport(
-                  docId: widget.docID,
-                  subDocID: AppConfig.subDocId5BalReport,
-                )
-              ],
-            ),
-          ),
-        ),
-      ],
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

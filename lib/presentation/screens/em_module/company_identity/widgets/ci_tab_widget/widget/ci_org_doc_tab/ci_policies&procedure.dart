@@ -4,18 +4,119 @@ import 'package:prohealth/app/resources/establishment_resources/establishment_st
 import 'package:prohealth/app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/heading_constant_widget.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/org_add_popup_const.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../../../app/constants/app_config.dart';
-import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/provider/delete_popup_provider.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
-import '../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../../../../data/api_data/establishment_data/company_identity/new_org_doc.dart';
 import '../../../../../../../widgets/error_popups/delete_success_popup.dart';
 import '../files_constant-widget.dart';
 
-class CIPoliciesProcedure extends StatefulWidget {
+///provide
+class CIPoliciesProcedureProvider extends ChangeNotifier {
+  // Controllers
+  TextEditingController docNameController = TextEditingController();
+  TextEditingController docIdController = TextEditingController();
+  TextEditingController calenderController = TextEditingController();
+  TextEditingController idOfDocController = TextEditingController();
+  TextEditingController daysController = TextEditingController(text: "1");
+
+  // StreamControllers
+  final StreamController<List<NewOrgDocument>> policiesAndProcedureController =
+  StreamController<List<NewOrgDocument>>();
+
+  // State Variables
+  int currentPage = 1;
+  bool isLoading = false;
+
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
+
+  String? selectedValue;
+  String? selectedYear = AppConfig.year;
+
+  // Methods
+  void setCurrentPage(int pageNumber) {
+    currentPage = pageNumber;
+    notifyListeners();
+  }
+
+  void setLoading(bool value) {
+    isLoading = value;
+    notifyListeners();
+  }
+
+  Future<void> onDelete(NewOrgDocument doc, BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DeletePopupProvider(
+          title: DeletePopupString.deletePolicy,
+          loadingDuration: isLoading,
+          onCancel: () {
+            Navigator.pop(context);
+          },
+          onDelete: () async {
+            setLoading(true); // Set loading state
+            try {
+              await deleteNewOrgDoc(context, doc.orgDocumentSetupid);
+              Navigator.pop(context); // Close the confirmation dialog
+              showDialog(
+                context: context,
+                builder: (context) => DeleteSuccessPopup(),
+              );
+            } finally {
+              setLoading(false); // Reset loading state
+            }
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> onEdit(NewOrgDocument doc, BuildContext context) async {
+    var snapshotPrefill = await getPrefillNewOrgDocument(context, doc.orgDocumentSetupid);
+
+    docNameController.text = snapshotPrefill.docName ?? "";
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return OrgDocNewEditPopup(
+          height: AppSize.s374,
+          title: EditPopupString.editPolicy,
+          orgDocumentSetupid: snapshotPrefill.orgDocumentSetupid ?? 0,
+          docTypeId: snapshotPrefill.documentTypeId ?? 0,
+          subDocTypeId: snapshotPrefill.documentSubTypeId ?? 0,
+          idOfDoc: snapshotPrefill.idOfDocument ?? "",
+          docName: snapshotPrefill.docName ?? "",
+          expiryType: snapshotPrefill.expiryType,
+          threshhold: snapshotPrefill.threshold ?? 0,
+          expiryDate: snapshotPrefill.expiryDate,
+          expiryReminder: snapshotPrefill.expiryReminder,
+          docTypeText: AppStringEM.policiesAndProcedures,
+          subDocTypeText: '',
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    docNameController.dispose();
+    docIdController.dispose();
+    calenderController.dispose();
+    idOfDocController.dispose();
+    daysController.dispose();
+    policiesAndProcedureController.close();
+    super.dispose();
+  }
+}
+
+class CIPoliciesProcedure extends StatelessWidget {
   final int docId;
   final int subDocId;
+
   const CIPoliciesProcedure({
     super.key,
     required this.docId,
@@ -23,126 +124,29 @@ class CIPoliciesProcedure extends StatefulWidget {
   });
 
   @override
-  State<CIPoliciesProcedure> createState() => _CIPoliciesProcedureState();
-}
-
-class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
-  TextEditingController docNameController = TextEditingController();
-  TextEditingController docIdController = TextEditingController();
-  TextEditingController calenderController = TextEditingController();
-  TextEditingController idOfDocController = TextEditingController();
-  TextEditingController daysController = TextEditingController(text: "1");
-  final StreamController<List<NewOrgDocument>> _policiesandprocedureController =
-      StreamController<List<NewOrgDocument>>();
-  final StreamController<List<IdentityDocumentIdData>> _identityDataController =
-      StreamController<List<IdentityDocumentIdData>>.broadcast();
-
-  int docSubTypeMetaId = AppConfig.subDocId0;
-  String? expiryType;
-  bool _isLoading = false;
-  String? selectedValue;
-  int docTypeMetaIdPP = AppConfig.policiesAndProcedure;
-  String? selectedYear = AppConfig.year;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  int currentPage = 1;
-  final int itemsPerPage = 10;
-  final int totalPages = 5;
-
-  void onPageNumberPressed(int pageNumber) {
-    setState(() {
-      currentPage = pageNumber;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    // Get the provider instance
+    final provider = Provider.of<CIPoliciesProcedureProvider>(context);
+
     return Column(
       children: [
         TableHeadingConst(),
         SizedBox(height: AppSize.s10),
         PoliciesProcedureList(
-          controller: _policiesandprocedureController,
-          fetchDocuments: (context) => getNewOrgDocfetch(context, AppConfig.policiesAndProcedure,
-            AppConfig.subDocId0, 1, 50,
+          controller: provider.policiesAndProcedureController,
+          fetchDocuments: (context) => getNewOrgDocfetch(
+            context,
+            AppConfig.policiesAndProcedure,
+            AppConfig.subDocId0,
+            1,
+            50,
           ),
           emptyMessage: ErrorMessageString.noPolicyProcedure,
           onEdit: (NewOrgDocument doc) {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return FutureBuilder<NewOrgDocument>(
-                      future: getPrefillNewOrgDocument(context, doc.orgDocumentSetupid),
-                      builder: (context, snapshotPrefill) {
-                        if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                          return Center(
-                            child: CircularProgressIndicator(
-                              color: ColorManager.blueprime,
-                            ),
-                          );
-                        }
-
-                        var name = snapshotPrefill.data!.docName;
-                        docNameController = TextEditingController(text: snapshotPrefill.data!.docName);
-
-                        var expiry = snapshotPrefill.data!.expiryType;
-                        String? selectedExpiryType = expiry;
-
-                        return StatefulBuilder(
-                          builder: (BuildContext context,
-                              void Function(void Function()) setState) {
-                            return OrgDocNewEditPopup(
-                              height: AppSize.s374,
-                              title: EditPopupString.editPolicy,
-                              orgDocumentSetupid: snapshotPrefill.data!.orgDocumentSetupid,
-                              docTypeId: snapshotPrefill.data!.documentTypeId,
-                              subDocTypeId: snapshotPrefill.data!.documentSubTypeId,
-                              idOfDoc: snapshotPrefill.data!.idOfDocument,
-                              docName: snapshotPrefill.data!.docName,
-                              expiryType: snapshotPrefill.data!.expiryType,
-                              threshhold: snapshotPrefill.data!.threshold,
-                              expiryDate: snapshotPrefill.data!.expiryDate,
-                              expiryReminder: snapshotPrefill.data!.expiryReminder,
-                              docTypeText: AppStringEM.policiesAndProcedures,
-                              subDocTypeText: '',
-                            );
-                          },
-                        );
-                      });
-                });
+            provider.onEdit(doc, context);
           },
           onDelete: (NewOrgDocument doc) {
-            showDialog(
-                context: context,
-                builder: (context) => StatefulBuilder(
-                      builder: (BuildContext context,
-                          void Function(void Function()) setState) {
-                        return DeletePopup(
-                            title: DeletePopupString.deletePolicy,
-                            loadingDuration: _isLoading,
-                            onCancel: () {
-                              Navigator.pop(context);
-                            },
-                            onDelete: () async {
-                              setState(() {
-                                _isLoading = true;
-                              });
-                              try {
-                                await deleteNewOrgDoc(context, doc.orgDocumentSetupid);
-                                Navigator.pop(context);
-                                showDialog(context: context, builder: (context) => DeleteSuccessPopup());
-                              } finally {
-                                setState(() {
-                                  _isLoading = false;
-                                });
-                              }
-                            });
-                      },
-                    ));
+            provider.onDelete(doc, context);
           },
         ),
       ],
