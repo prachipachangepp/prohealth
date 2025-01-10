@@ -76,9 +76,8 @@ class RegisterScreen extends StatelessWidget {
     itemsPerPage = 20;
     final registerProviderState = Provider.of<HrRegisterProvider>(context,listen:false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-        registerProviderState.fetchData(context);
+      registerProviderState.fetchData(context);
     });
-
     items = List.generate(20, (index) => 'Item ${index + 1}');
     return SingleChildScrollView(
       child: Consumer<HrRegisterProvider>(
@@ -131,15 +130,15 @@ class RegisterScreen extends StatelessWidget {
                             TextButton(
                               onPressed: () async {
                            // const url = "http://localhost:51985/#/onBordingWelcome";
-                              const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                              //const url = "${AppConfig.deployment}/#/onBordingWelcome";
                                 //const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                                //Provider.of<RouteProvider>(context,listen:false).navigateToPage(context, OnBoardingWelcome());
+                                Provider.of<RouteProvider>(context,listen:false).navigateToPage(context, OnBoardingWelcome());
                                 //const url = "${AppConfig.deployment}/#/onBordingWelcome";
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
+                                // if (await canLaunch(url)) {
+                                //   await launch(url);
+                                // } else {
+                                //   throw 'Could not launch $url';
+                                // }
                               },
                               child: Text(
                                   'https://prohealth.symmetry.care/register',

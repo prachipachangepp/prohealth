@@ -38,8 +38,8 @@ Future<ApiDataRegister> postDrivinglicenseData(
         "employee_id": employeeid,
         "url": url,
         "office_id": '',
-        "file_name": filename
-
+        "file_name": filename,
+        "approved": true
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -559,7 +559,7 @@ Future<ApiDataRegister> postpractitionerLicenseData(
   }
 }
 
-
+/// Post Upload PL document
 Future<ApiDataRegister> uploadDocumentsPL({
   required BuildContext context,
   required int practitionerLicenceId,
@@ -603,7 +603,51 @@ Future<ApiDataRegister> uploadDocumentsPL({
   }
 }
 
+/// Patch upload PL Document
+Future<ApiData> patchDocumentsPL({
+  required BuildContext context,
+  required int practitionerLicenceId,
+  required dynamic documentFile,
+  required String documentName
 
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).patch(
+      path:ClinicalLicensesRepo.postpractitionerUpdateLicensebase64(practitionerLicenceId: practitionerLicenceId),
+      data: {
+        // 'base64':documents,
+        "Base64": documents,
+        "file_name":documentName
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("PL document updated");
+      // orgDocumentGet(context);
+      //var uploadResponse = response.data;
+      //int documentId = uploadResponse['employeeDocumentId'];
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: true,
+        message: response.statusMessage!, );
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+/// Post upload DL documents
 Future<ApiDataRegister> uploadDocumentsDL({
   required BuildContext context,
   required int drivingLicenceId,
@@ -643,6 +687,50 @@ Future<ApiDataRegister> uploadDocumentsDL({
   } catch (e) {
     print("Error $e");
     return ApiDataRegister(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Patch upload DL document
+Future<ApiData> patchDocumentsDL({
+  required BuildContext context,
+  required int drivingLicenceId,
+  required dynamic documentFile,
+  required String documentName
+
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).patch(
+      path:ClinicalLicensesRepo.postdrivingLicenseUpdatebase64(drivingLicenceId: drivingLicenceId),
+      data: {
+        // 'base64':documents,
+        "Base64": documents,
+        "file_name":documentName
+
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("DL document updated");
+      // orgDocumentGet(context);
+      //var uploadResponse = response.data;
+      //int documentId = uploadResponse['employeeDocumentId'];
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: true,
+        message: response.statusMessage!, );
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

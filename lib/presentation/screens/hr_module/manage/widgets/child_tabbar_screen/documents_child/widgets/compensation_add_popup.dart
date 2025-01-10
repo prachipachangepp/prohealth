@@ -1469,7 +1469,7 @@ class CustomDocumedAddPopup extends StatelessWidget {
 
 
 /// Clinical licenses popup
-class ClinicalLicensesAddPopup extends StatefulWidget {
+class ClinicalLicensesAddPopup extends StatelessWidget {
   final String title;
   bool? loadingDuration;
   // final String officeId;
@@ -1486,279 +1486,306 @@ class ClinicalLicensesAddPopup extends StatefulWidget {
   String? fileName;
   ClinicalLicensesAddPopup({super.key, this.practionerData,required this.title,required this.employeeId, this.height, this.uploadField,  this.drivingList, required this.docId, required this.licenseName,});
   @override
-  State<ClinicalLicensesAddPopup> createState() => _ClinicalLicensesAddPopupState();
-}
-
-class _ClinicalLicensesAddPopupState extends State<ClinicalLicensesAddPopup> {
-  TextEditingController expiryDateController = TextEditingController();
-  bool _submitted = false;
-  DateTime? datePicked;
-  dynamic filePath;
-  String fileName = '';
-  bool load = false;
-  @override
-  void initState() {
-    super.initState();
-    widget.licenseName == "Driving License"?
-    expiryDateController = TextEditingController(text: widget.drivingList!.expDate) :
-    expiryDateController = TextEditingController(text: widget.practionerData!.expDate);
-    widget.licenseName == "Driving License"?
-    fileName = widget.drivingList!.fileName :
-    fileName = widget.practionerData!.fileName;
-  }
-
-  Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-    if (result != null) {
-      setState(() {
-        filePath = result.files.first.bytes;
-        fileName = result.files.first.name;
-      });
-    }
-  }
-  @override
   Widget build(BuildContext context) {
-    return DialogueTemplate(
-      width: AppSize.s420,
-      height: widget.height == null ? AppSize.s374 : widget.height!,
-      body: [
-        // HeaderContentConst(
-        //   heading: AppString.type_of_the_document,
-        //   content: widget.dataList.isEmpty
-        //       ? Container(
-        //     width: 354,
-        //     height: 30,
-        //     decoration: BoxDecoration(
-        //       border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
-        //       borderRadius: BorderRadius.circular(4),
-        //     ),
-        //     child: Padding(
-        //       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        //       child: Text('No available document', style: DocumentTypeDataStyle.customTextStyle(context)),
-        //     ),
-        //   )
-        //       : Column(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       CICCDropdown(
-        //         width: 354,
-        //         initialValue: 'Select Document',
-        //         onChange: (val) {
-        //           // setState(() {
-        //           //   showExpiryDateField = false;
-        //           //   for (var a in widget.dataList) {
-        //           //     if (a.documentName == val) {
-        //           //       documentMetaDataId = a.employeeDocMetaDataId;
-        //           //       documentSetupId = a.employeeDocTypeSetupId;
-        //           //       documentTypeName = a.documentName;
-        //           //       if (a.reminderThreshould == AppConfig.issuer) {
-        //           //         showExpiryDateField = true;
-        //           //       }
-        //           //     }
-        //           //   }
-        //           // });
-        //         },
-        //         items: dropDownMenuItems,
-        //       ),
-        //       SizedBox(height: 2),
-        //       if (_submitted && documentTypeName.isEmpty) // Check _submitted before showing the error
-        //         Text(
-        //           'Please select document',
-        //           style: TextStyle(fontSize: 10, color: ColorManager.red),
-        //         ),
-        //     ],
-        //   ),
-        // ),
+    TextEditingController expiryDateController = TextEditingController();
+    DateTime? datePicked;
+    final clinicalDocAddProviderState = Provider.of<HrManageProvider>(context, listen: false,);
+    licenseName == "Driving License"?
+    expiryDateController = TextEditingController(text: drivingList!.expDate) :
+    expiryDateController = TextEditingController(text: practionerData!.expDate);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      licenseName == "Driving License"?
+      clinicalDocAddProviderState.getFileName(drivingList!.fileName)  :
+      clinicalDocAddProviderState.getFileName(practionerData!.fileName);
+    });
+    return Consumer<HrManageProvider>(
+      builder: (context, providerState, child) {
+        return DialogueTemplate(
+          width: AppSize.s420,
+          height: height == null ? AppSize.s374 : height!,
+          body: [
+            // HeaderContentConst(
+            //   heading: AppString.type_of_the_document,
+            //   content: widget.dataList.isEmpty
+            //       ? Container(
+            //     width: 354,
+            //     height: 30,
+            //     decoration: BoxDecoration(
+            //       border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
+            //       borderRadius: BorderRadius.circular(4),
+            //     ),
+            //     child: Padding(
+            //       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            //       child: Text('No available document', style: DocumentTypeDataStyle.customTextStyle(context)),
+            //     ),
+            //   )
+            //       : Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       CICCDropdown(
+            //         width: 354,
+            //         initialValue: 'Select Document',
+            //         onChange: (val) {
+            //           // setState(() {
+            //           //   showExpiryDateField = false;
+            //           //   for (var a in widget.dataList) {
+            //           //     if (a.documentName == val) {
+            //           //       documentMetaDataId = a.employeeDocMetaDataId;
+            //           //       documentSetupId = a.employeeDocTypeSetupId;
+            //           //       documentTypeName = a.documentName;
+            //           //       if (a.reminderThreshould == AppConfig.issuer) {
+            //           //         showExpiryDateField = true;
+            //           //       }
+            //           //     }
+            //           //   }
+            //           // });
+            //         },
+            //         items: dropDownMenuItems,
+            //       ),
+            //       SizedBox(height: 2),
+            //       if (_submitted && documentTypeName.isEmpty) // Check _submitted before showing the error
+            //         Text(
+            //           'Please select document',
+            //           style: TextStyle(fontSize: 10, color: ColorManager.red),
+            //         ),
+            //     ],
+            //   ),
+            // ),
 
-        HeaderContentConst(
-          heading: AppString.expiry_date,
-          content: FormField<String>(
-            builder: (FormFieldState<String> field) {
-              return SizedBox(
-                width: 354,
-                height: 30,
-                child: TextFormField(
-                  controller: expiryDateController,
-                  cursorColor: ColorManager.black,
-                  style: DocumentTypeDataStyle.customTextStyle(context),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                      borderRadius: BorderRadius.circular(6),
+            HeaderContentConst(
+              heading: AppString.expiry_date,
+              content: FormField<String>(
+                builder: (FormFieldState<String> field) {
+                  return SizedBox(
+                    width: 354,
+                    height: 30,
+                    child: TextFormField(
+                      controller: expiryDateController,
+                      cursorColor: ColorManager.black,
+                      style: DocumentTypeDataStyle.customTextStyle(context),
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        hintText: 'yyyy-mm-dd',
+                        hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                        suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                        errorText: providerState.isSubmitted && expiryDateController.text.isEmpty
+                            ? 'Please select date'
+                            : null, // Show error only after submission
+                      ),
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1901),
+                          lastDate: DateTime(3101),
+                        );
+                        if (pickedDate != null) {
+                          datePicked = pickedDate;
+                          expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                        }
+                      },
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                      borderRadius: BorderRadius.circular(6),
+                  );
+                },
+              ),
+            ),
+
+            HeaderContentConst(
+              heading: AppString.upload_document,
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: providerState.pickClinicalEditFile,
+                    child: Container(
+                      height: AppSize.s30,
+                      width: AppSize.s354,
+                      padding: EdgeInsets.only(left: AppPadding.p15),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: ColorManager.containerBorderGrey, width: 1),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) {
+                          return Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(providerState.editClinicalLicenseFileName, style: DocumentTypeDataStyle.customTextStyle(context)),
+                                ),
+                                IconButton(
+                                  padding: EdgeInsets.all(4),
+                                  onPressed: providerState.pickClinicalEditFile,
+                                  icon: Icon(Icons.file_upload_outlined, color: ColorManager.black, size: 17),
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                    hintText: 'yyyy-mm-dd',
-                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(6),
-                      borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
-                    ),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                    suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                    errorText: _submitted && expiryDateController.text.isEmpty
-                        ? 'Please select date'
-                        : null, // Show error only after submission
                   ),
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
+                  SizedBox(height: 2),
+                  if (providerState.isSubmitted && providerState.editClinicalLicenseFilePath == null) // Show error only if filePath is null and form is submitted
+                    Text(
+                      'Please select document',
+                      style: TextStyle(fontSize: 10, color: ColorManager.red),
+                    ),
+                ],
+              ),
+            )
+          ],
+          bottomButtons: providerState.load
+              ? SizedBox(
+            height: AppSize.s25,
+            width: AppSize.s25,
+            child: CircularProgressIndicator(
+              color: ColorManager.blueprime,
+            ),
+          )
+              : CustomElevatedButton(
+            width: AppSize.s105,
+            height: AppSize.s30,
+            text: AppStringEM.add,
+            onPressed: () async {
+              providerState.isSumitted();
+
+              // if (filePath != null && documentTypeName.isNotEmpty) {
+                providerState.loaderTrue();
+                try {
+                  String? expiryDate;
+                  // if (expiryDateController.text.isEmpty) {
+                  //   expiryDate = null;
+                  // } else {
+                  //   expiryDate = datePicked!.toIso8601String() + "Z";
+                  // }
+                  var response = licenseName == 'Driving License'? await patchDrivingLicense(
                       context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1901),
-                      lastDate: DateTime(3101),
+                      docId: docId,
+                      employeeId: drivingList!.employeeId,
+                      idOfDocument: drivingList!.idOFDocument,
+                      expiryDate: expiryDateController.text,
+                      createdAt: drivingList!.createdAt,
+                      url: drivingList!.url,
+                      officeId: drivingList!.officeId,
+                      fileName: providerState.editClinicalLicenseFileName,
+                      approved: drivingList!.approve!
+                  ):await patchPractitionerLicense(
+                      context: context,
+                      docId: docId,
+                      employeeId: practionerData!.employeeId,
+                      idOfDocument: practionerData!.idOFDocument,
+                      expiryDate: expiryDateController.text,
+                      createdAt: practionerData!.createdAt,
+                      url: practionerData!.url,
+                      officeId: practionerData!.officeId,
+                      fileName: providerState.editClinicalLicenseFileName,
+                      approved: practionerData!.approve!
+                  );
+                  // var result = await singleBatchApproveOnboardAckHealthPatch(context, response.documentId!);
+                  if (response.statusCode == 200 || response.statusCode == 201) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(message: 'License Uploaded Successfully');
+                      },
                     );
-                    if (pickedDate != null) {
-                      datePicked = pickedDate;
-                      expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                    if(providerState.clinicalFileIsPicked){
+                      if(providerState.editFileAbove20Mb){
+                        var docResponse =  licenseName == 'Driving License'? await patchDocumentsDL(
+                            context: context,
+                            drivingLicenceId: int.parse(docId),
+                            documentFile: providerState.editClinicalLicenseFilePath,
+                            documentName: providerState.editClinicalLicenseFileName) : await patchDocumentsPL(
+                            context: context,
+                            practitionerLicenceId: int.parse(docId),
+                            documentFile: providerState.editClinicalLicenseFilePath,
+                            documentName: providerState.editClinicalLicenseFileName);
+                        if (docResponse.statusCode == 200 || docResponse.statusCode == 201) {
+                          providerState.clearAddedValue();
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(
+                                message: 'Document Edited Successfully',
+                              );
+                            },
+                          );
+                        }
+                        else if (response.statusCode == 413) {
+                          providerState.clearAddedValue();
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddErrorPopup(
+                                message: 'File is too large!',
+                              );
+                            },
+                          );
+                        }
+                        else {
+                          Navigator.pop(context);
+                          print('Error');
+                        }
+                      }else{
+                        providerState.clearAddedValue();
+                        Navigator.pop(context);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddErrorPopup(
+                              message: 'File is too large!',
+                            );
+                          },
+                        );
+                      }
                     }
-                  },
-                ),
-              );
+                  }
+                  // if (response.statusCode == 413) {
+                  //   Navigator.pop(context);
+                  //   showDialog(
+                  //     context: context,
+                  //     builder: (BuildContext context) {
+                  //       return AddErrorPopup(
+                  //         message: 'Request entity to large!',
+                  //       );
+                  //     },
+                  //   );
+                  // }
+
+                  providerState.loaderFalse();
+                } finally {
+                  providerState.clearAddedValue();
+                  providerState.loaderFalse();
+                }
+              // } else {
+              //   print('Validation error');
+              // }
             },
           ),
-        ),
-
-        HeaderContentConst(
-          heading: AppString.upload_document,
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: _pickFile,
-                child: Container(
-                  height: AppSize.s30,
-                  width: AppSize.s354,
-                  padding: EdgeInsets.only(left: AppPadding.p15),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: ColorManager.containerBorderGrey, width: 1),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: StatefulBuilder(
-                    builder: (BuildContext context, void Function(void Function()) setState) {
-                      return Padding(
-                        padding: const EdgeInsets.all(0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(fileName, style: DocumentTypeDataStyle.customTextStyle(context)),
-                            ),
-                            IconButton(
-                              padding: EdgeInsets.all(4),
-                              onPressed: _pickFile,
-                              icon: Icon(Icons.file_upload_outlined, color: ColorManager.black, size: 17),
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(height: 2),
-              if (_submitted && filePath == null) // Show error only if filePath is null and form is submitted
-                Text(
-                  'Please select document',
-                  style: TextStyle(fontSize: 10, color: ColorManager.red),
-                ),
-            ],
-          ),
-        )
-      ],
-      bottomButtons: load
-          ? SizedBox(
-        height: AppSize.s25,
-        width: AppSize.s25,
-        child: CircularProgressIndicator(
-          color: ColorManager.blueprime,
-        ),
-      )
-          : CustomElevatedButton(
-        width: AppSize.s105,
-        height: AppSize.s30,
-        text: AppStringEM.add,
-        onPressed: () async {
-          setState(() {
-            _submitted = true;
-          });
-
-          // if (filePath != null && documentTypeName.isNotEmpty) {
-            setState(() {
-              load = true;
-            });
-            try {
-              String? expiryDate;
-              if (expiryDateController.text.isEmpty) {
-                expiryDate = null;
-              } else {
-                expiryDate = datePicked!.toIso8601String() + "Z";
-              }
-              var response = widget.licenseName == 'Driving License'? await patchDrivingLicense(
-                  context: context,
-                  docId: widget.docId,
-                  employeeId: widget.drivingList!.employeeId,
-                  idOfDocument: widget.drivingList!.idOFDocument,
-                  expiryDate: expiryDateController.text,
-                  createdAt: widget.drivingList!.createdAt,
-                  url: widget.drivingList!.url,
-                  officeId: widget.drivingList!.officeId,
-                  fileName: fileName,
-                  approved: widget.drivingList!.approve!
-              ):await patchPractitionerLicense(
-                  context: context,
-                  docId: widget.docId,
-                  employeeId: widget.practionerData!.employeeId,
-                  idOfDocument: widget.practionerData!.idOFDocument,
-                  expiryDate: expiryDateController.text,
-                  createdAt: widget.practionerData!.createdAt,
-                  url: widget.practionerData!.url,
-                  officeId: widget.practionerData!.officeId,
-                  fileName: fileName,
-                  approved: widget.practionerData!.approve!
-              );
-              // var result = await singleBatchApproveOnboardAckHealthPatch(context, response.documentId!);
-              if (response.statusCode == 200 || response.statusCode == 201) {
-                Navigator.pop(context);
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AddSuccessPopup(message: 'License Uploaded Successfully');
-                  },
-                );
-              }
-              // if (response.statusCode == 413) {
-              //   Navigator.pop(context);
-              //   showDialog(
-              //     context: context,
-              //     builder: (BuildContext context) {
-              //       return AddErrorPopup(
-              //         message: 'Request entity to large!',
-              //       );
-              //     },
-              //   );
-              // }
-              setState(() {
-                load = true;
-              });
-            } finally {
-              setState(() {
-                load = true;
-              });
-            }
-          // } else {
-          //   print('Validation error');
-          // }
-        },
-      ),
-      title: widget.title,
+          title: title,
+        );
+      }
     );
   }
 }
