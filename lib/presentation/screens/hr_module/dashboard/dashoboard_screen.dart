@@ -184,7 +184,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              vertical: AppPadding.p10, horizontal: AppPadding.p14),
+            //  vertical: AppPadding.p10,
+              horizontal: AppPadding.p14),
           child: Column(
             children: [
               Stack(
@@ -1588,7 +1589,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           // ),
                         ],
                       ),
-                      const SizedBox(height: AppSize.s30,),
+                      const SizedBox(height: AppSize.s20,),
 
                       ///listview section
                       Expanded(
@@ -1605,7 +1606,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 children: [
                                   SizedBox(height: AppSize.s5),
                                   HRDashboardListViewData(),
-                                  SizedBox(height: AppSize.s5),
+                                 // SizedBox(height: AppSize.s5),
                                 ],
                               );
                             },
