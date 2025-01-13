@@ -298,18 +298,44 @@ void fetchData()async{
                                 Container(
                                   height: AppSize.s100,
                                   child: snapshot.data!.logos.isNotEmpty
-                                      ? CachedNetworkImage(
-                                    imageUrl: snapshot.data!.logos[0].url,
-                                    placeholder: (context, url) => SizedBox(
-                                        height:AppSize.s25,
-                                        width:AppSize.s25,
-                                        ),
-                                    errorWidget: (context, url, error) => Image.asset("images/forappprohealth.png"),
-                                    fit: BoxFit.cover, // Ensure the image fits inside the circle
-                                    height: AppSize.s100, // Adjust image height for proper fit// Adjust image width for proper fit
+                                      ? Image.network(
+                                    snapshot.data!.logos[0].url,
+                                    loadingBuilder: (context, child, loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return SizedBox(
+                                          height: AppSize.s25,
+                                          width: AppSize.s25,
+                                        );
+                                      }
+                                    },
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset("images/forwebprohealth.png");
+                                    },
+                                    fit: BoxFit.cover,
+                                    height: AppSize.s100,
                                   )
                                       : Container(),
-                                ),
+                                )
+
+
+
+                                // Container(
+                                //   height: AppSize.s100,
+                                //   child: snapshot.data!.logos.isNotEmpty
+                                //       ? CachedNetworkImage(
+                                //     imageUrl: snapshot.data!.logos[0].url,
+                                //     placeholder: (context, url) => SizedBox(
+                                //         height:AppSize.s25,
+                                //         width:AppSize.s25,
+                                //         ),
+                                //     errorWidget: (context, url, error) => Image.asset("images/forappprohealth.png"),
+                                //     fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                //     height: AppSize.s100, // Adjust image height for proper fit// Adjust image width for proper fit
+                                //   )
+                                //       : Container(),
+                                // ),
                               ],
                             );
                           } else if (snapshot.hasError) {

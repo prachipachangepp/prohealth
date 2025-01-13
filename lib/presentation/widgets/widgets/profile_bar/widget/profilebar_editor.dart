@@ -353,18 +353,42 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                 radius: 20, // Adjust the size of the avatar
                                                                 backgroundColor: ColorManager.faintGrey,
                                                                 child: ClipOval(
-                                                                  child: CachedNetworkImage(
-                                                                    imageUrl: profileData.imgurl,
+                                                                  child: Image.network(
+                                                                    profileData.imgurl,
                                                                     fit: BoxFit.cover, // Ensures the image fills the avatar
                                                                     width: double.infinity, // Ensures the image fills the avatar width
                                                                     height: double.infinity, // Ensures the image fills the avatar height
-                                                                    placeholder: (context, url) =>
-                                                                    const CircularProgressIndicator(),
-                                                                    errorWidget: (context, url, error) =>
-                                                                        CircleAvatar(child: Image.asset("images/profilepic.png",fit:BoxFit.cover),),
+                                                                    loadingBuilder: (context, child, loadingProgress) {
+                                                                      if (loadingProgress == null) {
+                                                                        return child;
+                                                                      } else {
+                                                                        return const CircularProgressIndicator();
+                                                                      }
+                                                                    },
+                                                                    errorBuilder: (context, error, stackTrace) {
+                                                                      return CircleAvatar(
+                                                                        child: Image.asset("images/profilepic.png", fit: BoxFit.cover),
+                                                                      );
+                                                                    },
                                                                   ),
                                                                 ),
                                                               ),
+                                                              // CircleAvatar(
+                                                              //   radius: 20, // Adjust the size of the avatar
+                                                              //   backgroundColor: ColorManager.faintGrey,
+                                                              //   child: ClipOval(
+                                                              //     child: CachedNetworkImage(
+                                                              //       imageUrl: profileData.imgurl,
+                                                              //       fit: BoxFit.cover, // Ensures the image fills the avatar
+                                                              //       width: double.infinity, // Ensures the image fills the avatar width
+                                                              //       height: double.infinity, // Ensures the image fills the avatar height
+                                                              //       placeholder: (context, url) =>
+                                                              //       const CircularProgressIndicator(),
+                                                              //       errorWidget: (context, url, error) =>
+                                                              //           CircleAvatar(child: Image.asset("images/profilepic.png",fit:BoxFit.cover),),
+                                                              //     ),
+                                                              //   ),
+                                                              // ),
                                                             ),
                                                             const SizedBox(width: 10),
                                                             // Custom icon button for uploading files
