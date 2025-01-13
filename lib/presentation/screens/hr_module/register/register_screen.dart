@@ -26,7 +26,7 @@ import '../../../../app/resources/establishment_resources/establish_theme_manage
 import '../../../../app/resources/font_manager.dart';
 import '../../../../data/api_data/establishment_data/user/user_modal.dart';
 import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
-import '../../em_module/see_all_screen/widgets/popup_const.dart';
+import '../../em_module/see_all_screen/widgets/user_popup_const_provider.dart';
 import '../manage/widgets/custom_icon_button_constant.dart';
 import 'confirmation_constant.dart';
 

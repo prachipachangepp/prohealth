@@ -84,7 +84,7 @@ dependencies:
   geocoding: ^3.0.0
   auto_size_text: any
   calendar_view: ^1.2.0
-  fl_chart: any
+  fl_chart: ^0.70.1
   mime: ^2.0.0
   flutter_masked_text2: ^0.9.1
   intl_phone_number_input: any

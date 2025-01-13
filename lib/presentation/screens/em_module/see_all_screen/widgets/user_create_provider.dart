@@ -6,7 +6,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_popup_const_provider.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
@@ -19,7 +19,10 @@ class UserCreationProvider with ChangeNotifier {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
 
+  // Getter for the email
+  String get email => emailController.text;
   String? _nameDocError;
   String? _emailDocError;
   String? _stateDocError;
@@ -126,8 +129,6 @@ class UserCreationProvider with ChangeNotifier {
   }
 }
 
-
-
 /// dept dropdown provider class
 class DepartmentProvider extends ChangeNotifier {
   bool _isLoading = false;
@@ -165,7 +166,9 @@ class DepartmentProvider extends ChangeNotifier {
   }
 
 }
-///with provider
+
+
+///with provider UserFormProvider
 class UserFormProvider extends ChangeNotifier {
   bool _isFormValid = true;
   bool _isLoading = false;
@@ -212,7 +215,7 @@ class UserFormProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
-///
+
 
 ///CustomDialoghSEE using provider
 class CustomDialoghSEE extends StatelessWidget {
@@ -283,7 +286,7 @@ class CustomDialoghSEE extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: "Select Department",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style: AllPopupHeadings.customTextStyle(context),
                         children: [
                           TextSpan(
                             text: ' *',
@@ -342,7 +345,6 @@ class CustomDialoghSEE extends StatelessWidget {
                                 onChanged: (val) {
                                   setState(() {
                                     selectedDeptName = val;
-                                    // Find the corresponding department ID from the snapshot
                                     selectedDeptId = snapshot.data!
                                         .firstWhere((dept) => dept.deptName == val)
                                         .deptId;
@@ -355,30 +357,6 @@ class CustomDialoghSEE extends StatelessWidget {
                         return const SizedBox();
                       },
                     ),
-
-                    ///
-                    // FutureBuilder<List<HRHeadBar>>(
-                    //   future: companyHRHeadApi(context, deptId),
-                    //   builder: (context, snapshot) {
-                    //     if (snapshot.connectionState == ConnectionState.waiting) {
-                    //       return CircularProgressIndicator();
-                    //     }
-                    //     if (snapshot.hasData) {
-                    //       return DropdownButton<String>(
-                    //         items: snapshot.data!
-                    //             .map((dept) => DropdownMenuItem<String>(
-                    //           value: dept,
-                    //           child: Text(dept),
-                    //         ))
-                    //             .toList(),
-                    //         onChanged: (value) {
-                    //           // Handle department selection
-                    //         },
-                    //       );
-                    //     }
-                    //     return SizedBox();
-                    //   },
-                    // ),
                     ///
                     SizedBox(height: 14),
                     SMTextfieldAsteric(
@@ -396,7 +374,7 @@ class CustomDialoghSEE extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 1),
                       child: Text(
                         "Password",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style:AllPopupHeadings.customTextStyle(context),
                       ),
                     ),
                     SizedBox(height: 5),
@@ -437,22 +415,21 @@ class CustomDialoghSEE extends StatelessWidget {
                 if (formProvider.isFormValid) {
                   formProvider.setLoading(true);
                   try {
-                    // Perform the API call here
+
                     var response = await createUserPost(
-                      context,                  // Pass the BuildContext as the first argument
-                      firstNameController.text, // String
-                      lastNameController.text,  // String
-                      selectedDeptId!,          // int (ensure selectedDeptId is not null)
-                      emailController.text,     // String
-                      passwordController.text,  // String
+                      context,
+                      firstNameController.text,
+                      lastNameController.text,
+                      selectedDeptId!,
+                      emailController.text,
+                      passwordController.text,
                     );
 
                     if (response.success) {
                       Navigator.pop(context);
-                      // Show success dialog
                     } else {
-                      // Show error message
-                      print(response.message); // Log the error message
+
+                      print(response.message);
                     }
                   } catch (e) {
                     // Handle error
@@ -464,43 +441,6 @@ class CustomDialoghSEE extends StatelessWidget {
               },
               child: Text('Create'),
             ),
-
-
-            ///
-            // ElevatedButton(
-            //   onPressed: () async {
-            //     formProvider.validateForm(
-            //       firstNameController.text,
-            //       lastNameController.text,
-            //       emailController.text,
-            //       passwordController.text,
-            //     );
-            //     if (formProvider.isFormValid) {
-            //       formProvider.setLoading(true);
-            //       try {
-            //         // Perform the API call here
-            //         var response = await createUserPost(
-            //           firstNameController.text,
-            //           lastNameController.text,
-            //           selectedDeptId!,
-            //           emailController.text,
-            //           passwordController.text,
-            //         );
-            //         if (response.success) {
-            //           Navigator.pop(context);
-            //           // Show success dialog
-            //         } else {
-            //           // Show error message
-            //         }
-            //       } catch (e) {
-            //         // Handle error
-            //       } finally {
-            //         formProvider.setLoading(false);
-            //       }
-            //     }
-            //   },
-            //   child: Text('Create'),
-            // ),
           );
         },
       ),

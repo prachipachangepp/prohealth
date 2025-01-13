@@ -46,7 +46,7 @@ class _CustomDialogState extends State<CustomDialog> {
   @override
   void initState() {
     super.initState();
-    _generatePassword(); // Generate password when dialog is initialized
+    _generatePassword();
   }
 
   void _generatePassword() {
@@ -57,7 +57,7 @@ class _CustomDialogState extends State<CustomDialog> {
       password += characters[random.nextInt(characters.length)];
     }
     setState(() {
-      widget.passwordController.text = password; // Update the controller text
+      widget.passwordController.text = password;
     });
   }
 
@@ -128,7 +128,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   keyboardType: TextInputType.text,
                   text: "First Name",
                 ),
-                if (_nameDocError != null) // Display error if any
+                if (_nameDocError != null)
                   Text(
                     _nameDocError!,
                     style: CommonErrorMsg.customTextStyle(context),
@@ -140,7 +140,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   keyboardType: TextInputType.text,
                   text: 'Last Name',
                 ),
-                if (_stateDocError != null) // Display error if any
+                if (_stateDocError != null)
                   Text(
                     _stateDocError!,
                     style: CommonErrorMsg.customTextStyle(context),
@@ -148,13 +148,13 @@ class _CustomDialogState extends State<CustomDialog> {
                 SizedBox(height: AppSize.s10,),
                 RichText(
                   text: TextSpan(
-                    text:"Select Department", // Main text
-                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                    text:"Select Department",
+                    style: AllPopupHeadings.customTextStyle(context),
                     children: [
                       TextSpan(
                         text: ' *', // Asterisk
                         style: AllPopupHeadings.customTextStyle(context).copyWith(
-                          color: ColorManager.red, // Asterisk color
+                          color: ColorManager.red,
                         ),
                       ),
                     ],
@@ -220,7 +220,7 @@ class _CustomDialogState extends State<CustomDialog> {
                             onChanged: (val) {
                               setState(() {
                                 selectedDeptName = val;
-                                // Find the corresponding department ID from the snapshot
+
                                 selectedDeptId = snapshot.data!
                                     .firstWhere(
                                         (dept) => dept.deptName == val)
@@ -288,13 +288,13 @@ class _CustomDialogState extends State<CustomDialog> {
         onPressed: () async {
           _validateForm();
           if (!_isFormValid) {
-            return; // Do not proceed if form isn't valid
+            return;
           }
           if (widget.passwordController.text.length < 6) {
             setState(() {
               _PasswordDocError = "Password must be longer than or equal to 6 characters";
             });
-            return; // Exit if password validation fails
+            return;
           }
           setState(() {
             isLoading = true;
@@ -332,21 +332,21 @@ class _CustomDialogState extends State<CustomDialog> {
               widget.emailController.clear();
               selectedDeptId = AppConfig.AdministrationId;
             } else {
-              // Handle other errors, such as email already used
+
               await showDialog(
                 context: context,
                 builder: (BuildContext context) => FailedPopup(text: response.message),
               );
             }
           } catch (e) {
-            // Handle unexpected errors
+
             await showDialog(
               context: context,
               builder: (BuildContext context) => FailedPopup(text: e.toString()),
             );
           } finally {
             setState(() {
-              isLoading = false; // Ensure loader is always reset
+              isLoading = false;
             });
           }
         },
@@ -380,7 +380,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
   @override
   void initState() {
     super.initState();
-    _generatePassword(); // Generate password when dialog is initialized
+    _generatePassword();
   }
 
   void _generatePassword() {
@@ -391,7 +391,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
       password += characters[random.nextInt(characters.length)];
     }
     setState(() {
-      widget.passwordController.text = password; // Update the controller text
+      widget.passwordController.text = password;
     });
   }
 
@@ -461,7 +461,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                 keyboardType: TextInputType.text,
                 text: "First Name",
               ),
-              if (_nameDocError != null) // Display error if any
+              if (_nameDocError != null)
                 Text(
                   _nameDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
@@ -473,7 +473,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                 keyboardType: TextInputType.text,
                 text: 'Last Name',
               ),
-              if (_stateDocError != null) // Display error if any
+              if (_stateDocError != null)
                 Text(
                   _stateDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
@@ -481,13 +481,13 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
               SizedBox(height: AppSize.s10,),
               RichText(
                 text: TextSpan(
-                  text:"Select Department", // Main text
-                  style: AllPopupHeadings.customTextStyle(context), // Main style
+                  text:"Select Department",
+                  style: AllPopupHeadings.customTextStyle(context),
                   children: [
                     TextSpan(
-                      text: ' *', // Asterisk
+                      text: ' *',
                       style: AllPopupHeadings.customTextStyle(context).copyWith(
-                        color: ColorManager.red, // Asterisk color
+                        color: ColorManager.red,
                       ),
                     ),
                   ],
@@ -776,7 +776,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
            errorText: hasError ? widget.errorText : null,
           suffixIcon: IconButton(
             icon: widget.suffixIcon ?? Icon(Icons.copy, size: IconSize.I14,color: Colors.black),
-            onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
+            onPressed: widget.onSuffixIconPressed,
           ),
         ),
 
@@ -801,7 +801,9 @@ class EditUserPopUp extends StatefulWidget {
       {required this.title,
         required this.userId,
         this.enable,
-        required this.deptName, required this.firstname, required this.lastname, required this.email, required this.departmentId, required this.department});
+        required this.deptName, required this.firstname,
+        required this.lastname, required this.email,
+        required this.departmentId, required this.department});
 
   @override
   State<EditUserPopUp> createState() => _EditUserPopUpState();
@@ -842,11 +844,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                 keyboardType: TextInputType.text,
                 text: "First Name",
               ),
-              // if (_nameDocError != null) // Display error if any
-              //   Text(
-              //     _nameDocError!,
-              //     style: CommonErrorMsg.customTextStyle(context),
-              //   ),
+
               SizedBox(height: 5,),
               ///
               SMTextfieldAsteric(
@@ -854,18 +852,16 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                 keyboardType: TextInputType.text,
                 text: 'Last Name',
               ),
-              // if (_stateDocError != null) // Display error if any
-              //   Text(
-              //     _stateDocError!,
-              //     style: CommonErrorMsg.customTextStyle(context),
-              //   ),
+
               SizedBox(height: AppSize.s10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                       'Select Department',
-                      style: AllPopupHeadings.customTextStyle(context)),
+                      style: AllPopupHeadings.customTextStyle(context),
+
+                  ),
                 ],
               ),
               SizedBox(height: AppSize.s5,),
@@ -895,7 +891,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                     );
                   }
                   if (snapshot.hasData) {
-                    // Extract dropdown items from snapshot
+
                     List<String> dropDownServiceList = snapshot
                         .data!
                         .map((dept) => dept.deptName)
@@ -923,7 +919,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                       onChanged: (val) {
                         setState(() {
                           selectedDeptName = val;
-                          // Find the corresponding department ID from the snapshot
+
                           selectedDeptId = snapshot.data!
                               .firstWhere(
                                   (dept) => dept.deptName == val)

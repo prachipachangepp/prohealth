@@ -12,6 +12,10 @@ class AppString {
   static const String summary = "Summary :";
   static const String pta = "PTA :";
   static const String addresss = "Address";
+  static const String selectDept = "Select Department";
+  static const String deleteUser = "Delete User";
+  static const String userDeletedsucc  ='User deleted successfully.';
+  static const String createUser  ='Create User';
 
   static const String houseaddress =
       "House No., Street No. Area City, Zip\nCode";
@@ -95,6 +99,7 @@ class AppString {
   static const String enter_otp = "Enter OTP";
   static const String save = "Save";
   static const String submit = "Submit";
+  static const String noavailabledata = "No Available Data";
 
   static const String references = "References";
   static const String add_education = "Add Education";
@@ -299,6 +304,7 @@ class AppString {
   static const String administration = "Administration";
   static const String reminderthershold = "Reminder Threshold";
   static const String editProfile = "Edit Profile";
+  static const String edit = "Edit";
   static const String photo = "Upload Photo";
   static const String dept = "Department";
 
