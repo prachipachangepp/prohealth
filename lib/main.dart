@@ -10,6 +10,7 @@ import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_delete_provider.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_edit_provider.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_pagination.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_popup_const_provider.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -42,6 +43,7 @@ Future<void> main() async {
           ChangeNotifierProvider(create: (_) => SeeAllPaginationProvider(itemsPerPage: 10),),
           ChangeNotifierProvider(create: (_) => SeeAllProvider()),
           ChangeNotifierProvider(create: (_) => UserCreationProvider()),
+          ChangeNotifierProvider(create: (_) =>  ButtonProvider()),
 
           ChangeNotifierProvider(create: (context) => DeleteUserProvider()),
 

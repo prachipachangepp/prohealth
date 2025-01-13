@@ -32,8 +32,9 @@ class SeeAllScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.microtask(() =>
         Provider.of<SeeAllProvider>(context, listen: false).fetchUser(context));
+    // final seeAllProvider = Provider.of<SeeAllProvider>(context);
 
-    final userCreationProvider = context.watch<UserCreationProvider>();
+    // final userCreationProvider = context.watch<UserCreationProvider>();
     final paginationProvider = context.watch<SeeAllPaginationProvider>();
 
     return Scaffold(
@@ -43,18 +44,46 @@ class SeeAllScreen extends StatelessWidget {
             horizontal: MediaQuery.of(context).size.width / 24),
         child: Column(
           children: [
-            ///
+            /// working
             Padding(
               padding: const EdgeInsets.only(right: AppPadding.p30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  // Container(
+                  //   height: AppSize.s30,
+                  //   width: AppSize.s150,
+                  //   child: CustomIconButtonProvider(
+                  //     icon: Icons.add,
+                  //     text: AppString.createUser,
+                  //     onPressed: () async {
+                  //       final provider = Provider.of<UserCreationProvider>(
+                  //           context,
+                  //           listen: false);
+                  //       provider.clearForm();
+                  //       showDialog(
+                  //         context: context,
+                  //         builder: (BuildContext context) {
+                  //           return CustomDialoghSEE(
+                  //             title: AppString.createUser,
+                  //             firstNameController: provider.firstNameController,
+                  //             lastNameController: provider.lastNameController,
+                  //             emailController: provider.emailController,
+                  //             passwordController: provider.passwordController,
+                  //           );
+                  //         },
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
+
+                  ///
                   Container(
-                    height: AppSize.s30,
-                    width: AppSize.s150,
-                    child: CustomIconButton(
+                    height: 30,
+                    width: 150,
+                    child: CustomIconButtonProvider(
                       icon: Icons.add,
-                      text: AppString.createUser,
+                      text: "Create User",
                       onPressed: () async {
                         final provider = Provider.of<UserCreationProvider>(
                             context,
@@ -64,7 +93,7 @@ class SeeAllScreen extends StatelessWidget {
                           context: context,
                           builder: (BuildContext context) {
                             return CustomDialoghSEE(
-                              title: AppString.createUser,
+                              title: "Create User",
                               firstNameController: provider.firstNameController,
                               lastNameController: provider.lastNameController,
                               emailController: provider.emailController,
@@ -78,6 +107,7 @@ class SeeAllScreen extends StatelessWidget {
                 ],
               ),
             ),
+            ///
             SizedBox(height: 10),
             Column(
               children: [
@@ -87,6 +117,14 @@ class SeeAllScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: ColorManager.fmediumgrey,
                     borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 4,
+                        spreadRadius: 1,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 1),
@@ -100,6 +138,7 @@ class SeeAllScreen extends StatelessWidget {
                                 const EdgeInsets.only(left: AppPadding.p90),
                             child: Text(
                               AppString.srNo,
+                              textAlign: TextAlign.start,
                               style: TableHeading.customTextStyle(context),
                             ),
                           ),
@@ -108,7 +147,7 @@ class SeeAllScreen extends StatelessWidget {
                           flex: 2,
                           child: Padding(
                             padding:
-                                const EdgeInsets.only(left: AppPadding.p60),
+                                const EdgeInsets.only(left: AppPadding.p40),
                             child: Text(
                               AppString.userId,
                               style: TableHeading.customTextStyle(context),
@@ -117,22 +156,27 @@ class SeeAllScreen extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 2,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: AppPadding.p20),
-                            child: Text(
-                              AppString.fname,
-                              style: TableHeading.customTextStyle(context),
-                            ),
+                          child: Text(
+                            AppString.fname,
+                            textAlign: TextAlign.start,
+                            style: TableHeading.customTextStyle(context),
                           ),
                         ),
                         Expanded(
                           flex: 2,
+                          child: Text(
+                            AppString.lname,
+                            textAlign: TextAlign.start,
+                            style: TableHeading.customTextStyle(context),
+                          ),
+                        ),
+
+                        Expanded(
+                          flex: 2,
                           child: Padding(
-                            padding:
-                                const EdgeInsets.only(right: AppPadding.p40),
+                            padding: const EdgeInsets.only(left: 20),
                             child: Text(
-                              AppString.lname,
+                              AppString.role,
                               textAlign: TextAlign.start,
                               style: TableHeading.customTextStyle(context),
                             ),
@@ -141,28 +185,18 @@ class SeeAllScreen extends StatelessWidget {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            AppString.role,
+                            AppString.email,
+                            textAlign: TextAlign.center,
                             style: TableHeading.customTextStyle(context),
                           ),
                         ),
                         Expanded(
                           flex: 2,
                           child: Text(
-                            AppString.email,
-                            textAlign: TextAlign.start,
+                            AppString.actions,
+                            textAlign: TextAlign.center,
                             style: TableHeading.customTextStyle(context),
                           ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: AppPadding.p40),
-                              child: Text(
-                                AppString.actions,
-                                textAlign: TextAlign.start,
-                                style: TableHeading.customTextStyle(context),
-                              )),
                         ),
                       ],
                     ),
@@ -171,6 +205,9 @@ class SeeAllScreen extends StatelessWidget {
                 SizedBox(height: AppSize.s10),
               ],
             ),
+
+
+            ///stream builder used
             Expanded(
               child: Consumer<SeeAllProvider>(
                 builder: (context, seeAllProviderState, child) {
@@ -233,15 +270,20 @@ class SeeAllScreen extends StatelessWidget {
                                             color: Colors.white,
                                             borderRadius:
                                                 BorderRadius.circular(4),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.5),
-                                                spreadRadius: 1,
-                                                blurRadius: 4,
-                                                offset: Offset(0, 2),
-                                              ),
-                                            ],
+                                              boxShadow: [
+
+                                                ///
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                        BoxShadow(
+                                          color: Colors.blue.withOpacity(0.5),
+                                          offset: Offset(-4, 0),
+                                        ),
+                                      ],
                                           ),
                                           height: 56,
                                           child: Padding(
@@ -263,66 +305,11 @@ class SeeAllScreen extends StatelessWidget {
                                                                 .center)),
                                                     Expanded(
                                                         flex: 1,
-                                                        child: Text(
-                                                          user.userId
-                                                              .toString(),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TableSubHeading
-                                                              .customTextStyle(
-                                                                  context),
-                                                        )),
-                                                    Expanded(
-                                                        flex: 1,
-                                                        child: Text(
-                                                          user.firstName,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TableSubHeading
-                                                              .customTextStyle(
-                                                                  context),
-                                                        )),
-                                                    Expanded(
-                                                        flex: 1,
                                                         child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 20),
+                                                          padding: const EdgeInsets.only(left: 40),
                                                           child: Text(
-                                                            user.lastName,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TableSubHeading
-                                                                .customTextStyle(
-                                                                    context),
-                                                          ),
-                                                        )),
-                                                    Expanded(
-                                                        flex: 1,
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 50),
-                                                          child: Text(
-                                                            user.role,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TableSubHeading
-                                                                .customTextStyle(
-                                                                    context),
-                                                          ),
-                                                        )),
-                                                    Expanded(
-                                                        flex: 2,
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 100),
-                                                          child: Text(
-                                                            user.email,
+                                                            user.userId
+                                                                .toString(),
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style: TableSubHeading
@@ -330,6 +317,48 @@ class SeeAllScreen extends StatelessWidget {
                                                                     context),
                                                           ),
                                                         )),
+                                                    Expanded(
+                                                        flex: 1,
+                                                        child: Text(
+                                                          user.firstName,
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TableSubHeading
+                                                              .customTextStyle(
+                                                                  context),
+                                                        )),
+                                                    Expanded(
+                                                        flex: 1,
+                                                        child: Text(
+                                                          user.lastName,
+                                                          textAlign: TextAlign
+                                                              .start,
+                                                          style: TableSubHeading
+                                                              .customTextStyle(
+                                                                  context),
+                                                        )),
+                                                    Expanded(
+                                                        flex: 1,
+                                                        child: Text(
+                                                          user.role,
+                                                          textAlign: TextAlign
+                                                              .start,
+                                                          style: TableSubHeading
+                                                              .customTextStyle(
+                                                                  context),
+                                                        )),
+                                                    Expanded(
+                                                        flex: 1,
+                                                        child: Text(
+                                                          user.email,
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TableSubHeading
+                                                              .customTextStyle(
+                                                                  context),
+                                                        )),
+                                                    SizedBox(
+                                                        width: AppSize.s10),
                                                     InkWell(
                                                       child: Container(
                                                         height: MediaQuery.of(
@@ -514,7 +543,9 @@ class SeeAllScreen extends StatelessWidget {
                                                           print("User deletion confirmed and completed.");
                                                         }
                                                       },
-                                                    )
+                                                    ),
+                                                    SizedBox(
+                                                        width: AppSize.s10),
                                                   ])),
                                         ),
                                       ]);
@@ -525,6 +556,240 @@ class SeeAllScreen extends StatelessWidget {
                 },
               ),
             ),
+
+            /// future builder used
+            // Expanded(
+            //   child: Consumer<SeeAllProvider>(
+            //     builder: (context, seeAllProviderState, child) {
+            //       return FutureBuilder<List<UserModal>>(
+            //         future: seeAllProviderState.fetchUser(context), // Use the updated fetchUser method
+            //         builder: (context, snapshot) {
+            //           if (snapshot.connectionState == ConnectionState.waiting) {
+            //             return Center(child: CircularProgressIndicator());
+            //           }
+            //
+            //           if (snapshot.hasError) {
+            //             print("Error: ${snapshot.error}"); // Debugging line to check if there's an error
+            //             return Center(child: Text('Error: ${snapshot.error}'));
+            //           }
+            //
+            //           if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            //             print("No data available"); // Debugging line to check if data is empty
+            //             return Center(child: Text(AppString.noavailabledata));
+            //           }
+            //
+            //           List<UserModal> sortedData = snapshot.data!;
+            //           sortedData.sort((a, b) => b.userId.compareTo(a.userId));
+            //
+            //           // Update PaginationProvider's items
+            //           final paginationProvider = Provider.of<SeeAllPaginationProvider>(context, listen: false);
+            //           Future.microtask(() {
+            //             paginationProvider.updateItems(sortedData);
+            //           });
+            //
+            //           List<UserModal> paginatedData = paginationProvider.currentPageItems;
+            //
+            //           return Column(
+            //             children: [
+            //               Expanded(
+            //                 child: ListView.builder(
+            //                   itemCount: paginatedData.length,
+            //                   itemBuilder: (context, index) {
+            //                     int globalSerialNumber = (paginationProvider.currentPage - 1) * paginationProvider.itemsPerPage + index + 1;
+            //                     String formattedSerialNumber = globalSerialNumber.toString().padLeft(2, '0');
+            //                     UserModal user = paginatedData[index];
+            //
+            //                     return Column(
+            //                       crossAxisAlignment: CrossAxisAlignment.start,
+            //                       children: [
+            //                         SizedBox(height: 5),
+            //                         Container(
+            //                           margin: EdgeInsets.symmetric(horizontal: 30),
+            //                           decoration: BoxDecoration(
+            //                             color: Colors.white,
+            //                             borderRadius: BorderRadius.circular(4),
+            //                             boxShadow: [
+            //                               BoxShadow(
+            //                                 color: Colors.grey.withOpacity(0.5),
+            //                                 spreadRadius: 1,
+            //                                 blurRadius: 4,
+            //                                 offset: Offset(0, 2),
+            //                               ),
+            //                               BoxShadow(
+            //                                 color: Colors.blue.withOpacity(0.5),
+            //                                 offset: Offset(-4, 0),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           height: 56,
+            //                           child: Padding(
+            //                             padding: EdgeInsets.symmetric(horizontal: 10),
+            //                             child: Row(
+            //                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //                               children: [
+            //                                 Expanded(
+            //                                   flex: 1,
+            //                                   child: Text(
+            //                                     formattedSerialNumber,
+            //                                     style: TableSubHeading.customTextStyle(context),
+            //                                     textAlign: TextAlign.center,
+            //                                   ),
+            //                                 ),
+            //                                 Expanded(
+            //                                   flex: 1,
+            //                                   child: Padding(
+            //                                     padding: const EdgeInsets.only(left: 40),
+            //                                     child: Text(
+            //                                       user.userId.toString(),
+            //                                       textAlign: TextAlign.start,
+            //                                       style: TableSubHeading.customTextStyle(context),
+            //                                     ),
+            //                                   ),
+            //                                 ),
+            //                                 Expanded(
+            //                                   flex: 1,
+            //                                   child: Text(
+            //                                     user.firstName,
+            //                                     textAlign: TextAlign.start,
+            //                                     style: TableSubHeading.customTextStyle(context),
+            //                                   ),
+            //                                 ),
+            //                                 Expanded(
+            //                                   flex: 1,
+            //                                   child: Text(
+            //                                     user.lastName,
+            //                                     textAlign: TextAlign.start,
+            //                                     style: TableSubHeading.customTextStyle(context),
+            //                                   ),
+            //                                 ),
+            //                                 Expanded(
+            //                                   flex: 1,
+            //                                   child: Text(
+            //                                     user.role,
+            //                                     textAlign: TextAlign.start,
+            //                                     style: TableSubHeading.customTextStyle(context),
+            //                                   ),
+            //                                 ),
+            //                                 Expanded(
+            //                                   flex: 1,
+            //                                   child: Text(
+            //                                     user.email,
+            //                                     textAlign: TextAlign.start,
+            //                                     style: TableSubHeading.customTextStyle(context),
+            //                                   ),
+            //                                 ),
+            //                                 SizedBox(width: AppSize.s10),
+            //                                 InkWell(
+            //                                   child: Container(
+            //                                     height: MediaQuery.of(context).size.height / 30,
+            //                                     width: MediaQuery.of(context).size.width / 25,
+            //                                     decoration: BoxDecoration(
+            //                                       borderRadius: BorderRadius.circular(10),
+            //                                       border: Border.all(color: ColorManager.bluebottom),
+            //                                     ),
+            //                                     child: Center(
+            //                                       child: Text(
+            //                                         AppString.edit,
+            //                                         style: TextStyle(
+            //                                           fontSize: FontSize.s12,
+            //                                           fontWeight: FontWeight.w500,
+            //                                           color: ColorManager.mediumgrey,
+            //                                         ),
+            //                                       ),
+            //                                     ),
+            //                                   ),
+            //                                   onTap: () async {
+            //                                     final editUserProvider = Provider.of<EditUserProvider>(context, listen: false);
+            //                                     await editUserProvider.fetchPrefillData(context, user.userId);
+            //                                     if (editUserProvider.prefillData != null) {
+            //                                       showDialog(
+            //                                         context: context,
+            //                                         builder: (BuildContext context) {
+            //                                           return EditUserPopUp(
+            //                                             title: AppString.editProfile,
+            //                                             deptName: AppString.selectDept,
+            //                                             userId: user.userId,
+            //                                             firstname: editUserProvider.firstNameController.text,
+            //                                             lastname: editUserProvider.lastNameController.text,
+            //                                             email: editUserProvider.emailController.text,
+            //                                             departmentId: editUserProvider.prefillData!.deptId,
+            //                                             department: editUserProvider.prefillData!.department,
+            //                                           );
+            //                                         },
+            //                                       );
+            //                                     } else {
+            //                                       print("Error: Prefill data not found");
+            //                                     }
+            //                                   },
+            //                                 ),
+            //                                 SizedBox(width: AppSize.s10),
+            //                                 InkWell(
+            //                                   child: Container(
+            //                                     height: MediaQuery.of(context).size.height / 30,
+            //                                     width: MediaQuery.of(context).size.width / 25,
+            //                                     decoration: BoxDecoration(
+            //                                       borderRadius: BorderRadius.circular(10),
+            //                                       border: Border.all(color: ColorManager.bluebottom),
+            //                                     ),
+            //                                     child: Center(
+            //                                       child: Text(
+            //                                         AppString.delete,
+            //                                         style: TextStyle(
+            //                                           fontSize: FontSize.s12,
+            //                                           fontWeight: FontWeight.w500,
+            //                                           color: ColorManager.mediumgrey,
+            //                                         ),
+            //                                       ),
+            //                                     ),
+            //                                   ),
+            //                                   onTap: () async {
+            //                                     bool? isConfirmed = await showDialog<bool>(
+            //                                       context: context,
+            //                                       builder: (BuildContext context) {
+            //                                         return DeleteConfirmationPopup(
+            //                                           title: AppString.deleteUser,
+            //                                           onConfirmed: () async {
+            //                                             await seeAllProviderState.deleteUser(context, user.userId.toString());
+            //                                             await seeAllProviderState.fetchUser(context);
+            //                                             Navigator.of(context).pop(true);
+            //                                             showDialog(
+            //                                               context: context,
+            //                                               builder: (BuildContext context) {
+            //                                                 return SuccessUserPopup(message: AppString.userDeletedsucc);
+            //                                               },
+            //                                             );
+            //                                           },
+            //
+            //                                             // Navigator.of(context).pop(false);
+            //
+            //                                         );
+            //                                       },
+            //                                     );
+            //                                     if (isConfirmed != null && isConfirmed) {
+            //                                       print("User deleted");
+            //                                     } else {
+            //                                       print("User deletion cancelled");
+            //                                     }
+            //                                   },
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           ),
+            //                         ),
+            //                       ],
+            //                     );
+            //                   },
+            //                 ),
+            //               ),
+            //
+            //             ],
+            //           );
+            //         },
+            //       );
+            //     },
+            //   ),
+            // ),
+
 
             ///Pagination
             PaginationnControlsWidget()
