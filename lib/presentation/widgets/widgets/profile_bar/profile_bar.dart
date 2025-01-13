@@ -140,17 +140,48 @@ class ProfileBar extends StatelessWidget {
                               alignment: Alignment.center,
                               children: [
                                 // Circular avatar for the image or icon
+                                // ClipOval(
+                                //   child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                //       searchByEmployeeIdProfileData!.imgurl == null
+                                //       ? CircleAvatar(radius: 60,backgroundColor: ColorManager.faintGrey,child: Image.asset("images/profilepic.png"),)
+                                //       : CachedNetworkImage(
+                                //     imageUrl: searchByEmployeeIdProfileData!.imgurl,
+                                //     placeholder: (context, url) => CircularProgressIndicator(),
+                                //     errorWidget: (context, url, error) =>    CircleAvatar(child: Image.asset("images/profilepic.png"),),
+                                //     fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                //     height: 67, // Adjust image height for proper fit
+                                //     width: 67, // Adjust image width for proper fit
+                                //   ),
+                                // ),
                                 ClipOval(
                                   child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
                                       searchByEmployeeIdProfileData!.imgurl == null
-                                      ? CircleAvatar(radius: 60,backgroundColor: ColorManager.faintGrey,child: Image.asset("images/profilepic.png"),)
-                                      : CachedNetworkImage(
-                                    imageUrl: searchByEmployeeIdProfileData!.imgurl,
-                                    placeholder: (context, url) => CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>    CircleAvatar(child: Image.asset("images/profilepic.png"),),
-                                    fit: BoxFit.cover, // Ensure the image fits inside the circle
-                                    height: 67, // Adjust image height for proper fit
-                                    width: 67, // Adjust image width for proper fit
+                                      ? CircleAvatar(
+                                    radius: 60,
+                                    backgroundColor: ColorManager.faintGrey,
+                                    child: Image.asset("images/profilepic.png"),
+                                  )
+                                      : Image.network(
+                                    searchByEmployeeIdProfileData!.imgurl!,
+                                    loadingBuilder: (context, child, loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                              value: loadingProgress.expectedTotalBytes != null
+                                                  ? loadingProgress.cumulativeBytesLoaded /
+                                                  (loadingProgress.expectedTotalBytes ?? 1)
+                                                  : null),
+                                        );
+                                      }
+                                    },
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return CircleAvatar(child: Image.asset("images/profilepic.png"));
+                                    },
+                                    fit: BoxFit.cover,
+                                    height: 67,
+                                    width: 67,
                                   ),
                                 ),
                                 // Circular progress indicator around the image
