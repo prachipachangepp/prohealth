@@ -10,6 +10,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/company_identity.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/manage_work_schedule.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_provider.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/dashboard/dashboard_main_button_screen.dart';
 import 'package:provider/provider.dart';
@@ -440,8 +441,12 @@ class EMDesktopScreen extends StatelessWidget {
                     WorkSchedule(),
                     ManageEmployDocument(),
                     FinanceScreen(),
-                    SeeAllScreen(),
-                    CiRoleManager(),
+                    ChangeNotifierProvider(
+                     create: (_) => SeeAllProvider(),
+                      child: SeeAllScreen(),
+                    ),
+                   // SeeAllScreen(),
+                     CiRoleManager(),
                     CiVisitScreen(),
                     CiOrgDocument
                       (

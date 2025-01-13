@@ -73,6 +73,7 @@ Future<List<UserModal>> getUser(
   }
 }
 
+
 /// Get all prefill user
 Future<UserModalPrefill> getUserPrefill(
     BuildContext context, int userId) async {
@@ -235,12 +236,6 @@ Future<ApiData> createUserPost(
   }
 }
 
-
-
-
-
-
-
 ///
 // Future<ApiData> createUserPost(
 //     BuildContext context,
@@ -393,7 +388,7 @@ Future<ApiData> updateUserPatch({
 //   }
 // }
 
-/// Delete user
+/// Delete user API Method
 Future<ApiData> deleteUser(
   BuildContext context,
   int userId,

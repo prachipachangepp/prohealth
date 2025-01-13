@@ -7,11 +7,13 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_create_provider.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
+import 'package:provider/provider.dart';
 import 'dart:math';
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -353,6 +355,7 @@ class _CustomDialogState extends State<CustomDialog> {
   }
 }
 
+///old code without provider
 class CustomDialogSEE extends StatefulWidget {
   final String title;
   final TextEditingController lastNameController;
@@ -692,7 +695,8 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
   }
 }
 
-///
+
+///CustomTextFieldWithIcon
 class CustomTextFieldWithIcon extends StatefulWidget {
   final TextEditingController controller;
   final Icon? suffixIcon;
@@ -990,3 +994,323 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+// ///
+// class CustomTextFieldWithIcon extends StatefulWidget {
+//   final TextEditingController controller;
+//   final Icon? suffixIcon;
+//   final TextInputType keyboardType;
+//   final String text;
+//   final Color textColor;
+//   final double cursorHeight;
+//   final String? labelText;
+//   final String? hintText;
+//   final TextStyle? labelStyle;
+//   final double labelFontSize;
+//   final FocusNode? focusNode;
+//   final String? errorText;
+//   final VoidCallback? onSuffixIconPressed;  // Callback for suffix icon
+//
+//   const CustomTextFieldWithIcon({
+//     Key? key,
+//     required this.controller,
+//     this.suffixIcon,
+//     required this.keyboardType,
+//     required this.text,
+//     required this.cursorHeight,
+//      this.labelText,
+//     this.labelStyle,
+//     required this.labelFontSize,
+//     this.errorText,
+//     this.onSuffixIconPressed,  // Callback for suffix icon
+//     this.focusNode, this.hintText,
+//     this.textColor = const Color(0xff686464),
+//   }) : super(key: key);
+//
+//   @override
+//   State<CustomTextFieldWithIcon> createState() => _CustomTextFieldWithIconState();
+// }
+//
+// class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
+//    bool hasError = false;
+//
+//    @override
+//    void initState() {
+//      super.initState();
+//      hasError = false;
+//    }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 30,
+//       width: 354,
+//       child: TextFormField(
+//         focusNode: widget.focusNode,
+//         controller: widget.controller,
+//         textAlign: TextAlign.start,
+//         style:  DocumentTypeDataStyle.customTextStyle(context),
+//         textAlignVertical: TextAlignVertical.center,
+//         cursorColor: ColorManager.black,
+//         textInputAction: TextInputAction.next,
+//         decoration: InputDecoration(
+//           contentPadding: EdgeInsets.only(
+//               bottom: AppPadding.p3,
+//               top: AppPadding.p5,
+//               left: AppPadding.p12
+//           ),
+//           border: OutlineInputBorder(
+//             borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: 1),
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           enabledBorder: OutlineInputBorder(
+//             borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: 1),
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           focusedBorder: OutlineInputBorder(
+//             borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: 1),
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           labelText: widget.labelText,
+//           labelStyle: DocumentTypeDataStyle.customTextStyle(context),
+//            errorText: hasError ? widget.errorText : null,
+//           suffixIcon: IconButton(
+//             icon: widget.suffixIcon ?? Icon(Icons.copy, size: IconSize.I14,color: Colors.black),
+//             onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
+//           ),
+//         ),
+//
+//       ),
+//     );
+//   }
+// }
+//
+//
+// /// edit user
+// class EditUserPopUp extends StatefulWidget {
+//   final String title;
+//   final String deptName;
+//  final int userId;
+//   final String firstname;
+//   final String lastname;
+//   final String email;
+//   final int departmentId;
+//   final String department;
+//   final bool? enable;
+//   EditUserPopUp(
+//       {required this.title,
+//         required this.userId,
+//         this.enable,
+//         required this.deptName, required this.firstname, required this.lastname, required this.email, required this.departmentId, required this.department});
+//
+//   @override
+//   State<EditUserPopUp> createState() => _EditUserPopUpState();
+// }
+//
+// class _EditUserPopUpState extends State<EditUserPopUp> {
+//   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+//
+//   var deptId = 1;
+//   int? firstDeptId;
+//   String? selectedDeptName;
+//   int? selectedDeptId;
+//
+//   TextEditingController firstnameController = TextEditingController();
+//   TextEditingController lastnameController = TextEditingController();
+//   TextEditingController emailController = TextEditingController();
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     firstnameController.text = widget.firstname;
+//     lastnameController.text = widget.lastname;
+//     emailController.text = widget.email;
+//   }
+//   @override
+//   Widget build(BuildContext context) {
+//     return DialogueTemplate(
+//       height: AppSize.s450,
+//       width: AppSize.s400,
+//       title: widget.title,
+//       body: [
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 15),
+//           child: Column(
+//             children: [
+//               SMTextfieldAsteric(
+//                 controller: firstnameController,
+//                 keyboardType: TextInputType.text,
+//                 text: "First Name",
+//               ),
+//               // if (_nameDocError != null) // Display error if any
+//               //   Text(
+//               //     _nameDocError!,
+//               //     style: CommonErrorMsg.customTextStyle(context),
+//               //   ),
+//               SizedBox(height: 5,),
+//               ///
+//               SMTextfieldAsteric(
+//                 controller:lastnameController,
+//                 keyboardType: TextInputType.text,
+//                 text: 'Last Name',
+//               ),
+//               // if (_stateDocError != null) // Display error if any
+//               //   Text(
+//               //     _stateDocError!,
+//               //     style: CommonErrorMsg.customTextStyle(context),
+//               //   ),
+//               SizedBox(height: AppSize.s10,),
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                       'Select Department',
+//                       style: AllPopupHeadings.customTextStyle(context)),
+//                 ],
+//               ),
+//               SizedBox(height: AppSize.s5,),
+//               FutureBuilder<List<HRHeadBar>>(
+//                 future: companyHRHeadApi(context, deptId),
+//                 builder: (context, snapshot) {
+//                   if (snapshot.connectionState ==
+//                       ConnectionState.waiting) {
+//                     List<String>dropDownServiceList =[];
+//                     return Container(
+//                         alignment: Alignment.center,
+//                         child:
+//                         HRUManageDropdown(
+//                           controller: TextEditingController(text: ''),
+//                           labelFontSize: FontSize.s12,
+//                           items:  dropDownServiceList,
+//                         )
+//                     );
+//                   }
+//                   if (snapshot.hasData &&
+//                       snapshot.data!.isEmpty) {
+//                     return Center(
+//                       child: Text(
+//                         ErrorMessageString.noroleAdded,
+//                         style: AllNoDataAvailable.customTextStyle(context),
+//                       ),
+//                     );
+//                   }
+//                   if (snapshot.hasData) {
+//                     // Extract dropdown items from snapshot
+//                     List<String> dropDownServiceList = snapshot
+//                         .data!
+//                         .map((dept) => dept.deptName)
+//                         .toList();
+//                     String? firstDeptName =
+//                     snapshot.data!.isNotEmpty
+//                         ? snapshot.data![0].deptName
+//                         : null;
+//                     int? firstDeptId = snapshot.data!.isNotEmpty
+//                         ? snapshot.data![0].deptId
+//                         : null;
+//
+//                     if (selectedDeptName == null &&
+//                         dropDownServiceList.isNotEmpty) {
+//                       selectedDeptName = widget.department;
+//                       selectedDeptId = widget.departmentId;
+//                     }
+//
+//                     return HRUManageDropdown(
+//                       controller: TextEditingController(
+//                           text: selectedDeptName ?? ''),
+//                       hintText: "Department",
+//                       labelFontSize: 12,
+//                       items: dropDownServiceList,
+//                       onChanged: (val) {
+//                         setState(() {
+//                           selectedDeptName = val;
+//                           // Find the corresponding department ID from the snapshot
+//                           selectedDeptId = snapshot.data!
+//                               .firstWhere(
+//                                   (dept) => dept.deptName == val)
+//                               .deptId;
+//                         });
+//                       },
+//                     );
+//                   }
+//                   return const SizedBox();
+//                 },
+//               ),
+//               SizedBox(height: 14,),
+//               SMTextfieldAsteric(controller: emailController,
+//                   keyboardType: TextInputType.emailAddress,
+//                   text: 'Email'),
+//             ],
+//           ),
+//         )
+//       ],
+//       bottomButtons: ReusableLoadingButton(
+//         height: AppSize.s30,
+//         width: AppSize.s120,
+//         text: 'Submit',
+//         onPressed: ()  async{
+//
+//           String FName = firstnameController.text.isNotEmpty
+//               ? firstnameController.text
+//               : widget.firstname;
+//
+//           String LDocName = lastnameController.text.isNotEmpty
+//               ? lastnameController.text
+//               : widget.lastname;
+//
+//           String EDocName = emailController.text.isNotEmpty
+//               ? emailController.text
+//               : widget.email;
+//
+//           var responce = await updateUserPatch(
+//           context:
+//           context,
+//           userId: widget.userId,
+//           firstName: FName,
+//           lastName:LDocName,
+//           deptId: selectedDeptId!,
+//           email:EDocName
+//
+//           );
+//           if(responce.statusCode == 200 || responce.statusCode == 201){
+//             Navigator.pop(context);
+//             showDialog(
+//               context: context,
+//               builder: (BuildContext context) {
+//                 return AddSuccessPopup(
+//                   message: 'User Edit Successfully',
+//                 );
+//               },
+//             );
+//           }else {
+//             showDialog(
+//               context: context,
+//               builder: (BuildContext context) => FailedPopup(text: responce.message),
+//             );
+//           }
+//         },
+//         loadingDuration: 2,
+//       ),
+//     );
+//   }
+// }
+//

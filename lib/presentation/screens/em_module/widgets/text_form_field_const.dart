@@ -103,7 +103,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
               enabled: widget.enable == null ? true : false,
               controller: widget.controller,
               keyboardType: widget.keyboardType,
-              cursorHeight: 17,
+              //cursorHeight: 17,
               cursorColor: Colors.black,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
@@ -222,7 +222,7 @@ class _SMTextfieldAstericState extends State<SMTextfieldAsteric> {
               enabled: widget.enable == null ? true : false,
               controller: widget.controller,
               keyboardType: widget.keyboardType,
-              cursorHeight: 17,
+             // cursorHeight: 17,
               cursorColor: Colors.black,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
@@ -332,7 +332,7 @@ class _SMNumberTextFConstState extends State<SMNumberTextFConst> {
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly, // Only digits allowed
             ],
-            cursorHeight: 17,
+           // cursorHeight: 17,
             cursorColor: Colors.black,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
@@ -449,7 +449,7 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
               enabled: widget.enable ?? true,
               controller: _controller,
               keyboardType: widget.keyboardType,
-              cursorHeight: 17,
+             // cursorHeight: 17,
               cursorColor: Colors.black,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(

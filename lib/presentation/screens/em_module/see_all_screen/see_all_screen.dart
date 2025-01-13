@@ -1,22 +1,485 @@
 import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/popup_const.dart';
-import '../../../../app/resources/color.dart';
-import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-import '../../../../app/resources/font_manager.dart';
-import '../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
-import '../../../widgets/error_popups/delete_success_popup.dart';
-import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_provider.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_provider.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_provider.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_provider.dart';
 
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_create_provider.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_delete_provider.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_edit_provider.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/error_popups/delete_success_popup.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import 'package:provider/provider.dart';
+
+import 'see_all_provider.dart';
+
+///see all screen using provider
+// class SeeAllScreen extends StatelessWidget {
+//   final int itemsPerPage = 10;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // Fetch data when the widget is first built
+//     // Future.microtask(() => Provider.of<SeeAllProvider>(context, listen: false).getUser());
+//     Future.microtask(() => Provider.of<SeeAllProvider>(context, listen: false).fetchUser(context));
+//     // Access the provider using context.watch or context.read
+//     final userCreationProvider = context.watch<UserCreationProvider>();
+//     final paginationProvider = context.watch<SeeAllPaginationProvider>();
+//
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       body: Padding(
+//         padding: EdgeInsets.symmetric(
+//             horizontal: MediaQuery.of(context).size.width / 24),
+//         child: Column(
+//           children: [
+//             ///
+//             Padding(
+//               padding: const EdgeInsets.only(right: AppPadding.p30),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.end,
+//                 children: [
+//                   Container(
+//                     height: AppSize.s30,
+//                     width: AppSize.s150,
+//                     child: CustomIconButton(
+//                       icon: Icons.add,
+//                       text: 'Create User',
+//                       onPressed: () async {
+//                         final provider = Provider.of<UserCreationProvider>(
+//                             context,
+//                             listen: false);
+//                         provider
+//                             .clearForm(); // Clear the form before showing the dialog
+//                         showDialog(
+//                           context: context,
+//                           builder: (BuildContext context) {
+//                             return CustomDialoghSEE(
+//                               title: "Create User",
+//                               firstNameController: provider.firstNameController,
+//                               lastNameController: provider.lastNameController,
+//                               emailController: provider.emailController,
+//                               passwordController: provider.passwordController,
+//                             );
+//                           },
+//                         );
+//                       },
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: 10),
+//             Column(
+//               children: [
+//                 Container(
+//                   height: AppSize.s30,
+//                   margin: EdgeInsets.symmetric(horizontal: 30),
+//                   decoration: BoxDecoration(
+//                     color: ColorManager.fmediumgrey,
+//                     borderRadius: BorderRadius.circular(12),
+//                   ),
+//                   child: Padding(
+//                     padding: const EdgeInsets.symmetric(horizontal: 1),
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                       children: [
+//                         Expanded(
+//                           flex: 2,
+//                           child: Padding(
+//                             padding:
+//                                 const EdgeInsets.only(left: AppPadding.p90),
+//                             child: Text(
+//                               AppString.srNo,
+//                               style: TableHeading.customTextStyle(context),
+//                             ),
+//                           ),
+//                         ),
+//                         Expanded(
+//                           flex: 2,
+//                           child: Padding(
+//                             padding:
+//                                 const EdgeInsets.only(left: AppPadding.p60),
+//                             child: Text(
+//                               AppString.userId,
+//                               style: TableHeading.customTextStyle(context),
+//                             ),
+//                           ),
+//                         ),
+//                         Expanded(
+//                           flex: 2,
+//                           child: Padding(
+//                             padding:
+//                                 const EdgeInsets.only(left: AppPadding.p20),
+//                             child: Text(
+//                               AppString.fname,
+//                               style: TableHeading.customTextStyle(context),
+//                             ),
+//                           ),
+//                         ),
+//                         Expanded(
+//                           flex: 2,
+//                           child: Padding(
+//                             padding:
+//                                 const EdgeInsets.only(right: AppPadding.p40),
+//                             child: Text(
+//                               AppString.lname,
+//                               textAlign: TextAlign.start,
+//                               style: TableHeading.customTextStyle(context),
+//                             ),
+//                           ),
+//                         ),
+//                         Expanded(
+//                           flex: 2,
+//                           child: Text(
+//                             AppString.role,
+//                             style: TableHeading.customTextStyle(context),
+//                           ),
+//                         ),
+//                         Expanded(
+//                           flex: 2,
+//                           child: Text(
+//                             AppString.email,
+//                             textAlign: TextAlign.start,
+//                             style: TableHeading.customTextStyle(context),
+//                           ),
+//                         ),
+//                         Expanded(
+//                           flex: 2,
+//                           child: Padding(
+//                               padding:
+//                                   const EdgeInsets.only(left: AppPadding.p40),
+//                               child: Text(
+//                                 AppString.actions,
+//                                 textAlign: TextAlign.start,
+//                                 style: TableHeading.customTextStyle(context),
+//                               )),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//                 SizedBox(height: AppSize.s10),
+//               ],
+//             ),
+//             Expanded(
+//               child: Consumer<SeeAllProvider>(
+//                 builder: (context, seeAllProviderState, child) {
+//                   return StreamBuilder<List<UserModal>>(
+//                     stream: seeAllProviderState.userStream,
+//                     builder: (context, snapshot) {
+//                       if (snapshot.connectionState == ConnectionState.waiting) {
+//                         return Center(child: CircularProgressIndicator());
+//                       }
+//                       if (snapshot.hasError) {
+//                         return Center(child: Text('Error: ${snapshot.error}'));
+//                       }
+//                       if (!snapshot.hasData || snapshot.data!.isEmpty) {
+//                         return Center(child: Text('No Data Available'));
+//                       }
+//
+//                       List<UserModal> sortedData = snapshot.data!;
+//                       sortedData.sort((a, b) => b.userId.compareTo(a.userId));
+//
+//                       // Update PaginationProvider's items
+//                       final paginationProvider =
+//                       Provider.of<SeeAllPaginationProvider>(context, listen: false);
+//                       paginationProvider.updateItems(sortedData);
+//
+//                       // Get current page data
+//                       List<UserModal> paginatedData = paginationProvider.currentPageItems;
+//
+//                       return Column(
+//                           children: [
+//                             Expanded(
+//                                 child: ListView.builder(
+//                                     itemCount: paginatedData.length,
+//                                     itemBuilder: (context, index) {
+//                                       int globalSerialNumber = (paginationProvider.currentPage - 1) *
+//                                           paginationProvider.itemsPerPage +
+//                                           index +
+//                                           1;
+//
+//                                       String formattedSerialNumber =
+//                                       globalSerialNumber.toString().padLeft(2, '0');
+//
+//                                       UserModal user = paginatedData[index];
+//
+//                                       return Column(
+//                                           crossAxisAlignment: CrossAxisAlignment.start,
+//                                           children: [
+//                                         SizedBox(height: 5),
+//                                         Container(
+//                                             margin: EdgeInsets.symmetric(
+//                                                 horizontal: 30),
+//                                             decoration: BoxDecoration(
+//                                               color: Colors.white,
+//                                               borderRadius:
+//                                                   BorderRadius.circular(4),
+//                                               boxShadow: [
+//                                                 BoxShadow(
+//                                                   color: Colors.grey
+//                                                       .withOpacity(0.5),
+//                                                   spreadRadius: 1,
+//                                                   blurRadius: 4,
+//                                                   offset: Offset(0, 2),
+//                                                 ),
+//                                               ],
+//                                             ),
+//                                             height: 56,
+//                                             child: Padding(
+//                                                 padding: EdgeInsets.symmetric(
+//                                                     horizontal: 10),
+//                                                 child: Row(
+//                                                     mainAxisAlignment:
+//                                                         MainAxisAlignment
+//                                                             .spaceEvenly,
+//                                                     children: [
+//                                                       Expanded(
+//                                                           flex: 1,
+//                                                           child: Text(
+//                                                               formattedSerialNumber,
+//                                                               style: TableSubHeading
+//                                                                   .customTextStyle(
+//                                                                       context),
+//                                                               textAlign:
+//                                                                   TextAlign
+//                                                                       .center)),
+//                                                       Expanded(
+//                                                           flex: 1,
+//                                                           child: Text(
+//                                                             user.userId
+//                                                                 .toString(),
+//                                                             textAlign: TextAlign
+//                                                                 .center,
+//                                                             style: TableSubHeading
+//                                                                 .customTextStyle(
+//                                                                     context),
+//                                                           )),
+//                                                       Expanded(
+//                                                           flex: 1,
+//                                                           child: Text(
+//                                                             user.firstName,
+//                                                             textAlign: TextAlign
+//                                                                 .center,
+//                                                             style: TableSubHeading
+//                                                                 .customTextStyle(
+//                                                                     context),
+//                                                           )),
+//                                                       Expanded(
+//                                                           flex: 1,
+//                                                           child: Padding(
+//                                                             padding:
+//                                                                 const EdgeInsets
+//                                                                     .only(
+//                                                                     left: 20),
+//                                                             child: Text(
+//                                                               user.lastName,
+//                                                               textAlign:
+//                                                                   TextAlign
+//                                                                       .center,
+//                                                               style: TableSubHeading
+//                                                                   .customTextStyle(
+//                                                                       context),
+//                                                             ),
+//                                                           )),
+//                                                       Expanded(
+//                                                           flex: 1,
+//                                                           child: Padding(
+//                                                             padding:
+//                                                                 const EdgeInsets
+//                                                                     .only(
+//                                                                     left: 50),
+//                                                             child: Text(
+//                                                               user.role,
+//                                                               textAlign:
+//                                                                   TextAlign
+//                                                                       .center,
+//                                                               style: TableSubHeading
+//                                                                   .customTextStyle(
+//                                                                       context),
+//                                                             ),
+//                                                           )),
+//                                                       Expanded(
+//                                                           flex: 2,
+//                                                           child: Padding(
+//                                                             padding:
+//                                                                 const EdgeInsets
+//                                                                     .only(
+//                                                                     left: 100),
+//                                                             child: Text(
+//                                                               user.email,
+//                                                               textAlign:
+//                                                                   TextAlign
+//                                                                       .start,
+//                                                               style: TableSubHeading
+//                                                                   .customTextStyle(
+//                                                                       context),
+//                                                             ),
+//                                                           )),
+//                                                       InkWell(
+//                                                         child: Container(
+//                                                           height: MediaQuery.of(context).size.height / 30,
+//                                                           width: MediaQuery.of(context).size.width / 25,
+//                                                           decoration: BoxDecoration(
+//                                                             borderRadius: BorderRadius.circular(10),
+//                                                             border: Border.all(color: ColorManager.bluebottom),
+//                                                           ),
+//                                                           child: Center(
+//                                                             child: Text(
+//                                                               "Edit",
+//                                                               style: TextStyle(
+//                                                                 fontSize: FontSize.s12,
+//                                                                 fontWeight: FontWeight.w500,
+//                                                                 color: ColorManager.mediumgrey,
+//                                                               ),
+//                                                             ),
+//                                                           ),
+//                                                         ),
+//                                                         onTap: () async {
+//                                                           final editUserProvider = Provider.of<EditUserProvider>(context, listen: false);
+//
+//                                                           // Fetch prefill data before opening the dialog
+//                                                           await editUserProvider.fetchPrefillData(context, user.userId);
+//
+//                                                           // Check if prefill data is available
+//                                                           if (editUserProvider.prefillData != null) {
+//                                                             // Show dialog only after the data is fetched
+//                                                             showDialog(
+//                                                               context: context,
+//                                                               builder: (BuildContext context) {
+//                                                                 return EditUserPopUp(
+//                                                                   title: "Edit User",
+//                                                                   deptName: 'Select Department',
+//                                                                   userId: user.userId,
+//                                                                   firstname: editUserProvider.firstNameController.text,
+//                                                                   lastname: editUserProvider.lastNameController.text,
+//                                                                   email: editUserProvider.emailController.text,
+//                                                                   departmentId: editUserProvider.prefillData!.deptId,
+//                                                                   department: editUserProvider.prefillData!.department,
+//                                                                 );
+//                                                               },
+//                                                             );
+//                                                           } else {
+//                                                             // Handle the case where prefill data is not available (optional)
+//                                                             print("Error: Prefill data not found");
+//                                                           }
+//                                                         },
+//                                                       ),
+//
+//                                                       SizedBox(
+//                                                           width: AppSize.s10),
+//                                                       /// Delete button
+//                                                       // Delete button
+//                                                       // if (userLogin != user.email)
+//                                                       InkWell(
+//                                                         onTap: () {
+//                                                           showDialog(
+//                                                             context: context,
+//                                                             builder: (context) {
+//                                                               return Consumer<DeleteUserPopupProvider>(
+//                                                                 builder: (context, deleteUserPopupProvider, child) {
+//                                                                   return DeleteUserPopup(
+//                                                                     title: "Delete User",
+//                                                                     isLoading: deleteUserPopupProvider.isLoading,
+//                                                                     onCancel: () {
+//                                                                       Navigator.pop(context);
+//                                                                     },
+//                                                                     onConfirm: () async {
+//                                                                       // Set loading to true
+//                                                                       deleteUserPopupProvider.setLoading(true);
+//
+//                                                                       try {
+//                                                                         // Perform the deletion
+//                                                                         await deleteUserPopupProvider.deleteUser(context, user.userId);
+//
+//                                                                         // Use addPostFrameCallback to ensure this happens after the build phase
+//                                                                         WidgetsBinding.instance.addPostFrameCallback((_) async {
+//                                                                           await seeAllProviderState.fetchUser(context);
+//                                                                           // Future.microtask(() => Provider.of<SeeAllProvider>(context, listen: false).fetchUser(context));
+// // Refresh user list
+//
+//                                                                           // Close the dialog and show success popup
+//                                                                           Navigator.pop(context);
+//                                                                             showDialog(
+//                                                                             context: context,
+//                                                                             builder: (context) => DeleteSuccessPopup(),
+//                                                                           );
+//                                                                         });
+//                                                                       } finally {
+//                                                                         // Set loading to false after the operation is complete
+//                                                                         deleteUserPopupProvider.setLoading(false);
+//                                                                       }
+//                                                                     },
+//
+//                                                                   );
+//                                                                 },
+//                                                               );
+//                                                             },
+//                                                           );
+//                                                         },
+//                                                         child: Container(
+//                                                           height: MediaQuery.of(context).size.height / 30,
+//                                                           width: MediaQuery.of(context).size.width / 25,
+//                                                           decoration: BoxDecoration(
+//                                                             borderRadius: BorderRadius.circular(10),
+//                                                             border: Border.all(color: ColorManager.bluebottom),
+//                                                           ),
+//                                                           child: Center(
+//                                                             child: Text(
+//                                                               AppString.delete,
+//                                                               style: TextStyle(
+//                                                                 fontSize: FontSize.s12,
+//                                                                 fontWeight: FontWeight.w500,
+//                                                                 color: ColorManager.mediumgrey,
+//                                                               ),
+//                                                             ),
+//                                                           ),
+//                                                         ),
+//                                                       ),
+//
+//
+//
+//
+//                                                     ])))
+//                                       ]);
+//                                 }))
+//                       ]);
+//                     },
+//                   );
+//                 },
+//               ),
+//             ),
+//
+//             ///Pagination
+//             PaginationnControlsWidget()
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+
+///old no bugs
 class SeeAllScreen extends StatefulWidget {
   const SeeAllScreen({super.key});
 

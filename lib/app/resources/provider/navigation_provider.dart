@@ -360,7 +360,7 @@ class HrManageProvider extends ChangeNotifier{
   /// Color converter
   bool isDarkColor(Color color) {
     double perceivedBrightness =
-        color.r * 0.299 + color.g * 0.587 + color.b * 0.114;
+        color.red * 0.299 + color.red * 0.587 + color.blue * 0.114;
     return perceivedBrightness < 128;
   }
 

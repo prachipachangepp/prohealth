@@ -259,7 +259,7 @@ class ProfileBar extends StatelessWidget {
                                   ],
                                 ),
                                 Container(
-                                 // height: MediaQuery.of(context).size.height / 41,
+                                 height: MediaQuery.of(context).size.height / 40,
                                   width: MediaQuery.of(context).size.width / 10,
                                   decoration: BoxDecoration(color: Color(int.parse("0xFF$hexColor"))),
                                    child: Center(
