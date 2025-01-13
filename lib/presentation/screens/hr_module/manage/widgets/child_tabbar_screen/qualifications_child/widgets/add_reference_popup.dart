@@ -286,9 +286,9 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
             return null;
           },
         ),
-        if (errorStates[errorKey]!)
+       errorStates[errorKey]! ?
           Padding(
-            padding: const EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.only(top: 1),
             child: Text(
               // errorKey == 'mobileNumber'
               //     ? 'Please Enter a valid mobile number'
@@ -301,7 +301,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 fontSize: FontSize.s10,
               ),
             ),
-          ),
+          ):SizedBox(height: 13,)
       ],
     );
   }

@@ -589,6 +589,7 @@ class HrManageProvider extends ChangeNotifier{
     _showAddDocExpiryDateField = false;
     _showAddAckExpiryDateField = false;
     _editFileAbove20Mb = false;
+    _isFormSubmitted = false;
     _fileAbove20Mb = false;
     _fileIsPicked = false;
     _clinicalFileIsPicked = false;

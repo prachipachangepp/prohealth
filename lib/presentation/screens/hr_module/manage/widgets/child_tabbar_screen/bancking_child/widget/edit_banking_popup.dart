@@ -1185,14 +1185,14 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             return null;
           },
         ),
-        if (errorText != null)
+        errorText != null?
           Padding(
             padding: EdgeInsets.only(top: 1),
             child: Text(
               errorText,
               style: CommonErrorMsg.customTextStyle(context),
             ),
-          ),
+          ):SizedBox(height: 13,)
       ],
     );
   }

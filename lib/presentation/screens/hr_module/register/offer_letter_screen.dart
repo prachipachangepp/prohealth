@@ -17,6 +17,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
+import 'package:provider/provider.dart';
 import '../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -26,7 +27,7 @@ import '../../../../app/resources/theme_manager.dart';
 import '../../../widgets/error_popups/failed_popup.dart';
 import '../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
-class OfferLetterScreen extends StatefulWidget {
+class OfferLetterScreen extends StatelessWidget {
   final String email;
   final int userId;
   final String role;
@@ -75,1104 +76,1106 @@ class OfferLetterScreen extends StatefulWidget {
         required this.link, required this.countryId
       });
 
-  @override
-  State<OfferLetterScreen> createState() => _OfferLetterScreenState();
-}
-
-class _OfferLetterScreenState extends State<OfferLetterScreen> {
-  TextEditingController issueDateController = TextEditingController();
-  TextEditingController lastDateController = TextEditingController();
-  TextEditingController startDateController = TextEditingController();
-  TextEditingController verbalAcceptanceController = TextEditingController();
-  TextEditingController patientsController = TextEditingController();
-  final StreamController<List<ZipcodeByCountyIdAndZoneIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
-
-  String selectedDropdownValue = 'Per day';
-  String dropdownValue = 'Salaried';
-  late List<Map<String, dynamic>> checkboxStates;
-  late List<Map<String, dynamic>> checkboxStatesCity;
-
-  String _salary = "";
-  String generatedURL = '';
-   List<ApiAddCovrageData> addCovrage = [];
-
-  final PageController _pageController = PageController();
-  int _currentPageIndex = 0;
-
-
-  void popNavigation(){
-    setState((){
-     Navigator.pop(context);
-    });
-  }
-  @override
-  void initState() {
-    super.initState();
-    addContainer();
-    _initAppLinks();
-    _pageController.addListener(() {
-      setState(() {
-        _currentPageIndex = _pageController.page!.toInt();
-      });
-    });
-  }
-
-  List<GlobalKey<_DynamciContainerState>> containerKeys = [];
-
-  void addContainer() {
-    setState(() {
-      containerKeys.add(GlobalKey<_DynamciContainerState>());
-    });
-  }
-
-  void removecontainer(GlobalKey<_DynamciContainerState> key) {
-    setState(() {
-      containerKeys.remove(key);
-    });
-  }
+  // String _salary = "";
+  // String generatedURL = '';
 
 
 
-  AppLinks? _appLinks;
 
-  void _initAppLinks() async {
-    _appLinks = AppLinks();
-  }
-  Future<String> _generateUrlLink(String email, String Id) async {
-    final String user = email;
-    final String id = Id;
-    final String url = '${AppConfig.deployment}/$id';
-    generatedURL = url;
-    print('Generated URL: $generatedURL');
-    return url;
-  }
-  final StreamController<List<CountyWiseZoneModal>> _zoneController =
-  StreamController<List<CountyWiseZoneModal>>.broadcast();
-  int selectedZoneId = 0;
-  int selectedCountyId = 0;
-  int selectedCityId = 0;
-  String? selectedCounty;
+
+  // void popNavigation(){
+  //   setState((){
+  //    Navigator.pop(context);
+  //   });
+  // }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // addContainer();
+  //   //_initAppLinks();
+  //
+  // }
+
+  // List<GlobalKey<_DynamciContainerState>> containerKeys = [];
+  //
+  // void addContainer() {
+  //   setState(() {
+  //     containerKeys.add(GlobalKey<_DynamciContainerState>());
+  //   });
+  // }
+  //
+  // void removecontainer(GlobalKey<_DynamciContainerState> key) {
+  //   setState(() {
+  //     containerKeys.remove(key);
+  //   });
+  // }
+
+
+
+  // AppLinks? _appLinks;
+  //
+  // void _initAppLinks() async {
+  //   _appLinks = AppLinks();
+  // }
+  // Future<String> _generateUrlLink(String email, String Id) async {
+  //   final String user = email;
+  //   final String id = Id;
+  //   final String url = '${AppConfig.deployment}/$id';
+  //   generatedURL = url;
+  //   print('Generated URL: $generatedURL');
+  //   return url;
+  // }
   // int? selectedCountyId;
-  bool _isLoading = false;
-  Map<String, bool> checkedZipCodes = {};
-  Map<String, bool> checkedCityName = {};
+  // Map<String, bool> checkedZipCodes = {};
+  // Map<String, bool> checkedCityName = {};
   //List<String> selectedZipCodes = [];
-  List<String> selectedCityName = [];
-  String selectedZipCodesString = '';
-  String selectedCityString = '';
-  List<DropdownMenuItem<String>> dropDownList = [];
-  final _formKey = GlobalKey<FormState>();
-  int countyId = 0;
-  String? selectedZipCodeZone;
-  bool issueDate= false;
-  bool verbalAcceptanceDate= false;
-  bool startDate= false;
-  bool lastDate= false;
-  bool pervisitDate = false;
-  bool noOfPatientDate = false;
-  late int patientsValue;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 20),
-        child: SingleChildScrollView(
-          child: Form(
-            key:_formKey,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    List<String> selectedCityName = [];
+    final _formKey = GlobalKey<FormState>();
+    // bool issueDate= false;
+    // bool verbalAcceptanceDate= false;
+    // bool startDate= false;
+    // bool lastDate= false;
+    // bool noOfPatientDate = false;
+    TextEditingController issueDateController = TextEditingController();
+    TextEditingController lastDateController = TextEditingController();
+    TextEditingController startDateController = TextEditingController();
+    TextEditingController verbalAcceptanceController = TextEditingController();
+    TextEditingController patientsController = TextEditingController();
+    //final StreamController<List<ZipcodeByCountyIdAndZoneIdData>> _countyStreamController = StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
+
+    String selectedDropdownValue = 'Per day';
+    String dropdownValue = 'Salaried';
+    final providerState = Provider.of<HrEnrollOfferLatterProvider>(context,listen:false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+        providerState.addContainer();
+    });
+    List<ApiAddCovrageData> addCovrage = [];
+    return Consumer<HrEnrollOfferLatterProvider>(
+      builder: (context,hrProviderState,state) {
+        // Future.delayed(Duration(seconds: 2),(){
+        //   providerState.addContainer;
+        // });
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 20),
+            child: SingleChildScrollView(
+              child: Form(
+                key:_formKey,
+                child: Column(
                   children: [
-                    Text(
-                      'Offer Letter',
-                      style: FormHeading.customTextStyle(context)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Offer Letter',
+                          style: FormHeading.customTextStyle(context)
+                        ),
+                      ],
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0,bottom: 20,left: 105),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text( AppStringLegalDocument.popupMsgHead,
+                            style:  LegalDocumentPopupMessage.customTextStyle(context),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 22,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
+                            return
+                              ConstTextField(text: 'Issue Date',validationLabel: 'Issue Date', hintText: 'yyyy-mm-dd',
+                                controller: issueDateController,errorText: hrProviderState.issueDate ? "Please enter issue date":null);
+                          },
+                        ),
+                        //SizedBox(width: MediaQuery.of(context).size.width / 80),
+                        StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
+                            return ConstTextField(text: 'Last Date',validationLabel: 'Last Date',  hintText: 'yyyy-mm-dd',
+                                controller: lastDateController,errorText: hrProviderState.lastDate ? "Please enter last date":null);
+                          },
+                        ),
+                        // SizedBox(width: MediaQuery.of(context).size.width / 80),
+                        StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function()) setState)
+                          {
+                                return ConstTextField(text: 'Anticipated Start Date',
+                                validationLabel: 'Anticipated Start Date',
+                                    hintText: 'yyyy-mm-dd',
+                                controller: startDateController,
+                                errorText: hrProviderState.startDate ? "Please enter anticipated start date":null);
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    ///blue container
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        StatefulBuilder(
+                          builder: (BuildContext context, void Function(void Function()) setState) {
+                            return ConstTextField(
+                                hintText: 'yyyy-mm-dd',
+                                text: 'Verbal Acceptance',
+                                validationLabel: 'Verbal Acceptance',
+                                controller: verbalAcceptanceController,
+                                errorText: hrProviderState.verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null);
+                          },
+                        ),
+                        if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId)
+                          SizedBox(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 5,// Set the height of the SizedBox here as needed
+                          )
+                        else Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              text: "No. of Patients", // Main text
+                              style: DocumentTypeDataStyle.customTextStyle(context), // Main style
+                              children: [
+                                TextSpan(
+                                  text: ' *', // Asterisk
+                                  style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                    color: ColorManager.red, // Asterisk color
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        //Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
+                        SizedBox(height: 5,),
+                        Container(
+                        height: 30,
+                        // color: ColorManager.red,
+                        width: MediaQuery.of(context).size.width / 5,
+                        child: StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) {
+                        return TextField(
+                        cursorColor: Colors.black,
+                        controller: patientsController,
+                        // onChanged: (value){
+                        // setState(() {
+                        // if ("No. of Patients" == "No. of Patients") noOfPatientDate = value.isEmpty;});
+                        // },
+                        decoration: InputDecoration(
+                        border: const OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Enter No. of Patients',
+                        hintStyle:  onlyFormDataStyle.customTextStyle(context),
+                        suffixIcon: DropdownButton<String>(
+                        value: selectedDropdownValue,
+                        items: ['Per day', 'Per week', 'Per month']
+                            .map((String value) {
+                        return DropdownMenuItem<String>(
+                        value: value,
+                        child: Container(
+                        padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0),
+                        child: Text(
+                        value,
+                        style: const TextStyle(fontSize: 12.0),
+                        ),
+                        ),
+                        );
+                        }).toList(),
+                        onChanged: (String? value) {
+                        if (value != null) {
+                        setState(() {
+                        selectedDropdownValue = value;
+                        });
+                        }
+                        },
+                        underline: const SizedBox(),
+                        icon:  Icon(Icons.arrow_drop_down,
+                        color: ColorManager.mediumgrey),
+                        ),
+                        contentPadding:
+                        const EdgeInsets.only(left: 20, bottom: 5),
+                        ),
+                        style: DocumentTypeDataStyle.customTextStyle(context),);
+                        },
+                        ),
+                        ),
+                        if (hrProviderState.noOfPatientDate == true)
+                          Padding(
+                          padding: const EdgeInsets.only(top: 1),
+                          child: Text(
+                          "Please enter no. of Patients",
+                          style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                          ),
+                          ],
+                          ),
+                        //SizedBox(width: MediaQuery.of(context).size.width / 10),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 5,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 50),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 100),
+                      child: Divider(
+                        color: ColorManager.cream,
+                        thickness: 4,
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 40),
+                    Column(
+                      children: hrProviderState.containerKeys.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        GlobalKey<_DynamciContainerState> key =entry.value;
+                        return DynamciContainer(
+                          key: key,
+                          index: index + 1,
+                          onRemove: () => hrProviderState.removecontainer(key),
+                        );
+                      }).toList(),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 40),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                      child: Row(crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [ElevatedButton(
+                        onPressed:hrProviderState.addContainer,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff1696C8),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Add New Coverage',
+                          style: BlueButtonTextConst.customTextStyle(context),
+                        ),
+                      ),],),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 40),
+                    ///salery
+                    ///
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 100),
+                      child: StatefulBuilder(
+                        builder: (BuildContext context, void Function(void Function()) setState) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 30,
+                                width: 300,
+                                child: CustomDropdownTextFieldwidh(
+                                  hintText: 'Salaried',
+                                  // Conditionally show "Per Visit" in the dropdown if depId is not salesId or AdministrationId
+                                  items: depId == AppConfig.salesId || depId == AppConfig.AdministrationId
+                                      ? ['Salaried'] // Only show 'Salaried' option
+                                      : ['Salaried', 'Per Visit'], // Show both 'Salaried' and 'Per Visit'
+                                  value: dropdownValue,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      dropdownValue = newValue! ?? 'Salaried';
+                                      print('dropDownValue ${dropdownValue}');
+                                    });
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 30),
+                              Row(
+                                children: [
+                                  Text(
+                                    hrProviderState.salary.isNotEmpty ? "\$ ${hrProviderState.salary}" : "Not Defined",
+                                    style: DropdownItemStyle.customTextStyle(context),
+                                  ),
+                                  const SizedBox(width: 30),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(12.0),
+                                            ),
+                                            titlePadding: EdgeInsets.zero,
+                                            title: Container(
+                                              decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(12),
+                                                  bottomLeft: Radius.circular(12),
+                                                  bottomRight: Radius.circular(12),
+                                                  topRight: Radius.circular(12),
+                                                ),
+                                              ),
+                                              width: 302,
+                                              height: 230,
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    height: 35,
+                                                    width: double.infinity,
+                                                    decoration: const BoxDecoration(
+                                                      color: Color(0xff1696C8),
+                                                      borderRadius: BorderRadius.only(
+                                                        topLeft: Radius.circular(12.0),
+                                                        topRight: Radius.circular(12.0),
+                                                      ),
+                                                    ),
+                                                    padding: const EdgeInsets.only(right: 5, bottom: 5),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: [
+                                                        IconButton(
+                                                          icon: const Icon(Icons.close, color: Colors.white),
+                                                          onPressed: () {
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        // Display the appropriate text based on dropdown selection
+                                                        dropdownValue == 'Salaried'
+                                                            ? Text(
+                                                          'Salary',
+                                                          style: DefineWorkWeekStyle.customTextStyle(context),
+                                                        )
+                                                            : Text(
+                                                          'Per Visit',
+                                                          style: DefineWorkWeekStyle.customTextStyle(context),
+                                                        ),
+                                                        SizedBox(
+                                                          height: MediaQuery.of(context).size.height / 30,
+                                                        ),
+                                                        Container(
+                                                          height: 30,
+                                                          child: TextFormField(
+                                                            cursorColor: Colors.black,
+                                                            style: DocumentTypeDataStyle.customTextStyle(context),
+                                                            decoration: InputDecoration(
+                                                              prefix: const Text("\$ "),
+                                                              hintText: '0.00',
+                                                              hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                                              enabledBorder: OutlineInputBorder(
+                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                              ),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                              ),
+                                                              border: OutlineInputBorder(
+                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                              ),
+                                                              contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                                                            ),
+                                                            keyboardType: TextInputType.number,
+                                                            onChanged: (value) {
+                                                              hrProviderState.addSalary(value);
+                                                              print("Salary:: ${hrProviderState.salary}");
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: MediaQuery.of(context).size.height / 20,
+                                                        ),
+                                                        Center(
+                                                          child: ElevatedButton(
+                                                            onPressed: () {
+                                                              // Handle the submit action
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            style: ElevatedButton.styleFrom(
+                                                              backgroundColor: const Color(0xff1696C8),
+                                                              shape: RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.circular(12),
+                                                              ),
+                                                            ),
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                                                              child: Text(
+                                                                'Submit',
+                                                                style: BlueButtonTextConst.customTextStyle(context),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xff1696C8),
+                                      foregroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                    child: dropdownValue == 'Salaried'
+                                        ? Text(
+                                      'Add',
+                                      style: BlueButtonTextConst.customTextStyle(context),
+                                    )
+                                        : Text(
+                                      'Add Visit',
+                                      style: BlueButtonTextConst.customTextStyle(context),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 15),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+
+                    ///
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 100),
+                    //   child: StatefulBuilder(
+                    //     builder: (BuildContext context, void Function(void Function()) setState) {
+                    //       return  Row(
+                    //         mainAxisAlignment: MainAxisAlignment.start,
+                    //         children: [
+                    //           SizedBox(
+                    //             height: 30,
+                    //             width: 300,
+                    //             child: CustomDropdownFormField(
+                    //                 hintText: 'Salaried',
+                    //                 items: ['Salaried', 'Per Visit'],
+                    //                 value: dropdownValue,
+                    //                 onChanged: (newValue){
+                    //                   setState(() {
+                    //                     dropdownValue = newValue! ?? 'Salaried';
+                    //                     print('dropDownValue ${dropdownValue}');
+                    //                   });
+                    //                 }),
+                    //           ),
+                    //           const SizedBox(width: 30,),
+                    //           Row(
+                    //             children: [
+                    //               Text(
+                    //                 _salary.isNotEmpty
+                    //                     ? "\$ ${_salary}"
+                    //                     : "Not Defined",
+                    //                 style: DropdownItemStyle.customTextStyle(context),
+                    //               ),
+                    //               const SizedBox(width: 30,),
+                    //               ElevatedButton(
+                    //                   onPressed: () {
+                    //                     showDialog(
+                    //                       context: context,
+                    //                       builder: (BuildContext context) {
+                    //                         return AlertDialog(
+                    //                           shape: RoundedRectangleBorder(
+                    //                             borderRadius: BorderRadius.circular(12.0),
+                    //                           ),
+                    //                           titlePadding: EdgeInsets.zero,
+                    //                           title: Container(
+                    //                             decoration: const BoxDecoration(
+                    //                               color: Colors.white,
+                    //                               borderRadius: BorderRadius.only(
+                    //                                 topLeft: Radius.circular(12),
+                    //                                 bottomLeft: Radius.circular(12),
+                    //                                 bottomRight: Radius.circular(12),
+                    //                                 topRight: Radius.circular(12),
+                    //                               ),
+                    //                             ),
+                    //                             width: 302,
+                    //                             height: 230,
+                    //                             child: Column(
+                    //                               children: [
+                    //                                 Container(
+                    //                                   height: 35,
+                    //                                   width: double.infinity,
+                    //                                   decoration: const BoxDecoration(
+                    //                                     color: Color(0xff1696C8),
+                    //                                     borderRadius: BorderRadius.only(
+                    //                                       topLeft: Radius.circular(12.0),
+                    //                                       topRight: Radius.circular(12.0),
+                    //                                     ),
+                    //                                   ),
+                    //                                   padding: const EdgeInsets.only(right: 5,bottom: 5),
+                    //                                   child: Row(
+                    //                                     mainAxisAlignment: MainAxisAlignment.end,
+                    //                                     children: [
+                    //                                       IconButton(
+                    //                                         icon: const Icon(Icons.close,
+                    //                                             color: Colors.white),
+                    //                                         onPressed: () {
+                    //                                           Navigator.of(context).pop();
+                    //                                         },
+                    //                                       ),
+                    //                                     ],
+                    //                                   ),
+                    //                                 ),
+                    //                                 Padding(
+                    //                                   padding: const EdgeInsets.symmetric(
+                    //                                       vertical: 15.0, horizontal: 16.0),
+                    //                                   child: Column(
+                    //                                     crossAxisAlignment:
+                    //                                     CrossAxisAlignment.start,
+                    //                                     children: [
+                    //                                       dropdownValue == 'Salaried' ?  Text(
+                    //                                         'Salary',
+                    //                                         style:DefineWorkWeekStyle.customTextStyle(context),
+                    //                                       ) : Text(
+                    //                                         'Per Visit',
+                    //                                         style: DefineWorkWeekStyle.customTextStyle(context),
+                    //                                       ),
+                    //                                       SizedBox(
+                    //                                         height: MediaQuery.of(context)
+                    //                                             .size
+                    //                                             .height /
+                    //                                             30,
+                    //                                       ),
+                    //                                       Container(
+                    //                                         height: 30,
+                    //                                         child: TextFormField(
+                    //                                           cursorColor: Colors.black,
+                    //                                           style: DocumentTypeDataStyle.customTextStyle(context),
+                    //                                           decoration: InputDecoration(
+                    //                                             prefix:const Text("\$ "),
+                    //                                             hintText: '0.00',
+                    //                                             hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
+                    //                                             enabledBorder:
+                    //                                             OutlineInputBorder(
+                    //                                               borderRadius:
+                    //                                               BorderRadius.circular(
+                    //                                                   8.0),
+                    //                                               borderSide: const BorderSide(
+                    //                                                 color: Color(0xff51B5E6),
+                    //                                                 width: 1.0,
+                    //                                               ),
+                    //                                             ),
+                    //                                             focusedBorder:
+                    //                                             OutlineInputBorder(
+                    //                                               borderRadius:
+                    //                                               BorderRadius.circular(
+                    //                                                   8.0),
+                    //                                               borderSide: const BorderSide(
+                    //                                                 color: Color(0xff51B5E6),
+                    //                                                 width: 1.0,
+                    //                                               ),
+                    //                                             ),
+                    //                                             border: OutlineInputBorder(
+                    //                                               borderRadius:
+                    //                                               BorderRadius.circular(
+                    //                                                   8.0),
+                    //                                               borderSide: const BorderSide(
+                    //                                                 color: Color(0xff51B5E6),
+                    //                                                 width: 1.0,
+                    //                                               ),
+                    //                                             ),
+                    //                                             contentPadding:
+                    //                                             const EdgeInsets.symmetric(
+                    //                                                 horizontal: 16.0,
+                    //                                                 vertical: 12.0),
+                    //                                           ),
+                    //                                           keyboardType:
+                    //                                           TextInputType.number,
+                    //                                           onChanged: (value) {
+                    //                                             setState((){
+                    //                                               _salary = value;
+                    //                                             });
+                    //                                             print("Salary:: ${_salary}");
+                    //                                           },
+                    //                                         ),
+                    //                                       ),
+                    //                                       SizedBox(
+                    //                                           height: MediaQuery.of(context)
+                    //                                               .size
+                    //                                               .height /
+                    //                                               20),
+                    //                                       Center(
+                    //                                         child: ElevatedButton(
+                    //                                           onPressed: () {
+                    //                                             // Handle the submit action
+                    //                                             Navigator.of(context).pop();
+                    //                                           },
+                    //                                           style: ElevatedButton.styleFrom(
+                    //                                             backgroundColor:
+                    //                                             const Color(0xff1696C8),
+                    //                                             shape: RoundedRectangleBorder(
+                    //                                               borderRadius:
+                    //                                               BorderRadius.circular(
+                    //                                                   12),
+                    //                                             ),
+                    //                                           ),
+                    //                                           child: Padding(
+                    //                                             padding: const EdgeInsets
+                    //                                                 .symmetric(
+                    //                                                 horizontal: 24.0,
+                    //                                                 vertical: 8.0),
+                    //                                             child: Text(
+                    //                                               'Submit',
+                    //                                               style: BlueButtonTextConst.customTextStyle(context),
+                    //                                             ),
+                    //                                           ),
+                    //                                         ),
+                    //                                       ),
+                    //                                     ],
+                    //                                   ),
+                    //                                 ),
+                    //                               ],
+                    //                             ),
+                    //                           ),
+                    //                         );
+                    //                       },
+                    //                     );
+                    //                   },
+                    //                   style: ElevatedButton.styleFrom(
+                    //                     backgroundColor: const Color(0xff1696C8),
+                    //                     foregroundColor: Colors.white,
+                    //                     shape: RoundedRectangleBorder(
+                    //                       borderRadius: BorderRadius.circular(12),
+                    //                     ),
+                    //                   ),
+                    //                   child: dropdownValue == 'Salaried' ? Text(
+                    //                     'Add',
+                    //                     style: BlueButtonTextConst.customTextStyle(context),
+                    //                   ) : Text(
+                    //                     'Add Visit',
+                    //                     style: BlueButtonTextConst.customTextStyle(context),
+                    //                   )
+                    //               ),
+                    //               const SizedBox(width: 15),
+                    //
+                    //             ],
+                    //           ),
+                    //
+                    //         ],
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 9),
+                    ///bottom button
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: const Color(0xff1696C8),
+                            side: const BorderSide(color: Color(0xff1696C8)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: Text(
+                            'Back',
+                            style: TransparentButtonTextConst.customTextStyle(context)
+                          ),
+                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width / 75),
+                        ElevatedButton(
+                          onPressed: ()  async{
+                            hrProviderState.validateFieldsUseController(
+                                issueDateController: issueDateController,
+                                startDateController: startDateController,
+                                lastDateController: lastDateController,
+                                verbalAcceptanceController: verbalAcceptanceController);
+                            // setState(() {
+                            //   // _collegeUniversityError = widget.effectiveDateController.text.isEmpty;
+                            //   //_phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
+                            //   issueDate = issueDateController.text.isEmpty;
+                            //   startDate = startDateController.text.isEmpty;
+                            //   lastDate = lastDateController.text.isEmpty;
+                            //   verbalAcceptanceDate = verbalAcceptanceController.text.isEmpty;
+                            //  // noOfPatientDate = patientsController.text.isEmpty;
+                            //   // _radioButtonError = !_isRadioButtonSelected;
+                            // });
+                            if(!hrProviderState.issueDate && !hrProviderState.startDate && !hrProviderState.lastDate && !hrProviderState.verbalAcceptanceDate ){
+                              for (var key in hrProviderState.containerKeys){
+                                final st = key.currentState!;
+
+                                print('County ID: ${st.selectedCountyId}');
+                                print('Zone ID:::::::::=>> ${st.docZoneId}');
+                                print('Zip Codes: ${st.selectedZipCodes}');
+                                //print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
+                                addCovrage.add( ApiAddCovrageData(
+                                    city: '',
+                                    countyId:st.selectedCountyId ,
+                                    zoneId: st.docZoneId,
+                                    zipCodes:st.selectedZipCodes
+                                ));
+                              }
+                              print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
+                              //await _generateUrlLink(widget.email, widget.userId.toString());
+                              // print("Widget employeeId ${widget.apiData!.employeeId!}");
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return ConfirmationPopup(
+                                    // loadingDuration: _isLoading,
+                                    onCancel: () {
+                                      Navigator.pop(context);
+                                    },
+                                    onConfirm: () async {
+                                      // Print selected values for debugging
+                                      // print('selected county id : ${selectedCountyId}');
+                                      print('selected city : ${selectedCityName}');
+                                      print('Salary: ${hrProviderState.salary}');
+                                      print('Salary Type: $dropdownValue');
+                                      print('Patient Count: ${patientsController.text}');
+
+                                      try {
+                                        // Set patientsValue based on depId
+                                        int patientsValue;
+                                        if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId) {
+                                          patientsValue = 0;  // If depId is sales or administration, set to 0
+                                        } else {
+                                          patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
+                                        }
+                                        ApiData response = await addEmpEnroll(
+                                          context: context,
+                                          employeeId: employeeId,
+                                          code: "",
+                                          userId: userId,
+                                          firstName: firstName,
+                                          lastName: lastName,
+                                          phoneNbr: phone,
+                                          email: email,
+                                          link: link,
+                                          status: status,
+                                          departmentId:depId,
+                                          position: position,
+                                          speciality: soecalityName,
+                                          clinicianTypeId:clinicalId,
+                                          reportingOfficeId: reportingOffice,
+                                          cityId: cityId,
+                                          countryId: countryId,
+                                          countyId: countyId,
+                                          zoneId: zoneId,
+                                          // employment: "Full Time",
+                                          employment: employement,
+                                          // service: "Hospice",
+                                          service: services,
+                                        );
+                                        if(response.statusCode == 200 || response.statusCode == 201){
+                                          // Call the API with the correct patientsValue
+                                          onRefreshRegister();
+                                          var empEnrollOfferResponse = await addEmpEnrollOffers(
+                                            context,
+                                            response.employeeEnrollId!,
+                                            response.employeeId!,
+                                            patientsValue,  // Use patientsValue here
+                                            issueDateController.text,
+                                            lastDateController.text,
+                                            startDateController.text,
+                                            verbalAcceptanceController.text,
+                                          );
+
+                                          // print('County id : ${selectedCountyId}');
+                                          // print('Zone id : ${selectedZoneId}');
+
+                                          // Call other enrollment-related APIs
+                                          await addEmpEnrollAddCoverage(
+                                            context,
+                                            response.employeeEnrollId!,
+                                            response.employeeId!,
+                                            addCovrage,
+                                          );
+
+                                          await addEmpEnrollAddCompensation(
+                                            context,
+                                            response.employeeEnrollId!,
+                                            response.employeeId!,
+                                            dropdownValue.toString(),
+                                            int.parse(hrProviderState.salary!),
+                                          );
+
+                                          // Clear controllers
+                                          issueDateController.clear();
+                                          lastDateController.clear();
+                                          startDateController.clear();
+                                          verbalAcceptanceController.clear();
+
+                                          Navigator.pop(context);
+                                          if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                Future.delayed(const Duration(seconds: 2), () {
+                                                  if (Navigator.of(context).canPop()) {
+                                                    Navigator.pop(context);
+                                                    hrProviderState.clearAllFields();
+                                                    hrProviderState.popNavigation(context);
+                                                  }
+                                                });
+                                                return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
+                                              },
+                                            );
+                                          }
+                                          else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
+                                            // Navigator.pop(context);
+                                             showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) => const FourNotFourPopup(),
+                                            );
+                                          }
+                                          else {
+                                            // Navigator.pop(context);
+                                             showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
+                                            );
+                                          }
+                                        }else{
+                                          Navigator.pop(context);
+                                           showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+                                          );
+                                        }
+
+
+                                        // Check the response status
+
+                                      } catch (e) {
+                                        print("Error during enrollment: $e");
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+                                        );
+                                        // ScaffoldMessenger.of(context).showSnackBar(
+                                        //   SnackBar(content: Text('Enrollment failed: $e')),
+                                        // );
+                                      } finally {
+                                        // setState(() { _isLoading = false; });
+                                      }
+                                    },
+
+                                    // onConfirm: ()  async{
+                                    //   //await Future.delayed(Duration(seconds: 2));
+                                    //   // setState(() {
+                                    //   //   _isLoading = true;
+                                    //   // });
+                                    //   print('selected county id : ${selectedCountyId}');
+                                    //   //  print('selected zone id : ${st.docZoneId}');
+                                    //   // print('selected zipCode : ${st.selectedZipCodes}');
+                                    //   print('selected city : ${selectedCityName}');
+                                    //   print('Salari ${_salary}');
+                                    //   print('Salari Type ${dropdownValue}');
+                                    //   print('PatianCount ${patientsController.text}');
+                                    //   try {
+                                    //
+                                    //
+                                    //     if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId) {
+                                    //       patientsValue = 0;  // If depId is sales or administration, set to 0
+                                    //     } else {
+                                    //       patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
+                                    //     }
+                                    //     var empEnrollOfferResponse = await addEmpEnrollOffers(
+                                    //       context,
+                                    //       widget.apiData!.employeeEnrollId!,
+                                    //       widget.apiData!.employeeId!,
+                                    //       int.parse(patientsController.text),
+                                    //       issueDateController.text,
+                                    //       lastDateController.text,
+                                    //       startDateController.text,
+                                    //       verbalAcceptanceController.text,
+                                    //     );
+                                    //     print('County id : ${selectedCountyId}');
+                                    //     print('Zone id : ${selectedZoneId}');
+                                    //     await addEmpEnrollAddCoverage(
+                                    //         context,
+                                    //         widget.apiData!.employeeEnrollId!,
+                                    //         widget.apiData!.employeeId!,
+                                    //         addCovrage
+                                    //     );
+                                    //     await addEmpEnrollAddCompensation(
+                                    //       context,
+                                    //       widget.apiData!.employeeEnrollId!,
+                                    //       widget.apiData!.employeeId!,
+                                    //       dropdownValue.toString(),
+                                    //       int.parse(_salary),
+                                    //     );
+                                    //     // Clear controllers
+                                    //     issueDateController.clear();
+                                    //     lastDateController.clear();
+                                    //     startDateController.clear();
+                                    //     verbalAcceptanceController.clear();
+                                    // Navigator.pop(context);
+                                    //     if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
+                                    //       showDialog(
+                                    //         context: context,
+                                    //         builder: (BuildContext context) {
+                                    //           Future.delayed(const Duration(seconds: 3),(){
+                                    //             if(Navigator.of(context).canPop()) {
+                                    //        Navigator.pop(context);
+                                    //        popNavigation();
+                                    //             }
+                                    //           });
+                                    //           return  const offerSuccessPopup(message: 'Employee Enrolled Successfully',);
+                                    //         },
+                                    //       );
+                                    //     }
+                                    //   } catch (e) {
+                                    //     print("Error during enrollment: $e");
+                                    //     ScaffoldMessenger.of(context).showSnackBar(
+                                    //       SnackBar(content: Text('Enrollment failed: $e')),
+                                    //     );
+                                    //   } finally {
+                                    //     // setState(() {
+                                    //     //   _isLoading = false;
+                                    //     // });
+                                    //   }
+                                    // },
+                                    title: 'Confirm Enrollment',
+                                    containerText: 'Do you really want to enroll?',
+                                  );
+                                },
+                              );
+                            }
+
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff1696C8),
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: Text(
+                            'Enroll',
+                            style: BlueButtonTextConst.customTextStyle(context)
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10,)
                   ],
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0,bottom: 20,left: 105),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+              ),
+            ),
+          ),
+        );
+      }
+    );
+  }
+}
+class ConstTextField extends StatelessWidget {
+  final TextEditingController controller;
+  String? errorText;
+      final String validationLabel;
+      final String text;
+      final String hintText;
+   ConstTextField({super.key,required this.controller,
+     String? errorText,
+     required this.validationLabel,
+     required this.text,
+     required this.hintText,});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<HrEnrollOfferLatterProvider>(
+          builder: (context,hrProviderState,child) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: text, // Main text
+                    style: DocumentTypeDataStyle.customTextStyle(context), // Main style
                     children: [
-                      Text( AppStringLegalDocument.popupMsgHead,
-                        style:  LegalDocumentPopupMessage.customTextStyle(context),),
+                      TextSpan(
+                        text: ' *', // Asterisk
+                        style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                          color: ColorManager.red, // Asterisk color
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 22,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(text: 'Issue Date',validationLabel: 'Issue Date', hintText: 'yyyy-mm-dd',
-                            controller: issueDateController,errorText: issueDate ? "Please enter issue date":null);
-                      },
-                    ),
-                    //SizedBox(width: MediaQuery.of(context).size.width / 80),
-                    StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(text: 'Last Date',validationLabel: 'Last Date',  hintText: 'yyyy-mm-dd',
-                            controller: lastDateController,errorText: lastDate ? "Please enter last date":null);
-                      },
-                    ),
-                    // SizedBox(width: MediaQuery.of(context).size.width / 80),
-                    StatefulBuilder(
-                      builder: (BuildContext context,
-                          void Function(void Function()) setState)
-                      {
-                            return _buildTextField(text: 'Anticipated Start Date',
-                            validationLabel: 'Anticipated Start Date',
-                                hintText: 'yyyy-mm-dd',
-                            controller: startDateController,
-                            errorText: startDate ? "Please enter anticipated start date":null);
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 60),
-                ///blue container
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) {
-                        return _buildTextField(
-                            hintText: 'yyyy-mm-dd',
-                            text: 'Verbal Acceptance',
-                            validationLabel: 'Verbal Acceptance',
-                            controller: verbalAcceptanceController,
-                            errorText: verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null);
-                      },
-                    ),
-                    if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId)
-                      SizedBox(
-                        height: 30,
-                        width: MediaQuery.of(context).size.width / 5,// Set the height of the SizedBox here as needed
-                      )
-                    else Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          text: "No. of Patients", // Main text
-                          style: DocumentTypeDataStyle.customTextStyle(context), // Main style
-                          children: [
-                            TextSpan(
-                              text: ' *', // Asterisk
-                              style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
-                                color: ColorManager.red, // Asterisk color
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    //Text("No. of Patients", style: DocumentTypeDataStyle.customTextStyle(context),),
-                    SizedBox(height: 5,),
-                    Container(
-                    height: 30,
-                    // color: ColorManager.red,
-                    width: MediaQuery.of(context).size.width / 5,
-                    child: StatefulBuilder(
-                    builder: (BuildContext context, void Function(void Function()) setState) {
-                    return TextField(
-                    cursorColor: Colors.black,
-                    controller: patientsController,
-                    // onChanged: (value){
+                // Text(text,style: DocumentTypeDataStyle.customTextStyle(context),),
+                SizedBox(height: 5,),
+                CustomTextFieldOfferScreen(
+                  hintText: hintText,
+
+                  height: 36,
+                  controller: controller,
+                  onChanged: (value) {
+                    hrProviderState.validateFields(
+                        validationLabel: validationLabel,
+                        value: value);
                     // setState(() {
-                    // if ("No. of Patients" == "No. of Patients") noOfPatientDate = value.isEmpty;});
-                    // },
-                    decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                    borderSide:
-                    BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Enter No. of Patients',
-                    hintStyle:  onlyFormDataStyle.customTextStyle(context),
-                    suffixIcon: DropdownButton<String>(
-                    value: selectedDropdownValue,
-                    items: ['Per day', 'Per week', 'Per month']
-                        .map((String value) {
-                    return DropdownMenuItem<String>(
-                    value: value,
-                    child: Container(
-                    padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0),
-                    child: Text(
-                    value,
-                    style: const TextStyle(fontSize: 12.0),
-                    ),
-                    ),
-                    );
-                    }).toList(),
-                    onChanged: (String? value) {
-                    if (value != null) {
-                    setState(() {
-                    selectedDropdownValue = value;
-                    });
+                    //   // Update error state based on the field
+                    //   if (validationLabel == "Issue Date") issueDate = value.isEmpty;
+                    //   if (validationLabel == "Last Date") lastDate = value.isEmpty;
+                    //   if (validationLabel == "Anticipated Start Date") startDate = value.isEmpty;
+                    //   if (validationLabel == "Verbal Acceptance") verbalAcceptanceDate = value.isEmpty;
+                    // });
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter $validationLabel";
+                    } else {
+                      return null;
                     }
-                    },
-                    underline: const SizedBox(),
-                    icon:  Icon(Icons.arrow_drop_down,
-                    color: ColorManager.mediumgrey),
-                    ),
-                    contentPadding:
-                    const EdgeInsets.only(left: 20, bottom: 5),
-                    ),
-                    style: DocumentTypeDataStyle.customTextStyle(context),);
-                    },
-                    ),
-                    ),
-                    if (noOfPatientDate == true)
-                      Padding(
-                      padding: const EdgeInsets.only(top: 1),
-                      child: Text(
-                      "Please enter no. of Patients",
-                      style: CommonErrorMsg.customTextStyle(context),
-                      ),
-                      ),
-                      ],
-                      ),
-                    //SizedBox(width: MediaQuery.of(context).size.width / 10),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 5,
-                    ),
-                  ],
+                  },
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 50),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 100),
-                  child: Divider(
-                    color: ColorManager.cream,
-                    thickness: 4,
-                  ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 40),
-                Column(
-                  children: containerKeys.asMap().entries.map((entry) {
-                    int index = entry.key;
-                    GlobalKey<_DynamciContainerState> key =entry.value;
-                    return DynamciContainer(
-                      key: key,
-                      index: index + 1,
-                      onRemove: () => removecontainer(key),
-                    );
-                  }).toList(),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 40),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 100.0),
-                  child: Row(crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [ElevatedButton(
-                    onPressed:addContainer,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff1696C8),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                errorText != null ?
+                  Padding(
+                    padding: const EdgeInsets.only(top: 1),
                     child: Text(
-                      'Add New Coverage',
-                      style: BlueButtonTextConst.customTextStyle(context),
+                      errorText!,
+                      style: CommonErrorMsg.customTextStyle(context),
                     ),
-                  ),],),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 40),
-                ///salery
-                ///
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 100),
-                  child: StatefulBuilder(
-                    builder: (BuildContext context, void Function(void Function()) setState) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 30,
-                            width: 300,
-                            child: CustomDropdownTextFieldwidh(
-                              hintText: 'Salaried',
-                              // Conditionally show "Per Visit" in the dropdown if depId is not salesId or AdministrationId
-                              items: widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId
-                                  ? ['Salaried'] // Only show 'Salaried' option
-                                  : ['Salaried', 'Per Visit'], // Show both 'Salaried' and 'Per Visit'
-                              value: dropdownValue,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  dropdownValue = newValue! ?? 'Salaried';
-                                  print('dropDownValue ${dropdownValue}');
-                                });
-                              },
-                            ),
-                          ),
-                          const SizedBox(width: 30),
-                          Row(
-                            children: [
-                              Text(
-                                _salary.isNotEmpty ? "\$ ${_salary}" : "Not Defined",
-                                style: DropdownItemStyle.customTextStyle(context),
-                              ),
-                              const SizedBox(width: 30),
-                              ElevatedButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(12.0),
-                                        ),
-                                        titlePadding: EdgeInsets.zero,
-                                        title: Container(
-                                          decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(12),
-                                              bottomLeft: Radius.circular(12),
-                                              bottomRight: Radius.circular(12),
-                                              topRight: Radius.circular(12),
-                                            ),
-                                          ),
-                                          width: 302,
-                                          height: 230,
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                height: 35,
-                                                width: double.infinity,
-                                                decoration: const BoxDecoration(
-                                                  color: Color(0xff1696C8),
-                                                  borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(12.0),
-                                                    topRight: Radius.circular(12.0),
-                                                  ),
-                                                ),
-                                                padding: const EdgeInsets.only(right: 5, bottom: 5),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    IconButton(
-                                                      icon: const Icon(Icons.close, color: Colors.white),
-                                                      onPressed: () {
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    // Display the appropriate text based on dropdown selection
-                                                    dropdownValue == 'Salaried'
-                                                        ? Text(
-                                                      'Salary',
-                                                      style: DefineWorkWeekStyle.customTextStyle(context),
-                                                    )
-                                                        : Text(
-                                                      'Per Visit',
-                                                      style: DefineWorkWeekStyle.customTextStyle(context),
-                                                    ),
-                                                    SizedBox(
-                                                      height: MediaQuery.of(context).size.height / 30,
-                                                    ),
-                                                    Container(
-                                                      height: 30,
-                                                      child: TextFormField(
-                                                        cursorColor: Colors.black,
-                                                        style: DocumentTypeDataStyle.customTextStyle(context),
-                                                        decoration: InputDecoration(
-                                                          prefix: const Text("\$ "),
-                                                          hintText: '0.00',
-                                                          hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                                          enabledBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(8.0),
-                                                            borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                          ),
-                                                          focusedBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(8.0),
-                                                            borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                          ),
-                                                          border: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(8.0),
-                                                            borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                          ),
-                                                          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                                                        ),
-                                                        keyboardType: TextInputType.number,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            _salary = value;
-                                                          });
-                                                          print("Salary:: ${_salary}");
-                                                        },
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: MediaQuery.of(context).size.height / 20,
-                                                    ),
-                                                    Center(
-                                                      child: ElevatedButton(
-                                                        onPressed: () {
-                                                          // Handle the submit action
-                                                          Navigator.of(context).pop();
-                                                        },
-                                                        style: ElevatedButton.styleFrom(
-                                                          backgroundColor: const Color(0xff1696C8),
-                                                          shape: RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(12),
-                                                          ),
-                                                        ),
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-                                                          child: Text(
-                                                            'Submit',
-                                                            style: BlueButtonTextConst.customTextStyle(context),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xff1696C8),
-                                  foregroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                child: dropdownValue == 'Salaried'
-                                    ? Text(
-                                  'Add',
-                                  style: BlueButtonTextConst.customTextStyle(context),
-                                )
-                                    : Text(
-                                  'Add Visit',
-                                  style: BlueButtonTextConst.customTextStyle(context),
-                                ),
-                              ),
-                              const SizedBox(width: 15),
-                            ],
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-
-                ///
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 100),
-                //   child: StatefulBuilder(
-                //     builder: (BuildContext context, void Function(void Function()) setState) {
-                //       return  Row(
-                //         mainAxisAlignment: MainAxisAlignment.start,
-                //         children: [
-                //           SizedBox(
-                //             height: 30,
-                //             width: 300,
-                //             child: CustomDropdownFormField(
-                //                 hintText: 'Salaried',
-                //                 items: ['Salaried', 'Per Visit'],
-                //                 value: dropdownValue,
-                //                 onChanged: (newValue){
-                //                   setState(() {
-                //                     dropdownValue = newValue! ?? 'Salaried';
-                //                     print('dropDownValue ${dropdownValue}');
-                //                   });
-                //                 }),
-                //           ),
-                //           const SizedBox(width: 30,),
-                //           Row(
-                //             children: [
-                //               Text(
-                //                 _salary.isNotEmpty
-                //                     ? "\$ ${_salary}"
-                //                     : "Not Defined",
-                //                 style: DropdownItemStyle.customTextStyle(context),
-                //               ),
-                //               const SizedBox(width: 30,),
-                //               ElevatedButton(
-                //                   onPressed: () {
-                //                     showDialog(
-                //                       context: context,
-                //                       builder: (BuildContext context) {
-                //                         return AlertDialog(
-                //                           shape: RoundedRectangleBorder(
-                //                             borderRadius: BorderRadius.circular(12.0),
-                //                           ),
-                //                           titlePadding: EdgeInsets.zero,
-                //                           title: Container(
-                //                             decoration: const BoxDecoration(
-                //                               color: Colors.white,
-                //                               borderRadius: BorderRadius.only(
-                //                                 topLeft: Radius.circular(12),
-                //                                 bottomLeft: Radius.circular(12),
-                //                                 bottomRight: Radius.circular(12),
-                //                                 topRight: Radius.circular(12),
-                //                               ),
-                //                             ),
-                //                             width: 302,
-                //                             height: 230,
-                //                             child: Column(
-                //                               children: [
-                //                                 Container(
-                //                                   height: 35,
-                //                                   width: double.infinity,
-                //                                   decoration: const BoxDecoration(
-                //                                     color: Color(0xff1696C8),
-                //                                     borderRadius: BorderRadius.only(
-                //                                       topLeft: Radius.circular(12.0),
-                //                                       topRight: Radius.circular(12.0),
-                //                                     ),
-                //                                   ),
-                //                                   padding: const EdgeInsets.only(right: 5,bottom: 5),
-                //                                   child: Row(
-                //                                     mainAxisAlignment: MainAxisAlignment.end,
-                //                                     children: [
-                //                                       IconButton(
-                //                                         icon: const Icon(Icons.close,
-                //                                             color: Colors.white),
-                //                                         onPressed: () {
-                //                                           Navigator.of(context).pop();
-                //                                         },
-                //                                       ),
-                //                                     ],
-                //                                   ),
-                //                                 ),
-                //                                 Padding(
-                //                                   padding: const EdgeInsets.symmetric(
-                //                                       vertical: 15.0, horizontal: 16.0),
-                //                                   child: Column(
-                //                                     crossAxisAlignment:
-                //                                     CrossAxisAlignment.start,
-                //                                     children: [
-                //                                       dropdownValue == 'Salaried' ?  Text(
-                //                                         'Salary',
-                //                                         style:DefineWorkWeekStyle.customTextStyle(context),
-                //                                       ) : Text(
-                //                                         'Per Visit',
-                //                                         style: DefineWorkWeekStyle.customTextStyle(context),
-                //                                       ),
-                //                                       SizedBox(
-                //                                         height: MediaQuery.of(context)
-                //                                             .size
-                //                                             .height /
-                //                                             30,
-                //                                       ),
-                //                                       Container(
-                //                                         height: 30,
-                //                                         child: TextFormField(
-                //                                           cursorColor: Colors.black,
-                //                                           style: DocumentTypeDataStyle.customTextStyle(context),
-                //                                           decoration: InputDecoration(
-                //                                             prefix:const Text("\$ "),
-                //                                             hintText: '0.00',
-                //                                             hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
-                //                                             enabledBorder:
-                //                                             OutlineInputBorder(
-                //                                               borderRadius:
-                //                                               BorderRadius.circular(
-                //                                                   8.0),
-                //                                               borderSide: const BorderSide(
-                //                                                 color: Color(0xff51B5E6),
-                //                                                 width: 1.0,
-                //                                               ),
-                //                                             ),
-                //                                             focusedBorder:
-                //                                             OutlineInputBorder(
-                //                                               borderRadius:
-                //                                               BorderRadius.circular(
-                //                                                   8.0),
-                //                                               borderSide: const BorderSide(
-                //                                                 color: Color(0xff51B5E6),
-                //                                                 width: 1.0,
-                //                                               ),
-                //                                             ),
-                //                                             border: OutlineInputBorder(
-                //                                               borderRadius:
-                //                                               BorderRadius.circular(
-                //                                                   8.0),
-                //                                               borderSide: const BorderSide(
-                //                                                 color: Color(0xff51B5E6),
-                //                                                 width: 1.0,
-                //                                               ),
-                //                                             ),
-                //                                             contentPadding:
-                //                                             const EdgeInsets.symmetric(
-                //                                                 horizontal: 16.0,
-                //                                                 vertical: 12.0),
-                //                                           ),
-                //                                           keyboardType:
-                //                                           TextInputType.number,
-                //                                           onChanged: (value) {
-                //                                             setState((){
-                //                                               _salary = value;
-                //                                             });
-                //                                             print("Salary:: ${_salary}");
-                //                                           },
-                //                                         ),
-                //                                       ),
-                //                                       SizedBox(
-                //                                           height: MediaQuery.of(context)
-                //                                               .size
-                //                                               .height /
-                //                                               20),
-                //                                       Center(
-                //                                         child: ElevatedButton(
-                //                                           onPressed: () {
-                //                                             // Handle the submit action
-                //                                             Navigator.of(context).pop();
-                //                                           },
-                //                                           style: ElevatedButton.styleFrom(
-                //                                             backgroundColor:
-                //                                             const Color(0xff1696C8),
-                //                                             shape: RoundedRectangleBorder(
-                //                                               borderRadius:
-                //                                               BorderRadius.circular(
-                //                                                   12),
-                //                                             ),
-                //                                           ),
-                //                                           child: Padding(
-                //                                             padding: const EdgeInsets
-                //                                                 .symmetric(
-                //                                                 horizontal: 24.0,
-                //                                                 vertical: 8.0),
-                //                                             child: Text(
-                //                                               'Submit',
-                //                                               style: BlueButtonTextConst.customTextStyle(context),
-                //                                             ),
-                //                                           ),
-                //                                         ),
-                //                                       ),
-                //                                     ],
-                //                                   ),
-                //                                 ),
-                //                               ],
-                //                             ),
-                //                           ),
-                //                         );
-                //                       },
-                //                     );
-                //                   },
-                //                   style: ElevatedButton.styleFrom(
-                //                     backgroundColor: const Color(0xff1696C8),
-                //                     foregroundColor: Colors.white,
-                //                     shape: RoundedRectangleBorder(
-                //                       borderRadius: BorderRadius.circular(12),
-                //                     ),
-                //                   ),
-                //                   child: dropdownValue == 'Salaried' ? Text(
-                //                     'Add',
-                //                     style: BlueButtonTextConst.customTextStyle(context),
-                //                   ) : Text(
-                //                     'Add Visit',
-                //                     style: BlueButtonTextConst.customTextStyle(context),
-                //                   )
-                //               ),
-                //               const SizedBox(width: 15),
-                //
-                //             ],
-                //           ),
-                //
-                //         ],
-                //       );
-                //     },
-                //   ),
-                // ),
-                SizedBox(height: MediaQuery.of(context).size.height / 9),
-                ///bottom button
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: const Color(0xff1696C8),
-                        side: const BorderSide(color: Color(0xff1696C8)),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        'Back',
-                        style: TransparentButtonTextConst.customTextStyle(context)
-                      ),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width / 75),
-                    ElevatedButton(
-                      onPressed: ()  async{
-                        setState(() {
-                          // _collegeUniversityError = widget.effectiveDateController.text.isEmpty;
-                          //_phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
-                          issueDate = issueDateController.text.isEmpty;
-                          startDate = startDateController.text.isEmpty;
-                          lastDate = lastDateController.text.isEmpty;
-                          verbalAcceptanceDate = verbalAcceptanceController.text.isEmpty;
-                         // noOfPatientDate = patientsController.text.isEmpty;
-                          // _radioButtonError = !_isRadioButtonSelected;
-                        });
-                        if(!issueDate && !startDate && !lastDate && !verbalAcceptanceDate ){
-                          for (var key in containerKeys){
-                            final st = key.currentState!;
-
-                            print('County ID: ${st.selectedCountyId}');
-                            print('Zone ID:::::::::=>> ${st.docZoneId}');
-                            print('Zip Codes: ${st.selectedZipCodes}');
-                            //print('EmployeeEnrollId : ${widget.apiData!.employeeEnrollId!}');
-                            addCovrage.add( ApiAddCovrageData(
-                                city: '',
-                                countyId:st.selectedCountyId ,
-                                zoneId: st.docZoneId,
-                                zipCodes:st.selectedZipCodes
-                            ));
-                          }
-                          print("Added covrage:::::::::::::>>>>>>>>>>> ${addCovrage}");
-                          await _generateUrlLink(widget.email, widget.userId.toString());
-                          // print("Widget employeeId ${widget.apiData!.employeeId!}");
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return ConfirmationPopup(
-                                // loadingDuration: _isLoading,
-                                onCancel: () {
-                                  Navigator.pop(context);
-                                },
-                                onConfirm: () async {
-                                  // Print selected values for debugging
-                                  print('selected county id : ${selectedCountyId}');
-                                  print('selected city : ${selectedCityName}');
-                                  print('Salary: $_salary');
-                                  print('Salary Type: $dropdownValue');
-                                  print('Patient Count: ${patientsController.text}');
-
-                                  try {
-                                    // Set patientsValue based on depId
-                                    int patientsValue;
-                                    if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId) {
-                                      patientsValue = 0;  // If depId is sales or administration, set to 0
-                                    } else {
-                                      patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
-                                    }
-                                    ApiData response = await addEmpEnroll(
-                                      context: context,
-                                      employeeId: widget
-                                          .employeeId,
-                                      code: "",
-                                      userId: widget.userId,
-                                      firstName: widget
-                                          .firstName,
-                                      lastName: widget
-                                          .lastName,
-                                      phoneNbr: widget.phone,
-                                      email: widget.email,
-                                      link: widget.link,
-                                      status: widget.status,
-                                      departmentId: widget.depId,
-                                      position: widget.position,
-                                      speciality: widget.soecalityName,
-                                      clinicianTypeId:widget.clinicalId,
-                                      reportingOfficeId: widget.reportingOffice,
-                                      cityId: widget.cityId,
-                                      countryId: widget.countryId,
-                                      countyId: widget.countyId,
-                                      zoneId: widget.zoneId,
-                                      // employment: "Full Time",
-                                      employment: widget.employement,
-                                      // service: "Hospice",
-                                      service: widget.services,
-                                    );
-                                    if(response.statusCode == 200 || response.statusCode == 201){
-                                      // Call the API with the correct patientsValue
-                                      widget.onRefreshRegister();
-                                      var empEnrollOfferResponse = await addEmpEnrollOffers(
-                                        context,
-                                        response.employeeEnrollId!,
-                                        response.employeeId!,
-                                        patientsValue,  // Use patientsValue here
-                                        issueDateController.text,
-                                        lastDateController.text,
-                                        startDateController.text,
-                                        verbalAcceptanceController.text,
-                                      );
-
-                                      print('County id : ${selectedCountyId}');
-                                      print('Zone id : ${selectedZoneId}');
-
-                                      // Call other enrollment-related APIs
-                                      await addEmpEnrollAddCoverage(
-                                        context,
-                                        response.employeeEnrollId!,
-                                        response.employeeId!,
-                                        addCovrage,
-                                      );
-
-                                      await addEmpEnrollAddCompensation(
-                                        context,
-                                        response.employeeEnrollId!,
-                                        response.employeeId!,
-                                        dropdownValue.toString(),
-                                        int.parse(_salary),
-                                      );
-
-                                      // Clear controllers
-                                      issueDateController.clear();
-                                      lastDateController.clear();
-                                      startDateController.clear();
-                                      verbalAcceptanceController.clear();
-
-                                      Navigator.pop(context);
-                                      if (empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            Future.delayed(const Duration(seconds: 3), () {
-                                              if (Navigator.of(context).canPop()) {
-                                                Navigator.pop(context);
-                                                popNavigation();
-                                              }
-                                            });
-                                            return const offerSuccessPopup(message: 'Employee Enrolled Successfully');
-                                          },
-                                        );
-                                      }
-                                      else if(empEnrollOfferResponse.statusCode == 400 || empEnrollOfferResponse.statusCode == 404){
-                                        // Navigator.pop(context);
-                                         showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) => const FourNotFourPopup(),
-                                        );
-                                      }
-                                      else {
-                                        // Navigator.pop(context);
-                                         showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) => FailedPopup(text: empEnrollOfferResponse.message),
-                                        );
-                                      }
-                                    }else{
-                                      Navigator.pop(context);
-                                       showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
-                                      );
-                                    }
-
-
-                                    // Check the response status
-
-                                  } catch (e) {
-                                    print("Error during enrollment: $e");
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
-                                    );
-                                    // ScaffoldMessenger.of(context).showSnackBar(
-                                    //   SnackBar(content: Text('Enrollment failed: $e')),
-                                    // );
-                                  } finally {
-                                    // setState(() { _isLoading = false; });
-                                  }
-                                },
-
-                                // onConfirm: ()  async{
-                                //   //await Future.delayed(Duration(seconds: 2));
-                                //   // setState(() {
-                                //   //   _isLoading = true;
-                                //   // });
-                                //   print('selected county id : ${selectedCountyId}');
-                                //   //  print('selected zone id : ${st.docZoneId}');
-                                //   // print('selected zipCode : ${st.selectedZipCodes}');
-                                //   print('selected city : ${selectedCityName}');
-                                //   print('Salari ${_salary}');
-                                //   print('Salari Type ${dropdownValue}');
-                                //   print('PatianCount ${patientsController.text}');
-                                //   try {
-                                //
-                                //
-                                //     if (widget.depId == AppConfig.salesId || widget.depId == AppConfig.AdministrationId) {
-                                //       patientsValue = 0;  // If depId is sales or administration, set to 0
-                                //     } else {
-                                //       patientsValue = int.parse(patientsController.text);  // Otherwise, parse the text from the controller
-                                //     }
-                                //     var empEnrollOfferResponse = await addEmpEnrollOffers(
-                                //       context,
-                                //       widget.apiData!.employeeEnrollId!,
-                                //       widget.apiData!.employeeId!,
-                                //       int.parse(patientsController.text),
-                                //       issueDateController.text,
-                                //       lastDateController.text,
-                                //       startDateController.text,
-                                //       verbalAcceptanceController.text,
-                                //     );
-                                //     print('County id : ${selectedCountyId}');
-                                //     print('Zone id : ${selectedZoneId}');
-                                //     await addEmpEnrollAddCoverage(
-                                //         context,
-                                //         widget.apiData!.employeeEnrollId!,
-                                //         widget.apiData!.employeeId!,
-                                //         addCovrage
-                                //     );
-                                //     await addEmpEnrollAddCompensation(
-                                //       context,
-                                //       widget.apiData!.employeeEnrollId!,
-                                //       widget.apiData!.employeeId!,
-                                //       dropdownValue.toString(),
-                                //       int.parse(_salary),
-                                //     );
-                                //     // Clear controllers
-                                //     issueDateController.clear();
-                                //     lastDateController.clear();
-                                //     startDateController.clear();
-                                //     verbalAcceptanceController.clear();
-                                // Navigator.pop(context);
-                                //     if(empEnrollOfferResponse.statusCode == 200 || empEnrollOfferResponse.statusCode == 201){
-                                //       showDialog(
-                                //         context: context,
-                                //         builder: (BuildContext context) {
-                                //           Future.delayed(const Duration(seconds: 3),(){
-                                //             if(Navigator.of(context).canPop()) {
-                                //        Navigator.pop(context);
-                                //        popNavigation();
-                                //             }
-                                //           });
-                                //           return  const offerSuccessPopup(message: 'Employee Enrolled Successfully',);
-                                //         },
-                                //       );
-                                //     }
-                                //   } catch (e) {
-                                //     print("Error during enrollment: $e");
-                                //     ScaffoldMessenger.of(context).showSnackBar(
-                                //       SnackBar(content: Text('Enrollment failed: $e')),
-                                //     );
-                                //   } finally {
-                                //     // setState(() {
-                                //     //   _isLoading = false;
-                                //     // });
-                                //   }
-                                // },
-                                title: 'Confirm Enrollment',
-                                containerText: 'Do you really want to enroll?',
-                              );
-                            },
-                          );
-                        }
-
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff1696C8),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        'Enroll',
-                        style: BlueButtonTextConst.customTextStyle(context)
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10,)
+                  ):SizedBox(height: 13,)
               ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-  Widget _buildTextField({
-    required TextEditingController controller,
-    String? errorText,
-    required String validationLabel,
-    required String text,
-    required String hintText,
+            );
+          }
+      );
 
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            text: text, // Main text
-            style: DocumentTypeDataStyle.customTextStyle(context), // Main style
-            children: [
-              TextSpan(
-                text: ' *', // Asterisk
-                style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
-                  color: ColorManager.red, // Asterisk color
-                ),
-              ),
-            ],
-          ),
-        ),
-       // Text(text,style: DocumentTypeDataStyle.customTextStyle(context),),
-        SizedBox(height: 5,),
-        CustomTextFieldOfferScreen(
-          hintText: hintText,
-
-          height: 36,
-          controller: controller,
-          onChanged: (value) {
-            setState(() {
-              // Update error state based on the field
-              if (validationLabel == "Issue Date") issueDate = value.isEmpty;
-              if (validationLabel == "Last Date") lastDate = value.isEmpty;
-              if (validationLabel == "Anticipated Start Date") startDate = value.isEmpty;
-              if (validationLabel == "Verbal Acceptance") verbalAcceptanceDate = value.isEmpty;
-            });
-          },
-          validator: (value) {
-            if (value!.isEmpty) {
-              return "Please enter $validationLabel";
-            } else {
-              return null;
-            }
-          },
-        ),
-        if (errorText != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 1),
-            child: Text(
-              errorText,
-              style: CommonErrorMsg.customTextStyle(context),
-            ),
-          ),
-      ],
-    );
   }
 }
 
@@ -1652,6 +1655,74 @@ class _DynamciContainerState extends State<DynamciContainer> {
 
       ),
     );
+  }
+}
+
+
+/// provider class
+class HrEnrollOfferLatterProvider extends ChangeNotifier{
+
+  String _salary = '';
+  bool _issueDate= false;
+  bool _verbalAcceptanceDate= false;
+  bool _startDate= false;
+  bool _lastDate= false;
+  bool _noOfPatientDate = false;
+
+  bool get issueDate => _issueDate;
+  bool get verbalAcceptanceDate => _verbalAcceptanceDate;
+  bool get startDate => _startDate;
+  bool get lastDate => _lastDate;
+  bool get noOfPatientDate => _noOfPatientDate;
+  String get salary => _salary;
+  List<GlobalKey<_DynamciContainerState>> _containerKeys = [];
+  List<GlobalKey<_DynamciContainerState>> get containerKeys => _containerKeys;
+
+  void validateFields({required String validationLabel,
+    required String value}){
+      // Update error state based on the field
+      if (validationLabel == "Issue Date") _issueDate = value.isEmpty;
+      if (validationLabel == "Last Date") _lastDate = value.isEmpty;
+      if (validationLabel == "Anticipated Start Date") _startDate = value.isEmpty;
+      if (validationLabel == "Verbal Acceptance") _verbalAcceptanceDate = value.isEmpty;
+      notifyListeners();
+
+  }
+  void validateFieldsUseController({required TextEditingController issueDateController,required TextEditingController startDateController,
+    required TextEditingController lastDateController,required TextEditingController verbalAcceptanceController}){
+
+      // _collegeUniversityError = widget.effectiveDateController.text.isEmpty;
+      //_phoneError = !_isPhoneValid(widget.phoneController.text); // Update phone validation logic
+      _issueDate = issueDateController.text.isEmpty;
+      _startDate = startDateController.text.isEmpty;
+      _lastDate = lastDateController.text.isEmpty;
+      _verbalAcceptanceDate = verbalAcceptanceController.text.isEmpty;
+      // noOfPatientDate = patientsController.text.isEmpty;
+      // _radioButtonError = !_isRadioButtonSelected;
+    notifyListeners();
+
+  }
+  void clearAllFields(){
+    _salary = '';
+    _containerKeys.clear();
+    notifyListeners();
+  }
+  void addSalary(String value){
+    _salary = value;
+    notifyListeners();
+  }
+  void addContainer() {
+    _containerKeys.add(GlobalKey<_DynamciContainerState>());
+    notifyListeners();
+  }
+
+  void removecontainer(GlobalKey<_DynamciContainerState> key) {
+    _containerKeys.remove(key);
+    notifyListeners();
+  }
+  void popNavigation(BuildContext context){
+    Navigator.pop(context);
+    notifyListeners();
   }
 }
 

@@ -954,6 +954,7 @@ class CustomDocumedAddPopup extends StatelessWidget {
     final docAddProviderState = Provider.of<HrManageProvider>(context, listen: false,);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       docAddProviderState.loadDropDown(dataList);
+      docAddProviderState.clearAddedValue();
     });
     return
       Consumer<HrManageProvider>(
@@ -1009,13 +1010,13 @@ class CustomDocumedAddPopup extends StatelessWidget {
                         items: addDocProvider.dropDownMenuItems,
                       ),
                       SizedBox(height: 2),
-                      if (addDocProvider.isFormSubmitted && documentTypeName
-                          .isEmpty) // Check _submitted before showing the error
+                      addDocProvider.isFormSubmitted && documentTypeName
+                          .isEmpty? // Check _submitted before showing the error
                         Text(
                           'Please select document',
                           style: TextStyle(
                               fontSize: 10, color: ColorManager.red),
-                        ),
+                        ):SizedBox(height:12),
                     ],
                   ),
                 ),
@@ -1058,7 +1059,7 @@ class CustomDocumedAddPopup extends StatelessWidget {
                                   horizontal: 16),
                               suffixIcon: Icon(Icons.calendar_month_outlined,
                                   color: ColorManager.blueprime),
-                              errorText: _submitted &&
+                              errorText: addDocProvider.isFormSubmitted &&
                                   expiryDateController.text.isEmpty
                                   ? 'Please select date'
                                   : null, // Show error only after submission
@@ -1132,13 +1133,13 @@ class CustomDocumedAddPopup extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 2),
-                      if (_submitted && addDocProvider.filePath ==
-                          null) // Show error only if filePath is null and form is submitted
+                  addDocProvider.isFormSubmitted && addDocProvider.filePath ==
+                          null ? // Show error only if filePath is null and form is submitted
                         Text(
                           'Please select document',
                           style: TextStyle(
                               fontSize: 10, color: ColorManager.red),
-                        ),
+                        ): SizedBox(height: 12,)
                     ],
                   ),
                 )
@@ -1156,10 +1157,10 @@ class CustomDocumedAddPopup extends StatelessWidget {
                 height: AppSize.s30,
                 text: AppStringEM.add,
                 onPressed: () async {
-                  addDocProvider.loaderTrue();
-
+                  addDocProvider.isFormSubmited();
                   if (addDocProvider.filePath != null &&
                       documentTypeName.isNotEmpty) {
+                    addDocProvider.loaderTrue();
                     try {
                       String? expiryDate;
                       if (expiryDateController.text.isEmpty) {

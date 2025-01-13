@@ -5,6 +5,7 @@ import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'app/app.dart';
@@ -39,6 +40,9 @@ Future<void> main() async {
           ),
           ChangeNotifierProvider(
               create: (_)=>HrEnrollEmployeeProvider()
+          ),
+          ChangeNotifierProvider(
+              create: (_)=>HrEnrollOfferLatterProvider()
           ),
           ChangeNotifierProvider(create: (context)=>AddressProvider(controller: '' as TextEditingController,onChange: '' as Function(String p1)?))
         ],

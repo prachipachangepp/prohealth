@@ -305,9 +305,9 @@ hintText:hintText ,
             });
           },
         ),
-        if (errorStates[errorKey]!)
+        errorStates[errorKey]!?
           Padding(
-            padding: const EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.only(top: 1),
             child: Text(
               'Please Enter $labelText',
               style: TextStyle(
@@ -315,7 +315,7 @@ hintText:hintText ,
                 fontSize: FontSize.s10,
               ),
             ),
-          ),
+          ):SizedBox(height: 13,)
       ],
     );
   }
@@ -379,9 +379,9 @@ hintText:hintText ,
             });
           },
         ),
-        if (errorStates[errorKey]!)
+        errorStates[errorKey]! ?
           Padding(
-            padding: const EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.only(top: 1),
             child: Text(
               'Please select a valid $labelText',
               style: TextStyle(
@@ -389,7 +389,7 @@ hintText:hintText ,
                 fontSize: FontSize.s10,
               ),
             ),
-          ),
+          ):SizedBox(height:13)
       ],
     );
   }
