@@ -83,6 +83,7 @@ class AcknowledgementAddPopup extends StatelessWidget {
       context, listen: false,);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ackProviderState.loadDropDown(dataList);
+      ackProviderState.clearAddedValue();
     });
 
     return
@@ -141,12 +142,12 @@ class AcknowledgementAddPopup extends StatelessWidget {
                       items: ackProviderState.dropDownMenuItems,
                     ),
                     SizedBox(height: 2),
-                    if (loaderProvider.isFormSubmitted && documentTypeName == "")
+                    loaderProvider.isFormSubmitted && documentTypeName == "" ?
                       Text(
                         'Please select document',
                         style: TextStyle(
                             fontSize: 10, color: ColorManager.red),
-                      ),
+                      ):SizedBox(height: 12,),
                   ],
                 ),
               ),
@@ -269,11 +270,11 @@ class AcknowledgementAddPopup extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 2),
-                    if (loaderProvider.isFormSubmitted && ackProviderState.filePath == null)
+                    loaderProvider.isFormSubmitted && ackProviderState.filePath == null ?
                       Text(
                         'Please select document',
                         style: TextStyle(fontSize: 10, color: ColorManager.red),
-                      ),
+                      ):SizedBox(height: 12,)
                   ],
                 ),
               ),

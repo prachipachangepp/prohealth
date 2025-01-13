@@ -360,14 +360,14 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
             ),
           ],
         ),
-        if (errorStates[errorKey] == true)
+        errorStates[errorKey] == true ?
           Padding(
             padding: EdgeInsets.only(top: 1.0),
             child: Text(
               errorMessage!,
               style: CommonErrorMsg.customTextStyle(context),
             ),
-          ),
+          ) : SizedBox(height: 13,)
       ],
     );
   }

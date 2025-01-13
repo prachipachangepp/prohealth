@@ -5,7 +5,7 @@ class AppConfig {
   static const String demo = "https://demoapp.symmetry.care";
   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
   static const String deployment = "https://prohealth.symmetry.care";
-  static const String version = "Version 1.0.3 (6) demo";
+  static const String version = "Version 1.0.3 (4) demo";
   ///
   static const String local = "";
   static const String prod = "";
@@ -67,7 +67,7 @@ class AppConfig {
 //   static const String prod = "";
 //   static const String endpoint = dev;
 //   static const String dash = '-';
-//   static const int templateId = 3;
+//   static const int templateId = 1;
 //
 //   /// Document types
 //   static const int corporateAndCompliance = 8;

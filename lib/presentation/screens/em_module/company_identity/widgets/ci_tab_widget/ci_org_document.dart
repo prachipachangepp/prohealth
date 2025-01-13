@@ -1,87 +1,64 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
-import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_policies&procedure.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_vendor_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/org_add_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../company_identity_screen.dart';
 
-class CiOrgDocument extends StatefulWidget {
-  const CiOrgDocument({super.key,
-  });
+///provider
+class CiOrgDocumentProvider with ChangeNotifier {
+  final PageController tabPageController = PageController();
+  int selectedIndex = 0;
 
-  @override
-  State<CiOrgDocument> createState() => _CiOrgDocumentState();
-}
-
-class _CiOrgDocumentState extends State<CiOrgDocument> {
-  final PageController _tabPageController = PageController();
-  TextEditingController docNamecontroller = TextEditingController();
+  TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-  TextEditingController calenderController = TextEditingController();
+  TextEditingController calendarController = TextEditingController();
   TextEditingController daysController = TextEditingController(text: "1");
-  final StreamController<List<IdentityDocumentIdData>> _identityDataController =
-  StreamController<List<IdentityDocumentIdData>>.broadcast();
 
-  int _selectedIndex = 0;
-  void _selectButton(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    _tabPageController.animateToPage(
+  int selectedSubDocId = AppConfig.subDocId1Licenses; // Default value
+  String selectedSubDocType = "";
+
+  CiOrgDocumentProvider() {
+    updateSelectedSubDocId(selectedSubDocId);
+  }
+
+  void selectButton(int index) {
+    if (selectedIndex == index) return;
+    selectedIndex = index;
+    if (selectedIndex == 0) {
+      updateSelectedSubDocId(AppConfig.subDocId1Licenses);
+    } else if (selectedIndex == 1) {
+      updateSelectedSubDocId(AppConfig.subDocId6Leases);
+    } else if (selectedIndex == 2) {
+      updateSelectedSubDocId(AppConfig.subDocId0);
+    }
+
+    tabPageController.animateToPage(
       index,
       duration: Duration(milliseconds: 500),
       curve: Curves.ease,
     );
+    notifyListeners();
   }
 
-  late Future<List<DocumentTypeData>> docTypeFuture;
-
-  List<DocumentTypeData> docTypeData = [];
-  void loadData() async {
-    docTypeData = await documentTypeGet(context);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  int docTypeMetaIdPP = AppConfig.policiesAndProcedure;
-  int docTypeMetaIdVC = AppConfig.vendorContracts;
-  int docTypeMetaIdCC = AppConfig.corporateAndCompliance;
-  int docSubTypeMetaIdPP = AppConfig.subDocId0;
-  var docID = 8;
-  int docSubTypeMetaId = 0;
-  String? selectedDocTypeValue;
-  String? selectedSubDocTypeValue;
-  String? expiryType;
-  bool _isLoading = false;
-  int selectedSubDocId = AppConfig.subDocId1Licenses; // Default value
-  String selectedSubDocType = "";
-  int selectedSubDocIdVC = AppConfig.subDocId6Leases;
-  final AppConfig appConfig = AppConfig();
-  String? selectedYear;
-
-  void _updateSelectedSubDocId(int subDocId) {
-    setState(() {
-      selectedSubDocId = subDocId;
-      selectedSubDocType = getSubDocTypeText(subDocId);
-    });
+  void updateSelectedSubDocId(int subDocId) {
+    selectedSubDocId = subDocId;
+    selectedSubDocType = getSubDocTypeText(subDocId);
+    print('Updated SubDocId: $subDocId, SubDocTypeText: $selectedSubDocType'); // Debug print
+    notifyListeners();
   }
 
   String getSubDocTypeText(int subDocId) {
     switch (subDocId) {
       case AppConfig.subDocId1Licenses:
-        return  AppStringEM.licenses;
+        return AppStringEM.licenses;
       case AppConfig.subDocId2Adr:
         return AppStringEM.ard;
       case AppConfig.subDocId3CICCMedicalCR:
@@ -104,325 +81,186 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
         return "Unknown Document Type";
     }
   }
+}
 
-  String getDocTypeText(int DocId) {
-    switch (DocId) {
-      case AppConfig.corporateAndCompliance:
-        return AppStringEM.corporateAndComplianceDocuments;
-      case AppConfig.policiesAndProcedure:
-        return AppStringEM.policiesAndProcedures;
-      case AppConfig.vendorContracts:
-        return AppStringEM.vendorContracts;
-      default:
-        return "Unknown Document Type";
-    }
-  }
-
-  void _updateSelectedSubDocIdVC(int subDocIdVC) {
-    setState(() {
-      selectedSubDocIdVC = subDocIdVC;
-      selectedSubDocType = getSubDocTypeText(subDocIdVC);
-    });
-  }
-
+class CiOrgDocument extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: AppSize.s20,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSize.s45),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return ChangeNotifierProvider(
+      create: (_) => CiOrgDocumentProvider(),
+      child: Consumer<CiOrgDocumentProvider>(
+        builder: (context, provider, _) {
+          return Column(
             children: [
-              Container(
-                height: AppSize.s20,
-                width: AppSize.s150,
-              ),
-              Material(
-                elevation: 4,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                child: Container(
-                  width: 840,
-                  height: AppSize.s30,
-                  decoration: BoxDecoration(
+              SizedBox(height: AppSize.s20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSize.s45),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(height: AppSize.s20, width: AppSize.s150),
+                    Material(
+                      elevation: 4,
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: ColorManager.blueprime),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            onTap: () {
-                              _selectButton(0);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: AppPadding.p2),
-                              height: AppSize.s30,
-                              width: AppSize.s380,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                color: _selectedIndex == 0
-                                    ? Colors.white
-                                    : Colors.transparent,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  AppStringEM.corporateAndComplianceDocuments,
-                                  style: BlueBgTabbar.customTextStyle(0, _selectedIndex),
-                                ),
-                              ),
+                      child: Container(
+                        width: 840,
+                        height: AppSize.s30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: ColorManager.blueprime,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            tabButton(
+                              context,
+                              0,
+                              AppStringEM.corporateAndComplianceDocuments,
                             ),
-                          )),
-                      Expanded(
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            onTap: () {
-                              _selectButton(1);
-                            },
-                            child: Container(
-                              height: AppSize.s30,
-                              width: AppSize.s210,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                color: _selectedIndex == 1
-                                    ? Colors.white
-                                    : Colors.transparent,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  AppStringEM.vendorContracts,
-                                  style: BlueBgTabbar.customTextStyle(1, _selectedIndex),
-                                ),
-                              ),
+                            tabButton(
+                              context,
+                              1,
+                              AppStringEM.vendorContracts,
                             ),
-                          )),
-                      Expanded(
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            onTap: () {
-                              _selectButton(2);
-                            },
-                            child: Container(
-                              height: AppSize.s30,
-                              width: AppSize.s210,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                color: _selectedIndex == 2
-                                    ? Colors.white
-                                    : Colors.transparent,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  AppStringEM.policiesAndProcedures,
-                                  style: BlueBgTabbar.customTextStyle(2, _selectedIndex),
-                                ),
-                              ),
+                            tabButton(
+                              context,
+                              2,
+                              AppStringEM.policiesAndProcedures,
                             ),
-                          )),
-                    ],
-                  ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    _buildAddButton(context, provider),
+                  ],
                 ),
               ),
-              //SizedBox(width: MediaQuery.of(context).size.width/25),
-
-              ///button
-              _selectedIndex == 0
-              ///Corporate
-                  ? Align(
-                alignment: Alignment.bottomRight,
-                child: Container(
-                  height: AppSize.s30,
-                  width: AppSize.s150,
-                  child: CustomIconButton(
-                    icon: Icons.add,
-                    text: AddPopupString.addDocType,
-                    onPressed: () async {
-                      String? selectedExpiryType = expiryType;
-                      calenderController.clear();
-                      docIdController.clear();
-                      docNamecontroller.clear();
-                      selectedExpiryType = "";
-                      selectedSubDocTypeValue = "";
-                      selectedYear = AppConfig.year;
-                      daysController.text = "1";
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return StatefulBuilder(
-                            builder: (BuildContext context,
-                                void Function(void Function()) setState) {
-                              return AddNewOrgDocButton(
-                                title: AddPopupString.addCorporate,
-                                selectedSubDocType: selectedSubDocType,
-                                docTypeText:  getDocTypeText(docTypeMetaIdCC),
-                                docTypeId: docTypeMetaIdCC,
-                                subDocTypeId: selectedSubDocId,
-                                subDocTypeText: getSubDocTypeText(selectedSubDocId),
-                              );
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              )
-                  : _selectedIndex == 1
-              ///vendor
-                  ? Align(
-                alignment: Alignment.bottomRight,
-                child: Container(
-                  height: AppSize.s30,
-                  width: AppSize.s150,
-                  child: CustomIconButton(
-                    icon: Icons.add,
-                    text: AddPopupString.addDocType,
-                    onPressed: () async {
-                      String? selectedExpiryType = expiryType;
-                      calenderController.clear();
-                      docIdController.clear();
-                      docNamecontroller.clear();
-                      selectedExpiryType = "";
-                      selectedSubDocTypeValue = "";
-                      selectedYear = AppConfig.year;
-                      daysController.text = "1";
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return StatefulBuilder(
-                            builder: (BuildContext context,
-                                void Function(void Function())
-                                setState) {
-                              return AddNewOrgDocButton(
-                                title: AddPopupString.addVendor,
-                                selectedSubDocType: selectedSubDocType,
-                                docTypeText: getDocTypeText(docTypeMetaIdVC),
-                                docTypeId: docTypeMetaIdVC,
-                                subDocTypeId: selectedSubDocIdVC,
-                                subDocTypeText: getSubDocTypeText(
-                                    selectedSubDocIdVC),
-                              );
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              )
-
-              ///Policies
-                  : Align(
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                    height: AppSize.s30,
-                    width: AppSize.s150,
-                    child: CustomIconButton(
-                      icon: Icons.add,
-                      text: AddPopupString.addDocType,
-                      onPressed: () async {
-                        String? selectedDocType;
-                        String? selectedSubDocType;
-                        String? selectedExpiryType = expiryType;
-                        calenderController.clear();
-                        docIdController.clear();
-                        docNamecontroller.clear();
-                        selectedExpiryType = "";
-                        selectedDocTypeValue = "";
-                        selectedSubDocTypeValue = "";
-                        daysController.clear();
-                        selectedYear = AppConfig.year;
-                        daysController.text = "1";
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return StatefulBuilder(
-                              builder: (BuildContext context,
-                                  void Function(void Function())
-                                  setState) {
-                                return AddNewOrgDocButton(
-                                  title: AddPopupString.addPolicy,
-                                  docTypeText: getDocTypeText(docTypeMetaIdPP),
-                                  docTypeId: docTypeMetaIdPP,
-                                  subDocTypeId: 0,
-                                  subDocTypeText: '',
-                                );
-                              },
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ))
-            ],
-          ),
-        ),
-        SizedBox(
-          height: AppSize.s30,
-        ),
-        Expanded(
-          child: Stack(
-            children: [
-              _selectedIndex != 5
-                  ? Container(
-                // height: MediaQuery.of(context).size.height / 3.5,
+              SizedBox(height: AppSize.s30),
+              Expanded(
+                child: Stack(
+          children: [
+          provider.selectedIndex != 5
+          ? Container(
+          // height: MediaQuery.of(context).size.height / 3.5,
                 decoration: BoxDecoration(
                     color: Color(0xFFF2F9FC),
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
                     boxShadow: [
-                      BoxShadow(
+                        BoxShadow(
                         color: ColorManager.faintGrey,
                         blurRadius: 2,
                         spreadRadius: -2,
                         offset: Offset(0, -4),
-                      ),
+                        ),
                     ]),
-              )
-                  : Offstage(),
-              NonScrollablePageView(
-                controller: _tabPageController,
-                onPageChanged: (index) {
-                  // setState(() {
-                  _selectedIndex = index;
-                  // });
-                },
-                children: [
-                  // Page 1
+          )
+              : Offstage(),
+                NonScrollablePageView(
+                  controller: provider.tabPageController,
+                  onPageChanged: provider.selectButton,
+                  children: [
+                    // Container(color: ColorManager.red,),
+                    // Container(color: ColorManager.fGrey,),
                   CICorporateCompilianceDocument(
                     docID: AppConfig.corporateAndCompliance,
-                    selectedSubDocType: selectedSubDocType,
-                    onSubDocIdSelected:
-                    _updateSelectedSubDocId, //officeId: widget.officeId,
+                    selectedSubDocType: provider.selectedSubDocType,
+                    onSubDocIdSelected: provider.updateSelectedSubDocId, //officeId: widget.officeId,
                   ),
-                  CIVendorContract(
-                    docId: AppConfig.vendorContracts,
-                    onSubDocIdSelected: _updateSelectedSubDocIdVC,
-                    selectedSubDocType:
-                    selectedSubDocType, //officeId: widget.officeId
-                  ),
-                  CIPoliciesProcedure(
-                    docId: AppConfig.policiesAndProcedure,
-                    subDocId: AppConfig.subDocId0,
-                    //officeId: widget.officeId,
-                  )
-                ],
+                  // ChangeNotifierProvider(
+                  //   create: (context) => CIVendorContract(),
+                  //   child:
+                   CIVendorContract(
+                      docId: AppConfig.vendorContracts,
+                      onSubDocIdSelected: provider.updateSelectedSubDocId,
+                      selectedSubDocType: provider.selectedSubDocType, //officeId: widget.officeId
+                    ),
+                  //),
+                    ChangeNotifierProvider(
+                      create: (context) => CIPoliciesProcedureProvider(),
+                      child: CIPoliciesProcedure(
+                        docId: AppConfig.policiesAndProcedure,
+                        subDocId: AppConfig.subDocId0,
+                      ),
+                    ),
+                  ],
+                ),
+          ],
+                ),
               ),
             ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget tabButton(BuildContext context, int index, String text) {
+    final provider = Provider.of<CiOrgDocumentProvider>(context, listen: false);
+    return Expanded(
+      child: InkWell(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        onTap: () => provider.selectButton(index),
+        child: Container(
+          height: AppSize.s30,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: provider.selectedIndex == index
+                ? Colors.white
+                : Colors.transparent,
           ),
-        )
-      ],
+          child: Center(
+            child: Text(
+              text,
+              style: BlueBgTabbar.customTextStyle(index, provider.selectedIndex),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAddButton(BuildContext context, CiOrgDocumentProvider provider) {
+    return Align(
+      alignment: Alignment.bottomRight,
+      child: Container(
+        height: AppSize.s30,
+        width: AppSize.s150,
+        child: CustomIconButton(
+          icon: Icons.add,
+          text: AddPopupString.addDocType,
+          onPressed: ()async{
+            showDialog(
+              context: context,
+              builder: (context) {
+                return ChangeNotifierProvider(
+                  create: (_) => AddNewOrgDocButtonProviider(),
+                  child: AddNewOrgDocButton(
+                    title: provider.selectedIndex == 0
+                        ? AddPopupString.addCorporate : provider.selectedIndex == 1
+                        ? AddPopupString.addVendor : AddPopupString.addPolicy,
+                    docTypeText:  provider.selectedIndex == 0
+                        ? AppStringEM.corporateAndComplianceDocuments : provider.selectedIndex == 1
+                        ? AppStringEM.vendorContracts : AppStringEM.policiesAndProcedures,
+                    docTypeId: provider.selectedIndex == 0
+                        ? AppConfig.corporateAndCompliance : provider.selectedIndex == 1
+                        ? AppConfig.vendorContracts : AppConfig.policiesAndProcedure,
+
+                    selectedSubDocType:provider.selectedSubDocType,
+                    subDocTypeId: provider.selectedIndex == 2
+                        ? AppConfig.subDocId0 : provider.selectedSubDocId,
+                    subDocTypeText: provider.selectedSubDocType,
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ),
     );
   }
 }
+

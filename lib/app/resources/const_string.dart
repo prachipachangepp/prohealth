@@ -312,8 +312,8 @@ class AppString {
   static const String dataNotFound = "No Data!";
 
   /// Clinical License
-  static const String noDrivingLicense = "Please upload driving license";
-  static const String noPractitionerLicense = "Please upload practitioner license";
+  static const String noDrivingLicense = "No available driving license!";
+  static const String noPractitionerLicense = "No available practitioner license!";
 }
 
 ///mobile screen constant

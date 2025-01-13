@@ -336,10 +336,10 @@ class _AppBarWebState extends State<AppBarWeb> {
                                 Expanded(
                                   flex: 3,
                                   child: Container(
-                                   // margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
+                               margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
                                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(18),
                                       border: Border.all(color: Colors.white, width: 2),
                                       color: Colors.transparent,
                                     ),
@@ -351,14 +351,17 @@ class _AppBarWebState extends State<AppBarWeb> {
                                           'Super User',
                                           style: TextStyle(
                                             fontSize: 11,
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.w500,
                                             color: Colors.white,
                                           ),
                                         ),
-                                        icon: Icon(
-                                          Icons.arrow_drop_down,
-                                          color: Colors.white,
-                                          size: 20,
+                                        icon: Padding(
+                                          padding: const EdgeInsets.only(left: 8),
+                                          child: Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.white,
+                                            size: 20,
+                                          ),
                                         ),
                                         items: <String>['Super User', 'Admin', 'Staff', 'Patient']
                                             .map((String value) {
@@ -367,8 +370,8 @@ class _AppBarWebState extends State<AppBarWeb> {
                                             child: Text(
                                               value,
                                               style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w500,
                                                 color: _selectedValue == value
                                                     ? Colors.white
                                                     : ColorManager.white,

@@ -3,7 +3,9 @@ class ClinicalLicensesRepo {
   static String practitionerLicense = "/practitioner-license";
   // static String practitionerLicense = "/practitioner-license";
   static String practitionerLicenseBase64 = "/practitioner-license/attach-documentbase64";
+  static String practitionerLicenseUpdateBase64 = "/practitioner-license/update-documentbase64";
   static String drivingLicenseBase64 = "/driving-license/attach-documentbase64";
+  static String drivingLicenseUpdateBase64 = "/driving-license/update-documentbase64";
 
 
 
@@ -19,8 +21,16 @@ class ClinicalLicensesRepo {
     return "$practitionerLicenseBase64/$practitionerLicenceId";
   }
 
+  static String postpractitionerUpdateLicensebase64({required int practitionerLicenceId }) {
+    return "$practitionerLicenseUpdateBase64/$practitionerLicenceId";
+  }
+
   static String postdrivingLicensebase64({required int drivingLicenceId }) {
     return "$drivingLicenseBase64/$drivingLicenceId";
+  }
+
+  static String postdrivingLicenseUpdatebase64({required int drivingLicenceId }) {
+    return "$drivingLicenseUpdateBase64/$drivingLicenceId";
   }
   static String getDrivingLicenseByEmpId({required int employeeId, required String approve}) {
     return "$drivingLicense/ByemployeeId/$employeeId/$approve";

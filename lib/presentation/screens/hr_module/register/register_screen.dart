@@ -76,9 +76,8 @@ class RegisterScreen extends StatelessWidget {
     itemsPerPage = 20;
     final registerProviderState = Provider.of<HrRegisterProvider>(context,listen:false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-        registerProviderState.fetchData(context);
+      registerProviderState.fetchData(context);
     });
-
     items = List.generate(20, (index) => 'Item ${index + 1}');
     return SingleChildScrollView(
       child: Consumer<HrRegisterProvider>(

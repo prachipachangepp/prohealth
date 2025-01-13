@@ -125,11 +125,16 @@ class HrManageProvider extends ChangeNotifier{
   bool _isFormSubmitted = false;
   bool _editFileAbove20Mb = false;
   bool _fileIsPicked = false;
+  bool _isSubmitted = false;
   String _editFileName = '';
   dynamic _editFilePath;
+  dynamic _editClinicalLicenseFilePath;
+  String _editClinicalLicenseFileName = '';
+  bool _clinicalFileIsPicked = false;
   List<DropdownMenuItem<String>> get dropDownMenuItems => _dropDownMenuItems;
   bool get fileAbove20Mb => _fileAbove20Mb;
   bool get isFormSubmitted => _isFormSubmitted;
+  bool get isSubmitted => _isSubmitted;
   bool get load => _load;
   String get fileName => _fileName;
   bool _showExpiryDateField = false;
@@ -138,6 +143,9 @@ class HrManageProvider extends ChangeNotifier{
    DateTime? _datePicked;
   // TextEditingController
 
+  String get editClinicalLicenseFileName => _editClinicalLicenseFileName;
+  dynamic get editClinicalLicenseFilePath => _editClinicalLicenseFilePath;
+  bool get clinicalFileIsPicked => _clinicalFileIsPicked;
   DateTime get datePicked =>_datePicked!;
   bool get showExpiryDateField => _showExpiryDateField;
   bool get showAddAckExpiryDateField => _showAddAckExpiryDateField;
@@ -581,8 +589,12 @@ class HrManageProvider extends ChangeNotifier{
     _showAddDocExpiryDateField = false;
     _showAddAckExpiryDateField = false;
     _editFileAbove20Mb = false;
+    _isFormSubmitted = false;
     _fileAbove20Mb = false;
     _fileIsPicked = false;
+    _clinicalFileIsPicked = false;
+    _editClinicalLicenseFilePath;
+    _editClinicalLicenseFileName = '';
     _editFilePath;
     _editFileName = '';
     _filePath;
@@ -604,6 +616,30 @@ class HrManageProvider extends ChangeNotifier{
 
   void newDatePicked(DateTime value){
     _datePicked = value;
+    notifyListeners();
+  }
+
+  /// Clinical License and P license
+  void pickClinicalEditFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf']);
+    final fileSize = result?.files.first.size; // File size in bytes
+    final isAbove20MB = fileSize! > (20 * 1024 * 1024); // 20MB in bytes
+    if (result != null) {
+      _clinicalFileIsPicked = true;
+      _editClinicalLicenseFilePath = result.files.first.bytes;
+      _editClinicalLicenseFileName = result.files.first.name;
+      _editFileAbove20Mb = !isAbove20MB;
+      notifyListeners();
+    }
+  }
+  void isSumitted(){
+    _isSubmitted = true;
+    notifyListeners();
+  }
+  void getFileName(String fileName){
+    _editClinicalLicenseFileName = fileName;
     notifyListeners();
   }
 }

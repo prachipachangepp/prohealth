@@ -11,6 +11,7 @@ import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_edit_provider.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_pagination.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/dateprovider.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -56,6 +57,12 @@ Future<void> main() async {
           ),
           ChangeNotifierProvider(
               create: (_)=>HrRegisterProvider()
+          ),
+          ChangeNotifierProvider(
+              create: (_)=>HrEnrollEmployeeProvider()
+          ),
+          ChangeNotifierProvider(
+              create: (_)=>HrEnrollOfferLatterProvider()
           ),
           ChangeNotifierProvider(create: (context)=>AddressProvider(controller: '' as TextEditingController,onChange: '' as Function(String p1)?))
         ],

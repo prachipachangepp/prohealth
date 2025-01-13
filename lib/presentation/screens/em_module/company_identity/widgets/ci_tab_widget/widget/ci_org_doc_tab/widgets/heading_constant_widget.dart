@@ -3,7 +3,7 @@ import '../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../../app/resources/value_manager.dart';
-
+///stateless
 class TableHeadingConst extends StatelessWidget {
   const TableHeadingConst({super.key});
   @override
