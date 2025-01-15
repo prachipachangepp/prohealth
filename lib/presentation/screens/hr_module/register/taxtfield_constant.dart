@@ -735,10 +735,9 @@ class CustomTextFieldSSn extends StatelessWidget {
           cursorWidth: 1.5,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(
-                bottom: AppPadding.p3,
-                top: AppPadding.p4,
-                left: AppPadding.p12
+            contentPadding: EdgeInsets.symmetric(
+                vertical: 15,
+              horizontal: 5
             ),
             hintText: hintText,
             hintStyle: hintStyle,
