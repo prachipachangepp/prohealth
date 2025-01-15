@@ -7,45 +7,6 @@ import '../establishment_resources/establishment_string_manager.dart';
 import '../value_manager.dart';
 
 ///provider
-// class DeletePopupProvider extends StatelessWidget {
-//   final VoidCallback onCancel;
-//   final VoidCallback onDelete; // Accepts an async function for delete
-//   final bool? loadingDuration; // Optional loading state
-//   final String title;
-//   final String? text;
-//   final String? btnText;
-//
-//   const DeletePopupProvider({
-//     Key? key,
-//     required this.onCancel,
-//     required this.onDelete,
-//     this.loadingDuration, // Now optional, as per your original widget
-//     required this.title,
-//     this.text,
-//     this.btnText,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return AlertDialog(
-//       title: Text(title),
-//       content: loadingDuration == true
-//           ? const Center(child: CircularProgressIndicator())
-//           : Text(text ?? "Do you really want to delete this item?"),
-//       actions: [
-//         TextButton(
-//           onPressed: loadingDuration == true ? null : onCancel,
-//           child: Text(btnText ?? "Cancel"),
-//         ),
-//         TextButton(
-//           onPressed: loadingDuration == true ? null : () async => onDelete(),
-//           child: const Text("Delete"),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
 class DeletePopupProvider extends StatelessWidget {
   final VoidCallback onCancel;
   final Future<void> Function() onDelete;
@@ -77,7 +38,6 @@ class DeletePopupProvider extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // Blue Top Bar with Title and Close Icon
             Container(
               decoration: BoxDecoration(
                 color: ColorManager.bluebottom,
@@ -87,22 +47,22 @@ class DeletePopupProvider extends StatelessWidget {
                 ),
               ),
               height: 35,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p15),
-                    child: Text(
+              child: Padding(
+                padding:  EdgeInsets.only(left: AppPadding.p15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
                       title,
                       style: PopupBlueBarText.customTextStyle(context),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: onCancel,
-                    icon: Icon(Icons.close, color: ColorManager.white),
-                  ),
-                ],
+                    IconButton(
+                      onPressed: onCancel,
+                      icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: AppSize.s20),

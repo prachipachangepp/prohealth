@@ -439,7 +439,9 @@ class EMDesktopScreen extends StatelessWidget {
                     //CompanyIdentityScreen(),
                     HrScreen(),
                     WorkSchedule(),
-                    ManageEmployDocument(),
+                    ChangeNotifierProvider(
+                        create: (_) => ManageEmployDocumentProvider(),
+                        child: ManageEmployDocument()),
                     ChangeNotifierProvider(
                         create: (_) => FinanceProvider(),
                         child: FinanceScreen()),

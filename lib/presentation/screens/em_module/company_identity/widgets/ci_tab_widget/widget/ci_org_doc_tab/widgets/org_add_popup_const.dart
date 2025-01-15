@@ -109,23 +109,24 @@ class AddNewOrgDocButton extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   text: AppString.id_of_the_document,
                 ),
-                if (provider._idDocError != null) // Display error if any
+                provider._idDocError != null ? // Display error if any
                   Text(
                     provider._idDocError!,
                     style:CommonErrorMsg.customTextStyle(context),
-                  ),
+                  ) : SizedBox(height: AppSize.s12,),
+                SizedBox(height: AppSize.s5,),
                 /// Name of the Document
                 SMTextfieldAsteric(
                   controller: provider.nameDocController,
                   keyboardType: TextInputType.text,
                   text: AppString.name_of_the_document,
                 ),
-                if (provider._nameDocError != null) // Display error if any
+                provider._nameDocError != null ? // Display error if any
                   Text(
                     provider. _nameDocError!,
                     style:CommonErrorMsg.customTextStyle(context),
-                  ),
-
+                  ) :SizedBox(height: AppSize.s12,),
+                SizedBox(height: AppSize.s5,),
                 /// Type of the Document
                 HeaderContentConst(
                   // isAsterisk: true,
@@ -150,36 +151,41 @@ class AddNewOrgDocButton extends StatelessWidget {
                     ),
                   ),
                 ),
-
+                SizedBox(height: AppSize.s8,),
                 /// Sub Type of the Document
                 docTypeId == AppConfig.policiesAndProcedure
                     ? SizedBox(
                   height: 1,
                 )
-                    : HeaderContentConst(
-                  heading: AppString.sub_type_of_the_document,
-                  //isAsterisk: true,
-                  content: Container(
-                    width: AppSize.s354,
-                    height: AppSize.s30,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-                    decoration: BoxDecoration(
-                      color: ColorManager.white,
-                      borderRadius: BorderRadius.circular(8),
-                      border:
-                      Border.all(color: ColorManager.fmediumgrey, width: 1),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    : Column(
                       children: [
-                        Text(
-                          subDocTypeText,
-                          style: DocumentTypeDataStyle.customTextStyle(context),
+                        HeaderContentConst(
+                                          heading: AppString.sub_type_of_the_document,
+                                          //isAsterisk: true,
+                                          content: Container(
+                        width: AppSize.s354,
+                        height: AppSize.s30,
+                        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: ColorManager.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border:
+                          Border.all(color: ColorManager.fmediumgrey, width: 1),
                         ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              subDocTypeText,
+                              style: DocumentTypeDataStyle.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                                          ),
+                                        ),
+                        SizedBox(height: AppSize.s8,),
                       ],
                     ),
-                  ),
-                ),
                 /// Radio Button Section
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -224,11 +230,11 @@ class AddNewOrgDocButton extends StatelessWidget {
                               },
                               title: AppConfig.issuer,
                             ),
-                            if (provider.expiryTypeError != null)
-                              Text(
-                                provider.expiryTypeError!,
-                                style: CommonErrorMsg.customTextStyle(context),
-                              ),
+                            // provider.expiryTypeError != null ?
+                            //   Text(
+                            //     provider.expiryTypeError!,
+                            //     style: CommonErrorMsg.customTextStyle(context),
+                            //   ) : SizedBox(height: 10,),
                           ],
                         ),
                       ),
@@ -634,14 +640,14 @@ class OrgDocNewEditPopup extends StatelessWidget {
                 keyboardType: TextInputType.text,
                 text: AppString.name_of_the_document,
               ),
-              if (provider.nameDocError != null) // Display error if any
+              provider.nameDocError != null ? // Display error if any
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: AppPadding.p4, left: AppPadding.p15),
+                         left: AppPadding.p15),
                       child: Text(
                         provider.nameDocError!,
                         style: const TextStyle(
@@ -651,7 +657,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                ) : SizedBox(height: AppSize.s11,),
 
               /// Type of the Document
               HeaderContentConst(

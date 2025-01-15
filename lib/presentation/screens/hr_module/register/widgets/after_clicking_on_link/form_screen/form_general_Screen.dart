@@ -465,12 +465,12 @@ class _generalFormState extends State<generalForm> {
                           obscureText: !_passwordVisible,
                           hintStyle: onlyFormDataStyle.customTextStyle(context),
 
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Please enter some text';
+                          //   }
+                          //   return null;
+                          // },
                           suffixIcon: IconButton(
                             icon: Icon(
                               color: const Color(0xff50B5E5),

@@ -64,7 +64,7 @@ class GeneralSettingScreen extends StatelessWidget {
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
-                          child: BlueBorderContainerConst(imageTile: Icons.calendar_today_outlined,
+                          child: BlueBorderContainerConst(imagePath :"images/em_dashboard/system_update.png",
                             padding: 0,
                             headText: EmDashboardStringManager.systemUpdate, numberText: '', bottomText: '',)),
                     ),
@@ -127,7 +127,7 @@ class GeneralSettingScreen extends StatelessWidget {
                     Expanded(
                       child: EMDashboardAllBlueSideContainer(
                           height: AppSize.s100,
-                          child: BlueBorderContainerConst(imageTile: Icons.calendar_today_outlined,
+                          child: BlueBorderContainerConst(imagePath: "images/em_dashboard/system_update.png",
                             padding: 0,
                             headText: EmDashboardStringManager.lastSoftUpdate, numberText: '', bottomText: 'Last updated on 14/11/2024',)),
                     ),
@@ -321,7 +321,7 @@ class GeneralSettingScreen extends StatelessWidget {
                                   ],
                                   centerSpaceRadius: 100,
                                   centerSpaceColor: Colors.white,
-                                  sectionsSpace: 10,
+                                  sectionsSpace: 5,
                                   borderData: FlBorderData(show: true),
                                   startDegreeOffset: -90,
                                 ),

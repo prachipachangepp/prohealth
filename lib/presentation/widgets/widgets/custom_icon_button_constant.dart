@@ -33,8 +33,6 @@ class CustomIconButtonConst extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            // width: width ?? MediaQuery.of(context).size.width / 15, //11
-
             decoration: BoxDecoration(
               color: ColorManager.blueprime,
               borderRadius: BorderRadius.circular(12),
@@ -45,7 +43,7 @@ class CustomIconButtonConst extends StatelessWidget {
               icon != null
                       ? Icon(icon!,
                       color: ColorManager.white, size: AppSize.s20)
-                      : Offstage(),
+                      : Container(height: 20,),
                  SizedBox(width: 5,),
                  Text(
                     text!,

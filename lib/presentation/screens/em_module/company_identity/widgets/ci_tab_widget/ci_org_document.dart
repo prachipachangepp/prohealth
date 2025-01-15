@@ -40,11 +40,12 @@ class CiOrgDocumentProvider with ChangeNotifier {
       updateSelectedSubDocId(AppConfig.subDocId0);
     }
 
-    tabPageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
+    tabPageController.jumpToPage(index);
+    // animateToPage(
+    //   index,
+    //   duration: Duration(milliseconds: 500),
+    //   curve: Curves.ease,
+    // );
     notifyListeners();
   }
 
