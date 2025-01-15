@@ -19,6 +19,7 @@ import '../../../company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../widgets/dialogue_template.dart';
 import '../../../widgets/header_content_const.dart';
 
+
 ///add popup
 class EmpDocADDPopupProvider extends ChangeNotifier {
   TextEditingController daysController = TextEditingController(text: "1");
