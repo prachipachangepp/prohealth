@@ -19,6 +19,7 @@ import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.
 import 'package:provider/provider.dart';
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/provider/delete_popup_provider.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/token/token_manager.dart';
@@ -649,7 +650,7 @@ class FinanceScreen extends StatelessWidget {
                                                                 context: context,
                                                                 builder: (context) => StatefulBuilder(
                                                                   builder: (BuildContext context, void Function(void Function()) setState) {
-                                                                    return DeletePopup(
+                                                                    return DeletePopupProvider(
                                                                       title: 'Delete Pay Rates',
                                                                       loadingDuration: provider.isLoading,
                                                                       onCancel: () {

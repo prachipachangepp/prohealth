@@ -132,6 +132,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CustomIconButtonConst(
+
                   // paddingVertical: 1,
                   // borderRadius: 12,
                   text: AppStringEM.whitelabelling,
