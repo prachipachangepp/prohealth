@@ -184,7 +184,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              vertical: AppPadding.p10, horizontal: AppPadding.p14),
+            //  vertical: AppPadding.p10,
+              horizontal: AppPadding.p14),
           child: Column(
             children: [
               Stack(
@@ -1251,7 +1252,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                 color: ColorManager.mediumgrey,),),
                                             ],
                                           ),
-                                          SizedBox(width: 50,),
+                                          SizedBox(width: 60,),
                                           Row(
                                             children: [
                                               Radio<String>(
@@ -1299,7 +1300,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       //   ],
                                       // ),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
+                                        padding: const EdgeInsets.only(left: 33),
                                         child: Row(children: [
                                           Text(
                                             "Oldest",
@@ -1309,7 +1310,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                               fontWeight: FontWeight.w700,
                                               color: ColorManager.bluebottom,),
                                           ),
-                                          SizedBox(width: 100,),
+                                          SizedBox(width: 90,),
                                           Text(
                                             "Youngest",
                                             textAlign: TextAlign.center,
@@ -1324,93 +1325,193 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                       Expanded(
                                         child: Container(
                                           //color: Colors.green,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                    width: 60,
-                                                    height: 60,
-                                                    padding: EdgeInsets.all(2),
-                                                    decoration: BoxDecoration(
-                                                      color: ColorManager.bluebottom,
-                                                      borderRadius: BorderRadius.circular(30),
-                                                    ),
-                                                    child: ClipRRect(
-                                                      borderRadius: BorderRadius.circular(30),
-                                                      child: SizedBox(
-                                                        width: 50,
-                                                        height: 50,
-                                                        child: Image.asset(
-                                                          'images/hr_dashboard/man.png', // Replace with your image path
-                                                          fit: BoxFit.cover,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                             // crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+
+
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically
+                                                  crossAxisAlignment: CrossAxisAlignment.center, // Center the content horizontally
+                                                  children: [
+                                                    Container(
+                                                      width: 60,
+                                                      height: 60,
+                                                      padding: EdgeInsets.all(2),
+                                                      decoration: BoxDecoration(
+                                                        color: ColorManager.bluebottom,
+                                                        borderRadius: BorderRadius.circular(30),
+                                                      ),
+                                                      child: ClipRRect(
+                                                        borderRadius: BorderRadius.circular(30),
+                                                        child: SizedBox(
+                                                          width: 50,
+                                                          height: 50,
+                                                          child: Image.asset(
+                                                            'images/hr_dashboard/man.png', // Replace with your image path
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    "Ross G",
-                                                    textAlign: TextAlign.center,
-                                                    style: CustomTextStylesCommon.commonStyle(
-                                                      fontSize: FontSize.s12,
-                                                      fontWeight: FontWeight.w700,
-                                                      color: ColorManager.bluebottom,),
-                                                  ),
-                                                  Text(
-                                                    "Age 49Y",
-                                                    textAlign: TextAlign.center,
-                                                    style: CustomTextStylesCommon.commonStyle(
-                                                      fontSize: FontSize.s12,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: ColorManager.mediumgrey,),
-                                                  ),
-                                                ],),
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                Container(
-                                                  width: 60,
-                                                  height: 60,
-                                                  padding: EdgeInsets.all(2),
-                                                  decoration: BoxDecoration(
-                                                    color: ColorManager.bluebottom,
-                                                    borderRadius: BorderRadius.circular(30),
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(30),
-                                                    child: SizedBox(
-                                                      width: 50,
-                                                      height: 50,
-                                                      child: Image.asset(
-                                                        'images/hr_dashboard/man.png', // Replace with your image path
-                                                        fit: BoxFit.cover,
+                                                    SizedBox(height: 10), // Optional: Add space between the image and text
+                                                    Text(
+                                                      "Ross G",
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorManager.bluebottom,
                                                       ),
                                                     ),
-                                                  ),
+                                                    SizedBox(height: 10),
+                                                    Text(
+                                                      "Age 49Y",
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: ColorManager.mediumgrey,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                Text(
-                                                  "Ross G",
-                                                  textAlign: TextAlign.center,
-                                                  style: CustomTextStylesCommon.commonStyle(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: ColorManager.bluebottom,),
-                                                ),
-                                                Text(
-                                                  "Age 49Y",
-                                                  textAlign: TextAlign.center,
-                                                  style: CustomTextStylesCommon.commonStyle(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: ColorManager.mediumgrey,),
-                                                ),
-                                              ],),
-                                            ],
+                                                // Column(
+                                                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                //   crossAxisAlignment: CrossAxisAlignment.start,
+                                                //   children: [
+                                                //     Container(
+                                                //       width: 60,
+                                                //       height: 60,
+                                                //       padding: EdgeInsets.all(2),
+                                                //       decoration: BoxDecoration(
+                                                //         color: ColorManager.bluebottom,
+                                                //         borderRadius: BorderRadius.circular(30),
+                                                //       ),
+                                                //       child: ClipRRect(
+                                                //         borderRadius: BorderRadius.circular(30),
+                                                //         child: SizedBox(
+                                                //           width: 50,
+                                                //           height: 50,
+                                                //           child: Image.asset(
+                                                //             'images/hr_dashboard/man.png', // Replace with your image path
+                                                //             fit: BoxFit.cover,
+                                                //           ),
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //     Text(
+                                                //       "Ross P",
+                                                //       textAlign: TextAlign.center,
+                                                //       style: CustomTextStylesCommon.commonStyle(
+                                                //         fontSize: FontSize.s12,
+                                                //         fontWeight: FontWeight.w700,
+                                                //         color: ColorManager.bluebottom,),
+                                                //     ),
+                                                //     Text(
+                                                //       "Age 49Y",
+                                                //       textAlign: TextAlign.center,
+                                                //       style: CustomTextStylesCommon.commonStyle(
+                                                //         fontSize: FontSize.s12,
+                                                //         fontWeight: FontWeight.w500,
+                                                //         color: ColorManager.mediumgrey,),
+                                                //     ),
+                                                //   ],),
+
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically
+                                                  crossAxisAlignment: CrossAxisAlignment.center, // Center the content horizontally
+                                                  children: [
+                                                    Container(
+                                                      width: 60,
+                                                      height: 60,
+                                                      padding: EdgeInsets.all(2),
+                                                      decoration: BoxDecoration(
+                                                        color: ColorManager.bluebottom,
+                                                        borderRadius: BorderRadius.circular(30),
+                                                      ),
+                                                      child: ClipRRect(
+                                                        borderRadius: BorderRadius.circular(30),
+                                                        child: SizedBox(
+                                                          width: 50,
+                                                          height: 50,
+                                                          child: Image.asset(
+                                                            'images/hr_dashboard/man.png', // Replace with your image path
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 10), // Optional: Add space between the image and text
+                                                    Text(
+                                                      "Ross G",
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorManager.bluebottom,
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 10),
+                                                    Text(
+                                                      "Age 49Y",
+                                                      textAlign: TextAlign.center,
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: ColorManager.mediumgrey,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+
+
+                                                // Column(
+                                                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                //   crossAxisAlignment: CrossAxisAlignment.start,
+                                                //   children: [
+                                                //   Container(
+                                                //     width: 60,
+                                                //     height: 60,
+                                                //     padding: EdgeInsets.all(2),
+                                                //     decoration: BoxDecoration(
+                                                //       color: ColorManager.bluebottom,
+                                                //       borderRadius: BorderRadius.circular(30),
+                                                //     ),
+                                                //     child: ClipRRect(
+                                                //       borderRadius: BorderRadius.circular(30),
+                                                //       child: SizedBox(
+                                                //         width: 50,
+                                                //         height: 50,
+                                                //         child: Image.asset(
+                                                //           'images/hr_dashboard/man.png', // Replace with your image path
+                                                //           fit: BoxFit.cover,
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //   ),
+                                                //   Text(
+                                                //     "Ross G",
+                                                //     textAlign: TextAlign.center,
+                                                //     style: CustomTextStylesCommon.commonStyle(
+                                                //       fontSize: FontSize.s12,
+                                                //       fontWeight: FontWeight.w700,
+                                                //       color: ColorManager.bluebottom,),
+                                                //   ),
+                                                //   Text(
+                                                //     "Age 49Y",
+                                                //     textAlign: TextAlign.center,
+                                                //     style: CustomTextStylesCommon.commonStyle(
+                                                //       fontSize: FontSize.s12,
+                                                //       fontWeight: FontWeight.w500,
+                                                //       color: ColorManager.mediumgrey,),
+                                                //   ),
+                                                // ],),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       )
@@ -1488,7 +1589,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           // ),
                         ],
                       ),
-                      const SizedBox(height: AppSize.s30,),
+                      const SizedBox(height: AppSize.s20,),
 
                       ///listview section
                       Expanded(
@@ -1505,7 +1606,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 children: [
                                   SizedBox(height: AppSize.s5),
                                   HRDashboardListViewData(),
-                                  SizedBox(height: AppSize.s5),
+                                 // SizedBox(height: AppSize.s5),
                                 ],
                               );
                             },

@@ -6,6 +6,7 @@ import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import 'completed_popup.dart';
@@ -183,7 +184,10 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                                       children: [
                                         Text(
                                           'Jeh Tiwari',
-                                          style:AllHRTableData.customTextStyle(context)
+                                      style: CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w700,
+                                        color: ColorManager.mediumgrey,),
+
                                         ),
                                         SizedBox(height: AppSize.s3),
                                         Text(

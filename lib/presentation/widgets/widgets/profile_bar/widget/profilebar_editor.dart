@@ -186,29 +186,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   String fileName = '';
   int selectedEmployeeTypeId =0;
   bool isLoading = false;
-  List<String> _suggestions = [];
-  void _onCountyNameChanged() async {
-    if (addressController.text.isEmpty) {
-      setState(() {
-        _suggestions = [];
-      });
-      return;
-    }
-    final suggestions = await fetchSuggestions(addressController.text);
-    if (suggestions[0] == addressController.text) {
-      setState(() {
-        _suggestions.clear();
-      });
-    } else if (addressController.text.isEmpty) {
-      setState(() {
-        _suggestions = suggestions;
-      });
-    } else {
-      setState(() {
-        _suggestions = suggestions;
-      });
-    }
-  }
   @override
   Widget build(BuildContext context) {
 

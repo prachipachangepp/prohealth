@@ -333,77 +333,136 @@ class _AppBarWebState extends State<AppBarWeb> {
                                     ?
 
                                     ///dropdown
-                                    Expanded(
-                                        flex: 3,
-                                        child: Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  160),
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 10, horizontal: 5),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            border: Border.all(
-                                                color: Colors.white, width: 2),
-                                            color: Colors.transparent,
-                                          ),
-                                          child: Center(
-                                            child: DropdownButton<String>(
-                                              underline: Container(),
-                                              icon: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 2),
-                                                child: Icon(
-                                                  Icons.arrow_drop_down,
-                                                  size: 17,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              value: _selectedValue,
-                                              hint: Text(
-                                                'Super User',
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              items: <String>[
-                                                'Super User',
-                                                'Admin',
-                                                'Staff',
-                                                'Patient'
-                                              ].map((String value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(
-                                                    value,
-                                                    style: TextStyle(
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: _selectedValue ==
-                                                              value
-                                                          ? Colors.white
-                                                          : ColorManager.white,
-                                                    ),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              onChanged: (String? newValue) {
-                                                setState(() {
-                                                  _selectedValue = newValue;
-                                                });
-                                              },
-                                              dropdownColor:
-                                                  ColorManager.blueprime,
-                                            ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Container(
+                               margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
+                                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(18),
+                                      border: Border.all(color: Colors.white, width: 2),
+                                      color: Colors.transparent,
+                                    ),
+                                    child: Center(
+                                      child: DropdownButton<String>(
+                                        underline: Container(),
+                                        value: _selectedValue,
+                                        hint: Text(
+                                          'Super User',
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
                                           ),
                                         ),
-                                      )
+                                        icon: Padding(
+                                          padding: const EdgeInsets.only(left: 8),
+                                          child: Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.white,
+                                            size: 20,
+                                          ),
+                                        ),
+                                        items: <String>['Super User', 'Admin', 'Staff', 'Patient']
+                                            .map((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(
+                                              value,
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w500,
+                                                color: _selectedValue == value
+                                                    ? Colors.white
+                                                    : ColorManager.white,
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            _selectedValue = newValue;
+                                          });
+                                        },
+                                        dropdownColor: ColorManager.blueprime,
+                                      ),
+                                    ),
+                                  ),
+                                )
+
+
+                                ///
+                                    // Expanded(
+                                    //     flex: 3,
+                                    //     child: Container(
+                                    //       margin: EdgeInsets.symmetric(
+                                    //           horizontal: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .width /
+                                    //               160),
+                                    //       padding: const EdgeInsets.symmetric(
+                                    //           vertical: 10, horizontal: 5),
+                                    //       decoration: BoxDecoration(
+                                    //         borderRadius:
+                                    //             BorderRadius.circular(20),
+                                    //         border: Border.all(
+                                    //             color: Colors.white, width: 2),
+                                    //         color: Colors.transparent,
+                                    //       ),
+                                    //       child: Center(
+                                    //         child: DropdownButton<String>(
+                                    //           underline: Container(),
+                                    //           icon: Padding(
+                                    //             padding: const EdgeInsets.only(
+                                    //                 top: 0),
+                                    //             child: Icon(
+                                    //               Icons.arrow_drop_down,
+                                    //              //  size: 17,
+                                    //               color: Colors.red,
+                                    //             ),
+                                    //           ),
+                                    //           value: _selectedValue,
+                                    //           hint: Text(
+                                    //             'Super User',
+                                    //             style: TextStyle(
+                                    //               fontSize: 10,
+                                    //               fontWeight: FontWeight.w600,
+                                    //               color: Colors.white,
+                                    //             ),
+                                    //           ),
+                                    //           items: <String>[
+                                    //             'Super User',
+                                    //             'Admin',
+                                    //             'Staff',
+                                    //             'Patient'
+                                    //           ].map((String value) {
+                                    //             return DropdownMenuItem<String>(
+                                    //               value: value,
+                                    //               child: Text(
+                                    //                 value,
+                                    //                 style: TextStyle(
+                                    //                   fontSize: 10,
+                                    //                   fontWeight:
+                                    //                       FontWeight.w400,
+                                    //                   color: _selectedValue ==
+                                    //                           value
+                                    //                       ? Colors.white
+                                    //                       : ColorManager.white,
+                                    //                 ),
+                                    //               ),
+                                    //             );
+                                    //           }).toList(),
+                                    //           onChanged: (String? newValue) {
+                                    //             setState(() {
+                                    //               _selectedValue = newValue;
+                                    //             });
+                                    //           },
+                                    //           dropdownColor:
+                                    //               ColorManager.blueprime,
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   )
                                     : SizedBox(
                                         width: AppSize.s1,
                                       ),

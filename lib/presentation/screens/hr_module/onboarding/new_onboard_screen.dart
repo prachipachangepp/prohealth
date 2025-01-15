@@ -179,17 +179,48 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                       radius: 20,
                                       backgroundColor: Colors.white,
                                       child:
+                                      // ClipOval(
+                                      //   child: CachedNetworkImage(
+                                      //     imageUrl: widget.imageUrl!,
+                                      //     placeholder: (context, url) => CircularProgressIndicator(),
+                                      //     errorWidget: (context, url, error) =>
+                                      //         CircleAvatar(child: Image.asset("images/profilepic.png"),),
+                                      //     width: double.infinity,
+                                      //     height: double.infinity,
+                                      //     fit: BoxFit.cover,
+                                      //   ),
+                                      // ),
                                       ClipOval(
-                                        child: CachedNetworkImage(
-                                          imageUrl: widget.imageUrl!,
-                                          placeholder: (context, url) => CircularProgressIndicator(),
-                                          errorWidget: (context, url, error) =>
-                                              CircleAvatar(child: Image.asset("images/profilepic.png"),),
+
+                                        child: widget.imageUrl == 'imgurl' ||
+                                            widget.imageUrl.isEmpty
+                                            ? CircleAvatar(
+                                          backgroundColor: ColorManager.faintGrey,
+                                          child: Image.asset("images/profilepic.png"),
+                                        )
+                                            : Image.network(
+                                          widget.imageUrl,
                                           width: double.infinity,
                                           height: double.infinity,
+                                          loadingBuilder: (context, child, loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            } else {
+                                              return Center(
+                                                child: CircularProgressIndicator(
+                                                    value: loadingProgress.expectedTotalBytes != null
+                                                        ? loadingProgress.cumulativeBytesLoaded /
+                                                        (loadingProgress.expectedTotalBytes ?? 1)
+                                                        : null),
+                                              );
+                                            }
+                                          },
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return CircleAvatar(child: Image.asset("images/profilepic.png"));
+                                          },
                                           fit: BoxFit.cover,
                                         ),
-                                      ),
+                                      )
                                     ),
                                     SizedBox(width: AppSize.s10,),
                                     Text(
@@ -202,15 +233,15 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
 
                           ],
                         ),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-
                             Material(
-                              elevation: 4,
+                              elevation: 3,  // Set elevation to 0 to remove shadow
                               borderRadius: BorderRadius.circular(20),
                               child: Container(
-                                height: AppSize.s28,
+                                height: AppSize.s30,
                                 width: MediaQuery.of(context).size.width / 1.68,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
@@ -229,11 +260,12 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                       child: Container(
                                         height: AppSize.s30,
                                         width: MediaQuery.of(context).size.width / 8.42,
-                                        padding: EdgeInsets.symmetric(vertical: 3),
+                                        padding: EdgeInsets.symmetric(vertical: 5),
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
-                                              ? Colors.white : null,
+                                          borderRadius: BorderRadius.circular(18),
+                                          color: widget.selectedIndex - 1 == entry.key
+                                              ? Colors.white
+                                              : null,
                                         ),
                                         child: Text(
                                           entry.value,
@@ -241,13 +273,19 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                           style: TextStyle(
                                             fontSize: FontSize.s14,
                                             fontWeight: FontWeight.w600,
-                                            color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+                                            color: widget.selectedIndex - 1 == entry.key
                                                 ? ColorManager.mediumgrey
                                                 : ColorManager.white,
                                           ),
                                         ),
                                       ),
-                                      onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName,widget.imageUrl,widget.departmentId),  //onTap: () => widget.selectButton(entry.key),
+                                      onTap: () => widget.selectButton(
+                                        entry.key + 1,
+                                        widget.employeeId,
+                                        widget.employeeName,
+                                        widget.imageUrl,
+                                        widget.departmentId,
+                                      ),
                                     ),
                                   )
                                       .toList(),
@@ -255,7 +293,63 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                               ),
                             ),
                           ],
-                        ),
+                        )
+
+
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //
+                        //     Material(
+                        //       elevation: 4,
+                        //       borderRadius: BorderRadius.circular(20),
+                        //       child: Container(
+                        //         height: AppSize.s28,
+                        //         width: MediaQuery.of(context).size.width / 1.68,
+                        //         decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(20),
+                        //           color: ColorManager.blueprime,
+                        //         ),
+                        //         child: Row(
+                        //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //           children: _categories
+                        //               .asMap()
+                        //               .entries
+                        //               .map(
+                        //                 (entry) => InkWell(
+                        //               splashColor: Colors.transparent,
+                        //               highlightColor: Colors.transparent,
+                        //               hoverColor: Colors.transparent,
+                        //               child: Container(
+                        //                 height: AppSize.s30,
+                        //                 width: MediaQuery.of(context).size.width / 8.42,
+                        //                 padding: EdgeInsets.symmetric(vertical: 3),
+                        //                 decoration: BoxDecoration(
+                        //                   borderRadius: BorderRadius.circular(20),
+                        //                   color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+                        //                       ? Colors.white : null,
+                        //                 ),
+                        //                 child: Text(
+                        //                   entry.value,
+                        //                   textAlign: TextAlign.center,
+                        //                   style: TextStyle(
+                        //                     fontSize: FontSize.s14,
+                        //                     fontWeight: FontWeight.w600,
+                        //                     color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+                        //                         ? ColorManager.mediumgrey
+                        //                         : ColorManager.white,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //               onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName,widget.imageUrl,widget.departmentId),  //onTap: () => widget.selectButton(entry.key),
+                        //             ),
+                        //           )
+                        //               .toList(),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -304,3 +398,59 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
     );
   }
 }
+
+
+
+
+///
+///
+// Material(
+// elevation: 4,
+// borderRadius: BorderRadius.circular(20),
+// color:  Colors.transparent,
+// child: Container(
+// height: AppSize.s30,
+// width: MediaQuery.of(context).size.width / 1.68,
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(20),
+// color: ColorManager.blueprime,
+// ),
+// child: Row(
+// mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+// children: _categories
+//     .asMap()
+//     .entries
+//     .map(
+// (entry) => InkWell(
+// splashColor: Colors.transparent,
+// highlightColor: Colors.transparent,
+// hoverColor: Colors.transparent,
+// child: Container(
+// height: AppSize.s32,
+// width: MediaQuery.of(context).size.width / 8.41,
+// padding: EdgeInsets.symmetric(vertical: 3),
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(18),
+// color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+// ? Colors.white : null,
+// ),
+// child: Text(
+// entry.value,
+// textAlign: TextAlign.center,
+// style: TextStyle(
+// fontSize: FontSize.s14,
+// fontWeight: FontWeight.w600,
+// color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+// ? ColorManager.mediumgrey
+//     : ColorManager.white,
+// ),
+// ),
+// ),
+// onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName,widget.imageUrl,widget.departmentId),  //onTap: () => widget.selectButton(entry.key),
+// ),
+// )
+//     .toList(),
+// ),
+// ),
+// ),
+///

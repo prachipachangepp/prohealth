@@ -86,11 +86,11 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                 keyboardType: TextInputType.number,
                 text: 'Id',
               ),
-              if (_idDocError != null)
+             _idDocError != null?
                 Text(
                   _idDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ):SizedBox(height:12),
               SizedBox(
                 height: AppSize.s14,
               ),
@@ -100,11 +100,11 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                 text: 'Name',
 
               ),
-              if (_nameDocError != null)
+             _nameDocError != null?
                 Text(
                   _nameDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ):SizedBox(height: 12,),
               SizedBox(
                 height: AppSize.s13,
               ),
@@ -209,11 +209,11 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                   ],
                 ),
               ),
-              if (_dateDocError != null) // Display error if any
+              _dateDocError != null ? // Display error if any
                 Text(
                   "",
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ):SizedBox(height: 12,),
               // Container(
               //   height: 30,
               //   padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
@@ -329,12 +329,12 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                 // field.didChange(date.toLocal().toString().split(' ')[0]);
                               }
                             },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'please select date';
-                              }
-                              return null;
-                            },
+                            // validator: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return 'please select date';
+                            //   }
+                            //   return null;
+                            // },
                           ),
                         );
                       },
@@ -342,11 +342,12 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                   ],
                 ),
               ),
-              if (_dateDocError != null) // Display error if any
+              _dateDocError != null? // Display error if any
                 Text(
                   _dateDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ):SizedBox(height: 12
+                ,),
             ],
           ),
         ),

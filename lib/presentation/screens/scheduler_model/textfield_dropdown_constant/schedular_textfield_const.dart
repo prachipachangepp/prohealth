@@ -128,7 +128,7 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
                     hintText: widget.hintText,
                     prefixStyle: AllHRTableData.customTextStyle(context),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
+                    contentPadding: EdgeInsets.only(bottom:20, left: AppPadding.p15),
                   ),
                   style: TableSubHeading.customTextStyle(context),
                   //validator: widget.validator,

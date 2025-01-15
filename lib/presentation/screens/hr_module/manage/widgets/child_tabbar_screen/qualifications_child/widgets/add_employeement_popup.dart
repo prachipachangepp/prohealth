@@ -51,13 +51,12 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
   DateTime _selectedStartDate = DateTime.now();
   DateTime _selectedEndDate = DateTime.now();
   bool isLoading = false;
-
-  // Error states
+// Error states
   Map<String, bool> errorStates = {
     'positionTitle': false,
     'leavingReason': false,
     'startDate': false,
-   // 'endDate': false,
+    // 'endDate': false,
     'lastSupervisorName': false,
     'supervisorMobileNumber': false,
     'cityName': false,
@@ -65,6 +64,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     'emergencyMobileNumber': false,
     'countryname': false,
   };
+
 
   @override
   Widget build(BuildContext context) {
@@ -360,14 +360,14 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
             ),
           ],
         ),
-        if (errorStates[errorKey] == true)
+        errorStates[errorKey] == true ?
           Padding(
             padding: EdgeInsets.only(top: 1.0),
             child: Text(
               errorMessage!,
               style: CommonErrorMsg.customTextStyle(context),
             ),
-          ),
+          ) : SizedBox(height: 13,)
       ],
     );
   }

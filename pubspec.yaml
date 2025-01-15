@@ -84,7 +84,7 @@ dependencies:
   geocoding: ^3.0.0
   auto_size_text: any
   calendar_view: ^1.2.0
-  fl_chart: any
+  fl_chart: ^0.70.1
   mime: ^2.0.0
   flutter_masked_text2: ^0.9.1
   intl_phone_number_input: any
@@ -153,11 +153,47 @@ flutter:
   fonts:
     - family: Fira_Sans
       fonts:
+
                - asset: images/fonts/FiraSans_Bold.ttf
                - asset: images/fonts/FiraSans_italic.ttf
                - asset: images/fonts/FiraSans_Medium.ttf
                - asset: images/fonts/FiraSans_Regular.ttf
                - asset: images/fonts/FiraSans_SemiBold.ttf
+               - asset: images/fonts/FiraSans-Black.ttf
+               - asset: images/fonts/FiraSans-BlackItalic.ttf
+               - asset: images/fonts/FiraSans-ExtraBold.ttf
+               - asset: images/fonts/FiraSans-ExtraBoldItalic.ttf
+               - asset: images/fonts/FiraSans-ExtraLight.ttf
+               - asset: images/fonts/FiraSans-ExtraLightItalic.ttf
+               - asset: images/fonts/FiraSans-Light.ttf
+               - asset: images/fonts/FiraSans-LightItalic.ttf
+               - asset: images/fonts/FiraSans-MediumItalic.ttf
+               - asset: images/fonts/FiraSans-SemiBoldItalic.ttf
+               - asset: images/fonts/FiraSans-Thin.ttf
+               - asset: images/fonts/FiraSans-ThinItalic.ttf
+
+
+
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-Black.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-BlackItalic.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-Bold.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-BoldItalic.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-ExtraBold.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-ExtraBoldItalic.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-ExtraLight.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-ExtraLightItalic.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-Italic.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-Light.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-LightItalic.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-Medium.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-MediumItalic.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-Regular.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-SemiBold.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-SemiBoldItalic.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-Thin.ttf
+#                   - asset: assets/fonts/Fira_Sans/FiraSans-ThinItalic.ttf
+#                   - asset: assets/fonts/Fira_Sans/OFL.txt
+
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

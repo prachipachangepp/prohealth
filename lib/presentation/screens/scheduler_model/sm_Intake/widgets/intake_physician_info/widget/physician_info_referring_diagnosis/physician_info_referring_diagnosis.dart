@@ -87,8 +87,8 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
             padding: EdgeInsets.only(left: 29.0, right: 32.0),
             child: Container(
               decoration: BoxDecoration(
-                // border: Border.all(color: ColorManager.containerBorderGrey),
-                // borderRadius: BorderRadius.circular(15.0),
+                border: Border.all(color: ColorManager.containerBorderGrey),
+                borderRadius: BorderRadius.circular(15.0),
                 color: Colors.white,
               ),
               //height: MediaQuery.of(context).size.height / 0.9,
@@ -103,7 +103,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                       padding: const EdgeInsets.only(bottom: 5),
                       child: Text(
                         'Diagnosis Summary',
-                        style: AllPopupHeadings.customTextStyle(context),
+                        style: DocumentTypeDataStyle.customTextStyle(context)
                       ),
                     ),
                     Container(
@@ -707,6 +707,8 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                 controller: comments,
                                 cursorColor: ColorManager.black,
                                 decoration: InputDecoration(
+
+                                  contentPadding: EdgeInsets.only(bottom:20, left: AppPadding.p15),
                                   // labelText: AppString.comment,
                                   // labelStyle: DocumentTypeDataStyle.customTextStyle(context)
                                   border: OutlineInputBorder(

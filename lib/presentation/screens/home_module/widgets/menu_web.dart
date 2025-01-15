@@ -419,9 +419,12 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                                   .width /
                                                   25,
                                             ),
-                                            const ResponsiveContainer(
-                                              'Home Health EMR',
-                                              AssetImage("images/h_h_emr.png"),
+                                            InkWell(
+                                              onTap: (){},
+                                              child: const ResponsiveContainer(
+                                                'Home Health EMR',
+                                                AssetImage("images/h_h_emr.png"),
+                                              ),
                                             ),
                                           ],
                                         ),

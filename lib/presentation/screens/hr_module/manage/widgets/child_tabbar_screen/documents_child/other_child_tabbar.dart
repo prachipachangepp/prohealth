@@ -32,22 +32,13 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
-class OtherChildTabbar extends StatefulWidget {
+class OtherChildTabbar extends StatelessWidget {
   final int employeeId;
   const OtherChildTabbar({super.key, required this.employeeId});
 
   @override
-  State<OtherChildTabbar> createState() => _OtherChildTabbarState();
-}
-
-class _OtherChildTabbarState extends State<OtherChildTabbar> {
-  TextEditingController otherEditIdController = TextEditingController();
-  TextEditingController otherEditNameController = TextEditingController();
-  TextEditingController otherAddIdController = TextEditingController();
-  TextEditingController otherAddNameController = TextEditingController();
-  final StreamController<List<OthersDocModel>> _controller = StreamController<List<OthersDocModel>>();
-  @override
   Widget build(BuildContext context) {
+    final StreamController<List<OthersDocModel>> _controller = StreamController<List<OthersDocModel>>();
     return Column(
       children: [
         Row(
@@ -97,7 +88,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (BuildContext context, snapshot) {
-            getOthersData(context: context, employeeId: widget.employeeId,).then((data) {
+            getOthersData(context: context, employeeId: employeeId,).then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -260,7 +251,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                                       fileName: snapshotPreFill.data!.fileName,
                                                       expDate: snapshotPreFill.data!.expDate,
                                                       documentName: snapshotPreFill.data!.idOfDocument,
-                                                      title: 'Edit Other Document', employeeId: widget.employeeId, otherDocId: others.otherDocId,);
+                                                      title: 'Edit Other Document', employeeId: employeeId, otherDocId: others.otherDocId,);
                                                     // return CustomDocumedEditPopup(
                                                     //   labelName: 'Edit Other Document', employeeId: widget.employeeId, docName: others.DocumentName,
                                                     //   docMetaDataId: others.EmployeeDocumentTypeMetaDataId, docSetupId: others.EmployeeDocumentTypeSetupId, empDocumentId: others.employeeDocumentId,

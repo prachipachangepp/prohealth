@@ -64,23 +64,41 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
   }
 
   String? errorMessage;
-
   void validateAccounts() {
     setState(() {
-      if (accountnumber.text != verifyaccountnumber.text) {
+      // Validate that the account numbers match
+
+      if (accountnumber.text.isEmpty) {
+        _isFormValid = false;
+        _vacError = 'Account number cannot be empty';
+      } else if (verifyaccountnumber.text.isEmpty) {
+        _isFormValid = false;
+        _vacError = 'Please verify your account number';
+      } else if (accountnumber.text != verifyaccountnumber.text) {
+        _isFormValid = false;
         errorMessage = 'Account numbers do not match';
       } else {
         errorMessage = null;
       }
     });
   }
+
+  // void validateAccounts() {
+  //   setState(() {
+  //     if (accountnumber.text != verifyaccountnumber.text) {
+  //       errorMessage = 'Account numbers do not match';
+  //     } else {
+  //       errorMessage = null;
+  //     }
+  //   });
+  // }
   @override
   void initState() {
     super.initState();
     // Add listeners to controllers
     accountnumber.addListener(validateAccounts);
     verifyaccountnumber.addListener(validateAccounts);
-   // _initializeFormWithPrefilledData();
+    // _initializeFormWithPrefilledData();
   }
 
   @override
@@ -98,6 +116,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
   String? _numberError;
   String? _banknameError;
   String? _acError;
+  String? _vacError;
 
   bool _isFormValid = true;
 
@@ -118,8 +137,12 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
       _acError = _validateTextField(accountnumber.text, 'Please Enter Account Number');
       _numberError = _validateTextField(routingnumber.text, 'Please Enter Number');
       _banknameError = _validateTextField(bankname.text, 'Please Enter Bank Name');
-     // _emailError = _validateTextField(widget.email.text, 'Please Enter Email');
+      _vacError = _validateTextField(verifyaccountnumber.text, 'Please Enter Verify Account Number');
       //_ZoneError = _validateTextField(selectedZone!, 'Please Select Zone');
+      // After validating other fields, check account number matching
+      if (_acError == null && _vacError == null) {
+        validateAccounts();
+      }
     });
   }
 
@@ -128,7 +151,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: 455,
+        height: 460,
         width: 800,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -173,8 +196,9 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding:  EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
                   children: [
                     SizedBox(height: AppSize.s20),
@@ -183,7 +207,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                       children: [
                         Text(
                           // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
-                         'Bank',
+                          'Bank',
                           style:TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w600,
@@ -227,172 +251,68 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                     ),
                     SizedBox(height: AppSize.s20),
                     Column(
+
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //  crossAxisAlignment: CrossAxisAlignment.start,
+                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    height: 25,
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: "Type", // Main text
-                                      style: AllPopupHeadings.customTextStyle(context), // Main style
-                                      children: [
-                                        TextSpan(
-                                          text: ' *', // Asterisk
-                                          style: AllPopupHeadings.customTextStyle(context).copyWith(
-                                            color: ColorManager.red, // Asterisk color
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  // Text(
-                                  //   'Type',
-                                  //   style: AllPopupHeadings.customTextStyle(context),
-                                  // ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-
-                                  Row(
-                                    children: [
-                                      CustomRadioListTile(
-                                        title: 'Checking',
-                                        value: 'Checking',
-                                        groupValue: selectedtype,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedtype = value!;
-                                          });
-                                        },
-                                      ),
-                                      CustomRadioListTile(
-                                        title: 'Savings',
-                                        value: 'Savings',
-                                        groupValue: selectedtype,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedtype = value!;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'Routing/Transit Number', // Main text
-                                      style: AllPopupHeadings.customTextStyle(context), // Main style
-                                      children: [
-                                        TextSpan(
-                                          text: ' *', // Asterisk
-                                          style: AllPopupHeadings.customTextStyle(context).copyWith(
-                                            color: ColorManager.red, // Asterisk color
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  // Text(
-                                  //   'Routing/Transit Number',
-                                  //   style:AllPopupHeadings.customTextStyle(context),
-                                  // ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  CustomTextFieldSSn(
-                                    width: 240,
-                                    maxLength: 9,
-                                    controller: routingnumber,
-                                    hintText: 'Enter Number',
-                                   // onChanged: (value){_validateFields();},
-                                    hintStyle:onlyFormDataStyle.customTextStyle(context),
-                                    height: 30,
-                                  ),
-                                  if (_numberError != null) // Display error if any
-                                    Text(
-                                      _numberError!,
-                                      style: CommonErrorMsg.customTextStyle(context),
-                                    ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'Specific Amount', // Main text
-                                      style: AllPopupHeadings.customTextStyle(context), // Main style
-                                      children: [
-                                        TextSpan(
-                                          text: ' *', // Asterisk
-                                          style: AllPopupHeadings.customTextStyle(context).copyWith(
-                                            color: ColorManager.red, // Asterisk color
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  // Text(
-                                  //   'Specific Amount',
-                                  //   style: AllPopupHeadings.customTextStyle(context),
-                                  // ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-
-                                  Row(
-                                    children: [
-                                      //HRMamangeFlowTextfield(
-                                      CustomTextFieldRegister(
-                                        width: 150,
-                                        controller: requestammount,
-                                        prefixText: '\$',
-                                       // onChanged: (value){_validateFields();},
-                                        prefixStyle: onlyFormDataStyle.customTextStyle(context),
-                                        height: 30,
-                                        keyboardType: TextInputType.number,
-                                      ),
-                                      SizedBox(width: 10),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          requestammount.clear();
-                                        },
-                                        child: Text(
-                                          'Reset',
-                                          style: TextStyle(
-                                            fontSize: AppSize.s12,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xFF27A3E0),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(20),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  if (_amountError != null) // Display error if any
-                                    Text(
-                                      _amountError!,
-                                     style: CommonErrorMsg.customTextStyle(context),
-                                    ),
-
-                                ],
-                              ),
+                            SizedBox(
+                              height: 25,
                             ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    text: "Type", // Main text
+                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                    children: [
+                                      TextSpan(
+                                        text: ' *', // Asterisk
+                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                          color: ColorManager.red, // Asterisk color
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Text(
+                                //   'Type',
+                                //   style: AllPopupHeadings.customTextStyle(context),
+                                // ),
+                                SizedBox(
+                                  height: 4,
+                                ),
 
-                            Expanded(child: Column(
+                                Row(
+                                  children: [
+                                    CustomRadioListTile(
+                                      title: 'Checking',
+                                      value: 'Checking',
+                                      groupValue: selectedtype,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedtype = value!;
+                                        });
+                                      },
+                                    ),
+                                    CustomRadioListTile(
+                                      title: 'Savings',
+                                      value: 'Savings',
+                                      groupValue: selectedtype,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedtype = value!;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 RichText(
@@ -444,55 +364,20 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     },
                                   ),
                                 ),
-                                if (_dateError != null) // Display error if any
+                                _dateError != null? // Display error if any
                                   Text(
                                     _dateError!,
                                     style: CommonErrorMsg.customTextStyle(context),
-                                  ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                RichText(
-                                  text: TextSpan(
-                                    text: 'Account Number', // Main text
-                                    style: AllPopupHeadings.customTextStyle(context), // Main style
-                                    children: [
-                                      TextSpan(
-                                        text: ' *', // Asterisk
-                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
-                                          color: ColorManager.red, // Asterisk color
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                // Text(
-                                //   'Account Number ',
-                                //   style: AllPopupHeadings.customTextStyle(context),
-                                // ),
-                                SizedBox(
-                                  height: 4,
-                                ),
-                                CustomTextFieldRegister(
-                                  width: 240,
-                                  controller: accountnumber,
-                                  hintText: 'Enter AC Number',
-                                 // onChanged: (value){_validateFields();},
-                                  hintStyle: onlyFormDataStyle.customTextStyle(context),
-                                  height: 30,
-                                ),
-                                if (_acError != null) // Display error if any
-                                  Text(
-                                    _acError!,
-                                    style: CommonErrorMsg.customTextStyle(context),
-                                  ),
-                                SizedBox(
-                                  height: 40,
-                                )
+                                  ):SizedBox(height: 12,)
                               ],
-                            )),
+                            ),
 
-                            Expanded(child: Column(
+
+                            SizedBox(
+                              width: 8,
+                            ),
+
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 RichText(
@@ -524,14 +409,105 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   hintStyle:onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
-                                if (_banknameError != null) // Display error if any
+                                _banknameError != null? // Display error if any
                                   Text(
                                     _banknameError!,
                                     style: CommonErrorMsg.customTextStyle(context),
+                                  ):SizedBox(height: 12,),
+                              ],
+                            ),
+
+
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'Routing/Transit Number', // Main text
+                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                    children: [
+                                      TextSpan(
+                                        text: ' *', // Asterisk
+                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                          color: ColorManager.red, // Asterisk color
+                                        ),
+                                      ),
+                                    ],
                                   ),
+                                ),
+                                // Text(
+                                //   'Routing/Transit Number',
+                                //   style:AllPopupHeadings.customTextStyle(context),
+                                // ),
                                 SizedBox(
+                                  height: 4,
+                                ),
+                                CustomTextFieldSSn(
+                                  width: 240,
+                                  maxLength: 9,
+                                  controller: routingnumber,
+                                  hintText: 'Enter Number',
+                                  // onChanged: (value){_validateFields();},
+                                  hintStyle:onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
+                                _numberError != null? // Display error if any
+                                  Text(
+                                    _numberError!,
+                                    style: CommonErrorMsg.customTextStyle(context),
+                                  ):SizedBox(height:12),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'Account Number', // Main text
+                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                    children: [
+                                      TextSpan(
+                                        text: ' *', // Asterisk
+                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                          color: ColorManager.red, // Asterisk color
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Text(
+                                //   'Account Number ',
+                                //   style: AllPopupHeadings.customTextStyle(context),
+                                // ),
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                CustomTextFieldRegister(
+                                  width: 240,
+                                  controller: accountnumber,
+                                  hintText: 'Enter AC Number',
+                                  // onChanged: (value){_validateFields();},
+                                  hintStyle: onlyFormDataStyle.customTextStyle(context),
+                                  height: 30,
+                                ),
+                                _acError != null? // Display error if any
+                                  Text(
+                                    _acError!,
+                                    style: CommonErrorMsg.customTextStyle(context),
+                                  ):SizedBox(height:12),
+                              ],
+                            ),
+
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                                 RichText(
                                   text: TextSpan(
                                     text:'Verify Account Number', // Main text
@@ -562,20 +538,101 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   hintStyle: onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
-                                if (errorMessage != null)
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                      errorMessage!,
-                                      style: CommonErrorMsg.customTextStyle(context),
-                                    ),
-                                  ),
-                                SizedBox(
-                                  height: 40,
-                                )
+                                // Display error message if account number or verify account number is empty or don't match
+                                _acError != null || errorMessage != null?
+                                  Text(
+                                    _acError ?? errorMessage!,
+                                    style: CommonErrorMsg.customTextStyle(context),
+                                  ):SizedBox(height:12),
+                                // if (errorMessage != null)
+                                //   Text(
+                                //     errorMessage!,
+                                //     style: CommonErrorMsg.customTextStyle(context),
+                                //   ),
                               ],
-                            )),
+                            ),
 
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'Specific Amount', // Main text
+                                    style: AllPopupHeadings.customTextStyle(context), // Main style
+                                    children: [
+                                      TextSpan(
+                                        text: ' *', // Asterisk
+                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                          color: ColorManager.red, // Asterisk color
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Text(
+                                //   'Specific Amount',
+                                //   style: AllPopupHeadings.customTextStyle(context),
+                                // ),
+                                SizedBox(
+                                  height: 4,
+                                ),
+
+                                Row(
+                                  children: [
+                                    //HRMamangeFlowTextfield(
+                                    CustomTextFieldRegister(
+                                      width: 150,
+                                      controller: requestammount,
+                                      prefixText: '\$',
+                                      // onChanged: (value){_validateFields();},
+                                      prefixStyle: onlyFormDataStyle.customTextStyle(context),
+                                      height: 30,
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                    SizedBox(width: 10),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        requestammount.clear();
+                                      },
+                                      child: Text(
+                                        'Reset',
+                                        style: TextStyle(
+                                          fontSize: AppSize.s12,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Color(0xFF27A3E0),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                               _amountError != null? // Display error if any
+                                  Text(
+                                    _amountError!,
+                                    style: CommonErrorMsg.customTextStyle(context),
+                                  ):SizedBox(height:12),
+                              ],
+                            ),
+
+                            // SizedBox(
+                            //   height: 30,
+                            // ),
+                            //
+                            // SizedBox(
+                            //   height: 40,
+                            // )
                           ],
                         ),
                       ],
@@ -609,58 +666,58 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                               color: ColorManager.blueprime,
                             ))
                             : CustomElevatedButton(
-                              width: 100,
-                              text: "Save",
-                              onPressed: ()async {
-                                _validateFields();
-                                if (_isFormValid) {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  var response = await addNewEmployeeBanking(
-                                      context: context,
-                                      employeeId: widget.employeeID,
-                                      accountNumber: accountnumber.text,
-                                      bankName: bankname.text,
-                                      amountRequested: int.parse(requestammount.text),
-                                      checkUrl: '--',
-                                      effectiveDate: effectivecontroller.text,
-                                      routingNumber: routingnumber.text,
-                                      percentage: '',
-                                      type: selectedtype.toString()
+                            width: 100,
+                            text: "Save",
+                            onPressed: ()async {
+                              _validateFields();
+                              if (_isFormValid) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                var response = await addNewEmployeeBanking(
+                                    context: context,
+                                    employeeId: widget.employeeID,
+                                    accountNumber: accountnumber.text,
+                                    bankName: bankname.text,
+                                    amountRequested: int.parse(requestammount.text),
+                                    checkUrl: '--',
+                                    effectiveDate: effectivecontroller.text,
+                                    routingNumber: routingnumber.text,
+                                    percentage: '',
+                                    type: selectedtype.toString()
+                                );
+                                // var responseBank = await approveBankPatch(context,response.banckingId!);
+                                await uploadBanckingDocument(
+                                    context, response.banckingId!, pickedFile);
+                                // Navigator.pop(context);
+                                if (response.statusCode == 200 || response.statusCode == 201) {
+                                  Navigator.pop(context);
+                                  await showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AddSuccessPopup(message: 'Banking Added Successfully',
+                                      );
+                                    },
                                   );
-                                 // var responseBank = await approveBankPatch(context,response.banckingId!);
-                                  await uploadBanckingDocument(
-                                      context, response.banckingId!, pickedFile);
-                                 // Navigator.pop(context);
-                                  if (response.statusCode == 200 || response.statusCode == 201) {
-                                      Navigator.pop(context);
-                                    await showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AddSuccessPopup(message: 'Banking Added Successfully',
-                                        );
-                                      },
-                                    );
-                                  }else if(response.statusCode == 400 || response.statusCode == 404){
+                                }else if(response.statusCode == 400 || response.statusCode == 404){
                                   //  await  Navigator.pop(context);
-                                    await  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) => const FourNotFourPopup(),
-                                    );
-                                  }
-                                  else {
-                                    await  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) => FailedPopup(text: response.message),
-                                    );
-                                  }
-                                  setState(() {
-                                    isLoading = false;
-                                  });
+                                  await  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => const FourNotFourPopup(),
+                                  );
                                 }
+                                else {
+                                  await  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => FailedPopup(text: response.message),
+                                  );
+                                }
+                                setState(() {
+                                  isLoading = false;
+                                });
                               }
-                            ),
+                            }
+                        ),
 
                       ],
                     )
@@ -717,24 +774,24 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   final _typeFieldKey = GlobalKey<FormFieldState<String>>();
   String? pickedFileName;
   dynamic pickedFile;
- // Map<String, bool> errorStates = {
- //    'name': false,
- //    'email': false,
- bool   rnumber = false;
-      bool eDate = false;
-    bool bankname = false;
+  // Map<String, bool> errorStates = {
+  //    'name': false,
+  //    'email': false,
+  bool   rnumber = false;
+  bool eDate = false;
+  bool bankname = false;
   bool sac= false;
-   bool ac= false;
-    bool vac= false;
- // };
+  bool ac= false;
+  bool vac= false;
+  // };
 
   String?  errorKey;
   String gropvalue ='';
 
-@override
+  @override
   void initState() {
     // TODO: implement initState
-  gropvalue =widget.selectedType!;
+    gropvalue =widget.selectedType!;
     super.initState();
   }
   @override
@@ -759,14 +816,14 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
               children: [
                 _buildHeaderWithUpload(),
                 SizedBox(height: MediaQuery.of(context).size.height / 30),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Column(
+                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _buildFirstColumn()),
-                    SizedBox(width: 20),
-                    Expanded(child: _buildSecondColumn()),
-                    SizedBox(width: 20),
-                    Expanded(child: _buildThirdColumn()),
+                    _buildFirstColumn(),
+                    SizedBox(height: 20),
+                    _buildSecondColumn(),
+                    SizedBox(height: 20),
+                    _buildThirdColumn(),
                   ],
                 ),
               ],
@@ -813,8 +870,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-         // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
-         'Bank',
+          // widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
+          'Bank',
           style:TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.w600,
@@ -878,156 +935,122 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   }
 
   Widget _buildFirstColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text(
-          'Type',
-          style: AllPopupHeadings.customTextStyle(context),
-        ),
-        FormField<String>(
-          key: _typeFieldKey,
-          initialValue: widget.selectedType,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select an account type';
-            }
-            return null;
-          },
-          builder: (state) {
-            print("IIII:::::${ gropvalue}");
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Type',
+              style: AllPopupHeadings.customTextStyle(context),
+            ),
+            FormField<String>(
+              key: _typeFieldKey,
+              initialValue: widget.selectedType,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please select an account type';
+                }
+                return null;
+              },
+              builder: (state) {
+                print("IIII:::::${ gropvalue}");
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Radio(
-                      value: 'Checking',
-                      groupValue: gropvalue,
-                      onChanged: (value) {
-                        setState(() {
-                          gropvalue = value.toString();
-                          _typeFieldKey.currentState
-                              ?.didChange(value.toString());
-                        });
-                      },
-                    ),
-                    Text(
-                      'Checking',
-                      style: TextStyle(
-                          fontSize: AppSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black),
-                    ),
-                    SizedBox(width: 5,),
-                    Radio(
-                      value: 'Savings',
-                      groupValue: gropvalue,
-                      onChanged: (value) {
-                        setState(() {
-                          gropvalue = value.toString();
-                          _typeFieldKey.currentState
-                              ?.didChange(value.toString());
-                        });
-                      },
-                    ),
+                    Container(width: 260,
 
-                    Text(
-                      'Savings',
-                      style: TextStyle(
-                          fontSize: AppSize.s12,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black),
-                    ),
-                  ],
-                ),
-                // Row(
-                //   children: [
-                //     CustomRadioListTile(
-                //       title: 'Checking',
-                //       value: 'Checking',
-                //       groupValue: widget.selectedType,
-                //       onChanged: (value) {
-                //         setState(() {
-                //           widget.selectedType = value;
-                //         });
-                //       },
-                //     ),
-                //     CustomRadioListTile(
-                //       title: 'Savings',
-                //       value: 'Savings',
-                //       groupValue: widget.selectedType,
-                //       onChanged: (value) {
-                //         setState(() {
-                //           widget.selectedType = value;
-                //         });
-                //       },
-                //     ),
-                //   ],
-                // ),
-                if (state.hasError)
-                  Padding(
-                    padding: const EdgeInsets.only(top:1),
-                    child: Text(
-                      state.errorText!,
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 12,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Radio(
+                                value: 'Checking',
+                                groupValue: gropvalue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    gropvalue = value.toString();
+                                    _typeFieldKey.currentState
+                                        ?.didChange(value.toString());
+                                  });
+                                },
+                              ),
+                              Text(
+                                'Checking',
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                              ),
+                            ],
+                          ),
+                          // SizedBox(width: 8,),
+                          Row(
+                            children: [
+                              Radio(
+                                value: 'Savings',
+                                groupValue: gropvalue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    gropvalue = value.toString();
+                                    _typeFieldKey.currentState
+                                        ?.didChange(value.toString());
+                                  });
+                                },
+                              ),
+
+                              Text(
+                                'Savings',
+                                style: DocumentTypeDataStyle.customTextStyle(context),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-              ],
-            );
-          },
-        ),
-         SizedBox(height: MediaQuery.of(context).size.height / 20),
-        _buildTextField(
-            capitalIsSelect:false,
-          controller:widget.routingNumberController,
-          labelText: 'Routing Number/ Transit Number',
-          errorText: rnumber?"Please Enter Routing Number" : null, ),
-          SizedBox(height: MediaQuery.of(context).size.height / 30),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(
-              child: _buildTextField(
-                capitalIsSelect:false,
-                  prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
-                errorText: sac?"Please Enter Specific Amount" : null,
-              ),
-            ),
-            SizedBox(width: 10),
-            ElevatedButton(
-              onPressed: () {
-                widget.specificAmountController.clear();
+                    // Row(
+                    //   children: [
+                    //     CustomRadioListTile(
+                    //       title: 'Checking',
+                    //       value: 'Checking',
+                    //       groupValue: widget.selectedType,
+                    //       onChanged: (value) {
+                    //         setState(() {
+                    //           widget.selectedType = value;
+                    //         });
+                    //       },
+                    //     ),
+                    //     CustomRadioListTile(
+                    //       title: 'Savings',
+                    //       value: 'Savings',
+                    //       groupValue: widget.selectedType,
+                    //       onChanged: (value) {
+                    //         setState(() {
+                    //           widget.selectedType = value;
+                    //         });
+                    //       },
+                    //     ),
+                    //   ],
+                    // ),
+                    if (state.hasError)
+                      Padding(
+                        padding: const EdgeInsets.only(top:1),
+                        child: Text(
+                          state.errorText!,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                  ],
+                );
               },
-              child: Text(
-                'Reset',
-                style: TextStyle(
-                  fontSize: AppSize.s12,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF27A3E0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
             ),
           ],
         ),
-      ],
-    );
-  }
-
-  Widget _buildSecondColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+        SizedBox(width: MediaQuery.of(context).size.width / 50),
         _buildTextField(
           capitalIsSelect:false,
           errorText: eDate?"Please Enter Effective Date" : null,
@@ -1043,8 +1066,44 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             onPressed: _selectDate,
           ), controller:  widget.effectiveDateController, labelText: 'Effective Date',
         ),
-        SizedBox(height: MediaQuery.of(context).size.height / 22),
-        _buildTextField(capitalIsSelect:false, controller:widget.accountNumberController, labelText: 'Account Number' , errorText: ac?"Please Enter Account Number" : null,),
+        SizedBox(width: MediaQuery.of(context).size.width / 50),
+        _buildTextField(
+          controller: widget.bankNameController,
+          labelText: 'Bank Name',
+          capitalIsSelect: true,
+          errorText: bankname ? "Please Enter Bank Name" : null,
+        ),
+        //SizedBox(height: MediaQuery.of(context).size.height / 20),
+
+        // SizedBox(height: MediaQuery.of(context).size.height / 30),
+      ],
+    );
+  }
+
+  Widget _buildSecondColumn() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+
+        _buildTextField(
+          capitalIsSelect:false,
+          controller:widget.routingNumberController,
+          labelText: 'Routing Number/ Transit Number',
+          errorText: rnumber?"Please Enter Routing Number" : null, ),
+        SizedBox(width: MediaQuery.of(context).size.width / 50),
+        _buildTextField(
+          capitalIsSelect:false,
+          controller:widget.accountNumberController,
+          labelText: 'Account Number' ,
+          errorText: ac?"Please Enter Account Number" : null,),
+        SizedBox(width: MediaQuery.of(context).size.width / 50),
+        _buildTextField(
+          capitalIsSelect: false,
+          controller: widget.verifyAccountController,
+          labelText: 'Verify Account Number',
+          errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
+        ),
       ],
     );
   }
@@ -1058,7 +1117,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     );
     if (pickedDate != null) {
       widget.effectiveDateController.text =
-          "${pickedDate.toLocal()}".split(' ')[0];
+      "${pickedDate.toLocal()}".split(' ')[0];
     }
   }
 
@@ -1070,7 +1129,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     Widget? suffixIcon,
     String? prefixText,
     required bool capitalIsSelect,
-    VoidCallback? onTap,
+    VoidCallback? onTap,double? width,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1095,6 +1154,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           capitalIsSelect: capitalIsSelect,
           phoneNumberField:false, // Specify if this is the phone field
           height: AppSize.s30,
+          // width:250 ,
+          width: width ?? 260,
           controller: controller,
 
           keyboardType: labelText == "Phone" ? TextInputType.phone : TextInputType.text,
@@ -1120,19 +1181,19 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             return null;
           },
         ),
-        if (errorText != null)
+        errorText != null?
           Padding(
             padding: EdgeInsets.only(top: 1),
             child: Text(
               errorText,
               style: CommonErrorMsg.customTextStyle(context),
             ),
-          ),
+          ):SizedBox(height: 13,)
       ],
     );
   }
 
- String? errorVerifyAccountMessage = "Account Number does not match";
+  String? errorVerifyAccountMessage = "Account Number does not match";
   void _handleSave() async {
     setState(() {
       isLoading = true;
@@ -1182,22 +1243,56 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   }
 
   Widget _buildThirdColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTextField(
-          controller: widget.bankNameController,
-          labelText: 'Bank Name',
-          capitalIsSelect: true,
-          errorText: bankname ? "Please Enter Bank Name" : null,
+
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            _buildTextField(
+                capitalIsSelect:false,
+                prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
+                errorText: sac?"Please Enter Specific Amount" : null,
+                width: 150
+            ),
+            SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: () {
+                widget.specificAmountController.clear();
+              },
+              child: Text(
+                'Reset',
+                style: TextStyle(
+                  fontSize: AppSize.s12,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF27A3E0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+          ],
         ),
-        SizedBox(height: MediaQuery.of(context).size.height / 22),
-        _buildTextField(
-          capitalIsSelect: false,
-          controller: widget.verifyAccountController,
-          labelText: 'Verify Account Number',
-          errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
-        ),
+
+        // _buildTextField(
+        //   controller: widget.bankNameController,
+        //   labelText: 'Bank Name',
+        //   capitalIsSelect: true,
+        //   errorText: bankname ? "Please Enter Bank Name" : null,
+        // ),
+        // SizedBox(height: MediaQuery.of(context).size.height / 22),
+        //  _buildTextField(
+        //    capitalIsSelect: false,
+        //    controller: widget.verifyAccountController,
+        //    labelText: 'Verify Account Number',
+        //    errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
+        //  ),
       ],
     );
   }

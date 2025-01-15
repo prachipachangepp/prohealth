@@ -111,7 +111,7 @@ class _HrWidgetState extends State<HrWidget> {
   }
   void _saveColor(int index, Color color) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('containerColor$index', color.value);
+    await prefs.setInt('containerColor$index', color.r.toInt());
   }
   var deptId = 0;
   int docDeptId = 0;

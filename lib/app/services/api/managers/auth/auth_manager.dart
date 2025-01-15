@@ -189,7 +189,8 @@ class AuthManager {
 
   /// Authentication on reguster screen HR
   static Future <ApiDataRegister> verifyOTPAndRegister(
-      {required String email,
+      {
+        required String email,
         required String otp,
         required BuildContext context}) async {
     try {

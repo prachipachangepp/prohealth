@@ -131,15 +131,17 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomIconButtonConst(
-
-                  // paddingVertical: 1,
-                  // borderRadius: 12,
-                  text: AppStringEM.whitelabelling,
-                  //style: PopupBlueBarText.customTextStyle(context),
-                  width: AppSize.s150,
-                  // height: 26,
-                  onPressed: showWhitelabellingScreenFunction,
+                Container(
+                  height: 40,
+                  child: CustomIconButtonConst(
+                    // paddingVertical: 1,
+                    // borderRadius: 12,
+                    text: AppStringEM.whitelabelling,
+                    //style: PopupBlueBarText.customTextStyle(context),
+                    width: AppSize.s160,
+                    // height: 26,
+                    onPressed: showWhitelabellingScreenFunction,
+                  ),
                 ),
                 SizedBox(
                   width: AppSize.s10,

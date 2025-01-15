@@ -48,39 +48,19 @@ class HRDocAckStyle {
   }
 }
 
-class AcknowledgementsChildBar extends StatefulWidget {
+class AcknowledgementsChildBar extends StatelessWidget {
   final int employeeId;
   final String? fileUrl;
   final String? fileExtension;
-  const AcknowledgementsChildBar(
+   AcknowledgementsChildBar(
       {super.key, required this.employeeId, this.fileUrl, this.fileExtension});
 
   @override
-  State<AcknowledgementsChildBar> createState() =>
-      _AcknowledgementsChildBarState();
-}
-
-class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
-  final StreamController<List<OnboardingAckHealthData>> _controller =
-      StreamController<List<OnboardingAckHealthData>>();
-  TextEditingController acknowldgementNameController = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-    getAckHealthRecord(
-            context, AppConfig.acknowledgementDocId, widget.employeeId, "no")
-        .then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
-  }
-
-  
-
-  bool _isLoading = false;
-  @override
   Widget build(BuildContext context) {
+    bool _isLoading = false;
+    final StreamController<List<OnboardingAckHealthData>> _controller =
+    StreamController<List<OnboardingAckHealthData>>();
+    TextEditingController acknowldgementNameController = TextEditingController();
     //print('Employee Id in documents :: ${controller.employeeId}');
     return Column(
       children: [
@@ -109,7 +89,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                 if (snapshot.hasData) {
                                   return AcknowledgementAddPopup(
                                     title: 'Add Acknowledgement',
-                                    employeeId: widget.employeeId,
+                                    employeeId: employeeId,
                                     // docTypeMetaIdCC: 10,
                                     // selectedSubDocId: 48,
                                     dataList: snapshot.data!,
@@ -133,7 +113,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
             stream: _controller.stream,
             builder: (context, snapshot) {
               getAckHealthRecord(context, AppConfig.acknowledgementDocId,
-                      widget.employeeId, 'no')
+                      employeeId, 'no')
                   .then((data) {
                 _controller.add(data);
               }).catchError((error) {
@@ -461,7 +441,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                                         labelName:
                                                             'Edit Acknowledgement',
                                                         employeeId:
-                                                            widget.employeeId,
+                                                            employeeId,
                                                         docName: ackData
                                                             .DocumentName,
                                                         docMetaDataId: ackData
@@ -573,13 +553,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
       ],
     );
   }
-
-  @override
-  void dispose() {
-    _controller.close();
-    super.dispose();
-  }
 }
+
 // Function to handle printing
 void printFile(String url) {
   // Create an IFrameElement to load the PDF
