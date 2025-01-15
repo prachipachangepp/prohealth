@@ -1310,7 +1310,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                               fontWeight: FontWeight.w700,
                                               color: ColorManager.bluebottom,),
                                           ),
-                                          SizedBox(width: 90,),
+                                          SizedBox(width: 100,),
                                           Text(
                                             "Youngest",
                                             textAlign: TextAlign.center,

@@ -12,6 +12,7 @@ import '../../../../app/resources/provider/navigation_provider.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../hr_module/hr_home_screen/desk_dashboard_hrm.dart';
+import '../../oasis_module/widgets/home_screen/responsive_screen_oasis.dart';
 
 class HomeScreenTab extends StatelessWidget {
   const HomeScreenTab({super.key});
@@ -247,10 +248,28 @@ class HomeScreenTab extends StatelessWidget {
                                                     .width /
                                                 25,
                                           ),
-                                          TabMenuConst(
-                                            text: 'Home Health EMR',
-                                            imageProvider: AssetImage(
-                                                "images/h_h_emr.png"),
+                                          InkWell(
+                                            onTap: () {
+                                              // Provider.of<RouteProvider>(
+                                              //     context,
+                                              //     listen: false)
+                                              //     .setRoute(
+                                              //     RouteStrings.EMRDesktop);
+                                              //
+                                              // // Navigate to the detail page
+                                              // Navigator.pushNamed(context,
+                                              //     RouteStrings.EMRDesktop);
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          OasisScreenEMR()));
+                                            },
+                                            child: TabMenuConst(
+                                              text: 'Home Health EMR',
+                                              imageProvider: AssetImage(
+                                                  "images/h_h_emr.png"),
+                                            ),
                                           ),
                                           SizedBox(
                                             width: MediaQuery.of(context)
