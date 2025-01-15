@@ -548,9 +548,7 @@ class SeeAllScreen extends StatelessWidget {
                                                     //   },
                                                     // ),
                                                     ///
-                                                    if (seeAllProviderState
-                                                            .userLogin !=
-                                                        user.email)
+                                                    if (seeAllProviderState.userLogin != user.email)
                                                       InkWell(
                                                         child: Container(
                                                           height: MediaQuery.of(

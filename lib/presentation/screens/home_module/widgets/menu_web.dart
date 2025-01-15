@@ -22,6 +22,7 @@ import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/widgets/login_screen/widgets/child_container_constant_login.dart';
 import '../../hr_module/manage/widgets/bottom_row.dart';
+import '../../oasis_module/widgets/home_screen/responsive_screen_oasis.dart';
 import '../../scheduler_model/widgets/responsive_screen_sm.dart';
 
 class HomeScreenWeb extends StatefulWidget {
@@ -420,7 +421,23 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                                                   25,
                                             ),
                                             InkWell(
-                                              onTap: (){},
+                                              onTap: () {
+
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            OasisScreenEMR()));
+                                                // Provider.of<RouteProvider>(
+                                                //     context,
+                                                //     listen: false)
+                                                //     .setRoute(
+                                                //     RouteStrings.EMRDesktop);
+                                                //
+                                                // // Navigate to the detail page
+                                                // Navigator.pushNamed(context,
+                                                //     RouteStrings.EMRDesktop);
+                                              },
                                               child: const ResponsiveContainer(
                                                 'Home Health EMR',
                                                 AssetImage("images/h_h_emr.png"),
