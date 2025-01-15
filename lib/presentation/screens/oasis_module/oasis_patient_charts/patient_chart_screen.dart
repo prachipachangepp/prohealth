@@ -326,7 +326,7 @@ void onPageChanged(int index) {
                               curve: Curves.ease);
                           _saveIndex(3);
                           onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Neurological/Cognitive', isSelected: myController.selectedIndex.value == 3,),
+                          pgeControllerId = 3;  },  text: 'Neurological/Cognitive', isSelected: myController.selectedIndex.value == 3,),
                         SizedBox(height: 5,),
                         CustomTitleButtonoasis( height: 30,
                           width: 100, onPressed: () { setState(() {});
