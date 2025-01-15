@@ -8,6 +8,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 
 
@@ -30,10 +31,13 @@ class SeeAllProvider with ChangeNotifier {
   int _currentPage = 1;
   int _itemsPerPage = 10;
 
+  String? userLogin;
+
   /// Fetch user data
   Future<void> fetchUser(BuildContext context) async {
     try {
       List<UserModal> fetchedUsers = await getUser(context);
+      userLogin = await TokenManager.getEmail();
       _allUsers = fetchedUsers;
       _companyUsersList.add(_allUsers);
       notifyListeners();

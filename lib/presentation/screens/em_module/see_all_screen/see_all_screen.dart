@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -107,6 +108,7 @@ class SeeAllScreen extends StatelessWidget {
                 ],
               ),
             ),
+
             ///
             SizedBox(height: 10),
             Column(
@@ -170,7 +172,6 @@ class SeeAllScreen extends StatelessWidget {
                             style: TableHeading.customTextStyle(context),
                           ),
                         ),
-
                         Expanded(
                           flex: 2,
                           child: Padding(
@@ -206,7 +207,6 @@ class SeeAllScreen extends StatelessWidget {
               ],
             ),
 
-
             ///stream builder used
             Expanded(
               child: Consumer<SeeAllProvider>(
@@ -214,8 +214,6 @@ class SeeAllScreen extends StatelessWidget {
                   return StreamBuilder<List<UserModal>>(
                     stream: seeAllProviderState.userStream,
                     builder: (context, snapshot) {
-
-
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());
                       }
@@ -258,6 +256,9 @@ class SeeAllScreen extends StatelessWidget {
 
                                   UserModal user = paginatedData[index];
 
+                                  // Fetch logged-in user's email
+                                  // String? userLogin = Provider.of<AuthProvider>(context, listen: false).userEmail;
+
                                   return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -270,20 +271,21 @@ class SeeAllScreen extends StatelessWidget {
                                             color: Colors.white,
                                             borderRadius:
                                                 BorderRadius.circular(4),
-                                              boxShadow: [
-
-                                                ///
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 2),
-                                        ),
-                                        BoxShadow(
-                                          color: Colors.blue.withOpacity(0.5),
-                                          offset: Offset(-4, 0),
-                                        ),
-                                      ],
+                                            boxShadow: [
+                                              ///
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 1,
+                                                blurRadius: 4,
+                                                offset: Offset(0, 2),
+                                              ),
+                                              BoxShadow(
+                                                color: Colors.blue
+                                                    .withOpacity(0.5),
+                                                offset: Offset(-4, 0),
+                                              ),
+                                            ],
                                           ),
                                           height: 56,
                                           child: Padding(
@@ -306,7 +308,10 @@ class SeeAllScreen extends StatelessWidget {
                                                     Expanded(
                                                         flex: 1,
                                                         child: Padding(
-                                                          padding: const EdgeInsets.only(left: 40),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  left: 40),
                                                           child: Text(
                                                             user.userId
                                                                 .toString(),
@@ -331,8 +336,8 @@ class SeeAllScreen extends StatelessWidget {
                                                         flex: 1,
                                                         child: Text(
                                                           user.lastName,
-                                                          textAlign: TextAlign
-                                                              .start,
+                                                          textAlign:
+                                                              TextAlign.start,
                                                           style: TableSubHeading
                                                               .customTextStyle(
                                                                   context),
@@ -341,8 +346,8 @@ class SeeAllScreen extends StatelessWidget {
                                                         flex: 1,
                                                         child: Text(
                                                           user.role,
-                                                          textAlign: TextAlign
-                                                              .start,
+                                                          textAlign:
+                                                              TextAlign.start,
                                                           style: TableSubHeading
                                                               .customTextStyle(
                                                                   context),
@@ -402,7 +407,6 @@ class SeeAllScreen extends StatelessWidget {
                                                                 context,
                                                                 listen: false);
 
-
                                                         await editUserProvider
                                                             .fetchPrefillData(
                                                                 context,
@@ -411,17 +415,16 @@ class SeeAllScreen extends StatelessWidget {
                                                         if (editUserProvider
                                                                 .prefillData !=
                                                             null) {
-
                                                           showDialog(
                                                             context: context,
                                                             builder:
                                                                 (BuildContext
                                                                     context) {
                                                               return EditUserPopUp(
-                                                                title:
-                                                                AppString.editProfile,
-                                                                deptName:
-                                                                    AppString.selectDept,
+                                                                title: AppString
+                                                                    .editProfile,
+                                                                deptName: AppString
+                                                                    .selectDept,
                                                                 userId:
                                                                     user.userId,
                                                                 firstname:
@@ -454,96 +457,213 @@ class SeeAllScreen extends StatelessWidget {
 
                                                     SizedBox(
                                                         width: AppSize.s10),
-                                                    InkWell(
-                                                      child: Container(
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height /
-                                                            30,
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            25,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          border: Border.all(
-                                                              color: ColorManager
-                                                                  .bluebottom),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            AppString.delete,
-                                                            style: TextStyle(
-                                                              fontSize:
-                                                                  FontSize.s12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color: ColorManager
-                                                                  .mediumgrey,
+                                                    // InkWell(
+                                                    //   child: Container(
+                                                    //     height: MediaQuery.of(
+                                                    //                 context)
+                                                    //             .size
+                                                    //             .height /
+                                                    //         30,
+                                                    //     width: MediaQuery.of(
+                                                    //                 context)
+                                                    //             .size
+                                                    //             .width /
+                                                    //         25,
+                                                    //     decoration:
+                                                    //         BoxDecoration(
+                                                    //       borderRadius:
+                                                    //           BorderRadius
+                                                    //               .circular(10),
+                                                    //       border: Border.all(
+                                                    //           color: ColorManager
+                                                    //               .bluebottom),
+                                                    //     ),
+                                                    //     child: Center(
+                                                    //       child: Text(
+                                                    //         AppString.delete,
+                                                    //         style: TextStyle(
+                                                    //           fontSize:
+                                                    //               FontSize.s12,
+                                                    //           fontWeight:
+                                                    //               FontWeight
+                                                    //                   .w500,
+                                                    //           color: ColorManager
+                                                    //               .mediumgrey,
+                                                    //         ),
+                                                    //       ),
+                                                    //     ),
+                                                    //   ),
+                                                    //   onTap: () async {
+                                                    //     bool? isConfirmed =
+                                                    //         await showDialog<
+                                                    //             bool>(
+                                                    //       context: context,
+                                                    //       builder: (BuildContext
+                                                    //           context) {
+                                                    //         return DeleteConfirmationPopup(
+                                                    //           title:
+                                                    //               AppString.deleteUser,
+                                                    //           onConfirmed:
+                                                    //               () async {
+                                                    //
+                                                    //             await seeAllProviderState
+                                                    //                 .deleteUser(
+                                                    //                     context,
+                                                    //                     user.userId
+                                                    //                         .toString());
+                                                    //
+                                                    //             await seeAllProviderState
+                                                    //                 .fetchUser(
+                                                    //                     context);
+                                                    //
+                                                    //
+                                                    //             Navigator.of(
+                                                    //                     context)
+                                                    //                 .pop(
+                                                    //                     true);
+                                                    //             showDialog(
+                                                    //               context:
+                                                    //                   context,
+                                                    //               builder:
+                                                    //                   (BuildContext
+                                                    //                       context) {
+                                                    //                 return SuccessUserPopup(
+                                                    //                     message: AppString.userDeletedsucc);
+                                                    //                 /// Close the popup after 0.5 seconds
+                                                    //
+                                                    //               },
+                                                    //             );
+                                                    //             Future.delayed(Duration(milliseconds: 100), () {
+                                                    //               Navigator.of(context).pop();
+                                                    //             });
+                                                    //           },
+                                                    //         );
+                                                    //       },
+                                                    //     );
+                                                    //
+                                                    //     if (isConfirmed ==
+                                                    //         true) {
+                                                    //       print("User deletion confirmed and completed.");
+                                                    //     }
+                                                    //   },
+                                                    // ),
+                                                    ///
+                                                    if (seeAllProviderState
+                                                            .userLogin !=
+                                                        user.email)
+                                                      InkWell(
+                                                        child: Container(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height /
+                                                              30,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              25,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            border: Border.all(
+                                                                color: ColorManager
+                                                                    .bluebottom),
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              AppString.delete,
+                                                              style: TextStyle(
+                                                                fontSize:
+                                                                    FontSize
+                                                                        .s12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: ColorManager
+                                                                    .mediumgrey,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      onTap: () async {
-                                                        bool? isConfirmed =
-                                                            await showDialog<
-                                                                bool>(
-                                                          context: context,
-                                                          builder: (BuildContext
-                                                              context) {
-                                                            return DeleteConfirmationPopup(
-                                                              title:
-                                                                  AppString.deleteUser,
-                                                              onConfirmed:
-                                                                  () async {
+                                                        onTap: () async {
+                                                          bool? isConfirmed =
+                                                              await showDialog<
+                                                                  bool>(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return DeleteConfirmationPopup(
+                                                                title: AppString
+                                                                    .deleteUser,
+                                                                onConfirmed:
+                                                                    () async {
+                                                                  await seeAllProviderState
+                                                                      .deleteUser(
+                                                                    context,
+                                                                    user.userId
+                                                                        .toString(),
+                                                                  );
 
-                                                                await seeAllProviderState
-                                                                    .deleteUser(
+                                                                  await seeAllProviderState
+                                                                      .fetchUser(
+                                                                          context);
+
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(
+                                                                          true);
+                                                                  showDialog(
+                                                                    context:
                                                                         context,
-                                                                        user.userId
-                                                                            .toString());
+                                                                    builder:
+                                                                        (BuildContext
+                                                                            context) {
+                                                                      return SuccessUserPopup(
+                                                                        message:
+                                                                            AppString.userDeletedsucc,
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                  Future.delayed(
+                                                                      Duration(
+                                                                          milliseconds:
+                                                                              100),
+                                                                      () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  });
+                                                                },
+                                                              );
+                                                            },
+                                                          );
 
-                                                                await seeAllProviderState
-                                                                    .fetchUser(
-                                                                        context);
+                                                          if (isConfirmed ==
+                                                              true) {
+                                                            print(
+                                                                "User deletion confirmed and completed.");
+                                                          }
+                                                        },
+                                                      )
+                                                    else
+                                                      SizedBox(
+                                                        height: MediaQuery.of(
+                                                            context)
+                                                            .size
+                                                            .height /
+                                                            30,
+                                                        width: MediaQuery.of(
+                                                            context)
+                                                            .size
+                                                            .width /
+                                                            25,
+                                                      ),
 
-
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop(
-                                                                        true);
-                                                                showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (BuildContext
-                                                                          context) {
-                                                                    return SuccessUserPopup(
-                                                                        message: AppString.userDeletedsucc);
-                                                                    /// Close the popup after 0.5 seconds
-
-                                                                  },
-                                                                );
-                                                                Future.delayed(Duration(milliseconds: 100), () {
-                                                                  Navigator.of(context).pop();
-                                                                });
-                                                              },
-                                                            );
-                                                          },
-                                                        );
-
-                                                        if (isConfirmed ==
-                                                            true) {
-                                                          print("User deletion confirmed and completed.");
-                                                        }
-                                                      },
-                                                    ),
                                                     SizedBox(
                                                         width: AppSize.s10),
                                                   ])),
@@ -789,7 +909,6 @@ class SeeAllScreen extends StatelessWidget {
             //     },
             //   ),
             // ),
-
 
             ///Pagination
             PaginationnControlsWidget()
