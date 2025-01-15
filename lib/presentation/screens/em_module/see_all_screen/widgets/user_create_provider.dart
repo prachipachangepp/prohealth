@@ -625,80 +625,85 @@ class CustomDialoghSEE extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5),
-                    FutureBuilder<List<HRHeadBar>>(
-                      future: companyHRHeadApi(context, deptId),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          List<String> dropDownServiceList = [];
-                          return Container(
-                            alignment: Alignment.center,
-                            child: HRUManageDropdownP(
-                              controller: TextEditingController(text: ''),
-                              labelFontSize: FontSize.s12,
-                              items: dropDownServiceList,
-                            ),
-                          );
-                        }
-                        if (snapshot.hasData && snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Text(
-                              ErrorMessageString.noroleAdded,
-                              style: AllNoDataAvailable.customTextStyle(context),
-                            ),
-                          );
-                        }
-                        if (snapshot.hasData) {
-                          List<String> dropDownServiceList = snapshot
-                              .data!
-                              .map((dept) => dept.deptName!)
-                              .toList();
-                          String? firstDeptName = snapshot.data!.isNotEmpty
-                              ? snapshot.data![0].deptName
-                              : null;
-                          int? firstDeptId = snapshot.data!.isNotEmpty
-                              ? snapshot.data![0].deptId
-                              : null;
-
-                          if (selectedDeptName == null && dropDownServiceList.isNotEmpty) {
-                            selectedDeptName = firstDeptName;
-                            selectedDeptId = firstDeptId;
-                          }
-
-                          return StatefulBuilder(
-                            builder: (BuildContext context, void Function(void Function()) setState) {
-                              return HRUManageDropdownP(
-                                controller: TextEditingController(text: selectedDeptName ?? ''),
-                                hintText: "Department",
-                                labelFontSize: FontSize.s12,
-                                items: dropDownServiceList,
-                                onChanged: (val) {
-                                  setState(() {
-                                    selectedDeptName = val;
-                                    selectedDeptId = snapshot.data!
-                                        .firstWhere((dept) => dept.deptName == val)
-                                        .deptId;
-                                  });
-                                },
-                              );
-                            },
-                          );
-                        }
-                        return const SizedBox();
-                      },
-                    ),
-                    /// Department Dropdown
+                    // FutureBuilder<List<HRHeadBar>>(
+                    //   future: companyHRHeadApi(context, deptId), // This should trigger a new fetch every time the dialog is opened
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.connectionState == ConnectionState.waiting) {
+                    //       List<String> dropDownServiceList = [];
+                    //       return Container(
+                    //         alignment: Alignment.center,
+                    //         child: HRUManageDropdownP(
+                    //           controller: TextEditingController(text: ''),
+                    //           labelFontSize: FontSize.s12,
+                    //           items: dropDownServiceList,
+                    //         ),
+                    //       );
+                    //     }
+                    //
+                    //     if (snapshot.hasData && snapshot.data!.isEmpty) {
+                    //       return Center(
+                    //         child: Text(
+                    //           ErrorMessageString.noroleAdded,
+                    //           style: AllNoDataAvailable.customTextStyle(context),
+                    //         ),
+                    //       );
+                    //     }
+                    //
+                    //     if (snapshot.hasData) {
+                    //       List<String> dropDownServiceList = snapshot
+                    //           .data!
+                    //           .map((dept) => dept.deptName!)
+                    //           .toList();
+                    //       String? firstDeptName = snapshot.data!.isNotEmpty
+                    //           ? snapshot.data![0].deptName
+                    //           : null;
+                    //       int? firstDeptId = snapshot.data!.isNotEmpty
+                    //           ? snapshot.data![0].deptId
+                    //           : null;
+                    //
+                    //       // Reset the selected department if it's null
+                    //       if (selectedDeptName == null && dropDownServiceList.isNotEmpty) {
+                    //         selectedDeptName = firstDeptName;
+                    //         selectedDeptId = firstDeptId;
+                    //       }
+                    //
+                    //       return StatefulBuilder(
+                    //         builder: (BuildContext context, void Function(void Function()) setState) {
+                    //           return HRUManageDropdownP(
+                    //             controller: TextEditingController(text: selectedDeptName ?? ''),
+                    //             hintText: "Department",
+                    //             labelFontSize: FontSize.s12,
+                    //             items: dropDownServiceList,
+                    //             onChanged: (val) {
+                    //               setState(() {
+                    //                 selectedDeptName = val;
+                    //                 selectedDeptId = snapshot.data!
+                    //                     .firstWhere((dept) => dept.deptName == val)
+                    //                     .deptId;
+                    //               });
+                    //             },
+                    //           );
+                    //         },
+                    //       );
+                    //     }
+                    //
+                    //     return const SizedBox();
+                    //   },
+                    // ),
+///
                     // FutureBuilder<List<HRHeadBar>>(
                     //   future: companyHRHeadApi(context, deptId),
                     //   builder: (context, snapshot) {
                     //     if (snapshot.connectionState == ConnectionState.waiting) {
                     //       List<String> dropDownServiceList = [];
                     //       return Container(
-                    //           alignment: Alignment.center,
-                    //           child: HRUManageDropdownP(
-                    //             controller: TextEditingController(text: ''),
-                    //             labelFontSize: FontSize.s12,
-                    //             items: dropDownServiceList,
-                    //           ));
+                    //         alignment: Alignment.center,
+                    //         child: HRUManageDropdownP(
+                    //           controller: TextEditingController(text: ''),
+                    //           labelFontSize: FontSize.s12,
+                    //           items: dropDownServiceList,
+                    //         ),
+                    //       );
                     //     }
                     //     if (snapshot.hasData && snapshot.data!.isEmpty) {
                     //       return Center(
@@ -747,6 +752,67 @@ class CustomDialoghSEE extends StatelessWidget {
                     //     return const SizedBox();
                     //   },
                     // ),
+                    /// Department Dropdown
+                    FutureBuilder<List<HRHeadBar>>(
+                      future: companyHRHeadApi(context, deptId),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          List<String> dropDownServiceList = [];
+                          return Container(
+                              alignment: Alignment.center,
+                              child: HRUManageDropdownP(
+                                controller: TextEditingController(text: ''),
+                                labelFontSize: FontSize.s12,
+                                items: dropDownServiceList,
+                              ));
+                        }
+                        if (snapshot.hasData && snapshot.data!.isEmpty) {
+                          return Center(
+                            child: Text(
+                              ErrorMessageString.noroleAdded,
+                              style: AllNoDataAvailable.customTextStyle(context),
+                            ),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          List<String> dropDownServiceList = snapshot
+                              .data!
+                              .map((dept) => dept.deptName!)
+                              .toList();
+                          String? firstDeptName = snapshot.data!.isNotEmpty
+                              ? snapshot.data![0].deptName
+                              : null;
+                          int? firstDeptId = snapshot.data!.isNotEmpty
+                              ? snapshot.data![0].deptId
+                              : null;
+
+                          if (selectedDeptName == null && dropDownServiceList.isNotEmpty) {
+                            selectedDeptName = firstDeptName;
+                            selectedDeptId = firstDeptId;
+                          }
+
+                          return StatefulBuilder(
+                            builder: (BuildContext context, void Function(void Function()) setState) {
+                              return HRUManageDropdownP(
+                                controller: TextEditingController(text: selectedDeptName ?? ''),
+                                hintText: "Department",
+                                labelFontSize: FontSize.s12,
+                                items: dropDownServiceList,
+                                onChanged: (val) {
+                                  setState(() {
+                                    selectedDeptName = val;
+                                    selectedDeptId = snapshot.data!
+                                        .firstWhere((dept) => dept.deptName == val)
+                                        .deptId;
+                                  });
+                                },
+                              );
+                            },
+                          );
+                        }
+                        return const SizedBox();
+                      },
+                    ),
                     SizedBox(height: 14),
                     SMTextfieldAsteric(
                       controller: emailController,
