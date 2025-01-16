@@ -115,6 +115,13 @@ class ColorManager {
   static Color SMYellow = Color(0xffD9B039);
   static Color SMRed = Color(0xffCA0E0E);
   static Color SMGreen = Color(0xff00B05D);
+
+
+
+
+ ///
+  ///oasis
+  static Color containergreen = Color(0xFFF0FEEB);
 }
 
 extension HexColor on Color {
