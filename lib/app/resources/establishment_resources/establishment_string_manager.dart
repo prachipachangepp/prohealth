@@ -226,7 +226,7 @@ class EditPopupString{
 class DeletePopupString{
   static const String deleteEmpType = 'Delete Employee Type';
   static const String deleteDocument =  'Delete Document';
-  static const String deleteholiday =   'Delete Holidays';
+  static const String deleteholiday =   'Delete Holiday';
   static const String deleteworkShift = 'Delete Work Shift';
   static const String deleteworkWeek = 'Delete Work Weeks';
   static const String deleteCoverage= 'Delete Coverage';
@@ -244,6 +244,7 @@ class DeletePopupString{
   static const String deleteMD = 'Delete MD';
   static const String deleteMISC = 'Delete MISC';
   static const String deleteContract = 'Delete Contract';
+  static const String deleteService = 'Delete Service';
 }
 
 class AddPopupString{

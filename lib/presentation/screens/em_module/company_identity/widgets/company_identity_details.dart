@@ -341,7 +341,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                                             StatefulBuilder(
                                                               builder: (BuildContext context, void Function(void Function()) setState) {
                                                                 return DeletePopup(
-                                                                    title: DeletePopupString.deleteholiday,
+                                                                    title: DeletePopupString.deleteService,
                                                                     loadingDuration: _isLoading,
                                                                     onCancel: () {
                                                                       Navigator.pop(context);

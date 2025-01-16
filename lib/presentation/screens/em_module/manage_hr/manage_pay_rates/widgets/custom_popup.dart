@@ -23,26 +23,37 @@ class PayRatesProvider extends ChangeNotifier {
   String? fixPayRatesError;
   bool isLoading = false;
   String docAddVisitTypeId = 'Select Visit';
+  String? docAddVisitTypeError;
+
 
   void validateAndSubmit({
     required String payRates,
     required String perMiles,
     required String fixPayRates,
+   required bool hasVisits,
   }) {
+    // Check if the visit type is valid
+    docAddVisitTypeError = (docAddVisitTypeId == 'Select Visit' || docAddVisitTypeId.isEmpty)
+        ? hasVisits
+        ? 'Please select a visit type'
+        : 'No visits found for respective service. Select another service.'
+        : null;
+
     // Validate form fields
-    payRatesError = payRates.isEmpty ? 'Please enter a payrate' : null;
+    payRatesError = payRates.isEmpty ? 'Please enter a pay rate' : null;
     perMilesError = perMiles.isEmpty ? 'Please enter a per mile' : null;
     fixPayRatesError = fixPayRates.isEmpty ? 'Please enter a fixed rate' : null;
 
-    // Check if any error exists
-    if (payRatesError == null && perMilesError == null && fixPayRatesError == null) {
-      // Form is valid, can proceed
-    } else {
-      // Show loading state if there are errors
+    // Prevent submission if there are errors
+    if (payRatesError == null &&
+        perMilesError == null &&
+        fixPayRatesError == null &&
+        docAddVisitTypeError == null) {
       isLoading = true;
       notifyListeners();
+
       // Simulate some delay for loading (optional)
-      Future.delayed(const Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 0), () {
         isLoading = false;
         notifyListeners();
       });
@@ -51,6 +62,7 @@ class PayRatesProvider extends ChangeNotifier {
     // Notify listeners for UI update
     notifyListeners();
   }
+
 }
 
 class PayRateAddPopup extends StatelessWidget {
@@ -101,9 +113,8 @@ class PayRateAddPopup extends StatelessWidget {
                     )
                         : Offstage(),
                     SizedBox(height: AppSize.s5,),
-                    //widget.child1,
                     FutureBuilder<List<VisitListDataByServiceId>>(
-                      future: getVisitListByServiceId(context:context, serviceId: serviceId,),
+                      future: getVisitListByServiceId(context: context, serviceId: serviceId),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return Container(
@@ -115,35 +126,48 @@ class PayRateAddPopup extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Padding(
-                              padding:  EdgeInsets.symmetric(vertical: AppPadding.p5,horizontal: AppPadding.p5),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: AppPadding.p5, horizontal: AppPadding.p5),
                               child: Text(
-                                  provider.docAddVisitTypeId,
-                                  style: ConstTextFieldRegister.customTextStyle(context)
+                                provider.docAddVisitTypeId,
+                                style: ConstTextFieldRegister.customTextStyle(context),
                               ),
                             ),
                           );
                         }
-                        if (snapshot.hasData && snapshot.data!.isEmpty) {
-                          return Container(
-                            width: AppSize.s354,
-                            height: AppSize.s30,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Padding(
-                              padding:  EdgeInsets.symmetric(vertical: AppPadding.p5,horizontal: AppPadding.p5),
-                              child: Text(
-                                  ErrorMessageString.noVisit,
-                                  style: ConstTextFieldRegister.customTextStyle(context)
+                        if (snapshot.hasError || (snapshot.hasData && snapshot.data!.isEmpty)) {
+                          // Case: No visits found
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: AppSize.s354,
+                                height: AppSize.s30,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: AppPadding.p5, horizontal: AppPadding.p5),
+                                  child: Text(
+                                    ErrorMessageString.noVisit,
+                                    style: ConstTextFieldRegister.customTextStyle(context),
+                                  ),
+                                ),
                               ),
-                            ),
+                              SizedBox(height: AppSize.s5),
+                              Text(
+                                "No visits found for respective service. Select another service",
+                                style: CommonErrorMsg.customTextStyle(context),
+                              ),
+                            ],
                           );
                         }
                         if (snapshot.hasData) {
-                          List<DropdownMenuItem<String>>
-                          dropDownZoneList = [];
+                          // Case: Visits found
+                          List<DropdownMenuItem<String>> dropDownZoneList = [];
                           for (var i in snapshot.data!) {
                             dropDownZoneList.add(
                               DropdownMenuItem<String>(
@@ -152,22 +176,121 @@ class PayRateAddPopup extends StatelessWidget {
                               ),
                             );
                           }
-                          return CICCDropDownExcel(
-                            initialValue:provider.docAddVisitTypeId,
-                            onChange: (val) {
-                              for (var a in snapshot.data!) {
-                                if (a.visitType == val) {
-                                  provider.docAddVisitTypeId = a.visitType;
-                                  print('empId ${a.visitId}');
-                                }
-                              }
-                            },
-                            items: dropDownZoneList,
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CICCDropDownExcel(
+                                initialValue: provider.docAddVisitTypeId,
+                                onChange: (val) {
+                                  for (var a in snapshot.data!) {
+                                    if (a.visitType == val) {
+                                      provider.docAddVisitTypeId = a.visitType;
+                                      print('empId ${a.visitId}');
+                                    }
+                                  }
+                                  provider.docAddVisitTypeError = null;
+                                  provider.notifyListeners();
+                                },
+                                items: dropDownZoneList,
+                              ),
+                              provider.docAddVisitTypeError != null ?
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: Text(
+                                    provider.docAddVisitTypeError!,
+                                    style: CommonErrorMsg.customTextStyle(context),
+                                  ),
+                                ) : SizedBox(height: AppSize.s12,),
+                            ],
                           );
                         }
                         return const SizedBox();
                       },
                     ),
+
+                    // FutureBuilder<List<VisitListDataByServiceId>>(
+                    //   future: getVisitListByServiceId(context:context, serviceId: serviceId,),
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.connectionState == ConnectionState.waiting) {
+                    //       return Container(
+                    //         width: AppSize.s354,
+                    //         height: AppSize.s30,
+                    //         decoration: BoxDecoration(
+                    //           border: Border.all(
+                    //               color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                    //           borderRadius: BorderRadius.circular(8),
+                    //         ),
+                    //         child: Padding(
+                    //           padding:  EdgeInsets.symmetric(vertical: AppPadding.p5,horizontal: AppPadding.p5),
+                    //           child: Text(
+                    //               provider.docAddVisitTypeId,
+                    //               style: ConstTextFieldRegister.customTextStyle(context)
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    //     if (snapshot.hasData && snapshot.data!.isEmpty) {
+                    //       return Container(
+                    //         width: AppSize.s354,
+                    //         height: AppSize.s30,
+                    //         decoration: BoxDecoration(
+                    //           border: Border.all(
+                    //               color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                    //           borderRadius: BorderRadius.circular(8),
+                    //         ),
+                    //         child: Padding(
+                    //           padding:  EdgeInsets.symmetric(vertical: AppPadding.p5,horizontal: AppPadding.p5),
+                    //           child: Text(
+                    //               ErrorMessageString.noVisit,
+                    //               style: ConstTextFieldRegister.customTextStyle(context)
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    //     if (snapshot.hasData) {
+                    //       List<DropdownMenuItem<String>>
+                    //       dropDownZoneList = [];
+                    //       for (var i in snapshot.data!) {
+                    //         dropDownZoneList.add(
+                    //           DropdownMenuItem<String>(
+                    //             child: Text(i.visitType),
+                    //             value: i.visitType,
+                    //           ),
+                    //         );
+                    //       }
+                    //       return Column(
+                    //         children: [
+                    //           CICCDropDownExcel(
+                    //             initialValue:provider.docAddVisitTypeId,
+                    //             onChange: (val) {
+                    //               for (var a in snapshot.data!) {
+                    //                 if (a.visitType == val) {
+                    //                   provider.docAddVisitTypeId = a.visitType;
+                    //                   print('empId ${a.visitId}');
+                    //                 }
+                    //               }
+                    //               provider.docAddVisitTypeError = null;
+                    //               provider.notifyListeners();
+                    //             },
+                    //             items: dropDownZoneList,
+                    //           ),
+                    //           provider.docAddVisitTypeError != null ?
+                    //             Row(
+                    //               mainAxisAlignment: MainAxisAlignment.start,
+                    //               crossAxisAlignment: CrossAxisAlignment.start,
+                    //               children: [
+                    //                 Text(
+                    //                   provider.docAddVisitTypeError!,
+                    //                   style: CommonErrorMsg.customTextStyle(context),
+                    //                 ),
+                    //               ],
+                    //             ) : SizedBox(height: 12,),
+                    //         ],
+                    //       );
+                    //     }
+                    //     return const SizedBox();
+                    //   },
+                    // ),
                     SizedBox(height: AppSize.s20,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,23 +301,16 @@ class PayRateAddPopup extends StatelessWidget {
                           keyboardType: TextInputType.number,
                           text: AppStringEM.payrates,
                         ),
-                        if (provider.payRatesError != null)
-                          Padding(
-                            padding: const EdgeInsets.only(top: AppPadding.p5),
-                            child: Text(
-                              provider.payRatesError!,
-                              style:  CommonErrorMsg.customTextStyle(context),
-                            ),
-                          ),
+                        provider.payRatesError != null ?
+                          Text(
+                            provider.payRatesError!,
+                            style:  CommonErrorMsg.customTextStyle(context),
+                          ) : SizedBox(height: AppSize.s12,),
                       ],
                     ),
+                    SizedBox(height: AppSize.s14,),
+                    Text(AppStringEM.outOfZone, style:  DefineWorkWeekStyle.customTextStyle(context),),
                     SizedBox(height: AppSize.s20,),
-                    Text(AppStringEM.outOfZone,
-                      style:  DefineWorkWeekStyle.customTextStyle(context),),
-                    SizedBox(height: AppSize.s20,),
-                    //////////////
-
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -208,11 +324,11 @@ class PayRateAddPopup extends StatelessWidget {
                               keyboardType: TextInputType.number,
                               text: AppStringEM.fixrate,
                             ),
-                            if (provider.fixPayRatesError != null)
+                            provider.fixPayRatesError != null ?
                               Text(
                                 provider.fixPayRatesError!,
                                 style:  CommonErrorMsg.customTextStyle(context),
-                              ),
+                              ) : SizedBox(height: AppSize.s12,),
                           ],
                         ),
 
@@ -227,11 +343,11 @@ class PayRateAddPopup extends StatelessWidget {
                               keyboardType: TextInputType.number,
                               text: AppStringEM.perMile,
                             ),
-                            if (provider.perMilesError != null)
+                            provider.perMilesError != null ?
                               Text(
                                 provider.perMilesError!,
                                 style:  CommonErrorMsg.customTextStyle(context),
-                              ),
+                              ) : SizedBox(height: AppSize.s12,),
                           ],
                         ),
                       ],
@@ -255,8 +371,9 @@ class PayRateAddPopup extends StatelessWidget {
         height: AppSize.s30,
         text: AppStringEM.submit,
         onPressed: () async {
-          provider.validateAndSubmit(payRates: payRatesController.text, perMiles: perMilesController.text, fixPayRates: fixPayRatesController.text);
-          if (provider.payRatesError == null && provider.perMilesError == null && provider.fixPayRatesError == null) {
+          final hasVisits = provider.docAddVisitTypeError != 'No visits found for respective service. Select another service.';
+          provider.validateAndSubmit(payRates: payRatesController.text, perMiles: perMilesController.text, fixPayRates: fixPayRatesController.text, hasVisits: hasVisits);
+          if (provider.payRatesError == null && provider.perMilesError == null && provider.fixPayRatesError == null && provider.docAddVisitTypeError == null) {
             if (provider.docAddVisitTypeId != null) {
               try {
                 int rate = int.parse(payRatesController.text);
@@ -415,11 +532,11 @@ class PayRatesEditsPopup extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       text: AppStringEM.payrates,
                     ),
-                    if (provider.perError != null)
+                    provider.payRatesError != null ?
                       Text(
-                        provider.perError!,
+                        provider.payRatesError!,
                         style:  CommonErrorMsg.customTextStyle(context),
-                      ),
+                      ): SizedBox(height: 12,),
                     SizedBox(height: AppSize.s17,),
                     Text(AppStringEM.outOfZone, style:  DefineWorkWeekStyle.customTextStyle(context),),
                     SizedBox(height: AppSize.s17,),
@@ -439,11 +556,11 @@ class PayRatesEditsPopup extends StatelessWidget {
                               keyboardType: TextInputType.number,
                               text: AppStringEM.fixrate,
                             ),
-                            if (provider.payRatesError != null)
+                            provider.perError != null ?
                               Text(
-                                provider.payRatesError!,
+                                provider.perError!,
                                 style:  CommonErrorMsg.customTextStyle(context),
-                              ),
+                              ) : SizedBox(height: 12,),
                           ],
                         ),
 
@@ -458,11 +575,11 @@ class PayRatesEditsPopup extends StatelessWidget {
                               keyboardType: TextInputType.number,
                               text: AppStringEM.perMile,
                             ),
-                            if (provider.perMilesError != null)
+                            provider.perMilesError != null ?
                               Text(
                                 provider.perMilesError!,
                                 style:  CommonErrorMsg.customTextStyle(context),
-                              ),
+                              ) : SizedBox(height: 12,),
                           ],
                         ),
                       ],
@@ -497,179 +614,3 @@ class PayRatesEditsPopup extends StatelessWidget {
     });
   }
 }
-
-// class PayRatesEditsPopup extends StatefulWidget {
-//   final Widget child1;
-//   final Widget child2;
-//   final String title;
-//   final Future<void> Function() onPressed;
-//   final TextEditingController fixPayRatesController;
-//   final TextEditingController payRatesController;
-//   final TextEditingController perMilesController;
-//   final bool visitTypeTextActive;
-//
-//   PayRatesEditsPopup({
-//     super.key,
-//     required this.child1,
-//     required this.child2,
-//     required this.payRatesController,
-//     required this.onPressed,
-//     required this.title,
-//     required this.perMilesController, required this.visitTypeTextActive, required this.fixPayRatesController,
-//   });
-//
-//   @override
-//   State<PayRatesEditsPopup> createState() => _PayRatesEditsPopupState();
-// }
-//
-// class _PayRatesEditsPopupState extends State<PayRatesEditsPopup> {
-//   bool isLoading = false;
-//
-//   // Error messages
-//   String? payRatesError;
-//   String? perMilesError;
-//   String? perError;
-//
-//   void _validateAndSubmit() {
-//     setState(() {
-//       payRatesError = widget.fixPayRatesController.text.isEmpty ? 'Please enter a fix rate' : null;
-//       perMilesError = widget.perMilesController.text.isEmpty ? 'Please enter a per mile' : null;
-//       perError = widget.payRatesController.text.isEmpty ? 'Please enter a payrate' : null;
-//     });
-//
-//     if (payRatesError == null && perMilesError == null && perError == null) {
-//       // If no errors, proceed with the onPressed action
-//       widget.onPressed().whenComplete(() {
-//         setState(() {
-//           isLoading = false;
-//         });
-//         Navigator.pop(context);
-//         widget.payRatesController.clear();
-//         widget.perMilesController.clear();
-//         widget.fixPayRatesController.clear();
-//         showDialog(
-//           context: context,
-//           builder: (BuildContext context) {
-//             return AddSuccessPopup(
-//               message: 'Edit Successfully',
-//             );
-//           },
-//         );
-//       });
-//     } else {
-//       setState(() {
-//         isLoading = false;
-//       });
-//     }
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return DialogueTemplate(
-//       width: AppSize.s400,
-//       height: AppSize.s460,
-//       title: widget.title,
-//       body: [
-//         Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10,),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//             children: [
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   widget.visitTypeTextActive ? Text(
-//                     AppStringEM.typeVisit,
-//                     style:  DefineWorkWeekStyle.customTextStyle(context),
-//                   ) : Offstage(),
-//                   SizedBox(height: AppSize.s5,),
-//                   widget.child1,
-//                   SizedBox(height: AppSize.s20,),
-//                   SMTextfieldAsteric(
-//                     prefixWidget: Text("\$ "),
-//                     controller: widget.payRatesController,
-//                     keyboardType: TextInputType.number,
-//                     text: AppStringEM.payrates,
-//                   ),
-//                   if (perError != null)
-//                     Text(
-//                       perError!,
-//                       style:  CommonErrorMsg.customTextStyle(context),
-//                     ),
-//                   SizedBox(height: AppSize.s17,),
-//                   Text(AppStringEM.outOfZone, style:  DefineWorkWeekStyle.customTextStyle(context),),
-//                   SizedBox(height: AppSize.s17,),
-//                   //////////////
-//
-//
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           SMTextfieldAsteric(
-//                             width: AppSize.s150,
-//                             prefixWidget: Text("\$ "),
-//                             controller: widget.fixPayRatesController,
-//                             keyboardType: TextInputType.number,
-//                             text: AppStringEM.fixrate,
-//                           ),
-//                           if (payRatesError != null)
-//                             Text(
-//                               payRatesError!,
-//                               style:  CommonErrorMsg.customTextStyle(context),
-//                             ),
-//                         ],
-//                       ),
-//
-//                       SizedBox(height: AppSize.s20,),
-//                       Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           SMTextfieldAsteric(
-//                             width: AppSize.s150,
-//                             prefixWidget: Text("\$ "),
-//                             controller: widget.perMilesController,
-//                             keyboardType: TextInputType.number,
-//                             text: AppStringEM.perMile,
-//                           ),
-//                           if (perMilesError != null)
-//                             Text(
-//                               perMilesError!,
-//                               style:  CommonErrorMsg.customTextStyle(context),
-//                             ),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//
-//
-//       ],
-//       bottomButtons:  isLoading
-//           ? SizedBox(
-//           height: AppSize.s25,
-//           width: AppSize.s25,
-//           child: CircularProgressIndicator(color: ColorManager.blueprime,)
-//       )
-//           : CustomElevatedButton(
-//         width: AppSize.s105,
-//         height: AppSize.s30,
-//         text: AppStringEM.submit,
-//         onPressed: () async {
-//           setState(() {
-//             isLoading = true;
-//           });
-//           _validateAndSubmit();
-//
-//
-//         },
-//       ),
-//     );
-//   }
-// }
