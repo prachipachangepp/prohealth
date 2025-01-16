@@ -445,14 +445,14 @@ class EMDesktopScreen extends StatelessWidget {
                     ChangeNotifierProvider(
                         create: (_) => FinanceProvider(),
                         child: FinanceScreen()),
-                    // ChangeNotifierProvider(
+                        // ChangeNotifierProvider(
                     //  create: (_) => SeeAllProvider(),
                     //   child: SeeAllScreen(),
                     // ),
                       SeeAllScreen(),
-                     CiRoleManager(),
-                    CiVisitScreen(),
-                    CiOrgDocument()
+                      CiRoleManager(),
+                      CiVisitScreen(),
+                      CiOrgDocument()
                       //officeId:
                     //widget.officeId ??
                         //'Office 01',
