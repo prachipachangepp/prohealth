@@ -70,7 +70,7 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
 ///
 typedef BackButtonCallBack = void Function(bool val);
 
-class OnboardingTabManage extends StatefulWidget {
+class OnboardingTabManage extends StatelessWidget {
   final int departmentId;
   final PageController managePageController;
   final int selectedIndex;
@@ -84,34 +84,31 @@ class OnboardingTabManage extends StatefulWidget {
     required this.employeeId, required this.employeeName,required this.backButtonCallBack, required this.onBackPressed, required this.imageUrl, required this.departmentId,
   });
 
-  @override
-  State<OnboardingTabManage> createState() => _OnboardingTabManageState();
-}
 
-class _OnboardingTabManageState extends State<OnboardingTabManage> {
-  final List<String> _categories = [
-    // AppString.general,
-    AppString.qualification,
-    AppString.banking,
-    AppString.healthRecord,
-    AppString.acknowledgement,
-    AppString.formStatus
-  ];
+
   @override
   Widget build(BuildContext context) {
+    final List<String> _categories = [
+      // AppString.general,
+      AppString.qualification,
+      AppString.banking,
+      AppString.healthRecord,
+      AppString.acknowledgement,
+      AppString.formStatus
+    ];
     return Material(
       color: Colors.white ,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (widget.selectedIndex == 0)
+          if (selectedIndex == 0)
             Row(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 35),
                   child: InkWell(
-                      onTap: widget.onBackPressed,
+                      onTap: onBackPressed,
 
                       child:Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,9 +128,9 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                 ),
               ],
             ),
-          if (widget.selectedIndex == 0)
+          if (selectedIndex == 0)
             SizedBox(height: 5,),
-          if (widget.selectedIndex != 0)
+          if (selectedIndex != 0)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 35),
               child: Row(
@@ -145,7 +142,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                     padding: const EdgeInsets.only(top: 60),
                     child: InkWell(
                         onTap: (){
-                          widget.backButtonCallBack(true);
+                          backButtonCallBack(true);
                         },
                         child:Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -170,7 +167,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                       children: [
                         Row(
                           children: [
-                            if (widget.selectedIndex != 0)
+                            if (selectedIndex != 0)
                               Padding(
                                 padding: const EdgeInsets.only(bottom: AppPadding.p10,left: 1),
                                 child: Row(
@@ -192,14 +189,14 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                       // ),
                                       ClipOval(
 
-                                        child: widget.imageUrl == 'imgurl' ||
-                                            widget.imageUrl.isEmpty
+                                        child: imageUrl == 'imgurl' ||
+                                            imageUrl.isEmpty
                                             ? CircleAvatar(
                                           backgroundColor: ColorManager.faintGrey,
                                           child: Image.asset("images/profilepic.png"),
                                         )
                                             : Image.network(
-                                          widget.imageUrl,
+                                          imageUrl,
                                           width: double.infinity,
                                           height: double.infinity,
                                           loadingBuilder: (context, child, loadingProgress) {
@@ -224,7 +221,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                     ),
                                     SizedBox(width: AppSize.s10,),
                                     Text(
-                                      widget.employeeName,
+                                      employeeName,
                                       style: CompanyIdentityManageHeadings.customTextStyle(context),
                                     ),
                                   ],
@@ -263,7 +260,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                         padding: EdgeInsets.symmetric(vertical: 5),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(18),
-                                          color: widget.selectedIndex - 1 == entry.key
+                                          color: selectedIndex - 1 == entry.key
                                               ? Colors.white
                                               : null,
                                         ),
@@ -273,18 +270,18 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                           style: TextStyle(
                                             fontSize: FontSize.s14,
                                             fontWeight: FontWeight.w600,
-                                            color: widget.selectedIndex - 1 == entry.key
+                                            color: selectedIndex - 1 == entry.key
                                                 ? ColorManager.mediumgrey
                                                 : ColorManager.white,
                                           ),
                                         ),
                                       ),
-                                      onTap: () => widget.selectButton(
+                                      onTap: () => selectButton(
                                         entry.key + 1,
-                                        widget.employeeId,
-                                        widget.employeeName,
-                                        widget.imageUrl,
-                                        widget.departmentId,
+                                        employeeId,
+                                        employeeName,
+                                        imageUrl,
+                                        departmentId,
                                       ),
                                     ),
                                   )
@@ -353,7 +350,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                       ],
                     ),
                   ),
-                  if (widget.selectedIndex != 0)
+                  if (selectedIndex != 0)
                   Icon(
                     Icons.arrow_back,
                     size: 20,
@@ -380,15 +377,15 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
           Expanded(
             flex: 10,
             child: PageView(
-              controller: widget.managePageController,
+              controller: managePageController,
               physics: NeverScrollableScrollPhysics(),
               children: [
-                OnboardingGeneral(selectButton: widget.selectButton, goBackButtion: widget.onBackPressed),
-                OnboardingQualification(employeeId: widget.employeeId, departmentId: widget.departmentId,),
-                Banking(employeeId: widget.employeeId,),
-                HealthRecord(employeeId: widget.employeeId,),
-                Acknowledgement(employeeId: widget.employeeId,),
-                FormStatusScreen(employeeId: widget.employeeId,),
+                OnboardingGeneral(selectButton: selectButton, goBackButtion: onBackPressed),
+                OnboardingQualification(employeeId: employeeId, departmentId: departmentId,),
+                Banking(employeeId: employeeId,),
+                HealthRecord(employeeId: employeeId,),
+                Acknowledgement(employeeId: employeeId,),
+                FormStatusScreen(employeeId: employeeId,),
               ],
             ),
           ),
@@ -398,9 +395,6 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
     );
   }
 }
-
-
-
 
 ///
 ///

@@ -1,6 +1,7 @@
 import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/provider/hr_onboarding_provider.dart';
 import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
@@ -63,6 +64,9 @@ Future<void> main() async {
           ),
           ChangeNotifierProvider(
               create: (_)=>HrEnrollOfferLatterProvider()
+          ),
+          ChangeNotifierProvider(
+              create: (_)=>HrOnboardingProvider()
           ),
           ChangeNotifierProvider(create: (context)=>AddressProvider(controller: '' as TextEditingController,onChange: '' as Function(String p1)?))
         ],
