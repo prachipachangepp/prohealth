@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:provider/provider.dart';
 import '../../../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../../../app/resources/provider/delete_popup_provider.dart';
 import '../../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../../app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import '../../../../../../../../../widgets/error_popups/delete_success_popup.dart';
@@ -88,7 +89,7 @@ class CICcdADRProvider extends ChangeNotifier {
     showDialog(
       context: context,
       builder: (context) {
-        return DeletePopup(
+        return DeletePopupProvider(
           title: DeletePopupString.deleteAdr,
           loadingDuration: _isLoading,
           onCancel: () => Navigator.pop(context),

@@ -67,11 +67,15 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
   void validateAccounts() {
     setState(() {
       // Validate that the account numbers match
+
       if (accountnumber.text.isEmpty) {
+        _isFormValid = false;
         _vacError = 'Account number cannot be empty';
       } else if (verifyaccountnumber.text.isEmpty) {
+        _isFormValid = false;
         _vacError = 'Please verify your account number';
       } else if (accountnumber.text != verifyaccountnumber.text) {
+        _isFormValid = false;
         errorMessage = 'Account numbers do not match';
       } else {
         errorMessage = null;
@@ -360,11 +364,11 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     },
                                   ),
                                 ),
-                                if (_dateError != null) // Display error if any
+                                _dateError != null? // Display error if any
                                   Text(
                                     _dateError!,
                                     style: CommonErrorMsg.customTextStyle(context),
-                                  ),
+                                  ):SizedBox(height: 12,)
                               ],
                             ),
 
@@ -405,11 +409,11 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   hintStyle:onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
-                                if (_banknameError != null) // Display error if any
+                                _banknameError != null? // Display error if any
                                   Text(
                                     _banknameError!,
                                     style: CommonErrorMsg.customTextStyle(context),
-                                  ),
+                                  ):SizedBox(height: 12,),
                               ],
                             ),
 
@@ -420,8 +424,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-
-
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -455,19 +457,13 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   hintStyle:onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
-                                if (_numberError != null) // Display error if any
+                                _numberError != null? // Display error if any
                                   Text(
                                     _numberError!,
                                     style: CommonErrorMsg.customTextStyle(context),
-                                  ),
+                                  ):SizedBox(height:12),
                               ],
                             ),
-
-
-
-
-
-
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -500,11 +496,11 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   hintStyle: onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
-                                if (_acError != null) // Display error if any
+                                _acError != null? // Display error if any
                                   Text(
                                     _acError!,
                                     style: CommonErrorMsg.customTextStyle(context),
-                                  ),
+                                  ):SizedBox(height:12),
                               ],
                             ),
 
@@ -543,11 +539,11 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   height: 30,
                                 ),
                                 // Display error message if account number or verify account number is empty or don't match
-                                if (_acError != null || errorMessage != null)
+                                _acError != null || errorMessage != null?
                                   Text(
                                     _acError ?? errorMessage!,
                                     style: CommonErrorMsg.customTextStyle(context),
-                                  ),
+                                  ):SizedBox(height:12),
                                 // if (errorMessage != null)
                                 //   Text(
                                 //     errorMessage!,
@@ -622,11 +618,11 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                     ),
                                   ],
                                 ),
-                                if (_amountError != null) // Display error if any
+                               _amountError != null? // Display error if any
                                   Text(
                                     _amountError!,
                                     style: CommonErrorMsg.customTextStyle(context),
-                                  ),
+                                  ):SizedBox(height:12),
                               ],
                             ),
 

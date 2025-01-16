@@ -179,17 +179,48 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                       radius: 20,
                                       backgroundColor: Colors.white,
                                       child:
+                                      // ClipOval(
+                                      //   child: CachedNetworkImage(
+                                      //     imageUrl: widget.imageUrl!,
+                                      //     placeholder: (context, url) => CircularProgressIndicator(),
+                                      //     errorWidget: (context, url, error) =>
+                                      //         CircleAvatar(child: Image.asset("images/profilepic.png"),),
+                                      //     width: double.infinity,
+                                      //     height: double.infinity,
+                                      //     fit: BoxFit.cover,
+                                      //   ),
+                                      // ),
                                       ClipOval(
-                                        child: CachedNetworkImage(
-                                          imageUrl: widget.imageUrl!,
-                                          placeholder: (context, url) => CircularProgressIndicator(),
-                                          errorWidget: (context, url, error) =>
-                                              CircleAvatar(child: Image.asset("images/profilepic.png"),),
+
+                                        child: widget.imageUrl == 'imgurl' ||
+                                            widget.imageUrl.isEmpty
+                                            ? CircleAvatar(
+                                          backgroundColor: ColorManager.faintGrey,
+                                          child: Image.asset("images/profilepic.png"),
+                                        )
+                                            : Image.network(
+                                          widget.imageUrl,
                                           width: double.infinity,
                                           height: double.infinity,
+                                          loadingBuilder: (context, child, loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            } else {
+                                              return Center(
+                                                child: CircularProgressIndicator(
+                                                    value: loadingProgress.expectedTotalBytes != null
+                                                        ? loadingProgress.cumulativeBytesLoaded /
+                                                        (loadingProgress.expectedTotalBytes ?? 1)
+                                                        : null),
+                                              );
+                                            }
+                                          },
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return CircleAvatar(child: Image.asset("images/profilepic.png"));
+                                          },
                                           fit: BoxFit.cover,
                                         ),
-                                      ),
+                                      )
                                     ),
                                     SizedBox(width: AppSize.s10,),
                                     Text(

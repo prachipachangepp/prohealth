@@ -338,16 +338,46 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                             backgroundColor: Colors.white,
                             child:
                             ClipOval(
-                              child: CachedNetworkImage(
-                                imageUrl: general.imgurl!,
-                                placeholder: (context, url) => CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    CircleAvatar(child: Image.asset("images/profilepic.png"),),
+                              child: general.imgurl == 'imgurl' ||
+                                  general.imgurl == null
+                                  ? CircleAvatar(
+                                backgroundColor: ColorManager.faintGrey,
+                                child: Image.asset("images/profilepic.png"),
+                              )
+                                  : Image.network(
+                                general.imgurl!,
                                 width: double.infinity,
                                 height: double.infinity,
+                                loadingBuilder: (context, child, loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                          value: loadingProgress.expectedTotalBytes != null
+                                              ? loadingProgress.cumulativeBytesLoaded /
+                                              (loadingProgress.expectedTotalBytes ?? 1)
+                                              : null),
+                                    );
+                                  }
+                                },
+                                errorBuilder: (context, error, stackTrace) {
+                                  return CircleAvatar(child: Image.asset("images/profilepic.png"));
+                                },
                                 fit: BoxFit.cover,
                               ),
-                            ),
+                            )
+                            // ClipOval(
+                            //   child: CachedNetworkImage(
+                            //     imageUrl: general.imgurl!,
+                            //     placeholder: (context, url) => CircularProgressIndicator(),
+                            //     errorWidget: (context, url, error) =>
+                            //         CircleAvatar(child: Image.asset("images/profilepic.png"),),
+                            //     width: double.infinity,
+                            //     height: double.infinity,
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            // ),
                           ),
 
                           ///profile image
