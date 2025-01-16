@@ -98,6 +98,18 @@ class _HrWidgetState extends State<HrWidget> {
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
   }
+  String colorToHex(Color color, {bool includeAlpha = true}) {
+    // Ensure values are integers between 0 and 255
+    int alpha = (color.alpha * 255).toInt(); // Or just `color.alpha` if it's already an integer
+    int red = (color.red * 255).toInt();
+    int green = (color.green * 255).toInt();
+    int blue = (color.blue * 255).toInt();
+
+    return (includeAlpha ? '#${alpha.toRadixString(16).padLeft(2, '0')}' : '#') +
+        '${red.toRadixString(16).padLeft(2, '0')}'
+            '${green.toRadixString(16).padLeft(2, '0')}'
+            '${blue.toRadixString(16).padLeft(2, '0')}';
+  }
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -111,7 +123,7 @@ class _HrWidgetState extends State<HrWidget> {
   }
   void _saveColor(int index, Color color) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('containerColor$index', color.value);
+    await prefs.setInt('containerColor$index', color.r.toInt());
   }
   var deptId = 0;
   int docDeptId = 0;
@@ -303,9 +315,11 @@ class _HrWidgetState extends State<HrWidget> {
                               },
                               onColorChanged: (Color seletedColor) {
                                 setState(() {
+                                  print('Selected color :: ${seletedColor}');
                                   containerColors[1] = seletedColor;
-                                  color = seletedColor.toString().substring(10,16);
+                                  color = colorToHex(seletedColor,includeAlpha: true);
                                   _saveColor(1, seletedColor);
+                                  print('Color to Hex :: ${color}');
                                 });
                               },
                               title: AppStringEM.addEmp,
@@ -375,7 +389,18 @@ class _HRTabScreensState extends State<HRTabScreens> {
   }
 
   String? selectedValue;
+  String colorToHex(Color color, {bool includeAlpha = true}) {
+    // Ensure values are integers between 0 and 255
+    int alpha = (color.alpha * 255).toInt(); // Or just `color.alpha` if it's already an integer
+    int red = (color.red * 255).toInt();
+    int green = (color.green * 255).toInt();
+    int blue = (color.blue * 255).toInt();
 
+    return (includeAlpha ? '#${alpha.toRadixString(16).padLeft(2, '0')}' : '#') +
+        '${red.toRadixString(16).padLeft(2, '0')}'
+            '${green.toRadixString(16).padLeft(2, '0')}'
+            '${blue.toRadixString(16).padLeft(2, '0')}';
+  }
   @override
   void initState() {
     super.initState();
@@ -702,7 +727,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                       setState(() {
                                                                         hrcontainerColors[index] = seletedColor;
                                                                         print("Color ${seletedColor}");
-                                                                        color = seletedColor.toString().substring(10, 16);
+                                                                        color = colorToHex(seletedColor,includeAlpha: true);
                                                                         colortemp = "#${color}";
                                                                         _saveColor(index, seletedColor);
                                                                       });
