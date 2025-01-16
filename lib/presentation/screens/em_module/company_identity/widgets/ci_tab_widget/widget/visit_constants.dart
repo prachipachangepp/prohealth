@@ -284,16 +284,16 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                                 return SizedBox();
                               },
                             ),
-                            SizedBox(height: AppSize.s5),
+                            SizedBox(height: AppSize.s3),
                             Wrap(
                               spacing: 8.0,
                               children: selectedEditChips,
                             ),
-                            if (!_isClinicianSelectionValid)
+                            !_isClinicianSelectionValid ?
                               Text(
                                 _clinicianErrorText,
                                 style: CommonErrorMsg.customTextStyle(context),
-                              ),
+                              ) : SizedBox(height: AppSize.s12,),
                           ],
                         ),
                       ],
@@ -480,24 +480,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
     });
   }
 
-  // void _validateInputs() {
-  //   setState(() {
-  //     final nameOfDocumentText = widget.nameOfDocumentController.text;
-  //     if (nameOfDocumentText.isEmpty) {
-  //       _isNameOfDocumentValid = false;
-  //       _nameOfDocumentErrorText = 'Please Enter Type of Visit';
-  //     }
-  //     // else if (nameOfDocumentText.isNotEmpty &&
-  //     //     nameOfDocumentText[0] != nameOfDocumentText[0].toUpperCase()) {
-  //     //   _isNameOfDocumentValid = false;
-  //     //   _nameOfDocumentErrorText = 'First letter must be capitalized';
-  //     // }
-  //     else {
-  //       _isNameOfDocumentValid = true;
-  //       _nameOfDocumentErrorText = '';
-  //     }
-  //   });
-  // }
 
   String selectedServiceName = 'Select';
   String? serviceId;
@@ -533,14 +515,14 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     keyboardType: TextInputType.text,
                     text: AppStringEM.typeVisit,
                   ),
-                  if (!_isNameOfDocumentValid)
+                  !_isNameOfDocumentValid ?
                     Text(
                       _nameOfDocumentErrorText,
                       style: CommonErrorMsg.customTextStyle(context),
-                    ),
+                    ): SizedBox(height: AppSize.s12,),
                 ],
               ),
-              SizedBox(height: AppSize.s14),
+              SizedBox(height: AppSize.s8),
               ///service dropdown
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -644,15 +626,15 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       return const SizedBox();
                     },
                   ),
-                  if (!_isServiceSelected)
+                  !_isServiceSelected ?
                     Text(
                       _serviceErrorText,
                       style: CommonErrorMsg.customTextStyle(context),
-                    ),
+                    ): SizedBox(height: AppSize.s12,),
                 ],
               ),
 
-              SizedBox(height: AppSize.s20),
+              SizedBox(height: AppSize.s8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -670,10 +652,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       ],
                     ),
                   ),
-                  // Text(
-                  //   'Select Eligible Clinician',
-                  //   style: AllPopupHeadings.customTextStyle(context),
-                  // ),
                   SizedBox(height: AppSize.s5),
                   //widget.child,
                   Column(
@@ -772,12 +750,12 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                           return SizedBox();
                         },
                       ),
-                      if (!_isClinicianSelected)
+                      !_isClinicianSelected ?
                         Text(
                           _clinicianErrorText,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
-                      SizedBox(height: AppSize.s5),
+                        ): SizedBox(height: AppSize.s12,),
+                      //SizedBox(height: AppSize.s5),
                       Wrap(
                         spacing: 8.0,
                         children: selectedEditChips,

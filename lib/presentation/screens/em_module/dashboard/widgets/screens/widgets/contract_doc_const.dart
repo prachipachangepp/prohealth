@@ -467,7 +467,7 @@ class AuditDates extends StatelessWidget {
                                     ),
                                     SizedBox(width: AppSize.s15),
                                     IconButton(
-                                      icon: Icon(Icons.calendar_today_outlined, size: IconSize.I16, color: ColorManager.bluebottom),
+                                      icon: Image.asset("images/em_dashboard/system_update.png", height: IconSize.I16, width: IconSize.I16, color: ColorManager.bluebottom),
                                       onPressed: () async {
                                         DateTime? pickedDate = await showDatePicker(
                                           context: context,
@@ -622,7 +622,7 @@ class UpcomingCpmDeadlines extends StatelessWidget {
                                     ),
                                     SizedBox(width: AppSize.s15),
                                     IconButton(
-                                      icon: Icon(Icons.calendar_today_outlined, size: IconSize.I16, color: ColorManager.bluebottom),
+                                      icon: Image.asset("images/em_dashboard/system_update.png", height: IconSize.I16, width: IconSize.I16, color: ColorManager.bluebottom),
                                       onPressed: () async {
                                         DateTime? pickedDate = await showDatePicker(
                                           context: context,

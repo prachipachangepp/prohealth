@@ -192,6 +192,7 @@ class BlueBgTabbar {
       color: selectedIndex == currentIndex
           ? ColorManager.mediumgrey
           : ColorManager.white,
+      letterSpacing: 0.2,
       decoration: TextDecoration.none,
     );
   }
