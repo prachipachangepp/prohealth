@@ -23,7 +23,6 @@ import 'presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_d
 Future<void> main() async {
   bool token = await checkToken();
 
-  // Register the view factory for the iframe
   if (isChrome()) {
     runApp(
       MultiProvider(
