@@ -171,7 +171,6 @@ class _HrWidgetState extends State<HrWidget> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-
                                   InkWell(
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
@@ -308,8 +307,6 @@ class _HrWidgetState extends State<HrWidget> {
                                     builder: (BuildContext context) => FailedPopup(text: response.message),
                                   );
                                 }
-
-
                                 typeController.clear();
                                 shorthandController.clear();
                               },
