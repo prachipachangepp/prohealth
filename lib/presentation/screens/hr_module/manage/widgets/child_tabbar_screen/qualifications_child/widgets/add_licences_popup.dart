@@ -118,7 +118,28 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  widget.child,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          text:'Select Document', // Main text
+                          style: AllPopupHeadings.customTextStyle(context), // Main style
+                          children: [
+                            TextSpan(
+                              text: ' *', // Asterisk
+                              style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                color: ColorManager.red, // Asterisk color
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 4,),
+                      widget.child,
+                    ],
+                  ),
+
                   const SizedBox(
                     width: 20,
                   ),

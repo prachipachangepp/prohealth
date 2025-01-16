@@ -18,12 +18,12 @@ class QualificationGeneralLicenses extends StatefulWidget {
 }
 
 class _QualificationGeneralLicensesState extends State<QualificationGeneralLicenses> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    //fetchDrivingLicense();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   //fetchDrivingLicense();
+  //   super.initState();
+  // }
 //   List<ClinicalLicenseDataModel> clinicalLicenseDataModel = [];
 //   Future<List<ClinicalLicenseDataModel>> fetchDrivingLicense() async{
 //     clinicalLicenseDataModel = await getDrivingLicenseRecord(context,316,"no");

@@ -417,151 +417,161 @@ class OfferLetterScreen extends StatelessWidget {
                                     style: DropdownItemStyle.customTextStyle(context),
                                   ),
                                   const SizedBox(width: 30),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(12.0),
-                                            ),
-                                            titlePadding: EdgeInsets.zero,
-                                            title: Container(
-                                              decoration: const BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(12),
-                                                  bottomLeft: Radius.circular(12),
-                                                  bottomRight: Radius.circular(12),
-                                                  topRight: Radius.circular(12),
+                                  Row(
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(12.0),
                                                 ),
-                                              ),
-                                              width: 302,
-                                              height: 230,
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    height: 35,
-                                                    width: double.infinity,
-                                                    decoration: const BoxDecoration(
-                                                      color: Color(0xff1696C8),
-                                                      borderRadius: BorderRadius.only(
-                                                        topLeft: Radius.circular(12.0),
-                                                        topRight: Radius.circular(12.0),
+                                                titlePadding: EdgeInsets.zero,
+                                                title: Container(
+                                                  decoration: const BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.only(
+                                                      topLeft: Radius.circular(12),
+                                                      bottomLeft: Radius.circular(12),
+                                                      bottomRight: Radius.circular(12),
+                                                      topRight: Radius.circular(12),
+                                                    ),
+                                                  ),
+                                                  width: 302,
+                                                  height: 230,
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        height: 35,
+                                                        width: double.infinity,
+                                                        decoration: const BoxDecoration(
+                                                          color: Color(0xff1696C8),
+                                                          borderRadius: BorderRadius.only(
+                                                            topLeft: Radius.circular(12.0),
+                                                            topRight: Radius.circular(12.0),
+                                                          ),
+                                                        ),
+                                                        padding: const EdgeInsets.only(right: 5, bottom: 5),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            IconButton(
+                                                              icon: const Icon(Icons.close, color: Colors.white),
+                                                              onPressed: () {
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    padding: const EdgeInsets.only(right: 5, bottom: 5),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.end,
-                                                      children: [
-                                                        IconButton(
-                                                          icon: const Icon(Icons.close, color: Colors.white),
-                                                          onPressed: () {
-                                                            Navigator.of(context).pop();
-                                                          },
+                                                      Padding(
+                                                        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            // Display the appropriate text based on dropdown selection
+                                                            dropdownValue == 'Salaried'
+                                                                ? Text(
+                                                              'Salary',
+                                                              style: DefineWorkWeekStyle.customTextStyle(context),
+                                                            )
+                                                                : Text(
+                                                              'Per Visit',
+                                                              style: DefineWorkWeekStyle.customTextStyle(context),
+                                                            ),
+                                                            SizedBox(
+                                                              height: MediaQuery.of(context).size.height / 30,
+                                                            ),
+                                                            Container(
+                                                              height: 30,
+                                                              child: TextFormField(
+                                                                cursorColor: Colors.black,
+                                                                style: DocumentTypeDataStyle.customTextStyle(context),
+                                                                decoration: InputDecoration(
+                                                                  prefix: const Text("\$ "),
+                                                                  hintText: '0.00',
+                                                                  hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                                                  enabledBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                    borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                                  ),
+                                                                  focusedBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                    borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                                  ),
+                                                                  border: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                    borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
+                                                                  ),
+                                                                  contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                                                                ),
+                                                                keyboardType: TextInputType.number,
+                                                                onChanged: (value) {
+                                                                  hrProviderState.addSalary(value);
+                                                                  print("Salary:: ${hrProviderState.salary}");
+                                                                },
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: MediaQuery.of(context).size.height / 20,
+                                                            ),
+                                                            Center(
+                                                              child: ElevatedButton(
+                                                                onPressed: () {
+                                                                  // Handle the submit action
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                style: ElevatedButton.styleFrom(
+                                                                  backgroundColor: const Color(0xff1696C8),
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius: BorderRadius.circular(12),
+                                                                  ),
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                                                                  child: Text(
+                                                                    'Submit',
+                                                                    style: BlueButtonTextConst.customTextStyle(context),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        // Display the appropriate text based on dropdown selection
-                                                        dropdownValue == 'Salaried'
-                                                            ? Text(
-                                                          'Salary',
-                                                          style: DefineWorkWeekStyle.customTextStyle(context),
-                                                        )
-                                                            : Text(
-                                                          'Per Visit',
-                                                          style: DefineWorkWeekStyle.customTextStyle(context),
-                                                        ),
-                                                        SizedBox(
-                                                          height: MediaQuery.of(context).size.height / 30,
-                                                        ),
-                                                        Container(
-                                                          height: 30,
-                                                          child: TextFormField(
-                                                            cursorColor: Colors.black,
-                                                            style: DocumentTypeDataStyle.customTextStyle(context),
-                                                            decoration: InputDecoration(
-                                                              prefix: const Text("\$ "),
-                                                              hintText: '0.00',
-                                                              hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                                              enabledBorder: OutlineInputBorder(
-                                                                borderRadius: BorderRadius.circular(8.0),
-                                                                borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                              ),
-                                                              focusedBorder: OutlineInputBorder(
-                                                                borderRadius: BorderRadius.circular(8.0),
-                                                                borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                              ),
-                                                              border: OutlineInputBorder(
-                                                                borderRadius: BorderRadius.circular(8.0),
-                                                                borderSide: const BorderSide(color: Color(0xff51B5E6), width: 1.0),
-                                                              ),
-                                                              contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                                                            ),
-                                                            keyboardType: TextInputType.number,
-                                                            onChanged: (value) {
-                                                              hrProviderState.addSalary(value);
-                                                              print("Salary:: ${hrProviderState.salary}");
-                                                            },
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: MediaQuery.of(context).size.height / 20,
-                                                        ),
-                                                        Center(
-                                                          child: ElevatedButton(
-                                                            onPressed: () {
-                                                              // Handle the submit action
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                            style: ElevatedButton.styleFrom(
-                                                              backgroundColor: const Color(0xff1696C8),
-                                                              shape: RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius.circular(12),
-                                                              ),
-                                                            ),
-                                                            child: Padding(
-                                                              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-                                                              child: Text(
-                                                                'Submit',
-                                                                style: BlueButtonTextConst.customTextStyle(context),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                                ),
+                                              );
+                                            },
                                           );
                                         },
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(0xff1696C8),
-                                      foregroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: const Color(0xff1696C8),
+                                          foregroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                        ),
+                                        child: dropdownValue == 'Salaried'
+                                            ? Text(
+                                          'Add',
+                                          style: BlueButtonTextConst.customTextStyle(context),
+                                        )
+                                            : Text(
+                                          'Add Visit',
+                                          style: BlueButtonTextConst.customTextStyle(context),
+                                        ),
                                       ),
-                                    ),
-                                    child: dropdownValue == 'Salaried'
-                                        ? Text(
-                                      'Add',
-                                      style: BlueButtonTextConst.customTextStyle(context),
-                                    )
-                                        : Text(
-                                      'Add Visit',
-                                      style: BlueButtonTextConst.customTextStyle(context),
-                                    ),
+                                      Text(
+                                        ' *', // Asterisk
+                                        style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                          color: ColorManager.red, // Asterisk color
+                                        ),
+                                      )
+                                    ],
                                   ),
                                   const SizedBox(width: 15),
                                 ],
@@ -1267,6 +1277,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+
                     Text(
                       employementIndex == null ? 'Coverage #${widget.index}' :'Coverage #${employementIndex}',
                       style:  DefineWorkWeekStyle.customTextStyle(context),
@@ -1288,8 +1299,19 @@ class _DynamciContainerState extends State<DynamciContainer> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'County', style: DocumentTypeDataStyle.customTextStyle(context),
+                        RichText(
+                          text: TextSpan(
+                            text: 'County', // Main text
+                            style: DocumentTypeDataStyle.customTextStyle(context), // Main style
+                            children: [
+                              TextSpan(
+                                text: ' *', // Asterisk
+                                style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                  color: ColorManager.red, // Asterisk color
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 5),
                         StatefulBuilder(
@@ -1425,7 +1447,21 @@ class _DynamciContainerState extends State<DynamciContainer> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Zone',style: DocumentTypeDataStyle.customTextStyle(context),),
+                        RichText(
+                          text: TextSpan(
+                            text: "Zone", // Main text
+                            style: DocumentTypeDataStyle.customTextStyle(context), // Main style
+                            children: [
+                              TextSpan(
+                                text: ' *', // Asterisk
+                                style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                  color: ColorManager.red, // Asterisk color
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                       // Text('Zone',style: DocumentTypeDataStyle.customTextStyle(context),),
                         const SizedBox(height:5),
                         StreamBuilder<List<CountyWiseZoneModal>>(
                             stream: _zoneController.stream,
@@ -1571,10 +1607,24 @@ class _DynamciContainerState extends State<DynamciContainer> {
                     children: [
                       Row(
                         children: [
-                          Text(
-                            'Zip Codes',
-                            style: DocumentTypeDataStyle.customTextStyle(context),
+                          RichText(
+                            text: TextSpan(
+                              text: "Zip Codes", // Main text
+                              style: DocumentTypeDataStyle.customTextStyle(context), // Main style
+                              children: [
+                                TextSpan(
+                                  text: ' *', // Asterisk
+                                  style: DocumentTypeDataStyle.customTextStyle(context).copyWith(
+                                    color: ColorManager.red, // Asterisk color
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
+                          // Text(
+                          //   'Zip Codes',
+                          //   style: DocumentTypeDataStyle.customTextStyle(context),
+                          // ),
                         ],
                       ),
                       const SizedBox(height: 10),

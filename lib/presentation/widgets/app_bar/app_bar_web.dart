@@ -336,8 +336,8 @@ class _AppBarWebState extends State<AppBarWeb> {
                                 Expanded(
                                   flex: 3,
                                   child: Container(
-                               margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
-                                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                               //margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
+                                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(18),
                                       border: Border.all(color: Colors.white, width: 2),

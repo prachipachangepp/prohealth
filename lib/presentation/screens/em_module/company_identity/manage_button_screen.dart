@@ -143,7 +143,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 50,),
                 Container(
-                  width: MediaQuery.of(context).size.width / 1.1491,
+                  width: MediaQuery.of(context).size.width / 1.148,
                   height: AppSize.s30,
                   decoration: BoxDecoration(
                       boxShadow: [
@@ -280,7 +280,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         hoverColor: Colors.transparent,
                         child: Container(
                           height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 8.11,
+                          width: MediaQuery.of(context).size.width / 8.039,
                           padding: EdgeInsets.symmetric(vertical: AppPadding.p6),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
