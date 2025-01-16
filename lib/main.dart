@@ -40,16 +40,15 @@ Future<void> main() async {
           ChangeNotifierProvider(
             create: (_) => PageIndexProvider(),
           ),
-          ChangeNotifierProvider(create: (_) => SeeAllPaginationProvider(itemsPerPage: 10),),
-          ChangeNotifierProvider(create: (_) => SeeAllProvider()),
-          ChangeNotifierProvider(create: (_) => UserCreationProvider()),
-          ChangeNotifierProvider(create: (_) =>  ButtonProvider()),
+          // ChangeNotifierProvider(create: (_) => SeeAllPaginationProvider(itemsPerPage: 10),),
+          // ChangeNotifierProvider(create: (_) => SeeAllProvider()),
+          // ChangeNotifierProvider(create: (_) => UserCreationProvider()),
+          // ChangeNotifierProvider(create: (_) =>  ButtonProvider()),
+          // ChangeNotifierProvider(create: (context) => DeleteUserProvider()),
 
-          ChangeNotifierProvider(create: (context) => DeleteUserProvider()),
-
-          ChangeNotifierProvider(
-            create: (_) => EditUserProvider(),
-          ),
+          // ChangeNotifierProvider(
+          //   create: (_) => EditUserProvider(),
+          // ),
           ChangeNotifierProvider(
               create: (context) => AddressProvider(
                   controller: '' as TextEditingController,
