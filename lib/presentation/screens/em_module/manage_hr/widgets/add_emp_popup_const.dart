@@ -26,14 +26,13 @@ class CustomPopupWidget extends StatefulWidget {
     required this.containerColor,
     required this.onAddPressed,
     required this.onColorChanged,
-   // this.child,
+    // this.child,
     required this.title,
   });
 
   @override
   State<CustomPopupWidget> createState() => _CustomPopupWidgetState();
 }
-
 class _CustomPopupWidgetState extends State<CustomPopupWidget> {
   late List<Color> _selectedColors;
   List<String> _selectedColorCodes = List.filled(2, '');
@@ -48,6 +47,36 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
   void initState() {
     super.initState();
     _selectedColors = [widget.containerColor];
+
+    // Add listeners to text controllers to clear errors when text changes
+    widget.typeController.addListener(_onTypeChanged);
+    widget.abbreviationController.addListener(_onAbbreviationChanged);
+  }
+
+  @override
+  void dispose() {
+    // Remove listeners when the widget is disposed
+    widget.typeController.removeListener(_onTypeChanged);
+    widget.abbreviationController.removeListener(_onAbbreviationChanged);
+    super.dispose();
+  }
+
+  void _onTypeChanged() {
+    // Clear the error if the user starts typing
+    if (_typeError != null && widget.typeController.text.isNotEmpty) {
+      setState(() {
+        _typeError = null;
+      });
+    }
+  }
+
+  void _onAbbreviationChanged() {
+    // Clear the error if the user starts typing
+    if (_abbreviationError != null && widget.abbreviationController.text.isNotEmpty) {
+      setState(() {
+        _abbreviationError = null;
+      });
+    }
   }
 
   void _openColorPicker() async {
@@ -59,11 +88,11 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
             padding: const EdgeInsets.only(left: AppPadding.p20),
             child: Text('Pick a Color',
               style: TextStyle(
-                fontSize: FontSize.s14,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.blueprime
-              // color: isSelected ? Colors.white : Colors.black,
-            ),),
+                  fontSize: FontSize.s14,
+                  fontWeight: FontWeight.w700,
+                  color: ColorManager.blueprime
+              ),
+            ),
           ),
           content: SingleChildScrollView(
             child: Column(
@@ -110,92 +139,93 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-        height: AppSize.s370,
-        width: AppSize.s350,
-        body: [Form(
-          key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppPadding.p15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SMTextfieldAsteric(
-                      controller: widget.typeController,
-                      keyboardType: TextInputType.text,
-                      text: 'Employee Type',
-
+      height: AppSize.s370,
+      width: AppSize.s350,
+      body: [Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: AppPadding.p15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SMTextfieldAsteric(
+                    controller: widget.typeController,
+                    keyboardType: TextInputType.text,
+                    text: 'Employee Type',
+                  ),
+                  _typeError != null ?
+                  Text(
+                    _typeError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ): SizedBox(height: AppSize.s12,),
+                ],
+              ),
+              SizedBox(height: AppSize.s16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CapitalSMTextFConst(
+                    controller: widget.abbreviationController,
+                    keyboardType: TextInputType.streetAddress,
+                    text: AppStringEM.abbrevation,
+                  ),
+                  _abbreviationError != null ?
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2.0),
+                    child: Text(
+                      _abbreviationError!,
+                      style: CommonErrorMsg.customTextStyle(context),
                     ),
-                    if (_typeError != null)
-                      Text(
-                        _typeError!,
-                        style: CommonErrorMsg.customTextStyle(context),
-                      ),
-                  ],
-                ),
-                SizedBox(height: AppSize.s16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CapitalSMTextFConst(
-                      controller: widget.abbreviationController,
-                      keyboardType: TextInputType.streetAddress,
-                      text: AppStringEM.abbrevation,
+                  ): SizedBox(height: AppSize.s14,),
+                ],
+              ),
+              SizedBox(height: AppSize.s16),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: AppPadding.p3),
+                    child: Text(
+                      AppStringEM.color,
+                      style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
                     ),
-                    if (_abbreviationError != null)
-                      Text(
-                        _abbreviationError!,
-                        style: CommonErrorMsg.customTextStyle(context),
-                      ),
-                  ],
-                ),
-                SizedBox(height: AppSize.s16),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: AppPadding.p3),
-                      child: Text(
-                        AppStringEM.color,
-                        style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
+                  ),
+                  SizedBox(width: AppSize.s25),
+                  Container(
+                    padding: EdgeInsets.all(2),
+                    width: AppSize.s62,
+                    height: AppSize.s22,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2),
+                      border: Border.all(
+                        width: 1,
+                        color: Color(0xffE9E9E9),
                       ),
                     ),
-                    SizedBox(width: AppSize.s25),
-                    Container(
-                      padding: EdgeInsets.all(2),
-                      width: AppSize.s62,
-                      height: AppSize.s22,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        border: Border.all(
-                          width: 1,
-                          color: Color(0xffE9E9E9),
-                        ),
-                      ),
-                      child: GestureDetector(
-                        onTap: _openColorPicker,
-                        child: Container(
-                          width: AppSize.s60,
-                          height: AppSize.s20,
-                          decoration: BoxDecoration(
+                    child: GestureDetector(
+                      onTap: _openColorPicker,
+                      child: Container(
+                        width: AppSize.s60,
+                        height: AppSize.s20,
+                        decoration: BoxDecoration(
+                          color: _selectedColors[0],
+                          border: Border.all(
+                            width: 1,
                             color: _selectedColors[0],
-                            border: Border.all(
-                              width: 1,
-                              color: _selectedColors[0],
-                            ),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ),],
+        ),
+      ),],
       bottomButtons: isLoading
           ? SizedBox(
         width: AppSize.s25,
@@ -220,7 +250,6 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
         },
       ),
       title: widget.title,
-
     );
   }
 }

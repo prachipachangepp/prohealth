@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -53,3 +54,16 @@ class CustomTitleButtonoasis extends StatelessWidget {
 }
 
 
+
+
+class ButtonSelectionControlleroasis extends GetxController {
+  // Reactive variables
+  var selectedIndex = 0.obs;
+  var selectedText = "Consent For Care".obs;
+
+  // Method to update the selected index and text
+  void selectButton(int index, String text) {
+    selectedIndex.value = index;
+    selectedText.value = text;
+  }
+}

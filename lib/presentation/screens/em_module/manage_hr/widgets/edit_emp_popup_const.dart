@@ -25,7 +25,7 @@ class EditPopupWidget extends StatefulWidget {
   final TextEditingController? emailController;
   final Future<void> Function() onSavePressed;
   final Color containerColor;
- // final Widget child;
+  // final Widget child;
   final Function(Color)? onColorChanged;
   final String title;
 
@@ -52,6 +52,9 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
+  String? _typeError;
+  String? _abbreviationError;
+
   @override
   void initState() {
     super.initState();
@@ -65,12 +68,14 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
         return AlertDialog(
           title: Padding(
             padding: const EdgeInsets.only(left: AppPadding.p20),
-            child: Text('Pick a Color',style: TextStyle(
-                fontSize: FontSize.s14,
-                fontWeight:FontWeight.w700,
-                color: ColorManager.blueprime
-              // color: isSelected ? Colors.white : Colors.black,
-            ),),
+            child: Text(
+              'Pick a Color',
+              style: TextStyle(
+                  fontSize: FontSize.s14,
+                  fontWeight: FontWeight.w700,
+                  color: ColorManager.blueprime
+              ),
+            ),
           ),
           content: SingleChildScrollView(
             child: Column(
@@ -106,11 +111,17 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
       });
     }
   }
-  String? _typeError;
-  String? _abbreviationError;
-  void _validateFields() {
+
+  // Method to validate 'Type'
+  void _validateType() {
     setState(() {
       _typeError = widget.typeController.text.isEmpty ? 'Please Enter Employee Type' : null;
+    });
+  }
+
+  // Method to validate 'Abbreviation'
+  void _validateAbbreviation() {
+    setState(() {
       _abbreviationError = widget.shorthandController.text.isEmpty ? 'Please Enter Abbreviation' : null;
     });
   }
@@ -118,97 +129,121 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-        height: 370,
-        width: AppSize.s350,
-        title: widget.title,
-        body: [Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: AppPadding.p15),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SMTextfieldAsteric(
-                  controller: widget.typeController,
-                  keyboardType: TextInputType.text,
-                  text: 'Type',
-                ),
-                if (_typeError != null)
-                  Text(
-                    _typeError!,
-                    style: CommonErrorMsg.customTextStyle(context),
+      height: 370,
+      width: AppSize.s350,
+      title: widget.title,
+      body: [Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // TextField for 'Type'
+              SMTextfieldAsteric(
+                controller: widget.typeController,
+                keyboardType: TextInputType.text,
+                text: 'Type',
+                onChange: () {
+                  _validateType(); // Validate as user types
+                  if (_typeError != null) {
+                    setState(() {
+                      _typeError = null; // Hide error message as user starts typing
+                    });
+                  }
+                },
+              ),
+              _typeError != null
+                  ? Text(
+                _typeError!,
+                style: CommonErrorMsg.customTextStyle(context),
+              )
+                  : SizedBox(height: AppSize.s12),
+              SizedBox(
+                height: AppSize.s5,
+              ),
+
+              // TextField for 'Abbreviation'
+              CapitalSMTextFConst(
+                controller: widget.shorthandController,
+                keyboardType: TextInputType.streetAddress,
+                text: 'Abbreviation',
+                onChange: () {
+                  _validateAbbreviation(); // Validate as user types
+                  if (_abbreviationError != null) {
+                    setState(() {
+                      _abbreviationError = null; // Hide error message as user starts typing
+                    });
+                  }
+                },
+              ),
+              _abbreviationError != null
+                  ? Text(
+                _abbreviationError!,
+                style: CommonErrorMsg.customTextStyle(context),
+              )
+                  : SizedBox(height: AppSize.s12),
+              SizedBox(
+                height: AppSize.s5,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 1.0),
+                    child: Text(
+                      'Color',
+                      style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
+                    ),
                   ),
-                SizedBox(
-                  height: AppSize.s16,
-                ),
-                CapitalSMTextFConst(
-                  controller: widget.shorthandController,
-                  keyboardType: TextInputType.streetAddress,
-                  text: 'Abbreviation',
-                ),
-                if (_abbreviationError != null)
-                  Text(
-                    _abbreviationError!,
-                    style: CommonErrorMsg.customTextStyle(context),
-                  ),
-                SizedBox(
-                  height: AppSize.s16,
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 1.0),
-                      child: Text(
-                        'Color',
-                        style: ConstTextFieldStyles.customTextStyle(textColor: ColorManager.mediumgrey),
+                  SizedBox(width: AppSize.s25),
+                  Container(
+                    padding: EdgeInsets.all(AppPadding.p2),
+                    width: AppSize.s62,
+                    height: AppSize.s22,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2),
+                      border: Border.all(
+                        width: 1,
+                        color: Color(0xffE9E9E9),
                       ),
                     ),
-                    SizedBox(width: AppSize.s25),
-                    Container(
-                      padding: EdgeInsets.all(AppPadding.p2),
-                      width: AppSize.s62,
-                      height: AppSize.s22,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        border: Border.all(
-                          width: 1,
-                          color: Color(0xffE9E9E9),
-                        ),
-                      ),
-                      child: GestureDetector(
-                        onTap: _openColorPicker,
-                        child: Container(
-                          width: AppSize.s60,
-                          height: AppSize.s20,
-                          decoration: BoxDecoration(
+                    child: GestureDetector(
+                      onTap: _openColorPicker,
+                      child: Container(
+                        width: AppSize.s60,
+                        height: AppSize.s20,
+                        decoration: BoxDecoration(
+                          color: _selectedColors[0],
+                          border: Border.all(
+                            width: 1,
                             color: _selectedColors[0],
-                            border: Border.all(
-                              width: 1,
-                              color: _selectedColors[0],
-                            ),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ),],
-      bottomButtons:  isLoading
+        ),
+      ),],
+      bottomButtons: isLoading
           ? SizedBox(
-          height: AppSize.s25,width: AppSize.s25,
-          child: CircularProgressIndicator( color: ColorManager.blueprime,))
+        height: AppSize.s25,
+        width: AppSize.s25,
+        child: CircularProgressIndicator(color: ColorManager.blueprime),
+      )
           : CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
         text: AppStringEM.save,
         onPressed: () async {
-          _validateFields();
+          // Validate fields before saving
+          _validateType();
+          _validateAbbreviation();
+
           if (_typeError == null && _abbreviationError == null) {
             setState(() {
               isLoading = true;

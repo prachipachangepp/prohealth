@@ -7,11 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
-import '../../../../app/resources/font_manager.dart';
-import '../../../../app/resources/theme_manager.dart';
-import '../../em_module/em_desktop_screen.dart';
+
 import '../../hr_module/hr_home_screen/referesh_provider.dart';
-import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../widgets/constant/blue_tabbar.dart';
 
 
@@ -31,8 +28,8 @@ int selectindex =0;
 PageController _pageController = PageController();
 
 int pgeControllerId = 0;
-final ButtonSelectionController myController =
-Get.put(ButtonSelectionController());
+final ButtonSelectionControlleroasis myController =
+Get.put(ButtonSelectionControlleroasis());
 
 
 Future<void> _saveIndex(int index) async {
@@ -120,7 +117,7 @@ void onPageChanged(int index) {
                       ],
                     ),
                   ),
-                  SizedBox(width: 15),
+                  SizedBox(width: 18),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -131,9 +128,15 @@ void onPageChanged(int index) {
                         Row(children: [
                           Text("OASIS RN Start Of Care", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black)),
                         ],),
-                        Row(children: [
-                          Text("Consent For Care", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black)),
-                        ],)
+                        Row(
+                          children: [
+                            // Use GetX to reactively display the selected text
+                            Obx(() => Text(
+                              myController.selectedText.value,
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
+                            )),
+                          ],
+                        ),
                       ],
                     ),
                   )
@@ -143,450 +146,459 @@ void onPageChanged(int index) {
             SizedBox(height: 10),
             Container(
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(
+                Expanded(
                   flex: 2,
                   child: Container(
                     color: Color(0xFF51B5E6),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 10),
-                        Container(
-                          width: 300,
-                          height: 32,
-                          child: TextField(
-                            // controller: _controller,
-                            textCapitalization:
-                            TextCapitalization.words,
-                            style: DocumentTypeDataStyle.customTextStyle(context),
-                            // onChanged: _search,
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Color(0xFFF8F8F8),
-                                hintText: 'Search',
-                                alignLabelWithHint: true,
-                                // hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color:Color(0xFFC9C9C9)),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color:ColorManager.greylight ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-
-                                prefixIcon: IconButton(
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  icon: Center(
-                                    child: Icon(
-                                      Icons.search,
-                                      size: 18,
-                                      color:  ColorManager.greylight,
-                                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10),
+                          Container(
+                            //width: 300,
+                            height: 32,
+                            child: TextField(
+                              // controller: _controller,
+                              textCapitalization:
+                              TextCapitalization.words,
+                              style: DocumentTypeDataStyle.customTextStyle(context),
+                              // onChanged: _search,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Color(0xFFF8F8F8),
+                                  hintText: 'Search',
+                                  alignLabelWithHint: true,
+                                  // hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color:Color(0xFFC9C9C9)),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
-                                  onPressed: () {},
-                                ),
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 5)),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color:ColorManager.greylight ),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+
+                                  prefixIcon: IconButton(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    icon: Center(
+                                      child: Icon(
+                                        Icons.search,
+                                        size: 18,
+                                        color:  ColorManager.greylight,
+                                      ),
+                                    ),
+                                    onPressed: () {},
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5)),
+                            ),
+
                           ),
-
-                        ),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                              width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(0,'Consent for Care');
+                            _pageController.animateToPage(0,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(0);
+                            onPageChanged(0);
+                            pgeControllerId = 0;  }, text: 'Consent for Care', isSelected: myController.selectedIndex.value == 0,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100,
+                            onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(1, 'Administrative Information');
+                            _pageController.animateToPage(1,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(1);
+                            onPageChanged(1);
+                            pgeControllerId = 1;  }, text: 'Administrative Information', isSelected: myController.selectedIndex.value == 1,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
                             width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(0);
-                          _pageController.animateToPage(0,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(0);
-                          onPageChanged(0);
-                          pgeControllerId = 0;  }, text: 'Consent for Care', isSelected: myController.selectedIndex.value == 0,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100,
-                          onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(1);
-                          _pageController.animateToPage(1,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(1);
-                          onPageChanged(1);
-                          pgeControllerId = 1;  }, text: 'Administrative Information', isSelected: myController.selectedIndex.value == 1,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(2);
-                          _pageController.animateToPage(2,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(2);
-                          onPageChanged(2);
-                          pgeControllerId = 2;  }, text: 'Clinical Record Items', isSelected: myController.selectedIndex.value == 2,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Patient History/Immunization', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(4);
-                          _pageController.animateToPage(4,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(4);
-                          onPageChanged(4);
-                          pgeControllerId = 4;  }, text: 'Living Arrangements', isSelected: myController.selectedIndex.value == 4,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(5);
-                          _pageController.animateToPage(5,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(5);
-                          onPageChanged(5);
-                          pgeControllerId = 5;  }, text: 'Assistance', isSelected: myController.selectedIndex.value == 5,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(6);
-                          _pageController.animateToPage(6,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(6);
-                          onPageChanged(6);
-                          pgeControllerId = 6;  }, text: 'Safety Hazards/Emergency Plan', isSelected: myController.selectedIndex.value == 6,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(7);
-                          _pageController.animateToPage(7,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(7);
-                          onPageChanged(7);
-                          pgeControllerId = 7;  }, text: 'Vital Signs, Height & Weight', isSelected: myController.selectedIndex.value == 7,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Pain', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Hearing/Speech/Vision', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'BIMS', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  },  text: 'Neurological/Cognitive', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Mood', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Behavior/Risk Factors', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Respiratory', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Cardiovascular', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Genitourinary', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Gastrointestinal/Nutrition/Endocrine', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Integumentary/Wound Care', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Ulcers/Surgical Wounds', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Musculoskeletal', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Functional Status', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Functional Abilities and Goals', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Fall Risk/ Therapy Need', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Medications', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Infusion/Lab Draw', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Special Treatment, Procedures,\nAnd Programs', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Rehospitalization Risk', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Interventions/Education Provided', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Assessment Summary', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Supplies ', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Plan of Care ', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Care Planning/Coordination', isSelected: myController.selectedIndex.value == 3,),
-                        SizedBox(height: 5,),
-                        CustomTitleButtonoasis( height: 30,
-                          width: 100, onPressed: () { setState(() {});
-                          //companyAll(context);
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                          _saveIndex(3);
-                          onPageChanged(3);
-                          pgeControllerId = 3;  }, text: 'Diagnosis Codes', isSelected: myController.selectedIndex.value == 3,),
+                            //companyAll(context);
+                            myController.selectButton(2,'Clinical Record Items');
+                            _pageController.animateToPage(2,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(2);
+                            onPageChanged(2);
+                            pgeControllerId = 2;  }, text: 'Clinical Record Items', isSelected: myController.selectedIndex.value == 2,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(3,'Patient History/Immunization');
+                            _pageController.animateToPage(3,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(3);
+                            onPageChanged(3);
+                            pgeControllerId = 3;  }, text: 'Patient History/Immunization', isSelected: myController.selectedIndex.value == 3,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(4,'Living Arrangements');
+                            _pageController.animateToPage(4,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(4);
+                            onPageChanged(4);
+                            pgeControllerId = 4;  }, text: 'Living Arrangements', isSelected: myController.selectedIndex.value == 4,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis(
+                            height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(5,'Assistance');
+                            _pageController.animateToPage(5,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(5);
+                            onPageChanged(5);
+                            pgeControllerId = 5;  }, text: 'Assistance',
+                            isSelected: myController.selectedIndex.value == 5,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(6,'Safety Hazards/Emergency Plan');
+                            _pageController.animateToPage(6,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(6);
+                            onPageChanged(6);
+                            pgeControllerId = 6;  }, text: 'Safety Hazards/Emergency Plan', isSelected: myController.selectedIndex.value == 6,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(7,'Vital Signs, Height & Weight');
+                            _pageController.animateToPage(7,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(7);
+                            onPageChanged(7);
+                            pgeControllerId = 7;  }, text: 'Vital Signs, Height & Weight', isSelected: myController.selectedIndex.value == 7,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(8,'Pain');
+                            _pageController.animateToPage(8,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(8);
+                            onPageChanged(8);
+                            pgeControllerId = 8;  }, text: 'Pain', isSelected: myController.selectedIndex.value == 8,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(9,'Hearing/Speech/Vision');
+                            _pageController.animateToPage(9,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(9);
+                            onPageChanged(9);
+                            pgeControllerId = 9;  }, text: 'Hearing/Speech/Vision', isSelected: myController.selectedIndex.value == 9,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(10,'BIMS');
+                            _pageController.animateToPage(10,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(10);
+                            onPageChanged(10);
+                            pgeControllerId = 10;  }, text: 'BIMS', isSelected: myController.selectedIndex.value == 10,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(11,'Neurological/Cognitive');
+                            _pageController.animateToPage(11,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(11);
+                            onPageChanged(11);
+                            pgeControllerId = 11;  },  text: 'Neurological/Cognitive', isSelected: myController.selectedIndex.value == 11,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(12,'Mood');
+                            _pageController.animateToPage(12,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(12);
+                            onPageChanged(12);
+                            pgeControllerId = 12;  }, text: 'Mood', isSelected: myController.selectedIndex.value == 12,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(13,'Behavior/Risk Factors');
+                            _pageController.animateToPage(13,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(13);
+                            onPageChanged(13);
+                            pgeControllerId = 13;  }, text: 'Behavior/Risk Factors', isSelected: myController.selectedIndex.value == 13,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(14,'Respiratory');
+                            _pageController.animateToPage(14,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(14);
+                            onPageChanged(14);
+                            pgeControllerId = 14;  }, text: 'Respiratory', isSelected: myController.selectedIndex.value == 14,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(15,'Cardiovascular');
+                            _pageController.animateToPage(15,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(15);
+                            onPageChanged(15);
+                            pgeControllerId = 15;  }, text: 'Cardiovascular', isSelected: myController.selectedIndex.value == 15,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(16,'Genitourinary');
+                            _pageController.animateToPage(16,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(16);
+                            onPageChanged(16);
+                            pgeControllerId = 16;  }, text: 'Genitourinary', isSelected: myController.selectedIndex.value == 16,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(17,'Gastrointestinal/Nutrition/Endocrine');
+                            _pageController.animateToPage(17,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(17);
+                            onPageChanged(17);
+                            pgeControllerId = 17;  }, text: 'Gastrointestinal/Nutrition/Endocrine', isSelected: myController.selectedIndex.value == 17,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(18,'Integumentary/Wound Care');
+                            _pageController.animateToPage(18,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(18);
+                            onPageChanged(18);
+                            pgeControllerId = 18;  }, text: 'Integumentary/Wound Care', isSelected: myController.selectedIndex.value == 18,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(19,'Ulcers/Surgical Wounds');
+                            _pageController.animateToPage(19,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(19);
+                            onPageChanged(19);
+                            pgeControllerId = 19;  }, text: 'Ulcers/Surgical Wounds', isSelected: myController.selectedIndex.value == 19,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(20,'Musculoskeletal');
+                            _pageController.animateToPage(20,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(20);
+                            onPageChanged(20);
+                            pgeControllerId = 20;  }, text: 'Musculoskeletal', isSelected: myController.selectedIndex.value == 20,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(21,'Functional Status');
+                            _pageController.animateToPage(21,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(21);
+                            onPageChanged(21);
+                            pgeControllerId = 21;  }, text: 'Functional Status', isSelected: myController.selectedIndex.value == 21,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(22,'Functional Abilities and Goals');
+                            _pageController.animateToPage(22,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(22);
+                            onPageChanged(22);
+                            pgeControllerId = 22;  }, text: 'Functional Abilities and Goals', isSelected: myController.selectedIndex.value == 22,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(23 ,'Fall Risk/ Therapy Need');
+                            _pageController.animateToPage(23,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(23);
+                            onPageChanged(23);
+                            pgeControllerId = 23;  }, text: 'Fall Risk/ Therapy Need', isSelected: myController.selectedIndex.value == 23,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(24 ,'Medications');
+                            _pageController.animateToPage(24,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(24);
+                            onPageChanged(24);
+                            pgeControllerId = 24;  }, text: 'Medications', isSelected: myController.selectedIndex.value == 24,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(25,'Infusion/Lab Draw');
+                            _pageController.animateToPage(25,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(25);
+                            onPageChanged(25);
+                            pgeControllerId = 25;  }, text: 'Infusion/Lab Draw', isSelected: myController.selectedIndex.value == 25,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(26,'Special Treatment, Procedures, And Programs');
+                            _pageController.animateToPage(26,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(26);
+                            onPageChanged(26);
+                            pgeControllerId = 26;  }, text: 'Special Treatment, Procedures,\nAnd Programs', isSelected: myController.selectedIndex.value == 26,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(27,'Rehospitalization Risk');
+                            _pageController.animateToPage(27,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(27);
+                            onPageChanged(27);
+                            pgeControllerId = 27;  }, text: 'Rehospitalization Risk', isSelected: myController.selectedIndex.value == 27,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(28,'Interventions/Education Provided');
+                            _pageController.animateToPage(28,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(28);
+                            onPageChanged(28);
+                            pgeControllerId = 28;  }, text: 'Interventions/Education Provided', isSelected: myController.selectedIndex.value == 28,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(29,'Assessment Summary');
+                            _pageController.animateToPage(29,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(29);
+                            onPageChanged(29);
+                            pgeControllerId = 29;  }, text: 'Assessment Summary', isSelected: myController.selectedIndex.value == 29,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(30,'Supplies ');
+                            _pageController.animateToPage(30,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(30);
+                            onPageChanged(30);
+                            pgeControllerId = 30;  }, text: 'Supplies ', isSelected: myController.selectedIndex.value == 30,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(31,'Plan of Care ');
+                            _pageController.animateToPage(31,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(31);
+                            onPageChanged(31);
+                            pgeControllerId = 31;  }, text: 'Plan of Care ', isSelected: myController.selectedIndex.value == 31,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(32,'Care Planning/Coordination');
+                            _pageController.animateToPage(32,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(32);
+                            onPageChanged(32);
+                            pgeControllerId = 32;  }, text: 'Care Planning/Coordination', isSelected: myController.selectedIndex.value == 32,),
+                          SizedBox(height: 5,),
+                          CustomTitleButtonoasis( height: 30,
+                            width: 100, onPressed: () { setState(() {});
+                            //companyAll(context);
+                            myController.selectButton(33,'Diagnosis Codes');
+                            _pageController.animateToPage(33,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                            _saveIndex(33);
+                            onPageChanged(33);
+                            pgeControllerId = 33;  }, text: 'Diagnosis Codes', isSelected: myController.selectedIndex.value == 33,),
 
-                        SizedBox(height: 50,),
+                          SizedBox(height: 50,),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Flexible(
+                Expanded(
                   flex: 8,
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.7,
+                height: MediaQuery.of(context).size.height / 1,
+                  //  color: Colors.red,
                     child: PageView(
                       controller: _pageController,
+                      physics: NeverScrollableScrollPhysics(),
                       children: [
                         ConsentForCare(),
                         Screen2(),
                         Screen3(),
                         Screen4(),
+
 
 
                       ],

@@ -70,8 +70,6 @@ class HrRegisterProvider extends ChangeNotifier {
       _registerController.add(filteredData);
     }
   }
-
-
 }
 
 class HrEnrollEmployeeProvider extends ChangeNotifier{
