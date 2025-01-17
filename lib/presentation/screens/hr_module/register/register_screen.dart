@@ -129,8 +129,8 @@ class RegisterScreen extends StatelessWidget {
                             SizedBox(width: 5,),
                             TextButton(
                               onPressed: () async {
-                           const url = "http://localhost:64668/#/onBordingWelcome";
-                             // const url = "${AppConfig.deployment}/#/onBordingWelcome";
+                           // const url = "http://localhost:64668/#/onBordingWelcome";
+                             const url = "${AppConfig.deployment}/#/onBordingWelcome";
                                 //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                                 //Provider.of<RouteProvider>(context,listen:false).navigateToPage(context, OnBoardingWelcome());
                                 //const url = "${AppConfig.deployment}/#/onBordingWelcome";
