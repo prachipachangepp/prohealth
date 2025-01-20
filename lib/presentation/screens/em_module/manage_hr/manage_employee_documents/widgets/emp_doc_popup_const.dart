@@ -37,6 +37,21 @@ class EmpDocADDPopupProvider extends ChangeNotifier {
   bool _isFormValid = true;
   String? _expiryTypeError;
 
+  EmpDocADDPopupProvider() {
+    nameDocController.addListener(() {
+      if (_nameError != null && nameDocController.text.isNotEmpty) {
+        _nameError = null;
+        notifyListeners();
+      }
+    });
+    idDocController.addListener(() {
+      if (_idError != null && idDocController.text.isNotEmpty) {
+        _idError = null;
+        notifyListeners();
+      }
+    });
+  }
+
   void setSelectedExpiryType(String expiryType) {
     selectedExpiryType = expiryType;
     notifyListeners();
@@ -401,48 +416,104 @@ class EmpDocADDPopup extends StatelessWidget {
 }
 
 ///edit popup
+// class EmpDocEditPopupProvider extends ChangeNotifier {
+//   TextEditingController nameDocController = TextEditingController();
+//   TextEditingController idOfDocController = TextEditingController();
+//   TextEditingController calenderController = TextEditingController();
+//   bool _isLoading = false;
+//   bool get isLoading => _isLoading;
+//   String? _nameError;
+//   String? get nameError => _nameError;
+//   bool _isFormValid = true;
+//   bool get isFormValid => _isFormValid;
+//
+//   String selectedExpiryType = "";
+//   String? selectedYear = AppConfig.year;
+//
+//   void setSelectedExpiryType(String expiryType) {
+//     selectedExpiryType = expiryType;
+//     notifyListeners();
+//   }
+//
+//   String? validateTextField(String value, String fieldName) {
+//     if (value.isEmpty) {
+//       _isFormValid = false;
+//       notifyListeners();
+//       return "Please Enter $fieldName";
+//     }
+//     notifyListeners();
+//     return null;
+//   }
+//
+//   void validateFields({required String docNameController}) {
+//     _isFormValid = true;
+//     _nameError = validateTextField(docNameController, 'Name of the Document');
+//    // if (_nameError != null) _isFormValid = false;
+//
+//     notifyListeners();
+//   }
+//
+//   void setLoading(bool value) {
+//     _isLoading = value;
+//     notifyListeners();
+//   }
+//
+// }
+
 class EmpDocEditPopupProvider extends ChangeNotifier {
   TextEditingController nameDocController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
+
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+
   String? _nameError;
   String? get nameError => _nameError;
+
   bool _isFormValid = true;
   bool get isFormValid => _isFormValid;
 
   String selectedExpiryType = "";
   String? selectedYear = AppConfig.year;
 
-  void setSelectedExpiryType(String expiryType) {
-    selectedExpiryType = expiryType;
+  EmpDocEditPopupProvider() {
+    nameDocController.addListener(() {
+      // Automatically hide the error message when user starts typing
+      if (nameDocController.text.isNotEmpty && _nameError != null) {
+        clearNameError();
+      }
+    });
+  }
+
+  // Validate fields
+  void validateFields({required String docNameController}) {
+    _isFormValid = true;
+    _nameError = validateTextField(docNameController, 'Name of the Document');
     notifyListeners();
   }
 
+  // Clear the name error message
+  void clearNameError() {
+    _nameError = null;
+    _isFormValid = true;
+    notifyListeners();
+  }
+
+  // Validate text field (generic method)
   String? validateTextField(String value, String fieldName) {
     if (value.isEmpty) {
       _isFormValid = false;
       notifyListeners();
       return "Please Enter $fieldName";
     }
-    notifyListeners();
     return null;
-  }
-
-  void validateFields({required String docNameController}) {
-    _isFormValid = true;
-    _nameError = validateTextField(docNameController, 'Name of the Document');
-   // if (_nameError != null) _isFormValid = false;
-
-    notifyListeners();
   }
 
   void setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
   }
-
 }
 
 class EmpDocEditPopup extends StatelessWidget {
@@ -496,11 +567,28 @@ class EmpDocEditPopup extends StatelessWidget {
                   text: AppStringEM.idOfDOc,
                 ),
                 SizedBox(height: AppSize.s8),
+                // SMTextfieldAsteric(
+                //   controller: nameDocController,
+                //   keyboardType: TextInputType.text,
+                //   text: AppStringEM.NameOfDoc,
+                // ),
                 SMTextfieldAsteric(
                   controller: nameDocController,
                   keyboardType: TextInputType.text,
                   text: AppStringEM.NameOfDoc,
+                  onChange: () {
+                    // Clear the error as soon as the user starts typing
+                    if (nameDocController.text.isNotEmpty) {
+                      Provider.of<EmpDocEditPopupProvider>(context, listen: false)
+                          .clearNameError();
+                    }
+
+                    // Validate the text field after clearing the error
+                    Provider.of<EmpDocEditPopupProvider>(context, listen: false)
+                        .validateFields(docNameController: nameDocController.text);
+                  },
                 ),
+
                 provider.nameError != null ?
                   Text(
                     provider.nameError!,

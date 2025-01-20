@@ -46,22 +46,22 @@ class _AppBarWebState extends State<AppBarWeb> {
         height: AppBar().preferredSize.height + 15,
         width: double.maxFinite,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ///logo
             Container(
-              width: AppSize.s200,
-              // color: Colors.white,
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              width: AppSize.s181,
+             //color: Colors.red,
+              margin: const EdgeInsets.only(left: AppPadding.p50,),
+              // margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               child: Image.asset(
                 'images/logo_login.png',
                 fit: BoxFit.fill,
               ),
             ),
             Container(
-              width: MediaQuery.of(context).size.width - 240,
-              margin:
-                  const EdgeInsets.only(left: 20, right: 0, top: 5, bottom: 5),
+              width: MediaQuery.of(context).size.width - 242,
+              margin: const EdgeInsets.only(left: 10, right: 0, top: 5, bottom: 5),
               child: Material(
                 elevation: 8,
                 borderRadius: const BorderRadius.only(
@@ -69,8 +69,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                   bottomLeft: Radius.circular(18),
                 ),
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(18),
@@ -87,9 +86,9 @@ class _AppBarWebState extends State<AppBarWeb> {
                   ),
                   child: Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width - 280,
+                      width: MediaQuery.of(context).size.width - 240,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         // scrollDirection: Axis.horizontal,
@@ -328,16 +327,13 @@ class _AppBarWebState extends State<AppBarWeb> {
                                     : SizedBox(
                                         width: 1,
                                       ),
-
+                                ///dropdown
                                 MediaQuery.of(context).size.width >= 1024
-                                    ?
-
-                                    ///dropdown
-                                Expanded(
+                                    ? Expanded(
                                   flex: 3,
                                   child: Container(
-                               margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
-                                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                               //margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 160),
+                                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(18),
                                       border: Border.all(color: Colors.white, width: 2),
@@ -389,124 +385,9 @@ class _AppBarWebState extends State<AppBarWeb> {
                                     ),
                                   ),
                                 )
-
-
-                                ///
-                                    // Expanded(
-                                    //     flex: 3,
-                                    //     child: Container(
-                                    //       margin: EdgeInsets.symmetric(
-                                    //           horizontal: MediaQuery.of(context)
-                                    //                   .size
-                                    //                   .width /
-                                    //               160),
-                                    //       padding: const EdgeInsets.symmetric(
-                                    //           vertical: 10, horizontal: 5),
-                                    //       decoration: BoxDecoration(
-                                    //         borderRadius:
-                                    //             BorderRadius.circular(20),
-                                    //         border: Border.all(
-                                    //             color: Colors.white, width: 2),
-                                    //         color: Colors.transparent,
-                                    //       ),
-                                    //       child: Center(
-                                    //         child: DropdownButton<String>(
-                                    //           underline: Container(),
-                                    //           icon: Padding(
-                                    //             padding: const EdgeInsets.only(
-                                    //                 top: 0),
-                                    //             child: Icon(
-                                    //               Icons.arrow_drop_down,
-                                    //              //  size: 17,
-                                    //               color: Colors.red,
-                                    //             ),
-                                    //           ),
-                                    //           value: _selectedValue,
-                                    //           hint: Text(
-                                    //             'Super User',
-                                    //             style: TextStyle(
-                                    //               fontSize: 10,
-                                    //               fontWeight: FontWeight.w600,
-                                    //               color: Colors.white,
-                                    //             ),
-                                    //           ),
-                                    //           items: <String>[
-                                    //             'Super User',
-                                    //             'Admin',
-                                    //             'Staff',
-                                    //             'Patient'
-                                    //           ].map((String value) {
-                                    //             return DropdownMenuItem<String>(
-                                    //               value: value,
-                                    //               child: Text(
-                                    //                 value,
-                                    //                 style: TextStyle(
-                                    //                   fontSize: 10,
-                                    //                   fontWeight:
-                                    //                       FontWeight.w400,
-                                    //                   color: _selectedValue ==
-                                    //                           value
-                                    //                       ? Colors.white
-                                    //                       : ColorManager.white,
-                                    //                 ),
-                                    //               ),
-                                    //             );
-                                    //           }).toList(),
-                                    //           onChanged: (String? newValue) {
-                                    //             setState(() {
-                                    //               _selectedValue = newValue;
-                                    //             });
-                                    //           },
-                                    //           dropdownColor:
-                                    //               ColorManager.blueprime,
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   )
                                     : SizedBox(
                                         width: AppSize.s1,
                                       ),
-                                // SizedBox(
-                                //   width: MediaQuery.of(context).size.width / 50,
-                                // ),
-
-                                // Expanded(
-                                //   flex: 3,
-                                //   child: Row(
-                                //     mainAxisAlignment: MainAxisAlignment.center,
-                                //     children: [
-                                //       AppClickableWidget(
-                                //         onTap: () {},
-                                //         onHover: (bool val) {},
-                                //         child: Container(
-                                //             padding: const EdgeInsets.symmetric(
-                                //                 horizontal: 5, vertical: 5),
-                                //             child: const Center(
-                                //               child: Icon(
-                                //                 Icons
-                                //                     .notifications_none_outlined,
-                                //                 color: Colors.white,
-                                //               ),
-                                //             )),
-                                //       ),
-                                //
-                                //       AppClickableWidget(
-                                //         onTap: () {},
-                                //         onHover: (bool val) {},
-                                //         child: Container(
-                                //             padding: const EdgeInsets.symmetric(
-                                //                 horizontal: 5, vertical: 5),
-                                //             child: const Center(
-                                //               child: Icon(
-                                //                 Icons.settings_outlined,
-                                //                 color: Colors.white,
-                                //               ),
-                                //             )),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
-
                                 Expanded(
                                   flex: 3,
                                   child: Row(
@@ -686,101 +567,6 @@ class _AppBarWebState extends State<AppBarWeb> {
                                     ],
                                   ),
                                 ),
-
-                                ///old
-//                                 Expanded(
-//                                   flex: 2,
-//                                   child: Column(
-//                                     mainAxisAlignment: MainAxisAlignment.center,
-//                                     children: [
-//                                       GestureDetector(
-//                                         child: Icon(
-//                                           Icons.person,
-//                                           color: Colors.white,
-//                                         ),
-//                                       ),
-//                                       const SizedBox(height: AppSize.s2),
-//                                       FutureBuilder(
-//                                           future: user(),
-//                                           builder: (context, snap) {
-//                                             if (snap.connectionState ==
-//                                                 ConnectionState.waiting) {
-//                                               return SizedBox();
-//                                             }
-//                                             return Text(
-//                                               loginName!,
-//                                               textAlign: TextAlign.center,
-//                                               style: TextStyle(
-//                                                 color: Colors.white,
-//                                                 fontSize: FontSize.s8,
-//                                                 fontWeight:
-//                                                 FontWeightManager.regular,
-//                                               ),
-//                                             );
-//                                           }),
-//                                          ],
-//                                       ),
-//                                     ),
-                                ///Saloni
-                                // Expanded(
-                                //   flex: 2,
-                                //   child: Column(
-                                //     mainAxisSize: MainAxisSize.min,
-                                //     mainAxisAlignment: MainAxisAlignment.start,
-                                //     children: [
-                                //       PopupMenuButton<int>(
-                                //         icon: Icon(
-                                //           Icons.person,
-                                //           color: Colors.white,
-                                //         ),
-                                //         onSelected: (value) {
-                                //           if (value == 1) {
-                                //             print("User logged out");
-                                //            showDialog(context: context, builder: (context) =>
-                                //                DeletePopup(onCancel: (){
-                                //              Navigator.pop(context);
-                                //            }, onDelete: (){
-                                //              TokenManager.removeAccessToken();
-                                //              Navigator.pushNamedAndRemoveUntil(
-                                //                  context,
-                                //                  LoginScreen.routeName,
-                                //                      (route) => false);
-                                //            },
-                                //              btnText: "Log Out",
-                                //              title: "Log Out",text: "Do you really want to logout?",));
-                                //           }
-                                //         },
-                                //         itemBuilder: (context) => [
-                                //           PopupMenuItem<int>(
-                                //             value: 1,
-                                //             child: ListTile(
-                                //               leading: Icon(Icons.logout, color: Colors.black),
-                                //               title: Text('Logout'),
-                                //             ),
-                                //           ),
-                                //         ],
-                                //       ),
-                                //      // const SizedBox(height: AppSize.s2),
-                                //       FutureBuilder(
-                                //         future: user(),
-                                //         builder: (context, snap) {
-                                //           if (snap.connectionState == ConnectionState.waiting) {
-                                //             return SizedBox(height: 1,);
-                                //           }
-                                //           return Text(
-                                //             loginName!,
-                                //             textAlign: TextAlign.center,
-                                //             style: TextStyle(
-                                //               color: Colors.white,
-                                //               fontSize: FontSize.s8,
-                                //               fontWeight: FontWeight.w400,
-                                //             ),
-                                //           );
-                                //         },
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
                               ],
                             ),
                           )

@@ -205,15 +205,47 @@ class HrManageProvider extends ChangeNotifier{
   }
 
   /// HR profile bar Address trim
+  // void updateAddress(String address) {
+  //   const int maxLength = 25;
+  //   if (address.length > maxLength) {
+  //     _trimmedAddress = '${address.substring(0, maxLength)}...';
+  //   } else {
+  //     _trimmedAddress = address;
+  //   }
+  //   notifyListeners();
+  // }
+  String _line1 = '';
+  String _line2 = '';
+  String _tooltipText = '';
+
+  String get line1 => _line1;
+  String get line2 => _line2;
+
+  get tooltipText => _tooltipText;
+
   void updateAddress(String address) {
-    const int maxLength = 15;
-    if (address.length > maxLength) {
-      _trimmedAddress = '${address.substring(0, maxLength)}...';
+    const int line1MaxLength = 25;
+    const int line2MaxLength = 20;
+
+    if (address.length > line1MaxLength) {
+      _line1 = address.substring(0, line1MaxLength);
+
+      if (address.length > line1MaxLength + line2MaxLength) {
+        _line2 = '${address.substring(line1MaxLength, line1MaxLength + line2MaxLength)}...';
+        _tooltipText = address;
+      } else {
+        _line2 = address.substring(line1MaxLength);
+        _tooltipText = address;
+      }
     } else {
-      _trimmedAddress = address;
+      _line1 = address;
+      _line2 = '';
+      _tooltipText = address;
     }
+
     notifyListeners();
   }
+
 
   /// HR profile trim summery
   void updateSummery(String symmery) {
@@ -316,7 +348,7 @@ class HrManageProvider extends ChangeNotifier{
         ),
       ),
     );
-    Overlay.of(context)?.insert(_overlayEntryAddress!);
+    Overlay.of(context).insert(_overlayEntryAddress!);
   }
   // Remove overlay
   void removeOverlayAddress() {

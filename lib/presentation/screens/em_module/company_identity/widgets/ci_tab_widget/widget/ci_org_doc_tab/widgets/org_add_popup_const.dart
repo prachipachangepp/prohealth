@@ -71,6 +71,22 @@ class AddNewOrgDocButtonProviider extends ChangeNotifier{
     notifyListeners();
   }
 
+  void setupTextFieldListeners() {
+    idDocController.addListener(() {
+      if (idDocController.text.isNotEmpty) {
+        _idDocError = null; // Hide error when user types
+        notifyListeners();
+      }
+    });
+
+    nameDocController.addListener(() {
+      if (nameDocController.text.isNotEmpty) {
+        _nameDocError = null; // Hide error when user types
+        notifyListeners();
+      }
+    });
+  }
+
 
 }
 
@@ -87,6 +103,7 @@ class AddNewOrgDocButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AddNewOrgDocButtonProviider>(builder: (context, provider, child){
+      provider.setupTextFieldListeners();
       return DialogueTemplate(
         width: AppSize.s420,
         height: subDocTypeId == AppConfig.subDocId10MISC
@@ -434,6 +451,15 @@ class OrgDocNewEditPopupProvider extends ChangeNotifier {
 
   String? nameDocError;
   String? selectedYear = AppConfig.year;
+  OrgDocNewEditPopupProvider() {
+    // Adding listeners to the text fields to clear error dynamically.
+    nameDocController.addListener(() {
+      if (nameDocError != null && nameDocController.text.isNotEmpty) {
+        nameDocError = null;  // Clear error when user starts typing.
+        notifyListeners();
+      }
+    });
+  }
 
   void initialize({
     required String docName,

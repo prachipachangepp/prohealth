@@ -62,7 +62,7 @@ class _DeletePopupState extends State<DeletePopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close,color: ColorManager.white,),
+                    icon: Icon(Icons.close,color: ColorManager.white,size: IconSize.I20,),
                   ),
                 ],
               ),
