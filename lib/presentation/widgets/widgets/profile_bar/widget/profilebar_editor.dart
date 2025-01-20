@@ -317,17 +317,17 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                 : Container(
                                                               decoration: BoxDecoration(
                                                                 shape: BoxShape.circle,
-                                                                boxShadow: [
-                                                                  BoxShadow(
-                                                                    color: Colors.black.withOpacity(0.2),
-                                                                    spreadRadius: 2,
-                                                                    blurRadius: 5,
-                                                                    offset: const Offset(0, 3), // Shadow position
-                                                                  ),
-                                                                ],
+                                                                // boxShadow: [
+                                                                //   BoxShadow(
+                                                                //     color: Colors.black.withOpacity(0.2),
+                                                                //     spreadRadius: 2,
+                                                                //     blurRadius: 5,
+                                                                //     offset: const Offset(0, 3), // Shadow position
+                                                                //   ),
+                                                                // ],
                                                               ),
                                                               child: CircleAvatar(
-                                                                radius: 20, // Adjust the size of the avatar
+                                                                radius: 25, // Adjust the size of the avatar
                                                                 backgroundColor: ColorManager.faintGrey,
                                                                 child: ClipOval(
                                                                   child: Image.network(

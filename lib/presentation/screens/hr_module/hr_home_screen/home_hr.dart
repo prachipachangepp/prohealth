@@ -383,8 +383,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
       
             ///appbar titles
             Container(
-              // color: Colors.pink,
-              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              margin: const EdgeInsets.only(
+                top: AppPadding.p20,bottom: AppPadding.p20, right: AppPadding.p20,left: AppPadding.p50,),
               child: StatefulBuilder(
                 builder: (BuildContext context,
                     void Function(void Function()) setState) {
