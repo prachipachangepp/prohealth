@@ -708,6 +708,7 @@ height: 600,
                                 )
                               ],
                             ),
+
                             SizedBox(width: 10,),
                             Column(crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
