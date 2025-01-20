@@ -46,6 +46,8 @@ class ProfileBar extends StatelessWidget {
     final profileState = Provider.of<HrManageProvider>(context, listen: false);
     hexColor = searchByEmployeeIdProfileData?.color.replaceAll("#", "");
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      profileState.dispose();
+      profileState.clearLicenseData();
       profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
       profileState.updateAddress(searchByEmployeeIdProfileData!.finalAddress);
       profileState.updateSummery(searchByEmployeeIdProfileData!.summary);
@@ -61,13 +63,12 @@ class ProfileBar extends StatelessWidget {
     int currentPage = 1;
     int itemsPerPage = 30;
     return Container(
-          color: ColorManager.whitebluecolor.withOpacity(0.25),
+          color: ColorManager.whitebluecolor,
           width: MediaQuery.of(context).size.width / 1,
-          // width: double.maxFinite,
-          //  margin: EdgeInsets.only(right: 10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
+                ///profile%
                 Material(
                   elevation: 4,
                   child: FutureBuilder<ProfilePercentage>(
@@ -79,7 +80,7 @@ class ProfileBar extends StatelessWidget {
                         }
                         if(snapshot.hasData){
                           double percentage = double.parse(snapshot.data!.percentage);
-                          double maxHeight = 187; // Maximum height in pixels for 100%
+                          double maxHeight = 200; // Maximum height in pixels for 100%
                           double containerHeight = (percentage / 100) * maxHeight;
                           Color containerColor;
                           if (percentage <= 30) {
@@ -115,138 +116,138 @@ class ProfileBar extends StatelessWidget {
                     return Flexible(
                       child: Material(
                         elevation: 4,
-                        // borderRadius: BorderRadius.only(
-                        //     bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height / 4,
-                         // width:  double.maxFinite,
-                         // width: MediaQuery.of(context).size.width/1.049,
+                         child: Container(
+                          height: 200,
                           decoration: BoxDecoration(
-                            // borderRadius: BorderRadius.only(
-                            //     bottomRight: Radius.circular(8),
-                            //     topRight: Radius.circular(8)),
-                            color: ColorManager.whitebluecolor.withOpacity(0.25),
+                           color: ColorManager.whitebluecolor,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               ///image
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                              Row(
                                 children: [
-                                  SizedBox(
-                                    height: 70,
-                                    width: 70,
-                                    child: Stack(
-                                      alignment: Alignment.center,
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:15.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        // Circular avatar for the image or icon
-                                        // ClipOval(
-                                        //   child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
-                                        //       searchByEmployeeIdProfileData!.imgurl == null
-                                        //       ? CircleAvatar(radius: 60,backgroundColor: ColorManager.faintGrey,child: Image.asset("images/profilepic.png"),)
-                                        //       : CachedNetworkImage(
-                                        //     imageUrl: searchByEmployeeIdProfileData!.imgurl,
-                                        //     placeholder: (context, url) => CircularProgressIndicator(),
-                                        //     errorWidget: (context, url, error) =>    CircleAvatar(child: Image.asset("images/profilepic.png"),),
-                                        //     fit: BoxFit.cover, // Ensure the image fits inside the circle
-                                        //     height: 67, // Adjust image height for proper fit
-                                        //     width: 67, // Adjust image width for proper fit
-                                        //   ),
-                                        // ),
-                                        ClipOval(
-                                          child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
-                                              searchByEmployeeIdProfileData!.imgurl == null
-                                              ? CircleAvatar(
-                                            radius: 60,
-                                            backgroundColor: ColorManager.faintGrey,
-                                            child: Image.asset("images/profilepic.png"),
-                                          )
-                                              : Image.network(
-                                            searchByEmployeeIdProfileData!.imgurl!,
-                                            loadingBuilder: (context, child, loadingProgress) {
-                                              if (loadingProgress == null) {
-                                                return child;
-                                              } else {
-                                                return Center(
-                                                  child: CircularProgressIndicator(
-                                                      value: loadingProgress.expectedTotalBytes != null
-                                                          ? loadingProgress.cumulativeBytesLoaded /
-                                                          (loadingProgress.expectedTotalBytes ?? 1)
-                                                          : null),
+                                        SizedBox(
+                                          height: 70,
+                                          width: 70,
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              // Circular avatar for the image or icon
+                                              // ClipOval(
+                                              //   child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                              //       searchByEmployeeIdProfileData!.imgurl == null
+                                              //       ? CircleAvatar(radius: 60,backgroundColor: ColorManager.faintGrey,child: Image.asset("images/profilepic.png"),)
+                                              //       : CachedNetworkImage(
+                                              //     imageUrl: searchByEmployeeIdProfileData!.imgurl,
+                                              //     placeholder: (context, url) => CircularProgressIndicator(),
+                                              //     errorWidget: (context, url, error) =>    CircleAvatar(child: Image.asset("images/profilepic.png"),),
+                                              //     fit: BoxFit.cover, // Ensure the image fits inside the circle
+                                              //     height: 67, // Adjust image height for proper fit
+                                              //     width: 67, // Adjust image width for proper fit
+                                              //   ),
+                                              // ),
+                                              ClipOval(
+                                                child: searchByEmployeeIdProfileData!.imgurl == 'imgurl' ||
+                                                    searchByEmployeeIdProfileData!.imgurl == null
+                                                    ? CircleAvatar(
+                                                  radius: 60,
+                                                  backgroundColor: ColorManager.faintGrey,
+                                                  child: Image.asset("images/profilepic.png"),
+                                                )
+                                                    : Image.network(
+                                                  searchByEmployeeIdProfileData!.imgurl!,
+                                                  loadingBuilder: (context, child, loadingProgress) {
+                                                    if (loadingProgress == null) {
+                                                      return child;
+                                                    } else {
+                                                      return Center(
+                                                        child: CircularProgressIndicator(
+                                                            value: loadingProgress.expectedTotalBytes != null
+                                                                ? loadingProgress.cumulativeBytesLoaded /
+                                                                (loadingProgress.expectedTotalBytes ?? 1)
+                                                                : null),
+                                                      );
+                                                    }
+                                                  },
+                                                  errorBuilder: (context, error, stackTrace) {
+                                                    return CircleAvatar(child: Image.asset("images/profilepic.png"));
+                                                  },
+                                                  fit: BoxFit.cover,
+                                                  height: 67,
+                                                  width: 67,
+                                                ),
+                                              ),
+                                              // Circular progress indicator around the image
+                                              SizedBox(
+                                                height: AppSize.s70,
+                                                width: AppSize.s70,
+                                                child: CircularProgressIndicator(
+                                                  valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenF),
+                                                  strokeWidth: 3,
+                                                  value: searchByEmployeeIdProfileData!.profileScorePercentage,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      //  SizedBox(height: 15,),
+                                        searchByEmployeeIdProfileData!.active
+                                            ? Text(
+                                              "Active",
+                                              style: ThemeManagerBlack.customTextStyle(context),
+                                            )
+                                            :Text(
+                                              "Inactive",
+                                              style: ThemeManagerBlack.customTextStyle(context),
+                                            ),
+                                       // SizedBox(height: 15,),
+                                        FutureBuilder<ProfilePercentage>(
+                                            future: getPercentage(
+                                                context,
+                                                searchByEmployeeIdProfileData!.employeeId!),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return Padding(
+                                                  padding: const EdgeInsets.only(bottom: 48.0),
+                                                  child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Text(
+                                                          "Annual Skills 0%",
+                                                          style:
+                                                          ProfileBarTextBoldStyle.customEditTextStyle(),
+                                                        ),
+                                                      ]),
                                                 );
                                               }
-                                            },
-                                            errorBuilder: (context, error, stackTrace) {
-                                              return CircleAvatar(child: Image.asset("images/profilepic.png"));
-                                            },
-                                            fit: BoxFit.cover,
-                                            height: 67,
-                                            width: 67,
-                                          ),
-                                        ),
-                                        // Circular progress indicator around the image
-                                        SizedBox(
-                                          height: AppSize.s70,
-                                          width: AppSize.s70,
-                                          child: CircularProgressIndicator(
-                                            valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenF),
-                                            strokeWidth: 3,
-                                            value: searchByEmployeeIdProfileData!.profileScorePercentage,
-                                          ),
-                                        ),
+                                              return Padding(
+                                                padding: const EdgeInsets.only(bottom: 48.0),
+                                                child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Annual Skills 0%",
+                                                        style:
+                                                        ProfileBarTextBoldStyle.customEditTextStyle(),
+                                                      ),
+                                                    ]),
+                                              );
+                                            })
                                       ],
                                     ),
                                   ),
-                                //  SizedBox(height: 15,),
-                                  searchByEmployeeIdProfileData!.active ? Text(
-                                    "Active",
-                                    style: ThemeManagerBlack.customTextStyle(context),
-                                  ):Text(
-                                    "Inactive",
-                                    style: ThemeManagerBlack.customTextStyle(context),
-                                  ),
-                                 // SizedBox(height: 15,),
-                                  FutureBuilder<ProfilePercentage>(
-                                      future: getPercentage(
-                                          context,
-                                          searchByEmployeeIdProfileData!.employeeId!),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  "Annual Skills 0%",
-                                                  style:
-                                                  ProfileBarTextBoldStyle.customEditTextStyle(),
-                                                ),
-                                              ]);
-                                        }
-                                        return Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Annual Skills 0%",
-                                                style:
-                                                ProfileBarTextBoldStyle.customEditTextStyle(),
-                                              ),
-                                            ]);
-                                      })
-                                ],
-                              ),
-                              // SizedBox(
-                              //   width: 10,
-                              // ),
-                              /////////////////////////////////////////////////////////////////////////////////////////////
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                  SizedBox(width: 30,),
+                                  ///edit button column
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                                    padding: const EdgeInsets.only(top: 18.0, bottom: 12),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -261,7 +262,7 @@ class ProfileBar extends StatelessWidget {
                                             ),
                                             SizedBox(width: 15,),
                                             InkWell(
-                                              onTap: onEditPressed,
+                                                onTap: onEditPressed,
                                                 splashColor: Colors.transparent,
                                                 highlightColor: Colors.transparent,
                                                 hoverColor: Colors.transparent,
@@ -269,19 +270,28 @@ class ProfileBar extends StatelessWidget {
                                           ],
                                         ),
                                         Container(
-                                         height: MediaQuery.of(context).size.height / 40,
+                                          height: 25,
                                           width: MediaQuery.of(context).size.width / 10,
-                                          decoration: BoxDecoration(color: Color(int.parse("0xFF$hexColor"))),
-                                           child: Center(
-                                             child: Text(
-                                                   searchByEmployeeIdProfileData!.employeeType.capitalizeFirst!,
-                                               style: TextStyle(
-                                                 fontSize: 12,
-                                                 color: providerState.isDarkColor(Color(int.parse('0xFF$hexColor')))?ColorManager.white:ColorManager.black,
-                                                 fontWeight: FontWeight.w600,
-                                               ),
-                                             ),
-                                           ),
+                                          decoration: BoxDecoration(
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Color(0xff000000).withValues(alpha: 0.2),
+                                                  spreadRadius: 0,
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 4),
+                                                ),
+                                              ],
+                                              color: Color(int.parse("0xFF$hexColor"))),
+                                          child: Center(
+                                            child: Text(
+                                              searchByEmployeeIdProfileData!.employeeType.capitalizeFirst!,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: providerState.isDarkColor(Color(int.parse('0xFF$hexColor')))?ColorManager.white:ColorManager.black,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
                                         ),
 
                                         Row(
@@ -312,43 +322,77 @@ class ProfileBar extends StatelessWidget {
 
                                         MouseRegion(
                                           onEnter: (event) => profileState.showOverlayAddress(
-                                              context, event.position,searchByEmployeeIdProfileData!.finalAddress),
+                                              context, event.position, searchByEmployeeIdProfileData!.finalAddress),
                                           onExit: (_) => profileState.removeOverlayAddress(),
-                                          child: Text(
-                                              providerState.trimmedAddress,
-                                              textAlign: TextAlign.start,
-                                              style:
-                                              ThemeManagerAddressPB.customTextStyle(
-                                                  context)),
+                                          child: Container(
+                                            height: 30,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  providerState.line1,
+                                                  textAlign: TextAlign.start,
+                                                  style: ThemeManagerAddressPB.customTextStyle(context),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                                Text(
+                                                  providerState.line2,
+                                                  textAlign: TextAlign.start,
+                                                  style: ThemeManagerAddressPB.customTextStyle(context),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ),
+
+                                        // MouseRegion(
+                                        //   onEnter: (event) => profileState.showOverlayAddress(
+                                        //       context, event.position,searchByEmployeeIdProfileData!.finalAddress),
+                                        //   onExit: (_) => profileState.removeOverlayAddress(),
+                                        //   child: Container(
+                                        //     height: 30,
+                                        //     color: ColorManager.red,
+                                        //     child: Text(
+                                        //         providerState.trimmedAddress,
+                                        //         textAlign: TextAlign.start,
+                                        //         style:
+                                        //         ThemeManagerAddressPB.customTextStyle(
+                                        //             context)),
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
 
-                              /////////////////////////////////////////////////////////////////////////////////////////////
-                            //  SizedBox(width: MediaQuery.of(context).size.width/50),
+                              ///age phone msg
                               Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: MyConstants.personalInfoTexts(context),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10.0,top: 10),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: MyConstants.personalInfoTexts(context),
+                                    ),
                                   ),
                                  // SizedBox(width: 20),
+                                  ///age phone message
                                   Padding(
-                                    padding: const EdgeInsets.only(bottom: 3.0,left: 8),
+                                    padding: const EdgeInsets.only(bottom: 10.0,left: 8,top: 10),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
-                                        ///text john scott
                                         Text(
-                                          "${searchByEmployeeIdProfileData!.dateOfBirth} (${providerState.dateOfBirthStamp ?? 'N/A'})",
+                                          "${searchByEmployeeIdProfileData!.dateOfBirth} ( ${providerState.dateOfBirthStamp ?? 'N/A'} )",
                                           style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                         ),
-
                                         Text(
                                           searchByEmployeeIdProfileData!.gender,
                                           style: ProfileBarTextBoldStyle.customEditTextStyle(),
@@ -379,7 +423,7 @@ class ProfileBar extends StatelessWidget {
                               Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding:  EdgeInsets.only(top: 4),
+                                    padding:  const EdgeInsets.only(bottom: 10.0,top: 10),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -388,7 +432,7 @@ class ProfileBar extends StatelessWidget {
                                   ),
                                   //SizedBox(width: 20),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 4,left: 8),
+                                    padding: const EdgeInsets.only(bottom: 10.0,left: 8,top: 10),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -423,16 +467,13 @@ class ProfileBar extends StatelessWidget {
                                             }
                                           },
                                         ),
-
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap:() async {
                                             String? email = searchByEmployeeIdProfileData!.workEmail;
-
                                             if (email != null && email.isNotEmpty) {
-                                              // Create a mailto Uri with the email address
                                               final Uri emailUri = Uri(
                                                 scheme: 'mailto',
                                                 path: email,
@@ -441,8 +482,6 @@ class ProfileBar extends StatelessWidget {
                                                   'body': 'I would like to reach out to you.',
                                                 },
                                               );
-
-                                              // Launch the email client
                                               if (await canLaunchUrl(emailUri)) {
                                                 await launchUrl(emailUri);
                                               } else {
@@ -454,7 +493,6 @@ class ProfileBar extends StatelessWidget {
                                               searchByEmployeeIdProfileData!.workEmail,
                                               style: ProfileBarConst.profileTextStyle(context)),
                                         ),
-
                                         Text(
                                           searchByEmployeeIdProfileData!.expertise,
                                           style: ProfileBarTextBoldStyle.customEditTextStyle(),
@@ -473,23 +511,23 @@ class ProfileBar extends StatelessWidget {
                                           onExit: (_) => profileState.removeSummeryOverlay(),
                                           child: Text(
                                             providerState.trimmedSummery,
-                                            style: ProfileBarTextBoldStyle
-                                                .customEditTextStyle(),
+                                            style: ProfileBarTextBoldStyle.customEditTextStyle(),
                                           ),
                                         ),
-                                        // Text(""),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
                              // SizedBox(width: MediaQuery.of(context).size.width/50,),
+                              ///hire date pta column
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
+                                  ///hire date pta
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 10),
+                                    padding: const EdgeInsets.only(top: 20),
                                     child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -515,7 +553,7 @@ class ProfileBar extends StatelessWidget {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text("${searchByEmployeeIdProfileData!.dateofHire} (${providerState.hireDateTimeStamp ?? ''})",
+                                                Text("${searchByEmployeeIdProfileData!.dateofHire} ( ${providerState.hireDateTimeStamp ?? ''} )",
                                                     style: ProfileBarTextBoldStyle.customEditTextStyle(),),
                                                 SizedBox(height: 10,),
                                                 Text('1.2', style: ProfileBarTextBoldStyle.customEditTextStyle(),),
@@ -525,6 +563,7 @@ class ProfileBar extends StatelessWidget {
                                         ]),
                                   ),
                                   SizedBox(height: 30,),
+                                  ///licenses
                                   Flexible(
                                     child: Column(
                                       children: [
@@ -538,7 +577,7 @@ class ProfileBar extends StatelessWidget {
                                               return SizedBox(height: 1, width: 1);
                                             }
                                             return Padding(
-                                              padding: const EdgeInsets.only(bottom: 5.0),
+                                              padding: const EdgeInsets.only(top: 15.0),
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.end,
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -731,8 +770,7 @@ class ProfileBar extends StatelessWidget {
                                                     textOval: profileState.expiredCount.toString(),
                                                   ),
                                                   SizedBox(
-                                                      height:
-                                                      MediaQuery.of(context).size.height / 120),
+                                                      height:10),
 
                                                   ///"About To Expired License"
                                                   ProfileBarClipConst(
@@ -963,9 +1001,7 @@ class ProfileBar extends StatelessWidget {
                                                       // containerColor: Colors.orange,
                                                       containerColor: Color(0xffFEBD4D),
                                                       textOval:profileState.aboutToCount.toString()),
-                                                  SizedBox(
-                                                      height:
-                                                      MediaQuery.of(context).size.height / 120),
+                                                  SizedBox(height: 10),
 
                                                   ///"Up To Date License"
                                                   ProfileBarClipConst(
@@ -1197,6 +1233,7 @@ class ProfileBar extends StatelessWidget {
                                                       // containerColor: Colors.lightGreen,
                                                       containerColor: Color(0xffB4DB4C),
                                                       textOval: profileState.upToDateCount.toString()),
+                                                  SizedBox(height: 10),
                                                 ],
                                               ),
                                             );

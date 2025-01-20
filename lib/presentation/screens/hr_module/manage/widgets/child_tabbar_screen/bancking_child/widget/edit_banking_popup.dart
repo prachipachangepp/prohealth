@@ -405,7 +405,12 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   width: 240,
                                   controller: bankname,
                                   hintText: 'Enter Bank Name',
-                                  //onChanged: (value){_validateFields();},
+                                  onChanged: (value){
+                                    setState(() {
+                                      _isFormValid = true;
+                                      _banknameError = _validateTextField(bankname.text, 'Please Enter Bank Name');
+                                    });
+                                    },
                                   hintStyle:onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
@@ -453,7 +458,15 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   maxLength: 9,
                                   controller: routingnumber,
                                   hintText: 'Enter Number',
-                                  // onChanged: (value){_validateFields();},
+                                  onChanged: (value){
+                                    setState(() {
+                                      setState((){
+                                        _isFormValid = true;
+                                        _numberError = _validateTextField(routingnumber.text, 'Please Enter Number');
+                                      });
+
+                                    });
+                                    },
                                   hintStyle:onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
@@ -492,7 +505,12 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   width: 240,
                                   controller: accountnumber,
                                   hintText: 'Enter AC Number',
-                                  // onChanged: (value){_validateFields();},
+                                 onChanged: (value){
+                                    setState((){
+                                      _isFormValid = true;
+                                      _acError = _validateTextField(accountnumber.text, 'Please Enter Account Number');
+                                    });
+                                 },
                                   hintStyle: onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
                                 ),
@@ -534,6 +552,12 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   width: 240,
                                   controller: verifyaccountnumber,
                                   // controller: ,
+                                  onChanged: (val){
+                                    setState(() {
+                                      _isFormValid = true;
+                                      _vacError = _validateTextField(verifyaccountnumber.text, 'Please Enter Verify Account Number');
+                                    });
+                                  },
                                   hintText: 'Enter AC Number',
                                   hintStyle: onlyFormDataStyle.customTextStyle(context),
                                   height: 30,
@@ -591,7 +615,12 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                       width: 150,
                                       controller: requestammount,
                                       prefixText: '\$',
-                                      // onChanged: (value){_validateFields();},
+                                    onChanged: (value){
+                                      setState(() {
+                                        _isFormValid = true;
+                                        _amountError = _validateTextField(requestammount.text, 'Please Enter Amount');
+                                      });
+                                    },
                                       prefixStyle: onlyFormDataStyle.customTextStyle(context),
                                       height: 30,
                                       keyboardType: TextInputType.number,

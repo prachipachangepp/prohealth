@@ -39,10 +39,11 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
   String? _idDocError;
   String? _nameDocError;
   String? _dateDocError;
+  String? _selectDocError;
   String selectDescription = 'Select';
 
   String? _validateTextField(String value, String fieldName) {
-    if (value.isEmpty) {
+    if (value.isEmpty || value == "Select") {
       _isFormValid = false;
       return "Please Enter $fieldName";
     }
@@ -55,8 +56,9 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
       _idDocError =
           _validateTextField(idController.text, 'ID of the Equipment');
       _nameDocError =
-          _validateTextField(idController.text, 'Name of the Equipment');
-      _dateDocError = _validateTextField(calenderController.text, 'Date');
+          _validateTextField(nameController.text, 'Name of the Equipment');
+      _dateDocError = _validateTextField(calenderController.text, 'Select Date');
+      _selectDocError = _validateTextField(selectDescription, 'Please Select Document');
     });
   }
 
@@ -85,6 +87,14 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                 controller: idController,
                 keyboardType: TextInputType.number,
                 text: 'Id',
+                onTapChange: (val){
+                  setState(() {
+                    _isFormValid = true;
+                    _idDocError =
+                        _validateTextField(idController.text, 'ID of the Equipment');
+                  });
+
+                },
               ),
              _idDocError != null?
                 Text(
@@ -98,7 +108,14 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                 controller: nameController,
                 keyboardType: TextInputType.streetAddress,
                 text: 'Name',
+                onTapChange: (val){
+                  setState(() {
+                    _isFormValid = true;
+                    _nameDocError =
+                        _validateTextField(nameController.text, 'Name of the Equipment');
+                  });
 
+                },
               ),
              _nameDocError != null?
                 Text(
@@ -195,6 +212,10 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                       selectDescription = val;
                                       inventoryName = a.name;
                                       inventoryId = a.inventoryId;
+                                      setState(() {
+                                        _isFormValid = true;
+                                        _selectDocError = _validateTextField(selectDescription, 'Please Select Document');
+                                      });
                                       //docMetaId = docType;
                                     }
                                   }
@@ -209,9 +230,9 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                   ],
                 ),
               ),
-              _dateDocError != null ? // Display error if any
+              _selectDocError != null ? // Display error if any
                 Text(
-                  "",
+                  _selectDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ):SizedBox(height: 12,),
               // Container(

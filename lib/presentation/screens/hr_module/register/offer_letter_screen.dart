@@ -149,6 +149,7 @@ class OfferLetterScreen extends StatelessWidget {
     String dropdownValue = 'Salaried';
     final providerState = Provider.of<HrEnrollOfferLatterProvider>(context,listen:false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      providerState.clearSalary();
         providerState.addContainer();
     });
     List<ApiAddCovrageData> addCovrage = [];
@@ -810,6 +811,7 @@ class OfferLetterScreen extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
+                            hrProviderState.clearAllFields();
                             Navigator.of(context).pop();
                           },
                           style: ElevatedButton.styleFrom(
@@ -1755,6 +1757,10 @@ class HrEnrollOfferLatterProvider extends ChangeNotifier{
   void clearAllFields(){
     _salary = '';
     _containerKeys.clear();
+    notifyListeners();
+  }
+  void clearSalary(){
+    _salary = '';
     notifyListeners();
   }
   void addSalary(String value){

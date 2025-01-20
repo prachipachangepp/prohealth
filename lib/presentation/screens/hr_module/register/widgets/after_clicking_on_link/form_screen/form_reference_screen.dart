@@ -200,54 +200,52 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
               style:BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
-
-
                 // Loop through each form and extract data to post
+                try{
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
+                  for (var key in referenceFormKeys) {
+                    final st = key.currentState!;
 
-                setState(() {
-                  isLoading = true; // Start loading
-                });
 
-                for (var key in referenceFormKeys) {
-                  final st = key.currentState!;
+                    if(st.isPrefill ==false){
+
+                      var response = await postreferencescreenData(
+                          context,
+                          st.lengthofassociation.text,
+                          "__",
+                          st.companyorganization.text,
+                          st.email.text,
+                          st.widget.employeeID,
+                          st.mobilenumber.text,
+                          st.name.text,
+                          st.knowthisperson.text,
+                          st.titleposition.text);
+                      if (response.statusCode == 200 || response.statusCode == 201){
+                        await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Reference Data Saved',
+                            );
+                          },
+                        );
+
+                        await _loadEducationData();
+                      }
 
 
-                  if(st.isPrefill ==false){
-
-                   var response = await postreferencescreenData(
-                        context,
-                        st.lengthofassociation.text,
-                        "__",
-                        st.companyorganization.text,
-                        st.email.text,
-                        st.widget.employeeID,
-                        st.mobilenumber.text,
-                        st.name.text,
-                        st.knowthisperson.text,
-                        st.titleposition.text);
-                    if (response.statusCode == 200 || response.statusCode == 201){
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddSuccessPopup(
-                            message: 'Reference Data Saved',
-                          );
-                        },
-                      );
-                      await  widget.onSave();
-                      await _loadEducationData();
                     }
 
 
                   }
+                }finally{
                   setState(() {
                     isLoading = false; // End loading
                   });
-
+                  widget.onSave();
                 }
-
-
-
                 lengthofassociation.clear();
                 companyorganization.clear();
                 email.clear();

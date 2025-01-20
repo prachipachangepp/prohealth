@@ -9,7 +9,7 @@ import '../../../../../../app/resources/value_manager.dart';
 
 class ProfileBarClipConst extends StatelessWidget {
    String? text;
-  final String textOval;
+  String textOval;
   final Color containerColor;
   final VoidCallback? onTap;
 
@@ -98,27 +98,27 @@ class ProfileBarPhoneCmtConst extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 15,
+          width: 20,
         ),
         Container(
-          height: 12,
-          width: 15,
+          height: 18,
+          width: 16.67,
           child: Icon(
             Icons.phone,
             color: ColorManager.green,
-            size: 13,
+            size: IconSize.I18,
           ),
         ),
         SizedBox(
-          width: 5,
+          width: 15,
         ),
         Container(
-          height: 12,
-          width: 15,
+          height: 18,
+          width: 16.67,
           child: Icon(
             Icons.message,
             color: ColorManager.blueprime,
-            size: 13,
+            size: IconSize.I18,
           ),
         )
       ],
