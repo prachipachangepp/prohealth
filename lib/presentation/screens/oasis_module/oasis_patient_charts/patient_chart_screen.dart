@@ -54,9 +54,9 @@ void onPageChanged(int index) {
               child: Row(
                 children: [
                   Container(
-                    width: 300,
+                    //width: 300,
                     decoration: BoxDecoration(
-                      color: Color(0xFFB1D6F4),
+                      color: Color(0xFFB1D6F4).withOpacity(0.2),
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10),
                         bottomRight: Radius.circular(10),
@@ -86,34 +86,34 @@ void onPageChanged(int index) {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 15),
-                            Text("JOHN SCOTT", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black)),
                             SizedBox(height: 10),
+                            Text("JOHN SCOTT", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black)),
+                            SizedBox(height: 12),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("DOB", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.grey)),
-                                    SizedBox(height: 10),
-                                    Text("Chart Number", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.grey)),
+                                    Text("DOB", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
+                                    SizedBox(height: 13),
+                                    Text("Chart Number", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
                                   ],
                                 ),
+                                SizedBox(width: 50,),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text("08-03-1997 (27)", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black)),
-                                    SizedBox(height: 10),
+                                    SizedBox(height: 13),
                                     Text("123456", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black)),
                                   ],
                                 ),
+                                SizedBox(width: 15,),
                               ],
                             ),
                           ],
                         ),
-        
-        
                       ],
                     ),
                   ),
@@ -126,14 +126,14 @@ void onPageChanged(int index) {
                       children: [
                         SizedBox(height: 2),
                         Row(children: [
-                          Text("OASIS RN Start Of Care", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black)),
+                          Text("OASIS RN Start Of Care", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: ColorManager.granitegray)),
                         ],),
                         Row(
                           children: [
                             // Use GetX to reactively display the selected text
                             Obx(() => Text(
                               myController.selectedText.value,
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color:  ColorManager.granitegray),
                             )),
                           ],
                         ),
@@ -204,7 +204,7 @@ void onPageChanged(int index) {
                           CustomTitleButtonoasis( height: 30,
                               width: 100, onPressed: () { setState(() {});
                             //companyAll(context);
-                            myController.selectButton(0,'Consent for Care');
+                            myController.selectButton(0,'Consent For Care');
                             _pageController.animateToPage(0,
                                 duration: Duration(milliseconds: 500),
                                 curve: Curves.ease);
