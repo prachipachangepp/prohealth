@@ -9,7 +9,7 @@ import '../../../../../../app/resources/value_manager.dart';
 
 class ProfileBarClipConst extends StatelessWidget {
    String? text;
-  final String textOval;
+  String textOval;
   final Color containerColor;
   final VoidCallback? onTap;
 

@@ -7,6 +7,7 @@ import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/licenses_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/licenses_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -65,11 +66,15 @@ class HrManageProvider extends ChangeNotifier{
   OverlayEntry? _overlayEntryAddress;
   OverlayEntry? _overlayEntrySummery;
   final StreamController<Map<String, int>> _licenseStreamController =
-  StreamController.broadcast();
+  StreamController<Map<String, int>>.broadcast();
   Stream<Map<String, int>> get licenseStream => _licenseStreamController.stream;
-  int expiredCount = 0;
-  int upToDateCount = 0;
-  int aboutToCount = 0;
+  int _expiredCount = 0;
+  int _upToDateCount = 0;
+  int _aboutToCount = 0;
+
+  int get expiredCount => _expiredCount;
+  int get upToDateCount => _upToDateCount;
+  int get aboutToCount => _aboutToCount;
   String get hireDateTimeStamp => _hireDateTimeStamp;
   String get maskedString => _maskedString;
   String get trimmedAddress => _trimmedAddress;
@@ -365,7 +370,13 @@ class HrManageProvider extends ChangeNotifier{
   }
 
   /// License stream brodcast in profileBar HR
-  Future<void> fetchLicenseData(BuildContext context, int employeeId) async {
+  void clearLicenseData(){
+    _expiredCount = 0;
+    _aboutToCount = 0;
+    _upToDateCount = 0;
+    notifyListeners();
+  }
+  void fetchLicenseData(BuildContext context, int employeeId) async {
     while (true) {
       try {
         // Fetch the data
@@ -373,10 +384,12 @@ class HrManageProvider extends ChangeNotifier{
         await getLicenseStatusWise(context, employeeId);
 
         // Extract counts
-         expiredCount = data['Expired']?.length ?? 0;
-        aboutToCount = data['About to Expire']?.length ?? 0;
-         upToDateCount = data['Upto date']?.length ?? 0;
-
+         _expiredCount = data['Expired']?.length ?? 0;
+        _aboutToCount = data['About to Expire']?.length ?? 0;
+         _upToDateCount = data['Upto date']?.length ?? 0;
+         print('Expired county >>>> ${_expiredCount}');
+        print('Expired county >>>> ${_aboutToCount}');
+        print('Expired county >>>> ${_upToDateCount}');
         // Add counts to the stream
         _licenseStreamController.add({
           'Expired': expiredCount,
@@ -398,6 +411,7 @@ class HrManageProvider extends ChangeNotifier{
   }
   void dispose() {
     _licenseStreamController.close();
+    notifyListeners();
   }
 
   /// Qualification employeement

@@ -135,7 +135,7 @@ class _BankingScreenState extends State<BankingScreen> {
                 );
               },
             );
-            await widget.onSave();
+
             await  _loadBankingData();
           }
           else{
@@ -266,77 +266,84 @@ class _BankingScreenState extends State<BankingScreen> {
                 // Flag to check if a document is selected
 
                 // Loop through bankingFormKeys
-                for (var key in bankingFormKeys) {
-                  try {
-                    final st = key.currentState!;
-                    if (st.isPrefill == false) {
-                      // Check if documentFile is selected
-                      if (st.finalPath == null || st.finalPath.isEmpty) {
-                        // If no document is selected, show a message and stop further execution
-                        await  showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return VendorSelectNoti(
-                              message: 'Please Select A File',
-                            );
-                          },
-                        );
+                try{
+                  setState(() {
+                    isLoading = true;
+                  });
+                  for (var key in bankingFormKeys) {
+                    try {
+                      final st = key.currentState!;
+                      if (st.isPrefill == false) {
+                        // Check if documentFile is selected
+                        if (st.finalPath == null || st.finalPath.isEmpty) {
+                          // If no document is selected, show a message and stop further execution
+                          await  showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return VendorSelectNoti(
+                                message: 'Please Select A File',
+                              );
+                            },
+                          );
 
-                        return;  // Exit the loop and method early
+                          return;  // Exit the loop and method early
+                        }
+
+                        if(st.fileAbove20Mb){
+
+                          // Print values before calling perfFormBanckingData
+                          print(':::::::Saving Banking Data:::::::::::::');
+                          print('Employee ID: ${widget.employeeID}');
+                          print('Account Number: ${st.accountnumber.text}');
+                          print('Bank Name: ${st.bankname.text}');
+                          print('Amount Requested: ${int.parse(st.requestammount.text)}');
+                          print('Effective Date: ${st.effectivecontroller.text}');
+                          print('Routing Number: ${st.routingnumber.text}');
+                          print('Type: ${st.selectedtype.toString()}');
+                          print('Requested Percentage: '); // If you have this value, print it
+                          print('Document File: ${st.finalPath}');
+                          print('Document Name:>>>> ${st.fileName}');
+
+                          // Call the function to submit the data
+                          await perfFormBanckingData(
+                            context: context,
+                            employeeId: widget.employeeID,
+                            accountNumber: st.accountnumber.text,
+                            bankName: st.bankname.text,
+                            amountRequested: int.parse(st.requestammount.text),
+                            checkUrl: "",
+                            effectiveDate: st.effectivecontroller.text,
+                            routingNumber: st.routingnumber.text,
+                            type: st.selectedtype.toString(),
+                            requestedPercentage: '', // If you have this value, pass it
+                            documentFile: st.finalPath,
+                            documentName: st.fileName,
+                          );
+
+
+                        }
+                        else{
+                          await  showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddErrorPopup(
+                                message: 'File is too large!',
+                              );
+                            },
+                          );
+                        }
                       }
-
-                      if(st.fileAbove20Mb){
-                        setState(() {
-                          isLoading = true;
-                        });
-                      // Print values before calling perfFormBanckingData
-                      print(':::::::Saving Banking Data:::::::::::::');
-                      print('Employee ID: ${widget.employeeID}');
-                      print('Account Number: ${st.accountnumber.text}');
-                      print('Bank Name: ${st.bankname.text}');
-                      print('Amount Requested: ${int.parse(st.requestammount.text)}');
-                      print('Effective Date: ${st.effectivecontroller.text}');
-                      print('Routing Number: ${st.routingnumber.text}');
-                      print('Type: ${st.selectedtype.toString()}');
-                      print('Requested Percentage: '); // If you have this value, print it
-                      print('Document File: ${st.finalPath}');
-                      print('Document Name:>>>> ${st.fileName}');
-
-                      // Call the function to submit the data
-                      await perfFormBanckingData(
-                        context: context,
-                        employeeId: widget.employeeID,
-                        accountNumber: st.accountnumber.text,
-                        bankName: st.bankname.text,
-                        amountRequested: int.parse(st.requestammount.text),
-                        checkUrl: "",
-                        effectiveDate: st.effectivecontroller.text,
-                        routingNumber: st.routingnumber.text,
-                        type: st.selectedtype.toString(),
-                        requestedPercentage: '', // If you have this value, pass it
-                        documentFile: st.finalPath,
-                        documentName: st.fileName,
-                      );
-
-                        setState(() {
-                          isLoading = false; // Stop loading
-                        });
+                    } catch (e) {
+                      print('Error: $e');
                     }
-                      else{
-                        await  showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddErrorPopup(
-                              message: 'File is too large!',
-                            );
-                          },
-                        );
-                      }
-                    }
-                  } catch (e) {
-                    print('Error: $e');
                   }
+                }finally{
+                  setState(() {
+                    isLoading = false; // Stop loading
+                  });
+                  widget.onSave();
                 }
+
 
                 // If a document is selected and everything goes fine, complete the process
 

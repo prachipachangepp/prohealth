@@ -46,6 +46,8 @@ class ProfileBar extends StatelessWidget {
     final profileState = Provider.of<HrManageProvider>(context, listen: false);
     hexColor = searchByEmployeeIdProfileData?.color.replaceAll("#", "");
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      profileState.dispose();
+      profileState.clearLicenseData();
       profileState.fetchLicenseData(context, searchByEmployeeIdProfileData!.employeeId!);
       profileState.updateAddress(searchByEmployeeIdProfileData!.finalAddress);
       profileState.updateSummery(searchByEmployeeIdProfileData!.summary);

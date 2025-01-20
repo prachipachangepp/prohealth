@@ -9,8 +9,10 @@ import 'package:prohealth/app/resources/establishment_resources/establish_theme_
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/gender_api.dart';
+import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/gender_data.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -300,7 +302,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                 ],
                                                               ),
                                                               child: CircleAvatar(
-                                                                radius: 20, // Adjust the size of the avatar
+                                                                radius: 30, // Adjust the size of the avatar
                                                                 //backgroundColor: ColorManager.faintGrey,
                                                                 child: ClipOval(
                                                                   child: Image.memory(
@@ -327,7 +329,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                 ],
                                                               ),
                                                               child: CircleAvatar(
-                                                                radius: 20, // Adjust the size of the avatar
+                                                                radius: 30, // Adjust the size of the avatar
                                                                 backgroundColor: ColorManager.faintGrey,
                                                                 child: ClipOval(
                                                                   child: Image.network(
@@ -607,8 +609,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 ),
                                                 //Text('Select Employee Type', style: AllPopupHeadings.customTextStyle(context)),
                                                 SizedBox(height: 5,),
-                                                FutureBuilder<List<EmployeeTypeModal>>(
-                                                  future: EmployeeTypeGet(context, deptId),
+                                                FutureBuilder<List<AEClinicalDiscipline>>(
+                                                  future: HrAddEmplyClinicalDisciplinApi(context, deptId),
                                                   builder: (context, snapshot) {
                                                     if (snapshot.connectionState == ConnectionState.waiting) {
                                                       return Container(
@@ -637,9 +639,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                     }
 
                                                     if (snapshot.hasData) {
-                                                      List<EmployeeTypeModal> employeeTypeList = snapshot.data!;
+                                                      List<AEClinicalDiscipline> employeeTypeList = snapshot.data!;
                                                       List<String> dropDownEmployeeTypes = employeeTypeList
-                                                          .map((employeeType) => employeeType.employeeType)
+                                                          .map((employeeType) => employeeType.empType!)
                                                           .toList();
 
                                                       String? selectedEmployeeType = profileData.employeType;
@@ -658,10 +660,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                         onChanged: (val) {
                                                           selectedEmployeeType = val;
                                                           selectedEmployeeTypeId = employeeTypeList
-                                                              .firstWhere((employeeType) => employeeType.employeeType == val)
-                                                              .employeeTypeId;
+                                                              .firstWhere((employeeType) => employeeType.empType == val)
+                                                              .employeeTypesId;
                                                           selectedEmployeeColor = employeeTypeList
-                                                              .firstWhere((employeeType) => employeeType.employeeType == val)
+                                                              .firstWhere((employeeType) => employeeType.empType == val)
                                                               .color;
                                                           print('Selected Employee Type Color: $selectedEmployeeColor');
                                                           print('Selected Employee Type ID: $selectedEmployeeTypeId');
@@ -673,106 +675,114 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                 ),
                                               ],
                                             ),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                RichText(
-                                                  text: TextSpan(
-                                                    text: "Select Department", // Main text
-                                                    style: AllPopupHeadings.customTextStyle(context), // Main style
-                                                    children: [
-                                                      TextSpan(
-                                                        text: ' *', // Asterisk
-                                                        style: AllPopupHeadings.customTextStyle(context).copyWith(
-                                                          color: ColorManager.red, // Asterisk color
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                               // Text('Select Department', style: AllPopupHeadings.customTextStyle(context)),
-                                                SizedBox(height: 5,),
-                                                FutureBuilder<List<HRHeadBar>>(
-                                                  future: companyHRHeadApi(context, deptId),
-                                                  builder: (context, snapshot) {
-                                                    if (snapshot.connectionState ==
-                                                        ConnectionState.waiting) {
-                                                      List<String>dropDownServiceList =[];
-                                                      return Container(
-                                                          alignment: Alignment.center,
-                                                          child:
-                                                          HRUManageDropdown(
-                                                            controller: TextEditingController(
-                                                                text: ''),
-                                                            //labelText: 'Select Department',
-                                                            // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                            //   color: Color(0xff575757),
-                                                            //   fontWeight: FontWeight.w500,),
-                                                            labelFontSize: 12,
-                                                            items:  dropDownServiceList,
-
-                                                          )
-                                                      );
-                                                    }
-                                                    if (snapshot.hasData &&
-                                                        snapshot.data!.isEmpty) {
-                                                      return Center(
-                                                        child: Text(
-                                                          ErrorMessageString.noroleAdded,
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: FontSize.s14,
-                                                            color: ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    if (snapshot.hasData) {
-
-                                                      // Extract dropdown items from snapshot
-                                                      List<String> dropDownServiceList = snapshot
-                                                          .data!
-                                                          .map((dept) => dept.deptName!)
-                                                          .toList();
-                                                      String? firstDeptName =
-                                                      snapshot.data!.isNotEmpty
-                                                          ? snapshot.data![0].deptName
-                                                          : null;
-                                                      int? firstDeptId = snapshot.data!.isNotEmpty
-                                                          ? snapshot.data![0].deptId
-                                                          : null;
-
-                                                      if (selectedDeptName == null &&
-                                                          dropDownServiceList.isNotEmpty) {
-                                                        // selectedDeptName = firstDeptName;
-                                                        // selectedDeptId = firstDeptId;
-                                                      }
-
-                                                      return HRUManageDropdown(
-                                                        controller: TextEditingController(
-                                                            text: profileData.department),
-                                                        //labelText: "Select Department",
-                                                        // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
-                                                        //   color: const Color(0xff575757),
-                                                        //   fontWeight: FontWeight.w500,),
-                                                        labelFontSize: 12,
-                                                        items: dropDownServiceList,
-                                                        onChanged: (val) {
-                                                          // setState(() {
-                                                          selectedDeptName = val;
-                                                          selectedDeptId = snapshot.data!
-                                                              .firstWhere(
-                                                                  (dept) => dept.deptName == val)
-                                                              .deptId;
-                                                          // });
-                                                        },
-                                                      );
-                                                    }
-                                                    return const SizedBox();
-                                                  },
-                                                ),
-                                              ],
+                                            FirstSMTextFConst(
+                                              controller: TextEditingController(
+                                                  text: profileData.department),
+                                              keyboardType: TextInputType.text,
+                                              text: 'Department',
+                                              enable:false
                                             ),
+                                            // Column(
+                                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                                            //   children: [
+                                            //     // RichText(
+                                            //     //   text: TextSpan(
+                                            //     //     text: "Select Department", // Main text
+                                            //     //     style: AllPopupHeadings.customTextStyle(context), // Main style
+                                            //     //     children: [
+                                            //     //       TextSpan(
+                                            //     //         text: ' *', // Asterisk
+                                            //     //         style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                            //     //           color: ColorManager.red, // Asterisk color
+                                            //     //         ),
+                                            //     //       ),
+                                            //     //     ],
+                                            //     //   ),
+                                            //     // ),
+                                            //    // Text('Select Department', style: AllPopupHeadings.customTextStyle(context)),
+                                            //     SizedBox(height: 5,),
+                                            //
+                                            //     // FutureBuilder<List<HRHeadBar>>(
+                                            //     //   future: companyHRHeadApi(context, deptId),
+                                            //     //   builder: (context, snapshot) {
+                                            //     //     if (snapshot.connectionState ==
+                                            //     //         ConnectionState.waiting) {
+                                            //     //       List<String>dropDownServiceList =[];
+                                            //     //       return Container(
+                                            //     //           alignment: Alignment.center,
+                                            //     //           child:
+                                            //     //           HRUManageDropdown(
+                                            //     //             controller: TextEditingController(
+                                            //     //                 text: ''),
+                                            //     //             //labelText: 'Select Department',
+                                            //     //             // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                            //     //             //   color: Color(0xff575757),
+                                            //     //             //   fontWeight: FontWeight.w500,),
+                                            //     //             labelFontSize: 12,
+                                            //     //             items:  dropDownServiceList,
+                                            //     //
+                                            //     //           )
+                                            //     //       );
+                                            //     //     }
+                                            //     //     if (snapshot.hasData &&
+                                            //     //         snapshot.data!.isEmpty) {
+                                            //     //       return Center(
+                                            //     //         child: Text(
+                                            //     //           ErrorMessageString.noroleAdded,
+                                            //     //           style: CustomTextStylesCommon.commonStyle(
+                                            //     //             fontWeight: FontWeight.w500,
+                                            //     //             fontSize: FontSize.s14,
+                                            //     //             color: ColorManager.mediumgrey,
+                                            //     //           ),
+                                            //     //         ),
+                                            //     //       );
+                                            //     //     }
+                                            //     //     if (snapshot.hasData) {
+                                            //     //
+                                            //     //       // Extract dropdown items from snapshot
+                                            //     //       List<String> dropDownServiceList = snapshot
+                                            //     //           .data!
+                                            //     //           .map((dept) => dept.deptName!)
+                                            //     //           .toList();
+                                            //     //       String? firstDeptName =
+                                            //     //       snapshot.data!.isNotEmpty
+                                            //     //           ? snapshot.data![0].deptName
+                                            //     //           : null;
+                                            //     //       int? firstDeptId = snapshot.data!.isNotEmpty
+                                            //     //           ? snapshot.data![0].deptId
+                                            //     //           : null;
+                                            //     //
+                                            //     //       if (selectedDeptName == null &&
+                                            //     //           dropDownServiceList.isNotEmpty) {
+                                            //     //         // selectedDeptName = firstDeptName;
+                                            //     //         // selectedDeptId = firstDeptId;
+                                            //     //       }
+                                            //     //
+                                            //     //       return HRUManageDropdown(
+                                            //             controller: TextEditingController(
+                                            //                 text: profileData.department),
+                                            //     //         //labelText: "Select Department",
+                                            //     //         // labelStyle:CustomTextStylesCommon.commonStyle( fontSize: 12,
+                                            //     //         //   color: const Color(0xff575757),
+                                            //     //         //   fontWeight: FontWeight.w500,),
+                                            //     //         labelFontSize: 12,
+                                            //     //         items: dropDownServiceList,
+                                            //     //         onChanged: (val) {
+                                            //     //           // setState(() {
+                                            //     //           selectedDeptName = val;
+                                            //     //           selectedDeptId = snapshot.data!
+                                            //     //               .firstWhere(
+                                            //     //                   (dept) => dept.deptName == val)
+                                            //     //               .deptId;
+                                            //     //           // });
+                                            //     //         },
+                                            //     //       );
+                                            //     //     }
+                                            //     //     return const SizedBox();
+                                            //     //   },
+                                            //     // ),
+                                            //   ],
+                                            // ),
                                           ],
                                         ),
                                       ),
