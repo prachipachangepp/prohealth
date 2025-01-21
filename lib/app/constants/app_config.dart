@@ -63,7 +63,7 @@ class AppConfig {
   // static const String local = "http://localhost:3000";
   static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
   static const String deployment = "https://prohealth.symmetry.care";
-  static const String version = "Version 1.0.9 (3) dev";
+  static const String version = "Version 1.0.9 (4) dev";
   static const String local = "";
   static const String prod = "";
   static const String endpoint = dev;
