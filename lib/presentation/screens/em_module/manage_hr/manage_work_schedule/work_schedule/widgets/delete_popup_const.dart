@@ -187,7 +187,7 @@ class _NotAllowDeletePopup extends State<NotAllowDeletePopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close,color: ColorManager.white,),
+                    icon: Icon(Icons.close,color: ColorManager.white,size: IconSize.I20,),
                   ),
                 ],
               ),

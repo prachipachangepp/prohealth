@@ -305,9 +305,13 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
           ],
 
       bottomButtons: isLoading
-          ? CircularProgressIndicator(
-        color: ColorManager.blueprime,
-      )
+          ? SizedBox(
+              width: AppSize.s30,
+              height: AppSize.s30,
+            child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+          )
           : CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
@@ -770,8 +774,8 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
       ],
       bottomButtons: isLoading
           ? SizedBox(
-        width: AppSize.s25,
-        height: AppSize.s25,
+            width: AppSize.s30,
+            height: AppSize.s30,
             child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
               ),

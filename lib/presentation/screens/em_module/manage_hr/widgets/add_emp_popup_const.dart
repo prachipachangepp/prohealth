@@ -228,8 +228,8 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
       ),],
       bottomButtons: isLoading
           ? SizedBox(
-        width: AppSize.s25,
-        height: AppSize.s25,
+        width: AppSize.s30,
+        height: AppSize.s30,
         child: CircularProgressIndicator(color: ColorManager.blueprime),
       )
           : CustomElevatedButton(

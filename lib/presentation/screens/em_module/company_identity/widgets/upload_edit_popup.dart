@@ -1,3 +1,4 @@
+///upload edit
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -156,10 +157,10 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
     idDocController.text = widget.idOfDoc;
     if (widget.selectedExpiryType == AppConfig.issuer) {
       if(widget.expiryDate == "")
-        {
-          expiryDateController = TextEditingController(
-              text: "");
-        }
+      {
+        expiryDateController = TextEditingController(
+            text: "");
+      }
       else {
         DateTime dateTime =
         DateTime.parse(widget.expiryDate ?? DateTime.now().toString());
@@ -224,7 +225,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
 
             /// upload  doc
             HeaderContentConst(
-              isAsterisk: true,
+                isAsterisk: true,
                 heading: AppString.upload_document,
                 content: InkWell(
                   onTap: _pickFile,
@@ -349,11 +350,11 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 keyboardType: TextInputType.text,
                 text: 'Name of the Document',
               ),
-              if (_nameDocError != null) // Display error if any
-                Text(
-                  _nameDocError!,
-                  style:CommonErrorMsg.customTextStyle(context),
-                ),
+              _nameDocError != null ? // Display error if any
+              Text(
+                _nameDocError!,
+                style:CommonErrorMsg.customTextStyle(context),
+              ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s2),
 
               ///id
@@ -362,15 +363,15 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 keyboardType: TextInputType.text,
                 text: 'ID of the Document',
               ),
-              if (_idDocError != null) // Display error if any
-                Text(
-                  _idDocError!,
-                  style:CommonErrorMsg.customTextStyle(context),
-                ),
+              _idDocError != null ? // Display error if any
+              Text(
+                _idDocError!,
+                style:CommonErrorMsg.customTextStyle(context),
+              ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s2),
               /// Upload document
               HeaderContentConst(
-                isAsterisk: true,
+                  isAsterisk: true,
                   heading: AppString.upload_document,
                   content: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -420,14 +421,14 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                           ),
                         ),
                       ),
-                      if (isFileErrorVisible)
-                        Padding(
-                          padding: const EdgeInsets.only(top: AppPadding.p5),
-                          child: Text(
-                            'Please upload a document',
-                            style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                      isFileErrorVisible ?
+                      Padding(
+                        padding: const EdgeInsets.only(top: AppPadding.p5),
+                        child: Text(
+                          'Please upload a document',
+                          style: CommonErrorMsg.customTextStyle(context),
                         ),
+                      ) : SizedBox(height: AppSize.s12,),
                     ],
                   )),
               // /// Type of the Document
@@ -747,14 +748,14 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
         ),
       )
           :  widget.isOthersDocs == false
-            ? CustomElevatedButton(
-              width: AppSize.s105,
-              height: AppSize.s30,
-              text: AppStringEM.save, // Submit
-              onPressed: () async {
-                setState(() {
-                  loading = true; // Show loader
-                });
+          ? CustomElevatedButton(
+        width: AppSize.s105,
+        height: AppSize.s30,
+        text: AppStringEM.save, // Submit
+        onPressed: () async {
+          setState(() {
+            loading = true; // Show loader
+          });
 
           try {
             // Prepare expiry date
@@ -870,173 +871,173 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
           }
         },
       )
-            : CustomElevatedButton(
-            width: AppSize.s105,
-            height: AppSize.s30,
-            text: AppStringEM.save, //submit
-              onPressed: () async {
+          : CustomElevatedButton(
+          width: AppSize.s105,
+          height: AppSize.s30,
+          text: AppStringEM.save, //submit
+          onPressed: () async {
             _validateForm();
             if (!_isFormValid) {
               return; // Stop here if the form is not valid
             }
             setState(() {
               loading = true;
-              });
+            });
 
-              try {
-                int threshold = 0;
-                String? expiryDateToSend;
+            try {
+              int threshold = 0;
+              String? expiryDateToSend;
 
-                if (selectedExpiryType == AppConfig.scheduled) {
-                  if (daysController.text.isNotEmpty) {
-                    int enteredValue = int.parse(daysController.text);
-                    if (selectedYear == AppConfig.year) {
-                      threshold = enteredValue * 365;
-                    } else if (selectedYear == AppConfig.month) {
-                      threshold = enteredValue * 30;
-                    }
+              if (selectedExpiryType == AppConfig.scheduled) {
+                if (daysController.text.isNotEmpty) {
+                  int enteredValue = int.parse(daysController.text);
+                  if (selectedYear == AppConfig.year) {
+                    threshold = enteredValue * 365;
+                  } else if (selectedYear == AppConfig.month) {
+                    threshold = enteredValue * 30;
                   }
-                  expiryDateToSend = null;
-                } else if (selectedExpiryType == AppConfig.notApplicable) {
-                  threshold = 0;
-                  expiryDateToSend = null;
-                } else if (selectedExpiryType == AppConfig.issuer) {
-                  if (expiryDateController.text.isEmpty) {
+                }
+                expiryDateToSend = null;
+              } else if (selectedExpiryType == AppConfig.notApplicable) {
+                threshold = 0;
+                expiryDateToSend = null;
+              } else if (selectedExpiryType == AppConfig.issuer) {
+                if (expiryDateController.text.isEmpty) {
                   setState(() {
-                  _expiryTypeError = "Please select expiry date";
-                  loading = false;
+                    _expiryTypeError = "Please select expiry date";
+                    loading = false;
                   });
                   return;
-                  }
-                  threshold = 0;
-                  // expiryDateToSend = datePicked != null
-                  // ? datePicked!.toIso8601String() + "Z"
-                  //     : widget.expiryDate;
-                  expiryDateToSend = datePicked != null
-                      ? (datePicked!.toIso8601String().endsWith('Z')
-                      ? datePicked!.toIso8601String()
-                      : datePicked!.toIso8601String() + "Z")
-                      : (widget.expiryDate?.endsWith('Z') == true
-                      ? widget.expiryDate
-                      : widget.expiryDate! + "Z");
+                }
+                threshold = 0;
+                // expiryDateToSend = datePicked != null
+                // ? datePicked!.toIso8601String() + "Z"
+                //     : widget.expiryDate;
+                expiryDateToSend = datePicked != null
+                    ? (datePicked!.toIso8601String().endsWith('Z')
+                    ? datePicked!.toIso8601String()
+                    : datePicked!.toIso8601String() + "Z")
+                    : (widget.expiryDate?.endsWith('Z') == true
+                    ? widget.expiryDate
+                    : widget.expiryDate! + "Z");
 
-                  print("expiry ${widget.expiryDate}");
-                  print(expiryDateToSend);
-                  }
-                
-                // Determine the final document name and ID
-                String finalDocName = nameDocController.text.isNotEmpty
-                    ? nameDocController.text
-                    : widget.docName;
-                String finalDocId = idDocController.text.isNotEmpty
-                    ? idDocController.text
-                    : widget.idOfDoc;
+                print("expiry ${widget.expiryDate}");
+                print(expiryDateToSend);
+              }
 
-                // Make the API call to update the document
-                var response = await updateOtherDoc(
-                  context: context,
-                  orgOfficeDocumentId: widget.orgDocId,
-                  orgDocumentSetupid: widget.orgDocumentSetupid,
-                  docTypeID: widget.docTypeMetaIdCC,
-                  docSubTypeID: widget.selectedSubDocId,
-                  docName: finalDocName,
-                  expiryType: selectedExpiryType,
-                  threshold: threshold,
-                  expiryDate: expiryDateToSend,
-                  expiryReminder: selectedExpiryType,
-                  idOfDocument: finalDocId,
-                  docCreatedat: DateTime.now().toIso8601String() + "Z",
-                  url: widget.url,
-                  officeid: widget.officeId,
-                  fileName: fileIsPicked ? fileName : widget.fileName,
-                );
+              // Determine the final document name and ID
+              String finalDocName = nameDocController.text.isNotEmpty
+                  ? nameDocController.text
+                  : widget.docName;
+              String finalDocId = idDocController.text.isNotEmpty
+                  ? idDocController.text
+                  : widget.idOfDoc;
 
-                // Handle the response
-                if (response.statusCode == 200 || response.statusCode == 201) {
-                  // Upload the document if a new file was picked
-                  if (fileIsPicked) {
-                    var uploadDocNew =   await uploadDocumentsoffice(
+              // Make the API call to update the document
+              var response = await updateOtherDoc(
+                context: context,
+                orgOfficeDocumentId: widget.orgDocId,
+                orgDocumentSetupid: widget.orgDocumentSetupid,
+                docTypeID: widget.docTypeMetaIdCC,
+                docSubTypeID: widget.selectedSubDocId,
+                docName: finalDocName,
+                expiryType: selectedExpiryType,
+                threshold: threshold,
+                expiryDate: expiryDateToSend,
+                expiryReminder: selectedExpiryType,
+                idOfDocument: finalDocId,
+                docCreatedat: DateTime.now().toIso8601String() + "Z",
+                url: widget.url,
+                officeid: widget.officeId,
+                fileName: fileIsPicked ? fileName : widget.fileName,
+              );
+
+              // Handle the response
+              if (response.statusCode == 200 || response.statusCode == 201) {
+                // Upload the document if a new file was picked
+                if (fileIsPicked) {
+                  var uploadDocNew =   await uploadDocumentsoffice(
+                    context: context,
+                    documentFile: filePath,
+                    fileName: fileName,
+                    orgOfficeDocumentId: response.orgOfficeDocumentId!,
+                  );
+                  if (uploadDocNew.statusCode == 413) {
+                    setState(() {
+                      loading = false;
+                    });
+                    Navigator.pop(context);
+                    showDialog(
                       context: context,
-                      documentFile: filePath,
-                      fileName: fileName,
-                      orgOfficeDocumentId: response.orgOfficeDocumentId!,
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'Request entity to large!',
+                        );
+                      },
                     );
-                    if (uploadDocNew.statusCode == 413) {
-                      setState(() {
-                        loading = false;
-                      });
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddErrorPopup(
-                            message: 'Request entity to large!',
-                          );
-                        },
-                      );
-                    }
-                    else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return CountySuccessPopup(
-                            message: 'Document updated and file uploaded successfully!',
-                          );
-                        },
-                      );
-                    } else {
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return FailedPopup(
-                            text: 'Failed to upload file. File size exceeds limit.',
-                          );
-                        },
-                      );
-                    }
-
                   }
-                  else {
+                  else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
                     Navigator.pop(context);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return CountySuccessPopup(
-                          message: 'Document updated successfully!',
+                          message: 'Document updated and file uploaded successfully!',
+                        );
+                      },
+                    );
+                  } else {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return FailedPopup(
+                          text: 'Failed to upload file. File size exceeds limit.',
                         );
                       },
                     );
                   }
-                } else {
+
+                }
+                else {
                   Navigator.pop(context);
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return FailedPopup(
-                        text: response.message ?? 'Failed to update document. Please try again.',
+                      return CountySuccessPopup(
+                        message: 'Document updated successfully!',
                       );
                     },
                   );
                 }
-              } catch (e) {
+              } else {
                 Navigator.pop(context);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return FailedPopup(
-                      text: 'An error occurred. Please try again later.',
+                      text: response.message ?? 'Failed to update document. Please try again.',
                     );
                   },
                 );
-              } finally {
-                setState(() {
-                  loading = false;
-                });
               }
+            } catch (e) {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return FailedPopup(
+                    text: 'An error occurred. Please try again later.',
+                  );
+                },
+              );
+            } finally {
+              setState(() {
+                loading = false;
+              });
             }
-          ),
+          }
+      ),
       title: widget.title,
     );
   }

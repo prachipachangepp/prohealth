@@ -124,7 +124,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close, color: ColorManager.white,),
+                    icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
                   ),
                 ],
               ),
@@ -145,14 +145,14 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 17,),
 
                   ),
-                  if (startTimeError != null)
+                  startTimeError != null ?
                     Padding(
                       padding: const EdgeInsets.only(top: AppPadding.p1),
                       child: Text(
                         startTimeError!,
                         style: CommonErrorMsg.customTextStyle(context),
                       ),
-                    ),
+                    ): SizedBox(height: AppSize.s12,),
                   SizedBox(height: AppSize.s20,),
                   SMTextfieldAsteric(
                     onChange: () => _selectEndTime(context),
@@ -161,14 +161,14 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     text: AddPopupString.endTime,
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 17,),
                   ),
-                  if (endTimeError != null)
+                 endTimeError != null ?
                     Padding(
                       padding: const EdgeInsets.only(top: 1),
                       child: Text(
                         endTimeError!,
                         style: CommonErrorMsg.customTextStyle(context),
                       ),
-                    ),
+                    ): SizedBox(height: AppSize.s12,),
                 ],
               ),
             ),
@@ -178,8 +178,8 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
               child: Center(
                 child: isLoading
                     ? SizedBox(
-                    height: AppSize.s25,
-                    width: AppSize.s25,
+                    width: AppSize.s30,
+                    height: AppSize.s30,
                     child: CircularProgressIndicator(color: ColorManager.blueprime,)
                 )
                     : CustomElevatedButton(
