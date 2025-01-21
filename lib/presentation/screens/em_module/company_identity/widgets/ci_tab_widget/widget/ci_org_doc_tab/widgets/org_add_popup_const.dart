@@ -364,8 +364,8 @@ class AddNewOrgDocButton extends StatelessWidget {
         bottomButtons:
         provider.loading == true
             ? SizedBox(
-          height: AppSize.s25,
-          width: AppSize.s25,
+          height: AppSize.s30,
+          width: AppSize.s30,
           child: CircularProgressIndicator(
             color: ColorManager.blueprime,
           ),
@@ -739,8 +739,8 @@ class OrgDocNewEditPopup extends StatelessWidget {
             ],
             bottomButtons: provider.loading
                 ? SizedBox(
-              height: AppSize.s25,
-              width: AppSize.s25,
+              height: AppSize.s30,
+              width: AppSize.s30,
               child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
               ),

@@ -362,8 +362,8 @@ class PayRateAddPopup extends StatelessWidget {
         ],
         bottomButtons:  provider.isLoading
           ? SizedBox(
-          height: AppSize.s25,
-          width: AppSize.s25,
+            width: AppSize.s30,
+            height: AppSize.s30,
           child: CircularProgressIndicator(color: ColorManager.blueprime,)
       )
           : CustomElevatedButton(
@@ -594,8 +594,8 @@ class PayRatesEditsPopup extends StatelessWidget {
         ],
         bottomButtons:  provider.isLoading
             ? SizedBox(
-            height: AppSize.s25,
-            width: AppSize.s25,
+            width: AppSize.s30,
+            height: AppSize.s30,
             child: CircularProgressIndicator(color: ColorManager.blueprime,)
         )
             : CustomElevatedButton(

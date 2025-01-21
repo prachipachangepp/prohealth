@@ -323,8 +323,8 @@ class EmpDocADDPopup extends StatelessWidget {
         ],
         bottomButtons: provider._isLoading
             ? SizedBox(
-                width: AppSize.s25,
-                height: AppSize.s25,
+                width: AppSize.s30,
+                height: AppSize.s30,
                 child: CircularProgressIndicator(
                   color: ColorManager.blueprime,
                 ),
@@ -416,50 +416,6 @@ class EmpDocADDPopup extends StatelessWidget {
 }
 
 ///edit popup
-// class EmpDocEditPopupProvider extends ChangeNotifier {
-//   TextEditingController nameDocController = TextEditingController();
-//   TextEditingController idOfDocController = TextEditingController();
-//   TextEditingController calenderController = TextEditingController();
-//   bool _isLoading = false;
-//   bool get isLoading => _isLoading;
-//   String? _nameError;
-//   String? get nameError => _nameError;
-//   bool _isFormValid = true;
-//   bool get isFormValid => _isFormValid;
-//
-//   String selectedExpiryType = "";
-//   String? selectedYear = AppConfig.year;
-//
-//   void setSelectedExpiryType(String expiryType) {
-//     selectedExpiryType = expiryType;
-//     notifyListeners();
-//   }
-//
-//   String? validateTextField(String value, String fieldName) {
-//     if (value.isEmpty) {
-//       _isFormValid = false;
-//       notifyListeners();
-//       return "Please Enter $fieldName";
-//     }
-//     notifyListeners();
-//     return null;
-//   }
-//
-//   void validateFields({required String docNameController}) {
-//     _isFormValid = true;
-//     _nameError = validateTextField(docNameController, 'Name of the Document');
-//    // if (_nameError != null) _isFormValid = false;
-//
-//     notifyListeners();
-//   }
-//
-//   void setLoading(bool value) {
-//     _isLoading = value;
-//     notifyListeners();
-//   }
-//
-// }
-
 class EmpDocEditPopupProvider extends ChangeNotifier {
   TextEditingController nameDocController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
@@ -627,9 +583,9 @@ class EmpDocEditPopup extends StatelessWidget {
         ],
         bottomButtons: provider.isLoading
             ? SizedBox(
-                width: AppSize.s25,
-                height: AppSize.s25,
-                child: CircularProgressIndicator(
+                  width: AppSize.s30,
+                  height: AppSize.s30,
+                  child: CircularProgressIndicator(
                   color: ColorManager.blueprime,
                 ),
               )
