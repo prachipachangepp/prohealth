@@ -58,8 +58,15 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
       _nameDocError =
           _validateTextField(nameController.text, 'Name of the Equipment');
       _dateDocError = _validateTextField(calenderController.text, 'Select Date');
-      _selectDocError = _validateTextField(selectDescription, 'Please Select Document');
+      _selectDocError = _validateTextField(selectDescription, 'Please select device description');
     });
+  }
+  void clearControllerData(){
+    inventoryId = 0;
+    inventoryName = '';
+    nameController.clear();
+    idController.clear();
+    calenderController.clear();
   }
 
   @override
@@ -70,11 +77,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
       title: "Add New Equipment",
       onClear: (){
         Navigator.pop(context);
-        inventoryId = 0;
-        inventoryName = '';
-        nameController.clear();
-        idController.clear();
-        calenderController.clear();
+        clearControllerData();
       },
       body: [
         Padding(
@@ -345,6 +348,11 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                 DateFormat('yyyy-MM-dd').format(date);
                                 calenderController.text = formattedDate;
                                 field.didChange(formattedDate);
+                                setState(() {
+                                  _isFormValid = true;
+                                  _dateDocError =
+                                      _validateTextField(calenderController.text, 'Select Date');
+                                });
                                 // birthdayController.text =
                                 // date.toLocal().toString().split(' ')[0];
                                 // field.didChange(date.toLocal().toString().split(' ')[0]);
@@ -432,11 +440,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                 setState(() {
                   isLoading = false;
                 });
-                inventoryId = 0;
-                inventoryName = '';
-                nameController.clear();
-                idController.clear();
-                calenderController.clear();
+                clearControllerData();
               }
             }),
       ),

@@ -1,3 +1,4 @@
+///upload add
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,9 +85,9 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   void initState() {
     dropDownMenuItems = widget.dataList
         .map((doc) => DropdownMenuItem<String>(
-              value: doc.docname,
-              child: Text(doc.docname),
-            ))
+      value: doc.docname,
+      child: Text(doc.docname),
+    ))
         .toList();
 
     super.initState();
@@ -126,7 +127,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
       _isFormValid = true;
       _idDocError = _validateTextField(idDocController.text, 'ID of the Document');
       _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
-     // _issueDateError = _validateTextField(expiryDateController.text, 'expiry date of the Document');
+      // _issueDateError = _validateTextField(expiryDateController.text, 'expiry date of the Document');
       isFileErrorVisible = !isFileSelected;
       if (selectedExpiryType == AppConfig.issuer && expiryDateController.text.isEmpty) {
         _issueDateError = "Please select an expiry date";
@@ -142,11 +143,11 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
       width: AppSize.s420,
       height: selectedRadio == "Pre-defined"
           ? widget.height == null
-              ? AppSize.s374
-              : widget.height!
+          ? AppSize.s374
+          : widget.height!
           : widget.height == null
-              ? AppSize.s650
-              : widget.height!,
+          ? AppSize.s650
+          : widget.height!,
       body: [
         Padding(
           padding: const EdgeInsets.only(left: AppPadding.p5),
@@ -179,33 +180,470 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         ),
         selectedRadio == "Pre-defined"
             ? Column(
+          children: [
+            HeaderContentConst(
+              isAsterisk: true,
+              heading: AppString.type_of_the_document,
+              content:  CICCDropdown(
+                width: AppSize.s354,
+                initialValue: dropDownMenuItems.isEmpty ? "No available documents":"Select",
+                onChange: (val) {
+                  setState(() {
+                    showExpiryDateField = false;
+                    for (var doc in widget.dataList) {
+                      if (doc.docname == val) {
+                        docTypeId = doc.orgDocumentSetupid!;
+                        documentTypeName = doc.idOfDocument;
+                        if (doc.expirytype == AppConfig.issuer) {
+                          showExpiryDateField = true;
+                        }
+                      }
+                    }
+                  });
+                },
+                items: dropDownMenuItems,
+              ),
+            ),
+            Visibility(
+              visible: showExpiryDateField,
+              child: HeaderContentConst(
+                isAsterisk: true,
+                heading: AppString.expiry_date,
+                content: FormField<String>(
+                  builder: (FormFieldState<String> field) {
+                    return SizedBox(
+                      height: AppSize.s30,
+                      width: AppSize.s354,
+                      child: TextFormField(
+                        controller: expiryDateController,
+                        cursorColor: ColorManager.black,
+                        style: DocumentTypeDataStyle.customTextStyle(
+                            context),
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: ColorManager.fmediumgrey,
+                                width: 1),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: ColorManager.fmediumgrey,
+                                width: 1),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          hintText: 'yyyy-mm-dd',
+                          hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: BorderSide(
+                                width: 1,
+                                color: ColorManager.fmediumgrey),
+                          ),
+                          contentPadding:
+                          EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                          suffixIcon: Icon(Icons.calendar_month_outlined,
+                              color: ColorManager.blueprime),
+                          errorText: field.errorText,
+                        ),
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1901),
+                            lastDate: DateTime(3101),
+                          );
+                          if (pickedDate != null) {
+                            datePicked = pickedDate;
+                            expiryDateController.text =
+                                DateFormat('yyyy-MM-dd')
+                                    .format(pickedDate);
+                          }
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a date';
+                          }
+                          return null;
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+
+            /// Upload document
+            HeaderContentConst(
+                isAsterisk: true,
+                heading: AppString.upload_document,
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap:
+                      _pickFile, // Trigger file picking when the whole container is tapped
+                      child: Container(
+                        height: AppSize.s30,
+                        width: AppSize.s354,
+                        padding: EdgeInsets.only(left: AppPadding.p15),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.containerBorderGrey,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(0),
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  fileName,
+                                  style: DocumentTypeDataStyle
+                                      .customTextStyle(context),
+                                ),
+                              ),
+                              IconButton(
+                                padding: EdgeInsets.all(AppPadding.p4),
+                                onPressed:
+                                _pickFile, // Keep file picker here as well for icon press
+                                icon: Icon(
+                                  Icons.file_upload_outlined,
+                                  color: ColorManager.black,
+                                  size: IconSize.I16,
+                                ),
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    if (isFileErrorVisible)
+                      Padding(
+                        padding: const EdgeInsets.only(top: AppPadding.p5),
+                        child: Text(
+                          'Please upload a document',
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
+                      ),
+                  ],
+                ))
+          ],
+        )
+            : Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ///name
+              SMTextfieldAsteric(
+                controller: nameDocController,
+                keyboardType: TextInputType.text,
+                text: AppStringEM.NameOfDoc,
+              ),
+              _nameDocError != null ? // Display error if any
+              Text(
+                _nameDocError!,
+                style:CommonErrorMsg.customTextStyle(context),
+              ) : SizedBox(height: AppSize.s12,),
+              SizedBox(height: AppSize.s2),
+
+              ///id
+              SMTextfieldAsteric(
+                controller: idDocController,
+                keyboardType: TextInputType.text,
+                text: AppStringEM.idOfDOc,
+              ),
+              _idDocError != null ? // Display error if any
+              Text(
+                _idDocError!,
+                style:CommonErrorMsg.customTextStyle(context),
+              ) : SizedBox(height: AppSize.s12,),
+              SizedBox(height: AppSize.s2),
+
+              /// Type of the Document
+              HeaderContentConst(
+                heading: AppString.type_of_the_document,
+                content: Container(
+                  height: AppSize.s30,
+                  width: AppSize.s354,
+                  padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p12),
+                  decoration: BoxDecoration(
+                    color: ColorManager.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        widget.docTypeText,
+                        style: DocumentTypeDataStyle.customTextStyle(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: AppSize.s8),
+
+              /// SubType of the Document
+              widget.selectedSubDocId == AppConfig.subDocId0
+                  ? SizedBox()
+                  : HeaderContentConst(
+                isAsterisk: true,
+                heading: AppString.sub_type_of_the_document,
+                content: Container(
+                  height: AppSize.s30,
+                  width: AppSize.s354,
+                  padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p12),
+                  decoration: BoxDecoration(
+                    color: ColorManager.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: ColorManager.fmediumgrey, width: 1),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        widget.subDocTypeText,
+                        style: DocumentTypeDataStyle.customTextStyle(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: AppSize.s8),
+              /// Upload document
+              HeaderContentConst(
+                  isAsterisk: true,
+                  heading: AppString.upload_document,
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap:
+                        _pickFile, // Trigger file picking when the whole container is tapped
+                        child: Container(
+                          height: AppSize.s30,
+                          width: AppSize.s354,
+                          padding: EdgeInsets.only(left: AppPadding.p15),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: ColorManager.containerBorderGrey,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    fileName,
+                                    style: DocumentTypeDataStyle
+                                        .customTextStyle(context),
+                                  ),
+                                ),
+                                IconButton(
+                                  padding: EdgeInsets.all(AppPadding.p4),
+                                  onPressed:
+                                  _pickFile, // Keep file picker here as well for icon press
+                                  icon: Icon(
+                                    Icons.file_upload_outlined,
+                                    color: ColorManager.black,
+                                    size: IconSize.I16,
+                                  ),
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      isFileErrorVisible ?
+                      Padding(
+                        padding: const EdgeInsets.only(top: AppPadding.p5),
+                        child: Text(
+                          'Please upload a document',
+                          style: CommonErrorMsg.customTextStyle(context),
+                        ),
+                      ) : SizedBox(height: AppSize.s16,),
+                    ],
+                  )),
+
+              ///radio
+              Row(
                 children: [
                   HeaderContentConst(
-                    isAsterisk: true,
-                    heading: AppString.type_of_the_document,
-                    content:  CICCDropdown(
-                      width: AppSize.s354,
-                      initialValue: dropDownMenuItems.isEmpty ? "No available documents":"Select",
-                      onChange: (val) {
-                        setState(() {
-                          showExpiryDateField = false;
-                          for (var doc in widget.dataList) {
-                            if (doc.docname == val) {
-                              docTypeId = doc.orgDocumentSetupid!;
-                              documentTypeName = doc.idOfDocument;
-                              if (doc.expirytype == AppConfig.issuer) {
-                                showExpiryDateField = true;
-                              }
-                            }
-                          }
-                        });
-                      },
-                      items: dropDownMenuItems,
+                    // isAsterisk: true,
+                    heading: AppString.expiry_type,
+                    content: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomRadioListTile(
+                          value: AppConfig.notApplicable,
+                          groupValue: selectedExpiryType,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedExpiryType = value!;
+                            });
+                          },
+                          title: AppConfig.notApplicable,
+                        ),
+                        CustomRadioListTile(
+                          value: AppConfig.scheduled,
+                          groupValue: selectedExpiryType,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedExpiryType = value!;
+                            });
+                          },
+                          title: AppConfig.scheduled,
+                        ),
+                        CustomRadioListTile(
+                          value: AppConfig.issuer,
+                          groupValue: selectedExpiryType,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedExpiryType = value!;
+                            });
+                          },
+                          title: AppConfig.issuer,
+                        ),
+                      ],
                     ),
                   ),
-                  Visibility(
-                    visible: showExpiryDateField,
-                    child: HeaderContentConst(
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: AppPadding.p20,
+                      right: AppPadding.p20,
+                    ),
+                    child: Visibility(
+                      visible:
+                      selectedExpiryType == AppConfig.scheduled,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: AppSize.s20,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: AppSize.s30,
+                                width: AppSize.s50,
+                                //color: ColorManager.red,
+                                child: TextFormField(
+                                  textAlign: TextAlign.center,
+                                  controller:
+                                  daysController, // Use the controller initialized with "1"
+                                  cursorColor: ColorManager.black,
+                                  cursorWidth: 1,
+                                  style: DocumentTypeDataStyle
+                                      .customTextStyle(context),
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                          ColorManager.fmediumgrey,
+                                          width: 2),
+                                      borderRadius:
+                                      BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: ColorManager.fmediumgrey,
+                                          width: 2),
+                                      borderRadius:
+                                      BorderRadius.circular(8),
+                                    ),
+                                    contentPadding:
+                                    EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter
+                                        .digitsOnly, // This ensures only digits are accepted
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: AppSize.s10),
+                              Container(
+                                height: AppSize.s30,
+                                width: AppSize.s80,
+                                padding:
+                                EdgeInsets.symmetric(horizontal: AppPadding.p5),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: ColorManager.fmediumgrey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonFormField<String>(
+                                  value: selectedYear, // Initial value (you should define this variable)
+                                  items: [
+                                    DropdownMenuItem(
+                                      value: AppConfig.year,
+                                      child: Text(
+                                        AppConfig.year,
+                                        style: DocumentTypeDataStyle.customTextStyle(context),
+                                      ),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: AppConfig.month,
+                                      child: Text(
+                                        AppConfig.month,
+                                        style: DocumentTypeDataStyle.customTextStyle(context),
+                                      ),
+                                    ),
+                                  ],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedYear = value; // Update the selected option (Year/Month)
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    hintText: AppConfig.year,
+                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                    contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
+                                  ),
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: ColorManager.black,
+                                    size: IconSize.I16,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              ///date
+              Visibility(
+                visible: selectedExpiryType == AppConfig.issuer,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    HeaderContentConst(
                       isAsterisk: true,
                       heading: AppString.expiry_date,
                       content: FormField<String>(
@@ -232,7 +670,9 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 hintText: 'yyyy-mm-dd',
-                                hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                hintStyle:
+                                DocumentTypeDataStyle.customTextStyle(
+                                    context),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(6),
                                   borderSide: BorderSide(
@@ -240,8 +680,9 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                       color: ColorManager.fmediumgrey),
                                 ),
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: AppPadding.p16),
-                                suffixIcon: Icon(Icons.calendar_month_outlined,
+                                EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                                suffixIcon: Icon(
+                                    Icons.calendar_month_outlined,
                                     color: ColorManager.blueprime),
                                 errorText: field.errorText,
                               ),
@@ -259,476 +700,36 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                           .format(pickedDate);
                                 }
                               },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please select a date';
-                                }
-                                return null;
-                              },
                             ),
                           );
                         },
                       ),
                     ),
-                  ),
-
-                  /// Upload document
-                  HeaderContentConst(
-                    isAsterisk: true,
-                      heading: AppString.upload_document,
-                      content: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            onTap:
-                                _pickFile, // Trigger file picking when the whole container is tapped
-                            child: Container(
-                              height: AppSize.s30,
-                              width: AppSize.s354,
-                              padding: EdgeInsets.only(left: AppPadding.p15),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        fileName,
-                                        style: DocumentTypeDataStyle
-                                            .customTextStyle(context),
-                                      ),
-                                    ),
-                                    IconButton(
-                                      padding: EdgeInsets.all(AppPadding.p4),
-                                      onPressed:
-                                          _pickFile, // Keep file picker here as well for icon press
-                                      icon: Icon(
-                                        Icons.file_upload_outlined,
-                                        color: ColorManager.black,
-                                        size: IconSize.I16,
-                                      ),
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          if (isFileErrorVisible)
-                            Padding(
-                              padding: const EdgeInsets.only(top: AppPadding.p5),
-                              child: Text(
-                                'Please upload a document',
-                                style: CommonErrorMsg.customTextStyle(context),
-                              ),
-                            ),
-                        ],
-                      ))
-                ],
-              )
-            : Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ///name
-                  SMTextfieldAsteric(
-                    controller: nameDocController,
-                    keyboardType: TextInputType.text,
-                    text: AppStringEM.NameOfDoc,
-                  ),
-                  if (_nameDocError != null) // Display error if any
-                  Text(
-                  _nameDocError!,
-                  style:CommonErrorMsg.customTextStyle(context),
-                  ),
-                  SizedBox(height: AppSize.s2),
-
-                  ///id
-                  SMTextfieldAsteric(
-                    controller: idDocController,
-                    keyboardType: TextInputType.text,
-                    text: AppStringEM.idOfDOc,
-                  ),
-                  if (_idDocError != null) // Display error if any
-                  Text(
-                  _idDocError!,
-                  style:CommonErrorMsg.customTextStyle(context),
-                  ),
-                  SizedBox(height: AppSize.s2),
-
-                  /// Type of the Document
-                  HeaderContentConst(
-                    heading: AppString.type_of_the_document,
-                    content: Container(
-                      height: AppSize.s30,
-                      width: AppSize.s354,
-                      padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p12),
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.docTypeText,
-                            style: DocumentTypeDataStyle.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: AppSize.s2),
-
-                  /// SubType of the Document
-                  widget.selectedSubDocId == AppConfig.subDocId0
-                      ? SizedBox()
-                      : HeaderContentConst(
-                    isAsterisk: true,
-                    heading: AppString.sub_type_of_the_document,
-                    content: Container(
-                      height: AppSize.s30,
-                      width: AppSize.s354,
-                      padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p12),
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: ColorManager.fmediumgrey, width: 1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.subDocTypeText,
-                            style: DocumentTypeDataStyle.customTextStyle(context),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: AppSize.s2),
-                  /// Upload document
-                  HeaderContentConst(
-                    isAsterisk: true,
-                      heading: AppString.upload_document,
-                      content: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            onTap:
-                            _pickFile, // Trigger file picking when the whole container is tapped
-                            child: Container(
-                              height: AppSize.s30,
-                              width: AppSize.s354,
-                              padding: EdgeInsets.only(left: AppPadding.p15),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        fileName,
-                                        style: DocumentTypeDataStyle
-                                            .customTextStyle(context),
-                                      ),
-                                    ),
-                                    IconButton(
-                                      padding: EdgeInsets.all(AppPadding.p4),
-                                      onPressed:
-                                      _pickFile, // Keep file picker here as well for icon press
-                                      icon: Icon(
-                                        Icons.file_upload_outlined,
-                                        color: ColorManager.black,
-                                        size: IconSize.I16,
-                                      ),
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          if (isFileErrorVisible)
-                            Padding(
-                              padding: const EdgeInsets.only(top: AppPadding.p5),
-                              child: Text(
-                                'Please upload a document',
-                                style: CommonErrorMsg.customTextStyle(context),
-                              ),
-                            ),
-                        ],
-                      )),
-
-                  ///radio
-                  Row(
-                    children: [
-                      HeaderContentConst(
-                       // isAsterisk: true,
-                        heading: AppString.expiry_type,
-                        content: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomRadioListTile(
-                              value: AppConfig.notApplicable,
-                              groupValue: selectedExpiryType,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedExpiryType = value!;
-                                });
-                              },
-                              title: AppConfig.notApplicable,
-                            ),
-                            CustomRadioListTile(
-                              value: AppConfig.scheduled,
-                              groupValue: selectedExpiryType,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedExpiryType = value!;
-                                });
-                              },
-                              title: AppConfig.scheduled,
-                            ),
-                            CustomRadioListTile(
-                              value: AppConfig.issuer,
-                              groupValue: selectedExpiryType,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedExpiryType = value!;
-                                });
-                              },
-                              title: AppConfig.issuer,
-                            ),
-                          ],
-                        ),
-                      ),
+                    if (_issueDateError != null) // Display error if any
                       Padding(
-                        padding: const EdgeInsets.only(
-                          left: AppPadding.p20,
-                          right: AppPadding.p20,
-                        ),
-                        child: Visibility(
-                          visible:
-                              selectedExpiryType == AppConfig.scheduled,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: AppSize.s20,
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    height: AppSize.s30,
-                                    width: AppSize.s50,
-                                    //color: ColorManager.red,
-                                    child: TextFormField(
-                                      textAlign: TextAlign.center,
-                                      controller:
-                                          daysController, // Use the controller initialized with "1"
-                                      cursorColor: ColorManager.black,
-                                      cursorWidth: 1,
-                                      style: DocumentTypeDataStyle
-                                          .customTextStyle(context),
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color:
-                                                  ColorManager.fmediumgrey,
-                                              width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager.fmediumgrey,
-                                              width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        contentPadding:
-                                            EdgeInsets.symmetric(horizontal: AppPadding.p10),
-                                      ),
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter
-                                            .digitsOnly, // This ensures only digits are accepted
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: AppSize.s10),
-                                  Container(
-                                    height: AppSize.s30,
-                                    width: AppSize.s80,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: ColorManager.fmediumgrey),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: DropdownButtonFormField<String>(
-                                      value: selectedYear, // Initial value (you should define this variable)
-                                      items: [
-                                        DropdownMenuItem(
-                                          value: AppConfig.year,
-                                          child: Text(
-                                            AppConfig.year,
-                                            style: DocumentTypeDataStyle.customTextStyle(context),
-                                          ),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: AppConfig.month,
-                                          child: Text(
-                                            AppConfig.month,
-                                            style: DocumentTypeDataStyle.customTextStyle(context),
-                                          ),
-                                        ),
-                                      ],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedYear = value; // Update the selected option (Year/Month)
-                                        });
-                                      },
-                                      decoration: InputDecoration(
-                                        enabledBorder: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                        hintText: AppConfig.year,
-                                        hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                        contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
-                                      ),
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: ColorManager.black,
-                                        size: IconSize.I16,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                        padding: const EdgeInsets.only(left: AppPadding.p5),
+                        child: Text(
+                          _issueDateError!,
+                          style:CommonErrorMsg.customTextStyle(context),
                         ),
                       ),
-                    ],
-                  ),
-
-                  ///date
-                  Visibility(
-                    visible: selectedExpiryType == AppConfig.issuer,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        HeaderContentConst(
-                          isAsterisk: true,
-                          heading: AppString.expiry_date,
-                          content: FormField<String>(
-                            builder: (FormFieldState<String> field) {
-                              return SizedBox(
-                                height: AppSize.s30,
-                                width: AppSize.s354,
-                                child: TextFormField(
-                                  controller: expiryDateController,
-                                  cursorColor: ColorManager.black,
-                                  style: DocumentTypeDataStyle.customTextStyle(
-                                      context),
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: ColorManager.fmediumgrey,
-                                          width: 1),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: ColorManager.fmediumgrey,
-                                          width: 1),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    hintText: 'yyyy-mm-dd',
-                                    hintStyle:
-                                        DocumentTypeDataStyle.customTextStyle(
-                                            context),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(6),
-                                      borderSide: BorderSide(
-                                          width: 1,
-                                          color: ColorManager.fmediumgrey),
-                                    ),
-                                    contentPadding:
-                                        EdgeInsets.symmetric(horizontal: AppPadding.p16),
-                                    suffixIcon: Icon(
-                                        Icons.calendar_month_outlined,
-                                        color: ColorManager.blueprime),
-                                    errorText: field.errorText,
-                                  ),
-                                  onTap: () async {
-                                    DateTime? pickedDate = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1901),
-                                      lastDate: DateTime(3101),
-                                    );
-                                    if (pickedDate != null) {
-                                      datePicked = pickedDate;
-                                      expiryDateController.text =
-                                          DateFormat('yyyy-MM-dd')
-                                              .format(pickedDate);
-                                    }
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        if (_issueDateError != null) // Display error if any
-                          Padding(
-                            padding: const EdgeInsets.only(left: AppPadding.p5),
-                            child: Text(
-                              _issueDateError!,
-                              style:CommonErrorMsg.customTextStyle(context),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            )
+            ],
+          ),
+        )
       ],
       bottomButtons: load
           ? SizedBox(
-              height: AppSize.s25,
-              width: AppSize.s25,
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime,
-              ),
-            )
+        height: AppSize.s25,
+        width: AppSize.s25,
+        child: CircularProgressIndicator(
+          color: ColorManager.blueprime,
+        ),
+      )
           : selectedRadio == "Pre-defined"
-              ?CustomElevatedButton(
+          ?CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
         text: AppStringEM.add, // submit
@@ -860,7 +861,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
           }
         },
       )
-              : CustomElevatedButton(
+          : CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
         text: AppStringEM.add, // submit
@@ -1004,88 +1005,3 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
     );
   }
 }
-
-// HeaderContentConst(
-//   heading: AppString.type_of_the_document,
-//   content: CICCDropdown(
-//     width: 354,
-//     initialValue: "Select",
-//     onChange: (val) {
-//       setState(() {
-//         showExpiryDateField = false;
-//         for (var doc in widget.dataList) {
-//           if (doc.docname == val) {
-//             docTypeId = doc.orgDocumentSetupid!;
-//             documentTypeName = doc.idOfDocument;
-//             if (doc.expirytype == AppConfig.issuer) {
-//               showExpiryDateField = true;
-//             }
-//           }
-//         }
-//       });
-//     },
-//     items: dropDownMenuItems,
-//   ),
-// ),
-// Visibility(
-//   visible: showExpiryDateField,
-//   child: HeaderContentConst(
-//     heading: AppString.expiry_date,
-//     content: FormField<String>(
-//       builder: (FormFieldState<String> field) {
-//         return SizedBox(
-//           width: 354,
-//           height: 30,
-//           child: TextFormField(
-//             controller: expiryDateController,
-//             cursorColor: ColorManager.black,
-//             style: DocumentTypeDataStyle.customTextStyle(context),
-//             decoration: InputDecoration(
-//               enabledBorder: OutlineInputBorder(
-//                 borderSide: BorderSide(
-//                     color: ColorManager.fmediumgrey, width: 1),
-//                 borderRadius: BorderRadius.circular(6),
-//               ),
-//               focusedBorder: OutlineInputBorder(
-//                 borderSide: BorderSide(
-//                     color: ColorManager.fmediumgrey, width: 1),
-//                 borderRadius: BorderRadius.circular(6),
-//               ),
-//               hintText: 'yyyy-mm-dd',
-//               hintStyle:
-//               DocumentTypeDataStyle.customTextStyle(context),
-//               border: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(6),
-//                 borderSide: BorderSide(
-//                     width: 1, color: ColorManager.fmediumgrey),
-//               ),
-//               contentPadding: EdgeInsets.symmetric(horizontal: 16),
-//               suffixIcon: Icon(Icons.calendar_month_outlined,
-//                   color: ColorManager.blueprime),
-//               errorText: field.errorText,
-//             ),
-//             onTap: () async {
-//               DateTime? pickedDate = await showDatePicker(
-//                 context: context,
-//                 initialDate: DateTime.now(),
-//                 firstDate: DateTime(1901),
-//                 lastDate: DateTime(3101),
-//               );
-//               if (pickedDate != null) {
-//                 datePicked = pickedDate;
-//                 expiryDateController.text =
-//                     DateFormat('yyyy-MM-dd').format(pickedDate);
-//               }
-//             },
-//             validator: (value) {
-//               if (value == null || value.isEmpty) {
-//                 return 'Please select a date';
-//               }
-//               return null;
-//             },
-//           ),
-//         );
-//       },
-//     ),
-//   ),
-// ),

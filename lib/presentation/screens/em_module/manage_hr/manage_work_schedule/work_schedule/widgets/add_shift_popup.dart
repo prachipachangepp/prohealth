@@ -148,11 +148,11 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     keyboardType: TextInputType.text,
                     text: AddPopupString.shiftName,
                   ),
-                  if (shiftNameError != null)
+                  shiftNameError != null ?
                     Text(
                       shiftNameError!,
                       style: CommonErrorMsg.customTextStyle(context),
-                    ),
+                    ) : SizedBox(height: AppSize.s12,),
                   SizedBox(height: AppSize.s10,),
                   SMTextfieldAsteric(
                     onChange: () => _selectStartTime(context),
@@ -161,11 +161,11 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     text: AddPopupString.startTime,
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: IconSize.I18,),
                   ),
-                  if (startTimeError != null)
+                 startTimeError != null ?
                     Text(
                       startTimeError!,
                       style: CommonErrorMsg.customTextStyle(context),
-                    ),
+                    ): SizedBox(height: AppSize.s12,),
                   SizedBox(height: AppSize.s10,),
                   SMTextfieldAsteric(
                     onChange: () => _selectEndTime(context),
@@ -174,11 +174,11 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     text: AddPopupString.endTime,
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: IconSize.I18,),
                   ),
-                  if (endTimeError != null)
+                  endTimeError != null ?
                     Text(
                       endTimeError!,
                       style: CommonErrorMsg.customTextStyle(context),
-                    ),
+                    ): SizedBox(height: AppSize.s12,),
                 ],
               ),
             ),
@@ -188,8 +188,8 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
               child: Center(
                 child: isLoading
                     ? SizedBox(
-                    height: AppSize.s25,
-                    width: AppSize.s25,
+                    width: AppSize.s30,
+                    height: AppSize.s30,
                     child: CircularProgressIndicator(color: ColorManager.blueprime,)
                 )
                     : CustomElevatedButton(

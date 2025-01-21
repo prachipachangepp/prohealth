@@ -231,8 +231,8 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
       ),],
       bottomButtons: isLoading
           ? SizedBox(
-        height: AppSize.s25,
-        width: AppSize.s25,
+        width: AppSize.s30,
+        height: AppSize.s30,
         child: CircularProgressIndicator(color: ColorManager.blueprime),
       )
           : CustomElevatedButton(

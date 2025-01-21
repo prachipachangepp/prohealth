@@ -25,20 +25,34 @@ class ProfileBarEditPopup extends StatefulWidget {
   final int employeeId;
   final int employeeEnrollId;
   final int employeeEnrollCoverageId;
+  final String countyNameValue;
+  final String zoneNameValue;
+  final int zoneId;
+  final int countyId;
+  final List<int> zipCode;
   final VoidCallback onRefresh;
-  const ProfileBarEditPopup({super.key, required this.employeeId, required this.employeeEnrollId, required this.employeeEnrollCoverageId, required this.onRefresh,});
+  const ProfileBarEditPopup({super.key, required this.employeeId, required this.employeeEnrollId, required this.employeeEnrollCoverageId, required this.onRefresh, required this.countyNameValue, required this.zoneNameValue, required this.zoneId, required this.countyId, required this.zipCode,});
 
   @override
   State<ProfileBarEditPopup> createState() => _ProfileBarEditPopupState();
 }
 
 class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    selectedCounty = widget.countyNameValue;
+    zoneName = widget.zoneNameValue;
+    docZoneId = widget.zoneId;
+    selectedCountyId = widget.countyId;
+    selectedZipCodeZone =  widget.zoneNameValue;
+    super.initState();
+  }
   int selectedZoneId = 0;
   int selectedCountyId = 0;
   int selectedCityId = 0;
   String? selectedZone;
   String? selectedCounty;
-  String reportingOfficeId ='';
   Map<String, bool> checkedZipCodes = {};
   Map<String, bool> checkedCityName = {};
   List<String> selectedZipCodes = [];
@@ -63,6 +77,8 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
 
   String countyName = "";
   String zoneName = "";
+
+
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
@@ -207,12 +223,13 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                               ),
                                             );
                                           }
-                                          if (selectedZipCodeZone == null) {
-                                            selectedZipCodeZone =
-                                                snapshotZone.data![0].zoneName;
-                                          }
+                                          // if (selectedZipCodeZone == null) {
+                                          //   selectedZipCodeZone =
+                                          //       snapshotZone.data![0].zoneName;
+                                          // }
                                           return CICCDropdown(
                                               width: AppSize.s354,
+                                              initialValue: zoneName,
                                               onChange: (val) {
                                                 selectedZipCodeZone = val;
                                                 selectedCovrageZone = val;
@@ -323,7 +340,9 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                     itemCount: snapshot.data!.length,
                                     itemBuilder: (BuildContext context, int index) {
                                       String zipCode = snapshot.data![index].zipCode;
-                                      bool isChecked = checkedZipCodes[zipCode] ?? false;
+                                      bool isChecked = widget.zipCode.contains(int.parse(zipCode))?
+                                      checkedZipCodes[zipCode] = true
+                                          :checkedZipCodes[zipCode] ?? false;
                                       return CheckBoxTileConst(
                                         text: zipCode,
                                         value: isChecked,
@@ -405,7 +424,8 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
 
 
 
-          addCovrage.add(ApiPatchCovrageData(employeeEnrollCoverageId: widget.employeeEnrollCoverageId,
+          addCovrage.add(ApiPatchCovrageData(
+              employeeEnrollCoverageId: widget.employeeEnrollCoverageId,
               city: "",
               countyId: selectedCountyId,
               countyName: countyName,

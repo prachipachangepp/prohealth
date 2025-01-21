@@ -1,3 +1,4 @@
+///success popup
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../app/resources/color.dart';
@@ -65,7 +66,7 @@ class _CCSuccessPopupState extends State<CCSuccessPopup> {
                       // Navigator.push(context, MaterialPageRoute(builder: (context)=> WhitelabellingScreen()));
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.close,color: ColorManager.white,),
+                    icon: Icon(Icons.close,color: ColorManager.white,size: IconSize.I20,),
                   ),
                 ],
               ),
@@ -151,7 +152,7 @@ class _EditSuccessPopupState extends State<EditSuccessPopup> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.close, color: ColorManager.white),
+                    icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
                   ),
                 ],
               ),
@@ -230,7 +231,7 @@ class _VendorSelectNotiState extends State<VendorSelectNoti> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.close, color: ColorManager.white),
+                    icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
                   ),
                 ],
               ),
@@ -312,9 +313,8 @@ class _AddSuccessPopupState extends State<AddSuccessPopup> {
                   ),
                   IconButton(
                     onPressed: () {
-                      //Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.close, color: ColorManager.white),
+                    icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
                   ),
                 ],
               ),
@@ -398,7 +398,7 @@ class _CountySuccessPopupState extends State<CountySuccessPopup> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.close, color: ColorManager.white),
+                    icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
                   ),
                 ],
               ),
@@ -480,7 +480,7 @@ class _AddErrorPopupState extends State<AddErrorPopup> {
                     onPressed: () {
                       //Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.close, color: ColorManager.white),
+                    icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
                   ),
                 ],
               ),
@@ -566,7 +566,7 @@ class _AddFailePopupState extends State<AddFailePopup> {
                     onPressed: () {
                       //Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.close, color: ColorManager.white),
+                    icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
                   ),
                 ],
               ),
@@ -642,7 +642,7 @@ class _offerSuccessPopupState extends State<offerSuccessPopup> {
                       onPressed: () {
                         //Navigator.of(context).pop();
                       },
-                      icon: Icon(Icons.close, color: ColorManager.white),
+                      icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I20,),
                     ),
                   ],
                 ),

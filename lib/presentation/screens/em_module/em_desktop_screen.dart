@@ -105,8 +105,8 @@ class EMDesktopScreen extends StatelessWidget {
               const ApplicationAppBar(headingText: EmDashboardStringManager.em),
               ///2nd  buttons
               Container(
-                margin: const EdgeInsets.symmetric(
-                    vertical: AppPadding.p20, horizontal: AppPadding.p20),
+                margin: const EdgeInsets.only(
+                    top: AppPadding.p20,bottom: AppPadding.p20, right: AppPadding.p20,left: AppPadding.p20,),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -438,7 +438,10 @@ class EMDesktopScreen extends StatelessWidget {
                     CompanyIdentity(),
                     //CompanyIdentityScreen(),
                     HrScreen(),
-                    WorkSchedule(),
+                    ChangeNotifierProvider(
+                        create: (_) => WorkScheduleProvider(),
+                        child: WorkSchedule()),
+                    //WorkSchedule(),
                     ChangeNotifierProvider(
                         create: (_) => ManageEmployDocumentProvider(),
                         child: ManageEmployDocument()),
@@ -559,3 +562,4 @@ class CustomDropdownButton extends StatelessWidget {
     );
   }
 }
+
