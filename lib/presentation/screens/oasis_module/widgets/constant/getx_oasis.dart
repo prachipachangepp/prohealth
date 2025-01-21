@@ -39,7 +39,6 @@ class CheckboxController extends GetxController {
     pt.value = value;
   }
 
-
   void toggleCheckboxot(bool value) {
     ot.value = value;
   }
