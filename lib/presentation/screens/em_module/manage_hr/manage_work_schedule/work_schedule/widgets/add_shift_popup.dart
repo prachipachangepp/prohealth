@@ -43,10 +43,12 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
       setState(() {
         _selectedTime = picked;
         widget.controller1.text = _selectedTime.format(context);
+        startTimeError = null;
       });
     } else {
       setState(() {
         widget.controller1.text = _selectedTime.format(context);
+        startTimeError = null;
       });
     }
   }
@@ -61,10 +63,12 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
       setState(() {
         _selectedTime = picked;
         widget.controller2.text = _selectedTime.format(context);
+        endTimeError = null;
       });
     } else {
       setState(() {
         widget.controller2.text = _selectedTime.format(context);
+        endTimeError = null;
       });
     }
   }
@@ -147,12 +151,19 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     controller: widget.shiftNameController,
                     keyboardType: TextInputType.text,
                     text: AddPopupString.shiftName,
+                      onChange: () {
+                        if (shiftNameError!.isNotEmpty) {
+                          setState(() {
+                            shiftNameError = null; // Clear error on valid input
+                          });
+                        }
+                      }
                   ),
-                  if (shiftNameError != null)
+                   shiftNameError != null ?
                     Text(
                       shiftNameError!,
                       style: CommonErrorMsg.customTextStyle(context),
-                    ),
+                    ) : SizedBox(height: AppSize.s12,),
                   SizedBox(height: AppSize.s10,),
                   SMTextfieldAsteric(
                     onChange: () => _selectStartTime(context),
@@ -161,11 +172,11 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     text: AddPopupString.startTime,
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: IconSize.I18,),
                   ),
-                  if (startTimeError != null)
+                  startTimeError != null ?
                     Text(
                       startTimeError!,
                       style: CommonErrorMsg.customTextStyle(context),
-                    ),
+                    ) : SizedBox(height: AppSize.s12,),
                   SizedBox(height: AppSize.s10,),
                   SMTextfieldAsteric(
                     onChange: () => _selectEndTime(context),
@@ -174,11 +185,11 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     text: AddPopupString.endTime,
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: IconSize.I18,),
                   ),
-                  if (endTimeError != null)
+                  endTimeError != null ?
                     Text(
                       endTimeError!,
                       style: CommonErrorMsg.customTextStyle(context),
-                    ),
+                    ): SizedBox(height: AppSize.s12,),
                 ],
               ),
             ),

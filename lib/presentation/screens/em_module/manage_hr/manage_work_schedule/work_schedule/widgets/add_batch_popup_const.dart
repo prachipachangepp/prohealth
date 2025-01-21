@@ -42,10 +42,12 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
       setState(() {
         _selectedTime = picked;
         widget.controller1.text = _selectedTime.format(context);
+        startTimeError = null;
       });
     } else {
       setState(() {
         widget.controller1.text = _selectedTime.format(context);
+        startTimeError = null;
       });
     }
   }
@@ -60,10 +62,12 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
       setState(() {
         _selectedTime = picked;
         widget.controller2.text = _selectedTime.format(context);
+        endTimeError = null;
       });
     } else {
       setState(() {
         widget.controller2.text = _selectedTime.format(context);
+        endTimeError = null;
       });
     }
   }
@@ -145,14 +149,14 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 17,),
 
                   ),
-                  if (startTimeError != null)
+                  startTimeError != null ?
                     Padding(
                       padding: const EdgeInsets.only(top: AppPadding.p1),
                       child: Text(
                         startTimeError!,
                         style: CommonErrorMsg.customTextStyle(context),
                       ),
-                    ),
+                    ) : SizedBox(height: AppSize.s12,),
                   SizedBox(height: AppSize.s20,),
                   SMTextfieldAsteric(
                     onChange: () => _selectEndTime(context),
@@ -161,14 +165,14 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     text: AddPopupString.endTime,
                     icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 17,),
                   ),
-                  if (endTimeError != null)
+                  endTimeError != null ?
                     Padding(
                       padding: const EdgeInsets.only(top: 1),
                       child: Text(
                         endTimeError!,
                         style: CommonErrorMsg.customTextStyle(context),
                       ),
-                    ),
+                    ) : SizedBox(height: AppSize.s12,),
                 ],
               ),
             ),

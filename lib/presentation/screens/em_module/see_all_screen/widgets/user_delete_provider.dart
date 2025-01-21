@@ -1,5 +1,3 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
@@ -125,7 +123,7 @@ class DeleteConfirmationPopup extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      icon: Icon(Icons.close, color: Colors.white),
+                      icon: Icon(Icons.close, color: Colors.white,size: IconSize.I20,),
                     ),
                   ],
                 ),
@@ -237,40 +235,6 @@ class DeleteConfirmationPopup extends StatelessWidget {
                                 style: BlueButtonTextConst.customTextStyle(context),
                               ),
                             ),
-                            ///
-                            // ElevatedButton(
-                            //   onPressed: () async {
-                            //     Navigator.of(context)
-                            //         .pop(); // Close the popup
-                            //     provider.setLoading(true); // Show loading
-                            //     await Future.delayed(Duration(seconds: 2));
-                            //     onConfirmed(); // Perform delete
-                            //     provider.setLoading(false); // Stop loading
-                            //     showDialog(
-                            //       context: context,
-                            //       builder: (context) => SuccessUserPopup(
-                            //         message:
-                            //         "User deleted successfully.....",
-                            //       ),
-                            //     );
-                            //   },
-                            //   style: ElevatedButton.styleFrom(
-                            //     backgroundColor: Colors.blue,
-                            //     elevation: 5,
-                            //     shape: RoundedRectangleBorder(
-                            //       borderRadius: BorderRadius.circular(12),
-                            //       side: BorderSide(
-                            //         color: ColorManager.bluebottom,
-                            //         width: 1,
-                            //       ),
-                            //     ),
-                            //   ),
-                            //   child: Text(
-                            //     'Delete',
-                            //     style: BlueButtonTextConst
-                            //         .customTextStyle(context),
-                            //   ),
-                            // ),
                           ),
 
                         )
@@ -285,61 +249,6 @@ class DeleteConfirmationPopup extends StatelessWidget {
       );
     });
   }
-
-// Padding(
-//   padding: const EdgeInsets.only(bottom: AppPadding.p24, right: AppPadding.p10),
-//   child: provider.isLoading
-//       ? SizedBox(
-//     height: AppSize.s25,
-//     width: AppSize.s25,
-//     child: CircularProgressIndicator(
-//       color: ColorManager.blueprime,
-//     ),
-//   )
-//       : ElevatedButton(
-//     onPressed: () async {
-//       provider.setLoading(true);
-//       await Future.delayed(Duration(seconds: 2));
-//       onConfirmed();
-//       Navigator.of(context).pop(true);
-//     },
-//     style: ElevatedButton.styleFrom(
-//       backgroundColor: Colors.white,
-//       elevation: 5,
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(12),
-//         side: BorderSide(
-//           color: ColorManager.bluebottom,
-//           width: 1,
-//         ),
-//       ),
-//     ),
-//     child: Text(
-//       'Delete',
-//       style: TransparentButtonTextConst.customTextStyle(context),
-//     ),
-//   ),
-// ),
-///
-//   AlertDialog(
-//   title: Text(title),
-//   content: Text(content),
-//   actions: [
-//     TextButton(
-//       onPressed: () {
-//         Navigator.of(context).pop(false);
-//       },
-//       child: Text("NO"),
-//     ),
-//     TextButton(
-//       onPressed: () {
-//         onConfirmed();
-//         Navigator.of(context).pop(true);
-//       },
-//       child: Text("YES"),
-//     ),
-//   ],
-// );
 }
 
 ///successfully deleted
@@ -391,7 +300,7 @@ class SuccessUserPopup extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.close, color: Colors.white),
+                    icon: Icon(Icons.close, color: Colors.white,size: IconSize.I20,),
                   ),
                 ],
               ),
@@ -420,30 +329,3 @@ class SuccessUserPopup extends StatelessWidget {
     );
   }
 }
-
-// InkWell(
-//   child: Text(
-//     'No',
-//     textAlign: TextAlign.center,
-//     style: TextStyle(
-//       color: Colors.black,
-//       fontSize: 16,
-//     ),
-//   ),
-//   onTap: () {
-//     Navigator.of(context).pop(false);
-//   },
-// ),
-///
-
-// class DeleteUserProvider extends ChangeNotifier {
-//   bool _isLoading = false;
-//
-//   bool get isLoading => _isLoading;
-//
-//   // Set loading state
-//   void setLoading(bool value) {
-//     _isLoading = value;
-//     notifyListeners();
-//   }
-// }

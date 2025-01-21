@@ -194,12 +194,9 @@ class PayRateAddPopup extends StatelessWidget {
                                 items: dropDownZoneList,
                               ),
                               provider.docAddVisitTypeError != null ?
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(
-                                    provider.docAddVisitTypeError!,
-                                    style: CommonErrorMsg.customTextStyle(context),
-                                  ),
+                                Text(
+                                  provider.docAddVisitTypeError!,
+                                  style: CommonErrorMsg.customTextStyle(context),
                                 ) : SizedBox(height: AppSize.s12,),
                             ],
                           );
