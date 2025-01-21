@@ -289,7 +289,12 @@ class OnboardingGeneral extends StatelessWidget {
                                                 MediaQuery.of(context).size.width /
                                                     60),
                                             child: InkWell(
-                                              onTap: () => selectButton(1,general.empId!,fullName, general.imgurl!,general.deptId!), // Corrected reference
+                                              onTap: () => selectButton(
+                                                  1,
+                                                  general.empId!,
+                                                  fullName,
+                                                  general.imgurl!,
+                                                  general.deptId!), // Corrected reference
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
