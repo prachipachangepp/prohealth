@@ -221,10 +221,10 @@ class EMRTextFConst extends StatefulWidget {
   final Icon? icon;
   final bool? readOnly;
   final VoidCallback? onChange;
-  final bool? enable;
+  //final bool? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
-  final FocusNode? focusNode;
+ // final FocusNode? focusNode;
   final double? width;
   final List<TextInputFormatter>? inputFormated;
   final bool showDatePicker;
@@ -232,7 +232,7 @@ class EMRTextFConst extends StatefulWidget {
 
   EMRTextFConst({
     Key? key,
-    this.focusNode,
+   // this.focusNode,
     required this.controller,
     required this.keyboardType,
    // required this.text,
@@ -240,7 +240,7 @@ class EMRTextFConst extends StatefulWidget {
     this.icon,
     this.onChange,
     this.readOnly,
-    this.enable,
+   // this.enable,
     this.validator,
     this.prefixWidget,
     this.width, this.inputFormated,
@@ -303,9 +303,9 @@ class _EMRTextFConstState extends State<EMRTextFConst> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: TextFormField(
-              focusNode: widget.focusNode,
-              autofocus: true,
-              enabled: widget.enable == null ? true : false,
+             // focusNode: widget.focusNode,
+              //autofocus: ,
+              //enabled: widget.enable == null ? true : false,
               controller: widget.controller,
               keyboardType: widget.keyboardType,
               //cursorHeight: 17,
@@ -575,6 +575,55 @@ class _CustomDropdownTextFieldEMRState extends State<CustomDropdownTextFieldEMR>
   }
 }
 
+
+
+
+
+/// radio buttion
+class EMRCustomRadioListTile extends StatefulWidget {
+  final String value;
+  final String? groupValue;
+  final ValueChanged<String?> onChanged;
+  final String title;
+
+  const EMRCustomRadioListTile({
+    Key? key,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  _EMRCustomRadioListTileState createState() => _EMRCustomRadioListTileState();
+}
+
+class _EMRCustomRadioListTileState extends State<EMRCustomRadioListTile> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+      child: Row(
+        children: [
+          Radio<String>(
+            splashRadius: 0,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            value: widget.value,
+            groupValue: widget.groupValue,
+            onChanged: widget.onChanged,
+            activeColor: ColorManager.mediumgrey, // Set the selected color to black
+          ),
+          Text(
+            widget.title,
+            style: DocumentTypeDataStyle.customTextStyle(context),
+          ),
+          SizedBox(width: AppSize.s40),
+        ],
+      ),
+    );
+  }
+}
 
 
 

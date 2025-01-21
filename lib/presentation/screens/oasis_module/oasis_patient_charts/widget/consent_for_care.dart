@@ -78,9 +78,9 @@ class _ConsentForCareState extends State<ConsentForCare> {
     // RxBool isCheck = false.obs;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding:EdgeInsets.symmetric(horizontal: AppPadding.p20, vertical: AppPadding.p0),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(right: 50,left: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -107,53 +107,53 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           ),
                           CustomCheckBoxListTile(
                             title: 'PT',
-                            isChecked: checkboxController.isChecked,
+                            isChecked: checkboxController.pt,
                             onChanged: (value) {
-                              checkboxController.toggleCheckbox(value);
+                              checkboxController.toggleCheckpt(value);
                             },
                           ),
                       CustomCheckBoxListTile(
                         title: 'OT',
-                        isChecked: checkboxController.isChecked,
+                        isChecked: checkboxController.ot,
                         onChanged: (value) {
-                          checkboxController.toggleCheckbox(value);
+                          checkboxController.toggleCheckboxot(value);
                         },
                       ),
                       CustomCheckBoxListTile(
                         title: 'SLP',
-                        isChecked: checkboxController.isChecked,
+                        isChecked: checkboxController.slp,
                         onChanged: (value) {
-                          checkboxController.toggleCheckbox(value);
+                          checkboxController.toggleCheckslp(value);
                         },
                       ),
                       CustomCheckBoxListTile(
                         title: 'MSW',
-                        isChecked: checkboxController.isChecked,
+                        isChecked: checkboxController.msw,
                         onChanged: (value) {
-                          checkboxController.toggleCheckbox(value);
+                          checkboxController.toggleCheckmsw(value);
                         },
                       ),
                       CustomCheckBoxListTile(
                         title: 'Aide',
-                        isChecked: checkboxController.isChecked,
+                        isChecked: checkboxController.aide,
                         onChanged: (value) {
-                          checkboxController.toggleCheckbox(value);
+                          checkboxController.toggleCheckaide(value);
                         },
                       ),
                       CustomCheckBoxListTile(
                         title: 'Other',
-                        isChecked: checkboxController.isChecked,
+                        isChecked: checkboxController.other,
                         onChanged: (value) {
-                          checkboxController.toggleCheckbox(value);
+                          checkboxController.toggleCheckother(value);
                         },
                       ),
                     ],
                   ),
-          
-          
+
+
                 ],
               ),
-          
+
               ),
               SizedBox(height: 20),
               Text("Release Of Information",style: DefineWorkWeekStyle.customTextStyle(context),),
@@ -174,16 +174,16 @@ class _ConsentForCareState extends State<ConsentForCare> {
                       Text("I",style: DefineWorkWeekStyle.customTextStyle(context),),
                       CustomCheckBoxListTile(
                         title: 'am',
-                        isChecked: checkboxController.isChecked,
+                        isChecked: checkboxController.am,
                         onChanged: (value) {
-                          checkboxController.toggleCheckbox(value);
+                          checkboxController.toggleCheckam(value);
                         },
                       ),
                       CustomCheckBoxListTile(
                         title: 'am not',
-                        isChecked: checkboxController.isChecked,
+                        isChecked: checkboxController.not,
                         onChanged: (value) {
-                          checkboxController.toggleCheckbox(value);
+                          checkboxController.toggleChecknot(value);
                         },
                       ),
                       Text("a participating member of an HMO (health maintenance organization). If I enroll in one, I will immediately notify the home care agency. ",
@@ -260,23 +260,23 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   SizedBox(height: 20),
                   CustomCheckBoxListTile(
                     title: 'MEDICARE',
-                    isChecked: checkboxController.isChecked,
+                    isChecked: checkboxController.medicare,
                     onChanged: (value) {
-                      checkboxController.toggleCheckbox(value);
+                      checkboxController.toggleCheckmedicare(value);
                     },
                   ),
                   CustomCheckBoxListTile(
                     title: 'MEDICAID',
-                    isChecked: checkboxController.isChecked,
+                    isChecked: checkboxController.medicaid,
                     onChanged: (value) {
-                      checkboxController.toggleCheckbox(value);
+                      checkboxController.toggleCheckmedicaid(value);
                     },
                   ),
                   CustomCheckBoxListTile(
                     title: 'OTHER',
-                    isChecked: checkboxController.isChecked,
+                    isChecked: checkboxController.Other,
                     onChanged: (value) {
-                      checkboxController.toggleCheckbox(value);
+                      checkboxController.toggleCheckOther(value);
                     },
                   ),
                 ],
@@ -360,59 +360,59 @@ class _ConsentForCareState extends State<ConsentForCare> {
               SizedBox(height: 15),
               CustomCheckBoxListTile(
                 title: 'Living Will',
-                isChecked: checkboxController.isChecked,
+                isChecked: checkboxController.will,
                 onChanged: (value) {
-                  checkboxController.toggleCheckbox(value);
+                  checkboxController.toggleCheckwill(value);
                 },
               ),
               CustomCheckBoxListTile(
                 title: 'DNR/POLST',
-                isChecked: checkboxController.isChecked,
+                isChecked: checkboxController.dnr,
                 onChanged: (value) {
-                  checkboxController.toggleCheckbox(value);
+                  checkboxController.toggleCheckdnr(value);
                 },
               ),
               CustomCheckBoxListTile(
                 title: 'Health Care Power of Attorney',
-                isChecked: checkboxController.isChecked,
+                isChecked: checkboxController.healthcare,
                 onChanged: (value) {
-                  checkboxController.toggleCheckbox(value);
+                  checkboxController.toggleCheckhealthcare(value);
                 },
               ),
-Padding(
-  padding: const EdgeInsets.only(left: 10),
-  child: Row(
-    children: [
-      Text("Copies Requested for Agency records:", style: AllHRTableData.customTextStyle(context),),
-      CustomRadioListTile(
-        title: 'Yes',
-        value: 'Yes',
-        groupValue: emptype,
-        onChanged: (value) {
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Row(
+              children: [
+                Text("Copies Requested for Agency records:", style: AllHRTableData.customTextStyle(context),),
+                EMRCustomRadioListTile(
+                  title: 'Yes',
+                  value: 'Yes',
+                  groupValue: emptype,
+                  onChanged: (value) {
           setState(() {
             emptype = value;
           });
-        },
-      ),
-      CustomRadioListTile(
-        title: 'No',
-        value: 'No',
-        groupValue: emptype,
-        onChanged: (value) {
+                  },
+                ),
+                EMRCustomRadioListTile(
+                  title: 'No',
+                  value: 'No',
+                  groupValue: emptype,
+                  onChanged: (value) {
           setState(() {
             emptype = value;
           });
-        },
-      ),
-    ],
-  ),
-),
+                  },
+                ),
+              ],
+            ),
+          ),
 
               CustomCheckBoxListTile(
                 title: 'I do not currently have advance directives',
-                isChecked: checkboxController.isChecked,
+                isChecked: checkboxController.directives,
                 onChanged: (value) {
-                  checkboxController.toggleCheckbox(value);
+                  checkboxController.toggleCheckdirectives(value);
                 },
               ),
 
@@ -435,51 +435,51 @@ Padding(
                   SizedBox(height: 15),
                   CustomCheckBoxListTile(
                     title: 'Notice of Privacy Practices',
-                    isChecked: checkboxController.isChecked,
+                    isChecked: checkboxController.notice,
                     onChanged: (value) {
-                      checkboxController.toggleCheckbox(value);
+                      checkboxController.toggleChecknotice(value);
                     },
                   ),
                   CustomCheckBoxListTile(
                     title: 'OASIS Notice & Privacy Act Statement — Health Care Records',
-                    isChecked: checkboxController.isChecked,
+                    isChecked: checkboxController.oasis,
                     onChanged: (value) {
-                      checkboxController.toggleCheckbox(value);
+                      checkboxController.toggleCheckoasis(value);
                     },
                   ),
                   CustomCheckBoxListTile(
                     title: 'Patient Rights and Responsibilities',
-                    isChecked: checkboxController.isChecked,
+                    isChecked: checkboxController.patientright,
                     onChanged: (value) {
-                      checkboxController.toggleCheckbox(value);
+                      checkboxController.toggleCheckpatientright(value);
                     },
                   ),
                   CustomCheckBoxListTile(
                     title: 'Patient Information, Emergency Preparedness',
-                    isChecked: checkboxController.isChecked,
+                    isChecked: checkboxController.patientinfo,
                     onChanged: (value) {
-                      checkboxController.toggleCheckbox(value);
+                      checkboxController.toggleCheckpatientinfo(value);
                     },
                   ), CustomCheckBoxListTile(
                     title: 'Advance Directives: ProHealth Policy & California Probate Code',
-                    isChecked: checkboxController.isChecked,
+                    isChecked: checkboxController.advdirectives,
                     onChanged: (value) {
-                      checkboxController.toggleCheckbox(value);
+                      checkboxController.toggleCheckadvdirectives(value);
                     },
                   ), CustomCheckBoxListTile(
                     title: 'Home Safety Assessment and Recommendations',
-                    isChecked: checkboxController.isChecked,
+                    isChecked: checkboxController.homesafety,
                     onChanged: (value) {
-                      checkboxController.toggleCheckbox(value);
+                      checkboxController.toggleCheckhomesafety(value);
                     },
                   ),
 
 
                   CustomCheckBoxListTile(
                     title: 'Other',
-                    isChecked: checkboxController.isChecked,
+                    isChecked: checkboxController.OTHER,
                     onChanged: (value) {
-                      checkboxController.toggleCheckbox(value);
+                      checkboxController.toggleCheckOTHER(value);
                     },
                   ),
 
@@ -487,7 +487,7 @@ Padding(
               ),),
               SizedBox(height: 20,),
               WhiteContrainerConst(
-height: 600,
+          height: 650,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -498,7 +498,7 @@ height: 600,
                   Row(
                     children: [
                       Text("Does the patient have the capacity to sign? ",style: DefineWorkWeekStyle.customTextStyle(context),),
-                      Container(
+                      SizedBox(width: 10,),Container(
                         //color: Colors.white,
                         width: 117,
                         height: 30,
@@ -548,6 +548,7 @@ height: 600,
                       ),
                     ],
                   ),
+                  SizedBox(height: 30,),
                   Text("Patient Signature ",style: DefineWorkWeekStyle.customTextStyle(context),),
                   SizedBox(height: 30,),
                   Row(
@@ -728,12 +729,13 @@ height: 600,
                           ],
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 15,),
                       Container(
                         child: Center(
                           child: Row(
                             children: [
                               Text("Date",style: DefineWorkWeekStyle.customTextStyle(context),),
+                              SizedBox(width: 10,),
                               EMRTextFConst(controller: dateController, keyboardType: TextInputType.text,)
                             ],
                           ),
