@@ -5,6 +5,7 @@ class ProfileRepository {
   static String zone = "/zone";
   static String countyWiseZone = "/zoneByCounty/";
   static String covergaelist = "/employee-enroll/coverageArea/byEmployee/";
+  static String covergaePrefill = "/employee-enroll/coverageArea/byemployeeEnrollCoverage/";
   static String gender = "/gender-dropdown";
   static String enroll = "/employee-enroll";
 
@@ -41,6 +42,9 @@ class ProfileRepository {
   ////co
   static String getlistcoverage({required int employeeId}){
     return "$covergaelist/$employeeId";
+  }
+  static String getPreFillcoverage({required int employeeCoverageId}){
+    return "$covergaePrefill/$employeeCoverageId";
   }
 ///gender
   static String getGender(){

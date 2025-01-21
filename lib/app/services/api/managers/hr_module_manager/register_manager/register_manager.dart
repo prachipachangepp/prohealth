@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/Register/register.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
@@ -569,5 +571,30 @@ Future<EmployeeModel> getCoverageList({required BuildContext context,
   }
 
   return employeeModel;
+}
+
+/// coverage prefill
+Future<CoveragePrefillData?> getCoveragePreFill({required BuildContext context,
+  required int employeeId ,required int employeeEnrollCoverageId }) async {
+  // Initialize EmployeeModel with default values
+  try {
+    final response = await Api(context).get(path: ProfileRepository.getPreFillcoverage(employeeCoverageId: employeeEnrollCoverageId));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // Process coverage details from the response
+      print("Coverage prefill details fetched successfully.");
+      //final data = json.decode(response.body);
+      return CoveragePrefillData.fromJson(response.data);
+
+    } else {
+      print('Manage coverage prefill error: ${response.statusMessage}');
+    }
+
+  } catch (e) {
+    print("Error: $e");
+    return null;
+  }
+
+
 }
 

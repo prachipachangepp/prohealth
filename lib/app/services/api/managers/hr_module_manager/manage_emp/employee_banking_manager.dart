@@ -92,7 +92,7 @@ Future<EmployeeBankingPrefillData> getPrefillEmployeeBancking(
             checkUrl: response.data['checkUrl'],
             effectiveDate: effectiveFormattedDate,
             routinNumber: response.data['routingNumber'],
-            type: response.data['type'],
+            type: response.data['type'], documentName: response.data['documentName'] ?? "--",
            // approve: response.data['approve'] ?? true
             );
         print("ItemData${itemsData.toString()}");
@@ -214,13 +214,15 @@ Future<ApiData> addNewEmployeeBanking(
 Future<ApiData> uploadBanckingDocument(
     BuildContext context,
     int banckingId,
-    dynamic documentFile) async {
+    dynamic documentFile,
+    String documentFileName) async {
   try {
     String document = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
     var response = await Api(context).post(
       path: ManageReposotory.uploadBanckingDocuments(empBankingId:banckingId),
       data: {
-      "base64": document
+      "base64": document,
+        "documentName": documentFileName
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

@@ -193,7 +193,8 @@ class OnboardingTabManage extends StatelessWidget {
                                             imageUrl.isEmpty
                                             ? CircleAvatar(
                                           backgroundColor: ColorManager.faintGrey,
-                                          child: Image.asset("images/profilepic.png"),
+                                          child: Image.asset("images/profilepic.png",width: double.infinity,
+                                            height: double.infinity,),
                                         )
                                             : Image.network(
                                           imageUrl,
@@ -219,7 +220,7 @@ class OnboardingTabManage extends StatelessWidget {
                                         ),
                                       )
                                     ),
-                                    SizedBox(width: AppSize.s10,),
+                                    SizedBox(width: AppSize.s20,),
                                     Text(
                                       employeeName,
                                       style: CompanyIdentityManageHeadings.customTextStyle(context),

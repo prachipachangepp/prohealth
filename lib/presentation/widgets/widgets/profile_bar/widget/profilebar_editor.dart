@@ -1202,15 +1202,29 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                     showDialog(
                                                                       context: context,
                                                                       builder: (BuildContext context) {
-                                                                        return ProfileBarEditPopup(employeeId: profileData.employeeId,
-                                                                          employeeEnrollId: profileData.employeeEnrollId,
-                                                                          employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId,
-                                                                          onRefresh: () {
-                                                                            setState((){
-                                                                              getCoverageList(context: context, employeeId: widget.employeeId,
-                                                                                  employeeEnrollId:profileData.employeeEnrollId );
-                                                                            });
-                                                                          },);
+                                                                        return FutureBuilder(
+                                                                          future: getCoveragePreFill(context: context, employeeId: widget.employeeId, employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId),
+                                                                          builder: (context,snapshotPreFill) {
+                                                                            if(snapshotPreFill.connectionState == ConnectionState.waiting){
+                                                                              return Center(
+                                                                                  child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                                                              );
+                                                                            }
+
+                                                                            return ProfileBarEditPopup(employeeId: profileData.employeeId,
+                                                                              employeeEnrollId: profileData.employeeEnrollId,
+                                                                              employeeEnrollCoverageId: snapshot.data!.coverageDetails[index].employeeEnrollCoverageId,
+                                                                              onRefresh: () {
+                                                                                setState((){
+                                                                                  getCoverageList(context: context, employeeId: widget.employeeId,
+                                                                                      employeeEnrollId:profileData.employeeEnrollId );
+                                                                                });
+                                                                              }, countyNameValue: snapshotPreFill.data!.coverageDetails.countyName,
+                                                                              zoneNameValue: snapshotPreFill.data!.coverageDetails.zoneName,
+                                                                              zoneId: snapshotPreFill.data!.coverageDetails.zoneId,
+                                                                              countyId: snapshotPreFill.data!.coverageDetails.countyId, zipCode: snapshotPreFill.data!.coverageDetails.zipCodes,);
+                                                                          }
+                                                                        );
                                                                       },
                                                                     );
                                                                   }

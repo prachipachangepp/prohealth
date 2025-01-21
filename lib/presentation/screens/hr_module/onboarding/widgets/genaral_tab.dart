@@ -140,6 +140,45 @@ class OnboardingGeneral extends StatelessWidget {
       }
 
     }
+    String _trimAddress(String address) {
+      const int maxLength = 15;
+      if (address.length > maxLength) {
+        return '${address.substring(0, maxLength)}...';
+      }
+      return address;
+    }
+    OverlayEntry? _overlayEntryAddress;
+    void _showOverlayAddress(BuildContext context, Offset position, String address) {
+      _overlayEntryAddress = OverlayEntry(
+        builder: (context) => Positioned(
+          left: 300,
+          top: position.dy + 15, // Adjust to position below the text
+          child: Material(
+            color: Colors.transparent,
+            child: Container(
+              width: 250,
+              padding: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8.0),
+                boxShadow: [
+                  BoxShadow(color: Colors.black26, blurRadius: 4, spreadRadius: 2),
+                ],
+              ),
+              child: Text(
+                address, // Display the actual address here
+                style: ThemeManagerAddressPB.customTextStyle(context),
+              ),
+            ),
+          ),
+        ),
+      );
+      Overlay.of(context)?.insert(_overlayEntryAddress!);
+    }
+    void _removeOverlayAddress() {
+      _overlayEntryAddress?.remove();
+      _overlayEntryAddress = null;
+    }
     int currentPage = 1;
     final int itemsPerPage = 10;
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
@@ -236,7 +275,7 @@ class OnboardingGeneral extends StatelessWidget {
                             String fullName = '${general.firstName?.capitalizeFirst ?? ''} ${general.lastName?.capitalizeFirst ?? ''}';
                             String displayStatus = general.status == 'Enrolled' ? 'Opened' : general.status ?? '--';
                             // WidgetsBinding.instance.addPostFrameCallback((_) {
-                            //   onboardingProviderState.getColorStatus(displayStatus);
+                            //   onboardingProviderState.trimAddress(general.finalAddress!);
                             // });
 
                             return Column(
@@ -346,7 +385,7 @@ class OnboardingGeneral extends StatelessWidget {
                                                       ),
 
                                                       ///profile image
-                                                      SizedBox(height: MediaQuery.of(context).size.height / 40),
+                                                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                                                       ///name of the Person
                                                       Container(
                                                         height: AppSize.s40,
@@ -392,19 +431,19 @@ class OnboardingGeneral extends StatelessWidget {
                                                           InfoData(general.driverLicenseNum ?? '--'),
                                                           InfoData(general.employeeType ?? '--'),
                                                           InfoData(general.primaryPhoneNbr ?? '--'),
-                                                          MouseRegion(
-                                                            onEnter: (event) =>
-                                                                onboardingProviderState.showOverlayAddress(
-                                                                context, event.position, general.finalAddress ?? '--'),
-                                                            onExit: (_) => onboardingProviderState.removeOverlayAddress(),
-                                                            child: InfoData(onboardingProviderState.trimmedAddress),
-                                                          ),
-
                                                           // MouseRegion(
-                                                          //     onEnter: (event) => _showOverlayAddress(
-                                                          //         context, event.position),
-                                                          //     onExit: (_) => _removeOverlayAddress(),
-                                                          //     child: InfoData(_trimAddress(general.finalAddress ?? '--'),)),
+                                                          //   onEnter: (event) =>
+                                                          //       onboardingProviderState.showOverlayAddress(
+                                                          //       context, event.position, general.finalAddress ?? '--'),
+                                                          //   onExit: (_) => onboardingProviderState.removeOverlayAddress(),
+                                                          //   child: InfoData(onboardingProviderState.trimmedAddress),
+                                                          // ),
+
+                                                          MouseRegion(
+                                                              onEnter: (event) => _showOverlayAddress(
+                                                                  context, event.position,general.finalAddress ?? '--'),
+                                                              onExit: (_) => _removeOverlayAddress(),
+                                                              child: InfoData(_trimAddress(general.finalAddress ?? '--'),)),
 
                                                         ],
                                                       ),
