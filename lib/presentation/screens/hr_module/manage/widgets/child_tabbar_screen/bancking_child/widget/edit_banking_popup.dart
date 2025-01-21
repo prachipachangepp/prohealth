@@ -1276,7 +1276,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
 
   Widget _buildThirdColumn() {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      //crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _buildTextField(
             capitalIsSelect:false,
