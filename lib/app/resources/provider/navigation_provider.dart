@@ -7,6 +7,7 @@ import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/licenses_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/licenses_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -65,11 +66,15 @@ class HrManageProvider extends ChangeNotifier{
   OverlayEntry? _overlayEntryAddress;
   OverlayEntry? _overlayEntrySummery;
   final StreamController<Map<String, int>> _licenseStreamController =
-  StreamController.broadcast();
+  StreamController<Map<String, int>>.broadcast();
   Stream<Map<String, int>> get licenseStream => _licenseStreamController.stream;
-  int expiredCount = 0;
-  int upToDateCount = 0;
-  int aboutToCount = 0;
+  int _expiredCount = 0;
+  int _upToDateCount = 0;
+  int _aboutToCount = 0;
+
+  int get expiredCount => _expiredCount;
+  int get upToDateCount => _upToDateCount;
+  int get aboutToCount => _aboutToCount;
   String get hireDateTimeStamp => _hireDateTimeStamp;
   String get maskedString => _maskedString;
   String get trimmedAddress => _trimmedAddress;
@@ -200,15 +205,47 @@ class HrManageProvider extends ChangeNotifier{
   }
 
   /// HR profile bar Address trim
+  // void updateAddress(String address) {
+  //   const int maxLength = 25;
+  //   if (address.length > maxLength) {
+  //     _trimmedAddress = '${address.substring(0, maxLength)}...';
+  //   } else {
+  //     _trimmedAddress = address;
+  //   }
+  //   notifyListeners();
+  // }
+  String _line1 = '';
+  String _line2 = '';
+  String _tooltipText = '';
+
+  String get line1 => _line1;
+  String get line2 => _line2;
+
+  get tooltipText => _tooltipText;
+
   void updateAddress(String address) {
-    const int maxLength = 15;
-    if (address.length > maxLength) {
-      _trimmedAddress = '${address.substring(0, maxLength)}...';
+    const int line1MaxLength = 25;
+    const int line2MaxLength = 20;
+
+    if (address.length > line1MaxLength) {
+      _line1 = address.substring(0, line1MaxLength);
+
+      if (address.length > line1MaxLength + line2MaxLength) {
+        _line2 = '${address.substring(line1MaxLength, line1MaxLength + line2MaxLength)}...';
+        _tooltipText = address;
+      } else {
+        _line2 = address.substring(line1MaxLength);
+        _tooltipText = address;
+      }
     } else {
-      _trimmedAddress = address;
+      _line1 = address;
+      _line2 = '';
+      _tooltipText = address;
     }
+
     notifyListeners();
   }
+
 
   /// HR profile trim summery
   void updateSummery(String symmery) {
@@ -311,7 +348,7 @@ class HrManageProvider extends ChangeNotifier{
         ),
       ),
     );
-    Overlay.of(context)?.insert(_overlayEntryAddress!);
+    Overlay.of(context).insert(_overlayEntryAddress!);
   }
   // Remove overlay
   void removeOverlayAddress() {
@@ -365,7 +402,13 @@ class HrManageProvider extends ChangeNotifier{
   }
 
   /// License stream brodcast in profileBar HR
-  Future<void> fetchLicenseData(BuildContext context, int employeeId) async {
+  void clearLicenseData(){
+    _expiredCount = 0;
+    _aboutToCount = 0;
+    _upToDateCount = 0;
+    notifyListeners();
+  }
+  void fetchLicenseData(BuildContext context, int employeeId) async {
     while (true) {
       try {
         // Fetch the data
@@ -373,10 +416,12 @@ class HrManageProvider extends ChangeNotifier{
         await getLicenseStatusWise(context, employeeId);
 
         // Extract counts
-         expiredCount = data['Expired']?.length ?? 0;
-        aboutToCount = data['About to Expire']?.length ?? 0;
-         upToDateCount = data['Upto date']?.length ?? 0;
-
+         _expiredCount = data['Expired']?.length ?? 0;
+        _aboutToCount = data['About to Expire']?.length ?? 0;
+         _upToDateCount = data['Upto date']?.length ?? 0;
+         print('Expired county >>>> ${_expiredCount}');
+        print('Expired county >>>> ${_aboutToCount}');
+        print('Expired county >>>> ${_upToDateCount}');
         // Add counts to the stream
         _licenseStreamController.add({
           'Expired': expiredCount,
@@ -398,6 +443,7 @@ class HrManageProvider extends ChangeNotifier{
   }
   void dispose() {
     _licenseStreamController.close();
+    notifyListeners();
   }
 
   /// Qualification employeement

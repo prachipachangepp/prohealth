@@ -125,7 +125,7 @@ class MenuContainerTextStylling {
 class AllNoDataAvailable {
   static TextStyle customTextStyle(BuildContext context) {
     return TextStyle(
-      fontSize: FontSize.s14,
+      fontSize: FontSize.s13,
       fontWeight: FontWeight.w600,
       color: ColorManager.mediumgrey,
       decoration: TextDecoration.none,

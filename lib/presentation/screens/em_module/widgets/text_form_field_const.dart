@@ -630,6 +630,7 @@ class FirstSMTextFConst extends StatefulWidget {
   final bool? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
+  final void Function(String)? onTapChange;
   final List<TextInputFormatter>? inputFormated;
   final bool showDatePicker;
   final Icon? suffixIcon;
@@ -639,6 +640,7 @@ class FirstSMTextFConst extends StatefulWidget {
 
   FirstSMTextFConst({
     Key? key,
+    this.onTapChange,
     this.inputFormated,
     required this.controller,
     required this.keyboardType,
@@ -732,6 +734,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
                 style: TableSubHeading.customTextStyle(context),
                 //validator: widget.validator,
                 onTap: widget.onChange,
+                onChanged: widget.onTapChange,
 
                 inputFormatters: widget.inputFormated == null
                     ? [

@@ -228,96 +228,105 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                 style: BlueButtonTextConst.customTextStyle(context),
                 borderRadius: 12,
                 onPressed: () async {
-                  for (var key in employmentFormKeys) {
-                    final state = key.currentState!;
+                  try{
+                    setState(() {
+                      isLoading = true; // Start loading
+                    });
+                    for (var key in employmentFormKeys) {
+                      final state = key.currentState!;
 
-                    try {
-                      // Check if state isPrefill is false before proceeding
-                      if (state.isPrefill == false) {
-                        // Only check file size if "Currently Working" is selected (checkbox is checked)
-                        //if (state.isChecked) {
-                        // Check if a file is uploaded and if it is under 20MB
-                        // if ((state.fileName != null || state.finalPath != null)) {
-                        // // Check the file size
-                        // File file = File(state.finalPath!);
-                        // int fileSizeInBytes = await file.length(); // Get file size in bytes
-                        // int fileSizeInMB = fileSizeInBytes ~/ (1024 * 1024); // Convert to MB
-                        //
-                        // if (fileSizeInMB > 20) {
-                        // // Show "File is too large!" error message if the file exceeds 20MB
-                        // showDialog(
-                        // context: context,
-                        // builder: (BuildContext context) {
-                        // return AddErrorPopup(
-                        // message: 'File is too large! Max size is 20MB.',
-                        // );
-                        // },
-                        // );
-                        // return; // Exit the function if the file is too large
-                        // }
-                        // }
-                        // }
+                      try {
+                        // Check if state isPrefill is false before proceeding
+                        if (state.isPrefill == false) {
+                          // Only check file size if "Currently Working" is selected (checkbox is checked)
+                          //if (state.isChecked) {
+                          // Check if a file is uploaded and if it is under 20MB
+                          // if ((state.fileName != null || state.finalPath != null)) {
+                          // // Check the file size
+                          // File file = File(state.finalPath!);
+                          // int fileSizeInBytes = await file.length(); // Get file size in bytes
+                          // int fileSizeInMB = fileSizeInBytes ~/ (1024 * 1024); // Convert to MB
+                          //
+                          // if (fileSizeInMB > 20) {
+                          // // Show "File is too large!" error message if the file exceeds 20MB
+                          // showDialog(
+                          // context: context,
+                          // builder: (BuildContext context) {
+                          // return AddErrorPopup(
+                          // message: 'File is too large! Max size is 20MB.',
+                          // );
+                          // },
+                          // );
+                          // return; // Exit the function if the file is too large
+                          // }
+                          // }
+                          // }
 
-                        print(";;;;;;${state.fileAbove20Mb}");
-                        setState(() {
-                          isLoading = true; // Start loading
-                        });
+                          print(";;;;;;${state.fileAbove20Mb}");
 
-                        // Proceed with posting the employment data if the conditions are met
-                        var response = await postemploymentscreenData(
-                          context,
-                          state.widget.employeeID,
-                          state.employerController.text,
-                          state.cityController.text,
-                          state.reasonForLeavingController.text,
-                          state.supervisorNameController.text,
-                          state.supervisorMobileNumberController.text,
-                          state.finalPositionController.text,
-                          state.startDateController.text,
-                          state.isChecked ? "Currently Working" : state.endDateController.text,
-                          "NA",
-                          "United States Of America",
-                        );
 
-                        // Check if the file name is not null before uploading the resume
-                        if (state.fileName != null) {
-                          await uploadEmployeeResume(
-                            context: context,
-                            employeementId: response.employeeMentId!,
-                            documentFile: state.finalPath!,
-                            documentName: state.fileName!,
+                          // Proceed with posting the employment data if the conditions are met
+                          var response = await postemploymentscreenData(
+                            context,
+                            state.widget.employeeID,
+                            state.employerController.text,
+                            state.cityController.text,
+                            state.reasonForLeavingController.text,
+                            state.supervisorNameController.text,
+                            state.supervisorMobileNumberController.text,
+                            state.finalPositionController.text,
+                            state.startDateController.text,
+                            state.isChecked ? "Currently Working" : state.endDateController.text,
+                            "NA",
+                            "United States Of America",
                           );
+
+                          // Check if the file name is not null before uploading the resume
+                          if (state.fileName != null) {
+                            await uploadEmployeeResume(
+                              context: context,
+                              employeementId: response.employeeMentId!,
+                              documentFile: state.finalPath!,
+                              documentName: state.fileName!,
+                            );
+                          }
+
+                          if (response.statusCode == 200 || response.statusCode == 201) {
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddSuccessPopup(
+                                  message: 'Employment Data Saved',
+                                );
+                              },
+                            );
+                            // setState(() {
+                            //   isLoading = false; // End loading
+                            // });
+
+                            await _loadEmploymentData();
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddSuccessPopup(
+                                  message: 'Failed To Save Employment Data',
+                                );
+                              },
+                            );
+                          }
                         }
-
-                        if (response.statusCode == 200 || response.statusCode == 201) {
-                          await showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AddSuccessPopup(
-                                message: 'Employment Data Saved',
-                              );
-                            },
-                          );
-                          setState(() {
-                            isLoading = false; // End loading
-                          });
-                          await widget.onSave();
-                          await _loadEmploymentData();
-                        } else {
-                          await showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AddSuccessPopup(
-                                message: 'Failed To Save Employment Data',
-                              );
-                            },
-                          );
-                        }
+                      } catch (e) {
+                        print(e);
                       }
-                    } catch (e) {
-                      print(e);
                     }
+                  }finally{
+                    setState(() {
+                      isLoading = false; // Start loading
+                    });
+                    widget.onSave();
                   }
+
                 },
                 child: Text(
                   'Save',

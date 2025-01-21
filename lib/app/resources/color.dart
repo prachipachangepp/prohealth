@@ -41,7 +41,7 @@ class ColorManager {
   static Color blackForLoginTexts = Color(0xff000000).withOpacity(0.5);
   static Color blackfaint = Color(0xFF333333);
   static Color whitesheed = Color(0xffACA5BB);
-  static Color whitebluecolor = Color(0xffE0F2F1);
+  static Color whitebluecolor = Color(0xFFeef6fd);//Color(0xFFB1D6F4).withValues(alpha: 0.15);//Color.fromARGB(1, 177, 214,244);//Color(0xffE0F2F1);
   static Color red = Color(0xffD93D3D);
   static Color rednew = Color(0xffEB3223);
   static Color buttoncolor = Color(0xfc79AEF5);

@@ -105,7 +105,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
           );
         },
       );
-      widget.onSave();
+
       _loadLicensesData();
     }
     else if(response.statusCode == 400 || response.statusCode == 404){
@@ -333,68 +333,74 @@ class _LicensesScreenState extends State<LicensesScreen> {
 
 
                 // Flag to check if a document is selected
+                try{
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
+                  for (var key in licenseFormKeys) {
+                    try {
+                      final st = key.currentState!;
 
-                for (var key in licenseFormKeys) {
-                  try {
-                    final st = key.currentState!;
+                      if (st.isPrefill == false) {
+                        // Check if documentFile is selected
+                        if (st.finalPath == null || st.finalPath.isEmpty) {
+                          // If no document is selected, show a message and stop further execution
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return VendorSelectNoti(
+                                message: 'Please Select A File',
+                              );
+                            },
+                          );
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   SnackBar(content: Text('Please select a file.')),
+                          // );
 
-                    if (st.isPrefill == false) {
-                      // Check if documentFile is selected
-                      if (st.finalPath == null || st.finalPath.isEmpty) {
-                        // If no document is selected, show a message and stop further execution
-                        await showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return VendorSelectNoti(
-                              message: 'Please Select A File',
-                            );
-                          },
-                        );
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(content: Text('Please select a file.')),
-                        // );
+                          return; // Exit the loop and method early
+                        }
+                        if (st.fileAbove20Mb) {
 
-                        return; // Exit the loop and method early
+
+                          await perfFormLinsence(
+                            context: context,
+                            licenseNumber: st.licensurenumber.text,
+                            country: st.selectedCountry.toString(),
+                            employeeId: widget.employeeID,
+                            expDate: st.controllerExpirationDate.text,
+                            issueDate: st.controllerIssueDate.text,
+                            licenseUrl: 'NA',
+                            licensure: st.licensure.text,
+                            org: st.org.text,
+                            documentType: st.documentTypeName!,
+                            documentFile: st.finalPath,
+                            documentName: st.fileName,
+                          );
+
+
+                        }
+                        else{
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddErrorPopup(
+                                message: 'File is too large!',
+                              );
+                            },
+                          );
+                        }
                       }
-                      if (st.fileAbove20Mb) {
-
-                        setState(() {
-                          isLoading = true; // Start loading
-                        });
-                        await perfFormLinsence(
-                          context: context,
-                          licenseNumber: st.licensurenumber.text,
-                          country: st.selectedCountry.toString(),
-                          employeeId: widget.employeeID,
-                          expDate: st.controllerExpirationDate.text,
-                          issueDate: st.controllerIssueDate.text,
-                          licenseUrl: 'NA',
-                          licensure: st.licensure.text,
-                          org: st.org.text,
-                          documentType: st.documentTypeName!,
-                          documentFile: st.finalPath,
-                          documentName: st.fileName,
-                        );
-                        setState(() {
-                          isLoading = false; // Stop loading
-                        });
-
-                      }
-                      else{
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddErrorPopup(
-                              message: 'File is too large!',
-                            );
-                          },
-                        );
-                      }
+                    } catch (e) {
+                      print(e);
                     }
-                  } catch (e) {
-                    print(e);
                   }
+                }finally{
+                  setState(() {
+                    isLoading = false; // Stop loading
+                  });
+                  widget.onSave();
                 }
+
 
                 // If a document is selected and everything goes fine, complete the process
 

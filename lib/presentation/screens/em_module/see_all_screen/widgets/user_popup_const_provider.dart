@@ -460,24 +460,38 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                 controller: widget.firstNameController,
                 keyboardType: TextInputType.text,
                 text: "First Name",
+                  onChange: () {
+                    if (_nameDocError!.isNotEmpty) {
+                      setState(() {
+                        _nameDocError = null; // Clear error on valid input
+                      });
+                    }
+                  }
               ),
-              if (_nameDocError != null)
+              _nameDocError != null ?
                 Text(
                   _nameDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ): SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s5,),
               ///
               SMTextfieldAsteric(
                 controller: widget.lastNameController,
                 keyboardType: TextInputType.text,
                 text: 'Last Name',
+                  onChange: () {
+                if (_stateDocError!.isNotEmpty) {
+                  setState(() {
+                    _stateDocError = null; // Clear error on valid input
+                  });
+                }
+              }
               ),
-              if (_stateDocError != null)
+              _stateDocError != null ?
                 Text(
                   _stateDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s10,),
               RichText(
                 text: TextSpan(
@@ -570,12 +584,19 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
               SizedBox(height: AppSize.s14,),
               SMTextfieldAsteric(controller: widget.emailController,
                   keyboardType: TextInputType.emailAddress,
-                  text: 'Email'),
-              if (_emailDocError != null) // Display error if any
+                  text: 'Email',
+                  onChange: () {
+                    if (_emailDocError!.isNotEmpty) {
+                      setState(() {
+                        _emailDocError = null; // Clear error on valid input
+                      });
+                    }
+                  }),
+              _emailDocError != null ?  // Display error if any
                 Text(
                   _emailDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s14,),
               Padding(
                 padding: const EdgeInsets.only(left: 1),
@@ -596,11 +617,11 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                 errorText: 'Password is required',
                 onSuffixIconPressed: _copyToClipboard,
               ),
-              if (_PasswordDocError != null)
+              _PasswordDocError != null ?
                 Text(
                   _PasswordDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
             ],
           ),
         )

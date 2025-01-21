@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,8 +21,53 @@ class _ConsentForCareState extends State<ConsentForCare> {
 
   bool isChecked1 = false;
   bool isChecked2 = false;
-
+  TextEditingController reasonController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  //TextEditingController secNumController = TextEditingController();
   String? emptype = "Yes";
+  String? pickedFileName;
+  dynamic pickedFile;
+
+
+
+  Future<void> _handleFileUpload() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    if (result != null) {
+      setState(() {
+        pickedFileName = result.files.first.name;
+        pickedFile = result.files.first.bytes;
+      });
+      // PlatformFile file = result.files.first;
+      print('File picked: ${pickedFileName}');
+    } else {
+      // User canceled the picker
+    }
+  }
+
+
+  String? pickedFileNameAA;
+  dynamic pickedFileAA;
+  Future<void> _handleFileUploadAA() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    if (result != null) {
+      setState(() {
+        pickedFileNameAA = result.files.first.name;
+        pickedFileAA = result.files.first.bytes;
+      });
+      // PlatformFile file = result.files.first;
+      print('File picked: ${pickedFileNameAA}');
+    } else {
+      // User canceled the picker
+    }
+  }
+
 
 
   @override
@@ -46,7 +92,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   Row(
                     children: [
                       Flexible(child: Text("| hereby give my voluntary consent for ProHealth Home Care, Inc. to provide care and treatment to me in my home as directed by my physician. The initial services to be provided have been explained to me and include:",
-                      style: DefineWorkWeekStyle.customTextStyle(context),))
+                      style: AllHRTableData.customTextStyle(context),))
                     ],
                   ),
                   SizedBox(height: 8,),
@@ -155,7 +201,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                               style: AllHRTableData.customTextStyle(context),
                             ),
                             TextSpan(
-                              text: "Medicare benefits,",
+                              text: "Medicare benefits, ",
                               style: DefineWorkWeekStyle.customTextStyle(context),
                             ),
                             TextSpan(
@@ -197,7 +243,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                               style: AllHRTableData.customTextStyle(context),
                             ),
                             TextSpan(
-                              text: "health insurance,",
+                              text: "health insurance, ",
                               style: DefineWorkWeekStyle.customTextStyle(context),
                             ),
                             TextSpan(
@@ -439,7 +485,267 @@ Padding(
 
                 ],
               ),),
-              SizedBox(height: 20),
+              SizedBox(height: 20,),
+              WhiteContrainerConst(
+height: 600,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("I have had an opportunity to review this document and ask questions to assist me in understanding my rights relative to the protection of my health information. I am satisfied with the explanation provided to me and I am confident that the provider is committed to protecting my health Information."
+                    , style: AllHRTableData.customTextStyle(context),),
+
+                  SizedBox(height: 30,),
+                  Row(
+                    children: [
+                      Text("Does the patient have the capacity to sign? ",style: DefineWorkWeekStyle.customTextStyle(context),),
+                      Container(
+                        //color: Colors.white,
+                        width: 117,
+                        height: 30,
+                        child: ElevatedButton(
+                          onPressed: (){
+
+                          },
+                          style: ElevatedButton.styleFrom(backgroundColor: ColorManager.bluebottom,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              // side: BorderSide(
+                              //   color: ColorManager.bluebottom,
+                              //   width: 1,
+                              // ),
+                            ),),
+                          child: Text('Yes',
+                            style:TextStyle(
+                              fontSize: FontSize.s14,
+                              fontWeight: FontWeight.w500,
+                              color: ColorManager.white,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),),
+                      ),
+                      SizedBox(width: 20,),
+                      Container(
+                        //color: Colors.white,
+                        width: 117,
+                        height: 30,
+                        child: ElevatedButton(
+                          onPressed: (){
+
+                          },
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              // side: BorderSide(
+                              //   color: ColorManager.bluebottom,
+                              //   width: 1,
+                              // ),
+                            ),),
+                          child: Text('NO',
+                            style: AllHRTableData.customTextStyle(context),
+                          ),),
+                      ),
+                    ],
+                  ),
+                  Text("Patient Signature ",style: DefineWorkWeekStyle.customTextStyle(context),),
+                  SizedBox(height: 30,),
+                  Row(
+                    children: [
+                      Container(
+                        height: 40,
+                        child: CustomIconButtonEMR(
+                          text: 'Upload Signature',
+                          onPressed: _handleFileUpload,
+                          icon: Icons.file_upload_outlined,
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      pickedFileName == null
+                          ? Container(
+                        width: 150, // Set fixed width for the container
+                        height: 40, // Set height to match the button
+                        decoration: BoxDecoration(
+                          border: Border.all(color: ColorManager.mediumgrey, width: 1),
+                          borderRadius: BorderRadius.circular(8), // Make the corners circular with a radius of 5
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          'No file chosen',
+                          style: TextStyle(
+                            fontSize: FontSize.s12,
+                            color: ColorManager.mediumgrey,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                          : Container(
+                        width: 150, // Set fixed width for the container
+                        height: 40, // Set height to match the button
+                        decoration: BoxDecoration(
+                          border: Border.all(color: ColorManager.mediumgrey, width: 1),
+                          borderRadius: BorderRadius.circular(8), // Make the corners circular with a radius of 5
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          pickedFileName!.length > 15
+                              ? pickedFileName!.substring(0, 15) + '...' // Truncate text if more than 15 characters
+                              : pickedFileName!,
+                          style: TextStyle(
+                            fontSize: FontSize.s12,
+                            color: ColorManager.mediumgrey,
+                          ),
+                          overflow: TextOverflow.ellipsis, // Ensure ellipsis appears if text overflows
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+
+
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //       height: 40,
+                  //       child: CustomIconButtonEMR(text: 'Upload Signature', onPressed: _handleFileUpload,
+                  //       icon: Icons.file_upload_outlined,),
+                  //     ),
+                  //     SizedBox(width: 20,),
+                  //     pickedFileName == null ? const Offstage():Align(
+                  //       alignment: Alignment.centerRight,
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.only(right: 60),
+                  //         child: Text(pickedFileName!,style:TextStyle(
+                  //             fontSize: FontSize.s10,
+                  //             color: ColorManager.mediumgrey
+                  //         ),),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  SizedBox(height: 30,),
+                  Text("A legally authorized representative may sign if the beneficiary is unable to sign. ",style: DefineWorkWeekStyle.customTextStyle(context),),
+                  SizedBox(height: 30,),
+                  Text("The provider has provided me with an opportunity to review this document and ask questions to assist me in understanding his/her privacy rights, I am satisfied with the explanations provided to me and I am confident that the provider is committed to protecting health information : ",style: DefineWorkWeekStyle.customTextStyle(context),),
+
+                  SizedBox(height: 30,),
+                  Text("Authorized Representative’s Signature: ",style: DefineWorkWeekStyle.customTextStyle(context),),
+                  SizedBox(height: 20,),
+                  Row(
+                    children: [
+                      Container(
+                        height: 40,
+                        child: CustomIconButtonEMR(
+                          text: 'Upload Signature',
+                          onPressed: _handleFileUploadAA,
+                          icon: Icons.file_upload_outlined,
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      pickedFileNameAA == null
+                          ? Container(
+                        width: 150, // Set fixed width for the container
+                        height: 40, // Set height to match the button
+                        decoration: BoxDecoration(
+                          border: Border.all(color: ColorManager.mediumgrey, width: 1),
+                          borderRadius: BorderRadius.circular(8), // Make the corners circular with a radius of 5
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          'No file chosen',
+                          style: TextStyle(
+                            fontSize: FontSize.s12,
+                            color: ColorManager.mediumgrey,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                          : Container(
+                        width: 150, // Set fixed width for the container
+                        height: 40, // Set height to match the button
+                        decoration: BoxDecoration(
+                          border: Border.all(color: ColorManager.mediumgrey, width: 1),
+                          borderRadius: BorderRadius.circular(8), // Make the corners circular with a radius of 5
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          pickedFileNameAA!.length > 15
+                              ? pickedFileNameAA!.substring(0, 15) + '...' // Truncate text if more than 15 characters
+                              : pickedFileNameAA!,
+                          style: TextStyle(
+                            fontSize: FontSize.s12,
+                            color: ColorManager.mediumgrey,
+                          ),
+                          overflow: TextOverflow.ellipsis, // Ensure ellipsis appears if text overflows
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 30,),
+                  Row(
+                    children: [
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const  EdgeInsets.symmetric(vertical: 4),
+                                  child: Text("Reason Patient is unable to sign:" ,style: DefineWorkWeekStyle.customTextStyle(context),),
+                                ),
+                                SizedBox(height:15 ,),
+                                Padding(
+                                  padding: const  EdgeInsets.symmetric(vertical: 6),
+                                  child: Text("Relationship to patient:" ,style: DefineWorkWeekStyle.customTextStyle(context),),
+                                ),
+                                SizedBox(height: 15,),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 4),
+                                  child: Text("Printed Name of Authorized \nRepresentative:" ,style: DefineWorkWeekStyle.customTextStyle(context),),
+                                )
+                              ],
+                            ),
+
+                            SizedBox(width: 10,),
+                            Column(crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                EMRTextFConst(controller: reasonController, keyboardType: TextInputType.text, ),
+                                SizedBox(height: 10,),
+                                // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
+                                CustomDropdownTextFieldEMR(
+                                  width:  AppSize.s354,
+                                  height: 30,
+                                  items: ['Aunt/Uncle','Child','Cousin'],
+                                  onChanged: (value) {},
+                                ),
+                                SizedBox(height: 10,),
+                                EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,)
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Container(
+                        child: Center(
+                          child: Row(
+                            children: [
+                              Text("Date",style: DefineWorkWeekStyle.customTextStyle(context),),
+                              EMRTextFConst(controller: dateController, keyboardType: TextInputType.text,)
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+
+                ],
+              ),),
+
+              SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
