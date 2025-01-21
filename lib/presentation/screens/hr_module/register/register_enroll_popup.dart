@@ -213,7 +213,7 @@ class RegisterEnrollPopup extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {
-              Navigator.pop(context);
+                            Navigator.pop(context);
                             // Navigator.push(
                             //   context,
                             //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId, depID: 1,)),
@@ -663,9 +663,9 @@ class RegisterEnrollPopup extends StatelessWidget {
                                             selectedZone= a.zoneName;
                                             zoneId = a.zoneID!;
                                             countyId = a.countyID!;
-                                            print("Selected zoin id :: ${zoneId}");
-                                            print("Zone :: ${selectedZone}");
-                                            print("county Id :: ${countyId}");
+                                            print("Selected zoin id :::::::::::: ${zoneId}");
+                                            print("Zone ::::::::::: ${selectedZone}");
+                                            print("county Id ::::::::::: ${countyId}");
                                             //empTypeId = docType;
                                           }
                                         }
@@ -979,9 +979,10 @@ class RegisterEnrollPopup extends StatelessWidget {
                                 //  // service: "Hospice",
                                 // service: selectedServiceName.toString(),
                                 // );
-                                print("countryname>>>> :: ${selectedCountry}");
-                                print("countryID>>>>> :: ${countryId}");
-                                print("countryID :: ${countryId}");
+                                print("countryname>>>>>>>>>>>>>> :: ${selectedCountry}");
+                                print("countyID>>>>>>>>>>>>>>>> :: ${countyId}");
+                                print("countryID>>>>>>>>>>>>>>>> :: ${countryId}");
+
 
                                 providerState.loaderFalse();
 
