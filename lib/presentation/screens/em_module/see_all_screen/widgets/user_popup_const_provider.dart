@@ -731,7 +731,9 @@ class CustomTextFieldWithIcon extends StatefulWidget {
   final double labelFontSize;
   final FocusNode? focusNode;
   final String? errorText;
-  final VoidCallback? onSuffixIconPressed;  // Callback for suffix icon
+  final VoidCallback? onSuffixIconPressed;
+  final Function(String)? onChanged;
+  // Callback for suffix icon
 
   const CustomTextFieldWithIcon({
     Key? key,
@@ -746,7 +748,7 @@ class CustomTextFieldWithIcon extends StatefulWidget {
     this.errorText,
     this.onSuffixIconPressed,  // Callback for suffix icon
     this.focusNode, this.hintText,
-    this.textColor = const Color(0xff686464),
+    this.textColor = const Color(0xff686464), this.onChanged,
   }) : super(key: key);
 
   @override
@@ -1011,9 +1013,228 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   }
 }
 
+///CustomIconButtonProvider using provider
+
+class ButtonProvider extends ChangeNotifier {
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
+  void setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+}
+
+class CustomIconButtonProvider extends StatelessWidget {
+  final String text;
+  final IconData? icon;
+  final Color? color;
+  final Color? textColor;
+  final Future<void> Function() onPressed;
+
+  const CustomIconButtonProvider({
+    required this.text,
+    this.icon,
+    required this.onPressed,
+    this.color,
+    this.textColor,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final buttonProvider = Provider.of<ButtonProvider>(context);
+
+    return buttonProvider.isLoading
+        ?  SizedBox(
+      height: 25,
+      width: 25,
+      child: CircularProgressIndicator(
+        color: ColorManager.bluebottom
+      ),
+    )
+        : ElevatedButton.icon(
+      onPressed: () async {
+        buttonProvider.setLoading(true);
+        try {
+          await onPressed();
+        } finally {
+          buttonProvider.setLoading(false);
+        }
+      },
+      icon: icon != null
+          ? Icon(icon, color: Colors.white, size: 20)
+          : const SizedBox.shrink(),
+      label: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 14, // Replace with your `FontSize.s14`
+          fontWeight: FontWeight.w500,
+          color: textColor ?? Colors.white,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        backgroundColor: color ?? const Color(0xFF50B5E5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 5,
+      ),
+    );
+  }
+}
 
 
+///HRUManageDropdown
+class HRUManageDropdownP extends StatelessWidget {
+  final TextEditingController controller;
+  final String? labelText;
+  final String? hintText;
+  final Color textColor;
+  final double labelFontSize;
+  final List<String> items;
+  final String? errorText;
+  final ValueChanged<String>? onChanged;
 
+  HRUManageDropdownP({
+    Key? key,
+    required this.controller,
+    this.labelText,
+    required this.labelFontSize,
+    required this.items,
+    this.errorText,
+    this.onChanged,
+    this.hintText,
+    this.textColor = const Color(0xff686464),
+  }) : super(key: key);
+
+  final GlobalKey _dropdownKey = GlobalKey();
+  OverlayEntry? _overlayEntry;
+  bool _isDropdownOpen = false;
+
+  void _toggleDropdown(BuildContext context) {
+    if (_isDropdownOpen) {
+      _closeDropdown();
+    } else {
+      _openDropdown(context);
+    }
+  }
+
+  void _openDropdown(BuildContext context) {
+    final RenderBox renderBox = _dropdownKey.currentContext!.findRenderObject() as RenderBox;
+    final Offset offset = renderBox.localToGlobal(Offset.zero);
+    final Size size = renderBox.size;
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) {
+        return GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: _closeDropdown,
+          child: Stack(
+            children: [
+              Positioned(
+                left: offset.dx,
+                top: offset.dy + size.height,
+                width: size.width,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    constraints: BoxConstraints(
+                      maxHeight: 200, // Show scroll for more than 5 items
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: items.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            items[index],
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: FontSize.s13,
+                              color: ColorManager.mediumgrey,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          onTap: () {
+                            controller.text = items[index];
+                            _closeDropdown();
+                            if (onChanged != null) {
+                              onChanged!(items[index]);
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    Overlay.of(context)?.insert(_overlayEntry!);
+    _isDropdownOpen = true;
+  }
+
+  void _closeDropdown() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+    _isDropdownOpen = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => _toggleDropdown(context),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (labelText != null)
+            Text(
+              labelText!,
+              style: TableSubHeading.customTextStyle(context),
+            ),
+          Container(
+            key: _dropdownKey,
+            width: 354,
+            height: 30,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.text.isEmpty ? hintText ?? '' : controller.text,
+                  style: TableSubHeading.customTextStyle(context),
+                ),
+                Icon(Icons.arrow_drop_down, color: Colors.grey),
+              ],
+            ),
+          ),
+          if (errorText != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Text(
+                errorText!,
+                style: TextStyle(color: Colors.red, fontSize: 12),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
 
 
 

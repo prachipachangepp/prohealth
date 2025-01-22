@@ -75,29 +75,35 @@ class WhiteContrainerConst extends StatelessWidget {
 
 
 
-//
-// class WhiteContrainerConst extends StatelessWidget {
-//   final double? height;
-//   final Widget child;
-//   const WhiteContrainerConst({super.key, this.height, required this.child});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: height ?? AppSize.s500,
-//       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
-//       decoration: BoxDecoration(
-//         color: ColorManager.white,
-//         borderRadius: BorderRadius.circular(8),
-//         // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
-//       // border: Border.all(width: 0.2,color: ColorManager.lightGrey),
-//         // all(width: 1, color: Color(0xFFBCBCBC)),
-//
-//       ),
-//       child: child,
-//     );
-//   }
-// }
+
+class WhiteContrainerConstwidth extends StatelessWidget {
+  final double? height;
+  final double? width;
+  final Widget child;
+  const WhiteContrainerConstwidth({super.key, this.height, required this.child, this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height ?? AppSize.s500,
+      width: width ?? AppSize.s500,
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
+      decoration: BoxDecoration(
+        color: ColorManager.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),  // shadow color with opacity
+            spreadRadius: 0,  // spread the shadow (optional)
+            blurRadius: 6,   // blur the shadow for a soft look
+            offset: Offset(0, 6), // offset in the vertical direction (bottom shadow)
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+}
 
 
 
@@ -221,10 +227,10 @@ class EMRTextFConst extends StatefulWidget {
   final Icon? icon;
   final bool? readOnly;
   final VoidCallback? onChange;
-  final bool? enable;
+  //final bool? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
-  final FocusNode? focusNode;
+ // final FocusNode? focusNode;
   final double? width;
   final List<TextInputFormatter>? inputFormated;
   final bool showDatePicker;
@@ -232,7 +238,7 @@ class EMRTextFConst extends StatefulWidget {
 
   EMRTextFConst({
     Key? key,
-    this.focusNode,
+   // this.focusNode,
     required this.controller,
     required this.keyboardType,
    // required this.text,
@@ -240,7 +246,7 @@ class EMRTextFConst extends StatefulWidget {
     this.icon,
     this.onChange,
     this.readOnly,
-    this.enable,
+   // this.enable,
     this.validator,
     this.prefixWidget,
     this.width, this.inputFormated,
@@ -303,9 +309,9 @@ class _EMRTextFConstState extends State<EMRTextFConst> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: TextFormField(
-              focusNode: widget.focusNode,
-              autofocus: true,
-              enabled: widget.enable == null ? true : false,
+             // focusNode: widget.focusNode,
+              //autofocus: ,
+              //enabled: widget.enable == null ? true : false,
               controller: widget.controller,
               keyboardType: widget.keyboardType,
               //cursorHeight: 17,
@@ -539,7 +545,7 @@ class _CustomDropdownTextFieldEMRState extends State<CustomDropdownTextFieldEMR>
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: SizedBox(
-            width: widget.isAstric!?AppSize.s354:widget.width,
+            width: widget.isAstric!?AppSize.s310:widget.width,
             height: AppSize.s30,
             child: GestureDetector(
               onTap: _showDropdownDialog,
@@ -575,6 +581,55 @@ class _CustomDropdownTextFieldEMRState extends State<CustomDropdownTextFieldEMR>
   }
 }
 
+
+
+
+
+/// radio buttion
+class EMRCustomRadioListTile extends StatefulWidget {
+  final String value;
+  final String? groupValue;
+  final ValueChanged<String?> onChanged;
+  final String title;
+
+  const EMRCustomRadioListTile({
+    Key? key,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  _EMRCustomRadioListTileState createState() => _EMRCustomRadioListTileState();
+}
+
+class _EMRCustomRadioListTileState extends State<EMRCustomRadioListTile> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+      child: Row(
+        children: [
+          Radio<String>(
+            splashRadius: 0,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            value: widget.value,
+            groupValue: widget.groupValue,
+            onChanged: widget.onChanged,
+            activeColor: ColorManager.mediumgrey, // Set the selected color to black
+          ),
+          Text(
+            widget.title,
+            style: DocumentTypeDataStyle.customTextStyle(context),
+          ),
+          SizedBox(width: AppSize.s40),
+        ],
+      ),
+    );
+  }
+}
 
 
 

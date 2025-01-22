@@ -148,6 +148,7 @@ class SMTextfieldAsteric extends StatefulWidget {
   final List<TextInputFormatter>? inputFormated;
   final bool showDatePicker;
   final Icon? suffixIcon;
+  final Function(String)? onChanged;
 
   SMTextfieldAsteric({
     Key? key,
@@ -165,7 +166,7 @@ class SMTextfieldAsteric extends StatefulWidget {
     this.width,
     this.inputFormated,
     this.showDatePicker = false,
-    this.suffixIcon,
+    this.suffixIcon, this.onChanged,
   }) : super(key: key);
 
   @override
