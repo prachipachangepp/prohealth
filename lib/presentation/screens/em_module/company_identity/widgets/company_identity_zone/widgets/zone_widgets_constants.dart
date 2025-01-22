@@ -71,8 +71,6 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
   String? zipcodeError;
   String? mapError;
   String? landmarkError;
-
-  // Method to validate the input fields
   bool validateFields() {
     bool isValid = true;
 
