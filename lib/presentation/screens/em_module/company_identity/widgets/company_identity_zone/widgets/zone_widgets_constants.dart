@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
@@ -229,7 +230,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   double? _latitude;
   double? _longitude;
   String? selectedCounty;
-  String? selectedZipCodeCounty;
+  String selectedZipCodeCounty = 'Select County';
   String? selectedZipCodeZone;
   int docZoneId = 0;
   int countyId = 0;
@@ -354,9 +355,20 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                 borderRadius:
                                 BorderRadius.circular(4),
                               ),
-                              child: const Text(
-                                "",
-                                //AppString.dataNotFound,
+                              child:  Row(
+                                children: [
+                                  SizedBox(width: AppSize.s8),
+                                  Expanded(
+                                    child: Text(
+                                      selectedZipCodeCounty ?? '',
+                                      style:  DocumentTypeDataStyle.customTextStyle(context),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: AppPadding.p10),
+                                    child: Icon(Icons.arrow_drop_down),
+                                  ),
+                                ],
                               ),
                             );
                           }
@@ -419,7 +431,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
 
                             // countyId = snapshotZone.data![0].countyId;
                             return CICCDropdown(
-                                initialValue:"Select County",
+                                initialValue:selectedZipCodeCounty,
                                 //dropDownTypesList[0].value,
                                 onChange: (val) {
                                   selectedZipCodeCounty = val;
@@ -852,8 +864,8 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                   //   style: AllPopupHeadings.customTextStyle(context),
                   // ),
                   SizedBox(height: AppSize.s5),
-                  FutureBuilder<List<AllCountyGetList>>(
-                      future: getCountyZoneList(context),
+                  FutureBuilder<List<OfficeWiseCountyData>>(
+                      future: getCountyListOfficeIdWise(context:context,OfficeId: widget.officeId),
                       builder: (context,snapshotZone) {
                         if(snapshotZone.connectionState == ConnectionState.waiting){
                           return Container(
@@ -864,9 +876,20 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                                   color: ColorManager.containerBorderGrey, width: AppSize.s1),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: const Text(
-                              "",
-                              //AppString.dataNotFound,
+                            child:  Row(
+                              children: [
+                                SizedBox(width: AppSize.s8),
+                                Expanded(
+                                  child: Text(
+                                    countyNameText ?? '',
+                                    style:  DocumentTypeDataStyle.customTextStyle(context),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: AppPadding.p10),
+                                  child: Icon(Icons.arrow_drop_down),
+                                ),
+                              ],
                             ),
                           );
                         }
@@ -897,13 +920,13 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                           int docType = 0;
                           List<DropdownMenuItem<String>> dropDownTypesList = [];
                           for(var i in snapshotZone.data!){
-                            if(widget.countyName == countyNameText){
-                              dropDownTypesList.add(
-                                  DropdownMenuItem<String>(
-                                    child: Text(countyNameText),
-                                    value: countyNameText,
-                                  ));
-                            }
+                            // if(widget.countyName == countyNameText){
+                            //   dropDownTypesList.add(
+                            //       DropdownMenuItem<String>(
+                            //         child: Text(countyNameText),
+                            //         value: countyNameText,
+                            //       ));
+                            // }
 
                             dropDownTypesList.add(
                               DropdownMenuItem<String>(
@@ -916,7 +939,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                           //   countyName = 'Select County';
                           // }
                           return CICCDropdown(
-                              initialValue: dropDownTypesList[0].value,
+                              initialValue: countyNameText,
                               onChange: (val){
                                 for(var a in snapshotZone.data!){
                                   if(a.countyName == val){

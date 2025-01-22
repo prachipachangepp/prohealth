@@ -93,7 +93,7 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
           SizedBox(height: MediaQuery.of(context).size.height / 20),
           Padding(
             padding:  const EdgeInsets.symmetric(
-                horizontal: 160, vertical: 15),
+                horizontal: 130, vertical: 15),
             child: Container(
               // color: Colors.cyanAccent,
               // height: 500,
