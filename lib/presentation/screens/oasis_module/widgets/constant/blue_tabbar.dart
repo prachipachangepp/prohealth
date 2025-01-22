@@ -101,3 +101,100 @@ class Drawerrightside extends StatelessWidget {
     );
   }
 }
+
+
+
+class DrawerrightsideA extends StatelessWidget {
+  const DrawerrightsideA({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8,left: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Not Attempted Questions   A",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.red,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 20,),
+          Text("| do not currently have advance directives",
+            style: AllHRTableData.customTextStyle(context),
+          ),
+          SizedBox(height: 20,),
+          Text("I have had an opportunity to review this document and ask questions to assist me in understanding my rights relation to the protection of my health information. I am satisfied with the explanation provided to me and I am confident that the provider is committed to protecting my health Information.",
+            style: AllHRTableData.customTextStyle(context),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DrawerrightsideB extends StatelessWidget {
+  const DrawerrightsideB({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8,left: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Not Attempted Questions  B",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.red,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 20,),
+          Text("| do not currently have advance directives",
+            style: AllHRTableData.customTextStyle(context),
+          ),
+          SizedBox(height: 20,),
+          Text("I have had an opportunity to review this document and ask questions to assist me in understanding my rights relation to the protection of my health information. I am satisfied with the explanation provided to me and I am confident that the provider is committed to protecting my health Information.",
+            style: AllHRTableData.customTextStyle(context),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+class DefaultDrawerContent extends StatelessWidget {
+  const DefaultDrawerContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8,left: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Not Attempted Questions  B",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.red,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 20,),
+          Text("| do not currently have advance directives",
+            style: AllHRTableData.customTextStyle(context),
+          ),
+          SizedBox(height: 20,),
+          Text("I have had an opportunity to review this document and ask questions to assist me in understanding my rights relation to the protection of my health information. I am satisfied with the explanation provided to me and I am confident that the provider is committed to protecting my health Information.",
+            style: AllHRTableData.customTextStyle(context),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -9,6 +9,8 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../widgets/constant/getx_oasis.dart';
 import '../../widgets/constant/green_container_constant.dart';
+import '../../widgets/constant/other_popup.dart';
+import '../../widgets/constant/upload_file_popup.dart';
 
 class ConsentForCare extends StatefulWidget {
   const ConsentForCare({super.key});
@@ -145,6 +147,15 @@ class _ConsentForCareState extends State<ConsentForCare> {
                         isChecked: checkboxController.other,
                         onChanged: (value) {
                           checkboxController.toggleCheckother(value);
+                          if (value) {
+                            // Show the dialog box when checked
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return OtherPopup();
+                              },
+                            );
+                          }
                         },
                       ),
                     ],
@@ -169,26 +180,28 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   Text("I certify that the information given by me in applying for payment under Title XVIII of the Social Security Act and/or from any third party payer is correct. | request that payment of authorizedbenefits from Medicare, Medicaid, or other responsible payers be made on my behalf of ProHealth Home Care.",
                   style:AllHRTableData.customTextStyle(context) ,),
                   SizedBox(height: 20,),
-                  Row(
-                    children: [
-                      Text("I",style: DefineWorkWeekStyle.customTextStyle(context),),
-                      CustomCheckBoxListTile(
-                        title: 'am',
-                        isChecked: checkboxController.am,
-                        onChanged: (value) {
-                          checkboxController.toggleCheckam(value);
-                        },
-                      ),
-                      CustomCheckBoxListTile(
-                        title: 'am not',
-                        isChecked: checkboxController.not,
-                        onChanged: (value) {
-                          checkboxController.toggleChecknot(value);
-                        },
-                      ),
-                      Text("a participating member of an HMO (health maintenance organization). If I enroll in one, I will immediately notify the home care agency. ",
-                        style: AllHRTableData.customTextStyle(context),),
-                    ],
+                  Flexible(
+                    child: Row(
+                      children: [
+                        Text("I",style: DefineWorkWeekStyle.customTextStyle(context),),
+                        CustomCheckBoxListTile(
+                          title: 'am',
+                          isChecked: checkboxController.am,
+                          onChanged: (value) {
+                            checkboxController.toggleCheckam(value);
+                          },
+                        ),
+                        CustomCheckBoxListTile(
+                          title: 'am not',
+                          isChecked: checkboxController.not,
+                          onChanged: (value) {
+                            checkboxController.toggleChecknot(value);
+                          },
+                        ),
+                        Text("a participating member of an HMO (health maintenance organization). If I enroll in one, I will immediately notify the home care agency. ",
+                          style: AllHRTableData.customTextStyle(context),),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 20,),
                   Wrap(
@@ -277,6 +290,15 @@ class _ConsentForCareState extends State<ConsentForCare> {
                     isChecked: checkboxController.Other,
                     onChanged: (value) {
                       checkboxController.toggleCheckOther(value);
+                      if (value) {
+                        // Show the dialog box when checked
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return OtherPopup();
+                          },
+                        );
+                      }
                     },
                   ),
                 ],
@@ -557,7 +579,13 @@ class _ConsentForCareState extends State<ConsentForCare> {
                         height: 40,
                         child: CustomIconButtonEMR(
                           text: 'Upload Signature',
-                          onPressed: _handleFileUpload,
+                          onPressed: ()async{
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return UploadFilePopup();
+                              },);
+                          },
                           icon: Icons.file_upload_outlined,
                         ),
                       ),
@@ -637,8 +665,15 @@ class _ConsentForCareState extends State<ConsentForCare> {
                       Container(
                         height: 40,
                         child: CustomIconButtonEMR(
+
                           text: 'Upload Signature',
-                          onPressed: _handleFileUploadAA,
+                          onPressed: ()async{
+    showDialog(
+    context: context,
+    builder: (BuildContext context) {
+    return UploadFilePopup();
+                          },);
+                          },
                           icon: Icons.file_upload_outlined,
                         ),
                       ),
@@ -713,17 +748,24 @@ class _ConsentForCareState extends State<ConsentForCare> {
                             SizedBox(width: 10,),
                             Column(crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                EMRTextFConst(controller: reasonController, keyboardType: TextInputType.text, ),
+                                EMRTextFConst(
+                                  //width: MediaQuery.of(context).size.width /5,
+                                  width:AppSize.s310,
+                                  controller: reasonController, keyboardType: TextInputType.text, ),
                                 SizedBox(height: 10,),
                                 // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
                                 CustomDropdownTextFieldEMR(
-                                  width:  AppSize.s354,
+                                 // width: MediaQuery.of(context).size.width /5,
+                                  width:AppSize.s310,
                                   height: 30,
                                   items: ['Aunt/Uncle','Child','Cousin'],
                                   onChanged: (value) {},
                                 ),
                                 SizedBox(height: 10,),
-                                EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,)
+                                EMRTextFConst(
+                                  width:AppSize.s310,
+                                  //width: MediaQuery.of(context).size.width /5,
+                                  controller: nameController, keyboardType: TextInputType.text,)
                               ],
                             ),
                           ],
@@ -736,7 +778,10 @@ class _ConsentForCareState extends State<ConsentForCare> {
                             children: [
                               Text("Date",style: DefineWorkWeekStyle.customTextStyle(context),),
                               SizedBox(width: 10,),
-                              EMRTextFConst(controller: dateController, keyboardType: TextInputType.text,)
+                              EMRTextFConst(
+                                width:AppSize.s310,
+                               // width: MediaQuery.of(context).size.width /5,
+                                controller: dateController, keyboardType: TextInputType.text,)
                             ],
                           ),
                         ),

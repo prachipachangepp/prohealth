@@ -32,6 +32,25 @@ final ButtonSelectionControlleroasis myController =
 Get.put(ButtonSelectionControlleroasis());
 
 
+// Method to update drawer content based on selected index
+Widget _getDrawerContent(int index) {
+  switch (index) {
+    case 0:
+      return Drawerrightside(); // Replace with the widget for Consent For Care
+    case 1:
+      return DrawerrightsideA(); // Replace with the widget for Administrative Information
+    case 2:
+      return DrawerrightsideB(); // Replace with the widget for Clinical Record Items
+    // case 3:
+    //   return PatientHistoryImmunization(); // Replace with the widget for Patient History/Immunization
+    // case 33:
+    //   return DiagnosisCodes(); // Replace with the widget for Diagnosis Codes
+    default:
+      return DefaultDrawerContent(); // Default content if no index is selected
+  }
+}
+
+
 Future<void> _saveIndex(int index) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setInt('currentIndex', index);
@@ -51,39 +70,10 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
       endDrawer: Drawer(
         child: Container(
           color: Colors.white,
-          child: Drawerrightside()
+          child:_getDrawerContent(myController.selectedIndex.value),
         ),
       ),
-   //  End Drawer (right side drawer)
-     // drawer    endDrawer
-    // drawer: SizedBox(
-    //     height: 300,
-    //     child: Drawer(
-    //       elevation: 0,
-    //       backgroundColor: Colors.indigo,
-    //       child: Row(
-    //         children: [
-    //           IconButton(
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //             icon: const Icon(Icons.chevron_right),
-    //             color: Colors.white,
-    //           ),
-    //           Container(
-    //             width: 240,
-    //             color: Colors.indigo,
-    //             child: const Center(
-    //               child: Text(
-    //                 "Mini Drawer",
-    //                 style: TextStyle(color: Colors.white, fontSize: 30),
-    //               ),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
+
       body: Stack(
         children:[
           SingleChildScrollView(
