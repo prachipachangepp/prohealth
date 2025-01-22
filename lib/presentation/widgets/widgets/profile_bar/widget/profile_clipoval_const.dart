@@ -101,24 +101,24 @@ class ProfileBarPhoneCmtConst extends StatelessWidget {
           width: 20,
         ),
         Container(
-          height: 18,
+          height: 14,
           width: 16.67,
           child: Icon(
             Icons.phone,
             color: ColorManager.green,
-            size: IconSize.I18,
+            size: IconSize.I14,
           ),
         ),
         SizedBox(
           width: 15,
         ),
         Container(
-          height: 18,
+          height: 14,
           width: 16.67,
           child: Icon(
             Icons.message,
             color: ColorManager.blueprime,
-            size: IconSize.I18,
+            size: IconSize.I14,
           ),
         )
       ],

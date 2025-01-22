@@ -360,6 +360,10 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                         effectivecontroller.text =
                                         "${pickedDate.toLocal()}"
                                             .split(' ')[0];
+                                        setState(() {
+                                          _isFormValid = true;
+                                          _dateError = _validateTextField(effectivecontroller.text, 'Please Enter Date');
+                                        });
                                       }
                                     },
                                   ),
@@ -717,7 +721,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                 );
                                 // var responseBank = await approveBankPatch(context,response.banckingId!);
                                 await uploadBanckingDocument(
-                                    context, response.banckingId!, pickedFile);
+                                    context, response.banckingId!, pickedFile,pickedFileName!);
                                 // Navigator.pop(context);
                                 if (response.statusCode == 200 || response.statusCode == 201) {
                                   Navigator.pop(context);
@@ -772,6 +776,7 @@ class EditBankingPopUp extends StatefulWidget {
   final int banckId;
   String? selectedType;
   final String title;
+  final String documentName;
   final TextEditingController effectiveDateController;
   final TextEditingController bankNameController;
   final TextEditingController accountNumberController;
@@ -790,7 +795,7 @@ class EditBankingPopUp extends StatefulWidget {
     required this.accountNumberController,
     required this.verifyAccountController,
     required this.routingNumberController,
-    required this.specificAmountController,  required this.banckId,
+    required this.specificAmountController,  required this.banckId, required this.documentName,
   });
 
   @override
@@ -821,6 +826,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   void initState() {
     // TODO: implement initState
     gropvalue =widget.selectedType!;
+    pickedFileName = widget.documentName;
     super.initState();
   }
   @override
@@ -1253,10 +1259,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       try {
         await widget.onPressed(gropvalue);
         if(pickedFile != null){
-          await uploadBanckingDocument(context, widget.banckId, pickedFile);
-
-
-
+          await uploadBanckingDocument(context, widget.banckId, pickedFile,pickedFileName!);
         }
 
 
@@ -1273,55 +1276,34 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
 
   Widget _buildThirdColumn() {
     return Row(
-      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      // crossAxisAlignment: CrossAxisAlignment.start,
+      //crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            _buildTextField(
-                capitalIsSelect:false,
-                prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
-                errorText: sac?"Please Enter Specific Amount" : null,
-                width: 150
-            ),
-            SizedBox(width: 10),
-            ElevatedButton(
-              onPressed: () {
-                widget.specificAmountController.clear();
-              },
-              child: Text(
-                'Reset',
-                style: TextStyle(
-                  fontSize: AppSize.s12,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF27A3E0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            ),
-          ],
+        _buildTextField(
+            capitalIsSelect:false,
+            prefixText: '\$', controller: widget.specificAmountController, labelText: 'Specific Amount',
+            errorText: sac?"Please Enter Specific Amount" : null,
+            width: 150
         ),
-
-        // _buildTextField(
-        //   controller: widget.bankNameController,
-        //   labelText: 'Bank Name',
-        //   capitalIsSelect: true,
-        //   errorText: bankname ? "Please Enter Bank Name" : null,
-        // ),
-        // SizedBox(height: MediaQuery.of(context).size.height / 22),
-        //  _buildTextField(
-        //    capitalIsSelect: false,
-        //    controller: widget.verifyAccountController,
-        //    labelText: 'Verify Account Number',
-        //    errorText: vac ? errorVerifyAccountMessage ?? "Please Enter Verify Account Number" : null, // Display the custom error if account numbers don't match
-        //  ),
+        SizedBox(width: 10),
+        ElevatedButton(
+          onPressed: () {
+            widget.specificAmountController.clear();
+          },
+          child: Text(
+            'Reset',
+            style: TextStyle(
+              fontSize: AppSize.s12,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFF27A3E0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
       ],
     );
   }

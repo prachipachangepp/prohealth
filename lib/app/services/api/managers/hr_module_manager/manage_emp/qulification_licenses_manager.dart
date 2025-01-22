@@ -164,13 +164,15 @@ Future<ApiData> addLicensePost(
 Future<ApiData> attachLicenseDocument(
     BuildContext context,
     int licenseId,
-    dynamic documentFile) async {
+    dynamic documentFile,
+    String documentFileName) async {
   try {
     String document = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
     var response = await Api(context).post(
       path: ManageReposotory.attachLicenseDocument(licenseId: licenseId),
       data: {
-        "base64":document
+        "base64":document,
+        'documentName': documentFileName
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -327,6 +329,7 @@ Future<QulificationLicensesPreFillData> getEmployeeLicensesPreFill(
           org: response.data['org']??"--",
           documentType: response.data['documentType']??"--",
           approved: response.data['approved'],
+          documentName: response.data['documentName'] ?? '--',
           sucess: true,
           message: response.statusMessage!,
         );

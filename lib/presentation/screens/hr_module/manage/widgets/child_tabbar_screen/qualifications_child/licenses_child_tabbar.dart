@@ -144,114 +144,10 @@ class LicensesChildTabbar extends StatelessWidget {
                           context: context,
                           builder: (BuildContext context) {
                             return AddLicencesPopup(
-                              LivensureController: livensureController,
-                              issueDateController: issueDateController,
-                              expiryDateController: expiryDateController,
-                              issuingOrganizationController: issuingOrganizationController,
-                              countryController: countryController,
-                              numberIDController: numberIDController,
                               onpressedClose: () {
                                 // Navigator.pop(context);
                               },
-                              onpressedSave: () async {
-                                var response = await addLicensePost(context,
-                                    countryController.text,
-                                    employeeId,
-                                    expiryDateController.text,
-                                    issueDateController.text,
-                                    'url',
-                                    livensureController.text,
-                                    numberIDController.text,
-                                    issuingOrganizationController.text,
-                                    docNameadd.toString());
-                               var licenseResponse =  await approveOnboardQualifyLicensePatch(
-                                    context,
-                                    response.licenseId!);
-
-                                if(licenseResponse.statusCode == 200 || licenseResponse.statusCode == 201){
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AddSuccessPopup(
-                                        message: 'Licenses Added Successfully',
-                                      );
-                                    },
-                                  );
-                                }else if(response.statusCode == 400 || response.statusCode == 404){
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) => const FourNotFourPopup(),
-                                  );
-                                }
-                                else {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) => FailedPopup(text: response.message),
-                                  );
-                                }
-                              },
-                              title: 'Add License',
-                              child: FutureBuilder<List<NewOrgDocument>>(
-                                  future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
-                                  builder: (context,snapshot) {
-                                    if(snapshot.connectionState == ConnectionState.waiting){
-                                      return Container(
-                                        // width: 200,
-                                        height: 30,
-                                        width: MediaQuery.of(context).size.width / 6,
-                                        decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
-                                      );
-
-                                    }
-                                    if (snapshot.data!.isEmpty) {
-                                        return Container(
-                                        width: 200,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey, width: 1),
-                                          borderRadius: BorderRadius.circular(5),
-                                        ),
-                                        child: Center(child: Text("No licenses available",style: DocumentTypeDataStyle.customTextStyle(context),)),
-                                      );
-                                    }
-                                    if(snapshot.hasData){
-                                      List dropDown = [];
-                                      String docType = '';
-                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                      for(var i in snapshot.data!){
-                                        dropDownMenuItems.add(
-                                          DropdownMenuItem<String>(
-                                            child: Text(i.docName),
-                                            value: i.docName,
-                                          ),
-                                        );
-                                      }
-                                      docNameadd = snapshot.data![0].docName;
-                                      return CICCDropdown(
-                                          // width: 200,
-                                          width: MediaQuery.of(context).size.width / 6,
-                                         // initialValue: dropDownMenuItems[0].value,
-                                          onChange: (val){
-                                            for(var a in snapshot.data!){
-                                              if(a.docName == val){
-                                                docType = a.docName;
-                                                docNameadd = docType;
-                                                //docMetaId = docType;
-                                              }
-                                            }
-                                            print(":::${docType}");
-                                            // print(":::<>${docMetaId}");
-                                          },
-                                          items:dropDownMenuItems
-                                      );
-                                    }else{
-                                      return SizedBox();
-                                    }
-                                  }
-                              ),
+                              title: 'Add License', employeeId: employeeId,
                             );
                           });
                     }),
@@ -338,7 +234,7 @@ class LicensesChildTabbar extends StatelessWidget {
 
                                         var licenseUrl = snapshotPrefill.data!.licenseUrl;
 
-                                        return AddLicencesPopup(
+                                        return EditLicencesPopup(
                                           LivensureController: livensureController,
                                           issueDateController: issueDateController,
                                           expiryDateController: expiryDateController,
@@ -358,7 +254,7 @@ class LicensesChildTabbar extends StatelessWidget {
                                                 licenseUrl,
                                                 licensure == livensureController.text ? licensure : livensureController.text,
                                                 licenseNumber == numberIDController.text ? licenseNumber.toString() : numberIDController.text,
-                                               org == issuingOrganizationController.text ? org : issuingOrganizationController.text,
+                                                org == issuingOrganizationController.text ? org : issuingOrganizationController.text,
                                                 docNameEdit.toString());
 
                                             if(response.statusCode == 200 || response.statusCode == 201){
@@ -387,6 +283,8 @@ class LicensesChildTabbar extends StatelessWidget {
                                             }
                                           },
                                           title: 'Edit License',
+                                          licenseId: snapshot.data![index].licenseId,
+                                          documentName: snapshotPrefill.data!.documentName,
                                           child: FutureBuilder<List<NewOrgDocument>>(
                                               future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                                               builder: (context,snapshot) {

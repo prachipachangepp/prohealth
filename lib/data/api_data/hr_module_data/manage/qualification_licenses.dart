@@ -42,8 +42,11 @@ class QulificationLicensesPreFillData {
   bool? approved;
   final bool sucess;
   final String message;
+  final String documentName;
   QulificationLicensesPreFillData(
-      {required this.licenseId,
+      {
+        required this.documentName,
+        required this.licenseId,
         required this.country,
         required this.employeeId,
         required this.expData,

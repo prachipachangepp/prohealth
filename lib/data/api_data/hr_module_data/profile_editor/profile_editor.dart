@@ -160,6 +160,7 @@ class CountyWiseZoneModal {
 
 
 
+/// Coverage section
 
 class EmployeeModel {
   int employeeEnrollId;
@@ -192,4 +193,77 @@ class CoverageDetail {
     required this.zipCodes,
   });
 }
+
+class CoveragePrefillData {
+  final int employeeEnrollId;
+  final int employeeId;
+  final CoverageDetails coverageDetails;
+
+  CoveragePrefillData({
+    required this.employeeEnrollId,
+    required this.employeeId,
+    required this.coverageDetails,
+  });
+
+  factory CoveragePrefillData.fromJson(Map<String, dynamic> json) {
+    return CoveragePrefillData(
+      employeeEnrollId: json['employeeEnrollId'],
+      employeeId: json['employeeId'],
+      coverageDetails: CoverageDetails.fromJson(json['coverageDetails']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'employeeEnrollId': employeeEnrollId,
+      'employeeId': employeeId,
+      'coverageDetails': coverageDetails.toJson(),
+    };
+  }
+}
+
+class CoverageDetails {
+  final int employeeEnrollCoverageId;
+  final String city;
+  final int countyId;
+  final String countyName;
+  final int zoneId;
+  final String zoneName;
+  final List<int> zipCodes;
+
+  CoverageDetails({
+    required this.employeeEnrollCoverageId,
+    required this.city,
+    required this.countyId,
+    required this.countyName,
+    required this.zoneId,
+    required this.zoneName,
+    required this.zipCodes,
+  });
+
+  factory CoverageDetails.fromJson(Map<String, dynamic> json) {
+    return CoverageDetails(
+      employeeEnrollCoverageId: json['employeeEnrollCoverageId'],
+      city: json['city'] ?? "--",
+      countyId: json['countyId'],
+      countyName: json['countyName'] ?? "--",
+      zoneId: json['zoneId'],
+      zoneName: json['zoneName']??"--",
+      zipCodes: List<int>.from(json['zipCodes']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'employeeEnrollCoverageId': employeeEnrollCoverageId,
+      'city': city,
+      'countyId': countyId,
+      'countyName': countyName,
+      'zoneId': zoneId,
+      'zoneName': zoneName,
+      'zipCodes': zipCodes,
+    };
+  }
+}
+
 

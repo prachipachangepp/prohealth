@@ -358,11 +358,6 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                   ),),
               ),
 
-
-              /////////
-              ///
-              ///
-              ///
               //     :CustomButton(
               //   width: 117,
               //   height: 30,
@@ -462,11 +457,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
               //     style: BlueButtonTextConst.customTextStyle(context),
               //   ),
               // ),
-              ///
-              ///
-              ///
-              ///
-              ///
+
               //     :CustomButton(
               //   width: 117,
               //   height: 30,

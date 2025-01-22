@@ -420,7 +420,9 @@ class BankingHeadTabbar extends StatelessWidget {
                                                           builder: (BuildContext context) => FailedPopup(text: response.message),
                                                         );
                                                       }
-                                                    },
+                                                    }, documentName:  snapshotPrefill
+                                                      .data!
+                                                      .documentName,
                                                   );
                                                 }));
                                   },
