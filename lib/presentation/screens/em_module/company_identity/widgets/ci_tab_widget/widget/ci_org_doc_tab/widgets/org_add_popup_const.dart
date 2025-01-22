@@ -676,14 +676,11 @@ class OrgDocNewEditPopup extends StatelessWidget {
                          left: AppPadding.p15),
                       child: Text(
                         provider.nameDocError!,
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontSize: FontSize.s10,
-                        ),
+                        style: CommonErrorMsg.customTextStyle(context)
                       ),
                     ),
                   ],
-                ) : SizedBox(height: AppSize.s11,),
+                ) : SizedBox(height: AppSize.s12,),
 
               /// Type of the Document
               HeaderContentConst(

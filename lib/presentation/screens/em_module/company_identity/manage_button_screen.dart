@@ -71,7 +71,7 @@ class _ManageWidgetState extends State<ManageWidget> {
 
     _managePageController.animateToPage(
       index,
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 200),
       curve: Curves.ease,
     );
   }
@@ -89,9 +89,6 @@ class _ManageWidgetState extends State<ManageWidget> {
       officeName = newName;
     });
   }
-
-
-
 
   int docID = 1;
 

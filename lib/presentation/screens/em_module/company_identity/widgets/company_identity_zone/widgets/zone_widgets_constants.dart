@@ -67,8 +67,6 @@ class CIZoneAddPopup extends StatefulWidget {
 
 class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
   bool isLoading = false;
-
-  // Variables to hold error messages
   String? countyNameError;
   String? zipcodeError;
   String? mapError;
@@ -82,28 +80,21 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
       countyNameError = widget.countynameController.text.isEmpty
           ? 'County Field Cannot Be Empty'
           : null;
-      // zipcodeError = widget.zipcodeController!.text.isEmpty
-      //     ? 'Country cannot be empty'
-      //     : null;
-      // mapError = widget.title3 != null && widget.mapController?.text.isEmpty == true
-      //     ? 'County field cannot be empty'
-      //     : null;
-      // landmarkError = widget.title4 != null && widget.landmarkController?.text.isEmpty == true
-      //     ? 'Landmark cannot be empty'
-      //     : null;
-
-      // If any error message is not null, the form is invalid
       isValid = countyNameError == null;
-      // &&
-      // zipcodeError == null &&
-      // mapError == null ;
-      //landmarkError == null;
     });
-
     return isValid;
   }
-
-
+  @override
+  void initState() {
+    super.initState();
+    widget.countynameController.addListener(() {
+      if (widget.countynameController.text.isNotEmpty && countyNameError != null) {
+        setState(() {
+          countyNameError = null;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,8 +155,8 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
       ],
       bottomButtons:  isLoading
           ? SizedBox(
-          height: AppSize.s25,
-          width: AppSize.s25,
+          width: AppSize.s30,
+          height: AppSize.s30,
           child: CircularProgressIndicator(
             color: ColorManager.blueprime,
           ))
@@ -1094,8 +1085,8 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
       ],
       bottomButtons:  isLoading
           ? SizedBox(
-          height: AppSize.s25,
-          width: AppSize.s25,
+          width: AppSize.s30,
+          height: AppSize.s30,
           child: CircularProgressIndicator(
             color: ColorManager.blueprime,
           ))
@@ -1213,7 +1204,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
     return DialogueTemplate(
       title: widget.title,
       width: AppSize.s400,
-      height: AppSize.s350,
+      height: AppSize.s330,
       body: [
 
         Padding(
@@ -1247,17 +1238,6 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     keyboardType: TextInputType.text,
                     text: AppString.county,
                   ),
-                  // Text(
-                  //   AppString.county,
-                  //   style: GoogleFonts.firaSans(
-                  //     fontSize: FontSize.s12,
-                  //     fontWeight: FontWeightManager.bold,
-                  //     color: ColorManager.mediumgrey,
-                  //     //decoration: TextDecoration.none,
-                  //   ),
-                  // ),
-                  // SizedBox(height: AppSize.s5),
-                  // widget.child!,
                   if (countyError != null)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -1277,8 +1257,8 @@ class _AddZonePopupState extends State<AddZonePopup> {
       ],
       bottomButtons: isLoading
           ? SizedBox(
-          height: AppSize.s25,
-          width: AppSize.s25,
+          width: AppSize.s30,
+          height: AppSize.s30,
           child: CircularProgressIndicator(
             color: ColorManager.blueprime,
           ))

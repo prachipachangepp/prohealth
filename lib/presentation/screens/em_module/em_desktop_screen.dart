@@ -436,12 +436,12 @@ class EMDesktopScreen extends StatelessWidget {
                   [
                     DashboardMainButtonScreen(),
                     CompanyIdentity(),
-                    //CompanyIdentityScreen(),
-                    HrScreen(),
+                    ChangeNotifierProvider(
+                        create: (_) => HrScreenProvider(),
+                        child: HrScreen()),
                     ChangeNotifierProvider(
                         create: (_) => WorkScheduleProvider(),
                         child: WorkSchedule()),
-                    //WorkSchedule(),
                     ChangeNotifierProvider(
                         create: (_) => ManageEmployDocumentProvider(),
                         child: ManageEmployDocument()),
@@ -452,7 +452,6 @@ class EMDesktopScreen extends StatelessWidget {
                      create: (_) => SeeAllProvider(),
                       child: SeeAllScreen(),
                     ),
-                   // SeeAllScreen(),
                      CiRoleManager(),
                     CiVisitScreen(),
                     CiOrgDocument
