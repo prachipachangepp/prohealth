@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../app/resources/color.dart';
-import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+//import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../them_manager/oasis_them_mnager.dart';
 import '../../widgets/constant/getx_oasis.dart';
 import '../../widgets/constant/green_container_constant.dart';
 import '../../widgets/constant/other_popup.dart';
@@ -94,7 +95,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   Row(
                     children: [
                       Flexible(child: Text("| hereby give my voluntary consent for ProHealth Home Care, Inc. to provide care and treatment to me in my home as directed by my physician. The initial services to be provided have been explained to me and include:",
-                      style: AllHRTableData.customTextStyle(context),))
+                      style: Normalfontstyle.customTextStyle(context),))
                     ],
                   ),
                   SizedBox(height: 8,),
@@ -167,23 +168,23 @@ class _ConsentForCareState extends State<ConsentForCare> {
 
               ),
               SizedBox(height: 20),
-              Text("Release Of Information",style: DefineWorkWeekStyle.customTextStyle(context),),
+              Text("Release Of Information",style: BoldfontStyle.customTextStyle(context),),
               SizedBox(height: 20),
               Text("I authorize ProHealth Home Care to use and disclose protected health information (PHI) about me for the purposes of treatment, payment, and health care operations. The agency uses an electronic health record and may, either on paper or through a secure web-based portal, release PHI to or receive PHI from physicians, hospitals, other health care providers, family members and others involved in my plan of care, assisted living facilities, third party payers, and regulatory agencies as necessary for my care or to process my claims.",
-              style: AllHRTableData.customTextStyle(context) ,),
+              style: Normalfontstyle.customTextStyle(context) ,),
               SizedBox(height: 30),
               GreenContrainerConst(child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Liability For Payment",style: DefineWorkWeekStyle.customTextStyle(context),),
+                  Text("Liability For Payment",style: BoldfontStyle.customTextStyle(context),),
                   SizedBox(height: 20),
                   Text("I certify that the information given by me in applying for payment under Title XVIII of the Social Security Act and/or from any third party payer is correct. | request that payment of authorizedbenefits from Medicare, Medicaid, or other responsible payers be made on my behalf of ProHealth Home Care.",
-                  style:AllHRTableData.customTextStyle(context) ,),
+                  style:Normalfontstyle.customTextStyle(context) ,),
                   SizedBox(height: 20,),
                   Flexible(
                     child: Row(
                       children: [
-                        Text("I",style: DefineWorkWeekStyle.customTextStyle(context),),
+                        Text("I",style: BoldfontStyle.customTextStyle(context),),
                         CustomCheckBoxListTile(
                           title: 'am',
                           isChecked: checkboxController.am,
@@ -199,7 +200,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           },
                         ),
                         Text("a participating member of an HMO (health maintenance organization). If I enroll in one, I will immediately notify the home care agency. ",
-                          style: AllHRTableData.customTextStyle(context),),
+                          style: Normalfontstyle.customTextStyle(context),),
                       ],
                     ),
                   ),
@@ -211,15 +212,15 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           children: [
                             TextSpan(
                               text: "If I have ",
-                              style: AllHRTableData.customTextStyle(context),
+                              style: Normalfontstyle.customTextStyle(context),
                             ),
                             TextSpan(
                               text: "Medicare benefits, ",
-                              style: DefineWorkWeekStyle.customTextStyle(context),
+                              style: BoldfontStyle.customTextStyle(context),
                             ),
                             TextSpan(
                               text: "| understand that Medicare payments will be accepted as payment in full unless the agency notifies me in writing that the services will not be covered by Medicare",
-                              style: AllHRTableData.customTextStyle(context),
+                              style: Normalfontstyle.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -243,7 +244,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   //   ],
                   // ),
                   Text("I understand that while I am under the agency's plan of care, the agency will coordinate all medically necessary therapy services and medical supplies for me. Should I arrange for these services or supplies on my own, I understand that Medicare will not reimburse me or my supplier, and I will be responsible for their cost.",
-                      style:AllHRTableData.customTextStyle(context)
+                      style:Normalfontstyle.customTextStyle(context)
                   ),
                   SizedBox(height: 20,),
                   Wrap(
@@ -253,15 +254,15 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           children: [
                             TextSpan(
                               text: "If I have other ",
-                              style: AllHRTableData.customTextStyle(context),
+                              style: Normalfontstyle.customTextStyle(context),
                             ),
                             TextSpan(
                               text: "health insurance, ",
-                              style: DefineWorkWeekStyle.customTextStyle(context),
+                              style: BoldfontStyle.customTextStyle(context),
                             ),
                             TextSpan(
                               text: "I may be responsible for the co-payments and any charges that my insurance will not cover. Those costs will be itemized and explained to me on a separateClient Service Agreement.",
-                              style: AllHRTableData.customTextStyle(context),
+                              style: Normalfontstyle.customTextStyle(context),
                             ),
                           ],
                         ),
@@ -269,7 +270,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                     ],
                   ),
                   SizedBox(height: 20),
-                  Text("Expected payer source(s) for my home care services include: ", style: AllHRTableData.customTextStyle(context),),
+                  Text("Expected payer source(s) for my home care services include: ", style: Normalfontstyle.customTextStyle(context),),
                   SizedBox(height: 20),
                   CustomCheckBoxListTile(
                     title: 'MEDICARE',
@@ -311,9 +312,9 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                  Text("Consent to Photograph", style: DefineWorkWeekStyle.customTextStyle(context),),
+                  Text("Consent to Photograph", style: BoldfontStyle.customTextStyle(context),),
                     SizedBox(height: 15,),
-                  Text("I hereby consent to allow the agency to use my photograph for identification purposes and/or for documenting my medical condition.", style: AllHRTableData.customTextStyle(context),),
+                  Text("I hereby consent to allow the agency to use my photograph for identification purposes and/or for documenting my medical condition.", style: Normalfontstyle.customTextStyle(context),),
                     SizedBox(height:15,),
                     Row(
                       children: [
@@ -335,12 +336,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                                 // ),
                               ),),
                             child: Text('Yes',
-                              style:TextStyle(
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w500,
-                                color: ColorManager.white,
-                                decoration: TextDecoration.none,
-                              ),
+                              style:BluebuttonStyle.customTextStyle(context)
                             ),),
                         ),
                         SizedBox(width: 20,),
@@ -362,7 +358,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                                 // ),
                               ),),
                             child: Text('NO',
-                              style: AllHRTableData.customTextStyle(context),
+                              style: BoldfontStyle.customTextStyle(context),
                             ),),
                         ),
                       ],
@@ -376,9 +372,9 @@ class _ConsentForCareState extends State<ConsentForCare> {
             height:300,child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Advance Directives",style: DefineWorkWeekStyle.customTextStyle(context),),
+              Text("Advance Directives",style: BoldfontStyle.customTextStyle(context),),
               SizedBox(height: 20,),
-              Text("I Currently have a: ", style: AllHRTableData.customTextStyle(context),),
+              Text("I Currently have a: ", style: Normalfontstyle.customTextStyle(context),),
               SizedBox(height: 15),
               CustomCheckBoxListTile(
                 title: 'Living Will',
@@ -405,7 +401,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
             padding: const EdgeInsets.only(left: 10),
             child: Row(
               children: [
-                Text("Copies Requested for Agency records:", style: AllHRTableData.customTextStyle(context),),
+                Text("Copies Requested for Agency records:", style: Normalfontstyle.customTextStyle(context),),
                 EMRCustomRadioListTile(
                   title: 'Yes',
                   value: 'Yes',
@@ -442,18 +438,18 @@ class _ConsentForCareState extends State<ConsentForCare> {
           ),),
 
               SizedBox(height: 20),
-              Text("Non- Discrimination ",style: DefineWorkWeekStyle.customTextStyle(context),),
+              Text("Non- Discrimination ",style: BoldfontStyle.customTextStyle(context),),
               SizedBox(height: 20),
-              Text("ProHealth Home Care does not refuse service to patients or in any other way discriminate against any person on the basis of age, sex, disability, race, color, religion, ancestry, or national origin, in accordance with the Civil Rights Act of 1964, Section 504 of the Rehabilitation Act of 1973, the Age Discrimination Act of 1975, and the Americans with Disabilities Act of 1990.", style: AllHRTableData.customTextStyle(context) ,),
+              Text("ProHealth Home Care does not refuse service to patients or in any other way discriminate against any person on the basis of age, sex, disability, race, color, religion, ancestry, or national origin, in accordance with the Civil Rights Act of 1964, Section 504 of the Rehabilitation Act of 1973, the Age Discrimination Act of 1975, and the Americans with Disabilities Act of 1990.", style: Normalfontstyle.customTextStyle(context) ,),
               SizedBox(height: 20),
 
               GreenContrainerConst(
                 height:350,child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Acknowledgement Of Receipt by Patient",style: DefineWorkWeekStyle.customTextStyle(context),),
+                  Text("Acknowledgement Of Receipt by Patient",style: BoldfontStyle.customTextStyle(context),),
                   SizedBox(height: 20,),
-                  Text("I certify that I have received the following Patient Documents and/or Policies from ProHealth Home Care, Inc.:", style: AllHRTableData.customTextStyle(context),),
+                  Text("I certify that I have received the following Patient Documents and/or Policies from ProHealth Home Care, Inc.:", style: Normalfontstyle.customTextStyle(context),),
                   SizedBox(height: 15),
                   CustomCheckBoxListTile(
                     title: 'Notice of Privacy Practices',
@@ -514,12 +510,12 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("I have had an opportunity to review this document and ask questions to assist me in understanding my rights relative to the protection of my health information. I am satisfied with the explanation provided to me and I am confident that the provider is committed to protecting my health Information."
-                    , style: AllHRTableData.customTextStyle(context),),
+                    , style: Normalfontstyle.customTextStyle(context),),
 
                   SizedBox(height: 30,),
                   Row(
                     children: [
-                      Text("Does the patient have the capacity to sign? ",style: DefineWorkWeekStyle.customTextStyle(context),),
+                      Text("Does the patient have the capacity to sign? ",style: BoldfontStyle.customTextStyle(context),),
                       SizedBox(width: 10,),Container(
                         //color: Colors.white,
                         width: 117,
@@ -538,12 +534,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                               // ),
                             ),),
                           child: Text('Yes',
-                            style:TextStyle(
-                              fontSize: FontSize.s14,
-                              fontWeight: FontWeight.w500,
-                              color: ColorManager.white,
-                              decoration: TextDecoration.none,
-                            ),
+                            style:BluebuttonStyle.customTextStyle(context)
                           ),),
                       ),
                       SizedBox(width: 20,),
@@ -565,13 +556,13 @@ class _ConsentForCareState extends State<ConsentForCare> {
                               // ),
                             ),),
                           child: Text('NO',
-                            style: AllHRTableData.customTextStyle(context),
+                            style: BoldfontStyle.customTextStyle(context),
                           ),),
                       ),
                     ],
                   ),
                   SizedBox(height: 30,),
-                  Text("Patient Signature ",style: DefineWorkWeekStyle.customTextStyle(context),),
+                  Text("Patient Signature ",style: BoldfontStyle.customTextStyle(context),),
                   SizedBox(height: 30,),
                   Row(
                     children: [
@@ -653,12 +644,12 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   //   ],
                   // ),
                   SizedBox(height: 30,),
-                  Text("A legally authorized representative may sign if the beneficiary is unable to sign. ",style: DefineWorkWeekStyle.customTextStyle(context),),
+                  Text("A legally authorized representative may sign if the beneficiary is unable to sign. ",style: BoldfontStyle.customTextStyle(context),),
                   SizedBox(height: 30,),
-                  Text("The provider has provided me with an opportunity to review this document and ask questions to assist me in understanding his/her privacy rights, I am satisfied with the explanations provided to me and I am confident that the provider is committed to protecting health information : ",style: DefineWorkWeekStyle.customTextStyle(context),),
+                  Text("The provider has provided me with an opportunity to review this document and ask questions to assist me in understanding his/her privacy rights, I am satisfied with the explanations provided to me and I am confident that the provider is committed to protecting health information : ",style: BoldfontStyle.customTextStyle(context),),
 
                   SizedBox(height: 30,),
-                  Text("Authorized Representative’s Signature: ",style: DefineWorkWeekStyle.customTextStyle(context),),
+                  Text("Authorized Representative’s Signature: ",style: BoldfontStyle.customTextStyle(context),),
                   SizedBox(height: 20,),
                   Row(
                     children: [
@@ -730,17 +721,17 @@ class _ConsentForCareState extends State<ConsentForCare> {
                               children: [
                                 Padding(
                                   padding: const  EdgeInsets.symmetric(vertical: 4),
-                                  child: Text("Reason Patient is unable to sign:" ,style: DefineWorkWeekStyle.customTextStyle(context),),
+                                  child: Text("Reason Patient is unable to sign:" ,style: BoldfontStyle.customTextStyle(context),),
                                 ),
                                 SizedBox(height:15 ,),
                                 Padding(
                                   padding: const  EdgeInsets.symmetric(vertical: 6),
-                                  child: Text("Relationship to patient:" ,style: DefineWorkWeekStyle.customTextStyle(context),),
+                                  child: Text("Relationship to patient:" ,style: BoldfontStyle.customTextStyle(context),),
                                 ),
                                 SizedBox(height: 15,),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 4),
-                                  child: Text("Printed Name of Authorized \nRepresentative:" ,style: DefineWorkWeekStyle.customTextStyle(context),),
+                                  child: Text("Printed Name of Authorized \nRepresentative:" ,style: BoldfontStyle.customTextStyle(context),),
                                 )
                               ],
                             ),
@@ -776,7 +767,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                         child: Center(
                           child: Row(
                             children: [
-                              Text("Date",style: DefineWorkWeekStyle.customTextStyle(context),),
+                              Text("Date",style: BoldfontStyle.customTextStyle(context),),
                               SizedBox(width: 10,),
                               EMRTextFConst(
                                 width:AppSize.s310,
@@ -814,7 +805,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           // ),
                         ),),
                       child: Text('save and close',
-                        style: AllHRTableData.customTextStyle(context),
+                        style: BoldfontStyle.customTextStyle(context),
                       ),),
                   ), SizedBox(width: 20,),
                   Container(
@@ -835,7 +826,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           // ),
                         ),),
                       child: Text('Submit',
-                        style: AllHRTableData.customTextStyle(context),
+                        style: BoldfontStyle.customTextStyle(context),
                       ),),
                   ), SizedBox(width: 20,),
                   Container(
@@ -856,12 +847,8 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           // ),
                         ),),
                       child: Text('Next',
-                        style:TextStyle(
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeight.w500,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
+
+                        style:BluebuttonStyle.customTextStyle(context)
                       ),),
                   ),
 

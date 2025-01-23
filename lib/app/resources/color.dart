@@ -122,6 +122,8 @@ class ColorManager {
  ///
   ///oasis
   static Color containergreen = Color(0xFFF0FEEB);
+  static Color bluetabbar = Color(0xFF51B5E6);
+  static Color drawerbutton = Color(0xFF5BC0E6);
 }
 
 extension HexColor on Color {

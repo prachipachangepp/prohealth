@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../app/resources/color.dart';
-import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+//import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../them_manager/oasis_them_mnager.dart';
 import 'green_container_constant.dart';
 
 class OtherPopup extends StatefulWidget {
@@ -85,7 +86,7 @@ class _OtherPopupState extends State<OtherPopup> {
                             // ),
                           ),),
                         child: Text('Close',
-                          style: DefineWorkWeekStyle.customTextStyle(context),
+                          style: BoldfontStyle.customTextStyle(context),
                         ),),
                     ),
                     SizedBox(width: 20,),
@@ -107,12 +108,7 @@ class _OtherPopupState extends State<OtherPopup> {
                             // ),
                           ),),
                         child: Text('Save',
-                          style:TextStyle(
-                            fontSize: FontSize.s14,
-                            fontWeight: FontWeight.w600,
-                            color: ColorManager.white,
-                            decoration: TextDecoration.none,
-                          ),
+                          style:BluebuttonStyle.customTextStyle(context)
                         ),),
                     ),
                   ],

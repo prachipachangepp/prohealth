@@ -7,10 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/common_resources/common_theme_const.dart';
-import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+//import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/hr_resources/hr_theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../them_manager/oasis_them_mnager.dart';
 import 'getx_oasis.dart';
 
 class GreenContrainerConst extends StatelessWidget {
@@ -143,7 +144,7 @@ class CustomCheckBoxListTile extends StatelessWidget {
           padding: const EdgeInsets.only(left: 10),
           child: Text(
             title,
-            style: DocumentTypeDataStyle.customTextStyle(context), // Customize the text style as needed
+            style: checkboxStyle.customTextStyle(context), // Customize the text style as needed
            // overflow: TextOverflow.ellipsis, // Prevent text overflow
           ),
         ),
@@ -218,19 +219,143 @@ class _CustomIconButtonEMRState extends State<CustomIconButtonEMR> {
 
 
 
+//
+// class EMRTextFConst extends StatefulWidget {
+//   final TextEditingController controller;
+//   final TextInputType keyboardType;
+//  // final String text;
+//   final Color textColor;
+//   final Icon? icon;
+//   final bool? readOnly;
+//   final VoidCallback? onChange;
+//   //final bool? enable;
+//   final Widget? prefixWidget;
+//   final String? Function(String?)? validator;
+//  // final FocusNode? focusNode;
+//   final double? width;
+//   final List<TextInputFormatter>? inputFormated;
+//   final bool showDatePicker;
+//   final Icon? suffixIcon;
+//
+//   EMRTextFConst({
+//     Key? key,
+//    // this.focusNode,
+//     required this.controller,
+//     required this.keyboardType,
+//    // required this.text,
+//     this.textColor = const Color(0xff686464),
+//     this.icon,
+//     this.onChange,
+//     this.readOnly,
+//    // this.enable,
+//     this.validator,
+//     this.prefixWidget,
+//     this.width, this.inputFormated,
+//     this.showDatePicker = false, this.suffixIcon,
+//   }) : super(key: key);
+//
+//   @override
+//   State<EMRTextFConst> createState() => _EMRTextFConstState();
+// }
+//
+// class _EMRTextFConstState extends State<EMRTextFConst> {
+//   // late TextEditingController _controller;
+//   // Future<void> _selectDate(BuildContext context) async {
+//   //   final DateTime? pickedDate = await showDatePicker(
+//   //     context: context,
+//   //     initialDate: DateTime.now(),
+//   //     firstDate: DateTime(1900),
+//   //     lastDate: DateTime.now(),
+//   //   );
+//   //   if (pickedDate != null) {
+//   //     widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+//   //   }
+//   // }
+//   @override
+//   Widget build(BuildContext context) {
+//     String? errorText;
+//     return Padding(
+//       padding:  const EdgeInsets.symmetric(vertical: 4),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.start,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           // RichText(
+//           //   text: TextSpan(
+//           //     text: widget.text, // Main text
+//           //     style: AllPopupHeadings.customTextStyle(context), // Main style
+//           //     children: [
+//           //       TextSpan(
+//           //         text: ' *', // Asterisk
+//           //         style: AllPopupHeadings.customTextStyle(context).copyWith(
+//           //           color: ColorManager.red, // Asterisk color
+//           //         ),
+//           //       ),
+//           //     ],
+//           //   ),
+//           // ),
+//           // Text(
+//           //   widget.text,
+//           //   style: AllPopupHeadings.customTextStyle(context)
+//           //   //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
+//           // ),
+//           // SizedBox(
+//           //   width: AppSize.s5,
+//           // ),
+//           Container(
+//             width: widget.width ?? AppSize.s354,
+//             height: AppSize.s30,
+//             decoration: BoxDecoration(
+//               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+//               borderRadius: BorderRadius.circular(8),
+//             ),
+//             child: TextFormField(
+//              // focusNode: widget.focusNode,
+//               //autofocus: ,
+//               //enabled: widget.enable == null ? true : false,
+//               controller: widget.controller,
+//               keyboardType: widget.keyboardType,
+//               //cursorHeight: 17,
+//               cursorColor: Colors.black,
+//               autovalidateMode: AutovalidateMode.onUserInteraction,
+//               decoration: InputDecoration(
+//
+//                 // suffixIcon: widget.showDatePicker
+//                 //     ? GestureDetector(
+//                 //   onTap: () => _selectDate(context),
+//                 //   child: Icon(Icons.calendar_month_outlined),
+//                 // )
+//                 //     : widget.icon,
+//                 prefix: widget.prefixWidget,
+//                 prefixIcon: widget.suffixIcon,
+//                 prefixStyle: checkboxStyle.customTextStyle(context),
+//                 border: InputBorder.none,
+//                 contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
+//               ),
+//               style: BoldfontStyle.customTextStyle(context),
+//               //validator: widget.validator,
+//               onTap: widget.onChange,
+//               validator: widget.validator,
+//               // onTap: widget.onChange,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+
 
 class EMRTextFConst extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
- // final String text;
   final Color textColor;
   final Icon? icon;
   final bool? readOnly;
   final VoidCallback? onChange;
-  //final bool? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
- // final FocusNode? focusNode;
   final double? width;
   final List<TextInputFormatter>? inputFormated;
   final bool showDatePicker;
@@ -238,19 +363,18 @@ class EMRTextFConst extends StatefulWidget {
 
   EMRTextFConst({
     Key? key,
-   // this.focusNode,
     required this.controller,
     required this.keyboardType,
-   // required this.text,
     this.textColor = const Color(0xff686464),
     this.icon,
     this.onChange,
     this.readOnly,
-   // this.enable,
     this.validator,
     this.prefixWidget,
-    this.width, this.inputFormated,
-    this.showDatePicker = false, this.suffixIcon,
+    this.width,
+    this.inputFormated,
+    this.showDatePicker = false,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -258,83 +382,46 @@ class EMRTextFConst extends StatefulWidget {
 }
 
 class _EMRTextFConstState extends State<EMRTextFConst> {
-  // late TextEditingController _controller;
-  // Future<void> _selectDate(BuildContext context) async {
-  //   final DateTime? pickedDate = await showDatePicker(
-  //     context: context,
-  //     initialDate: DateTime.now(),
-  //     firstDate: DateTime(1900),
-  //     lastDate: DateTime.now(),
-  //   );
-  //   if (pickedDate != null) {
-  //     widget.controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
-  //   }
-  // }
   @override
   Widget build(BuildContext context) {
-    String? errorText;
     return Padding(
-      padding:  const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // RichText(
-          //   text: TextSpan(
-          //     text: widget.text, // Main text
-          //     style: AllPopupHeadings.customTextStyle(context), // Main style
-          //     children: [
-          //       TextSpan(
-          //         text: ' *', // Asterisk
-          //         style: AllPopupHeadings.customTextStyle(context).copyWith(
-          //           color: ColorManager.red, // Asterisk color
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // Text(
-          //   widget.text,
-          //   style: AllPopupHeadings.customTextStyle(context)
-          //   //ConstTextFieldStyles.customTextStyle(textColor: widget.textColor),
-          // ),
-          // SizedBox(
-          //   width: AppSize.s5,
-          // ),
           Container(
-            width: widget.width ?? AppSize.s354,
-            height: AppSize.s30,
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-              borderRadius: BorderRadius.circular(8),
-            ),
+            width: widget.width ?? 354.0,  // You can adjust the width as needed
+            height: 30.0,  // Set the height of the text field
             child: TextFormField(
-             // focusNode: widget.focusNode,
-              //autofocus: ,
-              //enabled: widget.enable == null ? true : false,
               controller: widget.controller,
               keyboardType: widget.keyboardType,
-              //cursorHeight: 17,
               cursorColor: Colors.black,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
-                // suffixIcon: widget.showDatePicker
-                //     ? GestureDetector(
-                //   onTap: () => _selectDate(context),
-                //   child: Icon(Icons.calendar_month_outlined),
-                // )
-                //     : widget.icon,
+                fillColor: Colors.white,  // White fill color
+                filled: true,  // Enable fill color
                 prefix: widget.prefixWidget,
                 prefixIcon: widget.suffixIcon,
-                prefixStyle: AllHRTableData.customTextStyle(context),
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(bottom:18, left: AppPadding.p15),
+                prefixStyle: TextStyle(color: widget.textColor),
+                // Add border to the TextField
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFB1B1B1), width: 1), // Border color and width
+                  borderRadius: BorderRadius.circular(8),  // Border radius (rounded corners)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFB1B1B1), width: 1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFB1B1B1), width: 1), // Border color on focus
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: EdgeInsets.only(bottom: 18, left: 15),  // Padding inside the field
               ),
-              style: TableSubHeading.customTextStyle(context),
-              //validator: widget.validator,
+              style: TextStyle(color: widget.textColor),  // Customize the text color
               onTap: widget.onChange,
               validator: widget.validator,
-              // onTap: widget.onChange,
             ),
           ),
         ],
@@ -436,7 +523,7 @@ class _CustomDropdownTextFieldEMRState extends State<CustomDropdownTextFieldEMR>
                         return ListTile(
                           title: Text(
                             item!,
-                            style: DocumentTypeDataStyle.customTextStyle(context),
+                            style: BoldfontStyle.customTextStyle(context),
                           ),
                           onTap: () {
                             Navigator.of(context).pop(item);
@@ -622,7 +709,7 @@ class _EMRCustomRadioListTileState extends State<EMRCustomRadioListTile> {
           ),
           Text(
             widget.title,
-            style: DocumentTypeDataStyle.customTextStyle(context),
+            style: BoldfontStyle.customTextStyle(context),
           ),
           SizedBox(width: AppSize.s40),
         ],
@@ -631,6 +718,28 @@ class _EMRCustomRadioListTileState extends State<EMRCustomRadioListTile> {
   }
 }
 
+
+
+
+
+
+class Ontabtext extends StatelessWidget {
+  final Widget child;
+  final Future<void> Function() ontab;
+  const Ontabtext({super.key, required this.child, required this.ontab});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        InkWell(
+          onTap: ontab,
+            child:child,
+        )
+      ],
+    );
+  }
+}
 
 
 

@@ -27,7 +27,15 @@ class CheckboxController extends GetxController {
   var advdirectives = false.obs;
   var homesafety = false.obs;
   var OTHER = false.obs;
-  // var  = false.obs;
+  var ukp = false.obs;
+  var ukn  = false.obs;
+  var a = false.obs;
+  var b = false.obs;
+  var c = false.obs;
+  var d = false.obs;
+  var e = false.obs;
+  var x = false.obs;
+  var y = false.obs;
   // var  = false.obs;
   // var  = false.obs;
 
@@ -105,9 +113,46 @@ class CheckboxController extends GetxController {
   void toggleCheck(bool value) {
   isChecked.value = value;
   }
-  // void toggleCheck(bool value) {
-  // isChecked.value = value;
-  // }
+  void toggleCheckukn(bool value) {
+  ukn.value = value;
+  }
+  void toggleCheckukp(bool value) {
+  ukp.value = value;
+  }
+    void toggleChecka(bool value) {
+  a.value = value;
+  }
+void toggleCheckb(bool value) {
+  b.value = value;
+  }
+void toggleCheckc(bool value) {
+  c.value = value;
+  }
+void toggleCheckd(bool value) {
+  d.value = value;
+  }
+void toggleChecke(bool value) {
+  e.value = value;
+  }
+void toggleCheckx(bool value) {
+  x.value = value;
+  }
+void toggleChecky(bool value) {
+  y.value = value;
+  }
+// void toggleCheck(bool value) {
+//   .value = value;
+//   }
+// void toggleCheck(bool value) {
+//   .value = value;
+//   }
+// void toggleCheck(bool value) {
+//   .value = value;
+//   }
+//
+// void toggleCheck(bool value) {
+//   .value = value;
+//   }
 
 }
 

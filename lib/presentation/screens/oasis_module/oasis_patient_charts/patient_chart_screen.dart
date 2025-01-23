@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:prohealth/presentation/screens/oasis_module/oasis_patient_charts/widget/administrative_info.dart';
 import 'package:prohealth/presentation/screens/oasis_module/oasis_patient_charts/widget/consent_for_care.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../app/resources/color.dart';
-import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+//import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 import '../../hr_module/hr_home_screen/referesh_provider.dart';
+import '../them_manager/oasis_them_mnager.dart';
 import '../widgets/constant/blue_tabbar.dart';
 
 
@@ -128,18 +130,18 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text("DOB", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
+                                      Text("DOB", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
                                       SizedBox(height: 13),
-                                      Text("Chart Number", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
+                                      Text("Chart Number", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
                                     ],
                                   ),
-                                  SizedBox(width: 40,),
+                                  SizedBox(width: 30,),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Text("08-03-1997 (27)", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black)),
+                                      Text("08-03-1997 (27)", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: ColorManager.textBlack,)),
                                       SizedBox(height: 13),
-                                      Text("123456", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black)),
+                                      Text("123456", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: ColorManager.textBlack,)),
                                     ],
                                   ),
                                   SizedBox(width: 10,),
@@ -166,7 +168,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               // Use GetX to reactively display the selected text
                               Obx(() => Text(
                                 myController.selectedText.value,
-                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color:  ColorManager.granitegray),
+                                style: BoldfontStyle.customTextStyle(context),
                               )),
                             ],
                           ),
@@ -198,7 +200,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                                 // controller: _controller,
                                 textCapitalization:
                                 TextCapitalization.words,
-                                style: DocumentTypeDataStyle.customTextStyle(context),
+                                style: BoldfontStyle.customTextStyle(context),
                                 // onChanged: _search,
                                 decoration: InputDecoration(
                                     filled: true,
@@ -628,7 +630,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                         physics: NeverScrollableScrollPhysics(),
                         children: [
                           ConsentForCare(),
-                          Screen2(),
+                          AdministrativeInfo(),
                           Screen3(),
                           Screen4(),
         
@@ -660,22 +662,18 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
         width: 40,
         height: 200,
         decoration: BoxDecoration(
-            color: ColorManager.bluebottom,
+            color: ColorManager.drawerbutton,
             borderRadius:
             BorderRadius.horizontal(left: Radius.circular(20)),
             // border: Border.all(
             //     width: 2.0, color: Color.fromARGB(221, 8, 1, 24)),
         ),
-        child: const RotatedBox(
+        child:  RotatedBox(
             quarterTurns: 1,
             child: Padding(
               padding: EdgeInsets.all(5),
               child: Text('Not Attempted Questions',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: BluebuttonStyle.customTextStyle(context),
 
            textAlign: TextAlign.center)),
       ),
