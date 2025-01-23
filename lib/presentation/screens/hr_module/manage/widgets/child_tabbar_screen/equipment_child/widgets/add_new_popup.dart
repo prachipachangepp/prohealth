@@ -57,7 +57,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
           _validateTextField(idController.text, 'ID of the Equipment');
       _nameDocError =
           _validateTextField(nameController.text, 'Name of the Equipment');
-      _dateDocError = _validateTextField(calenderController.text, 'Select Date');
+      _dateDocError = _validateTextField(calenderController.text, 'Please Select Date');
       _selectDocError = _validateTextField(selectDescription, 'Please select device description');
     });
   }
@@ -209,6 +209,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                             // print('Inventory name abcd ${inventoryName}');
                             //  print('Inventory Id abcd ${inventoryId}');
                             return CICCDropdown(
+                              initialValue: selectDescription,
                                 onChange: (val) {
                                   for (var a in snapshot.data!) {
                                     if (a.name == val) {

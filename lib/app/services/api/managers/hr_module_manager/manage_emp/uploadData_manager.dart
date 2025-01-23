@@ -199,7 +199,7 @@ Future<ApiData> patchEmployeeDocuments({
         "employeeId": employeeId,
         "DocumentUrl": documentUrl,
         "UploadDate": uploadDate,
-        "expiry_date": expiryDate,
+        "expiry_date": "${expiryDate}T00:00:00Z",
       }
     );
     print("Response ${response.toString()}");

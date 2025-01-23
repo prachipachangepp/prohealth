@@ -641,6 +641,8 @@ class CustomDocumedEditPopup extends StatelessWidget {
       docEditProviderState.editDocumentValue(selectedExpiryType,expiryDate,expiryDateController);
     });
 
+
+
     return Consumer<HrManageProvider>(
       builder: (context, editDocProvider,child) {
         return DialogueTemplate(
@@ -737,7 +739,7 @@ class CustomDocumedEditPopup extends StatelessWidget {
                       width: 354,
                       height: 30,
                       child: TextFormField(
-                        controller: expiryDateController,
+                        controller: editDocProvider.expiryDateController,
                         cursorColor: ColorManager.black,
                         style: DocumentTypeDataStyle.customTextStyle(context),
                         decoration: InputDecoration(
@@ -764,17 +766,18 @@ class CustomDocumedEditPopup extends StatelessWidget {
                           errorText: field.errorText,
                         ),
                         onTap: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1901),
-                            lastDate: DateTime(3101),
-                          );
-                          if (pickedDate != null) {
-                            editDocProvider.newDatePicked(pickedDate);
-                            expiryDateController.text =
-                                DateFormat('yyyy-MM-dd').format(pickedDate);
-                          }
+                          editDocProvider.pickDateValue(context);
+                          // DateTime? pickedDate = await showDatePicker(
+                          //   context: context,
+                          //   initialDate: DateTime.now(),
+                          //   firstDate: DateTime(1901),
+                          //   lastDate: DateTime(3101),
+                          // );
+                          // if (pickedDate != null) {
+                          //   editDocProvider.newDatePicked(pickedDate);
+                          //   expiryDateController.text =
+                          //       DateFormat('yyyy-MM-dd').format(pickedDate);
+                          // }
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -803,12 +806,13 @@ class CustomDocumedEditPopup extends StatelessWidget {
             text: AppStringEM.submit,
             onPressed: () async {
               editDocProvider.loaderTrue();
-              String? validateExpDate = expiryDateController.text;
+              String? validateExpDate = editDocProvider.expiryDateController.text;
               String? expiryDate;
               expiryDate = selectedExpiryType == AppConfig.issuer
-                  ? validateExpDate == expiryDateController.text ? expiryDate : "${editDocProvider.datePicked.toIso8601String()}Z"
+                  ? validateExpDate == editDocProvider.expiryDateController.text ? editDocProvider.expiryDateController.text : "${editDocProvider.datePicked.toIso8601String()}Z"
                   : null;
               try{
+                print('Expiry date ${expiryDate}');
                 var updatedResponse = await patchEmployeeDocuments(
                     context: context,
                     empDocumentId: empDocumentId,
@@ -899,6 +903,7 @@ class CustomDocumedEditPopup extends StatelessWidget {
                 editDocProvider.loaderFalse();
               }finally {
                 editDocProvider.loaderFalse();
+                editDocProvider.clearAddedValue();
               }
 
             },
@@ -1136,7 +1141,7 @@ class CustomDocumedAddPopup extends StatelessWidget {
                   addDocProvider.isFormSubmitted && addDocProvider.filePath ==
                           null ? // Show error only if filePath is null and form is submitted
                         Text(
-                          'Please select document',
+                          'Please Upload document',
                           style: TextStyle(
                               fontSize: 10, color: ColorManager.red),
                         ): SizedBox(height: 12,)

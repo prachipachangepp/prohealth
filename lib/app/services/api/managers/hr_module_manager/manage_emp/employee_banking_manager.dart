@@ -87,7 +87,7 @@ Future<EmployeeBankingPrefillData> getPrefillEmployeeBancking(
             empBankingId: response.data['empBankingId'],
             employeeId: response.data['employeeId'],
             accountNumber: response.data['accountNumber'],
-            bankName: response.data['bankName'],
+            bankName: response.data['bankName']??"--",
             amountRequested: response.data['amountRequested'],
             checkUrl: response.data['checkUrl'],
             effectiveDate: effectiveFormattedDate,

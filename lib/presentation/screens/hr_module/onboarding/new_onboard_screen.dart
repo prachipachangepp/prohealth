@@ -192,6 +192,7 @@ class OnboardingTabManage extends StatelessWidget {
                                         child: imageUrl == 'imgurl' ||
                                             imageUrl.isEmpty
                                             ? CircleAvatar(
+                                          radius: 20,
                                           backgroundColor: ColorManager.faintGrey,
                                           child: Image.asset("images/profilepic.png",width: double.infinity,
                                             height: double.infinity,),

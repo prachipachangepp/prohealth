@@ -773,7 +773,7 @@ class _BankingFormState extends State<BankingForm> {
                                       }
                                     },
                                   ),
-                                  if (errorMessage != null)
+                                  errorMessage != null ?
                                     Padding(
                                       padding: const EdgeInsets.only(top: 8.0),
                                       child: Text(
@@ -781,7 +781,7 @@ class _BankingFormState extends State<BankingForm> {
                                         style: TextStyle(
                                             color: Colors.red, fontSize: 10),
                                       ),
-                                    ),
+                                    ) : SizedBox(height:18),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /

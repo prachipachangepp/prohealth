@@ -35,7 +35,7 @@ class AddBankingPopup extends StatefulWidget {
 class _AddBankingPopupState extends State<AddBankingPopup> {
 
 
-  String? pickedFileName;
+  String pickedFileName = '';
   String selectedtype = 'Checking';
   dynamic pickedFile;
   bool isLoading = false;
@@ -55,6 +55,9 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
       setState(() {
         pickedFileName = result.files.first.name;
         pickedFile = result.files.first.bytes;
+        _isFormValid = true;
+        _pickFileError = _validateTextField(pickedFileName!, 'Please Upload Document');
+
       });
       // PlatformFile file = result.files.first;
       print('File picked: ${pickedFileName}');
@@ -117,6 +120,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
   String? _banknameError;
   String? _acError;
   String? _vacError;
+  String? _pickFileError;
 
   bool _isFormValid = true;
 
@@ -138,6 +142,7 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
       _numberError = _validateTextField(routingnumber.text, 'Please Enter Number');
       _banknameError = _validateTextField(bankname.text, 'Please Enter Bank Name');
       _vacError = _validateTextField(verifyaccountnumber.text, 'Please Enter Verify Account Number');
+      _pickFileError = _validateTextField(pickedFileName, 'Please Upload Document');
       //_ZoneError = _validateTextField(selectedZone!, 'Please Select Zone');
       // After validating other fields, check account number matching
       if (_acError == null && _vacError == null) {
@@ -199,7 +204,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                 padding:  EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                   children: [
                     SizedBox(height: AppSize.s20),
                     Row(
@@ -217,33 +221,43 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                         Row(
                           children: [
                             SizedBox(height: 5,),
-                            pickedFileName == null ? const Offstage():Align(
+                            pickedFileName == "" ? const Offstage():Align(
                               alignment: Alignment.centerRight,
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 60),
-                                child: Text(pickedFileName!,style:TextStyle(
+                                padding: const EdgeInsets.only(right: 30),
+                                child: Text(pickedFileName,style:TextStyle(
                                     fontSize: FontSize.s10,
                                     color: ColorManager.mediumgrey
                                 ),),
                               ),
                             ),
-                            ElevatedButton.icon(
-                              onPressed: _handleFileUpload,
-                              icon: Icon(Icons.file_upload_outlined, color: Colors.white),
-                              label: Text(
-                                'Upload',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ElevatedButton.icon(
+                                  onPressed: _handleFileUpload,
+                                  icon: Icon(Icons.file_upload_outlined, color: Colors.white),
+                                  label: Text(
+                                    'Upload',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Color(0xFF27A3E0),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF27A3E0),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
+                                _pickFileError != null? // Display error if any
+                                Text(
+                                  _pickFileError!,
+                                  style: CommonErrorMsg.customTextStyle(context),
+                                ):SizedBox(height: 12,)
+                              ],
                             ),
                           ],
                         ),
@@ -251,7 +265,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                     ),
                     SizedBox(height: AppSize.s20),
                     Column(
-
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -375,12 +388,9 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   ):SizedBox(height: 12,)
                               ],
                             ),
-
-
                             SizedBox(
                               width: 8,
                             ),
-
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -425,8 +435,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                                   ):SizedBox(height: 12,),
                               ],
                             ),
-
-
                           ],
                         ),
                         SizedBox(height: 20),
@@ -670,7 +678,6 @@ class _AddBankingPopupState extends State<AddBankingPopup> {
                         ),
                       ],
                     ),
-
                     SizedBox(
                       height: 20,
                     ),
@@ -831,43 +838,131 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   }
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        height: 460,
+        width: 800,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(8),
         ),
-        titlePadding: EdgeInsets.zero,
-        title: _buildDialogTitle(context),
-        content: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          width: MediaQuery.of(context).size.width * 0.6, //0.8
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeaderWithUpload(),
-                SizedBox(height: MediaQuery.of(context).size.height / 30),
-                Column(
-                  //crossAxisAlignment: CrossAxisAlignment.start,
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                height:AppSize.s50,
+                decoration: BoxDecoration(
+                  color: ColorManager.blueprime,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buildFirstColumn(),
-                    SizedBox(height: 20),
-                    _buildSecondColumn(),
-                    SizedBox(height: 20),
-                    _buildThirdColumn(),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                          "Edit Banking",
+                          style: PopupHeadingStyle.customTextStyle(context)
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+
+                        },
+                        icon: Icon(
+                            Icons.close,
+                            color: IconColorManager.white
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(height: AppSize.s20),
+                    _buildHeaderWithUpload(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      //crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        _buildFirstColumn(),
+                        SizedBox(height: 20),
+                        _buildSecondColumn(),
+                        SizedBox(height: 20),
+                        _buildThirdColumn(),
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _buildDialogActions(context)
+                  ],
+                ),
+              ),
+
+            ],
           ),
         ),
-        actions: _buildDialogActions(context),
+
       ),
     );
+    //   Padding(
+    //   padding: const EdgeInsets.all(16.0),
+    //   child: AlertDialog(
+    //     backgroundColor: Colors.white,
+    //     shape: RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.circular(12.0),
+    //     ),
+    //     titlePadding: EdgeInsets.zero,
+    //     title: _buildDialogTitle(context),
+    //     content: Container(
+    //       decoration: BoxDecoration(
+    //         borderRadius: BorderRadius.circular(12.0),
+    //       ),
+    //       // width: MediaQuery.of(context).size.width * 0.6, //0.8
+    //       height: 460,
+    //       width: 800,
+    //       child: SingleChildScrollView(
+    //         child: Column(
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             _buildHeaderWithUpload(),
+    //             SizedBox(height: MediaQuery.of(context).size.height / 30),
+    //             Column(
+    //               //crossAxisAlignment: CrossAxisAlignment.start,
+    //               children: [
+    //                 _buildFirstColumn(),
+    //                 SizedBox(height: 20),
+    //                 _buildSecondColumn(),
+    //                 SizedBox(height: 20),
+    //                 _buildThirdColumn(),
+    //               ],
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //     actions: _buildDialogActions(context),
+    //   ),
+    // );
   }
 
   Widget _buildDialogTitle(BuildContext context) {
@@ -997,9 +1092,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(width: 260,
-
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
                             children: [
@@ -1020,7 +1114,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                               ),
                             ],
                           ),
-                          // SizedBox(width: 8,),
+                          SizedBox(width: 8,),
                           Row(
                             children: [
                               Radio(
@@ -1085,7 +1179,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             ),
           ],
         ),
-        SizedBox(width: MediaQuery.of(context).size.width / 50),
+        //SizedBox(width: MediaQuery.of(context).size.width / 50),
         _buildTextField(
           capitalIsSelect:false,
           errorText: eDate?"Please Enter Effective Date" : null,
@@ -1101,7 +1195,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             onPressed: _selectDate,
           ), controller:  widget.effectiveDateController, labelText: 'Effective Date',
         ),
-        SizedBox(width: MediaQuery.of(context).size.width / 50),
+        SizedBox(width: 8),
         _buildTextField(
           controller: widget.bankNameController,
           labelText: 'Bank Name',
@@ -1126,13 +1220,13 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           controller:widget.routingNumberController,
           labelText: 'Routing Number/ Transit Number',
           errorText: rnumber?"Please Enter Routing Number" : null, ),
-        SizedBox(width: MediaQuery.of(context).size.width / 50),
+        //SizedBox(width: MediaQuery.of(context).size.width / 50),
         _buildTextField(
           capitalIsSelect:false,
           controller:widget.accountNumberController,
           labelText: 'Account Number' ,
           errorText: ac?"Please Enter Account Number" : null,),
-        SizedBox(width: MediaQuery.of(context).size.width / 50),
+        //SizedBox(width: MediaQuery.of(context).size.width / 50),
         _buildTextField(
           capitalIsSelect: false,
           controller: widget.verifyAccountController,
@@ -1190,7 +1284,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           phoneNumberField:false, // Specify if this is the phone field
           height: AppSize.s30,
           // width:250 ,
-          width: width ?? 260,
+          width: width ?? 240,
           controller: controller,
 
           keyboardType: labelText == "Phone" ? TextInputType.phone : TextInputType.text,
@@ -1303,7 +1397,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-        ),
+        ).paddingOnly(top: 5),
       ],
     );
   }
@@ -1402,9 +1496,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     );
   }
 
-  List<Widget> _buildDialogActions(BuildContext context) {
-    return [
-      Padding(
+  Widget _buildDialogActions(BuildContext context) {
+    return Padding(
         padding: const EdgeInsets.only(right: 13,bottom: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -1467,8 +1560,6 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             ),
           ],
         ),
-      ),
-
-    ];
+      );
   }
 }

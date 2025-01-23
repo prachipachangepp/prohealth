@@ -272,7 +272,7 @@ class AcknowledgementAddPopup extends StatelessWidget {
                     SizedBox(height: 2),
                     loaderProvider.isFormSubmitted && ackProviderState.filePath == null ?
                       Text(
-                        'Please select document',
+                        'Please Upload document',
                         style: TextStyle(fontSize: 10, color: ColorManager.red),
                       ):SizedBox(height: 12,)
                   ],

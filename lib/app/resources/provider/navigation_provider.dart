@@ -639,25 +639,43 @@ class HrManageProvider extends ChangeNotifier{
     _fileAbove20Mb = false;
     _fileIsPicked = false;
     _clinicalFileIsPicked = false;
+    _showExpiryDateField = false;
     _editClinicalLicenseFilePath;
     _editClinicalLicenseFileName = '';
-    _editFilePath;
+    _editFilePath = null;
     _editFileName = '';
-    _filePath;
+    _filePath = null;
     _fileName = '';
     notifyListeners();
   }
 
+  TextEditingController _expiryDateController = TextEditingController();
+  TextEditingController get expiryDateController => _expiryDateController;
   void editDocumentValue(String selectedExpiryType,String? expiryDate, TextEditingController controller){
     if (selectedExpiryType == AppConfig.issuer) {
+      print('Expiry date on provider ${expiryDate}');
       DateTime dateTime =
       DateTime.parse(expiryDate ?? DateTime.now().toString());
       _showExpiryDateField = true;
       _datePicked = dateTime;
-      controller = TextEditingController(
+      _expiryDateController = TextEditingController(
           text: DateFormat('yyyy-MM-dd').format(dateTime));
       notifyListeners();
     }
+  }
+  void pickDateValue(BuildContext context) async{
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1901),
+      lastDate: DateTime(3101),
+    );
+    if (pickedDate != null) {
+      newDatePicked(pickedDate);
+      _expiryDateController.text =
+          DateFormat('yyyy-MM-dd').format(pickedDate);
+    }
+    notifyListeners();
   }
 
   void newDatePicked(DateTime value){
