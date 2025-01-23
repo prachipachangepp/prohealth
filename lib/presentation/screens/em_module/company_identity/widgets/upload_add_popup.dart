@@ -187,184 +187,188 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
           ),
         ),
         selectedRadio == "Pre-defined"
-            ? Column(
-          children: [
-            HeaderContentConst(
-              isAsterisk: true,
-              heading: AppString.type_of_the_document,
-              content:  Column(
-                children: [
-                  CICCDropdown(
-                    width: AppSize.s354,
-                    initialValue: dropDownMenuItems.isEmpty ? "No available documents":selectedDocType ?? "Select",
-                    onChange: (val) {
-                      setState(() {
-                        selectedDocType = val;
-                        _dropdownError = null;
-                        showExpiryDateField = false;
-                        isFileErrorVisible = false;
-                        for (var doc in widget.dataList) {
-                          if (doc.docname == val) {
-                            docTypeId = doc.orgDocumentSetupid;
-                            documentTypeName = doc.idOfDocument;
-                            if (doc.expirytype == AppConfig.issuer) {
-                              showExpiryDateField = true;
+            ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+              HeaderContentConst(
+                isAsterisk: true,
+                heading: AppString.type_of_the_document,
+                content:  Column(
+                  children: [
+                    CICCDropdown(
+                      width: AppSize.s354,
+                      initialValue: dropDownMenuItems.isEmpty ? "No available documents":selectedDocType ?? "Select",
+                      onChange: (val) {
+                        setState(() {
+                          selectedDocType = val;
+                          _dropdownError = null;
+                          showExpiryDateField = false;
+                          isFileErrorVisible = false;
+                          for (var doc in widget.dataList) {
+                            if (doc.docname == val) {
+                              docTypeId = doc.orgDocumentSetupid;
+                              documentTypeName = doc.idOfDocument;
+                              if (doc.expirytype == AppConfig.issuer) {
+                                showExpiryDateField = true;
+                              }
                             }
                           }
-                        }
-                      });
-                    },
-                    items: dropDownMenuItems,
-                  ),
-                 _dropdownError != null ?
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Please select a document type',
-                          style:
-                          CommonErrorMsg.customTextStyle(context),
-                        ),
-                      ],
-                    ) : SizedBox(height: AppSize.s12,),
-                ],
-              ),
-            ),
-            Visibility(
-              visible: showExpiryDateField,
-              child: HeaderContentConst(
-                isAsterisk: true,
-                heading: AppString.expiry_date,
-                content: FormField<String>(
-                  builder: (FormFieldState<String> field) {
-                    return SizedBox(
-                      height: AppSize.s30,
-                      width: AppSize.s354,
-                      child: TextFormField(
-                        controller: expiryDateController,
-                        cursorColor: ColorManager.black,
-                        style: DocumentTypeDataStyle.customTextStyle(
-                            context),
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: ColorManager.fmediumgrey,
-                                width: 1),
-                            borderRadius: BorderRadius.circular(6),
+                        });
+                      },
+                      items: dropDownMenuItems,
+                    ),
+                   _dropdownError != null ?
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Please select a document type',
+                            style:
+                            CommonErrorMsg.customTextStyle(context),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: ColorManager.fmediumgrey,
-                                width: 1),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          hintText: 'yyyy-mm-dd',
-                          hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
-                            borderSide: BorderSide(
-                                width: 1,
-                                color: ColorManager.fmediumgrey),
-                          ),
-                          contentPadding:
-                          EdgeInsets.symmetric(horizontal: AppPadding.p16),
-                          suffixIcon: Icon(Icons.calendar_month_outlined,
-                              color: ColorManager.blueprime),
-                          errorText: field.errorText,
-                        ),
-                        onTap: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1901),
-                            lastDate: DateTime(3101),
-                          );
-                          if (pickedDate != null) {
-                            datePicked = pickedDate;
-                            expiryDateController.text =
-                                DateFormat('yyyy-MM-dd')
-                                    .format(pickedDate);
-                          }
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please select a date';
-                          }
-                          return null;
-                        },
-                      ),
-                    );
-                  },
+                        ],
+                      ) : SizedBox(height: AppSize.s12,),
+                  ],
                 ),
               ),
-            ),
-
-            /// Upload document
-            HeaderContentConst(
-                isAsterisk: true,
-                heading: AppString.upload_document,
-                content: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap:
-                      _pickFile, // Trigger file picking when the whole container is tapped
-                      child: Container(
+              Visibility(
+                visible: showExpiryDateField,
+                child: HeaderContentConst(
+                  isAsterisk: true,
+                  heading: AppString.expiry_date,
+                  content: FormField<String>(
+                    builder: (FormFieldState<String> field) {
+                      return SizedBox(
                         height: AppSize.s30,
                         width: AppSize.s354,
-                        padding: EdgeInsets.only(left: AppPadding.p15),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: ColorManager.containerBorderGrey,
-                            width: 1,
+                        child: TextFormField(
+                          controller: expiryDateController,
+                          cursorColor: ColorManager.black,
+                          style: DocumentTypeDataStyle.customTextStyle(
+                              context),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: ColorManager.fmediumgrey,
+                                  width: 1),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: ColorManager.fmediumgrey,
+                                  width: 1),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            hintText: 'yyyy-mm-dd',
+                            hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: ColorManager.fmediumgrey),
+                            ),
+                            contentPadding:
+                            EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                            suffixIcon: Icon(Icons.calendar_month_outlined,
+                                color: ColorManager.blueprime),
+                            errorText: field.errorText,
                           ),
-                          borderRadius: BorderRadius.circular(4),
+                          onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1901),
+                              lastDate: DateTime(3101),
+                            );
+                            if (pickedDate != null) {
+                              datePicked = pickedDate;
+                              expiryDateController.text =
+                                  DateFormat('yyyy-MM-dd')
+                                      .format(pickedDate);
+                            }
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select a date';
+                            }
+                            return null;
+                          },
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(0),
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  fileName.isEmpty
-                                      ? "No file selected"
-                                      : fileName,
-                                  style: DocumentTypeDataStyle
-                                      .customTextStyle(context),
+                      );
+                    },
+                  ),
+                ),
+              ),
+
+              /// Upload document
+              HeaderContentConst(
+                  isAsterisk: true,
+                  heading: AppString.upload_document,
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap:
+                        _pickFile, // Trigger file picking when the whole container is tapped
+                        child: Container(
+                          height: AppSize.s30,
+                          width: AppSize.s354,
+                          padding: EdgeInsets.only(left: AppPadding.p15),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: ColorManager.containerBorderGrey,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    fileName.isEmpty
+                                        ? "No file selected"
+                                        : fileName,
+                                    style: DocumentTypeDataStyle
+                                        .customTextStyle(context),
+                                  ),
                                 ),
-                              ),
-                              IconButton(
-                                padding: EdgeInsets.all(AppPadding.p4),
-                                onPressed:
-                                _pickFile, // Keep file picker here as well for icon press
-                                icon: Icon(
-                                  Icons.file_upload_outlined,
-                                  color: ColorManager.black,
-                                  size: IconSize.I16,
+                                IconButton(
+                                  padding: EdgeInsets.all(AppPadding.p4),
+                                  onPressed:
+                                  _pickFile, // Keep file picker here as well for icon press
+                                  icon: Icon(
+                                    Icons.file_upload_outlined,
+                                    color: ColorManager.black,
+                                    size: IconSize.I16,
+                                  ),
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
                                 ),
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    if (isFileErrorVisible)
-                      Padding(
-                        padding: const EdgeInsets.only(top: AppPadding.p5),
-                        child: Text(
-                          'Please upload a document',
-                          style: CommonErrorMsg.customTextStyle(context),
+                      if (isFileErrorVisible)
+                        Padding(
+                          padding: const EdgeInsets.only(top: AppPadding.p5),
+                          child: Text(
+                            'Please upload a document',
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
                         ),
+                    ],
+                  ))
+                        ],
                       ),
-                  ],
-                ))
-          ],
-        )
+            )
             : Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
           child: Column(
