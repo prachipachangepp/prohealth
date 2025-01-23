@@ -446,7 +446,7 @@ class EmpDocEditPopupProvider extends ChangeNotifier {
   void validateFields({required String docNameController}) {
     _isFormValid = true;
     _nameError = validateTextField(docNameController, 'Name of the Document');
-    notifyListeners();
+   // notifyListeners();
   }
 
   // Clear the name error message
@@ -508,10 +508,10 @@ class EmpDocEditPopup extends StatelessWidget {
         builder: (context, provider, child) {
       return DialogueTemplate(
         width: AppSize.s400,
-        height: AppSize.s420,
+        height: AppSize.s390,
         body: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -522,34 +522,22 @@ class EmpDocEditPopup extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   text: AppStringEM.idOfDOc,
                 ),
-                SizedBox(height: AppSize.s8),
-                // SMTextfieldAsteric(
-                //   controller: nameDocController,
-                //   keyboardType: TextInputType.text,
-                //   text: AppStringEM.NameOfDoc,
-                // ),
+                SizedBox(height: AppSize.s10),
                 SMTextfieldAsteric(
                   controller: nameDocController,
                   keyboardType: TextInputType.text,
                   text: AppStringEM.NameOfDoc,
                   onChange: () {
-                    // Clear the error as soon as the user starts typing
-                    if (nameDocController.text.isNotEmpty) {
-                      Provider.of<EmpDocEditPopupProvider>(context, listen: false)
-                          .clearNameError();
-                    }
-
-                    // Validate the text field after clearing the error
-                    Provider.of<EmpDocEditPopupProvider>(context, listen: false)
-                        .validateFields(docNameController: nameDocController.text);
+                    provider.clearNameError();
                   },
                 ),
+                provider.nameError != null
+                    ? Text(
+                  provider.nameError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                )
+                    : SizedBox(height: AppSize.s12),
 
-                provider.nameError != null ?
-                  Text(
-                    provider.nameError!,
-                    style: CommonErrorMsg.customTextStyle(context),
-                  ) : SizedBox(height: AppSize.s12,),
                 SizedBox(height: AppSize.s2),
                 HeaderContentConst(
                   heading: AppString.type_of_the_document,
@@ -583,8 +571,8 @@ class EmpDocEditPopup extends StatelessWidget {
         ],
         bottomButtons: provider.isLoading
             ? SizedBox(
-                  width: AppSize.s30,
-                  height: AppSize.s30,
+                  width: AppSize.s35,
+                  height: AppSize.s35,
                   child: CircularProgressIndicator(
                   color: ColorManager.blueprime,
                 ),

@@ -465,7 +465,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
       }
 
       // Validate 'Select services'
-      if (selectedServiceName == null || selectedServiceName!.isEmpty) {
+      if (selectedServiceName.isEmpty || selectedServiceName == "Select") {
         _isServiceSelected = false;
         _serviceErrorText = 'Please select a service';
       } else {
@@ -499,7 +499,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s400,
-      height: AppSize.s460,
+      height: AppSize.s450,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(
@@ -631,10 +631,13 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     },
                   ),
                   !_isServiceSelected ?
-                    Text(
-                      _serviceErrorText,
-                      style: CommonErrorMsg.customTextStyle(context),
-                    ): SizedBox(height: AppSize.s12,),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2.0),
+                      child: Text(
+                        _serviceErrorText,
+                        style: CommonErrorMsg.customTextStyle(context),
+                      ),
+                    ): SizedBox(height: AppSize.s14,),
                 ],
               ),
 
@@ -755,10 +758,13 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                         },
                       ),
                       !_isClinicianSelected ?
-                        Text(
-                          _clinicianErrorText,
-                          style: CommonErrorMsg.customTextStyle(context),
-                        ): SizedBox(height: AppSize.s12,),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 2.0),
+                          child: Text(
+                            _clinicianErrorText,
+                            style: CommonErrorMsg.customTextStyle(context),
+                          ),
+                        ): SizedBox(height: AppSize.s14,),
                       //SizedBox(height: AppSize.s5),
                       Wrap(
                         spacing: 8.0,

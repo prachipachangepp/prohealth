@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:prohealth/presentation/screens/oasis_module/oasis_patient_charts/widget/administrative_info.dart';
 import 'package:prohealth/presentation/screens/oasis_module/oasis_patient_charts/widget/consent_for_care.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../app/resources/color.dart';
-import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+//import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
 import '../../hr_module/hr_home_screen/referesh_provider.dart';
+import '../them_manager/oasis_them_mnager.dart';
 import '../widgets/constant/blue_tabbar.dart';
 
 
@@ -32,6 +34,25 @@ final ButtonSelectionControlleroasis myController =
 Get.put(ButtonSelectionControlleroasis());
 
 
+// Method to update drawer content based on selected index
+Widget _getDrawerContent(int index) {
+  switch (index) {
+    case 0:
+      return Drawerrightside(); // Replace with the widget for Consent For Care
+    case 1:
+      return DrawerrightsideA(); // Replace with the widget for Administrative Information
+    case 2:
+      return DrawerrightsideB(); // Replace with the widget for Clinical Record Items
+    // case 3:
+    //   return PatientHistoryImmunization(); // Replace with the widget for Patient History/Immunization
+    // case 33:
+    //   return DiagnosisCodes(); // Replace with the widget for Diagnosis Codes
+    default:
+      return DefaultDrawerContent(); // Default content if no index is selected
+  }
+}
+
+
 Future<void> _saveIndex(int index) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setInt('currentIndex', index);
@@ -51,39 +72,10 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
       endDrawer: Drawer(
         child: Container(
           color: Colors.white,
-          child: Drawerrightside()
+          child:_getDrawerContent(myController.selectedIndex.value),
         ),
       ),
-   //  End Drawer (right side drawer)
-     // drawer    endDrawer
-    // drawer: SizedBox(
-    //     height: 300,
-    //     child: Drawer(
-    //       elevation: 0,
-    //       backgroundColor: Colors.indigo,
-    //       child: Row(
-    //         children: [
-    //           IconButton(
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //             icon: const Icon(Icons.chevron_right),
-    //             color: Colors.white,
-    //           ),
-    //           Container(
-    //             width: 240,
-    //             color: Colors.indigo,
-    //             child: const Center(
-    //               child: Text(
-    //                 "Mini Drawer",
-    //                 style: TextStyle(color: Colors.white, fontSize: 30),
-    //               ),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
+
       body: Stack(
         children:[
           SingleChildScrollView(
@@ -138,18 +130,18 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text("DOB", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
+                                      Text("DOB", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
                                       SizedBox(height: 13),
-                                      Text("Chart Number", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
+                                      Text("Chart Number", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
                                     ],
                                   ),
-                                  SizedBox(width: 40,),
+                                  SizedBox(width: 30,),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Text("08-03-1997 (27)", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black)),
+                                      Text("08-03-1997 (27)", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: ColorManager.textBlack,)),
                                       SizedBox(height: 13),
-                                      Text("123456", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black)),
+                                      Text("123456", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: ColorManager.textBlack,)),
                                     ],
                                   ),
                                   SizedBox(width: 10,),
@@ -176,7 +168,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               // Use GetX to reactively display the selected text
                               Obx(() => Text(
                                 myController.selectedText.value,
-                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color:  ColorManager.granitegray),
+                                style: BoldfontStyle.customTextStyle(context),
                               )),
                             ],
                           ),
@@ -208,7 +200,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                                 // controller: _controller,
                                 textCapitalization:
                                 TextCapitalization.words,
-                                style: DocumentTypeDataStyle.customTextStyle(context),
+                                style: BoldfontStyle.customTextStyle(context),
                                 // onChanged: _search,
                                 decoration: InputDecoration(
                                     filled: true,
@@ -638,7 +630,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                         physics: NeverScrollableScrollPhysics(),
                         children: [
                           ConsentForCare(),
-                          Screen2(),
+                          AdministrativeInfo(),
                           Screen3(),
                           Screen4(),
         
@@ -670,22 +662,18 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
         width: 40,
         height: 200,
         decoration: BoxDecoration(
-            color: ColorManager.bluebottom,
+            color: ColorManager.drawerbutton,
             borderRadius:
             BorderRadius.horizontal(left: Radius.circular(20)),
             // border: Border.all(
             //     width: 2.0, color: Color.fromARGB(221, 8, 1, 24)),
         ),
-        child: const RotatedBox(
+        child:  RotatedBox(
             quarterTurns: 1,
             child: Padding(
               padding: EdgeInsets.all(5),
               child: Text('Not Attempted Questions',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: BluebuttonStyle.customTextStyle(context),
 
            textAlign: TextAlign.center)),
       ),

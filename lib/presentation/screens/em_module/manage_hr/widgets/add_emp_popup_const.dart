@@ -86,11 +86,12 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
         return AlertDialog(
           title: Padding(
             padding: const EdgeInsets.only(left: AppPadding.p20),
-            child: Text('Pick a Color',
+            child: Text(
+              'Pick a Color',
               style: TextStyle(
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.blueprime
+                fontSize: FontSize.s14,
+                fontWeight: FontWeight.w700,
+                color: ColorManager.blueprime,
               ),
             ),
           ),
@@ -102,7 +103,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                   borderColor: _selectedColors[0],
                   onColorChanged: (Color color) {
                     setState(() {
-                      _selectedColors[0] = color;
+                      _selectedColors[0] = color; // Update live preview
                     });
                   },
                 ),
@@ -113,7 +114,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
             TextButton(
               child: Text('OK'),
               onPressed: () {
-                Navigator.of(context).pop(_selectedColors[0]);
+                Navigator.of(context).pop(_selectedColors[0]); // Pass the selected color
               },
             ),
           ],
@@ -124,7 +125,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
     if (pickedColor != null) {
       setState(() {
         _selectedColors[0] = pickedColor;
-        widget.onColorChanged!(pickedColor);
+        widget.onColorChanged?.call(pickedColor); // Notify parent widget
       });
     }
   }

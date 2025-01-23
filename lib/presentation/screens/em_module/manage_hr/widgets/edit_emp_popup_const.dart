@@ -11,13 +11,6 @@ import '../../../../../app/resources/establishment_resources/establishment_strin
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
 
-class EditPopupController extends GetxController {
-  Rx<Color> containerColor = Colors.red.obs;
-
-  void updateColor(Color newColor) {
-    containerColor.value = newColor;
-  }
-}
 class EditPopupWidget extends StatefulWidget {
   final int? id;
   final TextEditingController typeController;
