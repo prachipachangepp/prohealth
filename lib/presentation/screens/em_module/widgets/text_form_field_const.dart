@@ -241,6 +241,7 @@ class _SMTextfieldAstericState extends State<SMTextfieldAsteric> {
               ),
               style: TableSubHeading.customTextStyle(context),
               onTap: widget.onChange,
+              onChanged: widget.onChanged,
               validator: widget.validator,
             ),
           ),

@@ -65,6 +65,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   bool showExpiryDateField = false;
   bool isFileSelected = false;
   bool isFileErrorVisible = false;
+
   TextEditingController expiryDateController = TextEditingController();
   TextEditingController nameDocController = TextEditingController();
   TextEditingController idDocController = TextEditingController();
@@ -79,6 +80,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   String? selectedYear = AppConfig.year;
   String? _idDocError;
   String? _nameDocError;
+  String? _dropdownError;
   String? _expiryTypeError;
   String? _issueDateError;
   @override
@@ -129,6 +131,12 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
       _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
       // _issueDateError = _validateTextField(expiryDateController.text, 'expiry date of the Document');
       isFileErrorVisible = !isFileSelected;
+      if (selectedDocType == null || selectedDocType!.isEmpty) {
+        _dropdownError = "Please select a document type";
+        _isFormValid = false;
+      } else {
+        _dropdownError = null;
+      }
       if (selectedExpiryType == AppConfig.issuer && expiryDateController.text.isEmpty) {
         _issueDateError = "Please select an expiry date";
         _isFormValid = false;
@@ -184,24 +192,42 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             HeaderContentConst(
               isAsterisk: true,
               heading: AppString.type_of_the_document,
-              content:  CICCDropdown(
-                width: AppSize.s354,
-                initialValue: dropDownMenuItems.isEmpty ? "No available documents":"Select",
-                onChange: (val) {
-                  setState(() {
-                    showExpiryDateField = false;
-                    for (var doc in widget.dataList) {
-                      if (doc.docname == val) {
-                        docTypeId = doc.orgDocumentSetupid!;
-                        documentTypeName = doc.idOfDocument;
-                        if (doc.expirytype == AppConfig.issuer) {
-                          showExpiryDateField = true;
+              content:  Column(
+                children: [
+                  CICCDropdown(
+                    width: AppSize.s354,
+                    initialValue: dropDownMenuItems.isEmpty ? "No available documents":selectedDocType ?? "Select",
+                    onChange: (val) {
+                      setState(() {
+                        selectedDocType = val;
+                        _dropdownError = null;
+                        showExpiryDateField = false;
+                        isFileErrorVisible = false;
+                        for (var doc in widget.dataList) {
+                          if (doc.docname == val) {
+                            docTypeId = doc.orgDocumentSetupid;
+                            documentTypeName = doc.idOfDocument;
+                            if (doc.expirytype == AppConfig.issuer) {
+                              showExpiryDateField = true;
+                            }
+                          }
                         }
-                      }
-                    }
-                  });
-                },
-                items: dropDownMenuItems,
+                      });
+                    },
+                    items: dropDownMenuItems,
+                  ),
+                 _dropdownError != null ?
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Please select a document type',
+                          style:
+                          CommonErrorMsg.customTextStyle(context),
+                        ),
+                      ],
+                    ) : SizedBox(height: AppSize.s12,),
+                ],
               ),
             ),
             Visibility(
@@ -302,7 +328,9 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  fileName,
+                                  fileName.isEmpty
+                                      ? "No file selected"
+                                      : fileName,
                                   style: DocumentTypeDataStyle
                                       .customTextStyle(context),
                                 ),
@@ -348,6 +376,12 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 controller: nameDocController,
                 keyboardType: TextInputType.text,
                 text: AppStringEM.NameOfDoc,
+                onChanged: (value){
+                  setState(() {
+                    _isFormValid = true;
+                    _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
+                  });
+                },
               ),
               _nameDocError != null ? // Display error if any
               Text(
@@ -361,6 +395,12 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 controller: idDocController,
                 keyboardType: TextInputType.text,
                 text: AppStringEM.idOfDOc,
+                onChanged: (value){
+                  setState(() {
+                    _isFormValid = true;
+                    _idDocError = _validateTextField(idDocController.text, 'ID of the Document');
+                  });
+                },
               ),
               _idDocError != null ? // Display error if any
               Text(
@@ -722,8 +762,8 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
       ],
       bottomButtons: load
           ? SizedBox(
-        height: AppSize.s25,
-        width: AppSize.s25,
+        height: AppSize.s30,
+        width: AppSize.s30,
         child: CircularProgressIndicator(
           color: ColorManager.blueprime,
         ),
@@ -734,6 +774,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         height: AppSize.s30,
         text: AppStringEM.add, // submit
         onPressed: () async {
+          _validateForm();
           setState(() {
             isFileErrorVisible = !isFileSelected;
           });
@@ -1005,3 +1046,17 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
     );
   }
 }
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
