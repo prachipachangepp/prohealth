@@ -131,7 +131,7 @@ class AddNewOrgDocButton extends StatelessWidget {
                     provider._idDocError!,
                     style:CommonErrorMsg.customTextStyle(context),
                   ) : SizedBox(height: AppSize.s12,),
-                SizedBox(height: AppSize.s5,),
+                SizedBox(height: AppSize.s3,),
                 /// Name of the Document
                 SMTextfieldAsteric(
                   controller: provider.nameDocController,
@@ -143,7 +143,7 @@ class AddNewOrgDocButton extends StatelessWidget {
                     provider. _nameDocError!,
                     style:CommonErrorMsg.customTextStyle(context),
                   ) :SizedBox(height: AppSize.s12,),
-                SizedBox(height: AppSize.s5,),
+                SizedBox(height: AppSize.s3,),
                 /// Type of the Document
                 HeaderContentConst(
                   // isAsterisk: true,
@@ -634,7 +634,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
         builder: (context, provider, _) {
           return DialogueTemplate(
             width: AppSize.s420,
-            height: height ?? AppSize.s440,
+            height: height ?? AppSize.s450,
             body: [
               /// ID of the Document
               HeaderContentConst(
@@ -659,7 +659,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                   ),
                 ),
               ),
-
+              SizedBox(height: AppSize.s10,),
               /// Name of the Document
               SMTextfieldAsteric(
                 controller: provider.nameDocController,
@@ -705,6 +705,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: AppSize.s10,),
 
               /// Sub Type of the Document
               docTypeId == AppConfig.policiesAndProcedure

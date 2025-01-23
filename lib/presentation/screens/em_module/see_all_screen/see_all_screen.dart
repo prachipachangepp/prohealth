@@ -1,7 +1,4 @@
 import 'dart:async';
-
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
@@ -15,13 +12,7 @@ import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_delete_provider.dart';
-
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_popup_const_provider.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_create_provider.dart';
-
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_edit_provider.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_pagination.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/error_popups/delete_success_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';

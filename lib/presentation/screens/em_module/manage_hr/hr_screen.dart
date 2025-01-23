@@ -142,110 +142,205 @@ class HrWidget extends StatelessWidget {
                     SizedBox(width: 180,),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: AppPadding.p24),
-                      child: FutureBuilder<List<HRHeadBar>>(
-                        future: companyHRHeadApi(context, provider.deptId),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return Material(
-                              elevation: 4,
-                              borderRadius: BorderRadius.circular(20),
-                              child: Container(
-                                height: AppSize.s30,
-                                width: MediaQuery.of(context).size.width / 2.8,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: ColorManager.blueprime,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: ColorManager.black.withValues(alpha: 0.25),
-                                      spreadRadius: 0,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      InkWell(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          child: Container(
-                                            height: AppSize.s30,
-                                            width: MediaQuery.of(context).size.width / 8.421,
-                                            padding: const EdgeInsets.symmetric(vertical: AppPadding.p6),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(20),
-                                              color: provider.selectedIndex == 0
-                                                  ? ColorManager.white
-                                                  : Colors.transparent,
-                                            ),
-                                            child: Text(
-                                              AppStringEM.clinical,
-                                              textAlign: TextAlign.center,
-                                              style: BlueBgTabbar.customTextStyle(0, provider.selectedIndex),
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            provider.selectButton(0);
-                                            // metaDocID = snapshot.data![index].employeeDocMetaDataId;
-                                          }),
-                                      InkWell(
-                                          child: Container(
-                                            height: AppSize.s30,
-                                            width: MediaQuery.of(context).size.width / 8.421,
-                                            padding: const EdgeInsets.symmetric(vertical: AppPadding.p6),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(20),
-                                              color: provider.selectedIndex == 1
-                                                  ? ColorManager.white
-                                                  : Colors.transparent,
-                                            ),
-                                            child: Text(
-                                              AppStringEM.sales,
-                                              textAlign: TextAlign.center,
-                                              style: BlueBgTabbar.customTextStyle(1, provider.selectedIndex),
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            provider.selectButton(1);
-                                            // metaDocID = snapshot.data![index].employeeDocMetaDataId;
-                                          }),
-                                      InkWell(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          child: Container(
-                                            height: AppSize.s30,
-                                            width:
-                                            MediaQuery.of(context).size.width / 8.421,
-                                            padding:
-                                            const EdgeInsets.symmetric(vertical: AppPadding.p6),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(20),
-                                              color: provider.selectedIndex == 2
-                                                  ? ColorManager.white
-                                                  : Colors.transparent,
-                                            ),
-                                            child: Text(
-                                              AppStringEM.administration,
-                                              textAlign: TextAlign.center,
-                                              style: BlueBgTabbar.customTextStyle(2, provider.selectedIndex),
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            provider.selectButton(2);
-                                            // metaDocID = snapshot.data![index].employeeDocMetaDataId;
-                                          }),
-                                    ]),
+                      child: Material(
+                        elevation: 4,
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          height: AppSize.s30,
+                          width: MediaQuery.of(context).size.width / 2.8,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: ColorManager.blueprime,
+                            boxShadow: [
+                              BoxShadow(
+                                color: ColorManager.black.withValues(alpha: 0.25),
+                                spreadRadius: 0,
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
                               ),
-                            );
-                          } else {
-                            return SizedBox(height: 1, width: 1,);
-                          }
-                        },
-                      ),
+                            ],
+                          ),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                InkWell(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    child: Container(
+                                      height: AppSize.s30,
+                                      width: MediaQuery.of(context).size.width / 8.421,
+                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p6),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: provider.selectedIndex == 0
+                                            ? ColorManager.white
+                                            : Colors.transparent,
+                                      ),
+                                      child: Text(
+                                        AppStringEM.clinical,
+                                        textAlign: TextAlign.center,
+                                        style: BlueBgTabbar.customTextStyle(0, provider.selectedIndex),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      provider.selectButton(0);
+                                      // metaDocID = snapshot.data![index].employeeDocMetaDataId;
+                                    }),
+                                InkWell(
+                                    child: Container(
+                                      height: AppSize.s30,
+                                      width: MediaQuery.of(context).size.width / 8.421,
+                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p6),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: provider.selectedIndex == 1
+                                            ? ColorManager.white
+                                            : Colors.transparent,
+                                      ),
+                                      child: Text(
+                                        AppStringEM.sales,
+                                        textAlign: TextAlign.center,
+                                        style: BlueBgTabbar.customTextStyle(1, provider.selectedIndex),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      provider.selectButton(1);
+                                      // metaDocID = snapshot.data![index].employeeDocMetaDataId;
+                                    }),
+                                InkWell(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    child: Container(
+                                      height: AppSize.s30,
+                                      width:
+                                      MediaQuery.of(context).size.width / 8.421,
+                                      padding:
+                                      const EdgeInsets.symmetric(vertical: AppPadding.p6),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: provider.selectedIndex == 2
+                                            ? ColorManager.white
+                                            : Colors.transparent,
+                                      ),
+                                      child: Text(
+                                        AppStringEM.administration,
+                                        textAlign: TextAlign.center,
+                                        style: BlueBgTabbar.customTextStyle(2, provider.selectedIndex),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      provider.selectButton(2);
+                                      // metaDocID = snapshot.data![index].employeeDocMetaDataId;
+                                    }),
+                              ]),
+                        ),
+                      )
+                      // FutureBuilder<List<HRHeadBar>>(
+                      //   future: companyHRHeadApi(context, provider.deptId),
+                      //   builder: (context, snapshot) {
+                      //     if (snapshot.hasData) {
+                      //       return Material(
+                      //         elevation: 4,
+                      //         borderRadius: BorderRadius.circular(20),
+                      //         child: Container(
+                      //           height: AppSize.s30,
+                      //           width: MediaQuery.of(context).size.width / 2.8,
+                      //           decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(20),
+                      //             color: ColorManager.blueprime,
+                      //             boxShadow: [
+                      //               BoxShadow(
+                      //                 color: ColorManager.black.withValues(alpha: 0.25),
+                      //                 spreadRadius: 0,
+                      //                 blurRadius: 4,
+                      //                 offset: Offset(0, 2),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //           child: Row(
+                      //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //               children: [
+                      //                 InkWell(
+                      //                     splashColor: Colors.transparent,
+                      //                     highlightColor: Colors.transparent,
+                      //                     hoverColor: Colors.transparent,
+                      //                     child: Container(
+                      //                       height: AppSize.s30,
+                      //                       width: MediaQuery.of(context).size.width / 8.421,
+                      //                       padding: const EdgeInsets.symmetric(vertical: AppPadding.p6),
+                      //                       decoration: BoxDecoration(
+                      //                         borderRadius: BorderRadius.circular(20),
+                      //                         color: provider.selectedIndex == 0
+                      //                             ? ColorManager.white
+                      //                             : Colors.transparent,
+                      //                       ),
+                      //                       child: Text(
+                      //                         AppStringEM.clinical,
+                      //                         textAlign: TextAlign.center,
+                      //                         style: BlueBgTabbar.customTextStyle(0, provider.selectedIndex),
+                      //                       ),
+                      //                     ),
+                      //                     onTap: () {
+                      //                       provider.selectButton(0);
+                      //                       // metaDocID = snapshot.data![index].employeeDocMetaDataId;
+                      //                     }),
+                      //                 InkWell(
+                      //                     child: Container(
+                      //                       height: AppSize.s30,
+                      //                       width: MediaQuery.of(context).size.width / 8.421,
+                      //                       padding: const EdgeInsets.symmetric(vertical: AppPadding.p6),
+                      //                       decoration: BoxDecoration(
+                      //                         borderRadius: BorderRadius.circular(20),
+                      //                         color: provider.selectedIndex == 1
+                      //                             ? ColorManager.white
+                      //                             : Colors.transparent,
+                      //                       ),
+                      //                       child: Text(
+                      //                         AppStringEM.sales,
+                      //                         textAlign: TextAlign.center,
+                      //                         style: BlueBgTabbar.customTextStyle(1, provider.selectedIndex),
+                      //                       ),
+                      //                     ),
+                      //                     onTap: () {
+                      //                       provider.selectButton(1);
+                      //                       // metaDocID = snapshot.data![index].employeeDocMetaDataId;
+                      //                     }),
+                      //                 InkWell(
+                      //                     splashColor: Colors.transparent,
+                      //                     highlightColor: Colors.transparent,
+                      //                     hoverColor: Colors.transparent,
+                      //                     child: Container(
+                      //                       height: AppSize.s30,
+                      //                       width:
+                      //                       MediaQuery.of(context).size.width / 8.421,
+                      //                       padding:
+                      //                       const EdgeInsets.symmetric(vertical: AppPadding.p6),
+                      //                       decoration: BoxDecoration(
+                      //                         borderRadius: BorderRadius.circular(20),
+                      //                         color: provider.selectedIndex == 2
+                      //                             ? ColorManager.white
+                      //                             : Colors.transparent,
+                      //                       ),
+                      //                       child: Text(
+                      //                         AppStringEM.administration,
+                      //                         textAlign: TextAlign.center,
+                      //                         style: BlueBgTabbar.customTextStyle(2, provider.selectedIndex),
+                      //                       ),
+                      //                     ),
+                      //                     onTap: () {
+                      //                       provider.selectButton(2);
+                      //                       // metaDocID = snapshot.data![index].employeeDocMetaDataId;
+                      //                     }),
+                      //               ]),
+                      //         ),
+                      //       );
+                      //     } else {
+                      //       return SizedBox(height: 1, width: 1,);
+                      //     }
+                      //   },
+                      // ),
                     ),
                     Padding(
                       padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width/24),

@@ -70,12 +70,19 @@ class _CustomPopupState extends State<CustomPopup> {
                     controller: nameController,
                     keyboardType: TextInputType.text,
                     text: AppStringEM.vendorName,
+                    onChanged: (value){
+                      if (value.isNotEmpty) {
+                      setState(() {
+                        _nameErrorText = "";
+                      });
+                    }
+                    },
                   ),
-                  if (!_isNameValid) // Show error text if name is invalid
+                 !_isNameValid ? // Show error text if name is invalid
                     Text(
                       _nameErrorText,
                       style: CommonErrorMsg.customTextStyle(context),
-                    ),
+                    ): SizedBox(height: AppSize.s12,),
 
                 ],
               ),
@@ -200,12 +207,20 @@ class _AddVendorPopupState extends State<AddVendorPopup> {
                 controller: widget.namecontroller,
                 keyboardType: TextInputType.text,
                 text: AppStringEM.vendorName,
+                onChanged: (value){
+                  setState(() {
+                    if (value.isNotEmpty) {
+                      _isNameValid = true;
+                      _nameErrorText = ''; // Clear the error message
+                    }
+                  });
+                },
               ),
-              if (!_isNameValid) // Show error text if name is invalid
+              !_isNameValid ?  // Show error text if name is invalid
                 Text(
                     _nameErrorText,
                     style:CommonErrorMsg.customTextStyle(context)
-                ),
+                ) : SizedBox(height: AppSize.s12,),
             ],
           ),
         ),

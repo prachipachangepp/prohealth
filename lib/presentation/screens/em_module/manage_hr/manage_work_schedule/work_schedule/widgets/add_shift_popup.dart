@@ -147,6 +147,9 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     controller: widget.shiftNameController,
                     keyboardType: TextInputType.text,
                     text: AddPopupString.shiftName,
+                    onChanged: (value){
+
+                    },
                   ),
                   shiftNameError != null ?
                     Text(

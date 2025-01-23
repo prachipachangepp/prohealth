@@ -83,7 +83,7 @@ class CIPoliciesProcedureProvider extends ChangeNotifier {
       context: context,
       builder: (context) {
         return OrgDocNewEditPopup(
-          height: AppSize.s374,
+          height: AppSize.s383,
           title: EditPopupString.editPolicy,
           orgDocumentSetupid: snapshotPrefill.orgDocumentSetupid ?? 0,
           docTypeId: snapshotPrefill.documentTypeId ?? 0,

@@ -292,7 +292,7 @@ class PayRateAddPopup extends StatelessWidget {
                                     provider.docAddVisitTypeError!,
                                     style: CommonErrorMsg.customTextStyle(context),
                                   ),
-                                ) : SizedBox(height: AppSize.s12,),
+                                ) : SizedBox(height: AppSize.s14,),
                             ],
                           ),
                       //  }
@@ -398,7 +398,7 @@ class PayRateAddPopup extends StatelessWidget {
                           Text(
                             provider.payRatesError!,
                             style:  CommonErrorMsg.customTextStyle(context),
-                          ) : SizedBox(height: AppSize.s12,),
+                          ) : SizedBox(height: AppSize.s13,),
                       ],
                     ),
                     SizedBox(height: AppSize.s14,),
@@ -424,7 +424,7 @@ class PayRateAddPopup extends StatelessWidget {
                               Text(
                                 provider.fixPayRatesError!,
                                 style:  CommonErrorMsg.customTextStyle(context),
-                              ) : SizedBox(height: AppSize.s12,),
+                              ) : SizedBox(height: AppSize.s13,),
                           ],
                         ),
 
@@ -444,7 +444,7 @@ class PayRateAddPopup extends StatelessWidget {
                               Text(
                                 provider.perMilesError!,
                                 style:  CommonErrorMsg.customTextStyle(context),
-                              ) : SizedBox(height: AppSize.s12,),
+                              ) : SizedBox(height: AppSize.s13,),
                           ],
                         ),
                       ],

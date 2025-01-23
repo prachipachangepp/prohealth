@@ -290,10 +290,14 @@ class _EditVisitPopupState extends State<EditVisitPopup> {
                               children: selectedEditChips,
                             ),
                             !_isClinicianSelectionValid ?
-                              Text(
-                                _clinicianErrorText,
-                                style: CommonErrorMsg.customTextStyle(context),
-                              ) : SizedBox(height: AppSize.s12,),
+                              Container(
+                                height: AppSize.s35,
+                                color: Colors.white,
+                                child: Text(
+                                  _clinicianErrorText,
+                                  style: CommonErrorMsg.customTextStyle(context),
+                                ),
+                              ) : SizedBox(height: AppSize.s5,),
                           ],
                         ),
                       ],
