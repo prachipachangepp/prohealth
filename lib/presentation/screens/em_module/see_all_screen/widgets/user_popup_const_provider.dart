@@ -836,13 +836,16 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   var deptId = 1;
-  int? firstDeptId;
   String? selectedDeptName;
   int? selectedDeptId;
 
   TextEditingController firstnameController = TextEditingController();
   TextEditingController lastnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+
+  String? firstNameError;
+  String? lastNameError;
+  String? emailError;
 
   @override
   void initState() {
@@ -852,10 +855,22 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
     lastnameController.text = widget.lastname;
     emailController.text = widget.email;
   }
+  void validateFields() {
+    setState(() {
+      firstNameError = firstnameController.text.isEmpty ? "First Name is required" : null;
+      lastNameError = lastnameController.text.isEmpty ? "Last Name is required" : null;
+      emailError = emailController.text.isEmpty ? "Email is required" : null;
+    });
+  }
+
+  bool isFormValid() {
+    validateFields();
+    return firstNameError == null && lastNameError == null && emailError == null;
+  }
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
-      height: AppSize.s450,
+      height: AppSize.s470,
       width: AppSize.s400,
       title: widget.title,
       body: [
@@ -867,7 +882,24 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                 controller: firstnameController,
                 keyboardType: TextInputType.text,
                 text: "First Name",
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    setState(() {
+                      firstNameError = null;
+                    });
+                  }
+                },
               ),
+              firstNameError != null ?
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    firstNameError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
+                ],
+              ): SizedBox(height: AppSize.s12,),
 
               SizedBox(height: 5,),
               ///
@@ -875,7 +907,24 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                 controller:lastnameController,
                 keyboardType: TextInputType.text,
                 text: 'Last Name',
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    setState(() {
+                      lastNameError = null;
+                    });
+                  }
+                },
               ),
+              lastNameError != null ?
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    lastNameError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
+                ],
+              ): SizedBox(height: AppSize.s12,),
 
               SizedBox(height: AppSize.s10,),
               Row(
@@ -958,7 +1007,24 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
               SizedBox(height: 14,),
               SMTextfieldAsteric(controller: emailController,
                   keyboardType: TextInputType.emailAddress,
-                  text: 'Email'),
+                  text: 'Email',
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    setState(() {
+                      emailError = null;
+                    });
+                  }
+                },),
+              emailError != null ?
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    emailError!,
+                    style: CommonErrorMsg.customTextStyle(context),
+                  ),
+                ],
+              ): SizedBox(height: AppSize.s12,),
             ],
           ),
         )
@@ -968,6 +1034,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
         width: AppSize.s120,
         text: 'Submit',
         onPressed: ()  async{
+          if(!isFormValid()) return;
 
           String FName = firstnameController.text.isNotEmpty
               ? firstnameController.text
@@ -1016,77 +1083,77 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
 
 ///CustomIconButtonProvider using provider
 
-class ButtonProvider extends ChangeNotifier {
-  bool _isLoading = false;
-
-  bool get isLoading => _isLoading;
-
-  void setLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
-  }
-}
-
-class CustomIconButtonProvider extends StatelessWidget {
-  final String text;
-  final IconData? icon;
-  final Color? color;
-  final Color? textColor;
-  final Future<void> Function() onPressed;
-
-  const CustomIconButtonProvider({
-    required this.text,
-    this.icon,
-    required this.onPressed,
-    this.color,
-    this.textColor,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final buttonProvider = Provider.of<ButtonProvider>(context);
-
-    return buttonProvider.isLoading
-        ?  SizedBox(
-      height: 25,
-      width: 25,
-      child: CircularProgressIndicator(
-        color: ColorManager.bluebottom
-      ),
-    )
-        : ElevatedButton.icon(
-      onPressed: () async {
-        buttonProvider.setLoading(true);
-        try {
-          await onPressed();
-        } finally {
-          buttonProvider.setLoading(false);
-        }
-      },
-      icon: icon != null
-          ? Icon(icon, color: Colors.white, size: 20)
-          : const SizedBox.shrink(),
-      label: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 14, // Replace with your `FontSize.s14`
-          fontWeight: FontWeight.w500,
-          color: textColor ?? Colors.white,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        backgroundColor: color ?? const Color(0xFF50B5E5),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        elevation: 5,
-      ),
-    );
-  }
-}
+// class ButtonProvider extends ChangeNotifier {
+//   bool _isLoading = false;
+//
+//   bool get isLoading => _isLoading;
+//
+//   void setLoading(bool value) {
+//     _isLoading = value;
+//     notifyListeners();
+//   }
+// }
+//
+// class CustomIconButtonProvider extends StatelessWidget {
+//   final String text;
+//   final IconData? icon;
+//   final Color? color;
+//   final Color? textColor;
+//   final Future<void> Function() onPressed;
+//
+//   const CustomIconButtonProvider({
+//     required this.text,
+//     this.icon,
+//     required this.onPressed,
+//     this.color,
+//     this.textColor,
+//     Key? key,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final buttonProvider = Provider.of<ButtonProvider>(context);
+//
+//     return buttonProvider.isLoading
+//         ?  SizedBox(
+//       height: 25,
+//       width: 25,
+//       child: CircularProgressIndicator(
+//         color: ColorManager.bluebottom
+//       ),
+//     )
+//         : ElevatedButton.icon(
+//       onPressed: () async {
+//         buttonProvider.setLoading(true);
+//         try {
+//           await onPressed();
+//         } finally {
+//           buttonProvider.setLoading(false);
+//         }
+//       },
+//       icon: icon != null
+//           ? Icon(icon, color: Colors.white, size: 20)
+//           : const SizedBox.shrink(),
+//       label: Text(
+//         text,
+//         textAlign: TextAlign.center,
+//         style: TextStyle(
+//           fontSize: 14, // Replace with your `FontSize.s14`
+//           fontWeight: FontWeight.w500,
+//           color: textColor ?? Colors.white,
+//         ),
+//       ),
+//       style: ElevatedButton.styleFrom(
+//         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+//         backgroundColor: color ?? const Color(0xFF50B5E5),
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(12),
+//         ),
+//         elevation: 5,
+//       ),
+//     );
+//   }
+// }
 
 
 ///HRUManageDropdown

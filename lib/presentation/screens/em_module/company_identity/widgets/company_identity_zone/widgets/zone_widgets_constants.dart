@@ -21,7 +21,7 @@ import '../../../../widgets/dialogue_template.dart';
 import '../../../../widgets/text_form_field_const.dart';
 import '../../whitelabelling/success_popup.dart';
 import 'location_screen.dart';
-
+///add county
 class CIZoneAddPopup extends StatefulWidget {
   final TextEditingController countynameController;
   final TextEditingController? zipcodeController;
@@ -100,7 +100,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
     return DialogueTemplate(
       title: widget.title,
       width: AppSize.s407,
-      height: AppSize.s267,
+      height: AppSize.s260,
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
@@ -119,7 +119,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                 textAlign: TextAlign.start,
                 style: CommonErrorMsg.customTextStyle(context),
               ) : SizedBox(height: AppSize.s12,),
-              SizedBox(height: AppSize.s20),
+              SizedBox(height: AppSize.s10),
               if (widget.title2 != null) ...[
                 SMTextfieldAsteric(
                   inputFormated: [UpperCaseTextFormatter()],
@@ -175,8 +175,6 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
           }
         },
       ),
-
-
     );
   }
 }
@@ -228,6 +226,38 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   final StreamController<List<AllCountyZoneGet>> _zoneController =
   StreamController<List<AllCountyZoneGet>>.broadcast();
 
+  // void _pickLocation() async {
+  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
+  //     MaterialPageRoute(
+  //       builder: (context) => MapScreen(
+  //         initialLocation: _selectedLocation,
+  //         onLocationPicked: (location) {
+  //           setState(() {
+  //             _selectedLocation = location;
+  //             _latitude = location.latitude;
+  //             _longitude = location.longitude;
+  //             String formatLatLong(double? latitude, double? longitude) {
+  //               if (latitude != null && longitude != null) {
+  //                 return 'Lat: ${latitude.toStringAsFixed(4)}, Long: ${longitude.toStringAsFixed(4)}';
+  //               } else {
+  //                 return 'Lat/Long not selected';
+  //               }
+  //             }
+  //             final latlong = formatLatLong(_latitude, _longitude);
+  //             _updateLocation(latlong);
+  //           });
+  //         },
+  //       ),
+  //     ),
+  //   );
+  //   if (pickedLocation != null) {
+  //     setState(() {
+  //       _selectedLocation = pickedLocation;
+  //       _latitude = pickedLocation.latitude;
+  //       _longitude = pickedLocation.longitude;
+  //     });
+  //   }
+  // }
   void _pickLocation() async {
     final pickedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
@@ -238,6 +268,8 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
               _selectedLocation = location;
               _latitude = location.latitude;
               _longitude = location.longitude;
+
+              // Format Lat/Long
               String formatLatLong(double? latitude, double? longitude) {
                 if (latitude != null && longitude != null) {
                   return 'Lat: ${latitude.toStringAsFixed(4)}, Long: ${longitude.toStringAsFixed(4)}';
@@ -245,18 +277,26 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                   return 'Lat/Long not selected';
                 }
               }
+
               final latlong = formatLatLong(_latitude, _longitude);
               _updateLocation(latlong);
+
+              // Hide locationError as soon as a valid location is picked
+              locationError = null;
             });
           },
         ),
       ),
     );
+
     if (pickedLocation != null) {
       setState(() {
         _selectedLocation = pickedLocation;
         _latitude = pickedLocation.latitude;
         _longitude = pickedLocation.longitude;
+
+        // Ensure error message is hidden if a valid location is selected
+        locationError = null;
       });
     }
   }
@@ -571,6 +611,13 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                   controller: widget.zipcodeController,
                   keyboardType: TextInputType.text,
                   text: 'Zip Code',
+                  onChanged: (value){
+                    setState(() {
+                      zipcodeError =widget.zipcodeController.text.isEmpty
+                          ? 'Zip Code Field Cannot Be Empty'
+                          : null;
+                    });
+                  },
                 ),
                 zipcodeError != null ?
                 Row(
@@ -583,7 +630,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                     ),
                   ],
                 ) : SizedBox(height: AppSize.s12,),
-                SizedBox(height: AppSize.s15),
+                SizedBox(height: AppSize.s8),
                 // Location Picker Section
                 Row(
                   children: [
@@ -1238,6 +1285,14 @@ class _AddZonePopupState extends State<AddZonePopup> {
                 controller: widget.zoneNumberController,
                 keyboardType: TextInputType.text,
                 text: AppStringEM.zoneName,
+                onChanged: (value){
+                  setState(() {
+                    bool isValid = true;
+                    zoneNumberError = widget.zoneNumberController.text.isEmpty
+                        ? 'Zone Name cannot be empty'
+                        : null;
+                  });
+                },
               ),
               zoneNumberError != null ?
               Row(

@@ -141,7 +141,7 @@ class EmpDocADDPopup extends StatelessWidget {
                   Text(
                     provider._idError!,
                     style: CommonErrorMsg.customTextStyle(context),
-                  ): SizedBox(height: AppSize.s11,),
+                  ): SizedBox(height: AppSize.s12,),
                 SizedBox(height: AppSize.s7),
                 SMTextfieldAsteric(
                   controller: provider.nameDocController,
@@ -152,7 +152,7 @@ class EmpDocADDPopup extends StatelessWidget {
                   Text(
                     provider._nameError!,
                     style: CommonErrorMsg.customTextStyle(context),
-                  ) : SizedBox(height: AppSize.s11,),
+                  ) : SizedBox(height: AppSize.s12,),
                 SizedBox(height: AppSize.s7),
                 Padding(
                   padding: const EdgeInsets.only(left: AppPadding.p4),
@@ -508,7 +508,7 @@ class EmpDocEditPopup extends StatelessWidget {
         builder: (context, provider, child) {
       return DialogueTemplate(
         width: AppSize.s400,
-        height: AppSize.s390,
+        height: AppSize.s395,
         body: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 2),
@@ -571,8 +571,8 @@ class EmpDocEditPopup extends StatelessWidget {
         ],
         bottomButtons: provider.isLoading
             ? SizedBox(
-                  width: AppSize.s35,
-                  height: AppSize.s35,
+                  width: AppSize.s30,
+                  height: AppSize.s30,
                   child: CircularProgressIndicator(
                   color: ColorManager.blueprime,
                 ),

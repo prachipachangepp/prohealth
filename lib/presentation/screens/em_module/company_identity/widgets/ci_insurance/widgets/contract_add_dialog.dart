@@ -64,10 +64,8 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      _idDocError =
-          _validateTextField(contractIdController.text, 'ID of the Contract');
-      _nameDocError = _validateTextField(
-          contractNmaeController.text, 'Name of the Contract');
+      _idDocError = _validateTextField(contractIdController.text, 'ID of the Contract');
+      _nameDocError = _validateTextField(contractNmaeController.text, 'Name of the Contract');
     });
   }
 
@@ -75,7 +73,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: AppSize.s500,
+      height: selectedExpiryType == AppConfig.issuer ? AppSize.s500 : AppSize.s440,
       body: [
        Padding(
          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
@@ -86,29 +84,41 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                controller: contractNmaeController,
                keyboardType: TextInputType.text,
                text: AppStringEM.contractName,
+               onChanged: (value){
+                 setState(() {
+                   _isFormValid = true;
+                   _nameDocError = _validateTextField(contractNmaeController.text, 'Name of the Contract');
+                 });
+               },
              ),
-             if (_nameDocError != null) // Display error if any
+             _nameDocError != null ?// Display error if any
                Text(
                  _nameDocError!,
                  style: CommonErrorMsg.customTextStyle(context),
-               ),
+               ): SizedBox(height: AppSize.s13,),
 
-             SizedBox(height: AppSize.s8),
+             SizedBox(height: AppSize.s10),
              SMTextfieldAsteric(
                controller: contractIdController,
                keyboardType: TextInputType.text,
                text: AppStringEM.contractId,
+                 onChanged:  (value){
+                 setState(() {
+                   _isFormValid = true;
+                   _idDocError = _validateTextField(contractIdController.text, 'ID of the Contract');
+                 });
+               },
              ),
-             if (_idDocError != null)
+             _idDocError != null ?
                Padding(
                  padding: const EdgeInsets.only(top: AppPadding.p2),
                  child: Text(
                    _idDocError!,
                    style: CommonErrorMsg.customTextStyle(context),
                  ),
-               ),
+               ): SizedBox(height: AppSize.s13,),
 
-             SizedBox(height: AppSize.s8),
+             SizedBox(height: AppSize.s10),
              Row(
                children: [
                  HeaderContentConst(
