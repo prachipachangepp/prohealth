@@ -218,6 +218,7 @@ class _SMTextfieldAstericState extends State<SMTextfieldAsteric> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: TextFormField(
+              onChanged: widget.onChanged,
               focusNode: widget.focusNode,
               autofocus: true,
               enabled: widget.enable == null ? true : false,

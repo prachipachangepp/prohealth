@@ -5,10 +5,12 @@ import 'package:prohealth/app/resources/common_resources/common_theme_const.dart
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_pay_rates/widgets/custom_popup.dart';
@@ -345,20 +347,28 @@ class FinanceScreen extends StatelessWidget {
                                   print(";;;;;;;;;;;;;;;;;;; ");
                                   print("serviceId ;;;;;;;;;;;;;;;;;;; ${financeProvider.serviceId}");
                                   print("empTypeId ;;;;;;;;;;;;;;;;;;; ${financeProvider.empTypeId}");
-                                  return ChangeNotifierProvider(
-                                    create: (_) => PayRatesProvider(),
-                                    child: PayRateAddPopup(
-                                      onSave: () {
-                                        provider.fetchPayRates(context, financeProvider.serviceId, financeProvider.empTypeId);
-                                      },
-                                      serviceId: financeProvider.serviceId ?? "",
-                                      empTypeId: financeProvider.empTypeId ?? 0,
-                                      fixPayRatesController: TextEditingController(),
-                                      visitTypeTextActive: true,
-                                      payRatesController: TextEditingController(),
-                                      perMilesController: TextEditingController(),
-                                      title: AddPopupString.addPayrate,
-                                    ),
+                                  return FutureBuilder<List<VisitListDataByServiceId>>(
+                                    future:  getVisitListByServiceId(context: context, serviceId: financeProvider.serviceId),
+                                    builder: (context, snapshot) {
+                                      if(snapshot.connectionState == ConnectionState.waiting){
+                                        return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
+                                      }
+                                      return ChangeNotifierProvider(
+                                        create: (_) => PayRatesProvider(),
+                                        child: PayRateAddPopup(
+                                          onSave: () {
+                                            provider.fetchPayRates(context, financeProvider.serviceId, financeProvider.empTypeId);
+                                          },
+                                          serviceId: financeProvider.serviceId ?? "",
+                                          empTypeId: financeProvider.empTypeId ?? 0,
+                                          fixPayRatesController: TextEditingController(),
+                                          visitTypeTextActive: true,
+                                          payRatesController: TextEditingController(),
+                                          perMilesController: TextEditingController(),
+                                          title: AddPopupString.addPayrate, visitList: snapshot.data!,
+                                        ),
+                                      );
+                                    }
                                   );
                                 },
                               );

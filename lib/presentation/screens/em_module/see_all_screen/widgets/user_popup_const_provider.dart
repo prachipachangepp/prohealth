@@ -433,7 +433,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
 
   var deptId = 1;
   int? firstDeptId;
-  String? selectedDeptName;
+  String selectedDeptName = "Select Department";
   int? selectedDeptId;
 
   @override
@@ -520,7 +520,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                         HRUManageDropdown(
                           controller:
                           TextEditingController(
-                              text: ''
+                              text: selectedDeptName ?? ''
                           ),
                           labelFontSize: FontSize.s12,
                           items:  dropDownServiceList,
@@ -550,11 +550,11 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                         ? snapshot.data![0].deptId
                         : null;
 
-                    if (selectedDeptName == null &&
-                        dropDownServiceList.isNotEmpty) {
-                      selectedDeptName = firstDeptName;
-                      selectedDeptId = firstDeptId;
-                    }
+                    // if (selectedDeptName == null &&
+                    //     dropDownServiceList.isNotEmpty) {
+                    //   selectedDeptName = firstDeptName;
+                    //   selectedDeptId = firstDeptId;
+                    // }
 
                     return StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
@@ -847,6 +847,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   @override
   void initState() {
     super.initState();
+    selectedDeptName = widget.department;
     firstnameController.text = widget.firstname;
     lastnameController.text = widget.lastname;
     emailController.text = widget.email;
@@ -898,7 +899,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         alignment: Alignment.center,
                         child:
                         HRUManageDropdown(
-                          controller: TextEditingController(text: ''),
+                          controller: TextEditingController(text: selectedDeptName),
                           labelFontSize: FontSize.s12,
                           items:  dropDownServiceList,
                         )

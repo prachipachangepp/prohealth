@@ -66,6 +66,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
     'issuingOrganization': false,
     'country': false,
     'numberID': false,
+    'document':false,
   };
 
   @override
@@ -189,6 +190,9 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                                           if(a.docName == val){
                                             docType = a.docName;
                                             docNameadd = docType;
+                                            setState(() {
+                                              errorStates["document"] = val.isEmpty;
+                                            });
                                             //docMetaId = docType;
                                           }
                                         }
@@ -204,6 +208,17 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                           );
                         },
                       ),
+                      errorStates["document"]!?
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Text(
+                          'Please Select Document',
+                          style: TextStyle(
+                            color: ColorManager.red,
+                            fontSize: FontSize.s10,
+                          ),
+                        ),
+                      ):SizedBox(height: 13,)
                     ],
                   ),
 
@@ -549,6 +564,9 @@ hintText:hintText ,
         if (key == 'numberID' && numberIDController.text.isEmpty) {
           errorStates[key] = true;
         }
+        if(key == 'document' && (docNameadd.isEmpty || docNameadd == 'Select')){
+          errorStates[key] = true;
+        }
       });
     });
   }
@@ -564,6 +582,7 @@ hintText:hintText ,
     expiryDateController.clear();
     countryController.clear();
     numberIDController.clear();
+    docNameadd = 'Select';
     setState(() {
       pickedFileName = null;
       errorStates.updateAll((key, value) => false);

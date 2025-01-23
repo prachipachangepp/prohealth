@@ -21,47 +21,127 @@ class PayRatesProvider extends ChangeNotifier {
   String? payRatesError;
   String? perMilesError;
   String? fixPayRatesError;
+  String? _docAddVisitTypeError;
   bool isLoading = false;
+  bool isFormValid = false;
+
+  String? get docAddVisitTypeError => _docAddVisitTypeError;
+  // Input fields
+  String payRates = '';
+  String perMiles = '';
+  String fixPayRates = '';
   String docAddVisitTypeId = 'Select Visit';
-  String? docAddVisitTypeError;
 
+  void visitTypeErrorNull(){
+    _docAddVisitTypeError = null;
+    notifyListeners();
+  }
+  void validatePayRates(String value) {
+    payRates = value;
+    payRatesError = payRates.isEmpty ? 'Please enter a pay rate' : null;
+    notifyListeners();
+  }
 
-  void validateAndSubmit({
-    required String payRates,
-    required String perMiles,
-    required String fixPayRates,
-   required bool hasVisits,
-  }) {
-    // Check if the visit type is valid
-    docAddVisitTypeError = (docAddVisitTypeId == 'Select Visit' || docAddVisitTypeId.isEmpty)
+  void validatePerMiles(String value) {
+    perMiles = value;
+    perMilesError = perMiles.isEmpty ? 'Please enter a per mile' : null;
+    notifyListeners();
+  }
+
+  void validateFixPayRates(String value) {
+    fixPayRates = value;
+    fixPayRatesError = fixPayRates.isEmpty ? 'Please enter a fixed rate' : null;
+    notifyListeners();
+  }
+
+  void validateVisitType(bool hasVisits) {
+    _docAddVisitTypeError = (docAddVisitTypeId == 'Select Visit' || docAddVisitTypeId.isEmpty)
         ? hasVisits
         ? 'Please select a visit type'
         : 'No visits found for respective service. Select another service.'
         : null;
-
-    // Validate form fields
-    payRatesError = payRates.isEmpty ? 'Please enter a pay rate' : null;
-    perMilesError = perMiles.isEmpty ? 'Please enter a per mile' : null;
-    fixPayRatesError = fixPayRates.isEmpty ? 'Please enter a fixed rate' : null;
-
-    // Prevent submission if there are errors
-    if (payRatesError == null &&
-        perMilesError == null &&
-        fixPayRatesError == null &&
-        docAddVisitTypeError == null) {
-      isLoading = true;
-      notifyListeners();
-
-      // Simulate some delay for loading (optional)
-      Future.delayed(const Duration(seconds: 0), () {
-        isLoading = false;
-        notifyListeners();
-      });
-    }
-
-    // Notify listeners for UI update
     notifyListeners();
   }
+
+  void validateForm() {
+    isFormValid = payRatesError == null &&
+        perMilesError == null &&
+        fixPayRatesError == null &&
+        docAddVisitTypeError == null;
+    notifyListeners();
+  }
+
+  void submitForm(bool hasVisits) {
+    // Trigger validation for all fields
+    validatePayRates(payRates);
+    validatePerMiles(perMiles);
+    validateFixPayRates(fixPayRates);
+    validateVisitType(hasVisits);
+
+    // Validate the entire form
+    validateForm();
+
+    // Prevent submission if form is invalid
+    if (!isFormValid) return;
+
+    isLoading = true;
+    notifyListeners();
+
+    // Simulate a delay for submission
+    Future.delayed(const Duration(seconds: 1), () {
+      isLoading = false;
+      notifyListeners();
+      // Perform further actions, e.g., API calls
+    });
+  }
+//   String? payRatesError;
+//   String? perMilesError;
+//   String? fixPayRatesError;
+//   bool isLoading = false;
+//   String docAddVisitTypeId = 'Select Visit';
+//   String? _docAddVisitTypeError;
+//   String? get docAddVisitTypeError => _docAddVisitTypeError;
+//
+// void visitTypeErrorNull(){
+//   _docAddVisitTypeError = null;
+//   notifyListeners();
+// }
+//   void validateAndSubmit({
+//     required String payRates,
+//     required String perMiles,
+//     required String fixPayRates,
+//    required bool hasVisits,
+//   }) {
+//     // Check if the visit type is valid
+//     _docAddVisitTypeError = (docAddVisitTypeId == 'Select Visit' || docAddVisitTypeId.isEmpty)
+//         ? hasVisits
+//         ? 'Please select a visit type'
+//         : 'No visits found for respective service. Select another service.'
+//         : null;
+//
+//     // Validate form fields
+//     payRatesError = payRates.isEmpty ? 'Please enter a pay rate' : null;
+//     perMilesError = perMiles.isEmpty ? 'Please enter a per mile' : null;
+//     fixPayRatesError = fixPayRates.isEmpty ? 'Please enter a fixed rate' : null;
+//
+//     // Prevent submission if there are errors
+//     if (payRatesError == null &&
+//         perMilesError == null &&
+//         fixPayRatesError == null &&
+//         docAddVisitTypeError == null) {
+//       isLoading = true;
+//       notifyListeners();
+//
+//       // Simulate some delay for loading (optional)
+//       Future.delayed(const Duration(seconds: 0), () {
+//         isLoading = false;
+//         notifyListeners();
+//       });
+//     }
+//
+//     // Notify listeners for UI update
+//     notifyListeners();
+//   }
 
 }
 
@@ -70,15 +150,33 @@ class PayRateAddPopup extends StatelessWidget {
   final String serviceId;
   final int empTypeId;
   final VoidCallback? onSave;
+  final List<VisitListDataByServiceId> visitList;
 
   final TextEditingController fixPayRatesController;
   final TextEditingController payRatesController;
   final TextEditingController perMilesController;
   final bool visitTypeTextActive;
-  const PayRateAddPopup({super.key, required this.title, required this.serviceId, required this.empTypeId, required this.fixPayRatesController, required this.payRatesController, required this.perMilesController, required this.visitTypeTextActive, this.onSave});
+  const PayRateAddPopup({super.key, required this.title, required this.serviceId, required this.empTypeId, required this.fixPayRatesController, required this.payRatesController, required this.perMilesController, required this.visitTypeTextActive, this.onSave, required this.visitList});
 
   @override
   Widget build(BuildContext context) {
+    List<DropdownMenuItem<String>> dropDownZoneList = [];
+    for (var i in visitList) {
+      if(visitList.isEmpty){
+        dropDownZoneList.add(
+          const DropdownMenuItem<String>(
+            value: ErrorMessageString.noVisit,
+            child: Text(ErrorMessageString.noVisit),
+          ),
+        );
+      }
+      dropDownZoneList.add(
+        DropdownMenuItem<String>(
+          child: Text(i.visitType),
+          value: i.visitType,
+        ),
+      );
+    }
     return Consumer<PayRatesProvider>(builder: (context, provider, child){
       return DialogueTemplate(
         width: AppSize.s400,
@@ -113,83 +211,77 @@ class PayRateAddPopup extends StatelessWidget {
                     )
                         : Offstage(),
                     SizedBox(height: AppSize.s5,),
-                    FutureBuilder<List<VisitListDataByServiceId>>(
-                      future: getVisitListByServiceId(context: context, serviceId: serviceId),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return Container(
-                            width: AppSize.s354,
-                            height: AppSize.s30,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: AppPadding.p5, horizontal: AppPadding.p5),
-                              child: Text(
-                                provider.docAddVisitTypeId,
-                                style: ConstTextFieldRegister.customTextStyle(context),
-                              ),
-                            ),
-                          );
-                        }
-                        if (snapshot.hasError || (snapshot.hasData && snapshot.data!.isEmpty)) {
-                          // Case: No visits found
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: AppSize.s354,
-                                height: AppSize.s30,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: AppPadding.p5, horizontal: AppPadding.p5),
-                                  child: Text(
-                                    ErrorMessageString.noVisit,
-                                    style: ConstTextFieldRegister.customTextStyle(context),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: AppSize.s5),
-                              Text(
-                                "No visits found for respective service. Select another service",
-                                style: CommonErrorMsg.customTextStyle(context),
-                              ),
-                            ],
-                          );
-                        }
-                        if (snapshot.hasData) {
+                    // FutureBuilder<List<VisitListDataByServiceId>>(
+                    //   future: getVisitListByServiceId(context: context, serviceId: serviceId),
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.connectionState == ConnectionState.waiting) {
+                    //       return Container(
+                    //         width: AppSize.s354,
+                    //         height: AppSize.s30,
+                    //         decoration: BoxDecoration(
+                    //           border: Border.all(
+                    //               color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                    //           borderRadius: BorderRadius.circular(8),
+                    //         ),
+                    //         child: Padding(
+                    //           padding: EdgeInsets.symmetric(
+                    //               vertical: AppPadding.p5, horizontal: AppPadding.p5),
+                    //           child: Text(
+                    //             provider.docAddVisitTypeId,
+                    //             style: ConstTextFieldRegister.customTextStyle(context),
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    //     if (snapshot.hasError || (snapshot.hasData && snapshot.data!.isEmpty)) {
+                    //       // Case: No visits found
+                    //       return Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           Container(
+                    //             width: AppSize.s354,
+                    //             height: AppSize.s30,
+                    //             decoration: BoxDecoration(
+                    //               border: Border.all(
+                    //                   color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                    //               borderRadius: BorderRadius.circular(8),
+                    //             ),
+                    //             child: Padding(
+                    //               padding: EdgeInsets.symmetric(
+                    //                   vertical: AppPadding.p5, horizontal: AppPadding.p5),
+                    //               child: Text(
+                    //                 ErrorMessageString.noVisit,
+                    //                 style: ConstTextFieldRegister.customTextStyle(context),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //           SizedBox(height: AppSize.s5),
+                    //           Text(
+                    //             "No visits found for respective service. Select another service",
+                    //             style: CommonErrorMsg.customTextStyle(context),
+                    //           ),
+                    //         ],
+                    //       );
+                    //     }
+                    //     if (snapshot.hasData) {
                           // Case: Visits found
-                          List<DropdownMenuItem<String>> dropDownZoneList = [];
-                          for (var i in snapshot.data!) {
-                            dropDownZoneList.add(
-                              DropdownMenuItem<String>(
-                                child: Text(i.visitType),
-                                value: i.visitType,
-                              ),
-                            );
-                          }
-                          return Column(
+
+                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CICCDropDownExcel(
-                                initialValue: provider.docAddVisitTypeId,
+                                initialValue: visitList.isEmpty ? ErrorMessageString.noVisit :provider.docAddVisitTypeId,
                                 onChange: (val) {
-                                  for (var a in snapshot.data!) {
+                                  for (var a in visitList) {
                                     if (a.visitType == val) {
                                       provider.docAddVisitTypeId = a.visitType;
                                       print('empId ${a.visitId}');
+                                      provider.docAddVisitTypeId = val ?? 'Select Visit';
+                                      provider.validateVisitType(true);
                                     }
                                   }
-                                  provider.docAddVisitTypeError = null;
-                                  provider.notifyListeners();
+                                  provider.visitTypeErrorNull();
+                                  // provider.notifyListeners();
                                 },
                                 items: dropDownZoneList,
                               ),
@@ -202,11 +294,11 @@ class PayRateAddPopup extends StatelessWidget {
                                   ),
                                 ) : SizedBox(height: AppSize.s12,),
                             ],
-                          );
-                        }
-                        return const SizedBox();
-                      },
-                    ),
+                          ),
+                      //  }
+                      //  return const SizedBox();
+                    //   },
+                    // ),
 
                     // FutureBuilder<List<VisitListDataByServiceId>>(
                     //   future: getVisitListByServiceId(context:context, serviceId: serviceId,),
@@ -300,6 +392,7 @@ class PayRateAddPopup extends StatelessWidget {
                           controller: payRatesController,
                           keyboardType: TextInputType.number,
                           text: AppStringEM.payrates,
+                          onChanged: (val){provider.validatePayRates(val);},
                         ),
                         provider.payRatesError != null ?
                           Text(
@@ -323,6 +416,9 @@ class PayRateAddPopup extends StatelessWidget {
                               controller: fixPayRatesController,
                               keyboardType: TextInputType.number,
                               text: AppStringEM.fixrate,
+                              onChanged: (val){
+                                provider.validateFixPayRates(val);
+                                },
                             ),
                             provider.fixPayRatesError != null ?
                               Text(
@@ -342,6 +438,7 @@ class PayRateAddPopup extends StatelessWidget {
                               controller: perMilesController,
                               keyboardType: TextInputType.number,
                               text: AppStringEM.perMile,
+                              onChanged: (val){provider.validatePerMiles(val);},
                             ),
                             provider.perMilesError != null ?
                               Text(
@@ -372,7 +469,8 @@ class PayRateAddPopup extends StatelessWidget {
         text: AppStringEM.submit,
         onPressed: () async {
           final hasVisits = provider.docAddVisitTypeError != 'No visits found for respective service. Select another service.';
-          provider.validateAndSubmit(payRates: payRatesController.text, perMiles: perMilesController.text, fixPayRates: fixPayRatesController.text, hasVisits: hasVisits);
+          provider.submitForm(true);
+          // provider.validateAndSubmit(payRates: payRatesController.text, perMiles: perMilesController.text, fixPayRates: fixPayRatesController.text, hasVisits: hasVisits);
           if (provider.payRatesError == null && provider.perMilesError == null && provider.fixPayRatesError == null && provider.docAddVisitTypeError == null) {
             if (provider.docAddVisitTypeId != null) {
               try {

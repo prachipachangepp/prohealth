@@ -594,12 +594,26 @@ class _EducationFormState extends State<EducationForm> {
                     ),
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return Row(
-                          children: [
-                            Expanded(
+                        return Padding(
+                          padding:  EdgeInsets.only(right:170),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: CustomRadioListTile(
+                                    title: 'Yes',
+                                    value: 'Yes',
+                                    groupValue: graduatetype,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        graduatetype = value;
+                                        isPrefill =false;
+                                      });
+                                    },
+                                  )),
+                              Expanded(
                                 child: CustomRadioListTile(
-                                  title: 'Yes',
-                                  value: 'Yes',
+                                  title: 'No',
+                                  value: 'No',
                                   groupValue: graduatetype,
                                   onChanged: (value) {
                                     setState(() {
@@ -607,21 +621,10 @@ class _EducationFormState extends State<EducationForm> {
                                       isPrefill =false;
                                     });
                                   },
-                                )),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                title: 'No',
-                                value: 'No',
-                                groupValue: graduatetype,
-                                onChanged: (value) {
-                                  setState(() {
-                                    graduatetype = value;
-                                    isPrefill =false;
-                                  });
-                                },
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         );
                       },
                     ),
