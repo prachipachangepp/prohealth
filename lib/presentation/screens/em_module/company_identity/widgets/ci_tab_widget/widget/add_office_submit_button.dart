@@ -167,8 +167,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
           _validateTextField(widget.secNumController.text, 'Secondary Phone');
       _aphoneDocError = _validateTextField(
           widget.OptionalController.text, 'Alternative Phone');
-      _countryDocError =
-          _validateTextField(widget.countryController.text, 'Country');
+      _countryDocError = _validateTextField(widget.countryController.text, 'Country');
     });
   }
 
@@ -195,46 +194,67 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                         controller: widget.nameController,
                         keyboardType: TextInputType.text,
                         text: AppStringEM.name,
+                        onChanged: (value){
+                          setState(() {
+                            _isFormValid = true;
+                            _nameDocError = _validateTextField(widget.nameController.text, ' Office Name');
+                          });
+                        },
                       ),
-                      if (_nameDocError != null) // Display error if any
+                      _nameDocError != null ?// Display error if any
                         Text(
                           _nameDocError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
                      DemailSMTextFConst(
                      // SMTextfieldAsteric(
                         controller: widget.emailController,
                         keyboardType: TextInputType.emailAddress,
                         text: AppString.email,
+                       onChanged: (value){
+                         setState(() {
+                           _isFormValid = true;
+                           _emailDocError = _validateTextField(widget.emailController.text, 'Email ID');                         });
+                       },
                       ),
-                      if (_emailDocError != null) // Display error if any
+                     _emailDocError != null ? // Display error if any
                         Text(
                           _emailDocError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
                       SMTextfieldAsteric(
                         controller: widget.countryController,
                         keyboardType: TextInputType.text,
                         text: AppStringEM.county,
+                        onChanged: (value){
+                          setState(() {
+                            _isFormValid = true;
+                            _countryDocError = _validateTextField(widget.countryController.text, 'Country');                          });
+                        },
                       ),
-                      if (_countryDocError != null) // Display error if any
+                     _countryDocError != null ?// Display error if any
                         Text(
                           _countryDocError!,
                           style:CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
                       SMTextFConstPhone(
                         controller: widget.secNumController,
                         keyboardType: TextInputType.number,
                         text: AppStringEM.secondaryPhone,
+                        onChanged: (value){
+                          setState(() {
+                            _isFormValid = true;
+                            _sphoneDocError = _validateTextField(widget.secNumController.text, 'Secondary Phone');                          });
+                        },
                       ),
-                      if (_sphoneDocError != null) // Display error if any
+                      _sphoneDocError != null ? // Display error if any
                         Text(
                           _sphoneDocError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s14),
                       RichText(
                         text: TextSpan(
@@ -276,6 +296,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                                             initialValue: false,
                                             onChanged: (value) {
                                               setState(() {
+
                                                 if (value == true) {
                                                   selectedServices.add(
                                                       ServiceList(
@@ -315,59 +336,77 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           // Handle the selected suggestion here
                           print("Selected suggestion: $selectedSuggestion");
                         },
-                        onChanged: (String value) {
+                        onChanged: (value) {
                           // Validate when user types in the address field
                           setState(() {
-                            if (value.isEmpty) {
-                              _addressDocError = 'Address cannot be empty';
-                            } else {
-                              _addressDocError = null; // Clear error if text is entered
-                            }
+                            _isFormValid = true;
+                            _addressDocError = _validateTextField(widget.addressController.text, ' Office Address');
+                            // if (value.isEmpty) {
+                            //   _addressDocError = 'Address cannot be empty';
+                            // } else {
+                            //   _addressDocError = null; // Clear error if text is entered
+                            // }
                           });
                         },
                       ),
-                      if (_addressDocError != null) // Display error if any
+                      _addressDocError != null ?// Display error if any
                         Text(
                           _addressDocError!,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: FontSize.s10,
-                          ),
-                        ),
+                          style: CommonErrorMsg.customTextStyle(context)
+                        )
+                          :SizedBox(height: AppSize.s12,),
                       // widget.checkBoxHeadOffice,
                       const SizedBox(height: AppSize.s9),
                       FirstSMTextFConst(
                         controller: widget.stateController,
                         keyboardType: TextInputType.text,
                         text: AppStringEM.state,
+                        onTapChange: (value){
+                          setState(() {
+                            _isFormValid = true;
+                            _stateDocError = _validateTextField(widget.stateController.text, ' State Name');
+                          });
+                        },
                       ),
-                      if (_stateDocError != null) // Display error if any
+                      _stateDocError != null ? // Display error if any
                         Text(
                           _stateDocError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
                       SMTextFConstPhone(
                         controller: widget.mobNumController,
                         keyboardType: TextInputType.number,
                         text: AppStringEM.primaryPhone,
+                        onChanged: (value){
+                          setState(() {
+                            _isFormValid = true;
+                            _pPhoneDocError = _validateTextField(widget.mobNumController.text, ' Primary Phone');
+                          });
+                        },
                       ),
-                      if (_pPhoneDocError != null) // Display error if any
+                     _pPhoneDocError != null ?// Display error if any
                         Text(
                           _pPhoneDocError!,
                           style:CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s10),
                       SMTextFConstPhone(
                         controller: widget.OptionalController,
                         keyboardType: TextInputType.number,
                         text: AppStringEM.alternativePhone,
+                        onChanged: (value){
+                          setState(() {
+                          _isFormValid = true;
+                          _aphoneDocError = _validateTextField(widget.OptionalController.text, ' Alternate Number');
+                          });
+                          },
                       ),
-                      if (_aphoneDocError != null) // Display error if any
+                      _aphoneDocError != null ?// Display error if any
                         Text(
                           _aphoneDocError!,
                           style:CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ):SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s10),
                       Row(
                         children: [
@@ -639,6 +678,7 @@ class _AddressInputState extends State<AddressInput> {
           controller: widget.controller,
           keyboardType: TextInputType.streetAddress,
           text: AppString.officeaddress,
+          onChanged: widget.onChanged,
         ),
       ],
     );
