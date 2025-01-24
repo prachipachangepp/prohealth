@@ -840,7 +840,6 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   String? selectedDeptName;
   int? selectedDeptId;
 
-
   TextEditingController firstnameController = TextEditingController();
   TextEditingController lastnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
