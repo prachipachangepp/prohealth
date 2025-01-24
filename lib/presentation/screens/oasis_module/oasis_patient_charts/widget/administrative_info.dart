@@ -204,6 +204,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                       ),
                     ),
                   ),
+
                   Expanded(
                     child: Container(
                      // color: Colors.purple,
