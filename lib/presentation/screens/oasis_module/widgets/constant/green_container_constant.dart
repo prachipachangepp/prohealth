@@ -107,16 +107,100 @@ class WhiteContrainerConstwidth extends StatelessWidget {
 }
 
 
+class WhiteContrainerConstpadding extends StatelessWidget {
+  final double? height;
+  final double? width;
+  final Widget child;
+  const WhiteContrainerConstpadding({super.key, this.height, required this.child, this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height ?? AppSize.s500,
+      width: width ?? AppSize.s500,
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10, vertical: AppPadding.p8),
+      decoration: BoxDecoration(
+        color: ColorManager.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),  // shadow color with opacity
+            spreadRadius: 0,  // spread the shadow (optional)
+            blurRadius: 6,   // blur the shadow for a soft look
+            offset: Offset(0, 6), // offset in the vertical direction (bottom shadow)
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+}
 
 
 class CustomCheckBoxListTile extends StatelessWidget {
   final String title;
   final RxBool isChecked; // RxBool to manage checkbox state reactively
   final Function(bool) onChanged;
+  final bool bold; // Boolean to toggle between bold and normal text
 
   const CustomCheckBoxListTile({
     Key? key,
     required this.title,
+    required this.isChecked,
+    required this.onChanged,
+    this.bold = true, // Default to false if not provided
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Define the text style based on the bold condition
+    TextStyle textStyle = bold
+        ? checkboxStyle.customTextStyle(context) // Bold text style
+   : Normalfontstyle.customTextStyle(context);
+       // : checkboxStyle.customTextStyle(context); // Normal style if not bold
+
+    return Row(
+      children: [
+        // Checkbox part
+        Obx(() {
+          return Checkbox(
+            value: isChecked.value,
+            onChanged: (bool? value) {
+              if (value != null) {
+                onChanged(value); // Call the onChanged function passed to the widget
+              }
+            },
+            checkColor: Colors.white, // Color of the check mark
+            activeColor: Color(0xff1696C8),
+            side: BorderSide(color: Color(0xff1696C8), width: 2), // Set the checkbox active color
+          );
+        }),
+        // Text part
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Text(
+            title,
+            style: textStyle, // Use the dynamically chosen text style
+          ),
+        ),
+        SizedBox(width: 10,)
+      ],
+    );
+  }
+}
+
+
+
+class SemiBoldCheckBoxListTile extends StatelessWidget {
+  final String titlenormal;
+  final String titlebold;
+  final RxBool isChecked; // RxBool to manage checkbox state reactively
+  final Function(bool) onChanged;
+
+  const SemiBoldCheckBoxListTile({
+    Key? key,
+    required this.titlenormal,
+    required this.titlebold,
     required this.isChecked,
     required this.onChanged,
   }) : super(key: key);
@@ -142,10 +226,18 @@ class CustomCheckBoxListTile extends StatelessWidget {
         // Text part
         Padding(
           padding: const EdgeInsets.only(left: 10),
-          child: Text(
-            title,
-            style: checkboxStyle.customTextStyle(context), // Customize the text style as needed
-           // overflow: TextOverflow.ellipsis, // Prevent text overflow
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                    text: titlenormal, style: Normalfontstyle.customTextStyle(context)
+                ),
+                TextSpan(
+                    text: titlebold, style: BoldfontStyle.customTextStyle(context)
+                ),
+
+              ],
+            ),
           ),
         ),
         SizedBox(width: 10,)
@@ -419,7 +511,7 @@ class _EMRTextFConstState extends State<EMRTextFConst> {
                 ),
                 contentPadding: EdgeInsets.only(bottom: 18, left: 15),  // Padding inside the field
               ),
-              style: TextStyle(color: widget.textColor),  // Customize the text color
+              style:Normalfontstyle.customTextStyle(context),  // Customize the text color
               onTap: widget.onChange,
               validator: widget.validator,
             ),

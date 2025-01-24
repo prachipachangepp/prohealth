@@ -36,6 +36,25 @@ class CheckboxController extends GetxController {
   var e = false.obs;
   var x = false.obs;
   var y = false.obs;
+   var aa  = false.obs;
+  var bb = false.obs;
+  var cc = false.obs;
+  var dd = false.obs;
+  var  ee= false.obs;
+  var ff = false.obs;
+  var gg = false.obs;
+  var hh = false.obs;
+  var ii = false.obs;
+  var jj = false.obs;
+  var kk = false.obs;
+  var ll = false.obs;
+  var mm = false.obs;
+  var nn = false.obs;
+  var  xx= false.obs;
+  var yy = false.obs;
+  var zz = false.obs;
+  // var  = false.obs;
+  // var  = false.obs;
   // var  = false.obs;
   // var  = false.obs;
 
@@ -140,19 +159,76 @@ void toggleCheckx(bool value) {
 void toggleChecky(bool value) {
   y.value = value;
   }
-// void toggleCheck(bool value) {
-//   .value = value;
-//   }
-// void toggleCheck(bool value) {
-//   .value = value;
-//   }
-// void toggleCheck(bool value) {
-//   .value = value;
-//   }
-//
-// void toggleCheck(bool value) {
-//   .value = value;
-//   }
+void toggleCheckaa(bool value) {
+  aa.value = value;
+  }
+void toggleCheckbb(bool value) {
+ bb.value = value;
+  }
+void toggleCheckcc(bool value) {
+  cc.value = value;
+  }
+
+void toggleCheckdd(bool value) {
+ dd .value = value;
+  }
+
+  void toggleCheckee(bool value) {
+    ee.value = value;
+  }
+
+  void toggleCheckff(bool value) {
+    ff.value = value;
+  }
+  void toggleCheckgg(bool value) {
+   gg .value = value;
+  }
+
+  void toggleCheckhh(bool value) {
+    hh.value = value;
+  }
+  void toggleCheckii(bool value) {
+    ii.value = value;
+  }
+
+  void toggleCheckjj(bool value) {
+    jj.value = value;
+  }
+  void toggleCheckkk(bool value) {
+    kk.value = value;
+  }
+
+  void toggleCheckll(bool value) {
+    ll.value = value;
+  }
+  void toggleCheckmm(bool value) {
+    mm.value = value;
+  }
+
+  void toggleChecknn(bool value) {
+    nn.value = value;
+  }
+  void toggleCheckxx(bool value) {
+   xx .value = value;
+  }
+
+  void toggleCheckyy(bool value) {
+    yy.value = value;
+  }
+  void toggleCheckzz(bool value) {
+    zz.value = value;
+  }
+
+  // void toggleCheck(bool value) {
+  //   .value = value;
+  // }
+  // void toggleCheck(bool value) {
+  //   .value = value;
+  // }
+  //
+  // void toggleCheck(bool value) {
+  //   .value = value;
+  // }
 
 }
 
