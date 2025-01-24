@@ -812,7 +812,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
 /// edit user
 class EditUserPopUp extends StatefulWidget {
   final String title;
-  final String deptName;
+ final String deptName;
  final int userId;
   final String firstname;
   final String lastname;
@@ -824,7 +824,8 @@ class EditUserPopUp extends StatefulWidget {
       {required this.title,
         required this.userId,
         this.enable,
-        required this.deptName, required this.firstname,
+  required this.deptName,
+        required this.firstname,
         required this.lastname, required this.email,
         required this.departmentId, required this.department});
 
@@ -839,6 +840,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   String? selectedDeptName;
   int? selectedDeptId;
 
+
   TextEditingController firstnameController = TextEditingController();
   TextEditingController lastnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -850,7 +852,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   @override
   void initState() {
     super.initState();
-    selectedDeptName = widget.department;
+    selectedDeptName = widget.deptName;
+    selectedDeptId = widget.departmentId;
     firstnameController.text = widget.firstname;
     lastnameController.text = widget.lastname;
     emailController.text = widget.email;
@@ -941,8 +944,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
               FutureBuilder<List<HRHeadBar>>(
                 future: companyHRHeadApi(context, deptId),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     List<String>dropDownServiceList =[];
                     return Container(
                         alignment: Alignment.center,
@@ -954,8 +956,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         )
                     );
                   }
-                  if (snapshot.hasData &&
-                      snapshot.data!.isEmpty) {
+                  if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
                         ErrorMessageString.noroleAdded,
@@ -965,23 +966,22 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                   }
                   if (snapshot.hasData) {
 
-                    List<String> dropDownServiceList = snapshot
-                        .data!
+                    List<String> dropDownServiceList = snapshot.data!
                         .map((dept) => dept.deptName)
                         .toList();
-                    String? firstDeptName =
-                    snapshot.data!.isNotEmpty
-                        ? snapshot.data![0].deptName
-                        : null;
-                    int? firstDeptId = snapshot.data!.isNotEmpty
-                        ? snapshot.data![0].deptId
-                        : null;
-
-                    if (selectedDeptName == null &&
-                        dropDownServiceList.isNotEmpty) {
-                      selectedDeptName = widget.department;
-                      selectedDeptId = widget.departmentId;
-                    }
+                    // String? firstDeptName =
+                    // snapshot.data!.isNotEmpty
+                    //     ? snapshot.data![0].deptName
+                    //     : null;
+                    // int? firstDeptId = snapshot.data!.isNotEmpty
+                    //     ? snapshot.data![0].deptId
+                    //     : null;
+                    //
+                    // if (selectedDeptName == null &&
+                    //     dropDownServiceList.isNotEmpty) {
+                    //   selectedDeptName = widget.deptName;
+                    //   selectedDeptId = widget.departmentId;
+                    // }
 
                     return HRUManageDropdown(
                       controller: TextEditingController(
@@ -1058,7 +1058,14 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
           email:EDocName
 
           );
+
+          print('<<<<<<<<<<<....Response Status Code: ${responce.statusCode}');
+          print('>>>>..........Response Body: ${responce.data}');
+
           if(responce.statusCode == 200 || responce.statusCode == 201){
+            // print('.....Response: ${responce.statusCode} - ${responce.data}');
+            // print('......>>>>>>Response: ${selectedDeptId} - ${responce.data}');
+
             Navigator.pop(context);
             showDialog(
               context: context,
