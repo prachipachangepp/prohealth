@@ -330,83 +330,80 @@ class EmpDocADDPopup extends StatelessWidget {
                 ),
               )
             : Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppPadding.p8),
-                  child: CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: AppStringEM.save,
-                    onPressed: () async {
-                      provider.validateFields();
-                      if (provider._isFormValid) {
-                        provider.setLoading(true);
-                        provider.notifyListeners();
-                        int threshold = 0;
-                        if (provider.selectedExpiryType ==
-                                AppConfig.scheduled &&
-                            provider.daysController.text.isNotEmpty) {
-                          int enteredValue =
-                              int.parse(provider.daysController.text);
-                          if (provider.selectedYear == AppConfig.year) {
-                            threshold = enteredValue * 365;
-                          } else if (provider.selectedYear == AppConfig.month) {
-                            threshold = enteredValue * 30;
-                          }
-                        }
-                        try {
-                          var response = await addEmployeeDocSetup(
-                            context: context,
-                            docName: provider.nameDocController.text,
-                            expiryDate: "", //expiryDate,
-                            remainderThreshold:
-                                provider.selectedExpiryType.toString(),
-                            empDocMetaDataId: Subdocid,
-                            idOfDoc: provider.idDocController.text,
-                            expiryType: provider.selectedExpiryType.toString(),
-                            threshold: threshold, // Pass calculated or 0
-                          );
-                          provider.setLoading(false);
-                          if (response.statusCode == 200 ||
-                              response.statusCode == 201) {
-                            onSave();
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'Added Successfully',
-                                );
-                              },
-                            );
-                          } else if (response.statusCode == 400 ||
-                              response.statusCode == 404) {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  const FourNotFourPopup(),
-                            );
-                          } else {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  FailedPopup(text: response.message),
-                            );
-                          }
-                        } finally {
-                          provider._isLoading = false;
-                          provider.notifyListeners();
+                child: CustomElevatedButton(
+                  width: AppSize.s105,
+                  height: AppSize.s30,
+                  text: AppStringEM.save,
+                  onPressed: () async {
+                    provider.validateFields();
+                    if (provider._isFormValid) {
+                      provider.setLoading(true);
+                      provider.notifyListeners();
+                      int threshold = 0;
+                      if (provider.selectedExpiryType ==
+                              AppConfig.scheduled &&
+                          provider.daysController.text.isNotEmpty) {
+                        int enteredValue =
+                            int.parse(provider.daysController.text);
+                        if (provider.selectedYear == AppConfig.year) {
+                          threshold = enteredValue * 365;
+                        } else if (provider.selectedYear == AppConfig.month) {
+                          threshold = enteredValue * 30;
                         }
                       }
-                      print(provider.nameDocController.text);
-                      print(provider.idDocController.text);
-                      print(Subdocid);
-                      print(provider.selectedExpiryType.toString());
-                      provider.nameDocController.clear();
-                      provider.dateController.clear();
-                    },
-                  ),
+                      try {
+                        var response = await addEmployeeDocSetup(
+                          context: context,
+                          docName: provider.nameDocController.text,
+                          expiryDate: "", //expiryDate,
+                          remainderThreshold:
+                              provider.selectedExpiryType.toString(),
+                          empDocMetaDataId: Subdocid,
+                          idOfDoc: provider.idDocController.text,
+                          expiryType: provider.selectedExpiryType.toString(),
+                          threshold: threshold, // Pass calculated or 0
+                        );
+                        provider.setLoading(false);
+                        if (response.statusCode == 200 ||
+                            response.statusCode == 201) {
+                          onSave();
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(
+                                message: 'Added Successfully',
+                              );
+                            },
+                          );
+                        } else if (response.statusCode == 400 ||
+                            response.statusCode == 404) {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                const FourNotFourPopup(),
+                          );
+                        } else {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                FailedPopup(text: response.message),
+                          );
+                        }
+                      } finally {
+                        provider._isLoading = false;
+                        provider.notifyListeners();
+                      }
+                    }
+                    print(provider.nameDocController.text);
+                    print(provider.idDocController.text);
+                    print(Subdocid);
+                    print(provider.selectedExpiryType.toString());
+                    provider.nameDocController.clear();
+                    provider.dateController.clear();
+                  },
                 ),
               ),
         title: title,
@@ -578,84 +575,81 @@ class EmpDocEditPopup extends StatelessWidget {
                 ),
               )
             : Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppPadding.p8),
-                  child: CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: AppStringEM.save,
-                    onPressed: () async {
-                      print("Name controller ::::::::::::::::::: ${nameDocController.text}");
-                      print("docname ::::::::::::::::::: ${docname}");
-                      provider.validateFields(docNameController: nameDocController.text);
-                      if (provider.isFormValid) {
-                        provider.setLoading(true);
-                        provider.notifyListeners();
+                child: CustomElevatedButton(
+                  width: AppSize.s105,
+                  height: AppSize.s30,
+                  text: AppStringEM.save,
+                  onPressed: () async {
+                    print("Name controller ::::::::::::::::::: ${nameDocController.text}");
+                    print("docname ::::::::::::::::::: ${docname}");
+                    provider.validateFields(docNameController: nameDocController.text);
+                    if (provider.isFormValid) {
+                      provider.setLoading(true);
+                      provider.notifyListeners();
 
-                        try {
-                          int threshold = 0;
-                          String? expiryDateToSend = "";
-                          if (provider.selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
-                            int enteredValue = int.parse(daysController.text);
-                            if (provider.selectedYear == AppConfig.year) {
-                              threshold = enteredValue * 365;
-                            } else if (provider.selectedYear ==
-                                AppConfig.month) {
-                              threshold = enteredValue * 30;
-                            }
-                            expiryDateToSend = daysController.text;
-                          } else if (provider.selectedExpiryType ==
-                                  AppConfig.notApplicable ||
-                              provider.selectedExpiryType == AppConfig.issuer) {
-                            threshold = 0;
-                            expiryDateToSend = null;
+                      try {
+                        int threshold = 0;
+                        String? expiryDateToSend = "";
+                        if (provider.selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
+                          int enteredValue = int.parse(daysController.text);
+                          if (provider.selectedYear == AppConfig.year) {
+                            threshold = enteredValue * 365;
+                          } else if (provider.selectedYear ==
+                              AppConfig.month) {
+                            threshold = enteredValue * 30;
                           }
-                          String finalDocName = nameDocController.text.isNotEmpty
-                              ? nameDocController.text
-                              : docname;
-                          print("Name controller ::::::::::::::::::: ${nameDocController.text}");
-                          print("docname ::::::::::::::::::: ${docname}");
-                        //  print("Name controller ::::::::::::::::::: ${nameController.text}");
-
-                          var response = await editEmployeeDocTypeSetupId(
-                            context: context,
-                            employeeDoctypeSetupId: empsetupId,
-                            docName: finalDocName,
-                            threshold: threshold,
-                          );
-                          if (response.statusCode == 200 || response.statusCode == 201) {
-                           onEditSuccess();
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'Edited Successfully',
-                                );
-                              },
-                            );
-                          } else if (response.statusCode == 400 ||
-                              response.statusCode == 404) {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  const FourNotFourPopup(),
-                            );
-                          } else {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  FailedPopup(text: response.message),
-                            );
-                          }
-                        } finally {
-                          provider.setLoading(false);
+                          expiryDateToSend = daysController.text;
+                        } else if (provider.selectedExpiryType ==
+                                AppConfig.notApplicable ||
+                            provider.selectedExpiryType == AppConfig.issuer) {
+                          threshold = 0;
+                          expiryDateToSend = null;
                         }
+                        String finalDocName = nameDocController.text.isNotEmpty
+                            ? nameDocController.text
+                            : docname;
+                        print("Name controller ::::::::::::::::::: ${nameDocController.text}");
+                        print("docname ::::::::::::::::::: ${docname}");
+                      //  print("Name controller ::::::::::::::::::: ${nameController.text}");
+
+                        var response = await editEmployeeDocTypeSetupId(
+                          context: context,
+                          employeeDoctypeSetupId: empsetupId,
+                          docName: finalDocName,
+                          threshold: threshold,
+                        );
+                        if (response.statusCode == 200 || response.statusCode == 201) {
+                         onEditSuccess();
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(
+                                message: 'Edited Successfully',
+                              );
+                            },
+                          );
+                        } else if (response.statusCode == 400 ||
+                            response.statusCode == 404) {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                const FourNotFourPopup(),
+                          );
+                        } else {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                FailedPopup(text: response.message),
+                          );
+                        }
+                      } finally {
+                        provider.setLoading(false);
                       }
-                    },
-                  ),
+                    }
+                  },
                 ),
               ),
         title: title,
