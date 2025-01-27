@@ -470,10 +470,6 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         ],
                       ),
                     ),
-                    // Text(
-                    //   AppString.zone,
-                    //   style: AllPopupHeadings.customTextStyle(context),
-                    // ),
                     SizedBox(height: AppSize.s5),
                     StreamBuilder<List<AllCountyZoneGet>>(
                         stream: _zoneController.stream,
