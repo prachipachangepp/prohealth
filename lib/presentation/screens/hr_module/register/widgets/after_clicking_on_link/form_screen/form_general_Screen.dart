@@ -621,7 +621,7 @@ class _generalFormState extends State<generalForm> {
                       ),
                       SizedBox(
                           height:
-                          MediaQuery.of(context).size.height / 29),
+                          MediaQuery.of(context).size.height / 38),
                       Text(
                         'DOB',
                         style: AllPopupHeadings.customTextStyle(context),
@@ -1109,6 +1109,7 @@ class _generalFormState extends State<generalForm> {
 
       final companyId = await TokenManager.getCompanyId();
       final userId = await TokenManager.getUserID();
+      final departMentId = await TokenManager.getdepIdRegister();
 
       print("Company ID: $companyId");
       print("User ID: $userId");
@@ -1142,7 +1143,7 @@ class _generalFormState extends State<generalForm> {
         userId,
         firstname.text,
         lastname.text,
-        1,
+        departMentId,
         // 1,
         spalicity.text,
         // 1,

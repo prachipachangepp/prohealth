@@ -351,7 +351,8 @@ class OnboardingGeneral extends StatelessWidget {
                                                                 general.imgurl == null
                                                                 ? CircleAvatar(
                                                               backgroundColor: ColorManager.faintGrey,
-                                                              child: Image.asset("images/profilepic.png"),
+                                                              child: Image.asset("images/profilepic.png",width: double.infinity,
+                                                                height: double.infinity,),
                                                             )
                                                                 : Image.network(
                                                               general.imgurl!,
@@ -371,7 +372,8 @@ class OnboardingGeneral extends StatelessWidget {
                                                                 }
                                                               },
                                                               errorBuilder: (context, error, stackTrace) {
-                                                                return CircleAvatar(child: Image.asset("images/profilepic.png"));
+                                                                return CircleAvatar(child: Image.asset("images/profilepic.png",width: double.infinity,
+                                                                  height: double.infinity,));
                                                               },
                                                               fit: BoxFit.cover,
                                                             ),

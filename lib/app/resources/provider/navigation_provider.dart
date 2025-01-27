@@ -661,6 +661,8 @@ class HrManageProvider extends ChangeNotifier{
       _expiryDateController = TextEditingController(
           text: DateFormat('yyyy-MM-dd').format(dateTime));
       notifyListeners();
+    }else{
+      _showExpiryDateField = false;
     }
   }
   void pickDateValue(BuildContext context) async{
