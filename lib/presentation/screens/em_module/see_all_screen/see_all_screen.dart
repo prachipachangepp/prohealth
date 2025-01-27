@@ -1418,7 +1418,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                               title:
                                                               "Edit User ",
                                                               ///Role
-                                                              deptName: 'Select Department',
+                                                             deptName: user.role,
                                                               userId: user.userId,
                                                               firstname: user.firstName,
                                                               lastname: user.lastName,

@@ -369,6 +369,7 @@ class DemailSMTextFConst extends StatefulWidget {
   final bool? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
+  final Function(String)? onChanged;
 
   DemailSMTextFConst({
     Key? key,
@@ -381,7 +382,7 @@ class DemailSMTextFConst extends StatefulWidget {
     this.readOnly,
     this.enable,
     this.validator,
-    this.prefixWidget,
+    this.prefixWidget, this.onChanged,
   }) : super(key: key);
 
   @override
@@ -450,6 +451,7 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
               autofocus: true,
               enabled: widget.enable ?? true,
               controller: _controller,
+              onChanged: widget.onChanged,
               keyboardType: widget.keyboardType,
              // cursorHeight: 17,
               cursorColor: Colors.black,
@@ -490,6 +492,7 @@ class SMTextFConstPhone extends StatefulWidget {
   final bool? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
+  final Function(String)? onChanged;
 
   SMTextFConstPhone({
     Key? key,
@@ -502,7 +505,7 @@ class SMTextFConstPhone extends StatefulWidget {
     this.readOnly,
     this.enable,
     this.validator,
-    this.prefixWidget,
+    this.prefixWidget, this.onChanged,
   }) : super(key: key);
 
   @override
@@ -548,6 +551,7 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
               autofocus: true,
               enabled: widget.enable ?? true,
               controller: widget.controller,
+              onChanged: widget.onChanged,
               keyboardType: widget.keyboardType,
               cursorHeight: 17,
               cursorColor: Colors.black,
@@ -636,6 +640,7 @@ class FirstSMTextFConst extends StatefulWidget {
   final bool showDatePicker;
   final Icon? suffixIcon;
   final FocusNode? focusNode;
+
 
 
 

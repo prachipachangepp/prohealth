@@ -142,7 +142,7 @@ class EmpDocADDPopup extends StatelessWidget {
                     provider._idError!,
                     style: CommonErrorMsg.customTextStyle(context),
                   ): SizedBox(height: AppSize.s12,),
-                SizedBox(height: AppSize.s7),
+                SizedBox(height: AppSize.s8),
                 SMTextfieldAsteric(
                   controller: provider.nameDocController,
                   keyboardType: TextInputType.text,
@@ -153,7 +153,7 @@ class EmpDocADDPopup extends StatelessWidget {
                     provider._nameError!,
                     style: CommonErrorMsg.customTextStyle(context),
                   ) : SizedBox(height: AppSize.s12,),
-                SizedBox(height: AppSize.s7),
+                SizedBox(height: AppSize.s8),
                 Padding(
                   padding: const EdgeInsets.only(left: AppPadding.p4),
                   child: Row(

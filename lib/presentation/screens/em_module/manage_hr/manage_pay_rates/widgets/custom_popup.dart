@@ -543,6 +543,21 @@ class PayRatesEditProvider extends ChangeNotifier {
   String? payRatesError;
   String? perMilesError;
   String? perError;
+
+  void clearPayRatesError() {
+    payRatesError = null;
+    notifyListeners();
+  }
+
+  void clearPerMilesError() {
+    perMilesError = null;
+    notifyListeners();
+  }
+
+  void clearPerError() {
+    perError = null;
+    notifyListeners();
+  }
   void validateAndSubmit({
     required String payRates,
     required String perMiles,
@@ -603,6 +618,23 @@ class PayRatesEditsPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<PayRatesEditProvider>(builder: (context, provider, child){
+      payRatesController.addListener(() {
+        if (provider.payRatesError != null) {
+          provider.clearPayRatesError();
+        }
+      });
+
+      perMilesController.addListener(() {
+        if (provider.perMilesError != null) {
+          provider.clearPerMilesError();
+        }
+      });
+
+      fixPayRatesController.addListener(() {
+        if (provider.perError != null) {
+          provider.clearPerError();
+        }
+      });
       return DialogueTemplate(
         width: AppSize.s400,
         height: AppSize.s460,

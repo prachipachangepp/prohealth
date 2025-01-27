@@ -148,7 +148,11 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     keyboardType: TextInputType.text,
                     text: AddPopupString.shiftName,
                     onChanged: (value){
-
+                      setState(() {
+                        if (value.isNotEmpty) {
+                          shiftNameError = null; // Hide error when valid input
+                        }
+                      });
                     },
                   ),
                   shiftNameError != null ?
@@ -158,6 +162,13 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     ) : SizedBox(height: AppSize.s12,),
                   SizedBox(height: AppSize.s10,),
                   SMTextfieldAsteric(
+                    onChanged: (value){
+                      setState(() {
+                        if (value.isNotEmpty) {
+                          startTimeError = null; // Hide error when valid input
+                        }
+                      });
+                    },
                     onChange: () => _selectStartTime(context),
                     controller: widget.controller1,
                     keyboardType: TextInputType.text,
@@ -171,6 +182,13 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                     ): SizedBox(height: AppSize.s12,),
                   SizedBox(height: AppSize.s10,),
                   SMTextfieldAsteric(
+                    onChanged: (value){
+                      setState(() {
+                        if (value.isNotEmpty) {
+                          endTimeError = null; // Hide error when valid input
+                        }
+                      });
+                    },
                     onChange: () => _selectEndTime(context),
                     controller: widget.controller2,
                     keyboardType: TextInputType.text,
