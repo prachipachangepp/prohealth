@@ -45,7 +45,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
   String? _validateTextField(String value, String fieldName) {
     if (value.isEmpty || value == "Select") {
       _isFormValid = false;
-      return "Please Enter $fieldName";
+      return "$fieldName";
     }
     return null;
   }
@@ -54,9 +54,9 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
     setState(() {
       _isFormValid = true;
       _idDocError =
-          _validateTextField(idController.text, 'ID of the Equipment');
+          _validateTextField(idController.text, ' Please Enter ID of the Equipment');
       _nameDocError =
-          _validateTextField(nameController.text, 'Name of the Equipment');
+          _validateTextField(nameController.text, 'Please Enter Name of the Equipment');
       _dateDocError = _validateTextField(calenderController.text, 'Please Select Date');
       _selectDocError = _validateTextField(selectDescription, 'Please select device description');
     });

@@ -785,7 +785,7 @@ class _BankingFormState extends State<BankingForm> {
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              25),
+                                              43),
                                   Text(
                                     'Requested amount for this account (select one)',
                                     style: AllPopupHeadings.customTextStyle(context),

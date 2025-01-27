@@ -195,32 +195,17 @@ class OfferLetterScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        StatefulBuilder(
-                          builder: (BuildContext context, void Function(void Function()) setState) {
-                            return
-                              ConstTextField(text: 'Issue Date',validationLabel: 'Issue Date', hintText: 'yyyy-mm-dd',
-                                controller: issueDateController,errorText: hrProviderState.issueDate ? "Please enter issue date":null);
-                          },
-                        ),
+                        ConstTextField(text: 'Issue Date',validationLabel: 'Issue Date', hintText: 'yyyy-mm-dd',
+                          controller: issueDateController,errorText: hrProviderState.issueDate ? "Please enter issue date":null),
                         //SizedBox(width: MediaQuery.of(context).size.width / 80),
-                        StatefulBuilder(
-                          builder: (BuildContext context, void Function(void Function()) setState) {
-                            return ConstTextField(text: 'Last Date',validationLabel: 'Last Date',  hintText: 'yyyy-mm-dd',
-                                controller: lastDateController,errorText: hrProviderState.lastDate ? "Please enter last date":null);
-                          },
-                        ),
+                        ConstTextField(text: 'Last Date',validationLabel: 'Last Date',  hintText: 'yyyy-mm-dd',
+                            controller: lastDateController,errorText: hrProviderState.lastDate ? "Please enter last date":null),
                         // SizedBox(width: MediaQuery.of(context).size.width / 80),
-                        StatefulBuilder(
-                          builder: (BuildContext context,
-                              void Function(void Function()) setState)
-                          {
-                                return ConstTextField(text: 'Anticipated Start Date',
-                                validationLabel: 'Anticipated Start Date',
-                                    hintText: 'yyyy-mm-dd',
-                                controller: startDateController,
-                                errorText: hrProviderState.startDate ? "Please enter anticipated start date":null);
-                          },
-                        ),
+                        ConstTextField(text: 'Anticipated Start Date',
+                        validationLabel: 'Anticipated Start Date',
+                            hintText: 'yyyy-mm-dd',
+                        controller: startDateController,
+                        errorText: hrProviderState.startDate ? "Please enter anticipated start date":null),
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 60),
@@ -228,16 +213,12 @@ class OfferLetterScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        StatefulBuilder(
-                          builder: (BuildContext context, void Function(void Function()) setState) {
-                            return ConstTextField(
-                                hintText: 'yyyy-mm-dd',
-                                text: 'Verbal Acceptance',
-                                validationLabel: 'Verbal Acceptance',
-                                controller: verbalAcceptanceController,
-                                errorText: hrProviderState.verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null);
-                          },
-                        ),
+                        ConstTextField(
+                            hintText: 'yyyy-mm-dd',
+                            text: 'Verbal Acceptance',
+                            validationLabel: 'Verbal Acceptance',
+                            controller: verbalAcceptanceController,
+                            errorText: hrProviderState.verbalAcceptanceDate ? "Please enter Verbal Acceptance date":null),
                         if (depId == AppConfig.salesId || depId == AppConfig.AdministrationId)
                           SizedBox(
                             height: 30,
@@ -1167,13 +1148,13 @@ class ConstTextField extends StatelessWidget {
                     //   if (validationLabel == "Verbal Acceptance") verbalAcceptanceDate = value.isEmpty;
                     // });
                   },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Please enter $validationLabel";
-                    } else {
-                      return null;
-                    }
-                  },
+                  // validator: (value) {
+                  //   if (value!.isEmpty) {
+                  //     return "Please enter $validationLabel";
+                  //   } else {
+                  //     return null;
+                  //   }
+                  // },
                 ),
                 errorText != null ?
                   Padding(

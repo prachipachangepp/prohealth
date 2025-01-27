@@ -595,7 +595,7 @@ class _EducationFormState extends State<EducationForm> {
                     StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
                         return Padding(
-                          padding:  EdgeInsets.only(right:170),
+                          padding:  EdgeInsets.only(right:200),
                           child: Row(
                             children: [
                               Expanded(
