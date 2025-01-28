@@ -292,9 +292,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                         children: [
                                                                                           ...List.generate(min(snapshot.data!.length, 1),(index){
                                                                                             return Container(
-                                                                                              padding: EdgeInsets.symmetric(horizontal: 2),
+                                                                                              padding: EdgeInsets.symmetric(horizontal: 1),
                                                                                               height: mediaQuery.height / 30,
-                                                                                              width: mediaQuery.width / 14.5,
+                                                                                              width: mediaQuery.width / 14.4,
                                                                                               decoration: BoxDecoration(color: ColorManager.white,
                                                                                                   border: Border.all(color: Color(0xFFEEEEEE), width: 1),
                                                                                                   borderRadius: BorderRadius.circular(20)),
@@ -302,7 +302,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                 child: Text(
                                                                                                   '${snapshot.data![index].officeStartTime} - ${snapshot.data![index].officeEndTime}',
                                                                                                   style: TextStyle(
-                                                                                                    fontSize: FontSize.s12,
+                                                                                                    fontSize: FontSize.s11,
                                                                                                     fontWeight: FontWeight.w500,
                                                                                                     color: ColorManager.mediumgrey,
                                                                                                     decoration: TextDecoration.none,

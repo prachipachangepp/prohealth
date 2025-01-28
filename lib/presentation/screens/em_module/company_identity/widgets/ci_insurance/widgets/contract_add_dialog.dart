@@ -123,7 +123,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                    _idDocError!,
                    style: CommonErrorMsg.customTextStyle(context),
                  ),
-               ): SizedBox(height: AppSize.s13,),
+               ): SizedBox(height: AppSize.s14,),
 
              SizedBox(height: AppSize.s10),
              Row(

@@ -384,7 +384,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 14),
+                                SizedBox(height: 12),
                               ],
                             );
                           }
@@ -410,7 +410,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 14),
+                                SizedBox(height: 12),
                               ],
                             );
                           }
@@ -515,7 +515,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                     //AppString.dataNotFound,
                                   ),
                                 ),
-                                SizedBox(height: 14),
+                                SizedBox(height: 12),
                               ],
                             );
                           }
@@ -549,7 +549,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 14),
+                                SizedBox(height: 12),
                               ],
                             );
                           }
@@ -591,7 +591,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                       print(":::<>${docZoneId}");
                                     },
                                     items: dropDownTypesList),
-                                SizedBox(height: 14),
+                                SizedBox(height: 12),
                               ],
                             );
                           }

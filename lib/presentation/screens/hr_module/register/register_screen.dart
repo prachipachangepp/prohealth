@@ -239,7 +239,7 @@ class RegisterScreen extends StatelessWidget {
                                     await showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return CustomDialog(
+                                        return CustomDialogSEE(
                                           title: "Enroll User",
                                           lastNameController: newUserLastNameController,
                                           emailController: newUserEmailController,
