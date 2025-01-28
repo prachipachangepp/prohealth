@@ -63,11 +63,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
     widget.addressController.addListener(_onCountyNameChanged);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   void _onCountyNameChanged() async {
     if (widget.addressController.text.isEmpty) {
       setState(() {
@@ -95,46 +90,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   String _location = 'Lat/Long not selected'; // Default text
   double? _latitude;
   double? _longitude;
-  void _pickLocation() async {
-    final pickedLocation = await Navigator.of(context).push<LatLng>(
-      MaterialPageRoute(
-        builder: (context) => MapScreen(
-          initialLocation: _selectedLocation,
-          onLocationPicked: (location) {
-            // Print debug information to ensure this is being called
-            print('Picked location inside MapScreen: $_selectedLocation');
-            _location =
-                'Lat: ${_selectedLocation.latitude}, Long: ${_selectedLocation.longitude}';
-            setState(() {
-              _latitude = location.latitude;
-              _longitude = location.longitude;
-              _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-              //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-            });
-          },
-        ),
-      ),
-    );
-    print("Picked location ${pickedLocation}");
-
-    if (pickedLocation != null) {
-      // Print debug information to ensure this is being reached
-      print('Picked location from Navigator: $pickedLocation');
-      setState(() {
-        _selectedLocation = pickedLocation;
-        _latitude = pickedLocation.latitude;
-        _longitude = pickedLocation.longitude;
-        _location =
-            'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-        //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-      });
-    } else {
-      print('No location was picked.');
-    }
-  }
-
   List<ServiceList> selectedServices = [];
-
   String? _nameDocError;
   String? _emailDocError;
   String? _stateDocError;
@@ -143,6 +99,8 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   String? _sphoneDocError;
   String? _aphoneDocError;
   String? _countryDocError;
+  String? _checkboxError;
+  String? _locationError;
 
   bool _isFormValid = true;
   String? _validateTextField(String value, String fieldName) {
@@ -159,16 +117,63 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       _nameDocError = _validateTextField(widget.nameController.text, ' Office Name');
       _emailDocError = _validateTextField(widget.emailController.text, 'Email ID');
       _stateDocError = _validateTextField(widget.stateController.text, 'State');
-      _addressDocError =
-          _validateTextField(widget.addressController.text, 'Office Address');
-      _pPhoneDocError =
-          _validateTextField(widget.mobNumController.text, 'Primary Phone');
-      _sphoneDocError =
-          _validateTextField(widget.secNumController.text, 'Secondary Phone');
-      _aphoneDocError = _validateTextField(
-          widget.OptionalController.text, 'Alternative Phone');
+      _addressDocError = _validateTextField(widget.addressController.text, 'Office Address');
+      _pPhoneDocError = _validateTextField(widget.mobNumController.text, 'Primary Phone');
+      _sphoneDocError = _validateTextField(widget.secNumController.text, 'Secondary Phone');
+      _aphoneDocError = _validateTextField(widget.OptionalController.text, 'Alternative Phone');
       _countryDocError = _validateTextField(widget.countryController.text, 'Country');
+
+      if (selectedServices.isEmpty) {
+        _checkboxError = "Please select at least one service";
+        _isFormValid = false;
+      } else {
+        _checkboxError = null;
+      }
+
+      if (_latitude == null || _longitude == null) {
+        _locationError = "Please select a location";
+        _isFormValid = false;
+      } else {
+        _locationError = null;
+      }
     });
+  }
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) => MapScreen(
+          initialLocation: _selectedLocation,
+          onLocationPicked: (location) {
+            // Print debug information to ensure this is being called
+            print('Picked location inside MapScreen: $_selectedLocation');
+            _location = 'Lat: ${_selectedLocation.latitude}, Long: ${_selectedLocation.longitude}';
+            setState(() {
+              _latitude = location.latitude;
+              _longitude = location.longitude;
+              _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+              _locationError == null;
+              //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+            });
+          },
+        ),
+      ),
+    );
+    print("Picked location ${pickedLocation}");
+
+    if (pickedLocation != null) {
+      // Print debug information to ensure this is being reached
+      print('Picked location from Navigator: $pickedLocation');
+      setState(() {
+        _selectedLocation = pickedLocation;
+        _latitude = pickedLocation.latitude;
+        _longitude = pickedLocation.longitude;
+        _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+        _locationError = null;
+        //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+      });
+    } else {
+      print('No location was picked.');
+    }
   }
 
   @override
@@ -280,44 +285,50 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             child: StatefulBuilder(
                               builder: (BuildContext context,
                                   void Function(void Function()) setState) {
-                                return Wrap(children: [
-                                  ...List.generate(widget.servicesList.length,
-                                      (index) {
-                                    String serviceID =
-                                        widget.servicesList[index].serviceId;
-                                    bool isSelected =
-                                        selectedServices.contains(serviceID);
-                                    return Container(
-                                        width: AppSize.s150,
-                                        child: Center(
-                                          child: CheckboxTile(
-                                            title: widget.servicesList[index]
-                                                .serviceName,
-                                            initialValue: false,
-                                            onChanged: (value) {
-                                              setState(() {
-
-                                                if (value == true) {
-                                                  selectedServices.add(
-                                                      ServiceList(
-                                                          serviceId:
-                                                              serviceID,
-                                                          npiNumber: "",
-                                                          medicareProviderId:
-                                                              "",
-                                                          hcoNumId: ""));
-                                                } else {
-                                                  selectedServices
-                                                      .remove(serviceID);
-                                                }
-                                              });
-                                              print(
-                                                  "Service Id List ${selectedServices}");
-                                            },
-                                          ),
-                                        ));
-                                  })
-                                ]);
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Wrap(children: [
+                                      ...List.generate(widget.servicesList.length,
+                                          (index) {
+                                        String serviceID = widget.servicesList[index].serviceId;
+                                        bool isSelected = selectedServices.contains(serviceID);
+                                        return Container(
+                                            width: AppSize.s150,
+                                            child: Center(
+                                              child: CheckboxTile(
+                                                title: widget.servicesList[index].serviceName,
+                                                initialValue: false,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    if (value == true) {
+                                                      selectedServices.add(ServiceList(
+                                                              serviceId: serviceID,
+                                                              npiNumber: "",
+                                                              medicareProviderId: "",
+                                                              hcoNumId: ""));
+                                                    } else {
+                                                      selectedServices.remove(serviceID);
+                                                    }
+                                                    _checkboxError = selectedServices.isEmpty ? "Please select at least one service" : null;
+                                                  });
+                                                  print("Service Id List ${selectedServices}");
+                                                },
+                                              ),
+                                            ));
+                                      })
+                                    ]),
+                                    if (_checkboxError != null)
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 2),
+                                        child: Text(
+                                          _checkboxError!,
+                                          style: CommonErrorMsg.customTextStyle(context)
+                                        ),
+                                      ),
+                                  ],
+                                );
                               },
                             ),
                           );
@@ -355,7 +366,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           style: CommonErrorMsg.customTextStyle(context)
                         )
                           :SizedBox(height: AppSize.s12,),
-                      // widget.checkBoxHeadOffice,
                       const SizedBox(height: AppSize.s9),
                       FirstSMTextFConst(
                         controller: widget.stateController,
@@ -368,11 +378,12 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           });
                         },
                       ),
-                      _stateDocError != null ? // Display error if any
+                      _stateDocError != null ?
                         Text(
                           _stateDocError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ):SizedBox(height: AppSize.s12,),
+                        )
+                          :SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s9),
                       SMTextFConstPhone(
                         controller: widget.mobNumController,
@@ -385,11 +396,12 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           });
                         },
                       ),
-                     _pPhoneDocError != null ?// Display error if any
+                     _pPhoneDocError != null ?
                         Text(
                           _pPhoneDocError!,
                           style:CommonErrorMsg.customTextStyle(context),
-                        ):SizedBox(height: AppSize.s12,),
+                        )
+                         :SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s10),
                       SMTextFConstPhone(
                         controller: widget.OptionalController,
@@ -402,11 +414,12 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           });
                           },
                       ),
-                      _aphoneDocError != null ?// Display error if any
+                      _aphoneDocError != null ?
                         Text(
                           _aphoneDocError!,
                           style:CommonErrorMsg.customTextStyle(context),
-                        ):SizedBox(height: AppSize.s12,),
+                        )
+                          :SizedBox(height: AppSize.s12,),
                       const SizedBox(height: AppSize.s10),
                       Row(
                         children: [
@@ -414,13 +427,23 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             onPressed: _pickLocation,
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.transparent),
-                            child: Text(
-                              'Pick Location',
-                              style: TextStyle(
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.bluelight,
-                                //decoration: TextDecoration.none,
+                            child: RichText(
+                              text: TextSpan(
+                                text:'Pick Location', // Main text
+                                style: TextStyle(
+                                  fontSize: FontSize.s14,
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorManager.bluelight,
+                                  //decoration: TextDecoration.none,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: ' *', // Asterisk
+                                    style: AllPopupHeadings.customTextStyle(context).copyWith(
+                                      color: ColorManager.red, // Asterisk color
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -438,6 +461,14 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           ),
                         ],
                       ),
+                      if (_locationError != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 2),
+                          child: Text(
+                            _locationError!,
+                            style: CommonErrorMsg.customTextStyle(context)
+                          ),
+                        ),
                     ],
                   )
                 ]),

@@ -94,55 +94,6 @@ class PayRatesProvider extends ChangeNotifier {
       // Perform further actions, e.g., API calls
     });
   }
-//   String? payRatesError;
-//   String? perMilesError;
-//   String? fixPayRatesError;
-//   bool isLoading = false;
-//   String docAddVisitTypeId = 'Select Visit';
-//   String? _docAddVisitTypeError;
-//   String? get docAddVisitTypeError => _docAddVisitTypeError;
-//
-// void visitTypeErrorNull(){
-//   _docAddVisitTypeError = null;
-//   notifyListeners();
-// }
-//   void validateAndSubmit({
-//     required String payRates,
-//     required String perMiles,
-//     required String fixPayRates,
-//    required bool hasVisits,
-//   }) {
-//     // Check if the visit type is valid
-//     _docAddVisitTypeError = (docAddVisitTypeId == 'Select Visit' || docAddVisitTypeId.isEmpty)
-//         ? hasVisits
-//         ? 'Please select a visit type'
-//         : 'No visits found for respective service. Select another service.'
-//         : null;
-//
-//     // Validate form fields
-//     payRatesError = payRates.isEmpty ? 'Please enter a pay rate' : null;
-//     perMilesError = perMiles.isEmpty ? 'Please enter a per mile' : null;
-//     fixPayRatesError = fixPayRates.isEmpty ? 'Please enter a fixed rate' : null;
-//
-//     // Prevent submission if there are errors
-//     if (payRatesError == null &&
-//         perMilesError == null &&
-//         fixPayRatesError == null &&
-//         docAddVisitTypeError == null) {
-//       isLoading = true;
-//       notifyListeners();
-//
-//       // Simulate some delay for loading (optional)
-//       Future.delayed(const Duration(seconds: 0), () {
-//         isLoading = false;
-//         notifyListeners();
-//       });
-//     }
-//
-//     // Notify listeners for UI update
-//     notifyListeners();
-//   }
-
 }
 
 class PayRateAddPopup extends StatelessWidget {
@@ -392,6 +343,7 @@ class PayRateAddPopup extends StatelessWidget {
                           controller: payRatesController,
                           keyboardType: TextInputType.number,
                           text: AppStringEM.payrates,
+                          onlyAllowNumbers: true,
                           onChanged: (val){provider.validatePayRates(val);},
                         ),
                         provider.payRatesError != null ?
@@ -415,6 +367,7 @@ class PayRateAddPopup extends StatelessWidget {
                               prefixWidget: Text("\$ "),
                               controller: fixPayRatesController,
                               keyboardType: TextInputType.number,
+                              onlyAllowNumbers: true,
                               text: AppStringEM.fixrate,
                               onChanged: (val){
                                 provider.validateFixPayRates(val);
@@ -437,6 +390,7 @@ class PayRateAddPopup extends StatelessWidget {
                               prefixWidget: Text("\$ "),
                               controller: perMilesController,
                               keyboardType: TextInputType.number,
+                              onlyAllowNumbers: true,
                               text: AppStringEM.perMile,
                               onChanged: (val){provider.validatePerMiles(val);},
                             ),

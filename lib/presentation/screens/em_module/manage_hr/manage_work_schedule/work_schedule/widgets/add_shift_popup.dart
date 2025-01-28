@@ -39,14 +39,11 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
       context: context,
       initialTime: _selectedTime,
     );
-    if (picked != null && picked != _selectedTime) {
+    if (picked != null) {
       setState(() {
         _selectedTime = picked;
         widget.controller1.text = _selectedTime.format(context);
-      });
-    } else {
-      setState(() {
-        widget.controller1.text = _selectedTime.format(context);
+        startTimeError = null; // Hide error when valid time is selected
       });
     }
   }
@@ -57,14 +54,11 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
       context: context,
       initialTime: _selectedTime,
     );
-    if (picked != null && picked != _selectedTime) {
+    if (picked != null) {
       setState(() {
         _selectedTime = picked;
         widget.controller2.text = _selectedTime.format(context);
-      });
-    } else {
-      setState(() {
-        widget.controller2.text = _selectedTime.format(context);
+        endTimeError = null; // Hide error when valid time is selected
       });
     }
   }

@@ -409,6 +409,8 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
   String? _emailDocError;
   String? _stateDocError;
   String? _PasswordDocError;
+  String? _departmentError;
+  String? _deptDocError;
   bool isLoading = false;
 
   bool _isFormValid = true;
@@ -419,17 +421,47 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
     }
     return null;
   }
-
+///
+  ///
+  ///
+  ///
+  // void _validateForm() {
+  //   setState(() {
+  //     _isFormValid = true;
+  //     _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
+  //     _emailDocError = _validateTextField(widget.emailController.text, 'Email');
+  //     _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
+  //     _PasswordDocError = _validateTextField(widget.passwordController.text, 'Password');
+  //     if (selectedDeptId == null || selectedDeptId == 0) {  // Assuming 1 is the default "Select Department"
+  //       _departmentError = "Please select a department";
+  //       _isFormValid = false;
+  //     } else {
+  //       _departmentError = null;
+  //     }
+  //   });
+  // }
   void _validateForm() {
+    // Run validation logic without calling setState multiple times.
+    bool isFormValid = true;
     setState(() {
-      _isFormValid = true;
       _nameDocError = _validateTextField(widget.firstNameController.text, 'First Name');
       _emailDocError = _validateTextField(widget.emailController.text, 'Email');
       _stateDocError = _validateTextField(widget.lastNameController.text, 'Last Name');
-      _PasswordDocError =
-          _validateTextField(widget.passwordController.text, 'Password');
+      _PasswordDocError = _validateTextField(widget.passwordController.text, 'Password');
+
+      // Validate department field only during form submission.
+      if (selectedDeptId == null || selectedDeptId == 0) {  // Assuming 1 is the default "Select Department"
+        _departmentError = "Please select a department";
+        isFormValid = false;
+      } else {
+        _departmentError = null;
+      }
     });
+
+    // Set the final validation status
+    _isFormValid = isFormValid;
   }
+
 
   var deptId = 1;
   int? firstDeptId;
@@ -514,21 +546,25 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
                     List<String>dropDownServiceList =[];
-                    return Container(
-                        alignment: Alignment.center,
-                        child:
-                        HRUManageDropdown(
-                          controller:
-                          TextEditingController(
-                              text: selectedDeptName ?? ''
-                          ),
-                          labelFontSize: FontSize.s12,
-                          items:  dropDownServiceList,
-                        )
+                    return Column(
+                      children: [
+                        Container(
+                            alignment: Alignment.center,
+                            child:
+                            HRUManageDropdown(
+                              controller:
+                              TextEditingController(
+                                  text: selectedDeptName ?? ''
+                              ),
+                              labelFontSize: FontSize.s12,
+                              items:  dropDownServiceList,
+                            )
+                        ),
+                        SizedBox(height: AppSize.s14,),
+                      ],
                     );
                   }
-                  if (snapshot.hasData &&
-                      snapshot.data!.isEmpty) {
+                  if (snapshot.hasData && snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
                         ErrorMessageString.noroleAdded,
@@ -549,31 +585,35 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                     int? firstDeptId = snapshot.data!.isNotEmpty
                         ? snapshot.data![0].deptId
                         : null;
-
-                    // if (selectedDeptName == null &&
-                    //     dropDownServiceList.isNotEmpty) {
-                    //   selectedDeptName = firstDeptName;
-                    //   selectedDeptId = firstDeptId;
-                    // }
-
                     return StatefulBuilder(
                       builder: (BuildContext context, void Function(void Function()) setState) {
-                        return HRUManageDropdown(
-                          controller: TextEditingController(
-                              text: selectedDeptName ?? ''),
-                          hintText: "Department",
-                          labelFontSize: FontSize.s12,
-                          items: dropDownServiceList,
-                          onChanged: (val) {
-                            setState(() {
-                              selectedDeptName = val;
-                              // Find the corresponding department ID from the snapshot
-                              selectedDeptId = snapshot.data!
-                                  .firstWhere(
-                                      (dept) => dept.deptName == val)
-                                  .deptId;
-                            });
-                          },
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            HRUManageDropdown(
+                              controller: TextEditingController(
+                                  text: selectedDeptName ?? ''),
+                              hintText: "Department",
+                              labelFontSize: FontSize.s12,
+                              items: dropDownServiceList,
+                              onChanged: (val) {
+                                setState(() {
+                                  _departmentError = null;
+                                  selectedDeptName = val;
+                                  selectedDeptId = snapshot.data!.firstWhere((dept) => dept.deptName == val).deptId;
+                                });
+                              },
+                            ),
+                            _departmentError != null ?
+                            Padding(
+                              padding: const EdgeInsets.only(top: 2.0),
+                              child: Text(
+                                _departmentError!,
+                                style: CommonErrorMsg.customTextStyle(context),
+                              ),
+                            ) : SizedBox(height: AppSize.s14,),
+                          ],
                         );
                       },
                     );
@@ -1074,11 +1114,17 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                 );
               },
             );
-          }else {
+          }
+          else {
             showDialog(
               context: context,
               builder: (BuildContext context) => FailedPopup(text: responce.message),
             );
+            Future.delayed(Duration(seconds: 3), () {
+              if (Navigator.canPop(context)) {
+                Navigator.pop(context);
+              }
+            });
           }
         },
         loadingDuration: 2,
