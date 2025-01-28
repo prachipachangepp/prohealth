@@ -97,8 +97,6 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(height: 20,),
-
-
                               Row(
                                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -717,7 +715,6 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                         ],),),
                                     ],
                                   ),
-
                                   SizedBox(width: AppSize.s10,),
                                   Column(crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
@@ -733,7 +730,6 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                   ),
                                 ],
                               ),
-
                               SizedBox(height: AppSize.s10,),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
