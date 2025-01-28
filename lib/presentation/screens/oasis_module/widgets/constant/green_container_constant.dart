@@ -46,6 +46,38 @@ class GreenContrainerConst extends StatelessWidget {
 
 
 
+class adminGreenContrainerConst extends StatelessWidget {
+  final double? height;
+  final Widget child;
+  const adminGreenContrainerConst({super.key, this.height, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //height: height ?? AppSize.s500,
+      height: height ,
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20, vertical: AppPadding.p15),
+      decoration: BoxDecoration(
+        color: ColorManager.containergreen,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),  // shadow color with opacity
+            spreadRadius: 0,  // spread the shadow (optional)
+            blurRadius: 5,   // blur the shadow for a soft look
+            offset: Offset(0, 4), // offset in the vertical direction (bottom shadow)
+          ),
+        ],
+        // border: Border.symmetric(vertical: BorderSide(width: 0.2,color: ColorManager.grey),horizontal: BorderSide(width: 0.2,color: ColorManager.grey),),//all(width: 1, color: Color(0xFFBCBCBC)),
+        // border: Border.all(width: 1,color: ColorManager.lightGrey),//all(width: 1, color: Color(0xFFBCBCBC)),
+
+      ),
+      child: child,
+    );
+  }
+}
+
+
 class WhiteContrainerConst extends StatelessWidget {
   final double? height;
   final Widget child;

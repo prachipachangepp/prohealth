@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../app/resources/color.dart';
 //import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 
+import '../../../../app/resources/value_manager.dart';
 import '../../hr_module/hr_home_screen/referesh_provider.dart';
 import '../them_manager/oasis_them_mnager.dart';
 import '../widgets/constant/blue_tabbar.dart';
@@ -83,7 +84,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
             children: [
               // Header Section
               Container(
-                height: 100,
+                height: AppSize.s100,
                 child: Row(
                   children: [
                     Container(
@@ -98,7 +99,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                       child: Row(
 
                         children: [
-                          SizedBox(width: 20,),
+                          SizedBox(width: AppSize.s20,),
                           Column(
                             children: [
                               Padding(
@@ -106,8 +107,8 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(60),
                                   child: SizedBox(
-                                    width: 60,
-                                    height: 60,
+                                    width: AppSize.s60,
+                                    height: AppSize.s60,
                                     child: Image.asset(
                                       'images/hr_dashboard/man.png', // Replace with your image path
                                       fit: BoxFit.cover,
@@ -117,13 +118,13 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               ),
                             ],
                           ),
-                          SizedBox(width: 15),
+                          SizedBox(width: AppSize.s15),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 10),
+                              SizedBox(height: AppSize.s10),
                               Text("JOHN SCOTT", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black)),
-                              SizedBox(height: 12),
+                              SizedBox(height: AppSize.s12),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -131,20 +132,20 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text("DOB", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
-                                      SizedBox(height: 13),
+                                      SizedBox(height: AppSize.s13),
                                       Text("Chart Number", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color:  ColorManager.granitegray)),
                                     ],
                                   ),
-                                  SizedBox(width: 30,),
+                                  SizedBox(width: AppSize.s30,),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text("08-03-1997 (27)", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: ColorManager.textBlack,)),
-                                      SizedBox(height: 13),
+                                      SizedBox(height: AppSize.s13),
                                       Text("123456", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: ColorManager.textBlack,)),
                                     ],
                                   ),
-                                  SizedBox(width: 10,),
+                                  SizedBox(width: AppSize.s10,),
                                 ],
                               ),
                             ],
@@ -152,14 +153,14 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                         ],
                       ),
                     ),
-                    SizedBox(width: 20),
+                    SizedBox(width: AppSize.s20),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 2),
+                          SizedBox(height: AppSize.s2),
                           Row(children: [
                             Text("OASIS RN Start Of Care", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: ColorManager.granitegray)),
                           ],),
@@ -178,7 +179,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: AppSize.s10),
               Container(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,10 +193,10 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 10),
+                            SizedBox(height: AppSize.s10),
                             Container(
-                              //width: 300,
-                              height: 32,
+                              //width: AppSize.s300,
+                              height: AppSize.s32,
                               child: TextField(
                                 // controller: _controller,
                                 textCapitalization:
@@ -235,9 +236,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               ),
         
                             ),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                                width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                                width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(0,'Consent For Care');
                               _pageController.animateToPage(0,
@@ -246,9 +247,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(0);
                               onPageChanged(0);
                               pgeControllerId = 0;  }, text: 'Consent for Care', isSelected: myController.selectedIndex.value == 0,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100,
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100,
                               onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(1, 'Administrative Information');
@@ -259,8 +260,8 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               onPageChanged(1);
                               pgeControllerId = 1;  }, text: 'Administrative Information', isSelected: myController.selectedIndex.value == 1,),
                             SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(2,'Clinical Record Items');
                               _pageController.animateToPage(2,
@@ -269,9 +270,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(2);
                               onPageChanged(2);
                               pgeControllerId = 2;  }, text: 'Clinical Record Items', isSelected: myController.selectedIndex.value == 2,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(3,'Patient History/Immunization');
                               _pageController.animateToPage(3,
@@ -280,9 +281,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(3);
                               onPageChanged(3);
                               pgeControllerId = 3;  }, text: 'Patient History/Immunization', isSelected: myController.selectedIndex.value == 3,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(4,'Living Arrangements');
                               _pageController.animateToPage(4,
@@ -291,10 +292,10 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(4);
                               onPageChanged(4);
                               pgeControllerId = 4;  }, text: 'Living Arrangements', isSelected: myController.selectedIndex.value == 4,),
-                            SizedBox(height: 5,),
+                            SizedBox(height: AppSize.s5,),
                             CustomTitleButtonoasis(
-                              height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                              height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(5,'Assistance');
                               _pageController.animateToPage(5,
@@ -304,9 +305,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               onPageChanged(5);
                               pgeControllerId = 5;  }, text: 'Assistance',
                               isSelected: myController.selectedIndex.value == 5,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(6,'Safety Hazards/Emergency Plan');
                               _pageController.animateToPage(6,
@@ -315,9 +316,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(6);
                               onPageChanged(6);
                               pgeControllerId = 6;  }, text: 'Safety Hazards/Emergency Plan', isSelected: myController.selectedIndex.value == 6,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(7,'Vital Signs, Height & Weight');
                               _pageController.animateToPage(7,
@@ -326,9 +327,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(7);
                               onPageChanged(7);
                               pgeControllerId = 7;  }, text: 'Vital Signs, Height & Weight', isSelected: myController.selectedIndex.value == 7,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(8,'Pain');
                               _pageController.animateToPage(8,
@@ -337,9 +338,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(8);
                               onPageChanged(8);
                               pgeControllerId = 8;  }, text: 'Pain', isSelected: myController.selectedIndex.value == 8,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(9,'Hearing/Speech/Vision');
                               _pageController.animateToPage(9,
@@ -348,9 +349,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(9);
                               onPageChanged(9);
                               pgeControllerId = 9;  }, text: 'Hearing/Speech/Vision', isSelected: myController.selectedIndex.value == 9,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(10,'BIMS');
                               _pageController.animateToPage(10,
@@ -359,9 +360,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(10);
                               onPageChanged(10);
                               pgeControllerId = 10;  }, text: 'BIMS', isSelected: myController.selectedIndex.value == 10,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(11,'Neurological/Cognitive');
                               _pageController.animateToPage(11,
@@ -370,9 +371,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(11);
                               onPageChanged(11);
                               pgeControllerId = 11;  },  text: 'Neurological/Cognitive', isSelected: myController.selectedIndex.value == 11,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(12,'Mood');
                               _pageController.animateToPage(12,
@@ -381,9 +382,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(12);
                               onPageChanged(12);
                               pgeControllerId = 12;  }, text: 'Mood', isSelected: myController.selectedIndex.value == 12,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(13,'Behavior/Risk Factors');
                               _pageController.animateToPage(13,
@@ -392,9 +393,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(13);
                               onPageChanged(13);
                               pgeControllerId = 13;  }, text: 'Behavior/Risk Factors', isSelected: myController.selectedIndex.value == 13,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(14,'Respiratory');
                               _pageController.animateToPage(14,
@@ -403,9 +404,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(14);
                               onPageChanged(14);
                               pgeControllerId = 14;  }, text: 'Respiratory', isSelected: myController.selectedIndex.value == 14,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(15,'Cardiovascular');
                               _pageController.animateToPage(15,
@@ -414,9 +415,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(15);
                               onPageChanged(15);
                               pgeControllerId = 15;  }, text: 'Cardiovascular', isSelected: myController.selectedIndex.value == 15,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(16,'Genitourinary');
                               _pageController.animateToPage(16,
@@ -425,9 +426,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(16);
                               onPageChanged(16);
                               pgeControllerId = 16;  }, text: 'Genitourinary', isSelected: myController.selectedIndex.value == 16,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(17,'Gastrointestinal/Nutrition/Endocrine');
                               _pageController.animateToPage(17,
@@ -436,9 +437,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(17);
                               onPageChanged(17);
                               pgeControllerId = 17;  }, text: 'Gastrointestinal/Nutrition/Endocrine', isSelected: myController.selectedIndex.value == 17,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(18,'Integumentary/Wound Care');
                               _pageController.animateToPage(18,
@@ -447,9 +448,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(18);
                               onPageChanged(18);
                               pgeControllerId = 18;  }, text: 'Integumentary/Wound Care', isSelected: myController.selectedIndex.value == 18,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(19,'Ulcers/Surgical Wounds');
                               _pageController.animateToPage(19,
@@ -458,9 +459,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(19);
                               onPageChanged(19);
                               pgeControllerId = 19;  }, text: 'Ulcers/Surgical Wounds', isSelected: myController.selectedIndex.value == 19,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(20,'Musculoskeletal');
                               _pageController.animateToPage(20,
@@ -469,9 +470,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(20);
                               onPageChanged(20);
                               pgeControllerId = 20;  }, text: 'Musculoskeletal', isSelected: myController.selectedIndex.value == 20,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(21,'Functional Status');
                               _pageController.animateToPage(21,
@@ -480,9 +481,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(21);
                               onPageChanged(21);
                               pgeControllerId = 21;  }, text: 'Functional Status', isSelected: myController.selectedIndex.value == 21,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(22,'Functional Abilities and Goals');
                               _pageController.animateToPage(22,
@@ -491,9 +492,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(22);
                               onPageChanged(22);
                               pgeControllerId = 22;  }, text: 'Functional Abilities and Goals', isSelected: myController.selectedIndex.value == 22,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(23 ,'Fall Risk/ Therapy Need');
                               _pageController.animateToPage(23,
@@ -502,9 +503,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(23);
                               onPageChanged(23);
                               pgeControllerId = 23;  }, text: 'Fall Risk/ Therapy Need', isSelected: myController.selectedIndex.value == 23,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(24 ,'Medications');
                               _pageController.animateToPage(24,
@@ -513,9 +514,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(24);
                               onPageChanged(24);
                               pgeControllerId = 24;  }, text: 'Medications', isSelected: myController.selectedIndex.value == 24,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(25,'Infusion/Lab Draw');
                               _pageController.animateToPage(25,
@@ -524,9 +525,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(25);
                               onPageChanged(25);
                               pgeControllerId = 25;  }, text: 'Infusion/Lab Draw', isSelected: myController.selectedIndex.value == 25,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(26,'Special Treatment, Procedures, And Programs');
                               _pageController.animateToPage(26,
@@ -535,9 +536,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(26);
                               onPageChanged(26);
                               pgeControllerId = 26;  }, text: 'Special Treatment, Procedures,\nAnd Programs', isSelected: myController.selectedIndex.value == 26,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(27,'Rehospitalization Risk');
                               _pageController.animateToPage(27,
@@ -546,9 +547,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(27);
                               onPageChanged(27);
                               pgeControllerId = 27;  }, text: 'Rehospitalization Risk', isSelected: myController.selectedIndex.value == 27,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(28,'Interventions/Education Provided');
                               _pageController.animateToPage(28,
@@ -557,9 +558,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(28);
                               onPageChanged(28);
                               pgeControllerId = 28;  }, text: 'Interventions/Education Provided', isSelected: myController.selectedIndex.value == 28,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(29,'Assessment Summary');
                               _pageController.animateToPage(29,
@@ -568,9 +569,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(29);
                               onPageChanged(29);
                               pgeControllerId = 29;  }, text: 'Assessment Summary', isSelected: myController.selectedIndex.value == 29,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(30,'Supplies ');
                               _pageController.animateToPage(30,
@@ -579,9 +580,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(30);
                               onPageChanged(30);
                               pgeControllerId = 30;  }, text: 'Supplies ', isSelected: myController.selectedIndex.value == 30,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(31,'Plan of Care ');
                               _pageController.animateToPage(31,
@@ -590,9 +591,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(31);
                               onPageChanged(31);
                               pgeControllerId = 31;  }, text: 'Plan of Care ', isSelected: myController.selectedIndex.value == 31,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(32,'Care Planning/Coordination');
                               _pageController.animateToPage(32,
@@ -601,9 +602,9 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               _saveIndex(32);
                               onPageChanged(32);
                               pgeControllerId = 32;  }, text: 'Care Planning/Coordination', isSelected: myController.selectedIndex.value == 32,),
-                            SizedBox(height: 5,),
-                            CustomTitleButtonoasis( height: 30,
-                              width: 100, onPressed: () { setState(() {});
+                            SizedBox(height: AppSize.s5,),
+                            CustomTitleButtonoasis( height: AppSize.s30,
+                              width: AppSize.s100, onPressed: () { setState(() {});
                               //companyAll(context);
                               myController.selectButton(33,'Diagnosis Codes');
                               _pageController.animateToPage(33,
@@ -613,7 +614,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
                               onPageChanged(33);
                               pgeControllerId = 33;  }, text: 'Diagnosis Codes', isSelected: myController.selectedIndex.value == 33,),
         
-                            SizedBox(height: 50,),
+                            SizedBox(height: AppSize.s50,),
         
                           ],
                         ),
@@ -659,8 +660,8 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
             //_scaffoldKey.currentState?.openDrawer();
       },
       child: Container(
-        width: 40,
-        height: 200,
+        width: AppSize.s40,
+        height: AppSize.s200,
         decoration: BoxDecoration(
             color: ColorManager.drawerbutton,
             borderRadius:

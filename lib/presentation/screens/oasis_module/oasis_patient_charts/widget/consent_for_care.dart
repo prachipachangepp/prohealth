@@ -89,7 +89,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               GreenContrainerConst(
-                height: 110,
+                height: AppSize.s110,
                 child: Column(
                 children: [
                   Row(
@@ -98,7 +98,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                       style: Normalfontstyle.customTextStyle(context),))
                     ],
                   ),
-                  SizedBox(height: 8,),
+                  SizedBox(height: AppSize.s8,),
                   Row(
                     children: [
                       CustomCheckBoxListTile(
@@ -167,20 +167,20 @@ class _ConsentForCareState extends State<ConsentForCare> {
               ),
 
               ),
-              SizedBox(height: 20),
+              SizedBox(height: AppSize.s20),
               Text("Release Of Information",style: BoldfontStyle.customTextStyle(context),),
-              SizedBox(height: 20),
+              SizedBox(height: AppSize.s20),
               Text("I authorize ProHealth Home Care to use and disclose protected health information (PHI) about me for the purposes of treatment, payment, and health care operations. The agency uses an electronic health record and may, either on paper or through a secure web-based portal, release PHI to or receive PHI from physicians, hospitals, other health care providers, family members and others involved in my plan of care, assisted living facilities, third party payers, and regulatory agencies as necessary for my care or to process my claims.",
               style: Normalfontstyle.customTextStyle(context) ,),
-              SizedBox(height: 30),
+              SizedBox(height: AppSize.s30),
               GreenContrainerConst(child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Liability For Payment",style: BoldfontStyle.customTextStyle(context),),
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSize.s20),
                   Text("I certify that the information given by me in applying for payment under Title XVIII of the Social Security Act and/or from any third party payer is correct. | request that payment of authorizedbenefits from Medicare, Medicaid, or other responsible payers be made on my behalf of ProHealth Home Care.",
                   style:Normalfontstyle.customTextStyle(context) ,),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   Flexible(
                     child: Row(
                       children: [
@@ -204,7 +204,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   Wrap(
                     children: [
                       Text.rich(
@@ -227,7 +227,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
 
                   // Row(
                   //   children: [
@@ -246,7 +246,7 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   Text("I understand that while I am under the agency's plan of care, the agency will coordinate all medically necessary therapy services and medical supplies for me. Should I arrange for these services or supplies on my own, I understand that Medicare will not reimburse me or my supplier, and I will be responsible for their cost.",
                       style:Normalfontstyle.customTextStyle(context)
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   Wrap(
                     children: [
                       Text.rich(
@@ -269,9 +269,9 @@ class _ConsentForCareState extends State<ConsentForCare> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSize.s20),
                   Text("Expected payer source(s) for my home care services include: ", style: Normalfontstyle.customTextStyle(context),),
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSize.s20),
                   CustomCheckBoxListTile(
                     title: 'MEDICARE',
                     isChecked: checkboxController.medicare,
@@ -305,23 +305,23 @@ class _ConsentForCareState extends State<ConsentForCare> {
                 ],
 
               ),),
-              SizedBox(height: 20,),
+              SizedBox(height: AppSize.s20,),
               GreenContrainerConst(
-                height: 130,
+                height: AppSize.s130,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
                   Text("Consent to Photograph", style: BoldfontStyle.customTextStyle(context),),
-                    SizedBox(height: 15,),
+                    SizedBox(height: AppSize.s15,),
                   Text("I hereby consent to allow the agency to use my photograph for identification purposes and/or for documenting my medical condition.", style: Normalfontstyle.customTextStyle(context),),
-                    SizedBox(height:15,),
+                    SizedBox(height:AppSize.s15,),
                     Row(
                       children: [
                         Container(
                           //color: Colors.white,
                           width: 117,
-                          height: 30,
+                          height: AppSize.s30,
                           child: ElevatedButton(
                             onPressed: (){
 
@@ -339,11 +339,11 @@ class _ConsentForCareState extends State<ConsentForCare> {
                               style:BluebuttonStyle.customTextStyle(context)
                             ),),
                         ),
-                        SizedBox(width: 20,),
+                        SizedBox(width: AppSize.s20,),
                         Container(
                           //color: Colors.white,
                           width: 117,
-                          height: 30,
+                          height: AppSize.s30,
                           child: ElevatedButton(
                             onPressed: (){
 
@@ -367,15 +367,15 @@ class _ConsentForCareState extends State<ConsentForCare> {
 
               ],),),
 
-          SizedBox(height: 20,),
+          SizedBox(height: AppSize.s20,),
           GreenContrainerConst(
-            height:300,child: Column(
+            height:AppSize.s300,child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Advance Directives",style: BoldfontStyle.customTextStyle(context),),
-              SizedBox(height: 20,),
+              SizedBox(height: AppSize.s20,),
               Text("I Currently have a: ", style: Normalfontstyle.customTextStyle(context),),
-              SizedBox(height: 15),
+              SizedBox(height: AppSize.s15),
               CustomCheckBoxListTile(
                 title: 'Living Will',
                 isChecked: checkboxController.will,
@@ -437,20 +437,20 @@ class _ConsentForCareState extends State<ConsentForCare> {
             ],
           ),),
 
-              SizedBox(height: 20),
+              SizedBox(height: AppSize.s20),
               Text("Non- Discrimination ",style: BoldfontStyle.customTextStyle(context),),
-              SizedBox(height: 20),
+              SizedBox(height: AppSize.s20),
               Text("ProHealth Home Care does not refuse service to patients or in any other way discriminate against any person on the basis of age, sex, disability, race, color, religion, ancestry, or national origin, in accordance with the Civil Rights Act of 1964, Section 504 of the Rehabilitation Act of 1973, the Age Discrimination Act of 1975, and the Americans with Disabilities Act of 1990.", style: Normalfontstyle.customTextStyle(context) ,),
-              SizedBox(height: 20),
+              SizedBox(height: AppSize.s20),
 
               GreenContrainerConst(
-                height:350,child: Column(
+                height:AppSize.s350,child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Acknowledgement Of Receipt by Patient",style: BoldfontStyle.customTextStyle(context),),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   Text("I certify that I have received the following Patient Documents and/or Policies from ProHealth Home Care, Inc.:", style: Normalfontstyle.customTextStyle(context),),
-                  SizedBox(height: 15),
+                  SizedBox(height: AppSize.s15),
                   CustomCheckBoxListTile(
                     title: 'Notice of Privacy Practices',
                     isChecked: checkboxController.notice,
@@ -503,23 +503,23 @@ class _ConsentForCareState extends State<ConsentForCare> {
 
                 ],
               ),),
-              SizedBox(height: 20,),
+              SizedBox(height: AppSize.s20,),
               WhiteContrainerConst(
-          height: 650,
+          height: AppSize.s650,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("I have had an opportunity to review this document and ask questions to assist me in understanding my rights relative to the protection of my health information. I am satisfied with the explanation provided to me and I am confident that the provider is committed to protecting my health Information."
                     , style: Normalfontstyle.customTextStyle(context),),
 
-                  SizedBox(height: 30,),
+                  SizedBox(height: AppSize.s30,),
                   Row(
                     children: [
                       Text("Does the patient have the capacity to sign? ",style: BoldfontStyle.customTextStyle(context),),
-                      SizedBox(width: 10,),Container(
+                      SizedBox(width: AppSize.s10,),Container(
                         //color: Colors.white,
                         width: 117,
-                        height: 30,
+                        height: AppSize.s30,
                         child: ElevatedButton(
                           onPressed: (){
 
@@ -537,11 +537,11 @@ class _ConsentForCareState extends State<ConsentForCare> {
                             style:BluebuttonStyle.customTextStyle(context)
                           ),),
                       ),
-                      SizedBox(width: 20,),
+                      SizedBox(width: AppSize.s20,),
                       Container(
                         //color: Colors.white,
                         width: 117,
-                        height: 30,
+                        height: AppSize.s30,
                         child: ElevatedButton(
                           onPressed: (){
 
@@ -561,13 +561,13 @@ class _ConsentForCareState extends State<ConsentForCare> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: AppSize.s30,),
                   Text("Patient Signature ",style: BoldfontStyle.customTextStyle(context),),
-                  SizedBox(height: 30,),
+                  SizedBox(height: AppSize.s30,),
                   Row(
                     children: [
                       Container(
-                        height: 40,
+                        height: AppSize.s40,
                         child: CustomIconButtonEMR(
                           text: 'Upload Signature',
                           onPressed: ()async{
@@ -580,11 +580,12 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           icon: Icons.file_upload_outlined,
                         ),
                       ),
-                      SizedBox(width: 20),
-                      pickedFileName == null
-                          ? Container(
-                        width: 150, // Set fixed width for the container
-                        height: 40, // Set height to match the button
+                      SizedBox(width: AppSize.s20),
+                      // pickedFileName == null
+                      //     ?
+                      Container(
+                        width: AppSize.s150, // Set fixed width for the container
+                        height: AppSize.s40, // Set height to match the button
                         decoration: BoxDecoration(
                           border: Border.all(color: ColorManager.mediumgrey, width: 1),
                           borderRadius: BorderRadius.circular(8), // Make the corners circular with a radius of 5
@@ -599,26 +600,26 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           textAlign: TextAlign.center,
                         ),
                       )
-                          : Container(
-                        width: 150, // Set fixed width for the container
-                        height: 40, // Set height to match the button
-                        decoration: BoxDecoration(
-                          border: Border.all(color: ColorManager.mediumgrey, width: 1),
-                          borderRadius: BorderRadius.circular(8), // Make the corners circular with a radius of 5
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          pickedFileName!.length > 15
-                              ? pickedFileName!.substring(0, 15) + '...' // Truncate text if more than 15 characters
-                              : pickedFileName!,
-                          style: TextStyle(
-                            fontSize: FontSize.s12,
-                            color: ColorManager.mediumgrey,
-                          ),
-                          overflow: TextOverflow.ellipsis, // Ensure ellipsis appears if text overflows
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                      //     : Container(
+                      //   width: AppSize.s150, // Set fixed width for the container
+                      //   height: AppSize.s40, // Set height to match the button
+                      //   decoration: BoxDecoration(
+                      //     border: Border.all(color: ColorManager.mediumgrey, width: 1),
+                      //     borderRadius: BorderRadius.circular(8), // Make the corners circular with a radius of 5
+                      //   ),
+                      //   alignment: Alignment.center,
+                      //   child: Text(
+                      //     pickedFileName!.length > 15
+                      //         ? pickedFileName!.substring(0, 15) + '...' // Truncate text if more than 15 characters
+                      //         : pickedFileName!,
+                      //     style: TextStyle(
+                      //       fontSize: FontSize.s12,
+                      //       color: ColorManager.mediumgrey,
+                      //     ),
+                      //     overflow: TextOverflow.ellipsis, // Ensure ellipsis appears if text overflows
+                      //     textAlign: TextAlign.center,
+                      //   ),
+                      // ),
                     ],
                   ),
 
@@ -626,11 +627,11 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   // Row(
                   //   children: [
                   //     Container(
-                  //       height: 40,
+                  //       height: AppSize.s40,
                   //       child: CustomIconButtonEMR(text: 'Upload Signature', onPressed: _handleFileUpload,
                   //       icon: Icons.file_upload_outlined,),
                   //     ),
-                  //     SizedBox(width: 20,),
+                  //     SizedBox(width: AppSize.s20,),
                   //     pickedFileName == null ? const Offstage():Align(
                   //       alignment: Alignment.centerRight,
                   //       child: Padding(
@@ -643,18 +644,18 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   //     ),
                   //   ],
                   // ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: AppSize.s30,),
                   Text("A legally authorized representative may sign if the beneficiary is unable to sign. ",style: BoldfontStyle.customTextStyle(context),),
-                  SizedBox(height: 30,),
+                  SizedBox(height: AppSize.s30,),
                   Text("The provider has provided me with an opportunity to review this document and ask questions to assist me in understanding his/her privacy rights, I am satisfied with the explanations provided to me and I am confident that the provider is committed to protecting health information : ",style: BoldfontStyle.customTextStyle(context),),
 
-                  SizedBox(height: 30,),
+                  SizedBox(height: AppSize.s30,),
                   Text("Authorized Representative’s Signature: ",style: BoldfontStyle.customTextStyle(context),),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   Row(
                     children: [
                       Container(
-                        height: 40,
+                        height: AppSize.s40,
                         child: CustomIconButtonEMR(
 
                           text: 'Upload Signature',
@@ -668,11 +669,12 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           icon: Icons.file_upload_outlined,
                         ),
                       ),
-                      SizedBox(width: 20),
-                      pickedFileNameAA == null
-                          ? Container(
-                        width: 150, // Set fixed width for the container
-                        height: 40, // Set height to match the button
+                      SizedBox(width: AppSize.s20),
+                    //  pickedFileNameAA == null
+                         // ?
+                  Container(
+                        width: AppSize.s150, // Set fixed width for the container
+                        height: AppSize.s40, // Set height to match the button
                         decoration: BoxDecoration(
                           border: Border.all(color: ColorManager.mediumgrey, width: 1),
                           borderRadius: BorderRadius.circular(8), // Make the corners circular with a radius of 5
@@ -687,29 +689,29 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           textAlign: TextAlign.center,
                         ),
                       )
-                          : Container(
-                        width: 150, // Set fixed width for the container
-                        height: 40, // Set height to match the button
-                        decoration: BoxDecoration(
-                          border: Border.all(color: ColorManager.mediumgrey, width: 1),
-                          borderRadius: BorderRadius.circular(8), // Make the corners circular with a radius of 5
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          pickedFileNameAA!.length > 15
-                              ? pickedFileNameAA!.substring(0, 15) + '...' // Truncate text if more than 15 characters
-                              : pickedFileNameAA!,
-                          style: TextStyle(
-                            fontSize: FontSize.s12,
-                            color: ColorManager.mediumgrey,
-                          ),
-                          overflow: TextOverflow.ellipsis, // Ensure ellipsis appears if text overflows
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                      //     : Container(
+                      //   width: AppSize.s150, // Set fixed width for the container
+                      //   height: AppSize.s40, // Set height to match the button
+                      //   decoration: BoxDecoration(
+                      //     border: Border.all(color: ColorManager.mediumgrey, width: 1),
+                      //     borderRadius: BorderRadius.circular(8), // Make the corners circular with a radius of 5
+                      //   ),
+                      //   alignment: Alignment.center,
+                      //   child: Text(
+                      //     pickedFileNameAA!.length > 15
+                      //         ? pickedFileNameAA!.substring(0, 15) + '...' // Truncate text if more than 15 characters
+                      //         : pickedFileNameAA!,
+                      //     style: TextStyle(
+                      //       fontSize: FontSize.s12,
+                      //       color: ColorManager.mediumgrey,
+                      //     ),
+                      //     overflow: TextOverflow.ellipsis, // Ensure ellipsis appears if text overflows
+                      //     textAlign: TextAlign.center,
+                      //   ),
+                      // ),
                     ],
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: AppSize.s30,),
                   Row(
                     children: [
                       Container(
@@ -723,12 +725,12 @@ class _ConsentForCareState extends State<ConsentForCare> {
                                   padding: const  EdgeInsets.symmetric(vertical: 4),
                                   child: Text("Reason Patient is unable to sign:" ,style: BoldfontStyle.customTextStyle(context),),
                                 ),
-                                SizedBox(height:15 ,),
+                                SizedBox(height:AppSize.s15 ,),
                                 Padding(
                                   padding: const  EdgeInsets.symmetric(vertical: 6),
                                   child: Text("Relationship to patient:" ,style: BoldfontStyle.customTextStyle(context),),
                                 ),
-                                SizedBox(height: 15,),
+                                SizedBox(height: AppSize.s15,),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 4),
                                   child: Text("Printed Name of Authorized \nRepresentative:" ,style: BoldfontStyle.customTextStyle(context),),
@@ -736,23 +738,23 @@ class _ConsentForCareState extends State<ConsentForCare> {
                               ],
                             ),
 
-                            SizedBox(width: 10,),
+                            SizedBox(width: AppSize.s10,),
                             Column(crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 EMRTextFConst(
                                   //width: MediaQuery.of(context).size.width /5,
                                   width:AppSize.s310,
                                   controller: reasonController, keyboardType: TextInputType.text, ),
-                                SizedBox(height: 10,),
+                                SizedBox(height: AppSize.s10,),
                                 // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
                                 CustomDropdownTextFieldEMR(
                                  // width: MediaQuery.of(context).size.width /5,
                                   width:AppSize.s310,
-                                  height: 30,
+                                  height: AppSize.s30,
                                   items: ['Aunt/Uncle','Child','Cousin'],
                                   onChanged: (value) {},
                                 ),
-                                SizedBox(height: 10,),
+                                SizedBox(height: AppSize.s10,),
                                 EMRTextFConst(
                                   width:AppSize.s310,
                                   //width: MediaQuery.of(context).size.width /5,
@@ -762,13 +764,13 @@ class _ConsentForCareState extends State<ConsentForCare> {
                           ],
                         ),
                       ),
-                      SizedBox(width: 15,),
+                      SizedBox(width: AppSize.s15,),
                       Container(
                         child: Center(
                           child: Row(
                             children: [
                               Text("Date",style: BoldfontStyle.customTextStyle(context),),
-                              SizedBox(width: 10,),
+                              SizedBox(width: AppSize.s10,),
                               EMRTextFConst(
                                 width:AppSize.s310,
                                // width: MediaQuery.of(context).size.width /5,
@@ -783,19 +785,19 @@ class _ConsentForCareState extends State<ConsentForCare> {
                 ],
               ),),
 
-              SizedBox(height: 100),
+              SizedBox(height: AppSize.s100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     //color: Colors.white,
-                    width: 137,
-                    height: 30,
+                    width: AppSize.s137,
+                    height: AppSize.s30,
                     child: ElevatedButton(
                       onPressed: (){
 
                       },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.white,
                         elevation: 5,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -810,13 +812,13 @@ class _ConsentForCareState extends State<ConsentForCare> {
                   ), SizedBox(width: 20,),
                   Container(
                     //color: Colors.white,
-                    width: 117,
-                    height: 30,
+                    width:117,
+                    height: AppSize.s30,
                     child: ElevatedButton(
                       onPressed: (){
 
                       },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.white,
                         elevation: 5,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -828,11 +830,11 @@ class _ConsentForCareState extends State<ConsentForCare> {
                       child: Text('Submit',
                         style: BoldfontStyle.customTextStyle(context),
                       ),),
-                  ), SizedBox(width: 20,),
+                  ), SizedBox(width: AppSize.s20,),
                   Container(
                     //color: Colors.white,
                     width: 117,
-                    height: 30,
+                    height: AppSize.s30,
                     child: ElevatedButton(
                       onPressed: (){
 

@@ -115,7 +115,7 @@ class CheckboxController extends GetxController {
 
 
 
-class AddminInfoChechBox extends GetxController{
+class AdminInfoChechBox extends GetxController{
 
   var ukp = false.obs;
   var ukn  = false.obs;
@@ -157,9 +157,9 @@ var  ten = false.obs;
 var eleven = false.obs;
 var tuk = false.obs;
  var na = false.obs;
-// var  = false.obs;
-// var  = false.obs;
-// var  = false.obs;
+var  nomedicaid = false.obs;
+var noavaiable  = false.obs;
+var nomedicare = false.obs;
 // var  = false.obs;
 
 
@@ -293,10 +293,25 @@ void toggleChecktuk(bool value) {
    void toggleCheckna(bool value) {
   na.value = value;
 }
+void toggleChecknomedicare(bool value) {
+  nomedicare.value = value;
+}
+
+void toggleChecknoavaiable(bool value) {
+  noavaiable.value = value;
+}
+void toggleChecknomedicaid(bool value) {
+  nomedicaid.value = value;
+}
 // void toggleCheck(bool value) {
 //   .value = value;
 // }
-
+// void toggleCheck(bool value) {
+//   .value = value;
+// }
+// void toggleCheck(bool value) {
+//   .value = value;
+// }
 //
 
 

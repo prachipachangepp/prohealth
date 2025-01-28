@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../app/resources/color.dart';
 //import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 import '../../them_manager/oasis_them_mnager.dart';
 import 'green_container_constant.dart';
 
@@ -19,8 +20,8 @@ class _UploadFilePopupState extends State<UploadFilePopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: 150,
-       width: 800,
+        height: AppSize.s150,
+       width: AppSize.s800,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(20),
@@ -31,34 +32,34 @@ class _UploadFilePopupState extends State<UploadFilePopup> {
           children: [
 
             WhiteContrainerConstwidth(
-              height: 100,
-              width:180,
+              height: AppSize.s100,
+              width:AppSize.s180,
               child: Column(
                 children: [
                   Image.asset("images/oasis_emr/manual_signature.png",),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   Text("Manual Signature",style: BoldfontStyle.customTextStyle(context),)
                 ],
               ),
             ),
             WhiteContrainerConstwidth(
-              height: 100,
-              width:180,
+              height: AppSize.s100,
+              width:AppSize.s180,
               child: Column(
                 children: [
                   Icon(Icons.camera_alt_outlined,weight: 400,color: ColorManager.mediumgrey,),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   Text("Take a Photo",style: BoldfontStyle.customTextStyle(context),)
                 ],
               ),
             ),
             WhiteContrainerConstwidth(
-              height: 100,
-              width:180,
+              height: AppSize.s100,
+              width:AppSize.s180,
               child: Column(
                 children: [
                   Icon(Icons.file_upload_outlined,weight: 400,color: ColorManager.mediumgrey,),
-                  SizedBox(height: 20,),
+                  SizedBox(height: AppSize.s20,),
                   Text("Upload File",style: BoldfontStyle.customTextStyle(context),)
                 ],
               ),

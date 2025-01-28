@@ -5,6 +5,7 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 import '../../../../widgets/app_clickable_widget.dart';
 import '../../them_manager/oasis_them_mnager.dart';
 
@@ -114,11 +115,11 @@ class DrawerrightsideA extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: AppSize.s20,),
           Text("| do not currently have advance directives",
             style: AllHRTableData.customTextStyle(context),
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: AppSize.s20,),
           Text("I have had an opportunity to review this document and ask questions to assist me in understanding my rights relation to the protection of my health information. I am satisfied with the explanation provided to me and I am confident that the provider is committed to protecting my health Information.",
             style: AllHRTableData.customTextStyle(context),
           ),

@@ -7,6 +7,7 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../them_manager/oasis_them_mnager.dart';
 import '../../widgets/constant/getx_oasis.dart';
 import '../../widgets/constant/green_container_constant.dart';
+import '../../widgets/constant/popup_const.dart';
 
 class AdministrativeInfo extends StatefulWidget {
   const AdministrativeInfo({super.key});
@@ -56,7 +57,17 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
   TextEditingController psuitecontroller = TextEditingController();
   // TextEditingController controller = TextEditingController();
   // TextEditingController controller = TextEditingController();
-  // TextEditingController controller = TextEditingController();
+
+
+   TextEditingController pidcontroller = TextEditingController();
+   TextEditingController pnotappcontroller = TextEditingController();
+  TextEditingController ppstatecontroller = TextEditingController();
+  TextEditingController ppzipcodecontroller = TextEditingController();
+  TextEditingController medicarenocontroller = TextEditingController();
+  TextEditingController ssncontroller = TextEditingController();
+  TextEditingController medicaidnocontroller = TextEditingController();
+  TextEditingController bdaycontroller = TextEditingController();
+  //TextEditingController controller = TextEditingController();
 
 
   ///
@@ -66,7 +77,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final AddminInfoChechBox admincheckboxController = Get.put(AddminInfoChechBox());
+    final AdminInfoChechBox admincheckboxController = Get.put(AdminInfoChechBox());
     return  Scaffold(
       backgroundColor: ColorManager.white,
       body: SingleChildScrollView(
@@ -78,876 +89,869 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Column(
-                        children: [
-                          GreenContrainerConst(
-                            height:MediaQuery.of(context).size.height /1,
-                            child: ScrollConfiguration(
-                              behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                              child: SingleChildScrollView(
-                                //controller: _scrollController,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height: 20,),
+                    child: Column(
+                      children: [
+                        adminGreenContrainerConst(
+                          //height:MediaQuery.of(context).size.height /1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 20,),
 
 
-                                    Row(
-                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Ontabtext(ontab: () async{  },
-                                          child: Row(children: [
-                                            Text("(M0010)", style: Redfontstyle.customTextStyle(context)),
-                                            Text(" CMS Certification Number: ", style: BoldfontStyle.customTextStyle(context))
-                                          ],),),
-                                        SizedBox(width:  MediaQuery.of(context).size.width /30,),
-                                        Text("5678945"),
-                                      ],
-                                    ),
-                                    SizedBox(height: 30,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        // Column for labels and text widgets
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            // Padding(
-                                            //   padding: const EdgeInsets.symmetric(vertical: 5),
-                                            //   child: Ontabtext(
-                                            //     ontab: () async {},
-                                            //     child: Row(
-                                            //       children: [
-                                            //         Text("(M0010)", style: Redfontstyle.customTextStyle(context)),
-                                            //         Text(" CMS Certification Number : ", style: BoldfontStyle.customTextStyle(context)),
-                                            //       ],
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                        // SizedBox(height: 0,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 5),
-                                              child: Ontabtext(
-                                                ontab: () async {},
-                                                child: Row(
-                                                  children: [
-                                                    Text("(M0014)", style: Redfontstyle.customTextStyle(context)),
-                                                    Text(" Branch State : ", style: BoldfontStyle.customTextStyle(context)),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                        SizedBox(height: 30,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 5),
-                                              child: Ontabtext(
-                                                ontab: () async {},
-                                                child: Row(
-                                                  children: [
-                                                    Text("(M0016)", style: Redfontstyle.customTextStyle(context)),
-                                                    Text(" Branch ID Number : ", style: BoldfontStyle.customTextStyle(context)),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-
-                                        SizedBox(width: 40),
-
-                                        // Column for the values and textfields
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            // CMS Certification Number value
-                                            // Row(
-                                            //   children: [
-                                            //     Text("564789"), // Your CMS Certification Number
-                                            //   ],
-                                            // ),
-                                           // SizedBox(height: 20,),
-                                            // Branch State TextField
-                                            EMRTextFConst(
-                                              width: AppSize.s150,
-                                              controller: branchstatecontroller,
-                                              keyboardType: TextInputType.text,
-                                            ),
-                                            // Branch ID Number TextField
-                                            SizedBox(height: 20,),
-                                            EMRTextFConst(
-                                              width: AppSize.s150,
-                                              controller: idcontroller,
-                                              keyboardType: TextInputType.text,
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(width: 20),
-                                        Column(children: [],)
-
-                                      ],
-                                    ),
-                                    SizedBox(height: 20,),
-
-                                    InkWell( onTap: (){},
-                                      child: Text.rich(
-                                        TextSpan(
-                                          children: [
-                                            TextSpan(
-                                              text:"(M0018)", style: Redfontstyle.customTextStyle(context)
-                                            ),
-                                            TextSpan(
-                                              text: " National Provider Identifier (NPI) ", style: BoldfontStyle.customTextStyle(context)
-                                            ),
-                                            TextSpan(
-                                              text: "for the attending physician who has signed the plan of care: ", style: Normalfontstyle.customTextStyle(context)
-                                            ),
-                                          ],
+                              Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Ontabtext(ontab: () async{ showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return mten();
+                                    },); },
+                                    child: Row(children: [
+                                      Text("(M0010)", style: Redfontstyle.customTextStyle(context)),
+                                      Text(" CMS Certification Number: ", style: BoldfontStyle.customTextStyle(context))
+                                    ],),),
+                                  SizedBox(width:  MediaQuery.of(context).size.width /23,),
+                                  Text("5678945"),
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s30,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // Column for labels and text widgets
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      // Padding(
+                                      //   padding: const EdgeInsets.symmetric(vertical: 5),
+                                      //   child: Ontabtext(
+                                      //     ontab: () async {},
+                                      //     child: Row(
+                                      //       children: [
+                                      //         Text("(M0010)", style: Redfontstyle.customTextStyle(context)),
+                                      //         Text(" CMS Certification Number : ", style: BoldfontStyle.customTextStyle(context)),
+                                      //       ],
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                  // SizedBox(height: 0,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 5),
+                                        child: Ontabtext(
+                                          ontab: () async {},
+                                          child: Row(
+                                            children: [
+                                              Text("(M0014)", style: Redfontstyle.customTextStyle(context)),
+                                              Text(" Branch State : ", style: BoldfontStyle.customTextStyle(context)),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(height: 10,),
-                                    EMRTextFConst(
-                                      width: MediaQuery.of(context).size.width /5,
-                                     // width: AppSize.s150,
-                                      controller: npicontroller,
-                                      keyboardType: TextInputType.text,
-                                    ),
-                                    SizedBox(height: 10,),
-                                    CustomCheckBoxListTile(
-                                      title: 'UK - Unknown or Not Available',
-                                      isChecked: admincheckboxController.ukn,
-                                      onChanged: (value) {
-                                        admincheckboxController.toggleCheckukn(value);
-                                      },
-                                    ),
-                                    SizedBox(height: 15,),
-                                    Text("Primary Referring Physician I.D.: ", style: BoldfontStyle.customTextStyle(context)),
-                                    SizedBox(height: 10,),
-                                    EMRTextFConst(
-                                      width: MediaQuery.of(context).size.width /5,
-                                      // width: AppSize.s150,
-                                      controller: prpidcontroller,
-                                      keyboardType: TextInputType.text,
-                                    ),
-                                    SizedBox(height: 10,),
-                                    CustomCheckBoxListTile(
-                                      title: 'UK - Unknown or Not Available',
-                                      isChecked: admincheckboxController.ukp,
-                                      onChanged: (value) {
-                                        admincheckboxController.toggleCheckukp(value);
-                                      },
-                                    ),
-
-                                    SizedBox(height: 20,),
-                                    Text("Physician Signing Plan of Care: ", style: BoldfontStyle.customTextStyle(context)),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(height: 10,),
-                                            Padding(
-                                              padding: const  EdgeInsets.symmetric(vertical: 5),
-                                              child: Text("Last :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height:20 ,),
-                                            Padding(
-                                              padding: const  EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("First :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("Phone :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("Address :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("City :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("State :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 8),
-                                              child: Text("Zip Code :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            )
-                                          ],
-                                        ),
-
-                                        SizedBox(width: 10,),
-                                        Column(crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                            width: MediaQuery.of(context).size.width /5,
-                                             // width:AppSize.s310,
-                                              controller: lastcontroller, keyboardType: TextInputType.text, ),
-                                           // SizedBox(height: 10,),
-                                            // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
-
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: firstcontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                            width: MediaQuery.of(context).size.width /5,
-                                              controller: phonecontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                             width: MediaQuery.of(context).size.width /5,
-                                              controller: addresscontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: citycontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: statecontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                             // width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: zipcodecontroller, keyboardType: TextInputType.text,),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-
-                                    SizedBox(height: 20,),
-                                    Text("Other Physician: ", style: BoldfontStyle.customTextStyle(context)),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(height: 10,),
-                                            Padding(
-                                              padding: const  EdgeInsets.symmetric(vertical: 5),
-                                              child: Text("Last :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height:20 ,),
-                                            Padding(
-                                              padding: const  EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("First :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("Phone :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("Address :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("City :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("State :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 8),
-                                              child: Text("Zip Code :" ,style: BoldfontStyle.customTextStyle(context),),
-                                            )
-                                          ],
-                                        ),
-
-                                        SizedBox(width: 10,),
-                                        Column(crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              width: MediaQuery.of(context).size.width /5,
-                                              // width:AppSize.s310,
-                                              controller: olastcontroller, keyboardType: TextInputType.text, ),
-                                            // SizedBox(height: 10,),
-                                            // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
-
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: ofirstcontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: ophonecontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: oaddresscontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: ocitycontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: ostatecontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              // width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: ozipcodecontroller, keyboardType: TextInputType.text,),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Ontabtext(ontab: () async{  },
-                                          child: Row(children: [
-                                            Text("(M0020)", style: Redfontstyle.customTextStyle(context)),
-                                            Text(" Patient ID Number: ", style: BoldfontStyle.customTextStyle(context))
-                                          ],),),
-                                        SizedBox(width:  MediaQuery.of(context).size.width /57,),
-                                        EMRTextFConst(
-                                          width: AppSize.s150,
-                                          controller: branchstatecontroller,
-                                          keyboardType: TextInputType.text,
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-
-                                        Ontabtext(ontab: () async{  },
-                                          child: Row(children: [
-                                            Text("(M0300)", style: Redfontstyle.customTextStyle(context)),
-                                            Text(" Start of Care Date: ", style: BoldfontStyle.customTextStyle(context))
-                                          ],),),
-
-
-                                        Container(
-                                          constraints: BoxConstraints(maxWidth: 50),
-                                          child: Center(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Image.asset("images/oasis_emr/star.png",height: 15,),
-                                                Image.asset("images/oasis_emr/P.png",height: 13),
-                                                // Image.asset("images/oasis_emr/O.png",height: 15,alignment: Alignment.center),
-                                                // Image.asset("images/oasis_emr/v.png",height: 18,),
-                                                Image.asset("images/oasis_emr/excl_mark.png",height: 15),
-                                                Image.asset("images/oasis_emr/cc.png",height: 13),
-                                                //Image.asset("images/oasis_emr/.png",height: 10,),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-
-                                        Ontabtext(ontab: () async{  },
-                                          child: Row(children: [
-                                            Text("(M0032)", style: Redfontstyle.customTextStyle(context)),
-                                            Text(" Resumption of Care Date: ", style: BoldfontStyle.customTextStyle(context))
-                                          ],),),
-
-
-                                        Container(
-                                          constraints: BoxConstraints(maxWidth: 50),
-                                          child: Center(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Image.asset("images/oasis_emr/star.png",height: 15,),
-                                                Image.asset("images/oasis_emr/P.png",height: 13),
-                                                // Image.asset("images/oasis_emr/O.png",height: 15,alignment: Alignment.center),
-                                                // Image.asset("images/oasis_emr/v.png",height: 18,),
-                                                Image.asset("images/oasis_emr/excl_mark.png",height: 15),
-                                                Image.asset("images/oasis_emr/cc.png",height: 13),
-                                                //Image.asset("images/oasis_emr/.png",height: 10,),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        CustomCheckBoxListTile(
-
-                                          title: 'NA - Not Applicable',
-                                          isChecked: admincheckboxController.na,
-                                          onChanged: (value) {
-                                            admincheckboxController.toggleCheckna(value);
-                                          },
-                                        ),
-
-                                        SizedBox(width:  MediaQuery.of(context).size.width /40,),
-                                        EMRTextFConst(
-                                          width: AppSize.s150,
-                                          controller: branchstatecontroller,
-                                          keyboardType: TextInputType.text,
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 30,),
-
-                                    Ontabtext(ontab: () async{  },
-                                      child: Row(children: [
-                                        Text("(M0040)", style: Redfontstyle.customTextStyle(context)),
-                                        Text(" Patient Name: ", style: BoldfontStyle.customTextStyle(context))
-                                      ],),),
-
-                                    Row(
-                                      children: [
-                                        Container(
+                                  SizedBox(height: 30,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 5),
+                                        child: Ontabtext(
+                                          ontab: () async {},
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding: const  EdgeInsets.symmetric(vertical: 4),
-                                                    child: Text("First :" ,style: BoldfontStyle.customTextStyle(context),),
-                                                  ),
-
-                                                  SizedBox(height: 15,),
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 4),
-                                                    child: Text("Last :" ,style: Normalfontstyle.customTextStyle(context),),
-                                                  )
-                                                ],
-                                              ),
-
-                                              SizedBox(width: 10,),
-                                              Column(crossAxisAlignment: CrossAxisAlignment.end,
-                                                children: [
-                                                  EMRTextFConst(
-                                                    //width: MediaQuery.of(context).size.width /5,
-                                                    width: AppSize.s150,
-                                                    controller: pfirstcontroller, keyboardType: TextInputType.text, ),
-                                                  SizedBox(height: 10,),
-                                                  // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
-
-
-                                                  EMRTextFConst(
-                                                    width: AppSize.s150,
-                                                    //width: MediaQuery.of(context).size.width /5,
-                                                    controller: plastcontroller, keyboardType: TextInputType.text,)
-                                                ],
-                                              ),
+                                              Text("(M0016)", style: Redfontstyle.customTextStyle(context)),
+                                              Text(" Branch ID Number : ", style: BoldfontStyle.customTextStyle(context)),
                                             ],
                                           ),
                                         ),
-                                        SizedBox(width: 15,),
-                                        Container(
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding: const  EdgeInsets.symmetric(vertical: 4),
-                                                    child: Text("MI :" ,style: Normalfontstyle.customTextStyle(context),),
-                                                  ),
+                                      ),
+                                    ],
+                                  ),
 
-                                                  SizedBox(height: 15,),
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 4),
-                                                    child: Text("Suffix :" ,style: Normalfontstyle.customTextStyle(context),),
-                                                  )
-                                                ],
-                                              ),
+                                  SizedBox(width: AppSize.s40),
 
-                                              SizedBox(width: 10,),
-                                              Column(crossAxisAlignment: CrossAxisAlignment.end,
-                                                children: [
-                                                  EMRTextFConst(
-                                                    //width: MediaQuery.of(context).size.width /5,
-                                                    width: AppSize.s150,
-                                                    controller: pmicontroller, keyboardType: TextInputType.text, ),
-                                                  SizedBox(height: 10,),
-                                                  // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
+                                  // Column for the values and textfields
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      // CMS Certification Number value
+                                      // Row(
+                                      //   children: [
+                                      //     Text("564789"), // Your CMS Certification Number
+                                      //   ],
+                                      // ),
+                                     // SizedBox(height: 20,),
+                                      // Branch State TextField
+                                      EMRTextFConst(
+                                        width: AppSize.s150,
+                                        controller: branchstatecontroller,
+                                        keyboardType: TextInputType.text,
+                                      ),
+                                      // Branch ID Number TextField
+                                      SizedBox(height: AppSize.s20,),
+                                      EMRTextFConst(
+                                        width: AppSize.s150,
+                                        controller: idcontroller,
+                                        keyboardType: TextInputType.text,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: AppSize.s20),
+                                  Column(children: [],)
 
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s20,),
 
-                                                  EMRTextFConst(
-                                                    width: AppSize.s150,
-                                                    //width: MediaQuery.of(context).size.width /5,
-                                                    controller: psuffixcontroller, keyboardType: TextInputType.text,)
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                           // SizedBox(height: 10,),
-
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("Patient Phone: :" ,style: Normalfontstyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("Address :" ,style: Normalfontstyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("Street :" ,style: Normalfontstyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 8),
-                                              child: Text("Suite/Apt # :" ,style: Normalfontstyle.customTextStyle(context),),
-                                            ),
-                                            SizedBox(height: 20,),
-
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 6),
-                                              child: Text("City :" ,style: Normalfontstyle.customTextStyle(context),),
-                                            ),
-
-
-                                          ],
-                                        ),
-
-                                        SizedBox(width: 10,),
-                                        Column(crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                           // SizedBox(height: 10,),
-                                        SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: pphonecontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: paddresscontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: pstreetcontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: psuitecontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              // width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: pcitycontroller, keyboardType: TextInputType.text,),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            // SizedBox(height: 10,),
-                                            Ontabtext(ontab: () async{  },
-                                              child: Row(children: [
-                                                Text("(M0050)", style: Redfontstyle.customTextStyle(context)),
-                                                Text(" Patient State of \n Residence: ", style: BoldfontStyle.customTextStyle(context))
-                                              ],),),
-                                          ],
-                                        ),
-
-                                        SizedBox(width: 10,),
-                                        Column(crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            // SizedBox(height: 10,),
-                                            //    SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: pphonecontroller, keyboardType: TextInputType.text,),
-                                            // SizedBox(height: 10,),
-
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            // SizedBox(height: 10,),
-                                            Ontabtext(ontab: () async{  },
-                                              child: Row(children: [
-                                                Text("(M0060)", style: Redfontstyle.customTextStyle(context)),
-                                                Text(" Patient ZIP Code: ", style: BoldfontStyle.customTextStyle(context))
-                                              ],),),
-                                          ],
-                                        ),
-
-                                        SizedBox(width: 10,),
-                                        Column(crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            // SizedBox(height: 10,),
-                                            //    SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: pphonecontroller, keyboardType: TextInputType.text,),
-                                            // SizedBox(height: 10,),
-
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(height: 10,),
-                                            Ontabtext(ontab: () async{  },
-                                              child: Row(children: [
-                                                Text("(M0063)", style: Redfontstyle.customTextStyle(context)),
-                                                Text(" Medicare Number: ", style: BoldfontStyle.customTextStyle(context))
-                                              ],),),
-                                          ],
-                                        ),
-
-                                        SizedBox(width: 10,),
-                                        Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            // SizedBox(height: 10,),
-                                            //    SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: pphonecontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            CustomCheckBoxListTile(
-
-                                              title: ' NA - No Medicare (including suffix)',
-                                              isChecked: admincheckboxController.na,
-                                              onChanged: (value) {
-                                                admincheckboxController.toggleCheckna(value);
-                                              },
-                                            ),
-
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(height: 10,),
-                                            Ontabtext(ontab: () async{  },
-                                              child: Row(children: [
-                                                Text("(M0064)", style: Redfontstyle.customTextStyle(context)),
-                                                Text(" Social Security Number:", style: BoldfontStyle.customTextStyle(context))
-                                              ],),),
-                                          ],
-                                        ),
-
-                                        SizedBox(width: 10,),
-                                        Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            // SizedBox(height: 10,),
-                                            //    SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: pphonecontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            CustomCheckBoxListTile(
-
-                                              title: ' UK - Unknown or Not Available',
-                                              isChecked: admincheckboxController.na,
-                                              onChanged: (value) {
-                                                admincheckboxController.toggleCheckna(value);
-                                              },
-                                            ),
-
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(height: 10,),
-                                            Ontabtext(ontab: () async{  },
-                                              child: Row(children: [
-                                                Text("(M0065)", style: Redfontstyle.customTextStyle(context)),
-                                                Text(" Medicaid Number:  ", style: BoldfontStyle.customTextStyle(context))
-                                              ],),),
-                                          ],
-                                        ),
-
-                                        SizedBox(width: 10,),
-                                        Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            // SizedBox(height: 10,),
-                                            //    SizedBox(height: 10,),
-                                            EMRTextFConst(
-                                              //width:AppSize.s310,
-                                              width: MediaQuery.of(context).size.width /5,
-                                              controller: pphonecontroller, keyboardType: TextInputType.text,),
-                                            SizedBox(height: 10,),
-                                            CustomCheckBoxListTile(
-
-                                              title: 'NA - No Medicaid',
-                                              isChecked: admincheckboxController.na,
-                                              onChanged: (value) {
-                                                admincheckboxController.toggleCheckna(value);
-                                              },
-                                            ),
-
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Ontabtext(ontab: () async{  },
-                                          child: Row(children: [
-                                            Text("(M0066)", style: Redfontstyle.customTextStyle(context)),
-                                            Text(" Birth Date: ", style: BoldfontStyle.customTextStyle(context))
-                                          ],),),
-                                        SizedBox(width:  MediaQuery.of(context).size.width /17,),
-                                        EMRTextFConst(
-                                          width: AppSize.s150,
-                                          controller: branchstatecontroller,
-                                          keyboardType: TextInputType.text,
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Ontabtext(ontab: () async{  },
-                                          child: Row(children: [
-                                            Text("(M0069)", style: Redfontstyle.customTextStyle(context)),
-                                            Text(" Gender:  ", style: BoldfontStyle.customTextStyle(context))
-                                          ],),),
-                                        SizedBox(width:  MediaQuery.of(context).size.width /15,),
-                                        Row(
-                                          children: [
-                                            EMRCustomRadioListTile(
-                                              title: '1 - Male',
-                                              value: 'Male',
-                                              groupValue: gender,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  gender = value;
-                                                });
-                                              },
-                                            ),
-                                            EMRCustomRadioListTile(
-                                              title: '2 - Female',
-                                              value: 'Female',
-                                              groupValue: gender,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  gender = value;
-                                                });
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-
-
-
-
-
-
-
-
-                                  ],
+                              InkWell( onTap: (){},
+                                child: Text.rich(
+                                  TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text:"(M0018)", style: Redfontstyle.customTextStyle(context)
+                                      ),
+                                      TextSpan(
+                                        text: " National Provider Identifier (NPI) ", style: BoldfontStyle.customTextStyle(context)
+                                      ),
+                                      TextSpan(
+                                        text: "for the attending physician who has signed the plan of care: ", style: Normalfontstyle.customTextStyle(context)
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
+                              SizedBox(height: AppSize.s10,),
+                              EMRTextFConst(
+                                width: MediaQuery.of(context).size.width /5,
+                               // width: AppSize.s150,
+                                controller: npicontroller,
+                                keyboardType: TextInputType.text,
+                              ),
+                              SizedBox(height: 10,),
+                              CustomCheckBoxListTile(
+                                title: 'UK - Unknown or Not Available',
+                                isChecked: admincheckboxController.ukn,
+                                onChanged: (value) {
+                                  admincheckboxController.toggleCheckukn(value);
+                                },
+                              ),
+                              SizedBox(height: AppSize.s15,),
+                              Text("Primary Referring Physician I.D.: ", style: BoldfontStyle.customTextStyle(context)),
+                              SizedBox(height: AppSize.s10,),
+                              EMRTextFConst(
+                                width: MediaQuery.of(context).size.width /5,
+                                // width: AppSize.s150,
+                                controller: prpidcontroller,
+                                keyboardType: TextInputType.text,
+                              ),
+                              SizedBox(height: AppSize.s10,),
+                              CustomCheckBoxListTile(
+                                title: 'UK - Unknown or Not Available',
+                                isChecked: admincheckboxController.ukp,
+                                onChanged: (value) {
+                                  admincheckboxController.toggleCheckukp(value);
+                                },
+                              ),
+
+                              SizedBox(height: AppSize.s20,),
+                              Text("Physician Signing Plan of Care: ", style: BoldfontStyle.customTextStyle(context)),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: AppSize.s10,),
+                                      Padding(
+                                        padding: const  EdgeInsets.symmetric(vertical: 5),
+                                        child: Text("Last :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height:AppSize.s20 ,),
+                                      Padding(
+                                        padding: const  EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("First :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("Phone :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("Address :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("City :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("State :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8),
+                                        child: Text("Zip Code :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      )
+                                    ],
+                                  ),
+
+                                  SizedBox(width: AppSize.s10,),
+                                  Column(crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                      width: MediaQuery.of(context).size.width /5,
+                                       // width:AppSize.s310,
+                                        controller: lastcontroller, keyboardType: TextInputType.text, ),
+                                     // SizedBox(height: 10,),
+                                      // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
+
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: firstcontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                      width: MediaQuery.of(context).size.width /5,
+                                        controller: phonecontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                       width: MediaQuery.of(context).size.width /5,
+                                        controller: addresscontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: citycontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height:AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: statecontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                       // width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: zipcodecontroller, keyboardType: TextInputType.text,),
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(height: AppSize.s20,),
+                              Text("Other Physician: ", style: BoldfontStyle.customTextStyle(context)),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: AppSize.s10,),
+                                      Padding(
+                                        padding: const  EdgeInsets.symmetric(vertical: 5),
+                                        child: Text("Last :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height:AppSize.s20 ,),
+                                      Padding(
+                                        padding: const  EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("First :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("Phone :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("Address :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("City :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("State :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8),
+                                        child: Text("Zip Code :" ,style: BoldfontStyle.customTextStyle(context),),
+                                      )
+                                    ],
+                                  ),
+
+                                  SizedBox(width: 10,),
+                                  Column(crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        width: MediaQuery.of(context).size.width /5,
+                                        // width:AppSize.s310,
+                                        controller: olastcontroller, keyboardType: TextInputType.text, ),
+                                      // SizedBox(height: 10,),
+                                      // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
+
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: ofirstcontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: ophonecontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: oaddresscontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: ocitycontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: ostatecontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        // width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: ozipcodecontroller, keyboardType: TextInputType.text,),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Ontabtext(ontab: () async{  },
+                                    child: Row(children: [
+                                      Text("(M0020)", style: Redfontstyle.customTextStyle(context)),
+                                      Text(" Patient ID Number: ", style: BoldfontStyle.customTextStyle(context))
+                                    ],),),
+                                  SizedBox(width:  MediaQuery.of(context).size.width /57,),
+                                  EMRTextFConst(
+                                    width: AppSize.s150,
+                                    controller: pidcontroller,
+                                    keyboardType: TextInputType.text,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+                                  Ontabtext(ontab: () async{  },
+                                    child: Row(children: [
+                                      Text("(M0300)", style: Redfontstyle.customTextStyle(context)),
+                                      Text(" Start of Care Date: ", style: BoldfontStyle.customTextStyle(context))
+                                    ],),),
+
+
+                                  Container(
+                                    constraints: BoxConstraints(maxWidth: AppSize.s50),
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Image.asset("images/oasis_emr/star.png",height: AppSize.s15,),
+                                          Image.asset("images/oasis_emr/P.png",height: AppSize.s13),
+                                          // Image.asset("images/oasis_emr/O.png",height: AppSize.s15,alignment: Alignment.center),
+                                          // Image.asset("images/oasis_emr/v.png",height: AppSize.s18,),
+                                          Image.asset("images/oasis_emr/excl_mark.png",height: AppSize.s15),
+                                          Image.asset("images/oasis_emr/cc.png",height: AppSize.s13),
+                                          //Image.asset("images/oasis_emr/.png",height: AppSize.s10,),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+                                  Ontabtext(ontab: () async{  },
+                                    child: Row(children: [
+                                      Text("(M0032)", style: Redfontstyle.customTextStyle(context)),
+                                      Text(" Resumption of Care Date: ", style: BoldfontStyle.customTextStyle(context))
+                                    ],),),
+
+
+                                  Container(
+                                    constraints: BoxConstraints(maxWidth: AppSize.s50),
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Image.asset("images/oasis_emr/star.png",height: AppSize.s15,),
+                                          Image.asset("images/oasis_emr/P.png",height: AppSize.s13),
+                                          // Image.asset("images/oasis_emr/O.png",height: AppSize.s15,alignment: Alignment.center),
+                                          // Image.asset("images/oasis_emr/v.png",height: AppSize.s18,),
+                                          Image.asset("images/oasis_emr/excl_mark.png",height: AppSize.s15),
+                                          Image.asset("images/oasis_emr/cc.png",height: AppSize.s13),
+                                          //Image.asset("images/oasis_emr/.png",height: AppSize.s10,),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomCheckBoxListTile(
+
+                                    title: 'NA - Not Applicable',
+                                    isChecked: admincheckboxController.na,
+                                    onChanged: (value) {
+                                      admincheckboxController.toggleCheckna(value);
+                                    },
+                                  ),
+
+                                  SizedBox(width:  MediaQuery.of(context).size.width /40,),
+                                  EMRTextFConst(
+                                    width: AppSize.s150,
+                                    controller: pnotappcontroller,
+                                    keyboardType: TextInputType.text,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s30,),
+
+                              Ontabtext(ontab: () async{  },
+                                child: Row(children: [
+                                  Text("(M0040)", style: Redfontstyle.customTextStyle(context)),
+                                  Text(" Patient Name: ", style: BoldfontStyle.customTextStyle(context))
+                                ],),),
+
+                              Row(
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: const  EdgeInsets.symmetric(vertical: 4),
+                                              child: Text("First :" ,style: BoldfontStyle.customTextStyle(context),),
+                                            ),
+
+                                            SizedBox(height: AppSize.s15,),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 4),
+                                              child: Text("Last :" ,style: Normalfontstyle.customTextStyle(context),),
+                                            )
+                                          ],
+                                        ),
+
+                                        SizedBox(width: AppSize.s10,),
+                                        Column(crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            EMRTextFConst(
+                                              //width: MediaQuery.of(context).size.width /5,
+                                              width: AppSize.s150,
+                                              controller: pfirstcontroller, keyboardType: TextInputType.text, ),
+                                            SizedBox(height: AppSize.s10,),
+                                            // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
+
+
+                                            EMRTextFConst(
+                                              width: AppSize.s150,
+                                              //width: MediaQuery.of(context).size.width /5,
+                                              controller: plastcontroller, keyboardType: TextInputType.text,)
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: AppSize.s15,),
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: const  EdgeInsets.symmetric(vertical: 4),
+                                              child: Text("MI :" ,style: Normalfontstyle.customTextStyle(context),),
+                                            ),
+
+                                            SizedBox(height: AppSize.s15,),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 4),
+                                              child: Text("Suffix :" ,style: Normalfontstyle.customTextStyle(context),),
+                                            )
+                                          ],
+                                        ),
+
+                                        SizedBox(width: AppSize.s10,),
+                                        Column(crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            EMRTextFConst(
+                                              //width: MediaQuery.of(context).size.width /5,
+                                              width: AppSize.s150,
+                                              controller: pmicontroller, keyboardType: TextInputType.text, ),
+                                            SizedBox(height: AppSize.s10,),
+                                            // EMRTextFConst(controller: nameController, keyboardType: TextInputType.text,),
+
+
+                                            EMRTextFConst(
+                                              width: AppSize.s150,
+                                              //width: MediaQuery.of(context).size.width /5,
+                                              controller: psuffixcontroller, keyboardType: TextInputType.text,)
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                     // SizedBox(height: AppSize.s10,),
+
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("Patient Phone: :" ,style: Normalfontstyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("Address :" ,style: Normalfontstyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("Street :" ,style: Normalfontstyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8),
+                                        child: Text("Suite/Apt # :" ,style: Normalfontstyle.customTextStyle(context),),
+                                      ),
+                                      SizedBox(height: AppSize.s20,),
+
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        child: Text("City :" ,style: Normalfontstyle.customTextStyle(context),),
+                                      ),
+
+
+                                    ],
+                                  ),
+
+                                  SizedBox(width: AppSize.s10,),
+                                  Column(crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                     // SizedBox(height: AppSize.s10,),
+                                  SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: pphonecontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: paddresscontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: pstreetcontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: psuitecontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        // width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: pcitycontroller, keyboardType: TextInputType.text,),
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      // SizedBox(height: AppSize.s10,),
+                                      Ontabtext(ontab: () async{  },
+                                        child: Row(children: [
+                                          Text("(M0050)", style: Redfontstyle.customTextStyle(context)),
+                                          Text(" Patient State of \n Residence: ", style: BoldfontStyle.customTextStyle(context))
+                                        ],),),
+                                    ],
+                                  ),
+
+                                  SizedBox(width: AppSize.s10,),
+                                  Column(crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      // SizedBox(height: AppSize.s10,),
+                                      //    SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: ppstatecontroller, keyboardType: TextInputType.text,),
+                                      // SizedBox(height: AppSize.s10,),
+
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      // SizedBox(height: AppSize.s10,),
+                                      Ontabtext(ontab: () async{  },
+                                        child: Row(children: [
+                                          Text("(M0060)", style: Redfontstyle.customTextStyle(context)),
+                                          Text(" Patient ZIP Code: ", style: BoldfontStyle.customTextStyle(context))
+                                        ],),),
+                                    ],
+                                  ),
+
+                                  SizedBox(width: AppSize.s10,),
+                                  Column(crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      // SizedBox(height: AppSize.s10,),
+                                      //    SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: ppzipcodecontroller, keyboardType: TextInputType.text,),
+                                      // SizedBox(height: AppSize.s10,),
+
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: AppSize.s10,),
+                                      Ontabtext(ontab: () async{  },
+                                        child: Row(children: [
+                                          Text("(M0063)", style: Redfontstyle.customTextStyle(context)),
+                                          Text(" Medicare Number: ", style: BoldfontStyle.customTextStyle(context))
+                                        ],),),
+                                    ],
+                                  ),
+
+                                  SizedBox(width: AppSize.s10,),
+                                  Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      // SizedBox(height: AppSize.s10,),
+                                      //    SizedBox(height: AppSize.s10,),
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: medicarenocontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: 10,),
+                                      CustomCheckBoxListTile(
+
+                                        title: ' NA - No Medicare (including suffix)',
+                                        isChecked: admincheckboxController.nomedicare,
+                                        onChanged: (value) {
+                                          admincheckboxController.toggleChecknomedicare(value);
+                                        },
+                                      ),
+
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: AppSize.s10,),
+                                      Ontabtext(ontab: () async{  },
+                                        child: Row(children: [
+                                          Text("(M0064)", style: Redfontstyle.customTextStyle(context)),
+                                          Text(" Social Security Number:", style: BoldfontStyle.customTextStyle(context))
+                                        ],),),
+                                    ],
+                                  ),
+
+                                  SizedBox(width: AppSize.s10,),
+                                  Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: ssncontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: 10,),
+                                      CustomCheckBoxListTile(
+
+                                        title: ' UK - Unknown or Not Available',
+                                        isChecked: admincheckboxController.noavaiable,
+                                        onChanged: (value) {
+                                          admincheckboxController.toggleChecknoavaiable(value);
+                                        },
+                                      ),
+
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: AppSize.s10,),
+                                      Ontabtext(ontab: () async{  },
+                                        child: Row(children: [
+                                          Text("(M0065)", style: Redfontstyle.customTextStyle(context)),
+                                          Text(" Medicaid Number:  ", style: BoldfontStyle.customTextStyle(context))
+                                        ],),),
+                                    ],
+                                  ),
+
+                                  SizedBox(width: AppSize.s10,),
+                                  Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+
+                                      EMRTextFConst(
+                                        //width:AppSize.s310,
+                                        width: MediaQuery.of(context).size.width /5,
+                                        controller: medicaidnocontroller, keyboardType: TextInputType.text,),
+                                      SizedBox(height: 10,),
+                                      CustomCheckBoxListTile(
+
+                                        title: 'NA - No Medicaid',
+                                        isChecked: admincheckboxController.nomedicaid,
+                                        onChanged: (value) {
+                                          admincheckboxController.toggleChecknomedicaid(value);
+                                        },
+                                      ),
+
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Ontabtext(ontab: () async{  },
+                                    child: Row(children: [
+                                      Text("(M0066)", style: Redfontstyle.customTextStyle(context)),
+                                      Text(" Birth Date: ", style: BoldfontStyle.customTextStyle(context))
+                                    ],),),
+                                  SizedBox(width:  MediaQuery.of(context).size.width /17,),
+                                  EMRTextFConst(
+                                    width: AppSize.s150,
+                                    controller: bdaycontroller,
+                                    keyboardType: TextInputType.text,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: AppSize.s10,),
+                              Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Ontabtext(ontab: () async{  },
+                                    child: Row(children: [
+                                      Text("(M0069)", style: Redfontstyle.customTextStyle(context)),
+                                      Text(" Gender:  ", style: BoldfontStyle.customTextStyle(context))
+                                    ],),),
+                                  SizedBox(width:  MediaQuery.of(context).size.width /15,),
+                                  Row(
+                                    children: [
+                                      EMRCustomRadioListTile(
+                                        title: '1 - Male',
+                                        value: 'Male',
+                                        groupValue: gender,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            gender = value;
+                                          });
+                                        },
+                                      ),
+                                      EMRCustomRadioListTile(
+                                        title: '2 - Female',
+                                        value: 'Female',
+                                        groupValue: gender,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            gender = value;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+
+
+
+
+
+
+
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-
+SizedBox(width: AppSize.s10,),
 
                   Expanded(
                     child: Container(
@@ -955,7 +959,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                       child: Column(
                         children: [
                           WhiteContrainerConst(
-                            height: 350,
+                            height: AppSize.s350,
                             child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -964,7 +968,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                   Text("(A1005)", style: Redfontstyle.customTextStyle(context)),
                                   Text(" Ethnicity", style: BoldfontStyle.customTextStyle(context))
                                 ],),),
-                              SizedBox(height: 10,),
+                              SizedBox(height: AppSize.s10,),
                               Text.rich(
                                 TextSpan(
                                   children: [
@@ -978,7 +982,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 10,),
+                              SizedBox(height: AppSize.s10,),
                               SemiBoldCheckBoxListTile(
                                // title: 'A. No, not of Hispanic, Latino/a, or Spanish origin',
                                 isChecked: admincheckboxController.a,
@@ -1035,9 +1039,9 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
 
                           ),
 
-                          SizedBox(height: 20,),
+                          SizedBox(height: AppSize.s20,),
                           WhiteContrainerConst(
-                             height: 640,
+                             height: AppSize.s640,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -1060,7 +1064,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 10,),
+                                SizedBox(height: AppSize.s10,),
                                 SemiBoldCheckBoxListTile(
                                  // title: 'A.A. White',
                                   isChecked: admincheckboxController.aa,
@@ -1187,9 +1191,9 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                             ),
 
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: AppSize.s20,),
                           WhiteContrainerConst(
-                            height: 100,
+                            height: AppSize.s100,
                               child: Column(
                             children: [
                               Ontabtext(ontab: () async{  },
@@ -1198,38 +1202,38 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                   Text(" Discipline of Person Completing Assessment:", style: BoldfontStyle.customTextStyle(context))
                                 ],),),
 
-                              SizedBox(height: 20,),
+                              SizedBox(height: AppSize.s20,),
                               Row(
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 20),
                                     child: WhiteContrainerConstpadding(
-                                      width:100,
-                                    height: 30,
+                                      width:AppSize.s100,
+                                    height: AppSize.s30,
                                     child:Center(child: Text("1 - RN",style: Normalfontstyle.customTextStyle(context),)),
                                     ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 20),
                                     child: WhiteContrainerConstpadding(
-                                      width:100,
-                                      height: 30,
+                                      width:AppSize.s100,
+                                      height: AppSize.s30,
                                       child:Center(child: Text("2 - PT",style: Normalfontstyle.customTextStyle(context),)),
                                     ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 20),
                                     child: WhiteContrainerConstpadding(
-                                      width:100,
-                                      height: 30,
+                                      width:AppSize.s100,
+                                      height: AppSize.s30,
                                       child:Center(child: Text("3 - SLP/ST",style: Normalfontstyle.customTextStyle(context),)),
                                     ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 20),
                                     child: WhiteContrainerConstpadding(
-                                      width:100,
-                                      height: 30,
+                                      width:AppSize.s100,
+                                      height: AppSize.s30,
                                       child:Center(child: Text("1 - OT",style: Normalfontstyle.customTextStyle(context),)),
                                     ),
                                   ),
@@ -1238,10 +1242,10 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                               )
                             ],
                           )),
-                          SizedBox(height: 20,),
+                          SizedBox(height: AppSize.s20,),
 
                           WhiteContrainerConst(
-                              height: 200,
+                              height: AppSize.s200,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -1252,7 +1256,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                       Wrap(
                                         children: [
                                           Container(
-                                            constraints: BoxConstraints(maxWidth: 330),
+                                            constraints: BoxConstraints(maxWidth: AppSize.s330),
                                             child: Text.rich(
                                               textAlign: TextAlign.start,
                                               TextSpan(
@@ -1274,18 +1278,18 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
 
 
                                             Container(
-                                            constraints: BoxConstraints(maxWidth: 90),
+                                            constraints: BoxConstraints(maxWidth: AppSize.s90),
                                             child: Center(
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Image.asset("images/oasis_emr/star.png",height: 15,),
-                                                  Image.asset("images/oasis_emr/P.png",height: 15),
-                                                  Image.asset("images/oasis_emr/O.png",height: 15,alignment: Alignment.center),
-                                                  Image.asset("images/oasis_emr/v.png",height: 18,),
-                                                  Image.asset("images/oasis_emr/excl_mark.png",height: 15),
-                                                  Image.asset("images/oasis_emr/cc.png",height: 13),
-                                                  //Image.asset("images/oasis_emr/.png",height: 10,),
+                                                  Image.asset("images/oasis_emr/star.png",height: AppSize.s15,),
+                                                  Image.asset("images/oasis_emr/P.png",height: AppSize.s15),
+                                                  Image.asset("images/oasis_emr/O.png",height: AppSize.s15,alignment: Alignment.center),
+                                                  Image.asset("images/oasis_emr/v.png",height: AppSize.s18,),
+                                                  Image.asset("images/oasis_emr/excl_mark.png",height: AppSize.s15),
+                                                  Image.asset("images/oasis_emr/cc.png",height: AppSize.s13),
+                                                  //Image.asset("images/oasis_emr/.png",height: AppSize.s10,),
                                                 ],
                                               ),
                                             ),
@@ -1293,24 +1297,24 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                     ],
                                   ),
 
-                                  SizedBox(height: 20,),
+                                  SizedBox(height: AppSize.s20,),
                                   Text("Start/Resumption of Care:  ", style: BoldfontStyle.customTextStyle(context)),
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 15),
                                     child: WhiteContrainerConstpadding(
-                                    //  width:100,
-                                      height: 30,
+                                    //  width:AppSize.s100,
+                                      height: AppSize.s30,
                                       child:Text("1 - Start of care-further visits planned",style: Normalfontstyle.customTextStyle(context),),
                                     ),
                                   ),
                                   WhiteContrainerConstpadding(
-                                   // width:100,
-                                    height: 30,
+                                   // width:AppSize.s100,
+                                    height: AppSize.s30,
                                     child:Text("3 - Resumption of care (after inpatient stay)",style: Normalfontstyle.customTextStyle(context),),
                                   ),
                                 ],
                               )),
-                          SizedBox(height: 20,),
+                          SizedBox(height: AppSize.s20,),
                           WhiteContrainerConst(
                            // height: ,
                             child: Column(
@@ -1321,7 +1325,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                     Text("(M0150)", style: Redfontstyle.customTextStyle(context)),
                                     Text(" Current Payment Sources for Home Care: ( Mark all that apply. )", style: BoldfontStyle.customTextStyle(context))
                                   ],),),
-                                SizedBox(height: 10,),
+                                SizedBox(height: AppSize.s10,),
 
                                 CustomCheckBoxListTile(
                                   bold: false,
@@ -1439,6 +1443,79 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                   ),
                 ],
               ),
+
+              SizedBox(height: AppSize.s100),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    //color: Colors.white,
+                    width: AppSize.s137,
+                    height: AppSize.s30,
+                    child: ElevatedButton(
+                      onPressed: (){
+
+                      },
+                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.white,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          // side: BorderSide(
+                          //   color: ColorManager.bluebottom,
+                          //   width: 1,
+                          // ),
+                        ),),
+                      child: Text('save and close',
+                        style: BoldfontStyle.customTextStyle(context),
+                      ),),
+                  ), SizedBox(width: AppSize.s20,),
+                  Container(
+                    //color: Colors.white,
+                    width: 117,
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: (){
+
+                      },
+                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.white,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          // side: BorderSide(
+                          //   color: ColorManager.bluebottom,
+                          //   width: 1,
+                          // ),
+                        ),),
+                      child: Text('Submit',
+                        style: BoldfontStyle.customTextStyle(context),
+                      ),),
+                  ), SizedBox(width: AppSize.s20,),
+                  Container(
+                    //color: Colors.white,
+                    width: 117,
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: (){
+
+                      },
+                      style: ElevatedButton.styleFrom(backgroundColor: ColorManager.bluebottom,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          // side: BorderSide(
+                          //   color: ColorManager.bluebottom,
+                          //   width: 1,
+                          // ),
+                        ),),
+                      child: Text('Next',
+                          style:BluebuttonStyle.customTextStyle(context)
+                      ),),
+                  ),
+
+
+                ],
+              ),
+              SizedBox(height: AppSize.s20),
           
             ],
           ),

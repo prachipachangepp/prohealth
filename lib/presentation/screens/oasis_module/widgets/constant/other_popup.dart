@@ -24,8 +24,8 @@ class _OtherPopupState extends State<OtherPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: 250,
-        width: 500,
+        height: AppSize.s250,
+        width: AppSize.s500,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(20),
@@ -63,7 +63,7 @@ class _OtherPopupState extends State<OtherPopup> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: AppSize.s20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -71,7 +71,7 @@ class _OtherPopupState extends State<OtherPopup> {
                     Container(
                       //color: Colors.white,
                       width: 117,
-                      height: 30,
+                      height: AppSize.s30,
                       child: ElevatedButton(
                         onPressed: (){
 
@@ -89,11 +89,11 @@ class _OtherPopupState extends State<OtherPopup> {
                           style: BoldfontStyle.customTextStyle(context),
                         ),),
                     ),
-                    SizedBox(width: 20,),
+                    SizedBox(width: AppSize.s20,),
                     Container(
                       //color: Colors.white,
                       width: 117,
-                      height: 30,
+                      height: AppSize.s30,
                       child: ElevatedButton(
                         onPressed: (){
 
