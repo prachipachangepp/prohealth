@@ -34,14 +34,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
   TextEditingController shiftStartTimeController = TextEditingController();
   TextEditingController shiftEndTimeController = TextEditingController();
   TextEditingController shiftnameController = TextEditingController();
-  final StreamController<List<WorkWeekScheduleData>> workWeekController =
-      StreamController<List<WorkWeekScheduleData>>();
-  final StreamController<List<WorkWeekShiftScheduleData>>
-      workWeekShiftController =
-      StreamController<List<WorkWeekShiftScheduleData>>();
-  final StreamController<List<ShiftBachesData>>
-  batchStreamController =
-  StreamController<List<ShiftBachesData>>();
+  final StreamController<List<WorkWeekScheduleData>> workWeekController = StreamController<List<WorkWeekScheduleData>>();
+  final StreamController<List<WorkWeekShiftScheduleData>> workWeekShiftController = StreamController<List<WorkWeekShiftScheduleData>>();
+  final StreamController<List<ShiftBachesData>> batchStreamController = StreamController<List<ShiftBachesData>>();
   @override
   void initState() {
     super.initState();
@@ -297,16 +292,23 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                         children: [
                                                                                           ...List.generate(min(snapshot.data!.length, 1),(index){
                                                                                             return Container(
+                                                                                              padding: EdgeInsets.symmetric(horizontal: 2),
                                                                                               height: mediaQuery.height / 30,
-                                                                                              width: mediaQuery.width / 15,
+                                                                                              width: mediaQuery.width / 14.5,
                                                                                               decoration: BoxDecoration(color: ColorManager.white,
                                                                                                   border: Border.all(color: Color(0xFFEEEEEE), width: 1),
                                                                                                   borderRadius: BorderRadius.circular(20)),
                                                                                               child: Center(
-                                                                                                  child: Text(
-                                                                                                    snapshot.data![index].officeStartTime,
-                                                                                                    style: AllHRTableData.customTextStyle(context),
-                                                                                                  )),
+                                                                                                child: Text(
+                                                                                                  '${snapshot.data![index].officeStartTime} - ${snapshot.data![index].officeEndTime}',
+                                                                                                  style: TextStyle(
+                                                                                                    fontSize: FontSize.s12,
+                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                    color: ColorManager.mediumgrey,
+                                                                                                    decoration: TextDecoration.none,
+                                                                                                  ),
+                                                                                                ),
+                                                                                              )
                                                                                             );
                                                                                           }),
                                                                                           SizedBox(width:AppSize.s10),
