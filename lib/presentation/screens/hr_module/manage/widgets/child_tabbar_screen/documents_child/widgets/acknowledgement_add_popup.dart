@@ -91,7 +91,7 @@ class AcknowledgementAddPopup extends StatelessWidget {
         builder: (context,loaderProvider,child) {
           return DialogueTemplate(
             width: AppSize.s420,
-            height: height == null ? AppSize.s390 : height!,
+            height: height == null ? AppSize.s400 : height!,
             body: [
               HeaderContentConst(
                 isAsterisk: true,
@@ -214,6 +214,9 @@ class AcknowledgementAddPopup extends StatelessWidget {
                   ),
                 ),
               ),
+              Visibility(
+                  visible: loaderProvider.showAddAckExpiryDateField,
+                  child: SizedBox(height:12)),
 
               /// Upload document section...
               HeaderContentConst(

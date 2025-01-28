@@ -149,6 +149,7 @@ class SMTextfieldAsteric extends StatefulWidget {
   final bool showDatePicker;
   final Icon? suffixIcon;
   final Function(String)? onChanged;
+  final bool? onlyAllowNumbers;
 
   SMTextfieldAsteric({
     Key? key,
@@ -166,7 +167,7 @@ class SMTextfieldAsteric extends StatefulWidget {
     this.width,
     this.inputFormated,
     this.showDatePicker = false,
-    this.suffixIcon, this.onChanged,
+    this.suffixIcon, this.onChanged, this.onlyAllowNumbers = false,
   }) : super(key: key);
 
   @override
@@ -243,6 +244,9 @@ class _SMTextfieldAstericState extends State<SMTextfieldAsteric> {
               onTap: widget.onChange,
               onChanged: widget.onChanged,
               validator: widget.validator,
+              inputFormatters: widget.onlyAllowNumbers!
+                  ? [FilteringTextInputFormatter.digitsOnly]  // Allow only digits if true
+                  : widget.inputFormated,
             ),
           ),
         ],

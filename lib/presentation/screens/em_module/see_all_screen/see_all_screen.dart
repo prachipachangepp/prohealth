@@ -1152,8 +1152,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       BoxShadow(
                         color: ColorManager.black.withValues(alpha: 0.2),
                         spreadRadius: 0,
-                        blurRadius: 5.58,
-                        offset: Offset(0, 5.58),
+                        blurRadius: 2,
+                        offset: Offset(0, 3),
                       ),
                     ],
                   ),
@@ -1212,10 +1212,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         ),
                         Expanded(
                           flex: 2,
-                          child: Text(
-                            AppString.email,
-                            textAlign: TextAlign.start,
-                            style:TableHeading.customTextStyle(context),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left:AppPadding.p10),
+                            child: Text(
+                              AppString.email,
+                              textAlign: TextAlign.start,
+                              style:TableHeading.customTextStyle(context),
+                            ),
                           ),
                         ),
                         Expanded(

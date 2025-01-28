@@ -15,6 +15,7 @@ import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import '../../../../../../app/services/api/repository/establishment_manager/employee_doc_repository.dart';
+import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../widgets/dialogue_template.dart';
 import '../../../widgets/header_content_const.dart';
@@ -25,7 +26,7 @@ class EmpDocADDPopupProvider extends ChangeNotifier {
   TextEditingController daysController = TextEditingController(text: "1");
   String selectedExpiryType = AppConfig.notApplicable;
   String? selectedYear = AppConfig.year;
-
+  bool isDropdownAvailability = false;
   TextEditingController nameDocController = TextEditingController();
   TextEditingController idDocController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -213,7 +214,7 @@ class EmpDocADDPopup extends StatelessWidget {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: AppSize.s10,
+                              height: AppSize.s14,
                             ),
                             Row(
                               children: [
@@ -223,28 +224,24 @@ class EmpDocADDPopup extends StatelessWidget {
                                   //color: ColorManager.red,
                                   child: TextFormField(
                                     textAlign: TextAlign.center,
-                                    controller: provider
-                                        .daysController, // Use the controller initialized with "1"
+                                    controller: provider.daysController, // Use the controller initialized with "1"
                                     cursorColor: ColorManager.black,
                                     cursorWidth: 1,
-                                    style:
-                                        DocumentTypeDataStyle.customTextStyle(
-                                            context),
+                                    style: DocumentTypeDataStyle.customTextStyle(context),
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                            color: ColorManager.fmediumgrey,
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(8),
+                                            color: Colors.grey,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(6),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                            color: ColorManager.fmediumgrey,
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(8),
+                                            color: Colors.grey,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(6),
                                       ),
-                                      contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 10),
+                                      contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                     ),
                                     keyboardType: TextInputType.number,
                                     inputFormatters: [
@@ -255,60 +252,75 @@ class EmpDocADDPopup extends StatelessWidget {
                                 ),
                                 SizedBox(width: AppSize.s10),
                                 Container(
-                                  height: AppSize.s30,
                                   width: AppSize.s80,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: AppPadding.p5),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: ColorManager.fmediumgrey),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: DropdownButtonFormField<String>(
-                                    value: provider
-                                        .selectedYear, // Initial value (you should define this variable)
+                                  height: AppSize.s30,
+                                  child:CustomDropdownTextFieldwidh(
                                     items: [
-                                      DropdownMenuItem(
-                                        value: AppConfig.year,
-                                        child: Text(
-                                          AppConfig.year,
-                                          style: DocumentTypeDataStyle
-                                              .customTextStyle(context),
-                                        ),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: AppConfig.month,
-                                        child: Text(
-                                          AppConfig.month,
-                                          style: DocumentTypeDataStyle
-                                              .customTextStyle(context),
-                                        ),
-                                      ),
+                                      AppConfig.year,
+                                      AppConfig.month,
                                     ],
+
+                                    // labelStyle: SearchDropdownConst.customTextStyle(context),
                                     onChanged: (value) {
-                                      // setState(() {
-                                      provider.selectedYear =
-                                          value; // Update the selected option (Year/Month)
+                                      //  setState(() {
+                                      provider.selectedYear = value;
+                                      provider.isDropdownAvailability = true;
                                       provider.notifyListeners();
-                                      //});
+                                      print("Year,month Status :: ${provider.selectedYear}");
+                                      //  });
                                     },
-                                    decoration: InputDecoration(
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      hintText: AppConfig.year,
-                                      hintStyle:
-                                          DocumentTypeDataStyle.customTextStyle(
-                                              context),
-                                      contentPadding: EdgeInsets.only(
-                                          bottom: AppPadding.p20),
-                                    ),
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      color: ColorManager.mediumgrey,
-                                      size: IconSize.I16,
-                                    ),
                                   ),
-                                ),
+                                )
+                                // Container(
+                                //   height: AppSize.s30,
+                                //   width: AppSize.s80,
+                                //   padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
+                                //   decoration: BoxDecoration(
+                                //     border: Border.all(color: ColorManager.fmediumgrey),
+                                //     borderRadius: BorderRadius.circular(8),
+                                //   ),
+                                //   child:
+                                //   DropdownButtonFormField<String>(
+                                //     value: provider.selectedYear, // Initial value (you should define this variable)
+                                //     items: [
+                                //       DropdownMenuItem(
+                                //         value: AppConfig.year,
+                                //         child: Text(
+                                //           AppConfig.year,
+                                //           style: DocumentTypeDataStyle.customTextStyle(context),
+                                //         ),
+                                //       ),
+                                //       DropdownMenuItem(
+                                //         value: AppConfig.month,
+                                //         child: Text(
+                                //           AppConfig.month,
+                                //           style: DocumentTypeDataStyle.customTextStyle(context),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //     onChanged: (value) {
+                                //       // setState(() {
+                                //       provider.selectedYear = value; // Update the selected option (Year/Month)
+                                //       provider.notifyListeners();
+                                //       //});
+                                //     },
+                                //     decoration: InputDecoration(
+                                //       enabledBorder: InputBorder.none,
+                                //       focusedBorder: InputBorder.none,
+                                //       hintText: AppConfig.year,
+                                //       hintStyle:
+                                //           DocumentTypeDataStyle.customTextStyle(
+                                //               context),
+                                //       contentPadding: EdgeInsets.only(
+                                //           bottom: AppPadding.p20),
+                                //     ),
+                                //     icon: Icon(
+                                //       Icons.arrow_drop_down,
+                                //       color: ColorManager.mediumgrey,
+                                //       size: IconSize.I16,
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ],
@@ -330,83 +342,80 @@ class EmpDocADDPopup extends StatelessWidget {
                 ),
               )
             : Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppPadding.p8),
-                  child: CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: AppStringEM.save,
-                    onPressed: () async {
-                      provider.validateFields();
-                      if (provider._isFormValid) {
-                        provider.setLoading(true);
-                        provider.notifyListeners();
-                        int threshold = 0;
-                        if (provider.selectedExpiryType ==
-                                AppConfig.scheduled &&
-                            provider.daysController.text.isNotEmpty) {
-                          int enteredValue =
-                              int.parse(provider.daysController.text);
-                          if (provider.selectedYear == AppConfig.year) {
-                            threshold = enteredValue * 365;
-                          } else if (provider.selectedYear == AppConfig.month) {
-                            threshold = enteredValue * 30;
-                          }
-                        }
-                        try {
-                          var response = await addEmployeeDocSetup(
-                            context: context,
-                            docName: provider.nameDocController.text,
-                            expiryDate: "", //expiryDate,
-                            remainderThreshold:
-                                provider.selectedExpiryType.toString(),
-                            empDocMetaDataId: Subdocid,
-                            idOfDoc: provider.idDocController.text,
-                            expiryType: provider.selectedExpiryType.toString(),
-                            threshold: threshold, // Pass calculated or 0
-                          );
-                          provider.setLoading(false);
-                          if (response.statusCode == 200 ||
-                              response.statusCode == 201) {
-                            onSave();
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'Added Successfully',
-                                );
-                              },
-                            );
-                          } else if (response.statusCode == 400 ||
-                              response.statusCode == 404) {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  const FourNotFourPopup(),
-                            );
-                          } else {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  FailedPopup(text: response.message),
-                            );
-                          }
-                        } finally {
-                          provider._isLoading = false;
-                          provider.notifyListeners();
+                child: CustomElevatedButton(
+                  width: AppSize.s105,
+                  height: AppSize.s30,
+                  text: AppStringEM.save,
+                  onPressed: () async {
+                    provider.validateFields();
+                    if (provider._isFormValid) {
+                      provider.setLoading(true);
+                      provider.notifyListeners();
+                      int threshold = 0;
+                      if (provider.selectedExpiryType ==
+                              AppConfig.scheduled &&
+                          provider.daysController.text.isNotEmpty) {
+                        int enteredValue =
+                            int.parse(provider.daysController.text);
+                        if (provider.selectedYear == AppConfig.year) {
+                          threshold = enteredValue * 365;
+                        } else if (provider.selectedYear == AppConfig.month) {
+                          threshold = enteredValue * 30;
                         }
                       }
-                      print(provider.nameDocController.text);
-                      print(provider.idDocController.text);
-                      print(Subdocid);
-                      print(provider.selectedExpiryType.toString());
-                      provider.nameDocController.clear();
-                      provider.dateController.clear();
-                    },
-                  ),
+                      try {
+                        var response = await addEmployeeDocSetup(
+                          context: context,
+                          docName: provider.nameDocController.text,
+                          expiryDate: "", //expiryDate,
+                          remainderThreshold:
+                              provider.selectedExpiryType.toString(),
+                          empDocMetaDataId: Subdocid,
+                          idOfDoc: provider.idDocController.text,
+                          expiryType: provider.selectedExpiryType.toString(),
+                          threshold: threshold, // Pass calculated or 0
+                        );
+                        provider.setLoading(false);
+                        if (response.statusCode == 200 ||
+                            response.statusCode == 201) {
+                          onSave();
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(
+                                message: 'Added Successfully',
+                              );
+                            },
+                          );
+                        } else if (response.statusCode == 400 ||
+                            response.statusCode == 404) {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                const FourNotFourPopup(),
+                          );
+                        } else {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                FailedPopup(text: response.message),
+                          );
+                        }
+                      } finally {
+                        provider._isLoading = false;
+                        provider.notifyListeners();
+                      }
+                    }
+                    print(provider.nameDocController.text);
+                    print(provider.idDocController.text);
+                    print(Subdocid);
+                    print(provider.selectedExpiryType.toString());
+                    provider.nameDocController.clear();
+                    provider.dateController.clear();
+                  },
                 ),
               ),
         title: title,
@@ -578,84 +587,81 @@ class EmpDocEditPopup extends StatelessWidget {
                 ),
               )
             : Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppPadding.p8),
-                  child: CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: AppStringEM.save,
-                    onPressed: () async {
-                      print("Name controller ::::::::::::::::::: ${nameDocController.text}");
-                      print("docname ::::::::::::::::::: ${docname}");
-                      provider.validateFields(docNameController: nameDocController.text);
-                      if (provider.isFormValid) {
-                        provider.setLoading(true);
-                        provider.notifyListeners();
+                child: CustomElevatedButton(
+                  width: AppSize.s105,
+                  height: AppSize.s30,
+                  text: AppStringEM.save,
+                  onPressed: () async {
+                    print("Name controller ::::::::::::::::::: ${nameDocController.text}");
+                    print("docname ::::::::::::::::::: ${docname}");
+                    provider.validateFields(docNameController: nameDocController.text);
+                    if (provider.isFormValid) {
+                      provider.setLoading(true);
+                      provider.notifyListeners();
 
-                        try {
-                          int threshold = 0;
-                          String? expiryDateToSend = "";
-                          if (provider.selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
-                            int enteredValue = int.parse(daysController.text);
-                            if (provider.selectedYear == AppConfig.year) {
-                              threshold = enteredValue * 365;
-                            } else if (provider.selectedYear ==
-                                AppConfig.month) {
-                              threshold = enteredValue * 30;
-                            }
-                            expiryDateToSend = daysController.text;
-                          } else if (provider.selectedExpiryType ==
-                                  AppConfig.notApplicable ||
-                              provider.selectedExpiryType == AppConfig.issuer) {
-                            threshold = 0;
-                            expiryDateToSend = null;
+                      try {
+                        int threshold = 0;
+                        String? expiryDateToSend = "";
+                        if (provider.selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
+                          int enteredValue = int.parse(daysController.text);
+                          if (provider.selectedYear == AppConfig.year) {
+                            threshold = enteredValue * 365;
+                          } else if (provider.selectedYear ==
+                              AppConfig.month) {
+                            threshold = enteredValue * 30;
                           }
-                          String finalDocName = nameDocController.text.isNotEmpty
-                              ? nameDocController.text
-                              : docname;
-                          print("Name controller ::::::::::::::::::: ${nameDocController.text}");
-                          print("docname ::::::::::::::::::: ${docname}");
-                        //  print("Name controller ::::::::::::::::::: ${nameController.text}");
-
-                          var response = await editEmployeeDocTypeSetupId(
-                            context: context,
-                            employeeDoctypeSetupId: empsetupId,
-                            docName: finalDocName,
-                            threshold: threshold,
-                          );
-                          if (response.statusCode == 200 || response.statusCode == 201) {
-                           onEditSuccess();
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'Edited Successfully',
-                                );
-                              },
-                            );
-                          } else if (response.statusCode == 400 ||
-                              response.statusCode == 404) {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  const FourNotFourPopup(),
-                            );
-                          } else {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  FailedPopup(text: response.message),
-                            );
-                          }
-                        } finally {
-                          provider.setLoading(false);
+                          expiryDateToSend = daysController.text;
+                        } else if (provider.selectedExpiryType ==
+                                AppConfig.notApplicable ||
+                            provider.selectedExpiryType == AppConfig.issuer) {
+                          threshold = 0;
+                          expiryDateToSend = null;
                         }
+                        String finalDocName = nameDocController.text.isNotEmpty
+                            ? nameDocController.text
+                            : docname;
+                        print("Name controller ::::::::::::::::::: ${nameDocController.text}");
+                        print("docname ::::::::::::::::::: ${docname}");
+                      //  print("Name controller ::::::::::::::::::: ${nameController.text}");
+
+                        var response = await editEmployeeDocTypeSetupId(
+                          context: context,
+                          employeeDoctypeSetupId: empsetupId,
+                          docName: finalDocName,
+                          threshold: threshold,
+                        );
+                        if (response.statusCode == 200 || response.statusCode == 201) {
+                         onEditSuccess();
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(
+                                message: 'Edited Successfully',
+                              );
+                            },
+                          );
+                        } else if (response.statusCode == 400 ||
+                            response.statusCode == 404) {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                const FourNotFourPopup(),
+                          );
+                        } else {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                FailedPopup(text: response.message),
+                          );
+                        }
+                      } finally {
+                        provider.setLoading(false);
                       }
-                    },
-                  ),
+                    }
+                  },
                 ),
               ),
         title: title,

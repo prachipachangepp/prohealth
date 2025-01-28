@@ -49,6 +49,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
   // Error messages for each text field
   String? _idDocError;
   String? _nameDocError;
+  String? _expiryDateError;
   String? selectedYear = AppConfig.year;
   bool showExpiryDateField = false;
 
@@ -66,6 +67,12 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
       _isFormValid = true;
       _idDocError = _validateTextField(contractIdController.text, 'ID of the Contract');
       _nameDocError = _validateTextField(contractNmaeController.text, 'Name of the Contract');
+      if (selectedExpiryType == AppConfig.issuer && expiryDateController.text.isEmpty) {
+        _expiryDateError = 'Please select an expiry date';
+        _isFormValid = false;
+      } else {
+        _expiryDateError = null; // Clear error if the date is selected
+      }
     });
   }
 
@@ -73,7 +80,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
   Widget build(BuildContext context) {
     return DialogueTemplate(
       width: AppSize.s420,
-      height: selectedExpiryType == AppConfig.issuer ? AppSize.s500 : AppSize.s440,
+      height: selectedExpiryType == AppConfig.issuer ? AppSize.s511 : AppSize.s440,
       body: [
        Padding(
          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
@@ -135,6 +142,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                          onChanged: (value) {
                            setState(() {
                              selectedExpiryType = value!;
+                             _validateForm();
                            });
                          },
                          title: AppConfig.scheduled,
@@ -146,6 +154,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                          onChanged: (value) {
                            setState(() {
                              selectedExpiryType = value!;
+                             _validateForm();
                            });
                          },
                          title: AppConfig.issuer,
@@ -157,7 +166,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                    padding: const EdgeInsets.only(
                        left: AppPadding.p20,
                        right: AppPadding.p20,
-                       bottom: AppPadding.p15
+                       bottom: AppPadding.p10
                    ),
                    child: Visibility(
                      visible: selectedExpiryType == AppConfig.scheduled,
@@ -227,8 +236,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                              ],
                              onChanged: (value) {
                                setState(() {
-                                 selectedYear =
-                                     value; // Update the selected option (Year/Month)
+                                 selectedYear = value; // Update the selected option (Year/Month)
                                });
                              },
                              decoration: InputDecoration(
@@ -260,57 +268,64 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                  heading: AppString.expiry_date,
                  content: FormField<String>(
                    builder: (FormFieldState<String> field) {
-                     return SizedBox(
-                       height: AppSize.s30,
-                       width: AppSize.s354,
-                       child: TextFormField(
-                         controller: expiryDateController,
-                         cursorColor: ColorManager.black,
-                         style:  DocumentTypeDataStyle.customTextStyle(context),
-                         decoration: InputDecoration(
-                           enabledBorder: OutlineInputBorder(
-                             borderSide: BorderSide(
-                                 color: ColorManager.fmediumgrey, width: 1),
-                             borderRadius: BorderRadius.circular(6),
+                     return Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Container(
+                           height: 30,
+                           child: TextFormField(
+                             controller: expiryDateController,
+                             cursorColor: ColorManager.black,
+                             style: DocumentTypeDataStyle.customTextStyle(context),
+                             decoration: InputDecoration(
+                               enabledBorder: OutlineInputBorder(
+                                 borderSide: BorderSide(
+                                     color: ColorManager.fmediumgrey, width: 1),
+                                 borderRadius: BorderRadius.circular(6),
+                               ),
+                               focusedBorder: OutlineInputBorder(
+                                 borderSide: BorderSide(
+                                     color: ColorManager.fmediumgrey, width: 1),
+                                 borderRadius: BorderRadius.circular(6),
+                               ),
+                               hintText: 'yyyy-mm-dd',
+                               hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                               border: OutlineInputBorder(
+                                 borderRadius: BorderRadius.circular(6),
+                                 borderSide: BorderSide(
+                                     width: 1, color: ColorManager.fmediumgrey),
+                               ),
+                               contentPadding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                               suffixIcon: Icon(Icons.calendar_month_outlined,
+                                   color: ColorManager.blueprime),
+                               //errorText: _expiryDateError,
+                             ),
+                             onTap: () async {
+                               DateTime? pickedDate = await showDatePicker(
+                                 context: context,
+                                 initialDate: datePicked,
+                                 firstDate: DateTime(1901),
+                                 lastDate: DateTime(3101),
+                               );
+                               if (pickedDate != null) {
+                                 datePicked = pickedDate;
+                                 expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                 setState(() {
+                                   _expiryDateError == null;
+                                 });
+                               }
+                             },
                            ),
-                           focusedBorder: OutlineInputBorder(
-                             borderSide: BorderSide(
-                                 color: ColorManager.fmediumgrey, width: 1),
-                             borderRadius: BorderRadius.circular(6),
-                           ),
-                           hintText: 'yyyy-mm-dd',
-                           hintStyle:  DocumentTypeDataStyle.customTextStyle(context),
-                           border: OutlineInputBorder(
-                             borderRadius: BorderRadius.circular(6),
-                             borderSide: BorderSide(
-                                 width: 1, color: ColorManager.fmediumgrey),
-                           ),
-                           contentPadding:
-                           EdgeInsets.symmetric(horizontal: AppPadding.p16),
-                           suffixIcon: Icon(Icons.calendar_month_outlined,
-                               color: ColorManager.blueprime),
-                           errorText: field.errorText,
                          ),
-                         onTap: () async {
-                           DateTime? pickedDate = await showDatePicker(
-                             context: context,
-                             initialDate: datePicked,
-                             firstDate: DateTime(1901),
-                             lastDate: DateTime(3101),
-                           );
-                           if (pickedDate != null) {
-                             datePicked = pickedDate;
-                             expiryDateController.text =
-                                 DateFormat('yyyy-MM-dd').format(pickedDate);
-                           }
-                         },
-                         validator: (value) {
-                           if (value == null || value.isEmpty) {
-                             return 'please select date';
-                           }
-                           return null;
-                         },
-                       ),
+                        _expiryDateError != null ?// Display the error message if it's not null
+                           Padding(
+                             padding: const EdgeInsets.only(top: 2.0),
+                             child: Text(
+                               _expiryDateError!,
+                               style: CommonErrorMsg.customTextStyle(context),
+                             ),
+                           ) : SizedBox(height: AppSize.s12,),
+                       ],
                      );
                    },
                  ),
@@ -322,8 +337,8 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
       ],
       bottomButtons: loading == true
           ? SizedBox(
-              height: AppSize.s25,
-              width: AppSize.s25,
+              height: AppSize.s30,
+              width: AppSize.s30,
               child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
               ),

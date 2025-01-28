@@ -456,6 +456,41 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
   bool _isClinicianValid = true;
   String _clinicianErrorText = '';
 
+  String selectedServiceName = 'Select';
+  String? serviceId;
+  int empTypeId = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.nameOfDocumentController.addListener(_handleNameOfDocumentChange);
+  }
+
+  // Remove listener to avoid memory leaks
+  @override
+  void dispose() {
+    widget.nameOfDocumentController.removeListener(_handleNameOfDocumentChange);
+    super.dispose();
+  }
+  // Handler for nameOfDocumentController changes
+  void _handleNameOfDocumentChange() {
+    setState(() {
+      if (widget.nameOfDocumentController.text.isNotEmpty) {
+        _isNameOfDocumentValid = true;
+        _nameOfDocumentErrorText = '';
+      }
+    });
+  }
+  void _onServiceChanged(String? value) {
+    setState(() {
+      selectedServiceName = value!;
+      if (selectedServiceName != 'Select') {
+        _isServiceSelected = true;
+        _serviceErrorText = '';
+      }
+    });
+  }
+
   void _validateInputs() {
     setState(() {
       // Validate 'Type of Visit'
@@ -487,11 +522,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
       }
     });
   }
-
-
-  String selectedServiceName = 'Select';
-  String? serviceId;
-  int empTypeId = 0;
   List<Widget> selectedChips = [];
   List<Widget> chipsList = [];
   List<String> editChipValues = [];
@@ -616,16 +646,17 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                               void Function(void Function()) setState) {
                             return CICCDropdown(
                               initialValue: selectedServiceName,
-                              onChange: (val) {
-                                setState(() {
-                                  selectedServiceName = val;
-                                  for (var service in snapshot.data!) {
-                                    if (service.serviceName == val) {
-                                      serviceId = service.serviceId;
-                                    }
-                                  }
-                                });
-                              },
+                              onChange: _onServiceChanged,
+                              //     (val) {
+                              //   setState(() {
+                              //     selectedServiceName = val;
+                              //     for (var service in snapshot.data!) {
+                              //       if (service.serviceName == val) {
+                              //         serviceId = service.serviceId;
+                              //       }
+                              //     }
+                              //   });
+                              // },
                               items: dropDownServiceList,
                             );
                           },
