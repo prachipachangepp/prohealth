@@ -23,7 +23,7 @@ class GreenContrainerConst extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height ?? AppSize.s500,
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20, vertical: AppPadding.p15),
       decoration: BoxDecoration(
         color: ColorManager.containergreen,
         borderRadius: BorderRadius.circular(8),
@@ -55,7 +55,7 @@ class WhiteContrainerConst extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height ?? AppSize.s500,
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20, vertical: AppPadding.p5),
       decoration: BoxDecoration(
         color: ColorManager.white,
         borderRadius: BorderRadius.circular(8),
@@ -88,7 +88,7 @@ class WhiteContrainerConstwidth extends StatelessWidget {
     return Container(
       height: height ?? AppSize.s500,
       width: width ?? AppSize.s500,
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30, vertical: AppPadding.p15),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20, vertical: AppPadding.p5),
       decoration: BoxDecoration(
         color: ColorManager.white,
         borderRadius: BorderRadius.circular(8),
@@ -118,7 +118,7 @@ class WhiteContrainerConstpadding extends StatelessWidget {
     return Container(
       height: height ?? AppSize.s500,
       width: width ?? AppSize.s500,
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10, vertical: AppPadding.p8),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10, vertical: AppPadding.p5),
       decoration: BoxDecoration(
         color: ColorManager.white,
         borderRadius: BorderRadius.circular(8),

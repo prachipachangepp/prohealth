@@ -1088,6 +1088,9 @@ class CustomDocumedAddPopup extends StatelessWidget {
                     ),
                   ),
                 ),
+                Visibility(
+                    visible: addDocProvider.showAddDocExpiryDateField,
+                    child: SizedBox(height: 12,)),
 
                 HeaderContentConst(
                   isAsterisk: true,

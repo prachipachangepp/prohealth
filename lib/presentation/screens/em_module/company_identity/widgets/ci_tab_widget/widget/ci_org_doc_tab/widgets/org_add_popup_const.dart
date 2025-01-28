@@ -14,6 +14,7 @@ import '../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../app/services/api/managers/establishment_manager/new_org_doc/new_org_doc.dart';
 import '../../../../../../../../widgets/error_popups/failed_popup.dart';
 import '../../../../../../../../widgets/error_popups/four_not_four_popup.dart';
+import '../../../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../../../widgets/button_constant.dart';
 import '../../../../../../widgets/text_form_field_const.dart';
@@ -35,6 +36,7 @@ class AddNewOrgDocButtonProviider extends ChangeNotifier{
   String? get expiryTypeError => _expiryTypeError;
   bool get isFormValid => _isFormValid;
   String? selectedYear = AppConfig.year;
+  bool isDropdownAvailability = false;
   bool loading = false;
 
   TextEditingController daysController = TextEditingController(text: "1");
@@ -280,18 +282,17 @@ class AddNewOrgDocButton extends StatelessWidget {
                                       decoration: InputDecoration(
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: ColorManager.fmediumgrey,
-                                              width: 2),
-                                          borderRadius: BorderRadius.circular(8),
+                                              color: Colors.grey,
+                                              width: 1),
+                                          borderRadius: BorderRadius.circular(6),
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: ColorManager.fmediumgrey,
-                                              width: 2),
-                                          borderRadius: BorderRadius.circular(8),
+                                              color: Colors.grey,
+                                              width: 1),
+                                          borderRadius: BorderRadius.circular(6),
                                         ),
-                                        contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 10),
+                                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                       ),
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [
@@ -304,50 +305,70 @@ class AddNewOrgDocButton extends StatelessWidget {
                                   Container(
                                     width: AppSize.s80,
                                     height: AppSize.s30,
-                                    padding: EdgeInsets.symmetric(horizontal: 5),
-                                    decoration: BoxDecoration(
-                                      border:
-                                      Border.all(color: ColorManager.fmediumgrey),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: DropdownButtonFormField<String>(
-                                      value:
-                                      provider.selectedYear, // Initial value (you should define this variable)
+                                    child:CustomDropdownTextFieldwidh(
                                       items: [
-                                        DropdownMenuItem(
-                                          value: AppConfig.year,
-                                          child: Text(
-                                            AppConfig.year,
-                                            style: DocumentTypeDataStyle.customTextStyle(context),
-                                          ),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: AppConfig.month,
-                                          child: Text(
-                                            AppConfig.month,
-                                            style:DocumentTypeDataStyle.customTextStyle(context),
-                                          ),
-                                        ),
+                                        AppConfig.year,
+                                        AppConfig.month,
                                       ],
-                                      onChanged: (value) {
-                                          provider.selectedYear = value;
-                                          provider.notifyListeners();
 
+                                      // labelStyle: SearchDropdownConst.customTextStyle(context),
+                                      onChanged: (value) {
+                                        //  setState(() {
+                                        provider.selectedYear = value;
+                                        provider.isDropdownAvailability = true;
+                                        provider.notifyListeners();
+                                        print("Year,month Status :: ${provider.selectedYear}");
+                                        //  });
                                       },
-                                      decoration: InputDecoration(
-                                        enabledBorder: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                        hintText: AppConfig.year,
-                                        hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                        contentPadding: EdgeInsets.only(bottom: 20),
-                                      ),
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: ColorManager.black,
-                                        size: 16,
-                                      ),
                                     ),
-                                  ),
+                                  )
+                                  // Container(
+                                  //   width: AppSize.s80,
+                                  //   height: AppSize.s30,
+                                  //   padding: EdgeInsets.symmetric(horizontal: 5),
+                                  //   decoration: BoxDecoration(
+                                  //     border:
+                                  //     Border.all(color: ColorManager.fmediumgrey),
+                                  //     borderRadius: BorderRadius.circular(8),
+                                  //   ),
+                                  //   child: DropdownButtonFormField<String>(
+                                  //     value:
+                                  //     provider.selectedYear, // Initial value (you should define this variable)
+                                  //     items: [
+                                  //       DropdownMenuItem(
+                                  //         value: AppConfig.year,
+                                  //         child: Text(
+                                  //           AppConfig.year,
+                                  //           style: DocumentTypeDataStyle.customTextStyle(context),
+                                  //         ),
+                                  //       ),
+                                  //       DropdownMenuItem(
+                                  //         value: AppConfig.month,
+                                  //         child: Text(
+                                  //           AppConfig.month,
+                                  //           style:DocumentTypeDataStyle.customTextStyle(context),
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //     onChanged: (value) {
+                                  //         provider.selectedYear = value;
+                                  //         provider.notifyListeners();
+                                  //
+                                  //     },
+                                  //     decoration: InputDecoration(
+                                  //       enabledBorder: InputBorder.none,
+                                  //       focusedBorder: InputBorder.none,
+                                  //       hintText: AppConfig.year,
+                                  //       hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                                  //       contentPadding: EdgeInsets.only(bottom: 20),
+                                  //     ),
+                                  //     icon: Icon(
+                                  //       Icons.arrow_drop_down,
+                                  //       color: ColorManager.black,
+                                  //       size: 16,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ],

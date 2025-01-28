@@ -173,7 +173,7 @@ class OnboardingTabManage extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     CircleAvatar(
-                                      radius: 20,
+                                      radius: 25,
                                       backgroundColor: Colors.white,
                                       child:
                                       // ClipOval(
@@ -192,7 +192,7 @@ class OnboardingTabManage extends StatelessWidget {
                                         child: imageUrl == 'imgurl' ||
                                             imageUrl.isEmpty
                                             ? CircleAvatar(
-                                          radius: 20,
+                                          radius: 25,
                                           backgroundColor: ColorManager.faintGrey,
                                           child: Image.asset("images/profilepic.png",width: double.infinity,
                                             height: double.infinity,),

@@ -162,61 +162,6 @@ class PayRateAddPopup extends StatelessWidget {
                     )
                         : Offstage(),
                     SizedBox(height: AppSize.s5,),
-                    // FutureBuilder<List<VisitListDataByServiceId>>(
-                    //   future: getVisitListByServiceId(context: context, serviceId: serviceId),
-                    //   builder: (context, snapshot) {
-                    //     if (snapshot.connectionState == ConnectionState.waiting) {
-                    //       return Container(
-                    //         width: AppSize.s354,
-                    //         height: AppSize.s30,
-                    //         decoration: BoxDecoration(
-                    //           border: Border.all(
-                    //               color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                    //           borderRadius: BorderRadius.circular(8),
-                    //         ),
-                    //         child: Padding(
-                    //           padding: EdgeInsets.symmetric(
-                    //               vertical: AppPadding.p5, horizontal: AppPadding.p5),
-                    //           child: Text(
-                    //             provider.docAddVisitTypeId,
-                    //             style: ConstTextFieldRegister.customTextStyle(context),
-                    //           ),
-                    //         ),
-                    //       );
-                    //     }
-                    //     if (snapshot.hasError || (snapshot.hasData && snapshot.data!.isEmpty)) {
-                    //       // Case: No visits found
-                    //       return Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           Container(
-                    //             width: AppSize.s354,
-                    //             height: AppSize.s30,
-                    //             decoration: BoxDecoration(
-                    //               border: Border.all(
-                    //                   color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                    //               borderRadius: BorderRadius.circular(8),
-                    //             ),
-                    //             child: Padding(
-                    //               padding: EdgeInsets.symmetric(
-                    //                   vertical: AppPadding.p5, horizontal: AppPadding.p5),
-                    //               child: Text(
-                    //                 ErrorMessageString.noVisit,
-                    //                 style: ConstTextFieldRegister.customTextStyle(context),
-                    //               ),
-                    //             ),
-                    //           ),
-                    //           SizedBox(height: AppSize.s5),
-                    //           Text(
-                    //             "No visits found for respective service. Select another service",
-                    //             style: CommonErrorMsg.customTextStyle(context),
-                    //           ),
-                    //         ],
-                    //       );
-                    //     }
-                    //     if (snapshot.hasData) {
-                          // Case: Visits found
-
                            Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -350,7 +295,7 @@ class PayRateAddPopup extends StatelessWidget {
                           Text(
                             provider.payRatesError!,
                             style:  CommonErrorMsg.customTextStyle(context),
-                          ) : SizedBox(height: AppSize.s13,),
+                          ) : SizedBox(height: AppSize.s12,),
                       ],
                     ),
                     SizedBox(height: AppSize.s14,),
@@ -377,7 +322,7 @@ class PayRateAddPopup extends StatelessWidget {
                               Text(
                                 provider.fixPayRatesError!,
                                 style:  CommonErrorMsg.customTextStyle(context),
-                              ) : SizedBox(height: AppSize.s13,),
+                              ) : SizedBox(height: AppSize.s12,),
                           ],
                         ),
 
@@ -398,7 +343,7 @@ class PayRateAddPopup extends StatelessWidget {
                               Text(
                                 provider.perMilesError!,
                                 style:  CommonErrorMsg.customTextStyle(context),
-                              ) : SizedBox(height: AppSize.s13,),
+                              ) : SizedBox(height: AppSize.s12,),
                           ],
                         ),
                       ],

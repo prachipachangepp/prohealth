@@ -651,15 +651,11 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                                 ],
 
                                                                 // labelStyle: SearchDropdownConst.customTextStyle(context),
-                                                                onChanged:
-                                                                    (value) {
+                                                                onChanged: (value) {
                                                                   setState(() {
-                                                                    dropdownAvailability =
-                                                                        value!;
-                                                                    isDropdownAvailability =
-                                                                        true;
-                                                                    print(
-                                                                        "Availability Status :: ${dropdownAvailability}");
+                                                                    dropdownAvailability = value!;
+                                                                    isDropdownAvailability = true;
+                                                                    print("Availability Status :: ${dropdownAvailability}");
                                                                   });
                                                                 },
                                                               ),

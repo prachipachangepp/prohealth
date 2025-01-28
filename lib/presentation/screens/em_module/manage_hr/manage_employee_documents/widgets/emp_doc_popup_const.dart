@@ -15,6 +15,7 @@ import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import '../../../../../../app/services/api/repository/establishment_manager/employee_doc_repository.dart';
+import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../widgets/dialogue_template.dart';
 import '../../../widgets/header_content_const.dart';
@@ -25,7 +26,7 @@ class EmpDocADDPopupProvider extends ChangeNotifier {
   TextEditingController daysController = TextEditingController(text: "1");
   String selectedExpiryType = AppConfig.notApplicable;
   String? selectedYear = AppConfig.year;
-
+  bool isDropdownAvailability = false;
   TextEditingController nameDocController = TextEditingController();
   TextEditingController idDocController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -213,7 +214,7 @@ class EmpDocADDPopup extends StatelessWidget {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: AppSize.s10,
+                              height: AppSize.s14,
                             ),
                             Row(
                               children: [
@@ -223,28 +224,24 @@ class EmpDocADDPopup extends StatelessWidget {
                                   //color: ColorManager.red,
                                   child: TextFormField(
                                     textAlign: TextAlign.center,
-                                    controller: provider
-                                        .daysController, // Use the controller initialized with "1"
+                                    controller: provider.daysController, // Use the controller initialized with "1"
                                     cursorColor: ColorManager.black,
                                     cursorWidth: 1,
-                                    style:
-                                        DocumentTypeDataStyle.customTextStyle(
-                                            context),
+                                    style: DocumentTypeDataStyle.customTextStyle(context),
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                            color: ColorManager.fmediumgrey,
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(8),
+                                            color: Colors.grey,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(6),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                            color: ColorManager.fmediumgrey,
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(8),
+                                            color: Colors.grey,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(6),
                                       ),
-                                      contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 10),
+                                      contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                     ),
                                     keyboardType: TextInputType.number,
                                     inputFormatters: [
@@ -255,60 +252,75 @@ class EmpDocADDPopup extends StatelessWidget {
                                 ),
                                 SizedBox(width: AppSize.s10),
                                 Container(
-                                  height: AppSize.s30,
                                   width: AppSize.s80,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: AppPadding.p5),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: ColorManager.fmediumgrey),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: DropdownButtonFormField<String>(
-                                    value: provider
-                                        .selectedYear, // Initial value (you should define this variable)
+                                  height: AppSize.s30,
+                                  child:CustomDropdownTextFieldwidh(
                                     items: [
-                                      DropdownMenuItem(
-                                        value: AppConfig.year,
-                                        child: Text(
-                                          AppConfig.year,
-                                          style: DocumentTypeDataStyle
-                                              .customTextStyle(context),
-                                        ),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: AppConfig.month,
-                                        child: Text(
-                                          AppConfig.month,
-                                          style: DocumentTypeDataStyle
-                                              .customTextStyle(context),
-                                        ),
-                                      ),
+                                      AppConfig.year,
+                                      AppConfig.month,
                                     ],
+
+                                    // labelStyle: SearchDropdownConst.customTextStyle(context),
                                     onChanged: (value) {
-                                      // setState(() {
-                                      provider.selectedYear =
-                                          value; // Update the selected option (Year/Month)
+                                      //  setState(() {
+                                      provider.selectedYear = value;
+                                      provider.isDropdownAvailability = true;
                                       provider.notifyListeners();
-                                      //});
+                                      print("Year,month Status :: ${provider.selectedYear}");
+                                      //  });
                                     },
-                                    decoration: InputDecoration(
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      hintText: AppConfig.year,
-                                      hintStyle:
-                                          DocumentTypeDataStyle.customTextStyle(
-                                              context),
-                                      contentPadding: EdgeInsets.only(
-                                          bottom: AppPadding.p20),
-                                    ),
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      color: ColorManager.mediumgrey,
-                                      size: IconSize.I16,
-                                    ),
                                   ),
-                                ),
+                                )
+                                // Container(
+                                //   height: AppSize.s30,
+                                //   width: AppSize.s80,
+                                //   padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
+                                //   decoration: BoxDecoration(
+                                //     border: Border.all(color: ColorManager.fmediumgrey),
+                                //     borderRadius: BorderRadius.circular(8),
+                                //   ),
+                                //   child:
+                                //   DropdownButtonFormField<String>(
+                                //     value: provider.selectedYear, // Initial value (you should define this variable)
+                                //     items: [
+                                //       DropdownMenuItem(
+                                //         value: AppConfig.year,
+                                //         child: Text(
+                                //           AppConfig.year,
+                                //           style: DocumentTypeDataStyle.customTextStyle(context),
+                                //         ),
+                                //       ),
+                                //       DropdownMenuItem(
+                                //         value: AppConfig.month,
+                                //         child: Text(
+                                //           AppConfig.month,
+                                //           style: DocumentTypeDataStyle.customTextStyle(context),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //     onChanged: (value) {
+                                //       // setState(() {
+                                //       provider.selectedYear = value; // Update the selected option (Year/Month)
+                                //       provider.notifyListeners();
+                                //       //});
+                                //     },
+                                //     decoration: InputDecoration(
+                                //       enabledBorder: InputBorder.none,
+                                //       focusedBorder: InputBorder.none,
+                                //       hintText: AppConfig.year,
+                                //       hintStyle:
+                                //           DocumentTypeDataStyle.customTextStyle(
+                                //               context),
+                                //       contentPadding: EdgeInsets.only(
+                                //           bottom: AppPadding.p20),
+                                //     ),
+                                //     icon: Icon(
+                                //       Icons.arrow_drop_down,
+                                //       color: ColorManager.mediumgrey,
+                                //       size: IconSize.I16,
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ],
