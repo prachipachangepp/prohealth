@@ -362,9 +362,10 @@ class CustomDialogSEE extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController firstNameController;
   final TextEditingController passwordController;
-
+  final VoidCallback? onCancel;
   CustomDialogSEE({
     required this.title,
+    this.onCancel,
     required this.lastNameController,
     required this.emailController,
     required this.firstNameController,
@@ -727,7 +728,7 @@ class _CustomDialogSEEState extends State<CustomDialogSEE> {
                   );
                 },
               );
-
+              widget.onCancel!();
               widget.firstNameController.clear();
               widget.lastNameController.clear();
               widget.emailController.clear();

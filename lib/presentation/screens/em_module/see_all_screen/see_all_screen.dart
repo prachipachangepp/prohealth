@@ -1213,7 +1213,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left:AppPadding.p10),
+                            padding: const EdgeInsets.only(left:AppPadding.p20),
                             child: Text(
                               AppString.email,
                               textAlign: TextAlign.start,
