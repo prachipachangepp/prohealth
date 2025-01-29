@@ -249,7 +249,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
               child: Text(
                 _selectedValue ?? 'Select',
                 style: DocumentTypeDataStyle.customTextStyle(context),
@@ -339,6 +339,7 @@ class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
         GestureDetector(
           onTap: _showCustomDropdown,
           child: Container(
+            padding: EdgeInsets.only(left: AppPadding.p2),
             key: _dropdownKey,
             width: widget.width == null ? AppSize.s354 : widget.width,
             height: AppSize.s30,
