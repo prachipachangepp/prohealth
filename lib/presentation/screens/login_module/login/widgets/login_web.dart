@@ -135,7 +135,7 @@ class _LoginWebState extends State<LoginWeb> {
                               if (value == null || value.isEmpty) {
                                 return AppString.enteremail;
                               }
-                              return null;
+                               SizedBox(height: AppSize.s12,);
                             },
                             onFieldSubmitted: (_) {
                               _getOtpByEmail();
@@ -144,13 +144,17 @@ class _LoginWebState extends State<LoginWeb> {
                         ),
                         Center(
                           child: _isSendingEmail
-                              ? CircularProgressIndicator(
-                                  color: ColorManager.blueprime,
-                                )
+                              ? SizedBox(
+                                height: AppSize.s40,
+                                width: AppSize.s40,
+                                child: CircularProgressIndicator(
+                                    color: ColorManager.blueprime,
+                                  ),
+                              )
                               : CustomButton(
                                   borderRadius: 28,
-                                  height: 40,
-                                  width: 100,
+                                  height: AppSize.s40,
+                                  width: AppSize.s100,
                                   text: AppString.next,
                                   onPressed: () async {
                                     _getOtpByEmail();

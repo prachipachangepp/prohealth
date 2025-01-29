@@ -201,7 +201,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
               heading: AppString.type_of_the_document,
               content: Container(
                 width: AppSize.s354,
-                padding: EdgeInsets.symmetric(vertical: AppPadding.p3, horizontal: AppPadding.p12),
+                padding: EdgeInsets.symmetric(vertical: AppPadding.p3, horizontal: AppPadding.p10),
                 decoration: BoxDecoration(
                   color: ColorManager.white,
                   borderRadius: BorderRadius.circular(4),
@@ -232,7 +232,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                   child: Container(
                     height: AppSize.s30,
                     width: AppSize.s354,
-                    padding: EdgeInsets.only(left: AppPadding.p15),
+                    padding: EdgeInsets.only(left: AppPadding.p10),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: ColorManager.containerBorderGrey,

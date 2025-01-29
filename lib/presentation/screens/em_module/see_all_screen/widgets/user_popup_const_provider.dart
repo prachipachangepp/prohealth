@@ -821,7 +821,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
           contentPadding: EdgeInsets.only(
               bottom: AppPadding.p3,
               top: AppPadding.p5,
-              left: AppPadding.p12
+              left: AppPadding.p10
           ),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: 1),

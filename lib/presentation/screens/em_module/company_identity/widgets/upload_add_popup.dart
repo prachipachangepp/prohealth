@@ -315,7 +315,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         child: Container(
                           height: AppSize.s30,
                           width: AppSize.s354,
-                          padding: EdgeInsets.only(left: AppPadding.p15),
+                          padding: EdgeInsets.only(left: AppPadding.p10),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: ColorManager.containerBorderGrey,
@@ -419,7 +419,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 content: Container(
                   height: AppSize.s30,
                   width: AppSize.s354,
-                  padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p12),
+                  padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p10),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -447,7 +447,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 content: Container(
                   height: AppSize.s30,
                   width: AppSize.s354,
-                  padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p12),
+                  padding: EdgeInsets.symmetric(vertical: AppPadding.p5, horizontal: AppPadding.p10),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -478,7 +478,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         child: Container(
                           height: AppSize.s30,
                           width: AppSize.s354,
-                          padding: EdgeInsets.only(left: AppPadding.p15),
+                          padding: EdgeInsets.only(left: AppPadding.p8),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: ColorManager.containerBorderGrey,
@@ -1050,17 +1050,4 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
     );
   }
 }
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
 ///

@@ -595,7 +595,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                           ),
                           child: Row(
                             children: [
-                              SizedBox(width: AppSize.s8),
+                              SizedBox(width: AppSize.s10),
                               Expanded(
                                 child: Text(
                                   selectedServiceName,
@@ -603,7 +603,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(right: AppPadding.p10),
+                                padding: EdgeInsets.only(right: AppPadding.p8),
                                 child: Icon(Icons.arrow_drop_down),
                               ),
                             ],
@@ -622,7 +622,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                           ),
                           child: Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: AppPadding.p10, vertical: AppPadding.p5),
+                                horizontal: AppPadding.p7, vertical: AppPadding.p5),
                             child: Text(
                               ErrorMessageString.noserviceAdded,
                               style: AllNoDataAvailable.customTextStyle(context),
@@ -647,16 +647,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                             return CICCDropdown(
                               initialValue: selectedServiceName,
                               onChange: _onServiceChanged,
-                              //     (val) {
-                              //   setState(() {
-                              //     selectedServiceName = val;
-                              //     for (var service in snapshot.data!) {
-                              //       if (service.serviceName == val) {
-                              //         serviceId = service.serviceId;
-                              //       }
-                              //     }
-                              //   });
-                              // },
                               items: dropDownServiceList,
                             );
                           },

@@ -351,6 +351,8 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                           borderRadius: BorderRadius.circular(5), color: ColorManager.white),
                                                                                       child: InkWell(
                                                                                         onTap: () {
+                                                                                          startTimeController.clear();
+                                                                                          endTimeController.clear();
                                                                                           showDialog(
                                                                                               context: context,
                                                                                               builder: (BuildContext context) {
@@ -475,6 +477,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                   child: CustomeTransparentAddShift(
                                                     text: 'Add Shift',
                                                     onPressed: () {
+                                                      shiftnameController.clear();
+                                                      shiftStartTimeController.clear();
+                                                      shiftEndTimeController.clear();
                                                       showDialog(context: context, builder: (BuildContext context){
                                                         return  AddShiftPopup(
                                                           controller1: shiftStartTimeController,

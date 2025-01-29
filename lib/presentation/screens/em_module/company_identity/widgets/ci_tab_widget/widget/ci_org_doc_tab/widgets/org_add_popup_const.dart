@@ -116,7 +116,6 @@ class AddNewOrgDocButton extends StatelessWidget {
         body: [
           Padding(
             padding: const EdgeInsets.symmetric(
-              // vertical: AppPadding.p1,
               horizontal: AppPadding.p10,
             ),
             child: Column(
@@ -153,7 +152,7 @@ class AddNewOrgDocButton extends StatelessWidget {
                   content: Container(
                     width: AppSize.s354,
                     height: AppSize.s30,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     decoration: BoxDecoration(
                       color: ColorManager.white,
                       borderRadius: BorderRadius.circular(8),
@@ -179,12 +178,11 @@ class AddNewOrgDocButton extends StatelessWidget {
                     : Column(
                       children: [
                         HeaderContentConst(
-                                          heading: AppString.sub_type_of_the_document,
-                                          //isAsterisk: true,
-                                          content: Container(
+                          heading: AppString.sub_type_of_the_document,
+                          content: Container(
                         width: AppSize.s354,
                         height: AppSize.s30,
-                        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                         decoration: BoxDecoration(
                           color: ColorManager.white,
                           borderRadius: BorderRadius.circular(8),
@@ -200,8 +198,8 @@ class AddNewOrgDocButton extends StatelessWidget {
                             ),
                           ],
                         ),
-                                          ),
-                                        ),
+                          ),
+                        ),
                         SizedBox(height: AppSize.s8,),
                       ],
                     ),
@@ -663,7 +661,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                 content: Container(
                   width: AppSize.s354,
                   height: AppSize.s30,
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -709,7 +707,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                 content: Container(
                   width: AppSize.s354,
                   height: AppSize.s30,
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),
@@ -737,7 +735,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                   width: AppSize.s354,
                   height: AppSize.s30,
                   padding:
-                  const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                  const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   decoration: BoxDecoration(
                     color: ColorManager.white,
                     borderRadius: BorderRadius.circular(8),

@@ -553,7 +553,7 @@ class EmpDocEditPopup extends StatelessWidget {
                   content: Container(
                     width: AppSize.s354,
                     padding: EdgeInsets.symmetric(
-                        vertical: AppPadding.p3, horizontal: AppPadding.p12),
+                        vertical: AppPadding.p3, horizontal: AppPadding.p10),
                     decoration: BoxDecoration(
                       color: ColorManager.white,
                       borderRadius: BorderRadius.circular(4),
