@@ -228,7 +228,6 @@ class RegisterEnrollPopup extends StatelessWidget {
                             //   context,
                             //   MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen(employeeId: widget.employeeId, depID: 1,)),
                             // );
-
                           },
                           icon: Icon(Icons.close,color: ColorManager.white,),
                         ),
