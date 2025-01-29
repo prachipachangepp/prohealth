@@ -65,10 +65,7 @@ class OnclickPopup extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(
-                          Icons.maximize_sharp,
-                          color: ColorManager.white,
-                        ),
+                        icon:  Image.asset("images/oasis_emr/minus.png",height: IconSize.I18,),
                       ),
                       IconButton(
                         splashColor: Colors.transparent,
@@ -77,10 +74,7 @@ class OnclickPopup extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(
-                          Icons.compare_arrows_rounded,
-                          color: ColorManager.white,
-                        ),
+                        icon:  Image.asset("images/oasis_emr/arrows.png",height: IconSize.I16,),
                       ),
                       IconButton(
                         splashColor: Colors.transparent,
@@ -92,6 +86,7 @@ class OnclickPopup extends StatelessWidget {
                         icon: Icon(
                           Icons.close,
                           color: ColorManager.white,
+                          size:IconSize.I18,
                         ),
                       ),
                     ],
@@ -114,7 +109,7 @@ class OnclickPopup extends StatelessWidget {
                             vertical: AppPadding.p2, horizontal: AppPadding.p20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          //crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(title,
                                 style: BoldfontStyle.customTextStyle(context)),
@@ -184,11 +179,11 @@ class mten extends StatelessWidget {
       width: 700,
       height:350,
 
-      title: 'M0100', itembody: [
+      title: 'M0010', itembody: [
         Column(
           children: [
             Text(
-                "Specifies the agency's Centers for Medicare & Medicaid Services (CMS) certification number (CCN/Medicare provider number). ,",
+                " ",
                 style:Normalfontstyle.customTextStyle(context)
             ),
 
@@ -196,21 +191,27 @@ class mten extends StatelessWidget {
         )
 
     ], responsebody: [
-      Column(
-        children: [
-          Text(
-              "Agency administrative and billing staff could be consulted for this item."
-        " Enter the agency's CMS certification (Medicare provider) number, if applicable."
-       "If agency is not Medicare- certified, leave blank."
-    "This is NOT the Provider's NPI number."
-    "Preprinting this number on clinical documentation is allowed and recommended."
-    ,
-              style:Normalfontstyle.customTextStyle(context)
-          ),
+      Padding(
+        padding: const EdgeInsets.only(left: 5),
+        child: Column(
+          children: [
+            Text(
+              "• Agency administrative and billing staff could be consulted for this item.\n"
+                  "• Enter the agency's CMS certification (Medicare provider) number, if applicable.\n"
+                  "• If the agency is not Medicare-certified, leave it blank.\n"
+                  "• This is NOT the Provider's NPI number.\n"
+                  "• Preprinting this number on clinical documentation is allowed and recommended.",
+              style: Normalfontstyle.customTextStyle(context),
+            )
 
-        ],
+
+          ],
+        ),
       )
     ],
     );
   }
 }
+
+
+

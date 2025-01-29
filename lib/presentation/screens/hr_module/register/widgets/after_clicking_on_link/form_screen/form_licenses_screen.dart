@@ -525,8 +525,8 @@ class _licensesFormState extends State<licensesForm> {
   int? licenseIdIndex;
   String? licenseUrl;
   int countryId =0;
-  String? selectedCountry;
-  String? documentTypeName;
+  String? selectedCountry ='Select';
+  String? documentTypeName ='Select';
 
   final StreamController<List<AEClinicalReportingOffice>> Countrystream =
       StreamController<List<AEClinicalReportingOffice>>();
@@ -665,11 +665,14 @@ class _licensesFormState extends State<licensesForm> {
                     //
                     // ),
                     StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) { return  FutureBuilder<List<CountryGetData>>(
+                      builder: (BuildContext context, void Function(void Function()) setState) { return
+                        FutureBuilder<List<CountryGetData>>(
                         future: getCountry(context: context),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return Container(
+                              height: 30,
+                              padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(4),
@@ -678,7 +681,7 @@ class _licensesFormState extends State<licensesForm> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '',
+                                    selectedCountry!,
                                     style: DocumentTypeDataStyle.customTextStyle(context),
                                   ),
                                   Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
@@ -938,6 +941,8 @@ class _licensesFormState extends State<licensesForm> {
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
                                   return Container(
+                                    height: 30,
+                                    padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: BorderRadius.circular(4),
@@ -946,7 +951,7 @@ class _licensesFormState extends State<licensesForm> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          '',
+                                          documentTypeName!,
                                           style: DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                         Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),

@@ -439,11 +439,13 @@ class OfferLetterScreen extends StatelessWidget {
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.end,
                                                           children: [
-                                                            IconButton(
-                                                              icon: const Icon(Icons.close, color: Colors.white),
-                                                              onPressed: () {
-                                                                Navigator.of(context).pop();
-                                                              },
+                                                            Center(
+                                                              child: IconButton(
+                                                                icon: const Icon(Icons.close, color: Colors.white,),
+                                                                onPressed: () {
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                              ),
                                                             ),
                                                           ],
                                                         ),

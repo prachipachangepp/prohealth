@@ -775,13 +775,13 @@ class _BankingFormState extends State<BankingForm> {
                                   ),
                                   errorMessage != null ?
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
+                                      padding: const EdgeInsets.only(top:1),
                                       child: Text(
                                         errorMessage!,
                                         style: TextStyle(
                                             color: Colors.red, fontSize: 10),
                                       ),
-                                    ) : SizedBox(height:18),
+                                    ) : SizedBox(height:12),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /

@@ -498,7 +498,7 @@ class _EducationFormState extends State<EducationForm> {
   int selectedDegreeId = 0;
 
   String? graduatetype='Yes';
-  String? selectedDegree;
+  String? selectedDegree ='Select';
   String? docName;
 
   final StreamController<List<AEClinicalDiscipline>> Degreestream =
@@ -806,6 +806,8 @@ class _EducationFormState extends State<EducationForm> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
+            height: 30,
+            padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(4),
@@ -814,7 +816,7 @@ class _EducationFormState extends State<EducationForm> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '',
+                  selectedDegree!,
                   style: DocumentTypeDataStyle.customTextStyle(context),
                 ),
                 Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
