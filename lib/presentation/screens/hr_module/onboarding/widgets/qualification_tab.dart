@@ -26,11 +26,12 @@ class _OnboardingQualificationState extends State<OnboardingQualification> {
     setState(() {
       _selectedIndex = index;
     });
-    _tabPageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
+    _tabPageController.jumpToPage(index);
+    // _tabPageController.animateToPage(
+    //   index,
+    //   duration: Duration(milliseconds: 500),
+    //   curve: Curves.ease,
+    // );
   }
 
   @override

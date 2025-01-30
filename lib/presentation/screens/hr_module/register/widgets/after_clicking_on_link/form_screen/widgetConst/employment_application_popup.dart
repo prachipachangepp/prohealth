@@ -187,11 +187,11 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                           keyboardType: TextInputType.text,
                           text: 'Middle Name',
                         ),
-                        if (nameError != null)
+                        nameError != null ?
                           Text(
                             nameError!,
                             style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                          ) : SizedBox(height: AppSize.s12,),
                         SizedBox(height: AppSize.s6),
 
                         SMTextFConst(
@@ -235,11 +235,11 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                           keyboardType: TextInputType.text,
                           text: 'Salary Expected',
                         ),
-                        if (salaryError != null)
+                        salaryError != null ?
                           Text(
                             salaryError!,
                             style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                          ) : SizedBox(height: AppSize.s12,),
                         SizedBox(height: AppSize.s6),
 
                         HeaderContentConst(
@@ -308,11 +308,11 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                             },
                           ),
                         ),
-                        if (dateError != null)
+                        dateError != null ?
                           Text(
                             dateError!,
                             style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                          ) : SizedBox(height: AppSize.s12,),
                       ],
                     ),
                   ),
@@ -327,11 +327,11 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
                           keyboardType: TextInputType.text,
                           text: 'Position Applying',
                         ),
-                        if (positionError != null)
+                        positionError != null ?
                           Text(
                             positionError!,
                             style: CommonErrorMsg.customTextStyle(context),
-                          ),
+                          ) : SizedBox(height: AppSize.s12,),
                         SizedBox(height: AppSize.s6),
 
                         SMTextFConst(
@@ -452,8 +452,8 @@ class _EmploymentAppSignPopupState extends State<EmploymentAppSignPopup> {
       ],
       bottomButtons: loading == true
           ? SizedBox(
-        height: AppSize.s25,
-        width: AppSize.s25,
+        height: AppSize.s30,
+        width: AppSize.s30,
         child: CircularProgressIndicator(
           color: ColorManager.blueprime,
         ),

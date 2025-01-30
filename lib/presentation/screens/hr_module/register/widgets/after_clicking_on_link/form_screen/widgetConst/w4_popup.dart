@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -12,7 +10,6 @@ import '../../../../../../../../app/services/api/managers/hr_module_manager/lega
 import '../../../../../../../../data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 import '../../../../../../../widgets/error_popups/failed_popup.dart';
 import '../../../../../../../widgets/error_popups/four_not_four_popup.dart';
-import '../../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../em_module/widgets/dialogue_template.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
@@ -291,11 +288,11 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                         keyboardType: TextInputType.text,
                         text: 'Middle Name',
                       ),
-                      if (nameError != null)
+                      nameError != null ?
                         Text(
                           nameError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s9),
                       RichText(
                         text: TextSpan(
@@ -375,29 +372,29 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       SMNumberTextFConst(
                         isAsteric: true,
                           controller: step3aController, text: 'Step 3a - If your total income will be \$200,000 or less (\$400,000 or less if married filing jointly): Multiply the number of qualifying children under age 17 by \$2,000'),
-                      if (step3aError != null)
+                       step3aError != null ?
                         Text(
                           step3aError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s9),
                       SMNumberTextFConst(
                         isAsteric: true,
                           controller: step3bController, text: 'Step3b- Multiply the number of other dependents by \$500'),
-                      if (step3bError != null)
+                      step3bError != null ?
                         Text(
                           step3bError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s9),
                       SMNumberTextFConst(
                         isAsteric: true,
                           controller: step3cController, text: 'Step 3c- Add the amounts above for qualifying children and other dependents. You may add to  this the amount of any other credits. Enter the total here'),
-                      if (step3cError != null)
+                      step3cError != null ?
                         Text(
                           step3cError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s9),
                       Text('Step 4  (optional):  Other  Adjustments',
                         style: AllPopupHeadings.customTextStyle(context),),
@@ -435,11 +432,11 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       SMNumberTextFConst(
                         isAsteric: true,
                           controller: multipleJW1Controller, text: 'Multiple JW1- Two jobs. If you have two jobs or you’re married filing jointly and your spouse each have one job,  find the amount from the appropriate table on page 4. Using the “Higher Paying Job” row and the  “Lower Paying Job” column, find the value at the intersection of the two household salaries and  enter that value on line 1. Then, skip to line 3'),
-                      if (multipleJW1Error != null)
+                      multipleJW1Error != null ?
                         Text(
                           multipleJW1Error!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s9),
                       Container(
                         width: 354,
@@ -450,99 +447,99 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
                       SMNumberTextFConst(
                         isAsteric: true,
                           controller: multipleJW12aController, text: 'Multiple JW2a-If you have two jobs or you’re married filing jointly and your spouse each have one job,  find the amount from the appropriate table on page 4. Using the “Higher Paying Job” row and the  “Lower Paying Job” column, find the value at the intersection of the two household salaries and  enter that value on line 1. Then, skip to line 3'),
-                      if (multipleJW12aError != null)
+                      multipleJW12aError != null ?
                         Text(
                           multipleJW12aError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: AppSize.s13),
+                      SizedBox(height: AppSize.s17),
                       SMNumberTextFConst(
                           isAsteric: true,
                           controller: multipleJW12bController,
                           text: 'Multiple JW2b- Add the annual wages of the two highest paying jobs from line 2a together and use the total  as the wages in the “Higher Paying Job” row and use the annual wages for your third job in the  “Lower Paying Job” column to find the amount from the appropriate table on page 4 and enter  this amount on line 2b'),
-                      if (multipleJW12bError != null)
+                      multipleJW12bError != null ?
                         Text(
                           multipleJW12bError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
-                       SizedBox(height: AppSize.s10),
+                        ) : SizedBox(height: AppSize.s12,),
+                       SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           isAsteric: true,
                           controller: multipleJW12cController, text: 'Multiple JW2c- Add the amounts from lines 2a and 2b and enter the result on line 2c'),
-                      if (multipleJW12cError != null)
+                      multipleJW12cError != null ?
                         Text(
                           multipleJW12cError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
-                      SizedBox(height: AppSize.s8),
+                        ) : SizedBox(height: AppSize.s12,),
+                      SizedBox(height: AppSize.s10),
                       SMNumberTextFConst(
                           isAsteric: true,
                           controller: multipleJW13Controller, text: 'Multiple JW3- Enter the number of pay periods per year for the highest paying job. For example, if that job pays  weekly, enter 52; if it pays every other week, enter 26; if it pays monthly, enter 12, etc'),
-                      if (multipleJW13Error != null)
+                      multipleJW13Error != null ?
                         Text(
                           multipleJW13Error!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s10),
                       SMNumberTextFConst(
                           isAsteric: true,
                           controller: multipleJW14Controller, text: 'Multiple JW4- Divide the annual amount on line 1 or line 2c by the number of pay periods on line 3. Enter this  amount here and in Step 4(c) of Form W-4 for the highest paying job (along with any other  additional amount you want withheld)'),
-                      if (multipleJW14Error != null)
+                      multipleJW14Error != null ?
                         Text(
                           multipleJW14Error!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s10),
 
                       SMNumberTextFConst(
                           isAsteric: true,
                           controller: dw1Controller, text: 'Deductions Worksheet 1- Enter an estimate of your 2023 itemized deductions (from Schedule A (Form 1040)). Such  deductions may include qualifying home mortgage interest, charitable contributions, state and  local taxes (up to \$10,000), and medical expenses in excess of 7.5% of your income'),
-                      if (dw1Error != null)
+                      dw1Error != null ?
                         Text(
                           dw1Error!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           isAsteric: true,
                           controller: dw2Controller, text: 'Deductions Worksheet 2- Enter: • \$27,700 if you’re married filing jointly or a qualifying surviving spouse • \$20,000 if you’re head of household • \$13,850 if you’re single or married filing separately'),
-                      if (dw2Error != null)
+                      dw2Error != null ?
                         Text(
                           dw2Error!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           isAsteric: true,
                           controller: dw3Controller, text: 'Deductions Worksheet 3- If line 1 is greater than line 2, subtract line 2 from line 1 and enter the result here. If line 2 is greater  than line 1, enter “-0-”'),
-                      if (dw3Error != null)
+                      dw3Error != null ?
                         Text(
                           dw3Error!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           isAsteric: true,
                           controller: dw4Controller, text: 'Deductions Worksheet 4- Enter an estimate of your student loan interest, deductible IRA contributions, and certain other  adjustments (from Part II of Schedule 1 (Form 1040)). See Pub. 505 for more information'),
-                      if (dw4Error != null)
+                      dw4Error != null ?
                         Text(
                           dw4Error!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s12),
                       SMNumberTextFConst(
                           isAsteric: true,
                           controller: dw5Controller, text: 'Deductions Worksheet 5- Add lines 3 and 4. Enter the result here and in Step 4(b) of Form W-4'),
-                      if (dw5Error != null)
+                      dw5Error != null ?
                         Text(
                           dw5Error!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                     ],
                   ),
                 ],
@@ -553,8 +550,8 @@ class _WFourSignPopupState extends State<WFourSignPopup> {
       ],
       bottomButtons: loading == true
           ? SizedBox(
-        height: AppSize.s25,
-        width: AppSize.s25,
+        height: AppSize.s30,
+        width: AppSize.s30,
         child: CircularProgressIndicator(
           color: ColorManager.blueprime,
         ),

@@ -196,33 +196,33 @@ class _INineSignPopupState extends State<INineSignPopup> {
                 keyboardType: TextInputType.text,
                 text: 'Middle Name',
               ),
-              if (nameError != null)
+              nameError != null ?
                 Text(
                   nameError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s8),
               SMTextfieldAsteric(
                 controller: lastNameController,
                 keyboardType: TextInputType.text,
                 text: 'Other Last Name',
               ),
-              if (lastNameError != null)
+             lastNameError != null ?
                 Text(
                   lastNameError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s8),
               SMTextfieldAsteric(
                 controller: aptNumController,
                 keyboardType: TextInputType.text,
                 text: 'ATP Number',
               ),
-              if (aptNumError != null)
+              aptNumError != null ?
                 Text(
                   aptNumError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s8),
               SizedBox(height: AppSize.s8),
               Text( 'Citizenship', style: AllPopupHeadings.customTextStyle(context),

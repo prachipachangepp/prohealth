@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../em_module/widgets/text_form_field_const.dart';
 
@@ -100,7 +101,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                                 padding: const EdgeInsets.only(top: 5.0),
                                 child: Text(
                                   field.errorText!,
-                                  style: TextStyle(color: Colors.red, fontSize: 12),
+                                  style: CommonErrorMsg.customTextStyle(context),
                                 ),
                               ),
                           ],
@@ -129,7 +130,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                                 padding: const EdgeInsets.only(top: 5.0),
                                 child: Text(
                                   field.errorText!,
-                                  style: TextStyle(color: Colors.red, fontSize: 12),
+                                  style: CommonErrorMsg.customTextStyle(context),
                                 ),
                               ),
                           ],
@@ -250,7 +251,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                             padding: const EdgeInsets.only(left: 16.0),
                             child: Text(
                               'Please select Expiry Type',
-                              style: TextStyle(color: Colors.red, fontSize: 12),
+                              style: CommonErrorMsg.customTextStyle(context),
                             ),
                           ),
                       ],

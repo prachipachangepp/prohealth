@@ -1148,14 +1148,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   decoration: BoxDecoration(
                     color: ColorManager.fmediumgrey,
                     borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: ColorManager.black.withValues(alpha: 0.2),
-                        spreadRadius: 0,
-                        blurRadius: 2,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: ColorManager.black.withValues(alpha: 0.2),
+                    //     spreadRadius: 0,
+                    //     blurRadius: 2,
+                    //     offset: Offset(0, 3),
+                    //   ),
+                    // ],
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 1),

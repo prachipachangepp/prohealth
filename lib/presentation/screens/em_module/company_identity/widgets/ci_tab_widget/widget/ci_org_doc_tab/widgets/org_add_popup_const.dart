@@ -163,7 +163,7 @@ class AddNewOrgDocButton extends StatelessWidget {
                       children: [
                         Text(
                           docTypeText,
-                          style: DocumentTypeDataStyle.customTextStyle(context),
+                          style: TableSubHeading.customTextStyle(context),
                         ),
                       ],
                     ),
@@ -194,7 +194,7 @@ class AddNewOrgDocButton extends StatelessWidget {
                           children: [
                             Text(
                               subDocTypeText,
-                              style: DocumentTypeDataStyle.customTextStyle(context),
+                              style: TableSubHeading.customTextStyle(context),
                             ),
                           ],
                         ),

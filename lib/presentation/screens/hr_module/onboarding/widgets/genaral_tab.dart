@@ -343,12 +343,11 @@ class OnboardingGeneral extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       CircleAvatar(
-                                                          radius: MediaQuery.of(context).size.width / 50,
+                                                          radius: 30,
                                                           backgroundColor: Colors.white,
                                                           child:
                                                           ClipOval(
-                                                            child: general.imgurl == 'imgurl' ||
-                                                                general.imgurl == null
+                                                            child: general.imgurl == 'imgurl' || general.imgurl == null
                                                                 ? CircleAvatar(
                                                               backgroundColor: ColorManager.faintGrey,
                                                               child: Image.asset("images/profilepic.png",width: double.infinity,
@@ -372,23 +371,14 @@ class OnboardingGeneral extends StatelessWidget {
                                                                 }
                                                               },
                                                               errorBuilder: (context, error, stackTrace) {
-                                                                return CircleAvatar(child: Image.asset("images/profilepic.png",width: double.infinity,
+                                                                return CircleAvatar(
+                                                                    radius: 30,
+                                                                    child: Image.asset("images/profilepic.png",width: double.infinity,
                                                                   height: double.infinity,));
                                                               },
                                                               fit: BoxFit.cover,
                                                             ),
                                                           )
-                                                        // ClipOval(
-                                                        //   child: CachedNetworkImage(
-                                                        //     imageUrl: general.imgurl!,
-                                                        //     placeholder: (context, url) => CircularProgressIndicator(),
-                                                        //     errorWidget: (context, url, error) =>
-                                                        //         CircleAvatar(child: Image.asset("images/profilepic.png"),),
-                                                        //     width: double.infinity,
-                                                        //     height: double.infinity,
-                                                        //     fit: BoxFit.cover,
-                                                        //   ),
-                                                        // ),
                                                       ),
 
                                                       ///profile image

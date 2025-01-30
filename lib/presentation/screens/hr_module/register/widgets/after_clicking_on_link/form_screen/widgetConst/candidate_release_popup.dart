@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/legal_documents/legal_document_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/widgets/add_new_popup.dart';
-
 import '../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/common_resources/common_theme_const.dart';
@@ -151,33 +149,33 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                 keyboardType: TextInputType.text,
                 text: 'Full Name as it appear on license',
               ),
-              if (fullNameError != null)
+              fullNameError != null ?
                 Text(
                   fullNameError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s7),
               SMTextfieldAsteric(
                 controller: stateLicenseController,
                 keyboardType: TextInputType.text,
                 text: 'State Issuing License',
               ),
-              if (stateError != null)
+              stateError != null ?
                 Text(
                   stateError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
               SizedBox(height: AppSize.s7),
               SMTextfieldAsteric(
                 controller: middleNameController,
                 keyboardType: TextInputType.text,
                 text: 'Middle Name',
               ),
-              if (middleError != null) // Display error if any
+              middleError != null ? // Display error if any
                 Text(
                   middleError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ),
+                ) : SizedBox(height: AppSize.s12,),
 
               SizedBox(height: AppSize.s7),
               SMTextFConst(
@@ -185,7 +183,7 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                 keyboardType: TextInputType.text,
                 text: 'Mainden Surname Alisa',
               ),
-              SizedBox(height: AppSize.s7),
+              SizedBox(height: AppSize.s10),
               AddressInput(
                 controller: addressController,
                 onSuggestionSelected: (selectedSuggestion) {
@@ -203,12 +201,6 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
                   });
                 },
               ),
-              // SMTextFConst(
-              //   controller: addressController,
-              //   keyboardType: TextInputType.text,
-              //   text: 'Current Address',
-              // ),
-
             ],
           ),
 
@@ -216,8 +208,8 @@ class _CandidateReleaseSignPopupState extends State<CandidateReleaseSignPopup> {
       ],
       bottomButtons: loading == true
           ? SizedBox(
-        height: AppSize.s25,
-        width: AppSize.s25,
+        height: AppSize.s30,
+        width: AppSize.s30,
         child: CircularProgressIndicator(
           color: ColorManager.blueprime,
         ),

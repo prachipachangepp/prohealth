@@ -184,7 +184,7 @@ class AcknowledgementAddPopup extends StatelessWidget {
                               borderSide: BorderSide(
                                   width: 1, color: ColorManager.fmediumgrey),
                             ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 10),
                             suffixIcon: Icon(Icons.calendar_month_outlined,
                                 color: ColorManager.blueprime),
                             errorText: field.errorText,
@@ -230,7 +230,7 @@ class AcknowledgementAddPopup extends StatelessWidget {
                       child: Container(
                         height: AppSize.s30,
                         width: AppSize.s354,
-                        padding: EdgeInsets.only(left: AppPadding.p15),
+                        padding: EdgeInsets.only(left: AppPadding.p10),
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: ColorManager.containerBorderGrey,
@@ -284,8 +284,8 @@ class AcknowledgementAddPopup extends StatelessWidget {
             ],
             bottomButtons: loaderProvider.load
                 ? SizedBox(
-              height: AppSize.s25,
-              width: AppSize.s25,
+              height: AppSize.s30,
+              width: AppSize.s30,
               child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
               ),

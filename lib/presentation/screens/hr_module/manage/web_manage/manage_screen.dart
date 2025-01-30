@@ -165,6 +165,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 height: 30,
                                                 // width: 720.0,
                                                 child: TabBar(
+                                                  splashBorderRadius: BorderRadius.circular(50),
                                                   isScrollable: false,
                                                   onTap: (index) {
                                                     tabState.setQulificationModuleTab(index); // Update the active tab
@@ -279,8 +280,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                         vertical: 5,
                                       ),
                                       child: DefaultTabController(
-                                        length: widget
-                                            .searchByEmployeeIdProfileData!.departmentId == 1?6:5,
+                                        length: widget.searchByEmployeeIdProfileData!.departmentId == 1?6:5,
                                         initialIndex: tabState.qulificationModuleTab,
                                         child: Column(
                                           children: [
@@ -310,6 +310,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                                 height: 30,
                                                 // width: 820.0,
                                                 child: TabBar(
+                                                  splashBorderRadius: BorderRadius.circular(50),
                                                   isScrollable: false,
                                                   onTap: (index){
                                                     tabState.setDocumentsModuleTab(index);
@@ -338,12 +339,9 @@ class _ManageScreenState extends State<ManageScreen> {
                                                       Colors.transparent,
                                                   //padding: EdgeInsets.only(top: 2),
                                                   indicator: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50), // Creates border
+                                                      borderRadius: BorderRadius.circular(50), // Creates border
                                                       color: Colors.white),
-                                                  indicatorSize:
-                                                      TabBarIndicatorSize.tab,
+                                                  indicatorSize: TabBarIndicatorSize.tab,
                                                   indicatorColor: Colors.white,
                                                   labelColor: Color(0xFF686464),
                                                   unselectedLabelStyle:

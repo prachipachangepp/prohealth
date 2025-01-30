@@ -144,38 +144,37 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
         builder: (context) => MapScreen(
           initialLocation: _selectedLocation,
           onLocationPicked: (location) {
-            // Print debug information to ensure this is being called
-            print('Picked location inside MapScreen: $_selectedLocation');
-            _location = 'Lat: ${_selectedLocation.latitude}, Long: ${_selectedLocation.longitude}';
-            setState(() {
-              _latitude = location.latitude;
-              _longitude = location.longitude;
-              _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-              _locationError == null;
-              //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-            });
+            if (mounted) {
+              print('Picked location inside MapScreen: $location'); // Debugging
+
+              setState(() {
+                _selectedLocation = location; // Update selected location
+                _latitude = location.latitude;
+                _longitude = location.longitude;
+                _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+              });
+            }
           },
         ),
       ),
     );
-    print("Picked location ${pickedLocation}");
 
     if (pickedLocation != null) {
-      // Print debug information to ensure this is being reached
-      print('Picked location from Navigator: $pickedLocation');
-      setState(() {
-        _selectedLocation = pickedLocation;
-        _latitude = pickedLocation.latitude;
-        _longitude = pickedLocation.longitude;
-        _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-        _locationError = null;
-        //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-      });
+      print('Picked location from Navigator: $pickedLocation'); // Debugging
+
+      if (mounted) {
+        setState(() {
+          _selectedLocation = pickedLocation; // Update selected location
+          _latitude = pickedLocation.latitude;
+          _longitude = pickedLocation.longitude;
+          _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+          _locationError = null;
+        });
+      }
     } else {
       print('No location was picked.');
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return DialogueTemplate(
@@ -282,10 +281,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                           return Container(
                             width: AppSize.s300,
                             height: AppSize.s100,
-                            child: StatefulBuilder(
-                              builder: (BuildContext context,
-                                  void Function(void Function()) setState) {
-                                return Column(
+                            child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -328,9 +324,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                                         ),
                                       ),
                                   ],
-                                );
-                              },
-                            ),
+                                ),
                           );
                         },
                       )
