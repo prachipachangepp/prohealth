@@ -190,58 +190,67 @@ class _LicensesScreenState extends State<LicensesScreen> {
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 60),
-        Container(
-          width: 952,
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-          decoration: BoxDecoration(
-            color: Color(0xFFE6F7FF),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Row(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 100),
+          child: Container(
+           // width: 952,
+            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+            decoration: BoxDecoration(
+              color: Color(0xFFE6F7FF),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 50
+              ),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '• ',
-                    style: DefineWorkWeekStyle.customTextStyle(context),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '• ',
+                        style: DefineWorkWeekStyle.customTextStyle(context),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Please fill all the current and relevant licensure / certification below. If you are applying for a clinical or attorney position which is lists licensure in the requirements, your information will be required to proceed through the requirements process.',
+                          textAlign: TextAlign.start,
+                          style:ZoneDataStyle.customTextStyle(context),
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Text(
-                      'Please fill all the current and relevant licensure / certification below. If you are applying for a clinical or attorney position which is lists licensure in the requirements, your information will be required to proceed through the requirements process.',
-                      textAlign: TextAlign.center,
-                      style:ZoneDataStyle.customTextStyle(context),
-                    ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '• Please note, MSW and Chaplains do not need a License. Rather , they need academic credentials.',
+                          textAlign: TextAlign.start,
+                          style:ZoneDataStyle.customTextStyle(context),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '• Clinical Staff MUST fill this section out. ',
+                          textAlign: TextAlign.start,
+                          style:ZoneDataStyle.customTextStyle(context),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 100),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      '• Please note, MSW and Chaplains do not need a License. Rather , they need academic credentials.',
-                      textAlign: TextAlign.center,
-                      style:ZoneDataStyle.customTextStyle(context),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 100),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      '• Clinical Staff MUST fill this section out. ',
-                      textAlign: TextAlign.center,
-                      style:ZoneDataStyle.customTextStyle(context),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -525,8 +534,8 @@ class _licensesFormState extends State<licensesForm> {
   int? licenseIdIndex;
   String? licenseUrl;
   int countryId =0;
-  String? selectedCountry;
-  String? documentTypeName;
+  String? selectedCountry ='Select';
+  String? documentTypeName ='Select';
 
   final StreamController<List<AEClinicalReportingOffice>> Countrystream =
       StreamController<List<AEClinicalReportingOffice>>();
@@ -577,7 +586,7 @@ class _licensesFormState extends State<licensesForm> {
   @override
   Widget build(BuildContext context) {
      return Padding(
-      padding: const EdgeInsets.only(left: 166.0, right: 166),
+      padding: const EdgeInsets.symmetric(horizontal: 160),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -665,11 +674,14 @@ class _licensesFormState extends State<licensesForm> {
                     //
                     // ),
                     StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) { return  FutureBuilder<List<CountryGetData>>(
+                      builder: (BuildContext context, void Function(void Function()) setState) { return
+                        FutureBuilder<List<CountryGetData>>(
                         future: getCountry(context: context),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return Container(
+                              height: 30,
+                              padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(4),
@@ -678,7 +690,7 @@ class _licensesFormState extends State<licensesForm> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '',
+                                    selectedCountry!,
                                     style: DocumentTypeDataStyle.customTextStyle(context),
                                   ),
                                   Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),
@@ -924,7 +936,7 @@ class _licensesFormState extends State<licensesForm> {
                           MediaQuery.of(context).size.height /
                               40),
                       Text(
-                        'Document type',
+                        'Document Type',
                         style: AllPopupHeadings.customTextStyle(context),
                       ),
                       SizedBox(
@@ -938,6 +950,8 @@ class _licensesFormState extends State<licensesForm> {
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
                                   return Container(
+                                    height: 30,
+                                    padding: const EdgeInsets.only(bottom: 3, top: 5, left: 4),
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: BorderRadius.circular(4),
@@ -946,7 +960,7 @@ class _licensesFormState extends State<licensesForm> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          '',
+                                          documentTypeName!,
                                           style: DocumentTypeDataStyle.customTextStyle(context),
                                         ),
                                         Icon(Icons.arrow_drop_down_sharp, color: Colors.grey),

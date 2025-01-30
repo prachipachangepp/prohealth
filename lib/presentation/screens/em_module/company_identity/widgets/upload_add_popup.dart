@@ -136,12 +136,14 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         _isFormValid = false;
       } else {
         _dropdownError = null;
+        //_isFormValid = true;
       }
       if (selectedExpiryType == AppConfig.issuer && expiryDateController.text.isEmpty) {
         _issueDateError = "Please select an expiry date";
         _isFormValid = false;
       } else {
         _issueDateError = null;
+        _isFormValid = true;
       }
     });
   }
@@ -369,6 +371,9 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         ],
                       ),
             )
+
+
+
             : Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
           child: Column(
@@ -779,13 +784,29 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         text: AppStringEM.add, // submit
         onPressed: () async {
           _validateForm();
-          setState(() {
-            isFileErrorVisible = !isFileSelected;
-          });
+          // setState(() {
+          //   isFileErrorVisible = !isFileSelected;
+          // });
 
-          if (!isFileSelected) {
+
+          // Check if a document type is selected
+          if (selectedDocType == null || selectedDocType == "Select" || selectedDocType == "No available documents") {
+            setState(() {
+              _dropdownError = "Please select a document type";  // Show error
+            });
             return;
           }
+
+          // Check if the file is selected
+          if (!isFileSelected) {
+            setState(() {
+              isFileErrorVisible = true;  // Show file upload error
+            });
+            return;
+          }
+          // if (!isFileSelected) {
+          //   return;
+          // }
 
           setState(() {
             load = true;
@@ -906,6 +927,14 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
           }
         },
       )
+
+
+
+
+
+
+
+
           : CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,

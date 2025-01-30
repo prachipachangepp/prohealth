@@ -222,13 +222,12 @@ class RegisterEnrollPopup extends StatelessWidget {
               Navigator.pop(context);
                             // Navigator.push(
                             //   context,
-                            //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId, depID: 1,)),
-                            // )
+                            //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId, depID: 1,)),
+                            // );
                             // Navigator.push(
                             //   context,
                             //   MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen(employeeId: widget.employeeId, depID: 1,)),
                             // );
-
                           },
                           icon: Icon(Icons.close,color: ColorManager.white,),
                         ),

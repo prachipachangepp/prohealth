@@ -126,49 +126,55 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 60),
-          Container(
-            width: 952,
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            decoration: BoxDecoration(
-              color: Color(0xFFE6F7FF),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 100),
+            child: Container(
+             // width: 952,
+              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              decoration: BoxDecoration(
+                color: Color(0xFFE6F7FF),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 50),
+                child: Column(
                   children: [
-                    Text(
-                      '• ',
-                      style:  DefineWorkWeekStyle.customTextStyle(context),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '• ',
+                          style:  DefineWorkWeekStyle.customTextStyle(context),
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Instructions: This section is designed to capture and document your health and immunization records as part of your onboarding process. Please enter the required information accurately.',
+                            textAlign: TextAlign.start,
+                            style:ZoneDataStyle.customTextStyle(context),
+                          ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: Text(
-                        'Instructions: This section is designed to capture and document your health and immunization records as part of your onboarding process. Please enter the required information accurately.',
-                        textAlign: TextAlign.center,
-                        style:ZoneDataStyle.customTextStyle(context),
-                      ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 80),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '• ',
+                          style:  DefineWorkWeekStyle.customTextStyle(context),
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
+                            textAlign: TextAlign.start,
+                            style:ZoneDataStyle.customTextStyle(context),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 100),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '• ',
-                      style:  DefineWorkWeekStyle.customTextStyle(context),
-                    ),
-                    Expanded(
-                      child: Text(
-                        'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
-                        textAlign: TextAlign.center,
-                        style:ZoneDataStyle.customTextStyle(context),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),

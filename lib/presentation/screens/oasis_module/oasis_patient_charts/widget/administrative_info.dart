@@ -5,6 +5,9 @@ import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../app/resources/value_manager.dart';
 import '../../them_manager/oasis_them_mnager.dart';
+import '../../widgets/constant/details_popup/mfourteen_popup.dart';
+import '../../widgets/constant/details_popup/msixteen_popup.dart';
+import '../../widgets/constant/details_popup/mten_popup.dart';
 import '../../widgets/constant/getx_oasis.dart';
 import '../../widgets/constant/green_container_constant.dart';
 import '../../widgets/constant/popup_const.dart';
@@ -103,7 +106,7 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                   Ontabtext(ontab: () async{ showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return mten();
+                                      return MTen();
                                     },); },
                                     child: Row(children: [
                                       Text("(M0010)", style: Redfontstyle.customTextStyle(context)),
@@ -138,7 +141,11 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                       Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 5),
                                         child: Ontabtext(
-                                          ontab: () async {},
+                                          ontab: () async {showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return MFourteen();
+                                            },);},
                                           child: Row(
                                             children: [
                                               Text("(M0014)", style: Redfontstyle.customTextStyle(context)),
@@ -151,7 +158,11 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                                       Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 5),
                                         child: Ontabtext(
-                                          ontab: () async {},
+                                          ontab: () async {showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return MsixteenPopup();
+                                            },);},
                                           child: Row(
                                             children: [
                                               Text("(M0016)", style: Redfontstyle.customTextStyle(context)),
@@ -198,7 +209,13 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                               ),
                               SizedBox(height: AppSize.s20,),
 
-                              InkWell( onTap: (){},
+                              InkWell( onTap: (){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return MEighteen();
+                                  },);
+                              },
                                 child: Text.rich(
                                   TextSpan(
                                     children: [
@@ -437,7 +454,11 @@ class _AdministrativeInfoState extends State<AdministrativeInfo> {
                               Row(
                                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Ontabtext(ontab: () async{  },
+                                  Ontabtext(ontab: () async{  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return MTwenty();
+                                    },); },
                                     child: Row(children: [
                                       Text("(M0020)", style: Redfontstyle.customTextStyle(context)),
                                       Text(" Patient ID Number: ", style: BoldfontStyle.customTextStyle(context))

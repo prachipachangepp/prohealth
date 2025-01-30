@@ -115,543 +115,545 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // padding: EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Center(
-            child: Text(
-                'Employment',
-                style: FormHeading.customTextStyle(context)
-            ),
+    return Column(
+      children: [
+        Center(
+          child: Text(
+              'Employment',
+              style: FormHeading.customTextStyle(context)
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 60),
-          Container(
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 60),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 120),
+          child: Container(
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
               color: Color(0xFFE6F7FF),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(
-              'Your personal details will be required to proceed through the recruitment process.',
-              textAlign: TextAlign.center,
-              style:ZoneDataStyle.customTextStyle(context),
+            child: Center(
+              child: Text(
+                'Your personal details will be required to proceed through the recruitment process.',
+                textAlign: TextAlign.center,
+                style:ZoneDataStyle.customTextStyle(context),
+              ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Column(
-            children: employmentFormKeys.asMap().entries.map((entry) {
-              int index = entry.key;
-              GlobalKey<_EmploymentFormState> key = entry.value;
-              return EmploymentForm(
-                key: key,
-                index: index + 1,
-                onRemove: () => removeEmploymentForm(key),
-                employeeID: widget.employeeID,
-                isVisible: isVisible,
-              );
-            }).toList(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Padding(
-            padding: const EdgeInsets.only(left: 150),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff50B5E5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  icon: Icon(Icons.add, color: Colors.white),
-                  label: Text(
-                      'Add Experience',
-                      style:BlueButtonTextConst.customTextStyle(context)
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isVisible = true;
-                      addEmploymentForm();
-                    });
-                  },
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Column(
+          children: employmentFormKeys.asMap().entries.map((entry) {
+            int index = entry.key;
+            GlobalKey<_EmploymentFormState> key = entry.value;
+            return EmploymentForm(
+              key: key,
+              index: index + 1,
+              onRemove: () => removeEmploymentForm(key),
+              employeeID: widget.employeeID,
+              isVisible: isVisible,
+            );
+          }).toList(),
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 150),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
-              Container(
-                //color: Colors.white,
-                width: 117,
-                height: 30,
-                child: ElevatedButton(
-                  onPressed: ()async{
-                    await widget.onBack();
-                  },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      side: BorderSide(
-                        color: ColorManager.bluebottom,
-                        width: 1,
-                      ),
-                    ),),
-                  child: Text('Previous',
-                    style: TransparentButtonTextConst.customTextStyle(context),
-                  ),),
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-
-              isLoading
-                  ? SizedBox(
-                height: 25,
-                width: 25,
-                child: CircularProgressIndicator(
-                  color: ColorManager.blueprime,
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff50B5E5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
-              )
-
-                  :// Required to use File class for checking file size
-
-              CustomButton(
-                width: 117,
-                height: 30,
-                text: 'Save', // Show empty text when loading
-                style: BlueButtonTextConst.customTextStyle(context),
-                borderRadius: 12,
-                onPressed: () async {
-                  try{
-                    setState(() {
-                      isLoading = true; // Start loading
-                    });
-                    for (var key in employmentFormKeys) {
-                      final state = key.currentState!;
-
-                      try {
-                        // Check if state isPrefill is false before proceeding
-                        if (state.isPrefill == false) {
-                          // Only check file size if "Currently Working" is selected (checkbox is checked)
-                          //if (state.isChecked) {
-                          // Check if a file is uploaded and if it is under 20MB
-                          // if ((state.fileName != null || state.finalPath != null)) {
-                          // // Check the file size
-                          // File file = File(state.finalPath!);
-                          // int fileSizeInBytes = await file.length(); // Get file size in bytes
-                          // int fileSizeInMB = fileSizeInBytes ~/ (1024 * 1024); // Convert to MB
-                          //
-                          // if (fileSizeInMB > 20) {
-                          // // Show "File is too large!" error message if the file exceeds 20MB
-                          // showDialog(
-                          // context: context,
-                          // builder: (BuildContext context) {
-                          // return AddErrorPopup(
-                          // message: 'File is too large! Max size is 20MB.',
-                          // );
-                          // },
-                          // );
-                          // return; // Exit the function if the file is too large
-                          // }
-                          // }
-                          // }
-
-                          print(";;;;;;${state.fileAbove20Mb}");
-
-
-                          // Proceed with posting the employment data if the conditions are met
-                          var response = await postemploymentscreenData(
-                            context,
-                            state.widget.employeeID,
-                            state.employerController.text,
-                            state.cityController.text,
-                            state.reasonForLeavingController.text,
-                            state.supervisorNameController.text,
-                            state.supervisorMobileNumberController.text,
-                            state.finalPositionController.text,
-                            state.startDateController.text,
-                            state.isChecked ? "Currently Working" : state.endDateController.text,
-                            "NA",
-                            "United States Of America",
-                          );
-
-                          // Check if the file name is not null before uploading the resume
-                          if (state.fileName != null) {
-                            await uploadEmployeeResume(
-                              context: context,
-                              employeementId: response.employeeMentId!,
-                              documentFile: state.finalPath!,
-                              documentName: state.fileName!,
-                            );
-                          }
-
-                          if (response.statusCode == 200 || response.statusCode == 201) {
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'Employment Data Saved',
-                                );
-                              },
-                            );
-                            // setState(() {
-                            //   isLoading = false; // End loading
-                            // });
-
-                            await _loadEmploymentData();
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddSuccessPopup(
-                                  message: 'Failed To Save Employment Data',
-                                );
-                              },
-                            );
-                          }
-                        }
-                      } catch (e) {
-                        print(e);
-                      }
-                    }
-                  }finally{
-                    setState(() {
-                      isLoading = false; // Start loading
-                    });
-                    widget.onSave();
-                  }
-
+                icon: Icon(Icons.add, color: Colors.white),
+                label: Text(
+                    'Add Experience',
+                    style:BlueButtonTextConst.customTextStyle(context)
+                ),
+                onPressed: () {
+                  setState(() {
+                    isVisible = true;
+                    addEmploymentForm();
+                  });
                 },
-                child: Text(
-                  'Save',
-                  style: BlueButtonTextConst.customTextStyle(context),
-                ),
               ),
-               SizedBox(
-                width: AppSize.s30,
-              ),
-              Container(
-                //color: Colors.white,
-                width: 117,
-                height: 30,
-                child: ElevatedButton(
-                  onPressed: ()async{
-                    await widget.onNext();
-                  },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      side: BorderSide(
-                        color: ColorManager.bluebottom,
-                        width: 1,
-                      ),
-                    ),),
-                  child: Text('Next',
-                    style: TransparentButtonTextConst.customTextStyle(context),
-                  ),),
-              ),
-
-              //     :CustomButton(
-              //   width: 117,
-              //   height: 30,
-              //   text: 'Save', // Show empty text when loading
-              //   style: BlueButtonTextConst.customTextStyle(context),
-              //   borderRadius: 12,
-              //   onPressed: () async {
-              //
-              //
-              //     for (var key in employmentFormKeys) {
-              //       final state = key.currentState!;
-              //
-              //       try {
-              //         // Check if state isPrefill is false before proceeding
-              //         if (state.isPrefill == false) {
-              //           // Only check file size if "Currently Working" is selected (checkbox is checked)
-              //           if (state.isChecked) {
-              //             // Check if a file is uploaded and if it is under 20MB
-              //             if ((state.fileName != null || state.finalPath != null) && state.fileAbove20Mb) {
-              //               // Show "File is too large!" error message if the file exceeds 20MB
-              //               showDialog(
-              //                 context: context,
-              //                 builder: (BuildContext context) {
-              //                   return AddErrorPopup(
-              //                     message: 'File is too large!',
-              //                   );
-              //                 },
-              //               );
-              //               return; // Exit the function if the file is too large
-              //             }
-              //           }
-              //           print(";;;;;;${state.fileAbove20Mb}");
-              //           setState(() {
-              //             isLoading = true; // Start loading
-              //           });
-              //           // Proceed with posting the employment data if the conditions are met
-              //           var response = await postemploymentscreenData(
-              //             context,
-              //             state.widget.employeeID,
-              //             state.employerController.text,
-              //             state.cityController.text,
-              //             state.reasonForLeavingController.text,
-              //             state.supervisorNameController.text,
-              //             state.supervisorMobileNumberController.text,
-              //             state.finalPositionController.text,
-              //             state.startDateController.text,
-              //             state.isChecked ? "Currently Working" : state.endDateController.text,
-              //             "NA",
-              //             "United States Of America",
-              //           );
-              //
-              //
-              //           // Check if the file name is not null before uploading the resume
-              //           if (state.fileName != null) {
-              //             await uploadEmployeeResume(
-              //               context: context,
-              //               employeementId: response.employeeMentId!,
-              //               documentFile: state.finalPath!,
-              //               documentName: state.fileName!,
-              //             );
-              //           }
-              //
-              //           if (response.statusCode == 200 || response.statusCode == 201) {
-              //             await showDialog(
-              //               context: context,
-              //               builder: (BuildContext context) {
-              //                 return AddSuccessPopup(
-              //                   message: 'Employment Data Saved',
-              //                 );
-              //               },
-              //             );
-              //             setState(() {
-              //               isLoading = false; // End loading
-              //             });
-              //            await widget.onSave();
-              //             _loadEmploymentData();
-              //           } else {
-              //             showDialog(
-              //               context: context,
-              //               builder: (BuildContext context) {
-              //                 return AddSuccessPopup(
-              //                   message: 'Failed To Save Employment Data',
-              //                 );
-              //               },
-              //             );
-              //           }
-              //         }
-              //       } catch (e) {
-              //         print(e);
-              //       }
-              //     }
-              //
-              //
-              //   },
-              //   child: Text(
-              //     'Save',
-              //     style: BlueButtonTextConst.customTextStyle(context),
-              //   ),
-              // ),
-
-              //     :CustomButton(
-              //   width: 117,
-              //   height: 30,
-              //   text: 'Save', // Show empty text when loading
-              //   style: BlueButtonTextConst.customTextStyle(context),
-              //   borderRadius: 12,
-              //   onPressed: () async {
-              //     setState(() {
-              //       isLoading = true; // Start loading
-              //     });
-              //
-              //
-              //     for (var key in employmentFormKeys) {
-              //       final state = key.currentState!;
-              //
-              //       try {
-              //
-              //         if(state.isPrefill ==false ){
-              //           if(state.fileAbove20Mb) {
-              //             // Post employment screen data
-              //             var response = await postemploymentscreenData(
-              //               context,
-              //               state.widget.employeeID,
-              //               state.employerController.text,
-              //               state.cityController.text,
-              //               state.reasonForLeavingController.text,
-              //               state.supervisorNameController.text,
-              //               state.supervisorMobileNumberController.text,
-              //               state.finalPositionController.text,
-              //               state.startDateController.text,
-              //               state.isChecked ? "Currently Working" : state
-              //                   .endDateController.text,
-              //               "NA",
-              //               "United States Of America",
-              //             );
-              //
-              //
-              //             // Check if the file name is not null before uploading the resume
-              //             if (state.fileName != null) {
-              //              await uploadEmployeeResume(
-              //                 context: context,
-              //                 employeementId: response.employeeMentId!,
-              //                 documentFile: state.finalPath!,
-              //                 documentName: state.fileName!,
-              //               );
-              //
-              //             }
-              //
-              //             if (response.statusCode == 200 || response.statusCode == 201) {
-              //               await showDialog(
-              //                 context: context,
-              //                 builder: (BuildContext context) {
-              //                   return AddSuccessPopup(
-              //                     message: 'Employment Data Saved',
-              //                   );
-              //                 },
-              //               );
-              //               widget.onSave();
-              //               _loadEmploymentData();
-              //             }
-              //             else{
-              //               showDialog(
-              //             context: context,
-              //             builder: (BuildContext context) {
-              //               return AddSuccessPopup(
-              //                 message: 'Failed To Save Employment Data',
-              //               );
-              //             },
-              //           );
-              //             }
-              //
-              //             // Show success message after saving the data
-              //
-              //           }   showDialog(
-              //             context: context,
-              //             builder: (BuildContext context) {
-              //               return AddErrorPopup(
-              //                 message: 'File is too large!',
-              //               );
-              //             },
-              //           );      }
-              //
-              //       } catch (e) {
-              //
-              //         print(e);
-              //       }
-              //     }
-              //
-              //     setState(() {
-              //       isLoading = false; // End loading
-              //     });
-              //
-              //   },
-              //   child: Text(
-              //     'Save',
-              //     style: BlueButtonTextConst.customTextStyle(context),
-              //   ),
-              // ),
-              ///file upload logic old
-//
-//               isLoading
-//                   ? SizedBox(
-//                 height: 25,
-//                 width: 25,
-//                 child: CircularProgressIndicator(
-//                   color: ColorManager.blueprime,
-//                 ),
-//               )
-//                   :CustomButton(
-//                 width: 117,
-//                 height: 30,
-//                 text:'Save', // Show empty text when loading
-//                 style: BlueButtonTextConst.customTextStyle(context),
-//                 borderRadius: 12,
-//                 onPressed: () async {
-//
-//                   setState(() {
-//                     isLoading = true; // Start loading
-//                   });
-//
-//                   for (var key in employmentFormKeys) {
-//                     final state = key.currentState!;
-//                     if (state.finalPath == null || state.finalPath!.isEmpty) {
-//                       print("Loading");
-//                       showDialog(
-//                         context: context,
-//                         builder: (BuildContext context) {
-//                           return const VendorSelectNoti(
-//                             message: 'Please Select file',
-//                           );
-//                         },
-//                       );
-//
-//                     } else {
-//                       try {
-//                         await postemploymentscreenData(
-//                           context,
-//                           state.widget.employeeID,
-//                           state.employerController.text,
-//                           state.cityController.text,
-//                           state.reasonForLeavingController.text,
-//                           state.supervisorNameController.text,
-//                           state.supervisorMobileNumberController.text,
-//                           state.finalPositionController.text,
-//                           state.startDateController.text,
-//                           state.isChecked
-//                               ? "Currently Working"
-//                               : state.endDateController.text,
-//                           "NA",
-//                           "United States Of America",
-//                         );
-//
-//                         await uploadEmployeeResume(
-//                           context: context,
-//                           employeementId: widget.employeeID,
-//                           documentFile: state.finalPath!,
-//                           documentName: state.fileName ?? '',
-//                         );
-//
-//                         showDialog(
-//                           context: context,
-//                           builder: (BuildContext context) {
-//                             return AddSuccessPopup(
-//                               message: 'Employment Data Saved',
-//                             );
-//                           },
-//                         );
-//                       } catch (e) {
-//                         showDialog(
-//                           context: context,
-//                           builder: (BuildContext context) {
-//                             return AddSuccessPopup(
-//                               message: 'Failed To Update Employment Data',
-//                             );
-//                           },
-//                         );
-//                         print(e);
-//                       }
-//                     }
-//                   }
-//
-//                   setState(() {
-//                     isLoading = false; // End loading
-//                   });
-//                 },
-//                 child:Text(
-//                   'Save',
-//                   style: BlueButtonTextConst.customTextStyle(context),
-//                 ),
-//               ),
             ],
           ),
-        ],
-      ),
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            Container(
+              //color: Colors.white,
+              width: 117,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: ()async{
+                  await widget.onBack();
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: ColorManager.bluebottom,
+                      width: 1,
+                    ),
+                  ),),
+                child: Text('Previous',
+                  style: TransparentButtonTextConst.customTextStyle(context),
+                ),),
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+
+            isLoading
+                ? SizedBox(
+              height: 25,
+              width: 25,
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
+            )
+
+                :// Required to use File class for checking file size
+
+            CustomButton(
+              width: 117,
+              height: 30,
+              text: 'Save', // Show empty text when loading
+              style: BlueButtonTextConst.customTextStyle(context),
+              borderRadius: 12,
+              onPressed: () async {
+                try{
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
+                  for (var key in employmentFormKeys) {
+                    final state = key.currentState!;
+
+                    try {
+                      // Check if state isPrefill is false before proceeding
+                      if (state.isPrefill == false) {
+                        // Only check file size if "Currently Working" is selected (checkbox is checked)
+                        //if (state.isChecked) {
+                        // Check if a file is uploaded and if it is under 20MB
+                        // if ((state.fileName != null || state.finalPath != null)) {
+                        // // Check the file size
+                        // File file = File(state.finalPath!);
+                        // int fileSizeInBytes = await file.length(); // Get file size in bytes
+                        // int fileSizeInMB = fileSizeInBytes ~/ (1024 * 1024); // Convert to MB
+                        //
+                        // if (fileSizeInMB > 20) {
+                        // // Show "File is too large!" error message if the file exceeds 20MB
+                        // showDialog(
+                        // context: context,
+                        // builder: (BuildContext context) {
+                        // return AddErrorPopup(
+                        // message: 'File is too large! Max size is 20MB.',
+                        // );
+                        // },
+                        // );
+                        // return; // Exit the function if the file is too large
+                        // }
+                        // }
+                        // }
+
+                        print(";;;;;;${state.fileAbove20Mb}");
+
+
+                        // Proceed with posting the employment data if the conditions are met
+                        var response = await postemploymentscreenData(
+                          context,
+                          state.widget.employeeID,
+                          state.employerController.text,
+                          state.cityController.text,
+                          state.reasonForLeavingController.text,
+                          state.supervisorNameController.text,
+                          state.supervisorMobileNumberController.text,
+                          state.finalPositionController.text,
+                          state.startDateController.text,
+                          state.isChecked ? "Currently Working" : state.endDateController.text,
+                          "NA",
+                          "United States Of America",
+                        );
+
+                        // Check if the file name is not null before uploading the resume
+                        if (state.fileName != null) {
+                          await uploadEmployeeResume(
+                            context: context,
+                            employeementId: response.employeeMentId!,
+                            documentFile: state.finalPath!,
+                            documentName: state.fileName!,
+                          );
+                        }
+
+                        if (response.statusCode == 200 || response.statusCode == 201) {
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(
+                                message: 'Employment Data Saved',
+                              );
+                            },
+                          );
+                          // setState(() {
+                          //   isLoading = false; // End loading
+                          // });
+
+                          await _loadEmploymentData();
+                        } else {
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(
+                                message: 'Failed To Save Employment Data',
+                              );
+                            },
+                          );
+                        }
+                      }
+                    } catch (e) {
+                      print(e);
+                    }
+                  }
+                }finally{
+                  setState(() {
+                    isLoading = false; // Start loading
+                  });
+                  widget.onSave();
+                }
+
+              },
+              child: Text(
+                'Save',
+                style: BlueButtonTextConst.customTextStyle(context),
+              ),
+            ),
+             SizedBox(
+              width: AppSize.s30,
+            ),
+            Container(
+              //color: Colors.white,
+              width: 117,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: ()async{
+                  await widget.onNext();
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: ColorManager.bluebottom,
+                      width: 1,
+                    ),
+                  ),),
+                child: Text('Next',
+                  style: TransparentButtonTextConst.customTextStyle(context),
+                ),),
+            ),
+
+            //     :CustomButton(
+            //   width: 117,
+            //   height: 30,
+            //   text: 'Save', // Show empty text when loading
+            //   style: BlueButtonTextConst.customTextStyle(context),
+            //   borderRadius: 12,
+            //   onPressed: () async {
+            //
+            //
+            //     for (var key in employmentFormKeys) {
+            //       final state = key.currentState!;
+            //
+            //       try {
+            //         // Check if state isPrefill is false before proceeding
+            //         if (state.isPrefill == false) {
+            //           // Only check file size if "Currently Working" is selected (checkbox is checked)
+            //           if (state.isChecked) {
+            //             // Check if a file is uploaded and if it is under 20MB
+            //             if ((state.fileName != null || state.finalPath != null) && state.fileAbove20Mb) {
+            //               // Show "File is too large!" error message if the file exceeds 20MB
+            //               showDialog(
+            //                 context: context,
+            //                 builder: (BuildContext context) {
+            //                   return AddErrorPopup(
+            //                     message: 'File is too large!',
+            //                   );
+            //                 },
+            //               );
+            //               return; // Exit the function if the file is too large
+            //             }
+            //           }
+            //           print(";;;;;;${state.fileAbove20Mb}");
+            //           setState(() {
+            //             isLoading = true; // Start loading
+            //           });
+            //           // Proceed with posting the employment data if the conditions are met
+            //           var response = await postemploymentscreenData(
+            //             context,
+            //             state.widget.employeeID,
+            //             state.employerController.text,
+            //             state.cityController.text,
+            //             state.reasonForLeavingController.text,
+            //             state.supervisorNameController.text,
+            //             state.supervisorMobileNumberController.text,
+            //             state.finalPositionController.text,
+            //             state.startDateController.text,
+            //             state.isChecked ? "Currently Working" : state.endDateController.text,
+            //             "NA",
+            //             "United States Of America",
+            //           );
+            //
+            //
+            //           // Check if the file name is not null before uploading the resume
+            //           if (state.fileName != null) {
+            //             await uploadEmployeeResume(
+            //               context: context,
+            //               employeementId: response.employeeMentId!,
+            //               documentFile: state.finalPath!,
+            //               documentName: state.fileName!,
+            //             );
+            //           }
+            //
+            //           if (response.statusCode == 200 || response.statusCode == 201) {
+            //             await showDialog(
+            //               context: context,
+            //               builder: (BuildContext context) {
+            //                 return AddSuccessPopup(
+            //                   message: 'Employment Data Saved',
+            //                 );
+            //               },
+            //             );
+            //             setState(() {
+            //               isLoading = false; // End loading
+            //             });
+            //            await widget.onSave();
+            //             _loadEmploymentData();
+            //           } else {
+            //             showDialog(
+            //               context: context,
+            //               builder: (BuildContext context) {
+            //                 return AddSuccessPopup(
+            //                   message: 'Failed To Save Employment Data',
+            //                 );
+            //               },
+            //             );
+            //           }
+            //         }
+            //       } catch (e) {
+            //         print(e);
+            //       }
+            //     }
+            //
+            //
+            //   },
+            //   child: Text(
+            //     'Save',
+            //     style: BlueButtonTextConst.customTextStyle(context),
+            //   ),
+            // ),
+
+            //     :CustomButton(
+            //   width: 117,
+            //   height: 30,
+            //   text: 'Save', // Show empty text when loading
+            //   style: BlueButtonTextConst.customTextStyle(context),
+            //   borderRadius: 12,
+            //   onPressed: () async {
+            //     setState(() {
+            //       isLoading = true; // Start loading
+            //     });
+            //
+            //
+            //     for (var key in employmentFormKeys) {
+            //       final state = key.currentState!;
+            //
+            //       try {
+            //
+            //         if(state.isPrefill ==false ){
+            //           if(state.fileAbove20Mb) {
+            //             // Post employment screen data
+            //             var response = await postemploymentscreenData(
+            //               context,
+            //               state.widget.employeeID,
+            //               state.employerController.text,
+            //               state.cityController.text,
+            //               state.reasonForLeavingController.text,
+            //               state.supervisorNameController.text,
+            //               state.supervisorMobileNumberController.text,
+            //               state.finalPositionController.text,
+            //               state.startDateController.text,
+            //               state.isChecked ? "Currently Working" : state
+            //                   .endDateController.text,
+            //               "NA",
+            //               "United States Of America",
+            //             );
+            //
+            //
+            //             // Check if the file name is not null before uploading the resume
+            //             if (state.fileName != null) {
+            //              await uploadEmployeeResume(
+            //                 context: context,
+            //                 employeementId: response.employeeMentId!,
+            //                 documentFile: state.finalPath!,
+            //                 documentName: state.fileName!,
+            //               );
+            //
+            //             }
+            //
+            //             if (response.statusCode == 200 || response.statusCode == 201) {
+            //               await showDialog(
+            //                 context: context,
+            //                 builder: (BuildContext context) {
+            //                   return AddSuccessPopup(
+            //                     message: 'Employment Data Saved',
+            //                   );
+            //                 },
+            //               );
+            //               widget.onSave();
+            //               _loadEmploymentData();
+            //             }
+            //             else{
+            //               showDialog(
+            //             context: context,
+            //             builder: (BuildContext context) {
+            //               return AddSuccessPopup(
+            //                 message: 'Failed To Save Employment Data',
+            //               );
+            //             },
+            //           );
+            //             }
+            //
+            //             // Show success message after saving the data
+            //
+            //           }   showDialog(
+            //             context: context,
+            //             builder: (BuildContext context) {
+            //               return AddErrorPopup(
+            //                 message: 'File is too large!',
+            //               );
+            //             },
+            //           );      }
+            //
+            //       } catch (e) {
+            //
+            //         print(e);
+            //       }
+            //     }
+            //
+            //     setState(() {
+            //       isLoading = false; // End loading
+            //     });
+            //
+            //   },
+            //   child: Text(
+            //     'Save',
+            //     style: BlueButtonTextConst.customTextStyle(context),
+            //   ),
+            // ),
+            ///file upload logic old
+    //
+    //               isLoading
+    //                   ? SizedBox(
+    //                 height: 25,
+    //                 width: 25,
+    //                 child: CircularProgressIndicator(
+    //                   color: ColorManager.blueprime,
+    //                 ),
+    //               )
+    //                   :CustomButton(
+    //                 width: 117,
+    //                 height: 30,
+    //                 text:'Save', // Show empty text when loading
+    //                 style: BlueButtonTextConst.customTextStyle(context),
+    //                 borderRadius: 12,
+    //                 onPressed: () async {
+    //
+    //                   setState(() {
+    //                     isLoading = true; // Start loading
+    //                   });
+    //
+    //                   for (var key in employmentFormKeys) {
+    //                     final state = key.currentState!;
+    //                     if (state.finalPath == null || state.finalPath!.isEmpty) {
+    //                       print("Loading");
+    //                       showDialog(
+    //                         context: context,
+    //                         builder: (BuildContext context) {
+    //                           return const VendorSelectNoti(
+    //                             message: 'Please Select file',
+    //                           );
+    //                         },
+    //                       );
+    //
+    //                     } else {
+    //                       try {
+    //                         await postemploymentscreenData(
+    //                           context,
+    //                           state.widget.employeeID,
+    //                           state.employerController.text,
+    //                           state.cityController.text,
+    //                           state.reasonForLeavingController.text,
+    //                           state.supervisorNameController.text,
+    //                           state.supervisorMobileNumberController.text,
+    //                           state.finalPositionController.text,
+    //                           state.startDateController.text,
+    //                           state.isChecked
+    //                               ? "Currently Working"
+    //                               : state.endDateController.text,
+    //                           "NA",
+    //                           "United States Of America",
+    //                         );
+    //
+    //                         await uploadEmployeeResume(
+    //                           context: context,
+    //                           employeementId: widget.employeeID,
+    //                           documentFile: state.finalPath!,
+    //                           documentName: state.fileName ?? '',
+    //                         );
+    //
+    //                         showDialog(
+    //                           context: context,
+    //                           builder: (BuildContext context) {
+    //                             return AddSuccessPopup(
+    //                               message: 'Employment Data Saved',
+    //                             );
+    //                           },
+    //                         );
+    //                       } catch (e) {
+    //                         showDialog(
+    //                           context: context,
+    //                           builder: (BuildContext context) {
+    //                             return AddSuccessPopup(
+    //                               message: 'Failed To Update Employment Data',
+    //                             );
+    //                           },
+    //                         );
+    //                         print(e);
+    //                       }
+    //                     }
+    //                   }
+    //
+    //                   setState(() {
+    //                     isLoading = false; // End loading
+    //                   });
+    //                 },
+    //                 child:Text(
+    //                   'Save',
+    //                   style: BlueButtonTextConst.customTextStyle(context),
+    //                 ),
+    //               ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -835,7 +837,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                   ],
                 ); },
 
-              ):SizedBox()
+              ):SizedBox(height: 40,)
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
