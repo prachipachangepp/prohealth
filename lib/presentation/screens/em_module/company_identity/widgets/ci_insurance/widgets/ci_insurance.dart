@@ -169,7 +169,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                       }
 
                       return CICCDropdown(
-                       // width:  AppSize.s2,
                         initialValue: "Select",
                         onChange: (val) {
                           setState(() {
