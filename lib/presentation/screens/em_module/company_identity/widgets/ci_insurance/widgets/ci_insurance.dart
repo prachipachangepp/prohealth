@@ -150,8 +150,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                             style: DocumentTypeDataStyle.customTextStyle(context),),
                         ),
                       );
-
-                        //CICCDropdown(items: [],initialValue: ErrorMessageString.noVendorAdded,);
                     }
                     if (snapshotZone.hasData) {
                       List<DropdownMenuItem<String>> dropDownTypesList = [];
@@ -163,7 +161,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                           ),
                         );
                       }
-
                       if (selectedValue == null && dropDownTypesList.isNotEmpty) {
                         selectedValue = dropDownTypesList[0].value;
                       }
