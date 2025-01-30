@@ -150,6 +150,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                             style: DocumentTypeDataStyle.customTextStyle(context),),
                         ),
                       );
+
                     }
                     if (snapshotZone.hasData) {
                       List<DropdownMenuItem<String>> dropDownTypesList = [];
