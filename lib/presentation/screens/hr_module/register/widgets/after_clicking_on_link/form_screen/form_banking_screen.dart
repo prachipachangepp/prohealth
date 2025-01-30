@@ -168,16 +168,21 @@ class _BankingScreenState extends State<BankingScreen> {
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 60),
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-          decoration: BoxDecoration(
-            color: Color(0xFFE6F7FF),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            'Your personal details will be required to proceed through the recruitment process.',
-            textAlign: TextAlign.center,
-            style:ZoneDataStyle.customTextStyle(context),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 160),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: BoxDecoration(
+              color: Color(0xFFE6F7FF),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(
+              child: Text(
+                'Your personal details will be required to proceed through the recruitment process.',
+                textAlign: TextAlign.center,
+                style:ZoneDataStyle.customTextStyle(context),
+              ),
+            ),
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -562,7 +567,7 @@ class _BankingFormState extends State<BankingForm> {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-                    padding: EdgeInsets.only(left: 166.0, right: 166),
+                    padding: EdgeInsets.symmetric(horizontal: 160),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

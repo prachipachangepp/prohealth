@@ -260,43 +260,33 @@ class _generalFormState extends State<generalForm> {
           const SizedBox(
             height: AppSize.s5,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-
-
-            Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 2.5,
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFE6F7FF),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
-                    textAlign: TextAlign.center,
-                    style:ZoneDataStyle.customTextStyle(context),
-                  ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 140),
+            child: Container(
+             // width: MediaQuery.of(context).size.width / 2.5,
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              decoration: BoxDecoration(
+                color: const Color(0xFFE6F7FF),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Text(
+                  'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
+                  textAlign: TextAlign.center,
+                  style:ZoneDataStyle.customTextStyle(context),
                 ),
-              ],
+              ),
             ),
-
-                // SizedBox(width: 1,),
-
-
-          ],
           ),
           const SizedBox(
             height: AppSize.s13,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 140, right: 140, top: 50),
+            padding: const EdgeInsets.symmetric(horizontal: 140,vertical: 20),
             child:
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
+             // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Column(
@@ -392,7 +382,7 @@ class _generalFormState extends State<generalForm> {
                                   style: onlyFormDataStyle.customTextStyle(context)
                               ),
                             )
-                                :  SizedBox(height: 40,width: 10,),
+                                :  SizedBox(height: 20,width: 10,),
                           ],
                         ),
 
@@ -569,7 +559,7 @@ class _generalFormState extends State<generalForm> {
                     crossAxisAlignment: CrossAxisAlignment.start,
 
                     children: [
-                    // SizedBox(height: 10,),
+                   SizedBox(height: 5,),
                       Text(
                         "Gender",
                         style: AllPopupHeadings.customTextStyle(context),
@@ -621,7 +611,7 @@ class _generalFormState extends State<generalForm> {
                       ),
                       SizedBox(
                           height:
-                          MediaQuery.of(context).size.height / 38),
+                          MediaQuery.of(context).size.height / 23),
                       Text(
                         'DOB',
                         style: AllPopupHeadings.customTextStyle(context),

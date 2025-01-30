@@ -94,28 +94,22 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 60),
-        Container(
-          width: 952,
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-          decoration: BoxDecoration(
-            color: Color(0xFFE6F7FF),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications.\nFor each reference, Kindly include the following information:',
-                      textAlign: TextAlign.center,
-                      style:ZoneDataStyle.customTextStyle(context),
-                    ),
-                  ),
-                ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 150),
+          child: Container(
+            // width: 952,
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: BoxDecoration(
+              color: Color(0xFFE6F7FF),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(
+              child: Text(
+                'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications.\nFor each reference, Kindly include the following information:',
+                //textAlign: TextAlign.center,
+                style:ZoneDataStyle.customTextStyle(context),
               ),
-            ],
+            ),
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -392,7 +386,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 160.0, right: 160),
+      padding: const EdgeInsets.symmetric(horizontal: 150),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

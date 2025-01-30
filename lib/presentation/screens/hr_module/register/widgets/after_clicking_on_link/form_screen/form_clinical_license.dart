@@ -70,725 +70,728 @@ class _Clinical_licensesState extends State<Clinical_licenses> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Center(
-            child: Text('Clinical License',
-                style: FormHeading.customTextStyle(context)),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height / 60),
-          Container(
+    return Column(
+      children: [
+        Center(
+          child: Text('Clinical License',
+              style: FormHeading.customTextStyle(context)),
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 60),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 130,),
+          child: Container(
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
               color: Color(0xFFE6F7FF),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(
-              'Kindly Upload The Driving License And Practitioner License Compulsory',
-              textAlign: TextAlign.center,
-              style: ZoneDataStyle.customTextStyle(context),
+            child: Center(
+              child: Text(
+                'Kindly Upload The Driving License And Practitioner License Compulsory',
+                textAlign: TextAlign.center,
+                style: ZoneDataStyle.customTextStyle(context),
+              ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Padding(
-            padding:  const EdgeInsets.symmetric(
-                horizontal: 130, vertical: 15),
-            child: Container(
-              // color: Colors.cyanAccent,
-              // height: 500,
-                child: Column(
-                  children: [
-                    Container(
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorManager.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                        border: Border.all(color: const Color(0xffB1B1B1)),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 20,top: 10,bottom: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Driving License',
-                                        // document.docName,
-                                        style: AllPopupHeadings.customTextStyle(
-                                            context),
-                                      ),
-                                    ],
-                                  ),
-                                  // SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Expiry Date',
-                                            style: onlyFormDataStyle
-                                                .customTextStyle(context),
-                                          ),
-                                          SizedBox(
-                                            height: 4,
-                                          ),
-                                          CustomTextFieldRegister(
-                                            width: 200,
-                                            controller: expirydatecontrollerdl,
-                                            hintText: 'yyyy-mm-dd',
-                                            hintStyle: onlyFormDataStyle
-                                                .customTextStyle(context),
-                                            height: 30,
-                                            suffixIcon: IconButton(
-                                              icon: Icon(
-                                                Icons.calendar_month_outlined,
-                                                color: Color(0xff50B5E5),
-                                                size: 16,
-                                              ),
-                                              onPressed: () async {
-                                                DateTime? pickedDate =
-                                                await showDatePicker(
-                                                  context: context,
-                                                  initialDate: DateTime.now(),
-                                                  firstDate: DateTime(2000),
-                                                  lastDate: DateTime(2101),
-                                                );
-                                                if (pickedDate != null) {
-                                                  expirydatecontrollerdl.text =
-                                                  "${pickedDate.toLocal()}"
-                                                      .split(' ')[0];
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          // SizedBox(width: 20),
-                          Flexible(
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Padding(
+          padding:  const EdgeInsets.symmetric(
+              horizontal: 130, vertical: 15),
+          child: Container(
+            // color: Colors.cyanAccent,
+            // height: 500,
+              child: Column(
+                children: [
+                  Container(
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: ColorManager.white,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorManager.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                      border: Border.all(color: const Color(0xffB1B1B1)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20,top: 10,bottom: 15),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
-                                    Flexible(
-                                      child: Text(
-                                        'Upload Immunization records in pdf, jpg or png  format',
-                                        style: onlyFormDataStyle
-                                            .customTextStyle(context),
-                                      ),
+                                    Text(
+                                      'Driving License',
+                                      // document.docName,
+                                      style: AllPopupHeadings.customTextStyle(
+                                          context),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Container(
-                                        // color: Colors.pink,
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width:250,
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: const Color(
-                                                        0xffB1B1B1)),
-                                                borderRadius:
-                                                BorderRadius.circular(8),
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(
-                                                        8.0),
-                                                    child: ElevatedButton(
-                                                      onPressed: () async {
-                                                        FilePickerResult?
-                                                        result = await FilePicker.platform.pickFiles(
-                                                            type: FileType.custom,
-                                                            allowedExtensions: ['pdf']
-                                                        );
-                                                        final fileSize = result?.files.first.size;
-                                                        final isAbove20MB = fileSize! > (20 * 1024 * 1024);
-                                                        if (result != null) {
-                                                          final file = result.files.first;
-                                                          setState(() {
-                                                            fileNameDl = file.name;
-                                                            finalPathDl = file.bytes;
-                                                            dLFileAbove20Mb = !isAbove20MB;
-                                                          });
-                                                        }
-                                                      },
-                                                      child: Text(
-                                                        "Choose File",
-                                                        style: onlyFormDataStyle
-                                                            .customTextStyle(
-                                                            context),
-                                                      ),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        backgroundColor:
-                                                        Color(0xffD9D9D9),
-                                                        shape:
-                                                        RoundedRectangleBorder(
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              8.0),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  // If a file is picked, display the file name, otherwise show 'No file selected'
-                                                  _loading
-                                                      ? SizedBox(
-                                                    width: 25,
-                                                    height: 25,
-                                                    child:
-                                                    CircularProgressIndicator(
-                                                      color: ColorManager
-                                                          .blueprime,
-                                                    ),
-                                                  )
-                                                      : (fileNameDl != null && fileNameDl!.isNotEmpty)
-                                                      ? Padding(padding: const EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                      _trimSummery('$fileNameDl'),
-                                                      style: onlyFormDataStyle.customTextStyle(context),
-                                                    ),
-                                                  )
-                                                      : Padding(
-                                                    padding:
-                                                    const EdgeInsets
-                                                        .all(8.0),
-                                                    child: Text(
-                                                      'No file chosen',
-                                                      style: onlyFormDataStyle.customTextStyle(context),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
+                                  ],
+                                ),
+                                // SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Expiry Date',
+                                          style: onlyFormDataStyle
+                                              .customTextStyle(context),
                                         ),
-                                      ),
-                                    )
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        CustomTextFieldRegister(
+                                          width: 200,
+                                          controller: expirydatecontrollerdl,
+                                          hintText: 'yyyy-mm-dd',
+                                          hintStyle: onlyFormDataStyle
+                                              .customTextStyle(context),
+                                          height: 30,
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              Icons.calendar_month_outlined,
+                                              color: Color(0xff50B5E5),
+                                              size: 16,
+                                            ),
+                                            onPressed: () async {
+                                              DateTime? pickedDate =
+                                              await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(2000),
+                                                lastDate: DateTime(2101),
+                                              );
+                                              if (pickedDate != null) {
+                                                expirydatecontrollerdl.text =
+                                                "${pickedDate.toLocal()}"
+                                                    .split(' ')[0];
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                    /////////////////////////////////
-                    SizedBox(height: 15,),
-                    Container(
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorManager.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: Offset(0, 2),
                           ),
-                        ],
-                        border: Border.all(color: const Color(0xffB1B1B1)),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 20,top: 10,bottom: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                        // SizedBox(width: 20),
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Practitioner License',
-                                        // document.docName,
-                                        style: AllPopupHeadings.customTextStyle(
-                                            context),
-                                      ),
-                                    ],
+                                  Flexible(
+                                    child: Text(
+                                      'Upload Immunization records in pdf, jpg or png  format',
+                                      style: onlyFormDataStyle
+                                          .customTextStyle(context),
+                                    ),
                                   ),
-                                  // SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Container(
+                                      // color: Colors.pink,
+                                      child: Row(
                                         children: [
-                                          Text(
-                                            'Expiry Date',
-                                            style: onlyFormDataStyle
-                                                .customTextStyle(context),
-                                          ),
-                                          SizedBox(
-                                            height: 4,
-                                          ),
-                                          CustomTextFieldRegister(
-                                            width: 200,
-                                            controller: expirydatecontrollerpl,
-                                            hintText: 'yyyy-mm-dd',
-                                            hintStyle: onlyFormDataStyle
-                                                .customTextStyle(context),
-                                            height: 30,
-                                            suffixIcon: IconButton(
-                                              icon: Icon(
-                                                Icons.calendar_month_outlined,
-                                                color: Color(0xff50B5E5),
-                                                size: 16,
-                                              ),
-                                              onPressed: () async {
-                                                DateTime? pickedDate =
-                                                await showDatePicker(
-                                                  context: context,
-                                                  initialDate: DateTime.now(),
-                                                  firstDate: DateTime(2000),
-                                                  lastDate: DateTime(2101),
-                                                );
-                                                if (pickedDate != null) {
-                                                  expirydatecontrollerpl.text =
-                                                  "${pickedDate.toLocal()}"
-                                                      .split(' ')[0];
-                                                }
-                                              },
+                                          Container(
+                                            width:250,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: const Color(
+                                                      0xffB1B1B1)),
+                                              borderRadius:
+                                              BorderRadius.circular(8),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets.all(
+                                                      8.0),
+                                                  child: ElevatedButton(
+                                                    onPressed: () async {
+                                                      FilePickerResult?
+                                                      result = await FilePicker.platform.pickFiles(
+                                                          type: FileType.custom,
+                                                          allowedExtensions: ['pdf']
+                                                      );
+                                                      final fileSize = result?.files.first.size;
+                                                      final isAbove20MB = fileSize! > (20 * 1024 * 1024);
+                                                      if (result != null) {
+                                                        final file = result.files.first;
+                                                        setState(() {
+                                                          fileNameDl = file.name;
+                                                          finalPathDl = file.bytes;
+                                                          dLFileAbove20Mb = !isAbove20MB;
+                                                        });
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      "Choose File",
+                                                      style: onlyFormDataStyle
+                                                          .customTextStyle(
+                                                          context),
+                                                    ),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                      Color(0xffD9D9D9),
+                                                      shape:
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            8.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                // If a file is picked, display the file name, otherwise show 'No file selected'
+                                                _loading
+                                                    ? SizedBox(
+                                                  width: 25,
+                                                  height: 25,
+                                                  child:
+                                                  CircularProgressIndicator(
+                                                    color: ColorManager
+                                                        .blueprime,
+                                                  ),
+                                                )
+                                                    : (fileNameDl != null && fileNameDl!.isNotEmpty)
+                                                    ? Padding(padding: const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    _trimSummery('$fileNameDl'),
+                                                    style: onlyFormDataStyle.customTextStyle(context),
+                                                  ),
+                                                )
+                                                    : Padding(
+                                                  padding:
+                                                  const EdgeInsets
+                                                      .all(8.0),
+                                                  child: Text(
+                                                    'No file chosen',
+                                                    style: onlyFormDataStyle.customTextStyle(context),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  )
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                          // SizedBox(width: 20),
-                          Flexible(
+                        )
+                      ],
+                    ),
+                  ),
+                  /////////////////////////////////
+                  SizedBox(height: 25,),
+                  Container(
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: ColorManager.white,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorManager.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                      border: Border.all(color: const Color(0xffB1B1B1)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20,top: 10,bottom: 15),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
-                                    Flexible(
-                                      child: Text(
-                                        'Upload Immunization records in pdf, jpg or png  format',
-                                        style: onlyFormDataStyle
-                                            .customTextStyle(context),
-                                      ),
+                                    Text(
+                                      'Practitioner License',
+                                      // document.docName,
+                                      style: AllPopupHeadings.customTextStyle(
+                                          context),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Container(
-                                        // color: Colors.pink,
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width:250,
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: const Color(
-                                                        0xffB1B1B1)),
-                                                borderRadius:
-                                                BorderRadius.circular(8),
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(
-                                                        8.0),
-                                                    child: ElevatedButton(
-                                                      onPressed: () async {
-                                                        FilePickerResult?
-                                                        result =
-                                                        await FilePicker.platform.pickFiles(
-                                                            type: FileType.custom,
-                                                            allowedExtensions: [
-                                                              'pdf'
-                                                            ]);
-                                                        final fileSize = result?.files.first.size; // File size in bytes
-                                                        final isAbove20MB = fileSize! > (20 * 1024 * 1024);
-                                                        if (result != null) {
-                                                          final file = result.files.first;
-                                                          setState(() {
-                                                            fileNamePl = file.name;
-                                                            finalPathPl = file.bytes;
-                                                            pLFileAbove20Mb = !isAbove20MB;
-                                                          });
-                                                        }
-                                                      },
-                                                      child: Text(
-                                                        "Choose File",
-                                                        style: onlyFormDataStyle
-                                                            .customTextStyle(
-                                                            context),
-                                                      ),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        backgroundColor:
-                                                        Color(0xffD9D9D9),
-                                                        shape:
-                                                        RoundedRectangleBorder(
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              8.0),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  // If a file is picked, display the file name, otherwise show 'No file selected'
-                                                  _loading
-                                                      ? SizedBox(
-                                                    width: 25,
-                                                    height: 25,
-                                                    child:
-                                                    CircularProgressIndicator(
-                                                      color: ColorManager
-                                                          .blueprime,
-                                                    ),
-                                                  )
-                                                      : (fileNamePl != null &&
-                                                      fileNamePl!
-                                                          .isNotEmpty)
-                                                      ? Padding(
-                                                    padding:
-                                                    const EdgeInsets
-                                                        .all(8.0),
-                                                    child: Text(
-                                                      _trimSummery('$fileNamePl'),
-                                                      style: onlyFormDataStyle
-                                                          .customTextStyle(
-                                                          context),
-                                                    ),
-                                                  )
-                                                      : Padding(
-                                                    padding:
-                                                    const EdgeInsets
-                                                        .all(8.0),
-                                                    child: Text(
-                                                      'No file chosen',
-                                                      style: onlyFormDataStyle
-                                                          .customTextStyle(
-                                                          context),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
+                                  ],
+                                ),
+                                // SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Expiry Date',
+                                          style: onlyFormDataStyle
+                                              .customTextStyle(context),
                                         ),
-                                      ),
-                                    )
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        CustomTextFieldRegister(
+                                          width: 200,
+                                          controller: expirydatecontrollerpl,
+                                          hintText: 'yyyy-mm-dd',
+                                          hintStyle: onlyFormDataStyle
+                                              .customTextStyle(context),
+                                          height: 30,
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              Icons.calendar_month_outlined,
+                                              color: Color(0xff50B5E5),
+                                              size: 16,
+                                            ),
+                                            onPressed: () async {
+                                              DateTime? pickedDate =
+                                              await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(2000),
+                                                lastDate: DateTime(2101),
+                                              );
+                                              if (pickedDate != null) {
+                                                expirydatecontrollerpl.text =
+                                                "${pickedDate.toLocal()}"
+                                                    .split(' ')[0];
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-
-
-
-                  ],
-                )),
-          ),
-          SizedBox(height: 10,),
-          /////////////////////////
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                //color: Colors.white,
-                width: 117,
-                height: 30,
-                child: ElevatedButton(
-                  onPressed: () {
-                    widget.onBack();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      side: BorderSide(
-                        color: ColorManager.bluebottom,
-                        width: 1,
-                      ),
+                          ),
+                        ),
+                        // SizedBox(width: 20),
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      'Upload Immunization records in pdf, jpg or png  format',
+                                      style: onlyFormDataStyle
+                                          .customTextStyle(context),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Container(
+                                      // color: Colors.pink,
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width:250,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: const Color(
+                                                      0xffB1B1B1)),
+                                              borderRadius:
+                                              BorderRadius.circular(8),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets.all(
+                                                      8.0),
+                                                  child: ElevatedButton(
+                                                    onPressed: () async {
+                                                      FilePickerResult?
+                                                      result =
+                                                      await FilePicker.platform.pickFiles(
+                                                          type: FileType.custom,
+                                                          allowedExtensions: [
+                                                            'pdf'
+                                                          ]);
+                                                      final fileSize = result?.files.first.size; // File size in bytes
+                                                      final isAbove20MB = fileSize! > (20 * 1024 * 1024);
+                                                      if (result != null) {
+                                                        final file = result.files.first;
+                                                        setState(() {
+                                                          fileNamePl = file.name;
+                                                          finalPathPl = file.bytes;
+                                                          pLFileAbove20Mb = !isAbove20MB;
+                                                        });
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      "Choose File",
+                                                      style: onlyFormDataStyle
+                                                          .customTextStyle(
+                                                          context),
+                                                    ),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                      Color(0xffD9D9D9),
+                                                      shape:
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            8.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                // If a file is picked, display the file name, otherwise show 'No file selected'
+                                                _loading
+                                                    ? SizedBox(
+                                                  width: 25,
+                                                  height: 25,
+                                                  child:
+                                                  CircularProgressIndicator(
+                                                    color: ColorManager
+                                                        .blueprime,
+                                                  ),
+                                                )
+                                                    : (fileNamePl != null &&
+                                                    fileNamePl!
+                                                        .isNotEmpty)
+                                                    ? Padding(
+                                                  padding:
+                                                  const EdgeInsets
+                                                      .all(8.0),
+                                                  child: Text(
+                                                    _trimSummery('$fileNamePl'),
+                                                    style: onlyFormDataStyle
+                                                        .customTextStyle(
+                                                        context),
+                                                  ),
+                                                )
+                                                    : Padding(
+                                                  padding:
+                                                  const EdgeInsets
+                                                      .all(8.0),
+                                                  child: Text(
+                                                    'No file chosen',
+                                                    style: onlyFormDataStyle
+                                                        .customTextStyle(
+                                                        context),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  child: Text(
-                    'Previous',
-                    style: TransparentButtonTextConst.customTextStyle(context),
+
+
+
+                ],
+              )),
+        ),
+        SizedBox(height: 10,),
+        /////////////////////////
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              //color: Colors.white,
+              width: 117,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: () {
+                  widget.onBack();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: ColorManager.bluebottom,
+                      width: 1,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              isLoading
-                  ? SizedBox(
-                height: 25,
-                width: 25,
-                child: CircularProgressIndicator(
-                  color: ColorManager.blueprime,
+                child: Text(
+                  'Previous',
+                  style: TransparentButtonTextConst.customTextStyle(context),
                 ),
-              )
-                  : CustomButton(
-                width: 117,
-                height: 30,
-                text: 'Save',
-                style: BlueButtonTextConst.customTextStyle(context),
-                borderRadius: 12,
-                onPressed: () async {
-                  // Check if both documents are uploaded
-                  if (fileNameDl == null || fileNameDl!.isEmpty || fileNamePl == null || fileNamePl!.isEmpty) {
-                    // Show error message if any document is missing
-                    await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const AddFailePopup(
-                          message: "Both Documents Are Required.",
-                          //text: "Both Driving License and Practitioner License documents are required.",
-                        );
-                      },
+              ),
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+            isLoading
+                ? SizedBox(
+              height: 25,
+              width: 25,
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
+            )
+                : CustomButton(
+              width: 117,
+              height: 30,
+              text: 'Save',
+              style: BlueButtonTextConst.customTextStyle(context),
+              borderRadius: 12,
+              onPressed: () async {
+                // Check if both documents are uploaded
+                if (fileNameDl == null || fileNameDl!.isEmpty || fileNamePl == null || fileNamePl!.isEmpty) {
+                  // Show error message if any document is missing
+                  await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const AddFailePopup(
+                        message: "Both Documents Are Required.",
+                        //text: "Both Driving License and Practitioner License documents are required.",
+                      );
+                    },
+                  );
+                  return; // Exit early if validation fails
+                }
+                print("........${dLFileAbove20Mb}");
+                print("........${pLFileAbove20Mb}");
+                if(dLFileAbove20Mb && pLFileAbove20Mb){
+                  setState(() {
+                    isLoading = true; // Start loading
+                  });
+
+                  try {
+                    // Post Driving License Data
+
+                    var response = await postDrivinglicenseData(
+                      context,
+                      expirydatecontrollerdl.text,
+                      '',
+                      widget.employeeID,
+                      '',
+                      fileNameDl!,
                     );
-                    return; // Exit early if validation fails
-                  }
-                  print("........${dLFileAbove20Mb}");
-                  print("........${pLFileAbove20Mb}");
-                  if(dLFileAbove20Mb && pLFileAbove20Mb){
-                    setState(() {
-                      isLoading = true; // Start loading
-                    });
 
-                    try {
-                      // Post Driving License Data
+                    // Upload Driving License Document
+                    var uploadResponseDL =  await uploadDocumentsDL(
+                      context: context,
+                      drivingLicenceId: response.drivingLicenceId!,
+                      documentFile: finalPathDl!,
+                      documentName: fileNameDl!,
+                    );
 
-                      var response = await postDrivinglicenseData(
-                        context,
-                        expirydatecontrollerdl.text,
-                        '',
-                        widget.employeeID,
-                        '',
-                        fileNameDl!,
-                      );
+                    // Post Practitioner License Data
+                    var responsePL = await postpractitionerLicenseData(
+                      context,
+                      expirydatecontrollerpl.text,
+                      '',
+                      widget.employeeID,
+                      '',
+                      fileNamePl!,
+                    );
 
-                      // Upload Driving License Document
-                      var uploadResponseDL =  await uploadDocumentsDL(
+                    // Upload Practitioner License Document
+                    var uploadResponsePL = await uploadDocumentsPL(
+                      context: context,
+                      practitionerLicenceId: responsePL.practitionerLicenceId!,
+                      documentFile: finalPathPl!,
+                      documentName: fileNamePl!,
+                    );
+                    if(response.statusCode == 200 ||response.statusCode == 200 &&
+                        uploadResponseDL.statusCode == 200 || uploadResponseDL.statusCode == 201 &&
+                        responsePL.statusCode == 200 || responsePL.statusCode == 201 &&
+                        uploadResponsePL.statusCode == 200 ||uploadResponsePL.statusCode == 201 ){
+                      showDialog(
                         context: context,
-                        drivingLicenceId: response.drivingLicenceId!,
-                        documentFile: finalPathDl!,
-                        documentName: fileNameDl!,
+                        builder: (BuildContext context) {
+                          return const AddSuccessPopup(
+                            message: 'Clinical License Data Saved',
+                          );
+                        },
                       );
-
-                      // Post Practitioner License Data
-                      var responsePL = await postpractitionerLicenseData(
-                        context,
-                        expirydatecontrollerpl.text,
-                        '',
-                        widget.employeeID,
-                        '',
-                        fileNamePl!,
-                      );
-
-                      // Upload Practitioner License Document
-                      var uploadResponsePL = await uploadDocumentsPL(
-                        context: context,
-                        practitionerLicenceId: responsePL.practitionerLicenceId!,
-                        documentFile: finalPathPl!,
-                        documentName: fileNamePl!,
-                      );
-                      if(response.statusCode == 200 ||response.statusCode == 200 &&
-                          uploadResponseDL.statusCode == 200 || uploadResponseDL.statusCode == 201 &&
-                          responsePL.statusCode == 200 || responsePL.statusCode == 201 &&
-                          uploadResponsePL.statusCode == 200 ||uploadResponsePL.statusCode == 201 ){
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const AddSuccessPopup(
-                              message: 'Clinical License Data Saved',
-                            );
-                          },
-                        );
-                        // Show success popup
-                        await widget.onSave();
-                      }
-
-                    } catch (e) {
-                      // Show error popup if something goes wrong
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
-                      );
+                      // Show success popup
+                      await widget.onSave();
                     }
 
-                    setState(() {
-                      isLoading = false; // End loading
-                    });
-
-                  }
-                  else{
-                    showDialog(
+                  } catch (e) {
+                    // Show error popup if something goes wrong
+                    await showDialog(
                       context: context,
-                      builder: (BuildContext context) {
-                        return AddErrorPopup(
-                          message: 'File is too large!',
-                        );
-                      },
+                      builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
                     );
                   }
 
+                  setState(() {
+                    isLoading = false; // End loading
+                  });
+
+                }
+                else{
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddErrorPopup(
+                        message: 'File is too large!',
+                      );
+                    },
+                  );
+                }
+
+              },
+              child: Text(
+                'Save',
+                style: BlueButtonTextConst.customTextStyle(context),
+              ),
+            ),
+            const SizedBox(
+              width: AppSize.s30,
+            ),
+            Container(
+              //color: Colors.white,
+              width: 117,
+              height: 30,
+              child: ElevatedButton(
+                onPressed: (){
+                  widget.onNext();
                 },
-                child: Text(
-                  'Save',
-                  style: BlueButtonTextConst.customTextStyle(context),
-                ),
-              ),
-              const SizedBox(
-                width: AppSize.s30,
-              ),
-              Container(
-                //color: Colors.white,
-                width: 117,
-                height: 30,
-                child: ElevatedButton(
-                  onPressed: (){
-                    widget.onNext();
-                  },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      side: BorderSide(
-                        color: ColorManager.bluebottom,
-                        width: 1,
-                      ),
-                    ),),
-                  child: Text('Next',
-                    style: TransparentButtonTextConst.customTextStyle(context),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: ColorManager.bluebottom,
+                      width: 1,
+                    ),
                   ),),
-              ),
+                child: Text('Next',
+                  style: TransparentButtonTextConst.customTextStyle(context),
+                ),),
+            ),
 
 
 
 
 
-              //
-              //           isLoading
-              //               ? SizedBox(
-              //                   height: 25,
-              //                   width: 25,
-              //                   child: CircularProgressIndicator(
-              //                     color: ColorManager.blueprime,
-              //                   ),
-              //                 )
-              //               : CustomButton(
-              //                   width: 117,
-              //                   height: 30,
-              //                   text: 'Save',
-              //                   style: BlueButtonTextConst.customTextStyle(context),
-              //                   borderRadius: 12,
-              //                   onPressed: () async {
-              //                     setState(() {
-              //                       isLoading = true; // Start loading
-              //                     });
-              //
-              // try {
-              //   var response = await postDrivinglicenseData(
-              //     context,
-              //     expirydatecontrollerdl.text,
-              //     '',
-              //     widget.employeeID,
-              //     '',
-              //     fileNameDl!,
-              //   );
-              //   await uploadDocumentsDL(
-              //       context: context,
-              //       drivingLicenceId: response.drivingLicenceId!,
-              //       documentFile: finalPathDl!,
-              //       documentName: fileNameDl!);
-              //
-              //   var responsePL = await postpractitionerLicenseData(
-              //     context,
-              //     expirydatecontrollerpl.text,
-              //     '',
-              //     widget.employeeID,
-              //     '',
-              //     fileNamePl!,
-              //   );
-              //   await uploadDocumentsPL(
-              //       context: context,
-              //       practitionerLicenceId:
-              //       responsePL.practitionerLicenceId!,
-              //       documentFile: finalPathPl!,
-              //       documentName: fileNamePl!);
-              //
-              //
-              //   await showDialog(
-              //     context: context,
-              //     builder: (BuildContext context) {
-              //       return const AddSuccessPopup(
-              //         message: 'Clinical License Data Saved',
-              //       );
-              //     },
-              //   );
-              //   await widget.onSave();
-              // }
-              // catch(e){
-              //   await showDialog(
-              //     context: context,
-              //     builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
-              //   );
-              // }
-              //                     setState(() {
-              //                       isLoading = false; // End loading
-              //                     });
-              //
-              //                   },
-              //
-              //                   child: Text(
-              //                     'Save',
-              //                     style: BlueButtonTextConst.customTextStyle(context),
-              //                   ),
-              //                 ),
-            ],
-          ),
-        ],
-      ),
+            //
+            //           isLoading
+            //               ? SizedBox(
+            //                   height: 25,
+            //                   width: 25,
+            //                   child: CircularProgressIndicator(
+            //                     color: ColorManager.blueprime,
+            //                   ),
+            //                 )
+            //               : CustomButton(
+            //                   width: 117,
+            //                   height: 30,
+            //                   text: 'Save',
+            //                   style: BlueButtonTextConst.customTextStyle(context),
+            //                   borderRadius: 12,
+            //                   onPressed: () async {
+            //                     setState(() {
+            //                       isLoading = true; // Start loading
+            //                     });
+            //
+            // try {
+            //   var response = await postDrivinglicenseData(
+            //     context,
+            //     expirydatecontrollerdl.text,
+            //     '',
+            //     widget.employeeID,
+            //     '',
+            //     fileNameDl!,
+            //   );
+            //   await uploadDocumentsDL(
+            //       context: context,
+            //       drivingLicenceId: response.drivingLicenceId!,
+            //       documentFile: finalPathDl!,
+            //       documentName: fileNameDl!);
+            //
+            //   var responsePL = await postpractitionerLicenseData(
+            //     context,
+            //     expirydatecontrollerpl.text,
+            //     '',
+            //     widget.employeeID,
+            //     '',
+            //     fileNamePl!,
+            //   );
+            //   await uploadDocumentsPL(
+            //       context: context,
+            //       practitionerLicenceId:
+            //       responsePL.practitionerLicenceId!,
+            //       documentFile: finalPathPl!,
+            //       documentName: fileNamePl!);
+            //
+            //
+            //   await showDialog(
+            //     context: context,
+            //     builder: (BuildContext context) {
+            //       return const AddSuccessPopup(
+            //         message: 'Clinical License Data Saved',
+            //       );
+            //     },
+            //   );
+            //   await widget.onSave();
+            // }
+            // catch(e){
+            //   await showDialog(
+            //     context: context,
+            //     builder: (BuildContext context) => FailedPopup(text: "Something Went Wrong"),
+            //   );
+            // }
+            //                     setState(() {
+            //                       isLoading = false; // End loading
+            //                     });
+            //
+            //                   },
+            //
+            //                   child: Text(
+            //                     'Save',
+            //                     style: BlueButtonTextConst.customTextStyle(context),
+            //                   ),
+            //                 ),
+          ],
+        ),
+      ],
     );
   }
 }
