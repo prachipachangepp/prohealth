@@ -83,15 +83,16 @@ Future<ApiData> patchEmployeeBase64Documents({
           employeeDocumentTypeSetupId: employeeDocumentTypeSetupId,
           employeeId: employeeId),
       data: {
-        "EmployeeDocumentTypeMetaDataId": employeeDocumentMetaId,
-        "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
-        "employeeId": employeeId,
+        // "EmployeeDocumentTypeMetaDataId": employeeDocumentMetaId,
+        // "EmployeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
+        // "employeeId": employeeId,
         'base64':documents,
-        "expiry_date": expiryDate,
+        "expiry_date":expiryDate == null ? null : "${expiryDate}T00:00:00Z",// expiryDate,
         "documentName":documentName
       },
     );
     print("Response ${response.toString()}");
+
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Documents updated;;;;;;;;;;;;;");
       // orgDocumentGet(context);
@@ -199,10 +200,17 @@ Future<ApiData> patchEmployeeDocuments({
         "employeeId": employeeId,
         "DocumentUrl": documentUrl,
         "UploadDate": uploadDate,
-        "expiry_date": "${expiryDate}T00:00:00Z",
+        "expiry_date": expiryDate == null ? null : "${expiryDate}T00:00:00Z",
       }
     );
     print("Response ${response.toString()}");
+    print("empdocid: $employeeDocumentMetaId");
+    print("documentSetupId: $employeeDocumentTypeSetupId");
+    print("empdocid: $employeeId");
+    print("ackProviderState.fileName: $documentUrl");
+    print("ackProviderState.filePath: $uploadDate");
+    print("expiryDate: $expiryDate");
+    print("expiryDate: $expiryDate");
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Documents Updated");
       // orgDocumentGet(context);
@@ -212,6 +220,7 @@ Future<ApiData> patchEmployeeDocuments({
           message: response.statusMessage!);
     } else {
       print("Error 1");
+      print(response);
       return ApiData(
           statusCode: response.statusCode!,
           success: false,

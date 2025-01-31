@@ -244,11 +244,11 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         keyboardType: TextInputType.text,
                         text: 'Name of Person Administering the Vaccine',
                       ),
-                      if (nameOfAdministeringError != null)
+                      nameOfAdministeringError != null ?
                         Text(
                           nameOfAdministeringError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s6),
                       HeaderContentConst(
                         heading: 'Date of Vaccination',
@@ -316,44 +316,44 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                           },
                         ),
                       ),
-                      if (dateOfvaccinationError != null)
+                      dateOfvaccinationError != null ?
                         Text(
                           dateOfvaccinationError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ) : SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s6),
                       SMTextfieldAsteric(
                         controller: siteOfAdministrationController,
                         keyboardType: TextInputType.text,
                         text: 'Site of Administration',
                       ),
-                      if (siteOfAdministrationError != null)
+                      siteOfAdministrationError != null ?
                         Text(
                           siteOfAdministrationError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ): SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s6),
                       SMTextfieldAsteric(
                         controller: vaccineTypeController,
                         keyboardType: TextInputType.text,
                         text: 'Vaccine Type',
                       ),
-                      if (vaccineTypeError != null)
+                      vaccineTypeError != null ?
                         Text(
                           vaccineTypeError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ): SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s6),
                       SMTextfieldAsteric(
                         controller: doseController,
                         keyboardType: TextInputType.text,
                         text: 'Dose',
                       ),
-                      if (doseError != null)
+                      doseError != null ?
                         Text(
                           doseError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ): SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s6),
                       SMTextFConst(
                         controller: reactionsController,
@@ -366,22 +366,22 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         keyboardType: TextInputType.text,
                         text: 'Manufacturer and Lot ',
                       ),
-                      if (manufacturerError != null)
+                      manufacturerError != null ?
                         Text(
                           manufacturerError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ): SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s6),
                       SMTextfieldAsteric(
                         controller: titleController,
                         keyboardType: TextInputType.text,
                         text: 'Title',
                       ),
-                      if (titleError != null)
+                      titleError != null ?
                         Text(
                           titleError!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ): SizedBox(height: AppSize.s12,),
                       SizedBox(height: AppSize.s6),
                       // SMTextFConst(
                       //   controller: address2Controller,
@@ -400,11 +400,11 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
                         },
                       ),
 
-                      if (address2Error != null)
+                      address2Error != null ?
                         Text(
                           address2Error!,
                           style: CommonErrorMsg.customTextStyle(context),
-                        ),
+                        ): SizedBox(height: AppSize.s12,),
                     ],
                   ),
                 ),
@@ -695,8 +695,8 @@ class _FlueVaccineSignPopupState extends State<FlueVaccineSignPopup> {
       ],
       bottomButtons: loading == true
           ? SizedBox(
-        height: AppSize.s25,
-        width: AppSize.s25,
+        height: AppSize.s30,
+        width: AppSize.s30,
         child: CircularProgressIndicator(
           color: ColorManager.blueprime,
         ),

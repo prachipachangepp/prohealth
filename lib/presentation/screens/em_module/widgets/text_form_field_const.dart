@@ -465,7 +465,7 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
                 prefix: widget.prefixWidget,
                 prefixStyle: AllHRTableData.customTextStyle(context),
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(bottom: 22, left: 15),
+                contentPadding: EdgeInsets.only(bottom: 22, left: 10),
               ),
               style: TableSubHeading.customTextStyle(context),
               // style: TextStyle(
@@ -568,7 +568,7 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
                 prefix: widget.prefixWidget,
                 prefixStyle: AllHRTableData.customTextStyle(context),
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(bottom: 22, left: 15),
+                contentPadding: EdgeInsets.only(bottom: 22, left: 10),
               ),
               style: TableSubHeading.customTextStyle(context),
               validator: widget.validator,
@@ -1155,8 +1155,7 @@ class _SSNTextFConstState extends State<SSNTextFConst> {
                   prefixStyle:ZoneDataStyle.customTextStyle(context),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(
-                      bottom: 22,
-                      left: AppPadding.p15),
+                      bottom: 22, left: AppPadding.p10),
                 ),
                 style: TableSubHeading.customTextStyle(context),
                 //validator: widget.validator,

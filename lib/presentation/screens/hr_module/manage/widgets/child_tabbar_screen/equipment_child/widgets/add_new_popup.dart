@@ -164,14 +164,14 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
                                     child: Text(
                                       selectDescription,
                                       style: DocumentTypeDataStyle.customTextStyle(context),
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
                                     child: Icon(Icons.arrow_drop_down),
                                   ),
                                 ],
@@ -239,38 +239,6 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                   _selectDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
                 ):SizedBox(height: 12,),
-              // Container(
-              //   height: 30,
-              //   padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
-              //   decoration: BoxDecoration(
-              //     color: Colors.transparent,
-              //     border: Border.all(color: Color(0xffB1B1B1)), // Black border
-              //     borderRadius: BorderRadius.circular(8), // Rounded corners
-              //   ),
-              //   child: DropdownButtonFormField<String>(
-              //     focusColor: Colors.transparent,
-              //     icon: Icon(Icons.arrow_drop_down_sharp,color: ColorManager.black,),
-              //     decoration: InputDecoration.collapsed(hintText: ''),
-              //     items: <String>['Cellular', 'A', 'B', 'C']
-              //         .map<DropdownMenuItem<String>>((String value) {
-              //       return DropdownMenuItem<String>(
-              //         value: value,
-              //         child: Text(value,style: GoogleFonts.roboto(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.bold),),
-              //       );
-              //     }).toList(),
-              //     onChanged: (String? newValue) {
-              //       setState(() {
-              //         typeName = newValue!;
-              //         print("Type::${typeName}");
-              //       });
-              //     },
-              //     value: 'Cellular',
-              //     style: GoogleFonts.roboto(
-              //         color: ColorManager.granitegray,
-              //       fontSize: AppSize.s12,
-              //       fontWeight: FontWeightManager.bold),
-              //   ),
-              // ),
               SizedBox(
                 height: AppSize.s13,
               ),
@@ -331,7 +299,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                     color: ColorManager
                                         .mediumgrey), // Set enabled border color to red
                               ),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 10),
                               suffixIcon: Icon(Icons.calendar_month_outlined,
                                   color: ColorManager.blueprime),
                               errorText: field.errorText,
@@ -354,17 +322,8 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                   _dateDocError =
                                       _validateTextField(calenderController.text, 'Select Date');
                                 });
-                                // birthdayController.text =
-                                // date.toLocal().toString().split(' ')[0];
-                                // field.didChange(date.toLocal().toString().split(' ')[0]);
-                              }
+                             }
                             },
-                            // validator: (value) {
-                            //   if (value == null || value.isEmpty) {
-                            //     return 'please select date';
-                            //   }
-                            //   return null;
-                            // },
                           ),
                         );
                       },
@@ -376,8 +335,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                 Text(
                   _dateDocError!,
                   style: CommonErrorMsg.customTextStyle(context),
-                ):SizedBox(height: 12
-                ,),
+                ):SizedBox(height: 12,),
             ],
           ),
         ),
@@ -385,8 +343,8 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
       bottomButtons: Center(
         child: isLoading
             ? SizedBox(
-            height: AppSize.s25,
-            width: AppSize.s25,
+            height: AppSize.s30,
+            width: AppSize.s30,
             child: CircularProgressIndicator(
               color: ColorManager.blueprime,
             ))

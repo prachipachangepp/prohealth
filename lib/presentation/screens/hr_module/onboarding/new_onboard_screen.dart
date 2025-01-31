@@ -226,12 +226,20 @@ class OnboardingTabManage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Material(
-                              elevation: 0,  // Set elevation to 0 to remove shadow
+                              elevation: 4,  // Set elevation to 0 to remove shadow
                               borderRadius: BorderRadius.circular(20),
                               child: Container(
                                 height: AppSize.s30,
                                 width: MediaQuery.of(context).size.width / 1.682,
                                 decoration: BoxDecoration(
+                                  // boxShadow: [
+                                  //   BoxShadow(
+                                  //     color: ColorManager.black.withValues(alpha: 0.2),
+                                  //     spreadRadius: 0,
+                                  //     blurRadius: 4,
+                                  //     offset: Offset(0, 4),
+                                  //   ),
+                                  // ],
                                   borderRadius: BorderRadius.circular(20),
                                   color: ColorManager.blueprime,
                                 ),
@@ -248,8 +256,16 @@ class OnboardingTabManage extends StatelessWidget {
                                       child: Container(
                                         height: AppSize.s31,
                                         width: MediaQuery.of(context).size.width / 8.42,
-                                        padding: EdgeInsets.symmetric(vertical: 5),
+                                        padding: EdgeInsets.only(top: 7),
                                         decoration: BoxDecoration(
+                                          // boxShadow: [
+                                          //   BoxShadow(
+                                          //     color: ColorManager.black.withValues(alpha: 0.2),
+                                          //     spreadRadius: 0,
+                                          //     blurRadius: 4,
+                                          //     offset: Offset(0, 4),
+                                          //   ),
+                                          // ],
                                           borderRadius: BorderRadius.circular(20),
                                           color: selectedIndex - 1 == entry.key
                                               ? Colors.white
@@ -372,56 +388,3 @@ class OnboardingTabManage extends StatelessWidget {
     );
   }
 }
-
-///
-///
-// Material(
-// elevation: 4,
-// borderRadius: BorderRadius.circular(20),
-// color:  Colors.transparent,
-// child: Container(
-// height: AppSize.s30,
-// width: MediaQuery.of(context).size.width / 1.68,
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(20),
-// color: ColorManager.blueprime,
-// ),
-// child: Row(
-// mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-// children: _categories
-//     .asMap()
-//     .entries
-//     .map(
-// (entry) => InkWell(
-// splashColor: Colors.transparent,
-// highlightColor: Colors.transparent,
-// hoverColor: Colors.transparent,
-// child: Container(
-// height: AppSize.s32,
-// width: MediaQuery.of(context).size.width / 8.41,
-// padding: EdgeInsets.symmetric(vertical: 3),
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(18),
-// color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
-// ? Colors.white : null,
-// ),
-// child: Text(
-// entry.value,
-// textAlign: TextAlign.center,
-// style: TextStyle(
-// fontSize: FontSize.s14,
-// fontWeight: FontWeight.w600,
-// color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
-// ? ColorManager.mediumgrey
-//     : ColorManager.white,
-// ),
-// ),
-// ),
-// onTap: () => widget.selectButton(entry.key + 1,widget.employeeId, widget.employeeName,widget.imageUrl,widget.departmentId),  //onTap: () => widget.selectButton(entry.key),
-// ),
-// )
-//     .toList(),
-// ),
-// ),
-// ),
-///

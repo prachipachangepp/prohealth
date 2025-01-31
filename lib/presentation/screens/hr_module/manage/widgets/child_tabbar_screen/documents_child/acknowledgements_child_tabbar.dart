@@ -466,10 +466,8 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                                       // );
                                                     } else {
                                                       return ErrorPopUp(
-                                                          title:
-                                                              "Received Error",
-                                                          text: snapshot.error
-                                                              .toString());
+                                                          title: "Received Error",
+                                                          text: snapshot.error.toString());
                                                     }
                                                   });
                                             });

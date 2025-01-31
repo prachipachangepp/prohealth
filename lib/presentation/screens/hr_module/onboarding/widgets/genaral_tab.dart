@@ -349,6 +349,7 @@ class OnboardingGeneral extends StatelessWidget {
                                                           ClipOval(
                                                             child: general.imgurl == 'imgurl' || general.imgurl == null
                                                                 ? CircleAvatar(
+                                                              radius: 30,
                                                               backgroundColor: ColorManager.faintGrey,
                                                               child: Image.asset("images/profilepic.png",width: double.infinity,
                                                                 height: double.infinity,),
