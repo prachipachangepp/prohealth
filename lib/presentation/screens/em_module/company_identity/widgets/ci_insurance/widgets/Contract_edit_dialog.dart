@@ -67,8 +67,7 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      _nameDocError =
-          _validateTextField(nameDocController.text, 'Name of the Document');
+      _nameDocError = _validateTextField(nameDocController.text, 'Name of the Document');
     });
   }
   @override
@@ -128,21 +127,32 @@ class _ContractEditDialogState extends State<ContractEditDialog> {
             ),
           ),
         ),
-
+        SizedBox(height: AppSize.s8,),
         /// Name of the Document
         SMTextfieldAsteric(
           controller: nameDocController,
           keyboardType: TextInputType.text,
           text: AppString.name_of_the_document,
+          onChanged: (value) {
+            setState(() {
+              _nameDocError = null;
+            });
+          },
         ),
-        if (_nameDocError != null) // Display error if any
+        _nameDocError != null ?
           Padding(
-            padding: const EdgeInsets.only(top: AppPadding.p4),
-            child: Text(
-              _nameDocError!,
-              style: CommonErrorMsg.customTextStyle(context),
+            padding: const EdgeInsets.only(left: AppPadding.p12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _nameDocError!,
+                  style: CommonErrorMsg.customTextStyle(context),
+                ),
+              ],
             ),
-          ),
+          ): SizedBox(height: AppSize.s12,),
       ],
       bottomButtons: loading == true
           ? SizedBox(

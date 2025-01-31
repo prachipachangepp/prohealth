@@ -142,8 +142,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                   ? Expanded(
                 flex: 2,
                     child: FutureBuilder<List<OfficeWiseCountyData>>(
-                                      future: getCountyListOfficeIdWise(context: context, OfficeId: widget.officeId),
-                                      builder: (context, snapshotZone) {
+                      future: getCountyListOfficeIdWise(context: context, OfficeId: widget.officeId),
+                      builder: (context, snapshotZone) {
                     if (snapshotZone.connectionState == ConnectionState.waiting) {
                       return Container(
                         width:  354,
@@ -151,15 +151,15 @@ class _CiOrgDocumentState extends State<CiZone> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: ColorManager.containerBorderGrey, width: AppSize.s1),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                         child: Row(
                           children: [
-                            SizedBox(width: AppSize.s8),
+                            SizedBox(width: AppSize.s10),
                             Expanded(
                               child: Text(
-                                "Select",
-                                style: TableSubHeading.customTextStyle(context),
+                                "Select County",
+                                style: DocumentTypeDataStyle.customTextStyle(context),
                               ),
                             ),
                             Padding(

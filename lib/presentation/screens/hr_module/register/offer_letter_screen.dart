@@ -1192,6 +1192,7 @@ class CheckBoxTileConst extends StatelessWidget {
       width: 40,
       height: 50,
       child: CheckboxListTile(
+        activeColor: ColorManager.bluebottom,
         title: Text(
           text,
           style: DocumentTypeDataStyle.customTextStyle(context),

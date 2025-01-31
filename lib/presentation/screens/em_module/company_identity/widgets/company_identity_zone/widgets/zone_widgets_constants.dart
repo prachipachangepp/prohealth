@@ -370,7 +370,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                   ),
                                   child:  Row(
                                     children: [
-                                      SizedBox(width: AppSize.s8),
+                                      SizedBox(width: AppSize.s10),
                                       Expanded(
                                         child: Text(
                                           selectedZipCodeCounty ?? '',
@@ -378,7 +378,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(right: AppPadding.p10),
+                                        padding: const EdgeInsets.only(right: AppPadding.p8),
                                         child: Icon(Icons.arrow_drop_down),
                                       ),
                                     ],

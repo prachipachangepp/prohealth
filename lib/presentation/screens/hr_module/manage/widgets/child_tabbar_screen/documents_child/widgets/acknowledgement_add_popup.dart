@@ -317,6 +317,12 @@ class AcknowledgementAddPopup extends StatelessWidget {
                 }
 
                 try {
+                  print("empdocid: $documentMetaDataId");
+                  print("documentSetupId: $documentSetupId");
+                  print("empdocid: $employeeId");
+                  print("ackProviderState.fileName: $ackProviderState.fileName");
+                  print("ackProviderState.filePath: $ackProviderState.filePath");
+                  print("expiryDate: $expiryDate");
                   if (ackProviderState.fileAbove20Mb) {
                     var response = await uploadDocuments(
                       context: context,

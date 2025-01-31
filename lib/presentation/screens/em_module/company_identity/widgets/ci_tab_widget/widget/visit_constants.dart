@@ -481,15 +481,33 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
       }
     });
   }
-  void _onServiceChanged(String? value) {
+  void _onServiceChanged(String? value, List<ServicesMetaData> services) {
     setState(() {
       selectedServiceName = value!;
+
+      final selectedService = services.firstWhere(
+              (service) => service.serviceName == value,
+         // orElse: () => ServicesMetaData(serviceId: '', serviceName: '', serviceMetaDataId: 0) // Default fallback
+      );
+
+      serviceId = selectedService.serviceId;
+
       if (selectedServiceName != 'Select') {
         _isServiceSelected = true;
         _serviceErrorText = '';
       }
     });
   }
+
+  // void _onServiceChanged(String? value) {
+  //   setState(() {
+  //     selectedServiceName = value!;
+  //     if (selectedServiceName != 'Select') {
+  //       _isServiceSelected = true;
+  //       _serviceErrorText = '';
+  //     }
+  //   });
+  // }
 
   void _validateInputs() {
     setState(() {
@@ -646,9 +664,15 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                               void Function(void Function()) setState) {
                             return CICCDropdown(
                               initialValue: selectedServiceName,
-                              onChange: _onServiceChanged,
+                              onChange: (val) => _onServiceChanged(val, snapshot.data!),
                               items: dropDownServiceList,
                             );
+
+                            // return CICCDropdown(
+                            //   initialValue: selectedServiceName,
+                            //   onChange: _onServiceChanged,
+                            //   items: dropDownServiceList,
+                            // );
                           },
                         );
                       }
@@ -823,8 +847,8 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                   });
                   try {
                     print(":::::${selectedEditChips}");
+                    print(":::::${serviceId}");
                     print(":::::${widget.nameOfDocumentController.text}");
-                   // print(":::::${_selectedItem}");
 
                    var response = await addVisitPost(context:context,
                         typeOfVisit: widget.nameOfDocumentController.text,
