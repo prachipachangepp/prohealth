@@ -75,7 +75,7 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                     icon: Icon(
                       Icons.close,
                       color: ColorManager.white,
-                      size: IconSize.I20,
+                      size: IconSize.I18,
                     ),
                   ),
                 ],

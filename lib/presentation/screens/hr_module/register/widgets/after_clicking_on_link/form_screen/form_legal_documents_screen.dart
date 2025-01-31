@@ -154,6 +154,110 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
     }
   }
 
+
+  Future<void> saveDataWithoutFile() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      // Save data logic here, as no file needs to be uploaded
+      ApiDataRegister result = await legalDocumentAdd(
+        context: context,
+        employeeId: widget.employeeID,
+        documentName: fileName,
+        docUrl: '',
+        officeId: '',
+      );
+
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AddSuccessPopup(
+              message: 'Data Saved Successfully Without File',
+            );
+          },
+        );
+        await widget.onSave(); // Save the data to parent
+      } else {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AddFailePopup(
+              message: 'Failed to save data without file',
+            );
+          },
+        );
+      }
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const FourNotFourPopup();
+        },
+      );
+    }
+  }
+
+
+
+
+  Future<void> saveDataWithFile() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      // Perform the API call to save data
+      ApiDataRegister result = await legalDocumentAdd(
+        context: context,
+        employeeId: widget.employeeID,
+        documentName: fileName,
+        docUrl: '',
+        officeId: '',
+      );
+
+      // Upload the document
+      var response = await uploadLegalDocumentBase64(
+        context: context,
+        employeeLegalDocumentId: result.legalDocumentId!,
+        documentFile: finalPath,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AddSuccessPopup(
+              message: 'Document Uploaded Successfully',
+            );
+          },
+        );
+        await widget.onSave(); // Save the data to parent
+      } else {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AddFailePopup(
+              message: 'Failed to upload document',
+            );
+          },
+        );
+        print('Document upload error');
+      }
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const FourNotFourPopup();
+        },
+      );
+    }
+  }
+
+
+
   Future<void> callHtmlData(String htmlName, int id) async{
     setState(() {
 
@@ -774,81 +878,23 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     color: ColorManager.blueprime,
                   ),
                 )
-                    : CustomButton(
+
+                    :CustomButton(
                   width: 117,
                   height: 30,
                   text: 'Save',
                   style: BlueButtonTextConst.customTextStyle(context),
                   borderRadius: 12,
-                  onPressed: () async{
+                  onPressed: () async {
+                    // Check if a file is selected
                     if (finalPath == null || finalPath.isEmpty) {
-                    await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return VendorSelectNoti(
-                            message: 'Please Select File',
-                          );
-                        },
-                      );
-                      print('Loading');
+                      // If no file is selected, just save the data
+                      await saveDataWithoutFile(); // Function to save data without file upload
                     } else {
-                      setState(() {
-                        isLoading = true;
-                      });
+                      // If file is selected, check if it's under 20 MB
                       if (fileAbove20Mb) {
-                        try {
-                          ApiDataRegister result = await legalDocumentAdd(
-                              context: context,
-                              employeeId: widget.employeeID,
-                              documentName: fileName,
-                              docUrl: '',
-                              officeId: '');
-                          var response = await uploadLegalDocumentBase64(
-                              context: context,
-                              employeeLegalDocumentId: result.legalDocumentId!,
-                              documentFile: finalPath
-                          );
-
-                          if (response.statusCode == 201 ||
-                              response.statusCode == 200) {
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const AddSuccessPopup(
-                                  message: 'Document Uploaded Successfully',
-                                );
-                              },
-                            );
-                            await widget.onSave();
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const AddFailePopup(
-                                  message: 'Failed To Upload Document',
-                                );
-                              },
-                            );
-                            print('Document upload Error');
-                          }
-                        } catch (e) {
-                          await showDialog(
-                            context: context,
-                            builder: (
-                                BuildContext context) => const FourNotFourPopup(),
-                          );
-                          // await  showDialog(
-                          //   context: context,
-                          //   builder: (BuildContext context) {
-                          //     return const AddFailePopup(
-                          //       message: 'Failed To Upload Document',
-                          //     );
-                          //   },
-                          // );
-                        }
-                      }
-                      else{
-                        showDialog(
+                        // Show error message if file is too large
+                        await showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AddErrorPopup(
@@ -856,19 +902,117 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                             );
                           },
                         );
+                      } else {
+                        // If file size is acceptable, proceed with saving data and uploading the file
+                        await saveDataWithFile(); // Function to save data and upload the file
                       }
                     }
 
                     setState(() {
-                      isLoading = false;
+                      isLoading = false; // Stop loading
                     });
-
                   },
                   child: Text(
                     'Save',
                     style: BlueButtonTextConst.customTextStyle(context),
                   ),
                 ),
+
+                //     : CustomButton(
+                //   width: 117,
+                //   height: 30,
+                //   text: 'Save',
+                //   style: BlueButtonTextConst.customTextStyle(context),
+                //   borderRadius: 12,
+                //   onPressed: () async{
+                //     if (finalPath == null || finalPath.isEmpty) {
+                //     await showDialog(
+                //         context: context,
+                //         builder: (BuildContext context) {
+                //           return VendorSelectNoti(
+                //             message: 'Please Select File',
+                //           );
+                //         },
+                //       );
+                //       print('Loading');
+                //     } else {
+                //       setState(() {
+                //         isLoading = true;
+                //       });
+                //       if (fileAbove20Mb) {
+                //         try {
+                //           ApiDataRegister result = await legalDocumentAdd(
+                //               context: context,
+                //               employeeId: widget.employeeID,
+                //               documentName: fileName,
+                //               docUrl: '',
+                //               officeId: '');
+                //           var response = await uploadLegalDocumentBase64(
+                //               context: context,
+                //               employeeLegalDocumentId: result.legalDocumentId!,
+                //               documentFile: finalPath
+                //           );
+                //
+                //           if (response.statusCode == 201 ||
+                //               response.statusCode == 200) {
+                //             await showDialog(
+                //               context: context,
+                //               builder: (BuildContext context) {
+                //                 return const AddSuccessPopup(
+                //                   message: 'Document Uploaded Successfully',
+                //                 );
+                //               },
+                //             );
+                //             await widget.onSave();
+                //           } else {
+                //             await showDialog(
+                //               context: context,
+                //               builder: (BuildContext context) {
+                //                 return const AddFailePopup(
+                //                   message: 'Failed To Upload Document',
+                //                 );
+                //               },
+                //             );
+                //             print('Document upload Error');
+                //           }
+                //         } catch (e) {
+                //           await showDialog(
+                //             context: context,
+                //             builder: (
+                //                 BuildContext context) => const FourNotFourPopup(),
+                //           );
+                //           // await  showDialog(
+                //           //   context: context,
+                //           //   builder: (BuildContext context) {
+                //           //     return const AddFailePopup(
+                //           //       message: 'Failed To Upload Document',
+                //           //     );
+                //           //   },
+                //           // );
+                //         }
+                //       }
+                //       else{
+                //         showDialog(
+                //           context: context,
+                //           builder: (BuildContext context) {
+                //             return AddErrorPopup(
+                //               message: 'File is too large!',
+                //             );
+                //           },
+                //         );
+                //       }
+                //     }
+                //
+                //     setState(() {
+                //       isLoading = false;
+                //     });
+                //
+                //   },
+                //   child: Text(
+                //     'Save',
+                //     style: BlueButtonTextConst.customTextStyle(context),
+                //   ),
+                // ),
               ],
             ),
 

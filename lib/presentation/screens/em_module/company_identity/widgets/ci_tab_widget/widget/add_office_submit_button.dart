@@ -287,33 +287,33 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                                   children: [
                                     Wrap(children: [
                                       ...List.generate(widget.servicesList.length,
-                                          (index) {
-                                        String serviceID = widget.servicesList[index].serviceId;
-                                        bool isSelected = selectedServices.contains(serviceID);
-                                        return Container(
-                                            width: AppSize.s150,
-                                            child: Center(
-                                              child: CheckboxTile(
-                                                title: widget.servicesList[index].serviceName,
-                                                initialValue: false,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    if (value == true) {
-                                                      selectedServices.add(ServiceList(
+                                              (index) {
+                                            String serviceID = widget.servicesList[index].serviceId;
+                                            bool isSelected = selectedServices.contains(serviceID);
+                                            return Container(
+                                                width: AppSize.s150,
+                                                child: Center(
+                                                  child: CheckboxTile(
+                                                    title: widget.servicesList[index].serviceName,
+                                                    initialValue: false,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        if (value == true) {
+                                                          selectedServices.add(ServiceList(
                                                               serviceId: serviceID,
                                                               npiNumber: "",
                                                               medicareProviderId: "",
                                                               hcoNumId: ""));
-                                                    } else {
-                                                      selectedServices.remove(serviceID);
-                                                    }
-                                                    _checkboxError = selectedServices.isEmpty ? "Please select at least one service" : null;
-                                                  });
-                                                  print("Service Id List ${selectedServices}");
-                                                },
-                                              ),
-                                            ));
-                                      })
+                                                        } else {
+                                                          selectedServices.remove(serviceID);
+                                                        }
+                                                        _checkboxError = selectedServices.isEmpty ? "Please select at least one service" : null;
+                                                      });
+                                                      print("Service Id List ${selectedServices}");
+                                                    },
+                                                  ),
+                                                ));
+                                          })
                                     ]),
                                     if (_checkboxError != null)
                                       Padding(

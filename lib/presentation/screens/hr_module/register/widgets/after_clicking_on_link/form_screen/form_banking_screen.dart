@@ -259,46 +259,27 @@ class _BankingScreenState extends State<BankingScreen> {
                 color: ColorManager.blueprime,
               ),
             )
-                :CustomButton(
+            :CustomButton(
               width: 117,
               height: 30,
               text: 'Save',
               style: BlueButtonTextConst.customTextStyle(context),
               borderRadius: 12,
               onPressed: () async {
-                // Start loading state
-
-
-                // Flag to check if a document is selected
-
-                // Loop through bankingFormKeys
-                try{
+                try {
                   setState(() {
-                    isLoading = true;
+                    isLoading = true; // Start loading
                   });
+
                   for (var key in bankingFormKeys) {
                     try {
                       final st = key.currentState!;
+
                       if (st.isPrefill == false) {
-                        // Check if documentFile is selected
-                        if (st.finalPath == null || st.finalPath.isEmpty) {
-                          // If no document is selected, show a message and stop further execution
-                          await  showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return VendorSelectNoti(
-                                message: 'Please Select A File',
-                              );
-                            },
-                          );
-
-                          return;  // Exit the loop and method early
-                        }
-
-                        if(st.fileAbove20Mb){
-
-                          // Print values before calling perfFormBanckingData
-                          print(':::::::Saving Banking Data:::::::::::::');
+                        // If no document file is selected, still save the data
+                        if (st.finalPath == null || st.finalPath!.isEmpty) {
+                          // Save data without file upload
+                          print(':::::::Saving Banking Data Without File:::::::::::::');
                           print('Employee ID: ${widget.employeeID}');
                           print('Account Number: ${st.accountnumber.text}');
                           print('Bank Name: ${st.bankname.text}');
@@ -306,11 +287,11 @@ class _BankingScreenState extends State<BankingScreen> {
                           print('Effective Date: ${st.effectivecontroller.text}');
                           print('Routing Number: ${st.routingnumber.text}');
                           print('Type: ${st.selectedtype.toString()}');
-                          print('Requested Percentage: '); // If you have this value, print it
-                          print('Document File: ${st.finalPath}');
-                          print('Document Name:>>>> ${st.fileName}');
+                          print('Requested Percentage: ');
+                          print('Document File: No File Selected');
+                          print('Document Name: N/A');
 
-                          // Call the function to submit the data
+                          // Call the function to submit the data without the file
                           await perfFormBanckingData(
                             context: context,
                             employeeId: widget.employeeID,
@@ -322,46 +303,173 @@ class _BankingScreenState extends State<BankingScreen> {
                             routingNumber: st.routingnumber.text,
                             type: st.selectedtype.toString(),
                             requestedPercentage: '', // If you have this value, pass it
-                            documentFile: st.finalPath,
-                            documentName: st.fileName,
+                            documentFile: 'NA',  // No file selected
+                            documentName: 'NA',  // No file selected
                           );
+                        } else {
+                          // If a document is selected, check if it's under 20 MB
+                          if (!st.fileAbove20Mb) {
+                            // Print values before calling the function
+                            print(':::::::Saving Banking Data With File:::::::::::::');
+                            print('Employee ID: ${widget.employeeID}');
+                            print('Account Number: ${st.accountnumber.text}');
+                            print('Bank Name: ${st.bankname.text}');
+                            print('Amount Requested: ${int.parse(st.requestammount.text)}');
+                            print('Effective Date: ${st.effectivecontroller.text}');
+                            print('Routing Number: ${st.routingnumber.text}');
+                            print('Type: ${st.selectedtype.toString()}');
+                            print('Requested Percentage: ');
+                            print('Document File: ${st.finalPath}');
+                            print('Document Name:>>>> ${st.fileName}');
 
-
-                        }
-                        else{
-                          await  showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AddErrorPopup(
-                                message: 'File is too large!',
-                              );
-                            },
-                          );
+                            // Call the function to submit the data with the file
+                            await perfFormBanckingData(
+                              context: context,
+                              employeeId: widget.employeeID,
+                              accountNumber: st.accountnumber.text,
+                              bankName: st.bankname.text,
+                              amountRequested: int.parse(st.requestammount.text),
+                              checkUrl: "",
+                              effectiveDate: st.effectivecontroller.text,
+                              routingNumber: st.routingnumber.text,
+                              type: st.selectedtype.toString(),
+                              requestedPercentage: '',
+                              documentFile: st.finalPath,  // Include file if selected
+                              documentName: st.fileName!, // Include file name
+                            );
+                          } else {
+                            // If the file is too large, show an error message
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddErrorPopup(
+                                  message: 'File is too large!',
+                                );
+                              },
+                            );
+                          }
                         }
                       }
                     } catch (e) {
                       print('Error: $e');
                     }
                   }
-                }finally{
+                } finally {
                   setState(() {
                     isLoading = false; // Stop loading
                   });
-                  widget.onSave();
+                  widget.onSave(); // Call the onSave callback
                 }
-
-
-                // If a document is selected and everything goes fine, complete the process
-
-
-                // You can also call any post-save actions here
-               // widget.onSave();
               },
               child: Text(
                 'Save',
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
+
+            //     :CustomButton(
+            //   width: 117,
+            //   height: 30,
+            //   text: 'Save',
+            //   style: BlueButtonTextConst.customTextStyle(context),
+            //   borderRadius: 12,
+            //   onPressed: () async {
+            //     // Start loading state
+            //
+            //
+            //     // Flag to check if a document is selected
+            //
+            //     // Loop through bankingFormKeys
+            //     try{
+            //       setState(() {
+            //         isLoading = true;
+            //       });
+            //       for (var key in bankingFormKeys) {
+            //         try {
+            //           final st = key.currentState!;
+            //           if (st.isPrefill == false) {
+            //             // Check if documentFile is selected
+            //             if (st.finalPath == null || st.finalPath.isEmpty) {
+            //               // If no document is selected, show a message and stop further execution
+            //               await  showDialog(
+            //                 context: context,
+            //                 builder: (BuildContext context) {
+            //                   return VendorSelectNoti(
+            //                     message: 'Please Select A File',
+            //                   );
+            //                 },
+            //               );
+            //
+            //               return;  // Exit the loop and method early
+            //             }
+            //
+            //             if(st.fileAbove20Mb){
+            //
+            //               // Print values before calling perfFormBanckingData
+            //               print(':::::::Saving Banking Data:::::::::::::');
+            //               print('Employee ID: ${widget.employeeID}');
+            //               print('Account Number: ${st.accountnumber.text}');
+            //               print('Bank Name: ${st.bankname.text}');
+            //               print('Amount Requested: ${int.parse(st.requestammount.text)}');
+            //               print('Effective Date: ${st.effectivecontroller.text}');
+            //               print('Routing Number: ${st.routingnumber.text}');
+            //               print('Type: ${st.selectedtype.toString()}');
+            //               print('Requested Percentage: '); // If you have this value, print it
+            //               print('Document File: ${st.finalPath}');
+            //               print('Document Name:>>>> ${st.fileName}');
+            //
+            //               // Call the function to submit the data
+            //               await perfFormBanckingData(
+            //                 context: context,
+            //                 employeeId: widget.employeeID,
+            //                 accountNumber: st.accountnumber.text,
+            //                 bankName: st.bankname.text,
+            //                 amountRequested: int.parse(st.requestammount.text),
+            //                 checkUrl: "",
+            //                 effectiveDate: st.effectivecontroller.text,
+            //                 routingNumber: st.routingnumber.text,
+            //                 type: st.selectedtype.toString(),
+            //                 requestedPercentage: '', // If you have this value, pass it
+            //                 documentFile: st.finalPath,
+            //                 documentName: st.fileName,
+            //               );
+            //
+            //
+            //             }
+            //             else{
+            //               await  showDialog(
+            //                 context: context,
+            //                 builder: (BuildContext context) {
+            //                   return AddErrorPopup(
+            //                     message: 'File is too large!',
+            //                   );
+            //                 },
+            //               );
+            //             }
+            //           }
+            //         } catch (e) {
+            //           print('Error: $e');
+            //         }
+            //       }
+            //     }finally{
+            //       setState(() {
+            //         isLoading = false; // Stop loading
+            //       });
+            //       widget.onSave();
+            //     }
+            //
+            //
+            //     // If a document is selected and everything goes fine, complete the process
+            //
+            //
+            //     // You can also call any post-save actions here
+            //    // widget.onSave();
+            //   },
+            //   child: Text(
+            //     'Save',
+            //     style: BlueButtonTextConst.customTextStyle(context),
+            //   ),
+            // ),
             const SizedBox(
               width: AppSize.s30,
             ),
@@ -786,19 +894,18 @@ class _BankingFormState extends State<BankingForm> {
                                         style: TextStyle(
                                             color: Colors.red, fontSize: 10),
                                       ),
-                                    ) : SizedBox(height:12),
+                                    ) : SizedBox(height:13),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              43),
+                                              40),
                                   Text(
                                     'Requested amount for this account (select one)',
                                     style: AllPopupHeadings.customTextStyle(context),
                                   ),
                                   SizedBox(
                                       height:
-                                      MediaQuery.of(context).size.height /
-                                          60),
+                                      MediaQuery.of(context).size.height / 60),
                                   // CustomRadioListTile(
                                   //   title: 'Specific Amount',
                                   //   value: 'Specific Amount',

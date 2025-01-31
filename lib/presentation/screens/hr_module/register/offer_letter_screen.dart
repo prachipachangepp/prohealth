@@ -441,7 +441,7 @@ class OfferLetterScreen extends StatelessWidget {
                                                           children: [
                                                             Center(
                                                               child: IconButton(
-                                                                icon: const Icon(Icons.close, color: Colors.white,),
+                                                                icon: const Icon(Icons.close, color: Colors.white, size: IconSize.I18,),
                                                                 onPressed: () {
                                                                   Navigator.of(context).pop();
                                                                 },

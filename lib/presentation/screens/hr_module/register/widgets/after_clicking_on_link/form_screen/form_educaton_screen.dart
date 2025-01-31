@@ -94,8 +94,9 @@ class _EducationScreenState extends State<EducationScreen> {
     }
   }
 
-  Future<void> processEducationForms() async{
-    try{
+
+  Future<void> processEducationForms() async {
+    try {
       setState(() {
         isLoading = true;
       });
@@ -104,87 +105,64 @@ class _EducationScreenState extends State<EducationScreen> {
         final st = key.currentState!;
 
         try {
-
-
           // Only execute the code if st.isPrefill is false
-          tasks.add(Future(()async {
+          tasks.add(Future(() async {
             if (st.isPrefill == false) {
+              // Call the posteducationscreen API regardless of whether the file is selected
+              ApiDataRegister response = await FormEducationManager()
+                  .posteducationscreen(
+                context,
+                st.widget.employeeID,
+                st.graduatetype.toString(),
+                st.selectedDegree.toString(),
+                st.majorsubject.text,
+                st.city.text,
+                st.collegeuniversity.text,
+                st.phone.text,
+                st.state.text,
+                "USA",
+                "2024-08-09",
+              );
 
-              // Check if the file is selected
-              if (st.finalPath == null || st.finalPath!.isEmpty) {
-                // Show a message asking the user to select a file
+              // If the API call is successful
+              if (response.statusCode == 200 || response.statusCode == 201) {
                 await showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return const AddFailePopup(
-                      message: 'Please Select A File',
+                    return AddSuccessPopup(
+                      message: 'Education Data Saved',
                     );
                   },
                 );
-                setState(() {
-                  isLoading = false;
-                });
-                return; // Stop further execution if no file is selected
-              }
-              if(st.fileAbove20Mb) {
-                // Call the posteducationscreen API regardless of whether the file is selected
-                ApiDataRegister response = await FormEducationManager()
-                    .posteducationscreen(
-                  context,
-                  st.widget.employeeID,
-                  st.graduatetype.toString(),
-                  st.selectedDegree.toString(),
-                  st.majorsubject.text,
-                  st.city.text,
-                  st.collegeuniversity.text,
-                  st.phone.text,
-                  st.state.text,
-                  "USA",
-                  "2024-08-09",
-                );
 
-                // If the file is selected, upload it
-                await uploadEducationDocument(
-                  context,
-                  response.educationId!,
-                  st.finalPath,
-                  st.fileName!,
-                );
+                await _loadEducationData();
 
-                // If the API call is successful
-                if (response.statusCode == 200 ||
-                    response.statusCode == 201) {
-                  await showDialog(
+                // Check if file is selected and is less than or equal to 20MB
+                if (st.finalPath != null && st.finalPath!.isNotEmpty && !st.fileAbove20Mb) {
+                  // Upload the file
+                  await uploadEducationDocument(
+                    context,
+                    response.educationId!,
+                    st.finalPath,
+                    st.fileName!,
+                  );
+                } else if (st.finalPath != null && st.fileAbove20Mb) {
+                  // File is too large
+                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AddSuccessPopup(
-                        message: 'Education Data Saved',
+                      return AddErrorPopup(
+                        message: 'File is too large!',
                       );
                     },
                   );
-
-                  await  _loadEducationData();
-
                 }
               }
-              else{
-                await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AddErrorPopup(
-                      message: 'File is too large!',
-                    );
-                  },
-                );
-              }
-
             }
           }));
+
           // Wait for all tasks to complete
           await Future.wait(tasks);
-
-          // Call widget.save() after all tasks are completed
-
 
         } catch (e) {
           // If an error occurs, show failure dialog
@@ -196,27 +174,145 @@ class _EducationScreenState extends State<EducationScreen> {
               );
             },
           );
-          // await showDialog(
-          //   context: context,
-          //   builder: (BuildContext context) => const FourNotFourPopup(),
-          // );
         }
-
-        // Close the loading state and call onSave
-        // setState(() {
-        //   isLoading = false;
-        // });
-
       }
-    }finally{
+    } finally {
       setState(() {
         isLoading = false;
       });
-       widget.onSave();
+      widget.onSave();
     }
-
-
   }
+
+
+
+
+
+
+
+  // Future<void> processEducationForms() async{
+  //   try{
+  //     setState(() {
+  //       isLoading = true;
+  //     });
+  //     List<Future> tasks = [];
+  //     for (var key in educationFormKeys) {
+  //       final st = key.currentState!;
+  //
+  //       try {
+  //
+  //
+  //         // Only execute the code if st.isPrefill is false
+  //         tasks.add(Future(()async {
+  //           if (st.isPrefill == false) {
+  //
+  //             // Check if the file is selected
+  //             // if (st.finalPath == null || st.finalPath!.isEmpty) {
+  //             //   // Show a message asking the user to select a file
+  //             //   await showDialog(
+  //             //     context: context,
+  //             //     builder: (BuildContext context) {
+  //             //       return const AddFailePopup(
+  //             //         message: 'Please Select A File',
+  //             //       );
+  //             //     },
+  //             //   );
+  //             //   setState(() {
+  //             //     isLoading = false;
+  //             //   });
+  //             //   return; // Stop further execution if no file is selected
+  //             // }
+  //             if(st.fileAbove20Mb) {
+  //               // Call the posteducationscreen API regardless of whether the file is selected
+  //               ApiDataRegister response = await FormEducationManager()
+  //                   .posteducationscreen(
+  //                 context,
+  //                 st.widget.employeeID,
+  //                 st.graduatetype.toString(),
+  //                 st.selectedDegree.toString(),
+  //                 st.majorsubject.text,
+  //                 st.city.text,
+  //                 st.collegeuniversity.text,
+  //                 st.phone.text,
+  //                 st.state.text,
+  //                 "USA",
+  //                 "2024-08-09",
+  //               );
+  //
+  //               // If the file is selected, upload it
+  //               await uploadEducationDocument(
+  //                 context,
+  //                 response.educationId!,
+  //                 st.finalPath,
+  //                 st.fileName!,
+  //               );
+  //
+  //               // If the API call is successful
+  //               if (response.statusCode == 200 ||
+  //                   response.statusCode == 201) {
+  //                 await showDialog(
+  //                   context: context,
+  //                   builder: (BuildContext context) {
+  //                     return AddSuccessPopup(
+  //                       message: 'Education Data Saved',
+  //                     );
+  //                   },
+  //                 );
+  //
+  //                 await  _loadEducationData();
+  //
+  //               }
+  //             }
+  //             else{
+  //               await showDialog(
+  //                 context: context,
+  //                 builder: (BuildContext context) {
+  //                   return AddErrorPopup(
+  //                     message: 'File is too large!',
+  //                   );
+  //                 },
+  //               );
+  //             }
+  //
+  //           }
+  //         }));
+  //         // Wait for all tasks to complete
+  //         await Future.wait(tasks);
+  //
+  //         // Call widget.save() after all tasks are completed
+  //
+  //
+  //       } catch (e) {
+  //         // If an error occurs, show failure dialog
+  //         await showDialog(
+  //           context: context,
+  //           builder: (BuildContext context) {
+  //             return AddFailePopup(
+  //               message: 'Failed To Save Education Data',
+  //             );
+  //           },
+  //         );
+  //         // await showDialog(
+  //         //   context: context,
+  //         //   builder: (BuildContext context) => const FourNotFourPopup(),
+  //         // );
+  //       }
+  //
+  //       // Close the loading state and call onSave
+  //       // setState(() {
+  //       //   isLoading = false;
+  //       // });
+  //
+  //     }
+  //   }finally{
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //      widget.onSave();
+  //   }
+  //
+  //
+  // }
 
   void addEducationForm() {
     setState(() {
