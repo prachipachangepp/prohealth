@@ -435,7 +435,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     children: [
                       Text(
                         widget.docTypeText,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: TableSubHeading.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -463,7 +463,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     children: [
                       Text(
                         widget.subDocTypeText,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: TableSubHeading.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -500,8 +500,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                 Expanded(
                                   child: Text(
                                     fileName,
-                                    style: DocumentTypeDataStyle
-                                        .customTextStyle(context),
+                                    style: TableSubHeading.customTextStyle(context),
                                   ),
                                 ),
                                 IconButton(
@@ -601,8 +600,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   daysController, // Use the controller initialized with "1"
                                   cursorColor: ColorManager.black,
                                   cursorWidth: 1,
-                                  style: DocumentTypeDataStyle
-                                      .customTextStyle(context),
+                                  style: TableSubHeading.customTextStyle(context),
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -703,8 +701,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                             child: TextFormField(
                               controller: expiryDateController,
                               cursorColor: ColorManager.black,
-                              style: DocumentTypeDataStyle.customTextStyle(
-                                  context),
+                              style: TableSubHeading.customTextStyle(context),
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -719,9 +716,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 hintText: 'yyyy-mm-dd',
-                                hintStyle:
-                                DocumentTypeDataStyle.customTextStyle(
-                                    context),
+                                hintStyle: TableSubHeading.customTextStyle(context),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(6),
                                   borderSide: BorderSide(
@@ -743,11 +738,17 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   lastDate: DateTime(3101),
                                 );
                                 if (pickedDate != null) {
-                                  datePicked = pickedDate;
-                                  expiryDateController.text =
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(pickedDate);
+                                  setState(() {
+                                    datePicked = pickedDate;
+                                    expiryDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                    _issueDateError = null; // Hide error message when date is selected
+                                  });
                                 }
+                              },
+                              onChanged: (value) {
+                                setState(() {
+                                  _issueDateError = null; // Hide error message when text is changed
+                                });
                               },
                             ),
                           );
@@ -759,11 +760,85 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                         padding: const EdgeInsets.only(left: AppPadding.p5),
                         child: Text(
                           _issueDateError!,
-                          style:CommonErrorMsg.customTextStyle(context),
+                          style: CommonErrorMsg.customTextStyle(context),
                         ),
                       ),
                   ],
-                ),
+                )
+
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     HeaderContentConst(
+                //       isAsterisk: true,
+                //       heading: AppString.expiry_date,
+                //       content: FormField<String>(
+                //         builder: (FormFieldState<String> field) {
+                //           return SizedBox(
+                //             height: AppSize.s30,
+                //             width: AppSize.s354,
+                //             child: TextFormField(
+                //               controller: expiryDateController,
+                //               cursorColor: ColorManager.black,
+                //               style:TableSubHeading.customTextStyle(context),
+                //               decoration: InputDecoration(
+                //                 enabledBorder: OutlineInputBorder(
+                //                   borderSide: BorderSide(
+                //                       color: ColorManager.fmediumgrey,
+                //                       width: 1),
+                //                   borderRadius: BorderRadius.circular(6),
+                //                 ),
+                //                 focusedBorder: OutlineInputBorder(
+                //                   borderSide: BorderSide(
+                //                       color: ColorManager.fmediumgrey,
+                //                       width: 1),
+                //                   borderRadius: BorderRadius.circular(6),
+                //                 ),
+                //                 hintText: 'yyyy-mm-dd',
+                //                 hintStyle:TableSubHeading.customTextStyle(context),
+                //                 border: OutlineInputBorder(
+                //                   borderRadius: BorderRadius.circular(6),
+                //                   borderSide: BorderSide(
+                //                       width: 1,
+                //                       color: ColorManager.fmediumgrey),
+                //                 ),
+                //                 contentPadding:
+                //                 EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                //                 suffixIcon: Icon(
+                //                     Icons.calendar_month_outlined,
+                //                     color: ColorManager.blueprime),
+                //                 errorText: field.errorText,
+                //               ),
+                //               onTap: () async {
+                //                 DateTime? pickedDate = await showDatePicker(
+                //                   context: context,
+                //                   initialDate: DateTime.now(),
+                //                   firstDate: DateTime(1901),
+                //                   lastDate: DateTime(3101),
+                //                 );
+                //                 if (pickedDate != null) {
+                //                   datePicked = pickedDate;
+                //                   expiryDateController.text =
+                //                       DateFormat('yyyy-MM-dd')
+                //                           .format(pickedDate);
+                //                 }
+                //               },
+                //             ),
+                //           );
+                //         },
+                //       ),
+                //     ),
+                //     if (_issueDateError != null) // Display error if any
+                //       Padding(
+                //         padding: const EdgeInsets.only(left: AppPadding.p5),
+                //         child: Text(
+                //           _issueDateError!,
+                //           style:CommonErrorMsg.customTextStyle(context),
+                //         ),
+                //       ),
+                //   ],
+                // ),
               ),
             ],
           ),
@@ -927,7 +1002,6 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
           }
         },
       )
-
 
 
 

@@ -672,7 +672,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                     children: [
                       Text(
                         idOfDoc,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: TableSubHeading.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -718,7 +718,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                     children: [
                       Text(
                         docTypeText,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: TableSubHeading.customTextStyle(context),
                       ),
                     ],
                   ),
@@ -747,7 +747,7 @@ class OrgDocNewEditPopup extends StatelessWidget {
                     children: [
                       Text(
                         subDocTypeText,
-                        style: DocumentTypeDataStyle.customTextStyle(context),
+                        style: TableSubHeading.customTextStyle(context),
                       ),
                     ],
                   ),
