@@ -76,7 +76,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.7,
-        height: 480,
+        height: 500,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -157,7 +157,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                                       border: Border.all(color: Colors.grey, width: 1),
                                       borderRadius: BorderRadius.circular(5),
                                     ),
-                                    child: Center(child: Text("No licenses available",style: DocumentTypeDataStyle.customTextStyle(context),)),
+                                    child: Center(child: Text(" ",style: DocumentTypeDataStyle.customTextStyle(context),)),
                                   );
 
                                 }
@@ -169,7 +169,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                                       border: Border.all(color: Colors.grey, width: 1),
                                       borderRadius: BorderRadius.circular(5),
                                     ),
-                                    child: Center(child: Text(docNameadd,style: DocumentTypeDataStyle.customTextStyle(context),)),
+                                    child: Center(child: Text("No licenses available",style: DocumentTypeDataStyle.customTextStyle(context),)),
                                   );
                                 }
                                 if(snapshot.hasData){
@@ -441,41 +441,42 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
     required String errorKey,
     required bool capitalIsSelect,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            text: labelText, // Main text
-            style: AllPopupHeadings.customTextStyle(context), // Main style
-            children: [
-              TextSpan(
-                text: ' *', // Asterisk
-                style: AllPopupHeadings.customTextStyle(context).copyWith(
-                  color: ColorManager.red, // Asterisk color
+    return StatefulBuilder(
+      builder: (BuildContext context, void Function(void Function()) setState) { return  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          RichText(
+            text: TextSpan(
+              text: labelText, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: ColorManager.red, // Asterisk color
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-       // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
-        SizedBox(height: 4,),
-        CustomTextFieldRegister(
-          capitalIsSelect: capitalIsSelect,
-          height: AppSize.s30,
-          width: MediaQuery.of(context).size.width / 6,
-          controller: controller,
-hintText:hintText ,
-          keyboardType: TextInputType.text,
-          padding: const EdgeInsets.only(
-              bottom: AppPadding.p5, left: AppPadding.p20),
-          onChanged: (value) {
-            setState(() {
-              errorStates[errorKey] = value.isEmpty;
-            });
-          },
-        ),
-        errorStates[errorKey]!?
+          // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+          SizedBox(height: 4,),
+          CustomTextFieldRegister(
+            capitalIsSelect: capitalIsSelect,
+            height: AppSize.s30,
+            width: MediaQuery.of(context).size.width / 6,
+            controller: controller,
+            hintText:hintText ,
+            keyboardType: TextInputType.text,
+            padding: const EdgeInsets.only(
+                bottom: AppPadding.p5, left: AppPadding.p20),
+            onChanged: (value) {
+              setState(() {
+                errorStates[errorKey] = value.isEmpty;
+              });
+            },
+          ),
+          errorStates[errorKey]!?
           Padding(
             padding: const EdgeInsets.only(top: 1),
             child: Text(
@@ -486,7 +487,9 @@ hintText:hintText ,
               ),
             ),
           ):SizedBox(height: 13,)
-      ],
+        ],
+      ); },
+
     );
   }
 
@@ -497,59 +500,60 @@ hintText:hintText ,
     required String errorKey,
     required DateTime initialDate,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            text:labelText, // Main text
-            style: AllPopupHeadings.customTextStyle(context), // Main style
-            children: [
-              TextSpan(
-                text: ' *', // Asterisk
-                style: AllPopupHeadings.customTextStyle(context).copyWith(
-                  color: ColorManager.red, // Asterisk color
+    return StatefulBuilder(
+      builder: (BuildContext context, void Function(void Function()) setState) { return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          RichText(
+            text: TextSpan(
+              text:labelText, // Main text
+              style: AllPopupHeadings.customTextStyle(context), // Main style
+              children: [
+                TextSpan(
+                  text: ' *', // Asterisk
+                  style: AllPopupHeadings.customTextStyle(context).copyWith(
+                    color: ColorManager.red, // Asterisk color
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-       // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
-        SizedBox(height: 4,),
-        CustomTextFieldRegister(
-          height: AppSize.s30,
-          width: MediaQuery.of(context).size.width / 6,
-          controller: controller,
-          hintText:hintText,
-          keyboardType: TextInputType.text,
-          suffixIcon: Icon(
-            Icons.calendar_month_outlined,
-            color: ColorManager.blueprime,
-          ),
-          padding: const EdgeInsets.only(
-              bottom: AppPadding.p5, left: AppPadding.p20),
-          onTap: () async {
-            DateTime? date = await showDatePicker(
-              context: context,
-              initialDate: initialDate,
-              firstDate: DateTime(1900),
-              lastDate: DateTime(2101),
-            );
-            if (date != null) {
-              String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+          // Text(labelText,style: AllPopupHeadings.customTextStyle(context),),
+          SizedBox(height: 4,),
+          CustomTextFieldRegister(
+            height: AppSize.s30,
+            width: MediaQuery.of(context).size.width / 6,
+            controller: controller,
+            hintText:hintText,
+            keyboardType: TextInputType.text,
+            suffixIcon: Icon(
+              Icons.calendar_month_outlined,
+              color: ColorManager.blueprime,
+            ),
+            padding: const EdgeInsets.only(
+                bottom: AppPadding.p5, left: AppPadding.p20),
+            onTap: () async {
+              DateTime? date = await showDatePicker(
+                context: context,
+                initialDate: initialDate,
+                firstDate: DateTime(1900),
+                lastDate: DateTime(2101),
+              );
+              if (date != null) {
+                String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                setState(() {
+                  controller.text = formattedDate;
+                  errorStates[errorKey] = controller.text.isEmpty;
+                });
+              }
+            },
+            onChanged: (value) {
               setState(() {
-                controller.text = formattedDate;
-                errorStates[errorKey] = controller.text.isEmpty;
+                errorStates[errorKey] = value.isEmpty;
               });
-            }
-          },
-          onChanged: (value) {
-            setState(() {
-              errorStates[errorKey] = value.isEmpty;
-            });
-          },
-        ),
-        errorStates[errorKey]! ?
+            },
+          ),
+          errorStates[errorKey]! ?
           Padding(
             padding: const EdgeInsets.only(top: 1),
             child: Text(
@@ -560,7 +564,9 @@ hintText:hintText ,
               ),
             ),
           ):SizedBox(height:13)
-      ],
+        ],
+      );  },
+
     );
   }
 
