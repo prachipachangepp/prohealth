@@ -248,9 +248,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                               pickedFile = result.files.first.bytes;
                               isFilePicked = true;
                               errorStates["pickFile"] = pickedFileName.isEmpty;
-
                             });
-
                             print('File picked: $pickedFileName');
                           } else {
                             // User canceled the picker
