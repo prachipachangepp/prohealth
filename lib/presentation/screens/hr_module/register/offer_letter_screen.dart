@@ -1705,7 +1705,6 @@ class HrEnrollOfferLatterProvider extends ChangeNotifier{
   bool _lastDate= false;
   bool _noOfPatientDate = false;
   bool _isLoading = false;
-
   bool get issueDate => _issueDate;
   bool get verbalAcceptanceDate => _verbalAcceptanceDate;
   bool get startDate => _startDate;
