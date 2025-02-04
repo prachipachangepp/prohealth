@@ -174,7 +174,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                         child: CircularProgressIndicator());
                                   }
                                   if (snapshot.hasData) {
-                                    return AddOfficeSubmitButton(
+                                    return AddOfficeSumbitButton(
                                       nameController: nameController,
                                       addressController: addressController,
                                       emailController: emailController,
