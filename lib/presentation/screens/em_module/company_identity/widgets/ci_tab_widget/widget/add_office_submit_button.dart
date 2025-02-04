@@ -13,13 +13,1000 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/comp
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_widgets/const_checckboxtile.dart';
-import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
-import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../widgets/dialogue_template.dart';
 import '../../company_identity_zone/widgets/location_screen.dart';
 import '../../whitelabelling/success_popup.dart';
+
+///pick location provider
+// class AddOfficeSubmitButtonProvider extends ChangeNotifier {
+//   final TextEditingController nameController;
+//   final TextEditingController addressController;
+//   final TextEditingController emailController;
+//   final TextEditingController stateController;
+//   final TextEditingController countryController;
+//   final TextEditingController mobNumController;
+//   final TextEditingController secNumController;
+//   final TextEditingController optionalController;
+//   final GlobalKey<FormState> formKey;
+//   final List<ServicesMetaData> servicesList;
+//
+//   bool isLoading = false;
+//   List<String> _suggestions = [];
+//   List<String> get suggestions => _suggestions;
+//
+//   LatLng _selectedLocation = LatLng(37.7749, -122.4194);
+//   String _location = 'Lat/Long not selected';
+//   // double? _latitude;
+//   // double? _longitude;
+//  // String location = 'Lat/Long not selected';
+//   double? latitude;
+//   double? longitude;
+//   String get locationGet => _location;
+//
+//
+//   bool _isFormValid = true;
+//   String? nameError, emailError, stateError, addressError, primaryPhoneError, secondaryPhoneError, alternativePhoneError, countryError;
+//
+//   AddOfficeSubmitButtonProvider({
+//     required this.nameController,
+//     required this.addressController,
+//     required this.emailController,
+//     required this.stateController,
+//     required this.countryController,
+//     required this.mobNumController,
+//     required this.secNumController,
+//     required this.optionalController,
+//     required this.formKey,
+//     required this.servicesList,
+//   }) {
+//     addressController.addListener(_onCountyNameChanged);
+//   }
+//   List<ServiceList> selectedServices = [];
+//   Future<void> _onCountyNameChanged() async {
+//     if (addressController.text.isEmpty) {
+//       _suggestions = [];
+//       notifyListeners();
+//       return;
+//     }
+//
+//     final suggestions = await fetchSuggestions(addressController.text);
+//     _suggestions = (suggestions[0] == addressController.text) ? [] : suggestions;
+//     notifyListeners();
+//   }
+//   Future<void> pickLocation(BuildContext context) async {
+//     try {
+//       if (!context.mounted) return;
+//
+//       LatLng? pickedLocation = await Navigator.of(context).push<LatLng>(
+//         MaterialPageRoute(
+//           builder: (context) =>
+//               MapScreen(
+//             initialLocation: _selectedLocation,
+//             onLocationPicked: (location) {
+//               if (context.mounted) {
+//                 latitude = location.latitude;
+//                 longitude = location.longitude;
+//                 _location = 'Lat: ${location.latitude!.toStringAsFixed(4)}, Long: ${location.longitude!.toStringAsFixed(4)}';
+//                 Future.microtask(() {
+//                   notifyListeners();
+//                 });
+//               }
+//             },
+//
+//           ),
+//         ),
+//       );
+//
+//       if (pickedLocation != null && context.mounted) {
+//         _selectedLocation = pickedLocation;
+//         latitude = pickedLocation.latitude;
+//         longitude = pickedLocation.longitude;
+//         _location = 'Lat: ${latitude!.toStringAsFixed(4)}, Long: ${longitude!.toStringAsFixed(4)}';
+//         notifyListeners();
+//       }
+//     } catch (e) {
+//       debugPrint("Error in pickLocation: $e");
+//     }
+//   }
+//
+//   // Future<void> pickLocation(BuildContext context) async {
+//   //   LatLng? pickedLocation = await Navigator.of(context).push<LatLng>(
+//   //     MaterialPageRoute(
+//   //       builder: (context) => MapScreen(
+//   //         initialLocation: _selectedLocation,
+//   //         onLocationPicked: (location) {
+//   //           if (context.mounted) {
+//   //             _latitude = location.latitude;
+//   //           _longitude = location.longitude;
+//   //           _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+//   //           notifyListeners();}
+//   //         },
+//   //       ),
+//   //     ),
+//   //   );
+//   //
+//   //   if (pickedLocation != null) {
+//   //     if (context.mounted) {
+//   //       _selectedLocation = pickedLocation;
+//   //       _latitude = pickedLocation.latitude;
+//   //       _longitude = pickedLocation.longitude;
+//   //       _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!
+//   //           .toStringAsFixed(4)}';
+//   //       notifyListeners();
+//   //     }
+//   //   }
+//   // }
+//
+//   String? _validateField(String value, String fieldName) {
+//     return value.isEmpty ? "Please Enter $fieldName" : null;
+//   }
+//
+//   void validateForm() {
+//     _isFormValid = true;
+//     nameError = _validateField(nameController.text, 'Office Name');
+//     emailError = _validateField(emailController.text, 'Email ID');
+//     stateError = _validateField(stateController.text, 'State');
+//     addressError = _validateField(addressController.text, 'Office Address');
+//     primaryPhoneError = _validateField(mobNumController.text, 'Primary Phone');
+//     secondaryPhoneError = _validateField(secNumController.text, 'Secondary Phone');
+//     alternativePhoneError = _validateField(optionalController.text, 'Alternative Phone');
+//     countryError = _validateField(countryController.text, 'Country');
+//
+//     if (nameError != null || emailError != null || stateError != null || addressError != null ||
+//         primaryPhoneError != null || secondaryPhoneError != null || alternativePhoneError != null || countryError != null) {
+//       _isFormValid = false;
+//     }
+//     notifyListeners();
+//   }
+//
+//   Future<void> submitForm(BuildContext context) async {
+//     validateForm();
+//     if (!_isFormValid) {
+//       return;
+//     }
+//
+//     isLoading = true;
+//     notifyListeners();
+//
+//     try {
+//       ApiData response = await addNewOffice(
+//         context: context,
+//         name: nameController.text,
+//         address: addressController.text,
+//         email: emailController.text,
+//         primaryPhone: mobNumController.text,
+//         secondaryPhone: secNumController.text,
+//         officeId: "",
+//         lat: _selectedLocation.latitude.toString(),
+//         long: _selectedLocation.longitude.toString(),
+//         cityName: "",
+//         stateName: stateController.text,
+//         country: countryController.text,
+//         isHeadOffice: false,
+//       );
+//
+//       if (response.statusCode == 200 || response.statusCode == 201) {
+//         await addNewOfficeServices(
+//           context: context,
+//           officeId: response.officeId!,
+//           serviceList: [], // Update with selected services
+//         );
+//
+//         Navigator.pop(context);
+//         showDialog(
+//           context: context,
+//           builder: (context) => AddSuccessPopup(message: 'Added Successfully'),
+//         );
+//
+//         _clearFields();
+//       }
+//     } finally {
+//       isLoading = false;
+//       notifyListeners();
+//     }
+//   }
+//
+//   void _clearFields() {
+//     nameController.clear();
+//     addressController.clear();
+//     emailController.clear();
+//     stateController.clear();
+//     countryController.clear();
+//     mobNumController.clear();
+//     secNumController.clear();
+//     optionalController.clear();
+//   }
+//
+//   void updateLocation(LatLng newLocation) {
+//     _location = "${newLocation.latitude}, ${newLocation.longitude}";
+//     notifyListeners();
+//   }
+//
+// }
+//
+// class AddOfficeSubmitButton extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//        return Consumer<AddOfficeSubmitButtonProvider>(
+//       builder: (context, provider, child) {
+//         return DialogueTemplate(
+//           width: AppSize.s800,
+//           height: AppSize.s650,
+//           title: 'Add New Office',
+//           body: [
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               children: [
+//                 Stack(children: [
+//                   Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           mainAxisAlignment: MainAxisAlignment.start,
+//                           children: [
+//                             FirstSMTextFConst(
+//                               controller: provider.nameController,
+//                               keyboardType: TextInputType.text,
+//                               text: AppStringEM.name,
+//                             ),
+//                             if (provider.nameError != null) // Display error if any
+//                               Text(
+//                                 provider.nameError!,
+//                                 style: CommonErrorMsg.customTextStyle(context),
+//                               ),
+//                             const SizedBox(height: AppSize.s9),
+//                             DemailSMTextFConst(
+//                               controller: provider.emailController,
+//                               keyboardType: TextInputType.emailAddress,
+//                               text: AppString.email,
+//                             ),
+//                             if (provider.emailError != null) // Display error if any
+//                               Text(
+//                                 provider.emailError!,
+//                                 style: CommonErrorMsg.customTextStyle(context),
+//                               ),
+//                             const SizedBox(height: AppSize.s9),
+//                             FirstSMTextFConst(
+//                               controller: provider.countryController,
+//                               keyboardType: TextInputType.text,
+//                               text: 'Country',
+//                             ),
+//                             if (provider.countryError != null) // Display error if any
+//                               Text(
+//                                 provider.countryError!,
+//                                 style:CommonErrorMsg.customTextStyle(context),
+//                               ),
+//                             const SizedBox(height: AppSize.s9),
+//                             SMTextFConstPhone(
+//                               controller: provider.secNumController,
+//                               keyboardType: TextInputType.number,
+//                               text: 'Secondary Phone',
+//                             ),
+//                             if (provider.secondaryPhoneError != null) // Display error if any
+//                               Text(
+//                                 provider.secondaryPhoneError!,
+//                                 style: CommonErrorMsg.customTextStyle(context),
+//                               ),
+//                             const SizedBox(height: AppSize.s14),
+//                             Text(
+//                               'Services',
+//                               style: AllPopupHeadings.customTextStyle(context),
+//                             ),
+//                             SizedBox(height: 3),
+//                             StatefulBuilder(
+//                               builder: (BuildContext context,
+//                                   void Function(void Function()) setState) {
+//                                 return Container(
+//                                   height: 100,
+//                                   width: 300,
+//                                   child: StatefulBuilder(
+//                                     builder: (BuildContext context,
+//                                         void Function(void Function()) setState) {
+//                                       return Wrap(children: [
+//                                         ...List.generate(provider.servicesList.length,
+//                                                 (index) {
+//                                               String serviceID =
+//                                                   provider.servicesList[index].serviceId;
+//                                               bool isSelected =
+//                                               provider.selectedServices.contains(serviceID);
+//                                               return Container(
+//                                                   width: 150,
+//                                                   child: Center(
+//                                                     child: CheckboxTile(
+//                                                       title: provider.servicesList[index]
+//                                                           .serviceName,
+//                                                       initialValue: false,
+//                                                       onChanged: (value) {
+//                                                         setState(() {
+//                                                           if (value == true) {
+//                                                             provider.selectedServices.add(
+//                                                                 ServiceList(
+//                                                                     serviceId:
+//                                                                     serviceID,
+//                                                                     npiNumber: "",
+//                                                                     medicareProviderId:
+//                                                                     "",
+//                                                                     hcoNumId: ""));
+//                                                           } else {
+//                                                             provider.selectedServices
+//                                                                 .remove(serviceID);
+//                                                           }
+//                                                         });
+//                                                         print(
+//                                                             "Service Id List ${provider.selectedServices}");
+//                                                       },
+//                                                     ),
+//                                                   ));
+//                                             })
+//                                       ]);
+//                                     },
+//                                   ),
+//                                 );
+//                               },
+//                             )
+//                           ],
+//                         ),
+//                         const SizedBox(width: 20),
+//                         Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           mainAxisAlignment: MainAxisAlignment.start,
+//                           children: [
+//
+//                             SMTextFConst(
+//                               controller: provider.addressController,
+//                               keyboardType: TextInputType.streetAddress,
+//                               text: AppString.officeaddress,
+//                             ),
+//                             if (provider.addressError != null) // Display error if any
+//                               Text(
+//                                 provider.addressError!,
+//                                 style: TextStyle(
+//                                   color: Colors.red,
+//                                   fontSize: FontSize.s10,
+//                                 ),
+//                               ),
+//                             // widget.checkBoxHeadOffice,
+//                             const SizedBox(height: AppSize.s9),
+//                             FirstSMTextFConst(
+//                               controller: provider.stateController,
+//                               keyboardType: TextInputType.text,
+//                               text: 'State',
+//                             ),
+//                             if (provider.stateError != null) // Display error if any
+//                               Text(
+//                                 provider.stateError!,
+//                                 style: CommonErrorMsg.customTextStyle(context),
+//                               ),
+//                             const SizedBox(height: AppSize.s9),
+//                             SMTextFConstPhone(
+//                               controller: provider.mobNumController,
+//                               keyboardType: TextInputType.number,
+//                               text: 'Primary Phone',
+//                             ),
+//                             if (provider.primaryPhoneError != null) // Display error if any
+//                               Text(
+//                                 provider.primaryPhoneError!,
+//                                 style:CommonErrorMsg.customTextStyle(context),
+//                               ),
+//                             const SizedBox(height: AppSize.s10),
+//                             SMTextFConstPhone(
+//                               controller: provider.optionalController,
+//                               keyboardType: TextInputType.number,
+//                               text: 'Alternative Phone',
+//                             ),
+//                             if (provider.alternativePhoneError != null) // Display error if any
+//                               Text(
+//                                 provider.alternativePhoneError!,
+//                                 style:CommonErrorMsg.customTextStyle(context),
+//                               ),
+//                             const SizedBox(height: AppSize.s10),
+//                             Row(
+//                               children: [
+//                                 TextButton(
+//                                   onPressed: () {
+//                                     context.read<AddOfficeSubmitButtonProvider>().pickLocation(context);
+//                                      //context.read<AddOfficeSubmitButtonProvider>().updateLocation(provider._selectedLocation);
+//                                   },
+//
+//                                   // onPressed: () => provider.pickLocation(context),
+//                                   style: TextButton.styleFrom(backgroundColor: Colors.transparent),
+//                                   child: Text(
+//                                     'Pick Location',
+//                                     style: TextStyle(
+//                                       fontSize: FontSize.s14,
+//                                       fontWeight: FontWeight.w700,
+//                                       color: ColorManager.bluelight,
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 Icon(
+//                                   Icons.location_on_outlined,
+//                                   color: ColorManager.granitegray,
+//                                   size: AppSize.s18,
+//                                 ),
+//                                 Text(
+//                                   provider.locationGet,
+//                                   style: TextStyle(
+//                                     fontSize: FontSize.s14,
+//                                     color: ColorManager.granitegray,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ],
+//                         )
+//                       ]),
+//                   if (provider._suggestions.isNotEmpty)
+//                     Positioned(
+//                       top: 55,
+//                       right: 60,
+//                       child: Container(
+//                         height: 100,
+//                         width: 300,
+//                         decoration: BoxDecoration(
+//                           color: Colors.white,
+//                           borderRadius: BorderRadius.circular(8),
+//                           boxShadow: [
+//                             BoxShadow(
+//                               color: Colors.black26,
+//                               blurRadius: 4,
+//                               offset: Offset(0, 2),
+//                             ),
+//                           ],
+//                         ),
+//                         child: ListView.builder(
+//                           shrinkWrap: true,
+//                           itemCount: provider._suggestions.length,
+//                           itemBuilder: (context, index) {
+//                             return ListTile(
+//                               title: Text(
+//                                 provider._suggestions[index],
+//                                 style: TableSubHeading.customTextStyle(context),
+//                               ),
+//                               onTap: () {
+//                                 FocusScope.of(context)
+//                                     .unfocus(); // Dismiss the keyboard
+//                                 String selectedSuggestion = provider._suggestions[index];
+//                                 provider.addressController.text = selectedSuggestion;
+//
+//                                 // setState(() {
+//                                 //   _suggestions.clear();
+//                                 //   //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+//                                 // });
+//                               },
+//                             );
+//                           },
+//                         ),
+//                       ),
+//                     ),
+//                 ]
+//                 ),
+//               ],
+//             ),
+//           ],
+//           bottomButtons: provider.isLoading
+//               ? SizedBox(
+//             height: AppSize.s25,
+//             width: AppSize.s25,
+//             child: CircularProgressIndicator(color: ColorManager.blueprime),
+//           )
+//               : CustomElevatedButton(
+//             width: AppSize.s105,
+//             height: AppSize.s30,
+//             text: AppStringEM.add,
+//             onPressed: () => provider.submitForm(context),
+//           ),
+//         );
+//       });
+//   }
+// }
+
+
+/// november 11_november
+// class AddOfficeSumbitButton extends StatefulWidget {
+//   final TextEditingController nameController;
+//   final TextEditingController addressController;
+//   final TextEditingController emailController;
+//   final TextEditingController stateController;
+//   final TextEditingController countryController;
+//   final TextEditingController mobNumController;
+//   final TextEditingController secNumController;
+//   final TextEditingController OptionalController;
+//   final List<ServicesMetaData> servicesList;
+//   //final Widget checkBoxHeadOffice;
+//   final Future<void> Function() onPressed;
+//   final GlobalKey<FormState> formKey;
+//   AddOfficeSumbitButton({
+//     super.key,
+//     required this.nameController,
+//     required this.addressController,
+//     required this.emailController,
+//     required this.mobNumController,
+//     required this.secNumController,
+//     required this.OptionalController,
+//     required this.onPressed,
+//     required this.formKey,
+//     required this.stateController,
+//     required this.countryController,
+//     required this.servicesList,
+//     // required this.checkBoxHeadOffice,
+//   });
+//
+//   @override
+//   State<AddOfficeSumbitButton> createState() => _AddOfficeSumbitButtonState();
+// }
+//
+// class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
+//
+//   bool isLoading = false;
+//
+//   List<String> _suggestions = [];
+//   @override
+//   void initState() {
+//     super.initState();
+//     widget.addressController.addListener(_onCountyNameChanged);
+//   }
+//
+//   @override
+//   void dispose() {
+//     super.dispose();
+//   }
+//
+//   void _onCountyNameChanged() async {
+//     if (widget.addressController.text.isEmpty) {
+//       setState(() {
+//         _suggestions = [];
+//       });
+//       return;
+//     }
+//     final suggestions = await fetchSuggestions(widget.addressController.text);
+//     if (suggestions[0] == widget.addressController.text) {
+//       setState(() {
+//         _suggestions.clear();
+//       });
+//     } else if (widget.addressController.text.isEmpty) {
+//       setState(() {
+//         _suggestions = suggestions;
+//       });
+//     } else {
+//       setState(() {
+//         _suggestions = suggestions;
+//       });
+//     }
+//   }
+//
+//   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+//   String _location = 'Lat/Long not selected'; // Default text
+//   double? _latitude;
+//   double? _longitude;
+//   void _pickLocation() async {
+//     final pickedLocation = await Navigator.of(context).push<LatLng>(
+//       MaterialPageRoute(
+//         builder: (context) => MapScreen(
+//           initialLocation: _selectedLocation,
+//           onLocationPicked: (location) {
+//             // Print debug information to ensure this is being called
+//             print('Picked location inside MapScreen: $_selectedLocation');
+//             _location = 'Lat: ${_selectedLocation.latitude}, Long: ${_selectedLocation.longitude}';
+//             if (!mounted) return;
+//             setState(() {
+//               _latitude = location.latitude;
+//               _longitude = location.longitude;
+//               _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+//               //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+//             });
+//           },
+//         ),
+//       ),
+//     );
+//     print("Picked location ${pickedLocation}");
+//
+//     if (pickedLocation != null) {
+//       // Print debug information to ensure this is being reached
+//       print('Picked location from Navigator: $pickedLocation');
+//      // if (!mounted) return;
+//      // setState(() {
+//         _selectedLocation = pickedLocation;
+//         _latitude = pickedLocation.latitude;
+//         _longitude = pickedLocation.longitude;
+//         _location =
+//         'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+//         //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+//      // });
+//     } else {
+//       print('No location was picked.');
+//     }
+//   }
+//
+//   List<ServiceList> selectedServices = [];
+//
+//   String? _nameDocError;
+//   String? _emailDocError;
+//   String? _stateDocError;
+//   String? _addressDocError;
+//   String? _pPhoneDocError;
+//   String? _sphoneDocError;
+//   String? _aphoneDocError;
+//   String? _countryDocError;
+//
+//   bool _isFormValid = true;
+//   String? _validateTextField(String value, String fieldName) {
+//     if (value.isEmpty) {
+//       _isFormValid = false;
+//       return "Please Enter $fieldName";
+//     }
+//     return null;
+//   }
+//
+//   void _validateForm() {
+//     setState(() {
+//       _isFormValid = true;
+//       _nameDocError = _validateTextField(widget.nameController.text, ' Office Name');
+//       _emailDocError = _validateTextField(widget.emailController.text, 'Email ID');
+//       _stateDocError = _validateTextField(widget.stateController.text, 'State');
+//       _addressDocError =
+//           _validateTextField(widget.addressController.text, 'Office Address');
+//       _pPhoneDocError =
+//           _validateTextField(widget.mobNumController.text, 'Primary Phone');
+//       _sphoneDocError =
+//           _validateTextField(widget.secNumController.text, 'Secondary Phone');
+//       _aphoneDocError = _validateTextField(
+//           widget.OptionalController.text, 'Alternative Phone');
+//       _countryDocError =
+//           _validateTextField(widget.countryController.text, 'Country');
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return DialogueTemplate(
+//       width: AppSize.s800,
+//       height: AppSize.s650,
+//       title: 'Add New Office',
+//       body: [
+//         Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           mainAxisAlignment: MainAxisAlignment.start,
+//           children: [
+//             Stack(children: [
+//               Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       mainAxisAlignment: MainAxisAlignment.start,
+//                       children: [
+//                         FirstSMTextFConst(
+//                           controller: widget.nameController,
+//                           keyboardType: TextInputType.text,
+//                           text: AppStringEM.name,
+//                         ),
+//                         if (_nameDocError != null) // Display error if any
+//                           Text(
+//                             _nameDocError!,
+//                             style: CommonErrorMsg.customTextStyle(context),
+//                           ),
+//                         const SizedBox(height: AppSize.s9),
+//                         DemailSMTextFConst(
+//                           controller: widget.emailController,
+//                           keyboardType: TextInputType.emailAddress,
+//                           text: AppString.email,
+//                         ),
+//                         if (_emailDocError != null) // Display error if any
+//                           Text(
+//                             _emailDocError!,
+//                             style: CommonErrorMsg.customTextStyle(context),
+//                           ),
+//                         const SizedBox(height: AppSize.s9),
+//                         FirstSMTextFConst(
+//                           controller: widget.countryController,
+//                           keyboardType: TextInputType.text,
+//                           text: 'Country',
+//                         ),
+//                         if (_countryDocError != null) // Display error if any
+//                           Text(
+//                             _countryDocError!,
+//                             style:CommonErrorMsg.customTextStyle(context),
+//                           ),
+//                         const SizedBox(height: AppSize.s9),
+//                         SMTextFConstPhone(
+//                           controller: widget.secNumController,
+//                           keyboardType: TextInputType.number,
+//                           text: 'Secondary Phone',
+//                         ),
+//                         if (_sphoneDocError != null) // Display error if any
+//                           Text(
+//                             _sphoneDocError!,
+//                             style: CommonErrorMsg.customTextStyle(context),
+//                           ),
+//                         const SizedBox(height: AppSize.s14),
+//                         Text(
+//                           'Services',
+//                           style: AllPopupHeadings.customTextStyle(context),
+//                         ),
+//                         SizedBox(height: 3),
+//                         StatefulBuilder(
+//                           builder: (BuildContext context,
+//                               void Function(void Function()) setState) {
+//                             return Container(
+//                               height: 100,
+//                               width: 300,
+//                               child: StatefulBuilder(
+//                                 builder: (BuildContext context,
+//                                     void Function(void Function()) setState) {
+//                                   return Wrap(children: [
+//                                     ...List.generate(widget.servicesList.length,
+//                                             (index) {
+//                                           String serviceID =
+//                                               widget.servicesList[index].serviceId;
+//                                           bool isSelected =
+//                                           selectedServices.contains(serviceID);
+//                                           return Container(
+//                                               width: 150,
+//                                               child: Center(
+//                                                 child: CheckboxTile(
+//                                                   title: widget.servicesList[index]
+//                                                       .serviceName,
+//                                                   initialValue: false,
+//                                                   onChanged: (value) {
+//                                                     setState(() {
+//                                                       if (value == true) {
+//                                                         selectedServices.add(
+//                                                             ServiceList(
+//                                                                 serviceId:
+//                                                                 serviceID,
+//                                                                 npiNumber: "",
+//                                                                 medicareProviderId:
+//                                                                 "",
+//                                                                 hcoNumId: ""));
+//                                                       } else {
+//                                                         selectedServices
+//                                                             .remove(serviceID);
+//                                                       }
+//                                                     });
+//                                                     print(
+//                                                         "Service Id List ${selectedServices}");
+//                                                   },
+//                                                 ),
+//                                               ));
+//                                         })
+//                                   ]);
+//                                 },
+//                               ),
+//                             );
+//                           },
+//                         )
+//                       ],
+//                     ),
+//                     const SizedBox(width: 20),
+//                     Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       mainAxisAlignment: MainAxisAlignment.start,
+//                       children: [
+//
+//                         SMTextFConst(
+//                           controller: widget.addressController,
+//                           keyboardType: TextInputType.streetAddress,
+//                           text: AppString.officeaddress,
+//                         ),
+//                         if (_addressDocError != null) // Display error if any
+//                           Text(
+//                             _addressDocError!,
+//                             style: TextStyle(
+//                               color: Colors.red,
+//                               fontSize: FontSize.s10,
+//                             ),
+//                           ),
+//                         // widget.checkBoxHeadOffice,
+//                         const SizedBox(height: AppSize.s9),
+//                         FirstSMTextFConst(
+//                           controller: widget.stateController,
+//                           keyboardType: TextInputType.text,
+//                           text: 'State',
+//                         ),
+//                         if (_stateDocError != null) // Display error if any
+//                           Text(
+//                             _stateDocError!,
+//                             style: CommonErrorMsg.customTextStyle(context),
+//                           ),
+//                         const SizedBox(height: AppSize.s9),
+//                         SMTextFConstPhone(
+//                           controller: widget.mobNumController,
+//                           keyboardType: TextInputType.number,
+//                           text: 'Primary Phone',
+//                         ),
+//                         if (_pPhoneDocError != null) // Display error if any
+//                           Text(
+//                             _pPhoneDocError!,
+//                             style:CommonErrorMsg.customTextStyle(context),
+//                           ),
+//                         const SizedBox(height: AppSize.s10),
+//                         SMTextFConstPhone(
+//                           controller: widget.OptionalController,
+//                           keyboardType: TextInputType.number,
+//                           text: 'Alternative Phone',
+//                         ),
+//                         if (_aphoneDocError != null) // Display error if any
+//                           Text(
+//                             _aphoneDocError!,
+//                             style:CommonErrorMsg.customTextStyle(context),
+//                           ),
+//                         const SizedBox(height: AppSize.s10),
+//                         Row(
+//                           children: [
+//                             TextButton(
+//                               onPressed: _pickLocation,
+//                               style: TextButton.styleFrom(
+//                                   backgroundColor: Colors.transparent),
+//                               child: Text(
+//                                 'Pick Location',
+//                                 style: TextStyle(
+//                                   fontSize: FontSize.s14,
+//                                   fontWeight: FontWeight.w700,
+//                                   color: ColorManager.bluelight,
+//                                   //decoration: TextDecoration.none,
+//                                 ),
+//                               ),
+//                             ),
+//                             Icon(
+//                               Icons.location_on_outlined,
+//                               color: ColorManager.granitegray,
+//                               size: AppSize.s18,
+//                             ),
+//                             Text(
+//                               _location,
+//                               style: TextStyle(
+//                                 fontSize: FontSize.s14,
+//                                 color: ColorManager.granitegray,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ],
+//                     )
+//                   ]),
+//               if (_suggestions.isNotEmpty)
+//                 Positioned(
+//                   top: 55,
+//                   right: 60,
+//                   child: Container(
+//                     height: 100,
+//                     width: 300,
+//                     decoration: BoxDecoration(
+//                       color: Colors.white,
+//                       borderRadius: BorderRadius.circular(8),
+//                       boxShadow: [
+//                         BoxShadow(
+//                           color: Colors.black26,
+//                           blurRadius: 4,
+//                           offset: Offset(0, 2),
+//                         ),
+//                       ],
+//                     ),
+//                     child: ListView.builder(
+//                       shrinkWrap: true,
+//                       itemCount: _suggestions.length,
+//                       itemBuilder: (context, index) {
+//                         return ListTile(
+//                           title: Text(
+//                             _suggestions[index],
+//                             style: TableSubHeading.customTextStyle(context),
+//                           ),
+//                           onTap: () {
+//                             FocusScope.of(context)
+//                                 .unfocus(); // Dismiss the keyboard
+//                             String selectedSuggestion = _suggestions[index];
+//                             widget.addressController.text = selectedSuggestion;
+//
+//                             setState(() {
+//                               _suggestions.clear();
+//                               //_suggestions.removeWhere((suggestion) => suggestion == selectedSuggestion);
+//                             });
+//                           },
+//                         );
+//                       },
+//                     ),
+//                   ),
+//                 ),
+//             ]
+//             ),
+//           ],
+//         ),
+//       ],
+//       bottomButtons: isLoading
+//           ? SizedBox(
+//         height: AppSize.s25,
+//         width: AppSize.s25,
+//         child: CircularProgressIndicator(
+//           color: ColorManager.blueprime,
+//         ),
+//       )
+//           : CustomElevatedButton(
+//         width: AppSize.s105,
+//         height: AppSize.s30,
+//         text: AppStringEM.add,
+//         onPressed: () async {
+//           _validateForm(); // Validate the form on button press
+//
+//           if (_isFormValid) {
+//             setState(() {
+//               isLoading = true;
+//             });
+//
+//             try {
+//               print(
+//                   "Selected lat long ${_selectedLocation.latitude} + ${_selectedLocation.longitude}");
+//               ApiData response = await addNewOffice(
+//                 context: context,
+//                 name: widget.nameController.text,
+//                 address: widget.addressController.text,
+//                 email: widget.emailController.text,
+//                 primaryPhone: widget.mobNumController.text,
+//                 secondaryPhone: widget.secNumController.text,
+//                 officeId: "",
+//                 lat: _selectedLocation.latitude.toString(),
+//                 long: _selectedLocation.longitude.toString(),
+//                 cityName: "",
+//                 stateName: widget.stateController.text,
+//                 country: widget.countryController.text,
+//                 isHeadOffice: false,
+//               );
+//
+//               if (response.statusCode == 200 ||
+//                   response.statusCode == 201) {
+//                 print('Services List ${selectedServices}');
+//                 await addNewOfficeServices(
+//                   context: context,
+//                   officeId: response.officeId!,
+//                   serviceList: selectedServices,
+//                 );
+//
+//                 // Navigate back first
+//                 Navigator.pop(context);
+//
+//                 // Then show the success dialog
+//                 showDialog(
+//                   context: context,
+//                   builder: (BuildContext context) {
+//                     return AddSuccessPopup(
+//                       message: 'Added Successfully',
+//                     );
+//                   },
+//                 );
+//               }
+//
+//               widget.stateController.clear();
+//               widget.countryController.clear();
+//               widget.nameController.clear();
+//               widget.mobNumController.clear();
+//               widget.addressController.clear();
+//               widget.emailController.clear();
+//               widget.secNumController.clear();
+//               widget.OptionalController.clear();
+//             } finally {
+//               setState(() {
+//                 isLoading = false;
+//               });
+//             }
+//           } else {
+//             print(
+//                 'Validation error: Please fill in all required fields.');
+//           }
+//         },
+//       ),
+//     );
+//   }
+// }
+
 
 class AddOfficeSumbitButton extends StatefulWidget {
   final TextEditingController nameController;
@@ -568,9 +1555,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   }
 }
 
-
-
-
+///address input class
 class AddressInput extends StatefulWidget {
   final TextEditingController controller;
   final Function(String)? onSuggestionSelected;

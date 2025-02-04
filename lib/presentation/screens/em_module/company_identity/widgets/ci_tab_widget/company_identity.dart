@@ -11,6 +11,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/manage
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/error_pop_up.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -173,7 +174,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                         child: CircularProgressIndicator());
                                   }
                                   if (snapshot.hasData) {
-                                    return AddOfficeSumbitButton(
+                                    return AddOfficeSubmitButton(
                                       nameController: nameController,
                                       addressController: addressController,
                                       emailController: emailController,
@@ -186,6 +187,35 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                       formKey: _formKey,
                                       servicesList: snapshot.data!,
                                     );
+                                    ///provider
+                                    //   ChangeNotifierProvider(
+                                    //   create: (_)=> AddOfficeSubmitButtonProvider(
+                                    //     nameController: nameController,
+                                    //     addressController: addressController,
+                                    //     emailController: emailController,
+                                    //     stateController: stateNameController,
+                                    //     countryController: countryNameController,
+                                    //     mobNumController: mobNumController,
+                                    //     secNumController: secNumController,
+                                    //     optionalController: OptionalController,
+                                    //     formKey: _formKey,
+                                    //     servicesList: snapshot.data!,
+                                    //   ),
+                                    //   lazy: false,
+                                    //   child: AddOfficeSubmitButton(
+                                    //     // nameController: nameController,
+                                    //     // addressController: addressController,
+                                    //     // emailController: emailController,
+                                    //     // stateController: stateNameController,
+                                    //     // countryController: countryNameController,
+                                    //     // mobNumController: mobNumController,
+                                    //     // secNumController: secNumController,
+                                    //     // OptionalController: OptionalController,
+                                    //     //onPressed: () async {},
+                                    //     // formKey: _formKey,
+                                    //     //servicesList: snapshot.data!,
+                                    //   ),
+                                    // );
                                   } else {
                                     return ErrorPopUp(
                                         title: "Received Error",
