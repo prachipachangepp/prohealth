@@ -199,9 +199,23 @@ class _SocPageViewState extends State<SocPageView> {
                             padding: const EdgeInsets.only(left: 20),
                             child: Row(
                               children: [
-                                CircleAvatar(
-                                  child:
-                                  Image.asset('images/1.png'),
+                                Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 5),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(60),
+                                        child: SizedBox(
+                                          width: AppSize.s60,
+                                          height: AppSize.s60,
+                                          child: Image.asset(
+                                            'images/hr_dashboard/man.png', // Replace with your image path
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(width: AppSize.s7),
                                 Padding(
@@ -218,7 +232,9 @@ class _SocPageViewState extends State<SocPageView> {
                                       SizedBox(height: AppSize.s3),
                                       Text(
                                         'Anxiety',
-                                        style:DocumentTypeDataStyle.customTextStyle(context),
+                                        style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.mediumgrey,),
                                       ),
                                     ],
                                   ),
