@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/sm_intake_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/information_update.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_update_schedular/sent_to_schedular.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/establishment_resources/em_dashboard_string_manager.dart';
@@ -97,12 +98,22 @@ class _IntakeMainScreenState extends State<IntakeMainScreen> {
                 });
               },
               children: [
-                InformationUpdateScreen(onUpdateButtonPressed: switchToSMIntakeScreen, onPatientIdReceived: (int receivedPatientId) {
-                 // setState(() {
+                ChangeNotifierProvider(
+                  create: (_) => InformationUpdateProvider(onUpdateButtonPressed: switchToSMIntakeScreen,
+                   onPatientIdReceived: (int receivedPatientId) {
                     patientId = receivedPatientId;
                     print("pid :::::::::::: $patientId");
-                 // });
-                },),
+                    }),
+                  child: InformationUpdateScreen(
+                              //onUpdateButtonPressed: switchToSMIntakeScreen,
+              // onPatientIdReceived: (int receivedPatientId) {
+              //                // setState(() {
+              //                   patientId = receivedPatientId;
+              //                   print("pid :::::::::::: $patientId");
+              //                // });
+              //               },
+                  ),
+                ),
                 SentToSchedularScreen(),
               ],
             ),

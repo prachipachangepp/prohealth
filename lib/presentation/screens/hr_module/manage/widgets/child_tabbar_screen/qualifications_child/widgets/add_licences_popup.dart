@@ -150,15 +150,42 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                               future: getNewOrgDocfetch(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                               builder: (context,snapshot) {
                                 if(snapshot.connectionState == ConnectionState.waiting){
-                                  return Container(
-                                    width: 200,
-                                    height: 30,
+                                  return   Container(
+                                    height: AppSize.s30,
+                                    width: MediaQuery.of(context).size.width / 6,
                                     decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey, width: 1),
-                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: ColorManager
+                                              .containerBorderGrey,
+                                          width: AppSize.s1),
+                                      borderRadius:
+                                      BorderRadius.circular(4),
                                     ),
-                                    child: Center(child: Text(" ",style: DocumentTypeDataStyle.customTextStyle(context),)),
+                                    child:  Row(
+                                      children: [
+                                        SizedBox(width: AppSize.s10),
+                                        Expanded(
+                                          child: Text(
+                                            docName ?? '',
+                                            style:  DocumentTypeDataStyle.customTextStyle(context),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: AppPadding.p8),
+                                          child: Icon(Icons.arrow_drop_down),
+                                        ),
+                                      ],
+                                    ),
                                   );
+                                  //   Container(
+                                  //   width: 200,
+                                  //   height: 30,
+                                  //   decoration: BoxDecoration(
+                                  //     border: Border.all(color: Colors.grey, width: 1),
+                                  //     borderRadius: BorderRadius.circular(5),
+                                  //   ),
+                                  //   child: Center(child: Text(" ",style: DocumentTypeDataStyle.customTextStyle(context),)),
+                                  // );
 
                                 }
                                 if (snapshot.data!.isEmpty) {
@@ -258,22 +285,19 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                         },
                       ),
                       errorStates["pickFile"]! ?
-                      Padding(
-                        padding: const EdgeInsets.only(top: 2),
-                        child: Text(
-                          'Please Upload License',
-                          style: TextStyle(
-                            color: ColorManager.red,
-                            fontSize: FontSize.s10,
-                          ),
+                      Text(
+                        'Please Upload License',
+                        style: TextStyle(
+                          color: ColorManager.red,
+                          fontSize: FontSize.s10,
                         ),
-                      ):SizedBox(height:13)
+                      ):SizedBox(height:11)
                     ],
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 2),
             pickedFileName == ''
                 ? const SizedBox(height:11)
                 : Align(

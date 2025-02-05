@@ -196,23 +196,6 @@ class SentToSchedularScreen extends StatelessWidget {
                             Expanded(
                               child: Row(
                                 children: [
-                                  // Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
-                                  //  Padding(
-                                  //    padding: const EdgeInsets.all(8.0),
-                                  //    child: Container(
-                                  //      color: Color(0xFF527FB9),
-                                  //      width: 19,
-                                  //      height: 19,
-                                  //      child: Center(
-                                  //        child: Text("ST",style: TextStyle(
-                                  //          // fontWeight: FontWeight.w600,
-                                  //          // fontSize: FontSize.s13,
-                                  //          color: ColorManager.white,
-                                  //          decoration: TextDecoration.none,
-                                  //        ),),
-                                  //      ),
-                                  //    ),
-                                  //  ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
