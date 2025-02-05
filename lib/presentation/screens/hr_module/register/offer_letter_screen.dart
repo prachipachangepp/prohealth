@@ -441,7 +441,7 @@ class OfferLetterScreen extends StatelessWidget {
                                                           children: [
                                                             Center(
                                                               child: IconButton(
-                                                                icon: const Icon(Icons.close, color: Colors.white,),
+                                                                icon: const Icon(Icons.close, color: Colors.white, size: IconSize.I18,),
                                                                 onPressed: () {
                                                                   Navigator.of(context).pop();
                                                                 },
@@ -1704,13 +1704,14 @@ class HrEnrollOfferLatterProvider extends ChangeNotifier{
   bool _startDate= false;
   bool _lastDate= false;
   bool _noOfPatientDate = false;
-
+  bool _isLoading = false;
   bool get issueDate => _issueDate;
   bool get verbalAcceptanceDate => _verbalAcceptanceDate;
   bool get startDate => _startDate;
   bool get lastDate => _lastDate;
   bool get noOfPatientDate => _noOfPatientDate;
   String get salary => _salary;
+  bool get isLoading => _isLoading;
   List<GlobalKey<_DynamciContainerState>> _containerKeys = [];
   List<GlobalKey<_DynamciContainerState>> get containerKeys => _containerKeys;
 
@@ -1751,6 +1752,23 @@ class HrEnrollOfferLatterProvider extends ChangeNotifier{
     _salary = value;
     notifyListeners();
   }
+
+  // Future<void> addContainer() async {
+  //   // Show loading state before adding a container
+  //   _isLoading = true;
+  //   notifyListeners();
+  //
+  //   // Introduce a delay of 1 second
+  //   await Future.delayed(Duration(seconds: 1));
+  //
+  //   // After delay, add the container
+  //   _containerKeys.add(GlobalKey<_DynamciContainerState>());
+  //
+  //   // Hide loading state after adding the container
+  //   _isLoading = false;
+  //   notifyListeners();
+  // }
+
   void addContainer() {
     _containerKeys.add(GlobalKey<_DynamciContainerState>());
     notifyListeners();

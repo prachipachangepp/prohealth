@@ -204,9 +204,23 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                             padding: const EdgeInsets.only(left: 20),
                             child: Row(
                               children: [
-                                CircleAvatar(
-                                  child:
-                                  Image.asset('images/1.png'),
+                                Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 5),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(60),
+                                        child: SizedBox(
+                                          width: AppSize.s60,
+                                          height: AppSize.s60,
+                                          child: Image.asset(
+                                            'images/hr_dashboard/man.png', // Replace with your image path
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(width: AppSize.s7),
                                 Padding(
@@ -223,7 +237,9 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                                       SizedBox(height: AppSize.s3),
                                       Text(
                                         'Anxiety',
-                                        style:DocumentTypeDataStyle.customTextStyle(context),
+                                        style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.mediumgrey,),
                                       ),
                                     ],
                                   ),
@@ -241,11 +257,27 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
                               Container(
                                 width: 200,
 
-                                child:Text("132 My Street, Kingston, New York 12401",
+                                child:Text("132 My Street,Kingston, New York 12401",
                                   textAlign: TextAlign.start,
-                                  style:DocumentTypeDataStyle.customTextStyle(context),
+                                  style:AllHRTableData.customTextStyle(context),
                                 ) ,
                               )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Image.asset("images/sm/pb.png", //width: 22,
+                                height: 20,)
+                            ],
+                          ),
+
+
+                          Row(
+                            children: [
+                              Text("Referral Date : ",style: AllHRTableData.customTextStyle(context),),
+                              // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                              Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
+
                             ],
                           ),
 
@@ -259,19 +291,23 @@ class _OverdeuPageViewState extends State<OverdeuPageView> {
 
                           Row(
                             children: [
-                              Text("SOC",style: DocumentTypeDataStyle.customTextStyle(context),),
+                              Text("SOC",style: AllHRTableData.customTextStyle(context),),
 
                             ],
                           ),
-                          Row(
-                            children: [
-                              Text("Overdue",style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: FontSize.s13,
-                                color: ColorManager.tangerine,
-                                decoration: TextDecoration.none,
-                              ),)
-                            ],
+
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Row(
+                              children: [
+                                Text("Overdue",style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: FontSize.s13,
+                                  color: ColorManager.tangerine,
+                                  decoration: TextDecoration.none,
+                                ),)
+                              ],
+                            ),
                           ),
 
                           // Row(

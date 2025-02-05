@@ -40,7 +40,7 @@ class EducationChildTabbar extends StatelessWidget {
     TextEditingController stateController = TextEditingController();
     TextEditingController majorSubjectController = TextEditingController();
     TextEditingController countryNameController = TextEditingController();
-    String expiryType = 'No';
+    String expiryType = "No";
     return Column(
       children: [
         Row(
@@ -66,8 +66,7 @@ class EducationChildTabbar extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return AddEducationPopup(
-                            collegeUniversityController:
-                            collegeUniversityController,
+                            collegeUniversityController: collegeUniversityController,
                             phoneController: phoneController,
                             calenderController: calenderController,
                             cityController: cityController,
@@ -91,13 +90,19 @@ class EducationChildTabbar extends StatelessWidget {
                                   stateController.text,
                                   countryNameController.text,
                                   calenderController.text);
-                              var educationResponse = await approveOnboardQualifyEducationPatch(context, response.educationId!);
-                              Navigator.pop(context);
+
+
+                              // Log the response status and body here
+                              print('Response status: ${response.statusCode}');
+                              print('Response body: ${response.data}');
+                           var educationResponse = await approveOnboardQualifyEducationPatch(context, response.educationId!);
+
                               if(educationResponse.statusCode == 200 || educationResponse.statusCode == 201){
+                                Navigator.pop(context);
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AddSuccessPopup(
+                                    return const AddSuccessPopup(
                                       message: 'Education Added Successfully',
                                     );
                                   },
@@ -126,8 +131,7 @@ class EducationChildTabbar extends StatelessWidget {
                                       Expanded(
                                         child: CustomRadioListTile(
                                           value: "Yes",
-                                          groupValue:
-                                          expiryType.toString(),
+                                          groupValue: expiryType,
                                           onChanged: (value) {
                                             setState(() {
                                               expiryType = value!;
@@ -139,8 +143,7 @@ class EducationChildTabbar extends StatelessWidget {
                                       Expanded(
                                         child: CustomRadioListTile(
                                           value: "No",
-                                          groupValue:
-                                          expiryType.toString(),
+                                          groupValue: expiryType,
                                           onChanged: (value) {
                                             setState(() {
                                               expiryType = value!;
@@ -226,7 +229,8 @@ class EducationChildTabbar extends StatelessWidget {
                             },
                             child: CompositedTransformTarget(link: _layerLink,
                               child: Text(
-                                educationProviderState.trimmedDegree,
+                                  snapshot.data![index].degree,
+                                //providerState.trimmedDegree,
                                 style: ThemeManagerDarkFont.customTextStyle(context),
                               ),),
                           ),
@@ -246,7 +250,8 @@ class EducationChildTabbar extends StatelessWidget {
                           },
                           child: CompositedTransformTarget(link: _layerLink,
                           child: Text(
-                            educationProviderState.trimmedCollege,
+                           // providerState.trimmedCollege,
+                        snapshot.data![index].college,
                                 style: ThemeManagerDarkFont.customTextStyle(context),
                               ),),
                         ),
@@ -268,7 +273,9 @@ class EducationChildTabbar extends StatelessWidget {
                         // Text(_trimAddress(snapshot.data![index].college),
                         //     style: ThemeManagerDarkFont.customTextStyle(context),),
                           const SizedBox(height: AppSize.s10),
-                          Text(educationProviderState.trimmedMajor,
+                          Text(
+                         snapshot.data![index].major,
+                            //providerState.trimmedMajor,
                             style: ThemeManagerDarkFont.customTextStyle(context),),
                         ],
                         row2Child1: [

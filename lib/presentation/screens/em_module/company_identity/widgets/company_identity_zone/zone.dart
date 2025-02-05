@@ -158,7 +158,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                             SizedBox(width: AppSize.s10),
                             Expanded(
                               child: Text(
-                                "Select County",
+                                coyntyNameVal ??  "Select County",
                                 style: DocumentTypeDataStyle.customTextStyle(context),
                               ),
                             ),
