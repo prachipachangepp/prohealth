@@ -205,17 +205,32 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                                 child: Icon(Icons.location_on_outlined,color: ColorManager.bluebottom,),
                               ),
                               Container(
-                                width: 200,
+                                width: 220,
 
-                                child:Text("132 My Street, Kingston, New York 12401",
+                                child:Text("132 My Street,Kingston, New York 12401",
                                   textAlign: TextAlign.start,
-                                  style:DocumentTypeDataStyle.customTextStyle(context),
+                                  style:AllHRTableData.customTextStyle(context),
                                 ) ,
                               )
                             ],
                           ),
 
+                          Row(
+                            children: [
+                              Image.asset("images/sm/pb.png", //width: 22,
+                                height: 20,)
+                            ],
+                          ),
 
+
+                          Row(
+                            children: [
+                              Text("Referral Date : ",style: AllHRTableData.customTextStyle(context),),
+                              // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                              Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
+
+                            ],
+                          ),
 
                           Row(
                             children: [
@@ -253,7 +268,7 @@ class _HistoryPageViewState extends State<HistoryPageView> {
                           Row(
                             children: [
                               Padding(
-                                  padding: const EdgeInsets.only(right: 15),
+                                  padding: const EdgeInsets.only(right: 5),
                                   child: SizedBox()
                               ),
                             ],

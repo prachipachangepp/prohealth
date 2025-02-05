@@ -93,7 +93,7 @@ class ScheduledToBeScheduledPatients extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Number of Patients",
-                        style: TextStyle(fontSize: FontSize.s12,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
+                        style: TextStyle(fontSize: FontSize.s13,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                       CustomDropdownTextField(
                         width: 90,
                         isAstric:false,
@@ -125,7 +125,7 @@ class ScheduledToBeScheduledPatients extends StatelessWidget {
                     Column(
                       children: [
                         Text("Scheduled",
-                          style: TextStyle(fontSize: FontSize.s14,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
+                          style: TextStyle(fontSize: FontSize.s13,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                         Container(
                           width: 100,
                           child: Divider(),
@@ -136,7 +136,7 @@ class ScheduledToBeScheduledPatients extends StatelessWidget {
                     SizedBox(width: 5,),
                     Column(children: [
                       Text("To Be Scheduled",
-                        style: TextStyle(fontSize: FontSize.s14,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
+                        style: TextStyle(fontSize: FontSize.s13,color: ColorManager.mediumgrey,fontWeight: FontWeight.w600),),
                       Container(
                         width: 100,
                         child: Divider(),

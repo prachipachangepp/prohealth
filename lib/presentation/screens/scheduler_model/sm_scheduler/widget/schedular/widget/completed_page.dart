@@ -172,9 +172,23 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                               padding: const EdgeInsets.only(left: 20),
                               child: Row(
                                 children: [
-                                  CircleAvatar(
-                                    child:
-                                    Image.asset('images/1.png'),
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 5),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(60),
+                                          child: SizedBox(
+                                            width: AppSize.s60,
+                                            height: AppSize.s60,
+                                            child: Image.asset(
+                                              'images/hr_dashboard/man.png', // Replace with your image path
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(width: AppSize.s7),
                                   Padding(
@@ -192,7 +206,9 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                                         SizedBox(height: AppSize.s3),
                                         Text(
                                           'Anxiety',
-                                          style:DocumentTypeDataStyle.customTextStyle(context),
+                                          style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w400,
+                                            color: ColorManager.mediumgrey,),
                                         ),
                                       ],
                                     ),
@@ -210,7 +226,7 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                                 Container(
                                   width: 200,
 
-                                  child:Text("132 My Street, Kingston, New York 12401",
+                                  child:Text("132 My Street,Kingston, New York 12401",
                                     textAlign: TextAlign.start,
                                     style:DocumentTypeDataStyle.customTextStyle(context),
                                   ) ,
@@ -264,6 +280,13 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                                 )
                               ],
                             ),
+                            
+                            Row(
+                              children: [
+                                Image.asset("images/sm/pb.png", //width: 22,
+                                  height: 20,)
+                              ],
+                            ),
                             Row(
                               children: [
                                 Text("Completed",style: TextStyle(
@@ -285,11 +308,18 @@ class _CompletedPageViewState extends State<CompletedPageView> {
                             ),
 
 
-
                             Row(
                               children: [
+                                Text("Referral Date : ",style: AllHRTableData.customTextStyle(context),),
+                               // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
+
+                              ],
+                            ),
+                            const Row(
+                              children: [
                                 Padding(
-                                    padding: const EdgeInsets.only(right: 15),
+                                    padding: EdgeInsets.only(right: 5),
                                     child: SizedBox()
                                 ),
                               ],

@@ -128,9 +128,23 @@ class _Auto_AssignState extends State<Auto_Assign> {
                       padding: const EdgeInsets.only(left: 20),
                       child: Row(
                         children: [
-                          CircleAvatar(
-                            child:
-                            Image.asset('images/1.png'),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 5),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(60),
+                                  child: SizedBox(
+                                    width: AppSize.s60,
+                                    height: AppSize.s60,
+                                    child: Image.asset(
+                                      'images/hr_dashboard/man.png', // Replace with your image path
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(width: AppSize.s7),
                           Padding(
@@ -145,7 +159,9 @@ class _Auto_AssignState extends State<Auto_Assign> {
                                 SizedBox(height: AppSize.s3),
                                 Text(
                                   'Anxiety',
-                                  style:DocumentTypeDataStyle.customTextStyle(context),
+                                  style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                    fontWeight: FontWeight.w400,
+                                    color: ColorManager.mediumgrey,),
                                 ),
                               ],
                             ),
@@ -158,7 +174,7 @@ class _Auto_AssignState extends State<Auto_Assign> {
 
                     Row(
                       children: [
-                        Text("POC :",style: DocumentTypeDataStyle.customTextStyle(context),),
+                        Text("Discipline :",style: AllHRTableData.customTextStyle(context),),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
@@ -213,9 +229,9 @@ class _Auto_AssignState extends State<Auto_Assign> {
                         Container(
                           width: 200,
 
-                          child:Text("132 My Street, Kingston, New York 12401",
+                          child:Text("132 My Street,Kingston, New York 12401",
                             textAlign: TextAlign.start,
-                            style:DocumentTypeDataStyle.customTextStyle(context),
+                            style:AllHRTableData.customTextStyle(context),
                           ) ,
                         )
                       ],
@@ -439,7 +455,7 @@ class _Auto_AssignState extends State<Auto_Assign> {
                         fontWeight: FontWeight.w400,
                         color: ColorManager.mediumgrey,
                       ),),
-                      SizedBox(height: 5),
+                      SizedBox(height: 10),
                       Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeight.w400,
@@ -475,7 +491,7 @@ class _Auto_AssignState extends State<Auto_Assign> {
                         fontWeight: FontWeight.w400,
                         color: ColorManager.mediumgrey,
                       ),),
-                      SizedBox(height: 5),
+                      SizedBox(height: 10),
                       Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeight.w400,
@@ -510,20 +526,20 @@ class _Auto_AssignState extends State<Auto_Assign> {
                           IconButton(onPressed: (){}, icon: Icon(Icons.close,color: ColorManager.faintOrange,))
                         ],
                       ),
-                      SizedBox(height: AppSize.s25,),
+                    SizedBox(height: AppSize.s15,),
                       Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeight.w400,
                         color: ColorManager.mediumgrey,
                       ),),
-                      SizedBox(height: 5),
+                      SizedBox(height: 10),
                       Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeight.w400,
                         color: ColorManager.mediumgrey,
                       ),),
 
-
+                      SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -896,7 +912,7 @@ class _Auto_AssignState extends State<Auto_Assign> {
                         fontWeight: FontWeight.w400,
                         color: ColorManager.mediumgrey,
                       ),),
-                      SizedBox(height: 5),
+                      SizedBox(height: 10),
                       Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeight.w400,
@@ -932,7 +948,7 @@ class _Auto_AssignState extends State<Auto_Assign> {
                         fontWeight: FontWeight.w400,
                         color: ColorManager.mediumgrey,
                       ),),
-                      SizedBox(height: 5),
+                      SizedBox(height: 10),
                       Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeight.w400,
@@ -967,19 +983,19 @@ class _Auto_AssignState extends State<Auto_Assign> {
                           IconButton(onPressed: (){}, icon: Icon(Icons.close,color: ColorManager.faintOrange,))
                         ],
                       ),
-                      SizedBox(height: AppSize.s25,),
+                      SizedBox(height: AppSize.s15,),
                       Text("1.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeight.w400,
                         color: ColorManager.mediumgrey,
                       ),),
-                      SizedBox(height: 5),
+                      SizedBox(height: 10),
                       Text("2.2024-12-1  (Tuesday) , 01:00 PM", style:TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeight.w400,
                         color: ColorManager.mediumgrey,
                       ),),
-
+                      SizedBox(height: 20),
 
                     ],
                   ),
