@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/common_resources/common_theme_const.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/provider/office_location.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
@@ -1044,12 +1045,18 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   bool isLoading = false;
 
   List<String> _suggestions = [];
-  @override
-  void initState() {
-    super.initState();
-    widget.addressController.addListener(_onCountyNameChanged);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   widget.addressController.addListener(_onCountyNameChanged);
+  // }
+  bool _isDisposed = false; // Flag to track if the widget is disposed
 
+  @override
+  void dispose() {
+    _isDisposed = true; // Mark the widget as disposed
+    super.dispose();
+  }
   void _onCountyNameChanged() async {
     if (widget.addressController.text.isEmpty) {
       setState(() {
@@ -1099,6 +1106,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   }
 
   void _validateForm() {
+    final locationProvider = Provider.of<LocationProvider>(context, listen: false);
     setState(() {
       _isFormValid = true;
       _nameDocError = _validateTextField(widget.nameController.text, ' Office Name');
@@ -1110,14 +1118,14 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       _aphoneDocError = _validateTextField(widget.OptionalController.text, 'Alternative Phone');
       _countryDocError = _validateTextField(widget.countryController.text, 'Country');
 
-      if (selectedServices.isEmpty) {
+      if (locationProvider.selectedServices.isEmpty) {
         _checkboxError = "Please select at least one service";
         _isFormValid = false;
       } else {
         _checkboxError = null;
       }
 
-      if (_latitude == null || _longitude == null) {
+      if (locationProvider.latitude == null || locationProvider.longitude == null) {
         _locationError = "Please select a location";
         _isFormValid = false;
       } else {
@@ -1126,44 +1134,156 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
     });
   }
   void _pickLocation() async {
+    final locationProvider = Provider.of<LocationProvider>(context, listen: false);
+
     final pickedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
         builder: (context) => MapScreen(
-          initialLocation: _selectedLocation,
+          initialLocation: locationProvider.selectedLocation!,
           onLocationPicked: (location) {
-            if (mounted) {
-              print('Picked location inside MapScreen: $location'); // Debugging
-
-              setState(() {
-                _selectedLocation = location; // Update selected location
-                _latitude = location.latitude;
-                _longitude = location.longitude;
-                _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-              });
-            }
+            locationProvider.updateLocation(location);
           },
         ),
       ),
     );
 
+    // Handle the picked location after returning from MapScreen
     if (pickedLocation != null) {
-      print('Picked location from Navigator: $pickedLocation'); // Debugging
-
-      if (mounted) {
-        setState(() {
-          _selectedLocation = pickedLocation; // Update selected location
-          _latitude = pickedLocation.latitude;
-          _longitude = pickedLocation.longitude;
-          _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-          _locationError = null;
-        });
-      }
-    } else {
-      print('No location was picked.');
+      locationProvider.updateLocation(pickedLocation);
     }
   }
+  // void _pickLocation() async {
+  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
+  //     MaterialPageRoute(
+  //       builder: (context) => MapScreen(
+  //         initialLocation: _selectedLocation,
+  //         onLocationPicked: (location) {
+  //           if (!_isDisposed) { // Check if the widget is still active
+  //             setState(() {
+  //               _selectedLocation = location;
+  //               _latitude = location.latitude;
+  //               _longitude = location.longitude;
+  //             });
+  //
+  //             final latlong = _formatLatLong(_latitude, _longitude);
+  //             print("Selected LatLong :: $latlong");
+  //
+  //             // Update the location in the UI directly
+  //             _updateLocation(latlong);
+  //           }
+  //         },
+  //       ),
+  //     ),
+  //   );
+  //
+  //   // Handle the picked location after returning from MapScreen
+  //   if (pickedLocation != null && !_isDisposed) {
+  //     setState(() {
+  //       _selectedLocation = pickedLocation;
+  //       _latitude = pickedLocation.latitude;
+  //       _longitude = pickedLocation.longitude;
+  //     });
+  //
+  //     final latlong = _formatLatLong(_latitude, _longitude);
+  //     _updateLocation(latlong);
+  //   }
+  // }
+  // void _pickLocation() async {
+  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
+  //     MaterialPageRoute(
+  //       builder: (context) => MapScreen(
+  //         initialLocation: _selectedLocation,
+  //         onLocationPicked: (location) {
+  //           if (mounted) {
+  //             setState(() {
+  //               _selectedLocation = location;
+  //               _latitude = location.latitude;
+  //               _longitude = location.longitude;
+  //             });
+  //
+  //             final latlong = _formatLatLong(_latitude, _longitude);
+  //             print("Selected LatLong :: $latlong");
+  //
+  //             // Update the location in the UI directly
+  //             _updateLocation(latlong);
+  //           }
+  //         },
+  //       ),
+  //     ),
+  //   );
+  //
+  //   // Handle the picked location after returning from MapScreen
+  //   if (pickedLocation != null && mounted) {
+  //     setState(() {
+  //       _selectedLocation = pickedLocation;
+  //       _latitude = pickedLocation.latitude;
+  //       _longitude = pickedLocation.longitude;
+  //     });
+  //
+  //     final latlong = _formatLatLong(_latitude, _longitude);
+  //     _updateLocation(latlong);
+  //   }
+  // }
+
+  // String _formatLatLong(double? latitude, double? longitude) {
+  //   if (latitude != null && longitude != null) {
+  //     return 'Lat: ${latitude.toStringAsFixed(4)}, Long: ${longitude.toStringAsFixed(4)}';
+  //   } else {
+  //     return 'Lat/Long not selected';
+  //   }
+  // }
+  // void _updateLocation(String latlong) {
+  //   setState(() {
+  //     _location = latlong;
+  //     print("Updated Location: $_location");
+  //    // locationController = TextEditingController(text:_location);
+  //     //print("locationController ${locationController.text}");// Check this log to see if the value updates
+  //   });
+  // }
+  // void _pickLocation() async {
+  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
+  //     MaterialPageRoute(
+  //       builder: (context) => MapScreen(
+  //         initialLocation: _selectedLocation,
+  //         onLocationPicked: (location) {
+  //           if (mounted) {
+  //             print('Picked location inside MapScreen: $location'); // Debugging
+  //
+  //             setState(() {
+  //               _selectedLocation = location; // Update selected location
+  //               _latitude = location.latitude;
+  //               _longitude = location.longitude;
+  //               _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+  //             });
+  //           }
+  //         },
+  //       ),
+  //     ),
+  //   );
+  //
+  //   if (pickedLocation != null) {
+  //     print('Picked location from Navigator: $pickedLocation'); // Debugging
+  //
+  //     if (mounted) {
+  //       setState(() {
+  //         _selectedLocation = pickedLocation; // Update selected location
+  //         _latitude = pickedLocation.latitude;
+  //         _longitude = pickedLocation.longitude;
+  //         _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+  //         _locationError = null;
+  //       });
+  //     }
+  //   } else {
+  //     print('No location was picked.');
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
+    final locationProvider = Provider.of<LocationProvider>(context);
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   locationProvider.clearAllData();
+    // });
+
     return DialogueTemplate(
       width: AppSize.s800,
       height: AppSize.s650,
@@ -1276,27 +1396,29 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                                       ...List.generate(widget.servicesList.length,
                                           (index) {
                                         String serviceID = widget.servicesList[index].serviceId;
-                                        bool isSelected = selectedServices.contains(serviceID);
+                                        bool isSelected = locationProvider.isSelected(serviceID);
                                         return Container(
                                             width: AppSize.s150,
                                             child: Center(
                                               child: CheckboxTile(
                                                 title: widget.servicesList[index].serviceName,
-                                                initialValue: false,
+                                                initialValue: isSelected,
                                                 onChanged: (value) {
-                                                  setState(() {
-                                                    if (value == true) {
-                                                      selectedServices.add(ServiceList(
-                                                              serviceId: serviceID,
-                                                              npiNumber: "",
-                                                              medicareProviderId: "",
-                                                              hcoNumId: ""));
-                                                    } else {
-                                                      selectedServices.remove(serviceID);
-                                                    }
-                                                    _checkboxError = selectedServices.isEmpty ? "Please select at least one service" : null;
-                                                  });
-                                                  print("Service Id List ${selectedServices}");
+                                                  locationProvider.toggleService(serviceID);
+                                                  print("Service Id List ${locationProvider.selectedServices}");
+                                                  // setState(() {
+                                                  //   if (value == true) {
+                                                  //     selectedServices.add(ServiceList(
+                                                  //             serviceId: serviceID,
+                                                  //             npiNumber: "",
+                                                  //             medicareProviderId: "",
+                                                  //             hcoNumId: ""));
+                                                  //   } else {
+                                                  //     selectedServices.remove(serviceID);
+                                                  //   }
+                                                  //   _checkboxError = selectedServices.isEmpty ? "Please select at least one service" : null;
+                                                  // });
+                                                  //print("Service Id List ${selectedServices}");
                                                 },
                                               ),
                                             ));
@@ -1434,7 +1556,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                             size: AppSize.s18,
                           ),
                           Text(
-                            _location,
+                            locationProvider.formattedLatLong,
                             style: TextStyle(
                               fontSize: FontSize.s14,
                               color: ColorManager.granitegray,
@@ -1488,8 +1610,8 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       primaryPhone: widget.mobNumController.text,
                       secondaryPhone: widget.secNumController.text,
                       officeId: "",
-                      lat: _selectedLocation.latitude.toString(),
-                      long: _selectedLocation.longitude.toString(),
+                      lat: locationProvider.latitude.toString(),
+                      long: locationProvider.longitude.toString(),
                       cityName: "",
                       stateName: widget.stateController.text,
                       country: widget.countryController.text,
@@ -1498,13 +1620,13 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
 
                     if (response.statusCode == 200 ||
                         response.statusCode == 201) {
-                      print('Services List ${selectedServices}');
+                      print('Services List ${locationProvider.selectedServices}');
                       await addNewOfficeServices(
                         context: context,
                         officeId: response.officeId!,
-                        serviceList: selectedServices,
+                        serviceList: locationProvider.selectedServices,
                       );
-
+//
                       // Navigate back first
                       Navigator.pop(context);
 
@@ -1541,6 +1663,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                     widget.secNumController.clear();
                     widget.OptionalController.clear();
                   } finally {
+                    locationProvider.clearAllData();
                     setState(() {
                       isLoading = false;
                     });
