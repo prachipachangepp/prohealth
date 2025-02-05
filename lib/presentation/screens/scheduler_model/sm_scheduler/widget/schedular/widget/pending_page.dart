@@ -205,24 +205,24 @@ class _PendingPageViewState extends State<PendingPageView> {
 
 
                       Padding(
-                        padding: const EdgeInsets.only(right: 20),
+                        padding: const EdgeInsets.only(right: 10),
                         child: Text("POC",style: DocumentTypeDataStyle.customTextStyle(context),),
                       ),
 
-                      Container(
-                        width: 135,
-                        height: 32,
-                        child: ElevatedButton.icon(onPressed: (){}, label: Text("Bulk Assign", style: BlueButtonTextConst.customTextStyle(context),),
-                          // icon: Icon( Icons.supervisor_account,color:ColorManager.white ,size: 18,),
-                          icon:SvgPicture.asset("images/sm/bulk_assign.svg",  height: 13,width: 0,),
-                          style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-
-                            ),),
-                        ),
-                      )
+                      // Container(
+                      //   width: 135,
+                      //   height: 32,
+                      //   child: ElevatedButton.icon(onPressed: (){}, label: Text("Bulk Assign", style: BlueButtonTextConst.customTextStyle(context),),
+                      //     // icon: Icon( Icons.supervisor_account,color:ColorManager.white ,size: 18,),
+                      //     icon:SvgPicture.asset("images/sm/bulk_assign.svg",  height: 13,width: 0,),
+                      //     style: ElevatedButton.styleFrom(backgroundColor:  ColorManager.bluebottom,
+                      //       elevation: 5,
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(10),
+                      //
+                      //       ),),
+                      //   ),
+                      // )
 
                     ],
                   ),
@@ -263,9 +263,23 @@ class _PendingPageViewState extends State<PendingPageView> {
                               padding: const EdgeInsets.only(left: 20),
                               child: Row(
                                 children: [
-                                  CircleAvatar(
-                                    child:
-                                    Image.asset('images/1.png'),
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 5),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(60),
+                                          child: SizedBox(
+                                            width: AppSize.s60,
+                                            height: AppSize.s60,
+                                            child: Image.asset(
+                                              'images/hr_dashboard/man.png', // Replace with your image path
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(width: AppSize.s7),
                                   Padding(
@@ -282,7 +296,9 @@ class _PendingPageViewState extends State<PendingPageView> {
                                         SizedBox(height: AppSize.s3),
                                         Text(
                                           'Anxiety',
-                                          style:DocumentTypeDataStyle.customTextStyle(context),
+                                          style:CustomTextStylesCommon.commonStyle(fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w400,
+                                            color: ColorManager.mediumgrey,),
                                         ),
                                       ],
                                     ),
@@ -300,9 +316,9 @@ class _PendingPageViewState extends State<PendingPageView> {
                                 Container(
                                   width: 200,
 
-                                  child:Text("132 My Street, Kingston, New York 12401",
+                                  child:Text("132 My Street,Kingston, New York 12401",
                                     textAlign: TextAlign.start,
-                                    style:DocumentTypeDataStyle.customTextStyle(context),
+                                    style:AllHRTableData.customTextStyle(context),
                                   ) ,
                                 )
                               ],
@@ -362,6 +378,22 @@ class _PendingPageViewState extends State<PendingPageView> {
                                   color: Color(0xFFD00101),
                                   decoration: TextDecoration.none,
                                 ),)
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Image.asset("images/sm/pb.png", //width: 22,
+                                  height: 20,)
+                              ],
+                            ),
+
+
+                            Row(
+                              children: [
+                                Text("Referral Date : ",style: AllHRTableData.customTextStyle(context),),
+                                // Text("Intake Referral Date : 2023/25/03 : ",style: DocumentTypeDataStyle.customTextStyle(context),),
+                                Text("2023/25/05",style: DocumentTypeDataStyle.customTextStyle(context),),
+
                               ],
                             ),
 

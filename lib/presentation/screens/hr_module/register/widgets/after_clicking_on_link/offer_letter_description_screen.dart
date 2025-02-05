@@ -445,11 +445,13 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                       style: PopupBlueBarText.customTextStyle(context),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close, color: ColorManager.white),
+                  Center(
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.close, color: ColorManager.white,size: IconSize.I18,),
+                    ),
                   ),
                 ],
               ),

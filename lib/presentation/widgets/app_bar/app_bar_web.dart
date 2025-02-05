@@ -10,6 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../app/resources/color.dart';
 import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/value_manager.dart';
+import '../../../app/services/api/managers/user_appbar_manager.dart';
+import '../../../data/api_data/establishment_data/user/user_appbar.dart';
 import '../../screens/login_module/login/login_screen.dart';
 import '../widgets/const_appbar/controller.dart';
 
@@ -27,12 +29,25 @@ class _AppBarWebState extends State<AppBarWeb> {
   String? _selectedValue;
 
   String? loginName = '';
+  int loginUserId = 0;
   bool isLoggedIn = true;
   Future<String> user() async {
     loginName = await TokenManager.getUserName();
     //loginName = userName;
     print("UserName login ${loginName}");
     return loginName!;
+  }
+  Future<void> setUserId() async {
+    loginUserId = await TokenManager.getuserId();
+    print("UserId: $loginUserId");
+    setState(() {}); // Ensure UI updates with the new user ID
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setUserId();
   }
 
   @override
@@ -85,13 +100,11 @@ class _AppBarWebState extends State<AppBarWeb> {
                     ),
                   ),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width - 240,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // scrollDirection: Axis.horizontal,
                         children: [
                           ///ask klip
                           Expanded(
@@ -437,13 +450,38 @@ class _AppBarWebState extends State<AppBarWeb> {
                                         onExit: (_) {
                                           // Handle mouse leave
                                         },
-                                        child: GestureDetector(
-                                          child: Icon(
-                                            Icons.person,
-                                            color: Colors.white,
-                                          ),
-                                          onTap: () {
-                                            // Optional: Handle tap on the profile icon if needed
+                                        child: FutureBuilder<UserAppBar>(
+                                          future: getAppBarDetails(context, loginUserId), // Call the API method
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState == ConnectionState.waiting) {
+                                              return GestureDetector(
+                                                child: CircleAvatar(
+                                                  backgroundColor: Colors.grey[100],
+                                                  radius: 14,
+                                                  backgroundImage: AssetImage("images/profilepic.png"),
+                                                ),
+                                                onTap: () { },
+                                              );
+                                            } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty) {
+                                              return GestureDetector(
+                                                child: CircleAvatar(
+                                                  backgroundColor: Colors.grey[100],
+                                                  radius: 14,
+                                                  backgroundImage: AssetImage("images/profilepic.png"),
+                                                ),
+                                                onTap: () { },
+                                              );
+                                            } else {
+                                              return GestureDetector(
+                                                child: CircleAvatar(
+                                                  backgroundImage: NetworkImage(snapshot.data!.imgUrl),
+                                                  radius: 14, // Adjust size as needed
+                                                ),
+                                                onTap: () {
+                                                  // Optional: Handle tap on the profile image
+                                                },
+                                              );
+                                            }
                                           },
                                         ),
                                       ),
@@ -474,12 +512,10 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                       onTap: () {
                                                         if (isLoggedIn) {
                                                           // Replace 'value' with 'isLoggedIn'
-                                                          print(
-                                                              "User logged out");
+                                                          print("User logged out");
                                                           showDialog(
                                                             context: context,
-                                                            builder:
-                                                                (context) =>
+                                                            builder: (context) =>
                                                                     DeletePopup(
                                                               onCancel: () {
                                                                 Navigator.pop(

@@ -47,6 +47,9 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
     selectedCountyId = widget.countyId;
     selectedZipCodeZone =  widget.zoneNameValue;
     super.initState();
+
+    // Call the method to load the zone value based on pre-filled data
+    //loadZoneValue();
   }
   int selectedZoneId = 0;
   int selectedCountyId = 0;
@@ -76,7 +79,32 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
   StreamController<List<ZipcodeByCountyIdAndZoneIdData>>.broadcast();
 
   String countyName = "";
-  String zoneName = "";
+  String? zoneName = "";
+
+
+
+
+
+  // void loadZoneValue() async {
+  //   // Call your API or stream fetching logic here
+  //   final zones = await fetchCountyWiseZone(context, selectedCountyId); // Assuming this is a method that gets zones based on the countyId
+  //
+  //   // Once zones are fetched, iterate through them and set the selected zone by matching zoneId
+  //   for (var zone in zones) {
+  //     if (zone.zone_id == widget.zoneId) {
+  //       setState(() {
+  //         selectedZone = zone.zoneName; // Set the selected zone value here
+  //         zoneName = selectedZone!;
+  //         docZoneId = widget.zoneId; // Ensure the zoneId is updated if necessary
+  //       });
+  //       break; // Exit once you find the matching zone
+  //     }
+  //   }
+  // }
+
+
+
+
 
 
   @override
@@ -211,8 +239,8 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                           );
                                         }
                                         if (snapshotZone.hasData) {
-                                          List dropDown = [];
-                                          int docType = 0;
+                                          // List dropDown = [];
+                                          // int docType = 0;
                                           List<DropdownMenuItem<String>>
                                           dropDownTypesList = [];
                                           for (var i in snapshotZone.data!) {
@@ -227,7 +255,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                           //   selectedZipCodeZone =
                                           //       snapshotZone.data![0].zoneName;
                                           // }
-                                          return CICCDropdown(
+                                          return CICCDropDownedit(
                                               width: AppSize.s354,
                                               initialValue: zoneName,
                                               onChange: (val) {
@@ -235,13 +263,13 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
                                                 selectedCovrageZone = val;
                                                 for (var a in snapshotZone.data!) {
                                                   if (a.zoneName == val) {
-                                                    docType = a.zone_id;
+                                                    // docType = a.zone_id;
                                                     zoneName = a.zoneName;
                                                     print("ZONE id :: ${a.zone_id}");
-                                                    docZoneId = docType;
+                                                    docZoneId = a.zone_id;
                                                   }
                                                 }
-                                                print(":::${docType}");
+                                                //print(":::${docType}");
                                                 print(":::<>${docZoneId}");
                                               },
                                               items: dropDownTypesList);
@@ -430,7 +458,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
               countyId: selectedCountyId,
               countyName: countyName,
               zoneId: docZoneId,
-              zoneName: zoneName, zipCodes: zipCodes)
+              zoneName: zoneName!, zipCodes: zipCodes)
           );
           //var patchCoverage =
           patchEmpEnrollAddCoverage(context,widget.employeeEnrollId,widget.employeeId,addCovrage);

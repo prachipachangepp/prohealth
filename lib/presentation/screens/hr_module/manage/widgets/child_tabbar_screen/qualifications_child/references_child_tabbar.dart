@@ -138,9 +138,7 @@ class ReferencesChildTabbar extends StatelessWidget {
             builder: (context, snapshot) {
               getReferences(context, employeeId).then((data) {
                 referenceStreamController.add(data);
-              }).catchError((error) {
-                // Handle error
-              });
+              }).catchError((error) {  });
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: Padding(
@@ -173,40 +171,24 @@ class ReferencesChildTabbar extends StatelessWidget {
                         childWidget: DetailsFormate(
                             title: 'References #${index + 1}',
                             row1Child1: [
-                              Text('Name :',
-                                  style: ThemeManagerDark.customTextStyle(context)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text('Title/ Position :',
-                                  style: ThemeManagerDark.customTextStyle(context)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text('Mobile Number :',
-                                  style: ThemeManagerDark.customTextStyle(context)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text('Email :',
-                                  style: ThemeManagerDark.customTextStyle(context)),
+                              Text('Name :', style: ThemeManagerDark.customTextStyle(context)),
+                              const SizedBox(height: 10,),
+                              Text('Title/ Position :', style: ThemeManagerDark.customTextStyle(context)),
+                              const SizedBox(height: 10,),
+                              Text('Mobile Number :', style: ThemeManagerDark.customTextStyle(context)),
+                              const SizedBox(height: 10,),
+                              Text('Email :', style: ThemeManagerDark.customTextStyle(context)),
                             ],
                             row1Child2: [
-                              Text(
-                                snapshot.data![index].name,
-                                style:
-                                ThemeManagerDarkFont.customTextStyle(context),
+                              Text(snapshot.data![index].name,
+                                style: ThemeManagerDarkFont.customTextStyle(context),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10,),
                               MouseRegion(
                                 onHover: (event){
                                   referenceProviderState.showOverlay(context, event.position, snapshot.data![index].title ?? '--');
                                 },
-                                onExit: (_) {
-                                  // Remove overlay when the cursor exits the widget
-                                  referenceProviderState.removeOverlay();
+                                onExit: (_) {  referenceProviderState.removeOverlay();
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
@@ -214,50 +196,28 @@ class ReferencesChildTabbar extends StatelessWidget {
                                     style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
-                              // Text(
-                              //   snapshot.data![index].title,
-                              //   style:
-                              //       ThemeManagerDarkFont.customTextStyle(context),
-                              // ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10,),
                               Text(
                                 snapshot.data![index].mobNumber,
-                                style:
-                                ThemeManagerDarkFont.customTextStyle(context),
+                                style: ThemeManagerDarkFont.customTextStyle(context),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
-                              Text(
-                                snapshot.data![index].email,
-                                style:
-                                ThemeManagerDarkFont.customTextStyle(context),
+                              Text(snapshot.data![index].email,
+                                style: ThemeManagerDarkFont.customTextStyle(context),
                               ),
                             ],
                             row2Child1: [
-                              Text('Company/ Organization :',
-                                  style: ThemeManagerDark.customTextStyle(context)),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              Text('Company/ Organization :', style: ThemeManagerDark.customTextStyle(context)),
+                              const SizedBox(height: 10,),
                               Text('How do you know this person ? :',
                                   style: ThemeManagerDark.customTextStyle(context)),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10,),
                               Text('Length of Association :',
                                   style: ThemeManagerDark.customTextStyle(context)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
-                                height: 30,
-                                width: 90,
-                              )
-                              // Text('Referred By',
-                              //     style: ThemeManager.customTextStyle(context)),
+                              const SizedBox(height: 10),
+                              SizedBox(height: 30, width: 90,)
                             ],
                             row2Child2: [
                               MouseRegion(
@@ -265,7 +225,6 @@ class ReferencesChildTabbar extends StatelessWidget {
                                   referenceProviderState.showOverlay(context, event.position, snapshot.data![index].company ?? '--');
                                 },
                                 onExit: (_) {
-                                  // Remove overlay when the cursor exits the widget
                                   referenceProviderState.removeOverlay();
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
@@ -274,20 +233,12 @@ class ReferencesChildTabbar extends StatelessWidget {
                                     style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
-                              // Text(_trimAddress(snapshot.data![index].company),
-                              //   style:
-                              //       ThemeManagerDarkFont.customTextStyle(context),
-                              // ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10,),
                               MouseRegion(
                                 onHover: (event){
                                   referenceProviderState.showOverlay(context, event.position, snapshot.data![index].references ?? '--');
                                 },
-                                onExit: (_) {
-                                  // Remove overlay when the cursor exits the widget
-                                  referenceProviderState.removeOverlay();
+                                onExit: (_) { referenceProviderState.removeOverlay();
                                 },
                                 child: CompositedTransformTarget(link: _layerLink,
                                   child: Text(
@@ -295,35 +246,18 @@ class ReferencesChildTabbar extends StatelessWidget {
                                     style: ThemeManagerDarkFont.customTextStyle(context),
                                   ),),
                               ),
-                              // Text(_trimAddress(
-                              //   snapshot.data![index].references),
-                              //   //'LinkedIn',
-                              //   style:
-                              //       ThemeManagerDarkFont.customTextStyle(context),
-                              // ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10,),
                               Text(
                                 snapshot.data![index].association,
-                                style:
-                                ThemeManagerDarkFont.customTextStyle(context),
+                                style: ThemeManagerDarkFont.customTextStyle(context),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
-                                height: 30,
-                                width: 90,
-                              )
+                              const SizedBox(height: 10,),
+                              SizedBox(height: 30, width: 90,)
                             ],
                             button: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                snapshot.data![index].approve == null
-                                    ? SizedBox(
-                                  height: 25,
-                                )
+                                snapshot.data![index].approve == null ? SizedBox(height: 25,)
                                     : BorderIconButton(
                                     iconData: Icons.edit_outlined,
                                     buttonText: 'Edit',
@@ -333,95 +267,39 @@ class ReferencesChildTabbar extends StatelessWidget {
                                           builder: (BuildContext context) {
                                             return FutureBuilder<
                                                 ReferencePrefillData>(
-                                                future: getPrefillReferences(
-                                                    context,
-                                                    snapshot.data![index]
-                                                        .referenceId),
-                                                builder:
-                                                    (context, snapshotPrefill) {
-                                                  if (snapshotPrefill
-                                                      .connectionState ==
-                                                      ConnectionState.waiting) {
-                                                    return Center(
-                                                      child:
-                                                      CircularProgressIndicator(
-                                                        color: ColorManager
-                                                            .blueprime,
+                                                future: getPrefillReferences(context,
+                                                    snapshot.data![index].referenceId),
+                                                builder: (context, snapshotPrefill) {
+                                                  if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                    return Center(child: CircularProgressIndicator(
+                                                        color: ColorManager.blueprime,
                                                       ),
                                                     );
                                                   }
-                                                  var name = snapshotPrefill
-                                                      .data!.name;
-                                                  nameController =
-                                                      TextEditingController(
-                                                          text: snapshotPrefill
-                                                              .data!.name);
+                                                  var name = snapshotPrefill.data!.name;
+                                                  nameController = TextEditingController(
+                                                          text: snapshotPrefill.data!.name);
+                                                  var comment = snapshotPrefill.data!.comment;
+                                                  var email = snapshotPrefill.data!.email;
+                                                  emailController = TextEditingController(text: snapshotPrefill.data!.email);
+                                                  var title = snapshotPrefill.data!.title;
+                                                  titlePositionController = TextEditingController(text: snapshotPrefill.data!.title);
 
-                                                  var comment = snapshotPrefill
-                                                      .data!.comment;
+                                                  var knowPerson =  snapshotPrefill.data!.references;
+                                                  knowPersonController = TextEditingController(text:  snapshotPrefill.data!.references);
 
-                                                  var email = snapshotPrefill
-                                                      .data!.email;
-                                                  emailController =
-                                                      TextEditingController(
-                                                          text: snapshotPrefill
-                                                              .data!.email);
+                                                  var companyName = snapshotPrefill.data!.company;
+                                                  companyNameController = TextEditingController(text: snapshotPrefill.data!.company);
 
-                                                  var title = snapshotPrefill
-                                                      .data!.title;
-                                                  titlePositionController =
-                                                      TextEditingController(
-                                                          text: snapshotPrefill
-                                                              .data!.title);
-
-                                                  var knowPerson =  snapshotPrefill
-                                                      .data!.references;
-                                                  knowPersonController =
-                                                      TextEditingController(
-                                                          text:  snapshotPrefill
-                                                              .data!.references);
-
-                                                  var companyName =
-                                                      snapshotPrefill
-                                                          .data!.company;
-                                                  companyNameController =
-                                                      TextEditingController(
-                                                          text: snapshotPrefill
-                                                              .data!.company);
-
-                                                  var association =
-                                                      snapshotPrefill
-                                                          .data!.association;
-                                                  associationLengthController =
-                                                      TextEditingController(
-                                                          text: snapshotPrefill
-                                                              .data!
-                                                              .association);
-                                                  var referredby =
-                                                      snapshotPrefill
-                                                          .data!.references;
-                                                  referredBController =
-                                                      TextEditingController(
-                                                          text: snapshotPrefill
-                                                              .data!
-                                                              .references);
-
-                                                  // var references =
-                                                  //     snapshotPrefill
-                                                  //         .data!.references;
-                                                  var mobileNumber =
-                                                      snapshotPrefill
-                                                          .data!.mobNumber;
-                                                  mobileNumberController =
-                                                      TextEditingController(
-                                                          text: snapshotPrefill
-                                                              .data!.mobNumber);
+                                                  var association = snapshotPrefill.data!.association;
+                                                  associationLengthController = TextEditingController(text: snapshotPrefill.data!.association);
+                                                  var referredby = snapshotPrefill.data!.references;
+                                                  referredBController = TextEditingController(text: snapshotPrefill.data!.references);
+                                                  var mobileNumber = snapshotPrefill.data!.mobNumber;
+                                                  mobileNumberController = TextEditingController(text: snapshotPrefill.data!.mobNumber);
                                                   return StatefulBuilder(
-                                                    builder: (BuildContext
-                                                    context,
-                                                        void Function(
-                                                            void Function())
-                                                        setState) {
+                                                    builder: (BuildContext context,
+                                                        void Function(void Function())setState) {
                                                       return AddReferencePopup(
                                                         nameController:
                                                         nameController,
@@ -440,67 +318,32 @@ class ReferencesChildTabbar extends StatelessWidget {
                                                         referredBy:
                                                         referredBController,
                                                         onpressedClose: () {
-                                                          Navigator.pop(
-                                                              context);
+                                                          Navigator.pop(context);
                                                         },
-                                                        onpressedSave:
-                                                            () async {
+                                                        onpressedSave: () async {
                                                           var response =
                                                           await updateReferencePatch(
                                                             context,
-                                                            snapshot
-                                                                .data![index]
-                                                                .referenceId,
-                                                            association ==
-                                                                associationLengthController
-                                                                    .text
-                                                                ? association
-                                                                .toString()
-                                                                : associationLengthController
-                                                                .text,
+                                                            snapshot.data![index].referenceId,
+                                                            association == associationLengthController.text
+                                                                ? association.toString()
+                                                                : associationLengthController.text,
                                                             comment.toString(),
-                                                            ///////////////////////////
-                                                            companyName ==
-                                                                companyNameController
-                                                                    .text
-                                                                ? companyName
-                                                                .toString()
-                                                                : companyNameController
-                                                                .text,
+                                                            companyName == companyNameController.text
+                                                                ? companyName.toString()
+                                                                : companyNameController.text,
                                                             /////////////////
-                                                            email ==
-                                                                emailController
-                                                                    .text
-                                                                ? email
-                                                                .toString()
-                                                                : emailController
-                                                                .text,
+                                                            email == emailController.text
+                                                                ? email.toString()
+                                                                : emailController.text,
                                                             employeeId,
                                                             ////////////////////////
-                                                            mobileNumber ==
-                                                                mobileNumberController
-                                                                    .text
-                                                                ? mobileNumber
-                                                                .toString()
-                                                                : mobileNumberController
-                                                                .text,
-                                                            /////////////////////////
-                                                            name ==
-                                                                nameController
-                                                                    .text
-                                                                ? name
-                                                                .toString()
-                                                                : nameController
-                                                                .text,
-                                                            ////////////////////////
-                                                            //references.toString(),
-                                                            // referredby ==
-                                                            //         referredBController
-                                                            //             .text
-                                                            //     ? referredby
-                                                            //         .toString()
-                                                            //     : referredBController
-                                                            //         .text,
+                                                            mobileNumber == mobileNumberController.text
+                                                                ? mobileNumber.toString()
+                                                                : mobileNumberController.text,
+                                                            name == nameController.text
+                                                                ? name.toString()
+                                                                : nameController.text,
                                                             knowPerson ==    knowPersonController.text
                                                                 ? knowPerson.toString()
                                                                 : knowPersonController.text,
@@ -511,34 +354,24 @@ class ReferencesChildTabbar extends StatelessWidget {
                                                             ////////////////////
 
                                                           );
-                                                          if (response.statusCode ==
-                                                              200 ||
-                                                              response.statusCode ==
-                                                                  201) {
-                                                            Navigator.pop(
-                                                                context);
-                                                            showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (BuildContext
-                                                              context) {
+                                                          if (response.statusCode == 200 || response.statusCode == 201) {
+                                                            Navigator.pop(context);
+                                                            showDialog(context: context,
+                                                              builder: (BuildContext context) {
                                                                 return AddSuccessPopup(
-                                                                  message:
-                                                                  'Reference Edit Successfully',
+                                                                  message: 'Reference Edit Successfully',
                                                                 );
                                                               },
                                                             );
                                                           }else if(response.statusCode == 400 || response.statusCode == 404){
                                                             Navigator.pop(context);
-                                                            showDialog(
-                                                              context: context,
+                                                            showDialog(context: context,
                                                               builder: (BuildContext context) => const FourNotFourPopup(),
                                                             );
                                                           }
                                                           else {
                                                             Navigator.pop(context);
-                                                            showDialog(
-                                                              context: context,
+                                                            showDialog(context: context,
                                                               builder: (BuildContext context) => FailedPopup(text: response.message),
                                                             );
                                                           }
