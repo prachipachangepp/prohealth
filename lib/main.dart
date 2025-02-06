@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/provider/hr_onboarding_provider.dart';
 import 'package:prohealth/app/resources/provider/hr_register_provider.dart';
 import 'package:prohealth/app/resources/provider/navigation_provider.dart';
+import 'package:prohealth/app/resources/provider/office_location.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_provider.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/widgets/user_delete_provider.dart';
@@ -39,6 +40,9 @@ Future<void> main() async {
           ),
           ChangeNotifierProvider(
             create: (_) => PageIndexProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => LocationProvider(),
           ),
           // ChangeNotifierProvider(create: (_) => SeeAllPaginationProvider(itemsPerPage: 10),),
           // ChangeNotifierProvider(create: (_) => SeeAllProvider()),

@@ -30,14 +30,19 @@ class HrOnboardingProvider extends ChangeNotifier {
   StreamController<List<OnboardingQualificationLicenseData>> get licenseStreamController => _licenseStreamController;
   StreamController<List<OnboardingQualificationEmploymentData>> get qualificationempStreamController => _qualificationempStreamController;
   StreamController<List<OnboardingQualificationEducationData>> get educationStreamController => _educationStreamController;
-
   Color? get color => _color;
   String get displayStatus => _displayStatus;
   String get selectedValue => _selectedValue;
   List<SeeAllData> get allData => _allData;
   String get trimmedAddress => _trimmedAddress;
   OverlayEntry? _overlayEntryAddress;
+  int _currentPage = 1;
+  int get currentPage => _currentPage;
 
+  void setCurrentPage(int page) {
+    _currentPage = page;
+    notifyListeners(); // This triggers UI rebuild
+  }
 
   void trimAddress(String address) {
     const int maxLength = 15;

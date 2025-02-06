@@ -33,11 +33,28 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
+  ///old
   void _confirmSelection() {
     widget.onLocationPicked(_selectedLocation);
     print("Picked Location: $_selectedLocation");
     Navigator.of(context).pop(_selectedLocation);
   }
+  ///updated
+  // void _confirmSelection() {
+  //   if (!mounted) return; // Ensure the widget is still active
+  //
+  //   if (_selectedLocation != null) {
+  //     widget.onLocationPicked(_selectedLocation!);
+  //     debugPrint("Picked Location: $_selectedLocation");
+  //
+  //     if (Navigator.canPop(context)) {
+  //       Navigator.of(context).pop(_selectedLocation);
+  //     }
+  //   } else {
+  //     debugPrint("No location selected");
+  //   }
+  // }
+
 
   @override
   Widget build(BuildContext context) {
