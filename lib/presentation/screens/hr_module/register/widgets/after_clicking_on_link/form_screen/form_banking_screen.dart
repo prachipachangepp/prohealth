@@ -309,7 +309,20 @@ class _BankingScreenState extends State<BankingScreen> {
                         } else {
                           // If a document is selected, check if it's under 20 MB
                           if (!st.fileAbove20Mb) {
+
+
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddErrorPopup(
+                                  message: 'File is too large!',
+                                );
+                              },
+                            );
                             // Print values before calling the function
+
+                          } else {
+                            // If the file is too large, show an error message
                             print(':::::::Saving Banking Data With File:::::::::::::');
                             print('Employee ID: ${widget.employeeID}');
                             print('Account Number: ${st.accountnumber.text}');
@@ -336,16 +349,6 @@ class _BankingScreenState extends State<BankingScreen> {
                               requestedPercentage: '',
                               documentFile: st.finalPath,  // Include file if selected
                               documentName: st.fileName!, // Include file name
-                            );
-                          } else {
-                            // If the file is too large, show an error message
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddErrorPopup(
-                                  message: 'File is too large!',
-                                );
-                              },
                             );
                           }
                         }

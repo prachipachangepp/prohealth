@@ -369,7 +369,17 @@ class _LicensesScreenState extends State<LicensesScreen> {
                         } else {
                           // If file is selected, check its size
                           if (!st.fileAbove20Mb) {
-                            // File is under 20 MB, so proceed to save and upload
+                            // File is too large (above 20 MB), show an error popup
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddErrorPopup(
+                                  message: 'File is too large!',
+                                );
+                              },
+                            );
+                          } else {
+                            // File is under 20 MB, proceed to save and upload
                             await perfFormLinsence(
                               context: context,
                               licenseNumber: st.licensurenumber.text,
@@ -383,16 +393,6 @@ class _LicensesScreenState extends State<LicensesScreen> {
                               documentType: st.documentTypeName!,
                               documentFile: st.finalPath,
                               documentName: st.fileName!,
-                            );
-                          } else {
-                            // File is too large, show an error popup
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddErrorPopup(
-                                  message: 'File is too large!',
-                                );
-                              },
                             );
                           }
                         }
@@ -413,6 +413,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 style: BlueButtonTextConst.customTextStyle(context),
               ),
             ),
+
 
             //     :CustomButton(
             //   width: 117,
