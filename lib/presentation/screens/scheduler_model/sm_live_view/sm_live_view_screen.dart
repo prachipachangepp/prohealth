@@ -602,7 +602,9 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
       ),
     );
   }
-//
+
+
+
   Future<void> _performSearch() async {
     final query = _searchController.text.trim(); // Trim extra spaces
     if (query.isNotEmpty) {
