@@ -17,6 +17,7 @@ import 'package:prohealth/data/api_data/sm_data/patient_data/patient_data_compli
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/dialogue_template.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
@@ -87,94 +88,31 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
       });
     }
   }
-  String? selectedExpiryType;
+  String selectedExpiryType = "Not Applicable";
   bool _isLoading =false;
   String? _nameDocError;
   String? _selectDocError;
-  String? _selectExpTypeError ;
+ // String? _selectExpTypeError ;
   String? _uploadDocError;
   void _validateFields() {
     setState(() {
       _nameDocError = widget.nameDocController.text.isEmpty ? 'Please enter document name' : null;
       _selectDocError = selectedDocType == "Select Document" ? 'Please select document' : null;
-      _selectExpTypeError = selectedExpiryType == null ? 'Please select expiry type': null;
+    //  _selectExpTypeError = selectedExpiryType == null ? 'Please select expiry type': null;
       _uploadDocError = fileName == '' ? 'Please upload document':null;
     });
   }
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      backgroundColor: ColorManager.white,
-      titlePadding: EdgeInsets.zero,
-      title: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(
-                  12,
-                ),
-                topLeft: Radius.circular(
-                  12,
-                ),
-              ),
-              color: ColorManager.blueprime,
-            ),
-            height: AppSize.s40,
-            width: 408,
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Text(
-                    widget.title,
-                    style: PopupBlueBarText.customTextStyle(context)
-                  ),
-                ),
-                Spacer(),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.close,
-                    color: ColorManager.white,
-                  ),
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      content: Container(
-        height: 500,
-        width: AppSize.s350,
-        color: Colors.white,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 10),
-            Column(
+    return DialogueTemplate(
+        width: 408,
+        height: 540,
+        body: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       AppString.type_of_the_document,
-                //       style: AllPopupHeadings.customTextStyle(context)
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(height: 5),
                 FutureBuilder<List<PatientDataComplianceDoc>>(
                   future: getpatientDataComplianceDoc(context),
                   builder: (context, snapshot) {
@@ -243,111 +181,31 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                             // Handle error
                           });
 
-                      },
+                        },
 
                       );
-                      // List<DropdownMenuItem<String>>
-                      // dropDownMenuItems = snapshot.data!
-                      //     .map((doc) =>
-                      //     DropdownMenuItem<String>(
-                      //       value: doc.docType,
-                      //       child: Text(doc.docType!),
-                      //     ))
-                      //     .toList();
-                      // docTypeId = snapshot.data![0].docTypeId!;
-                      // documentTypeName = snapshot.data![0].docType!;
-                      // return CICCDropdown(
-                      //   initialValue: selectedDocType ??
-                      //       dropDownMenuItems[0].value,
-                    //     onChange: (val) {
-                    //       setState(() {
-                    //         selectedDocType = val;
-                    //         for (var doc in snapshot.data!) {
-                    //           if (doc.docType == val) {
-                    //             docTypeId = doc.docTypeId!;
-                    //             documentTypeName = doc.docType;
-                    //           }
-                    //         }
-                    //         getComplianceByPatientId(
-                    //             context,
-                    //             1
-                    //         ).then((data) {
-                    //           _compliancePatientDataController
-                    //               .add(data);
-                    //         }).catchError((error) {
-                    //           // Handle error
-                    //         });
-                    //       });
-                    // },
-                      //   items: dropDownMenuItems,
-                      // );
                     } else {
                       return const Offstage();
                     }
                   },
                 ),
-                if (_selectDocError != null)
+                _selectDocError != null ?
                   Text(
                     _selectDocError!,
                     style: CommonErrorMsg.customTextStyle(context),
-                  ),
+                  ): SizedBox(height: AppSize.s12,),
                 SizedBox(height: 10),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       AppString.name_of_the_document,
-                //       style: GoogleFonts.firaSans(
-                //         fontSize: FontSize.s14,
-                //         fontWeight: FontWeightManager.bold,
-                //         color: ColorManager.textPrimaryColor,
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(height: 5),
                 ///name of doc
-                // Container(
-                //   height: AppSize.s30,
-                //   child: TextFormField(
-                //     cursorColor: Colors.black,
-                //     cursorHeight: 18,
-                //     controller: widget.nameDocController,
-                //     style: GoogleFonts.firaSans(
-                //       fontSize: AppSize.s12,
-                //       fontWeight: FontWeightManager.regular,
-                //       color: ColorManager.greylight,
-                //     ),
-                //     textAlignVertical: TextAlignVertical.center,
-                //     decoration: InputDecoration(
-                //       border: OutlineInputBorder(),
-                //       enabledBorder: OutlineInputBorder(
-                //         borderSide: BorderSide(
-                //           color: ColorManager.containerBorderGrey,
-                //           width: 1.0,
-                //         ),
-                //       ),
-                //       focusedBorder: OutlineInputBorder(
-                //         borderSide: BorderSide(
-                //           color: ColorManager.containerBorderGrey,
-                //           width: 1.0,
-                //         ),
-                //       ),
-                //       contentPadding:
-                //           EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                //     ),
-                //   ),
-                // ),
                 SchedularTextField(
                   controller: widget.nameDocController,
-                 // keyboardType: TextInputType.text,
+                  // keyboardType: TextInputType.text,
                   labelText:  AppString.name_of_the_document,
                 ),
-                if (_nameDocError != null)
+                _nameDocError != null ?
                   Text(
                     _nameDocError!,
                     style: CommonErrorMsg.customTextStyle(context),
-                  ),
+                  ): SizedBox(height: AppSize.s12,),
                 SizedBox(height: 10),
 
                 StatefulBuilder(
@@ -360,16 +218,16 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                           CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Expiry Type",
-                              style: AllPopupHeadings.customTextStyle(context)
+                                "Expiry Type",
+                                style: AllPopupHeadings.customTextStyle(context)
                             ),
                             CustomRadioListTile(
                               value: "Not Applicable",
                               groupValue: selectedExpiryType,
                               onChanged: (value) {
-                                setState(() {
-                                  selectedExpiryType = value;
-                                });
+                                // setState(() {
+                                //   selectedExpiryType = value;
+                                // });
                               },
                               title: "Not Applicable",
                             ),
@@ -377,9 +235,9 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                               value: 'Scheduled',
                               groupValue: selectedExpiryType,
                               onChanged: (value) {
-                                setState(() {
-                                  selectedExpiryType = value;
-                                });
+                                // setState(() {
+                                //   selectedExpiryType = value;
+                                // });
                               },
                               title: 'Scheduled',
                             ),
@@ -387,17 +245,17 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                               value: 'Issuer Expiry',
                               groupValue: selectedExpiryType,
                               onChanged: (value) {
-                                setState(() {
-                                  selectedExpiryType = value;
-                                });
+                                // setState(() {
+                                //   selectedExpiryType = value;
+                                // });
                               },
                               title: 'Issuer Expiry',
                             ),
-                            if (_selectExpTypeError != null)
-                              Text(
-                                _selectExpTypeError!,
-                                style: CommonErrorMsg.customTextStyle(context),
-                              ),
+                            // if (_selectExpTypeError != null)
+                            //   Text(
+                            //     _selectExpTypeError!,
+                            //     style: CommonErrorMsg.customTextStyle(context),
+                            //   ),
                           ],
                         ),
                         SizedBox(height: 5,),
@@ -410,92 +268,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                             CrossAxisAlignment.start,
                             children: [
                               SchedularTextField(labelText: 'Expiry Date',
-                                  showDatePicker:true,
+                                showDatePicker:true,
                                 controller: widget.calenderController,
 
                               )
-                              // Text(
-                              //   "Expiry Date",
-                              //   style: AllPopupHeadings.customTextStyle(context)
-                              // ),
-                              // FormField<String>(
-                              //   builder:
-                              //       (FormFieldState<String> field) {
-                              //     return SizedBox(
-                              //       width: 354,
-                              //       height: 30,
-                              //       child: TextFormField(
-                              //         controller: widget.calenderController,
-                              //         cursorColor: ColorManager.black,
-                              //         style: DocumentTypeDataStyle.customTextStyle(context),
-                              //         decoration: InputDecoration(
-                              //           enabledBorder:
-                              //           OutlineInputBorder(
-                              //             borderSide: BorderSide(
-                              //                 color: ColorManager
-                              //                     .fmediumgrey,
-                              //                 width: 1),
-                              //             borderRadius:
-                              //             BorderRadius.circular(
-                              //                 8),
-                              //           ),
-                              //           focusedBorder:
-                              //           OutlineInputBorder(
-                              //             borderSide: BorderSide(
-                              //                 color: ColorManager
-                              //                     .fmediumgrey,
-                              //                 width: 1),
-                              //             borderRadius:
-                              //             BorderRadius.circular(
-                              //                 8),
-                              //           ),
-                              //           hintText: 'yyyy-MM-dd',
-                              //           hintStyle:
-                              //           DocumentTypeDataStyle.customTextStyle(context),
-                              //           border: OutlineInputBorder(
-                              //             borderRadius:
-                              //             BorderRadius.circular(
-                              //                 8),
-                              //             borderSide: BorderSide(
-                              //                 width: 1,
-                              //                 color: ColorManager
-                              //                     .fmediumgrey),
-                              //           ),
-                              //           contentPadding:
-                              //           EdgeInsets.symmetric(
-                              //               horizontal: 16),
-                              //           suffixIcon: Icon(
-                              //               Icons
-                              //                   .calendar_month_outlined,
-                              //               color: ColorManager
-                              //                   .blueprime),
-                              //           errorText: field.errorText,
-                              //         ),
-                              //         onTap: () async {
-                              //           DateTime? pickedDate =
-                              //           await showDatePicker(
-                              //             context: context,
-                              //             initialDate: DateTime.now(),
-                              //             firstDate: DateTime(2000),
-                              //             lastDate: DateTime(3101),
-                              //           );
-                              //           if (pickedDate != null) {
-                              //             widget.calenderController.text =
-                              //                 DateFormat('yyyy-MM-dd')
-                              //                     .format(pickedDate);
-                              //           }
-                              //         },
-                              //         validator: (value) {
-                              //           if (value == null ||
-                              //               value.isEmpty) {
-                              //             return 'please select birth date';
-                              //           }
-                              //           return null;
-                              //         },
-                              //       ),
-                              //     );
-                              //   },
-                              // ),
+
                             ],
                           ),
                         ),
@@ -503,15 +280,15 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     );
                   },
                 ),
-               // SizedBox(height: 10),
+                // SizedBox(height: 10),
                 widget.child2 ?? Offstage(),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      AppString.upload_document,
-                      style:AllPopupHeadings.customTextStyle(context)
+                        AppString.upload_document,
+                        style:AllPopupHeadings.customTextStyle(context)
                     ),
                   ],
                 ),
@@ -519,151 +296,705 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                   height: 5,
                 ),
                 /// upload  doc
-        Container(
-          height: AppSize.s30,
-          width: AppSize.s360,
-         // margin: EdgeInsets.symmetric(horizontal: 5),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: ColorManager.containerBorderGrey,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: StatefulBuilder(
-            builder: (BuildContext context, void Function(void Function()) setState) {
-              return InkWell(onTap:_pickFile ,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        fileName,
-                        style: DocumentTypeDataStyle.customTextStyle(context)
-                      ),
+                Container(
+                  height: AppSize.s30,
+                  width: AppSize.s360,
+                  // margin: EdgeInsets.symmetric(horizontal: 5),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorManager.containerBorderGrey,
+                      width: 1,
                     ),
-                    IconButton(
-                      padding: EdgeInsets.all(4),
-                      onPressed:  _pickFile,
-                      icon: Icon(
-                        Icons.file_upload_outlined,
-                        color: ColorManager.black,
-                        size: 17,
-                      ),
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                    ),
-                  ],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) {
+                      return InkWell(onTap:_pickFile ,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Text(
+                                  fileName,
+                                  style: DocumentTypeDataStyle.customTextStyle(context)
+                              ),
+                            ),
+                            IconButton(
+                              padding: EdgeInsets.all(4),
+                              onPressed:  _pickFile,
+                              icon: Icon(
+                                Icons.file_upload_outlined,
+                                color: ColorManager.black,
+                                size: 17,
+                              ),
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              );
-            },
-          ),
-        ),
-                if (_uploadDocError != null)
+                _uploadDocError != null ?
                   Text(
                     _uploadDocError!,
                     style: CommonErrorMsg.customTextStyle(context),
-                  ),
+                  ): SizedBox(height: AppSize.s12,),
 
               ],
             ),
-            // SizedBox(
-            //   height: 10,
-            // ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Center(
-                child: widget.loadingDuration == true
-                    ? SizedBox(
-                        height: 25,
-                        width: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ),
-                      )
-                    : CustomElevatedButton(
-                        width: AppSize.s105,
-                        height: AppSize.s30,
-                        text: AppStringEM.save,
-                        onPressed: () async {
-                          print('File path on pressed ${filePath}');
-                          _validateFields();
-                          if(_uploadDocError == null && _selectDocError == null &&
-                              _selectDocError == null && _selectExpTypeError == null){
-                            if(fileAbove20Mb){
-                              setState(() {
-                                _isLoading = true;
-                              });
-                              String expiryTypeToSend =
-                              selectedExpiryType == "Not Applicable"
-                                  ? "--"
-                                  : widget.calenderController.text;
-                              try {
-                                ApiData response =  await addLabReport(
-                                  context: context,
-                                  patientId: widget.patientId!,
-                                  docTypeId: docTypeId,
-                                  docType: widget.nameDocController.text,
-                                  name: widget.nameDocController.text,
-                                  docUrl: "url",
-                                  createdAt: DateTime.now().toIso8601String() + "Z",
-                                  expDate: widget.calenderController.text.isEmpty ? null : "${widget.calenderController.text}T00:00:00Z",
-                                );
-                                if(response.statusCode == 200 ||response.statusCode == 201 ){
-                                  await uploadDocumentsLabReport(
-                                      context: context,
-                                      documentFile: filePath,
-                                      labReportId: response.labReportId!);
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AddSuccessPopup(
-                                        message: 'Record Added Successfully',
-                                      );
-                                    },
-                                  );
-                                }
-                                print("DocName${widget.nameDocController.text}");
-                                //GetLabReport(context, 1);
-                                //Navigator.pop(context);
-                                setState(() {
-                                  selectedExpiryType = '';
-                                  fileName ='';
-                                  widget.calenderController.clear();
-                                  //docIdController.clear();
-                                  widget.nameDocController.clear();
-                                });
-                              } finally {
-                                setState(() {
-                                  _isLoading = false;
-                                });
-                              }
-                            }else{
-                              Navigator.pop(context);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AddErrorPopup(
-                                    message: 'File is too large!',
-                                  );
-                                },
-                              );
-                            }
-
-                          }
-
-                        },
-                      ),
+          ),
+        ],
+        bottomButtons:  Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Center(
+            child: widget.loadingDuration == true
+                ? SizedBox(
+              height: AppSize.s30,
+              width: AppSize.s30,
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
               ),
+            )
+                : CustomElevatedButton(
+              width: AppSize.s105,
+              height: AppSize.s30,
+              text: AppStringEM.save,
+              onPressed: () async {
+                print('File path on pressed ${filePath}');
+                _validateFields();
+                if(_uploadDocError == null && _selectDocError == null &&
+                    _selectDocError == null){
+                  if(fileAbove20Mb){
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    String expiryTypeToSend =
+                    selectedExpiryType == "Not Applicable"
+                        ? "--"
+                        : widget.calenderController.text;
+                    try {
+                      ApiData response =  await addLabReport(
+                        context: context,
+                        patientId: widget.patientId!,
+                        docTypeId: docTypeId,
+                        docType: widget.nameDocController.text,
+                        name: widget.nameDocController.text,
+                        docUrl: "url",
+                        createdAt: DateTime.now().toIso8601String() + "Z",
+                        expDate: widget.calenderController.text.isEmpty ? null : "${widget.calenderController.text}T00:00:00Z",
+                      );
+                      if(response.statusCode == 200 ||response.statusCode == 201 ){
+                        await uploadDocumentsLabReport(
+                            context: context,
+                            documentFile: filePath,
+                            labReportId: response.labReportId!);
+                        Navigator.pop(context);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSuccessPopup(
+                              message: 'Record Added Successfully',
+                            );
+                          },
+                        );
+                      }
+                      print("DocName${widget.nameDocController.text}");
+                      //GetLabReport(context, 1);
+                      //Navigator.pop(context);
+                      setState(() {
+                        selectedExpiryType = '';
+                        fileName ='';
+                        widget.calenderController.clear();
+                        //docIdController.clear();
+                        widget.nameDocController.clear();
+                      });
+                    } finally {
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    }
+                  }else{
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'File is too large!',
+                        );
+                      },
+                    );
+                  }
+
+                }
+
+              },
             ),
-          ],
+          ),
         ),
-      ),
-    );
+        title:   widget.title,);
+
+
+    //   AlertDialog(
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.circular(20.0),
+    //   ),
+    //   backgroundColor: ColorManager.white,
+    //   titlePadding: EdgeInsets.zero,
+    //   title: Column(
+    //     children: [
+    //       Container(
+    //         decoration: BoxDecoration(
+    //           border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+    //           borderRadius: BorderRadius.only(
+    //             topRight: Radius.circular(12,),
+    //             topLeft: Radius.circular(12,),
+    //           ),
+    //           color: ColorManager.blueprime,
+    //         ),
+    //         height: AppSize.s40,
+    //         width: 408,
+    //         child: Row(
+    //           children: [
+    //             Padding(
+    //               padding: const EdgeInsets.symmetric(horizontal: 25.0),
+    //               child: Text(
+    //                 widget.title,
+    //                 style: PopupBlueBarText.customTextStyle(context)
+    //               ),
+    //             ),
+    //             Spacer(),
+    //             IconButton(
+    //               onPressed: () {
+    //                 Navigator.pop(context);
+    //               },
+    //               icon: Icon(
+    //                 Icons.close,
+    //                 color: ColorManager.white,
+    //               ),
+    //               splashColor: Colors.transparent,
+    //               highlightColor: Colors.transparent,
+    //               hoverColor: Colors.transparent,
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    //   content: Container(
+    //     height: 500,
+    //     width: AppSize.s350,
+    //     color: Colors.white,
+    //     child: Column(
+    //       mainAxisSize: MainAxisSize.min,
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         SizedBox(height: 10),
+    //         Column(
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             // Row(
+    //             //   mainAxisAlignment: MainAxisAlignment.start,
+    //             //   children: [
+    //             //     Text(
+    //             //       AppString.type_of_the_document,
+    //             //       style: AllPopupHeadings.customTextStyle(context)
+    //             //     ),
+    //             //   ],
+    //             // ),
+    //             // SizedBox(height: 5),
+    //             FutureBuilder<List<PatientDataComplianceDoc>>(
+    //               future: getpatientDataComplianceDoc(context),
+    //               builder: (context, snapshot) {
+    //                 if (snapshot.connectionState ==
+    //                     ConnectionState.waiting) {
+    //                   return CustomDropdownTextFieldsm(
+    //                     // width: 350,
+    //                     // height: 30,
+    //                     // decoration: BoxDecoration(
+    //                     //   borderRadius:
+    //                     //   BorderRadius.circular(10),
+    //                     //   border: Border.all(color: Colors.grey, width: 1),
+    //                     // ),
+    //                     headText: AppString.type_of_the_document,
+    //                   );
+    //                 }
+    //                 if (snapshot.data!.isEmpty) {
+    //                   return Container(
+    //                     width: 350,
+    //                     height: 30,
+    //                     decoration: BoxDecoration(
+    //                       borderRadius:
+    //                       BorderRadius.circular(10),
+    //                       border: Border.all(color: Colors.grey, width: 1),
+    //                     ),
+    //                     child: Center(
+    //                       child: Text(
+    //                         AppString.dataNotFound,
+    //                         style: CustomTextStylesCommon.commonStyle(
+    //                           fontWeight: FontWeight.w500,
+    //                           fontSize: FontSize.s14,
+    //                           color: ColorManager.mediumgrey,
+    //                         ),
+    //                       ),
+    //                     ),
+    //                   );
+    //                 }
+    //                 if (snapshot.hasData) {
+    //                   List<DropdownMenuItem<String>> dropDownList = [];
+    //                   for (var i in snapshot.data!) {
+    //                     dropDownList.add(DropdownMenuItem<String>(
+    //                       child: Text(i.docType!!),
+    //                       value: i.docType!,
+    //                     ));
+    //                   }
+    //
+    //                   return CustomDropdownTextFieldsm(
+    //                     dropDownMenuList: dropDownList,
+    //                     headText: AppString.type_of_the_document,
+    //                     onChanged:  (val) {
+    //
+    //                       for (var i in snapshot.data!) {
+    //                         if (i.docType == val) {
+    //                           docTypeId = i.docTypeId!;
+    //                           documentTypeName = i.docType;
+    //                           selectedDocType =documentTypeName!;
+    //                         }
+    //                       }
+    //                       getComplianceByPatientId(
+    //                           context,
+    //                           1
+    //                       ).then((data) {
+    //                         _compliancePatientDataController
+    //                             .add(data);
+    //                       }).catchError((error) {
+    //                         // Handle error
+    //                       });
+    //
+    //                   },
+    //
+    //                   );
+    //                   // List<DropdownMenuItem<String>>
+    //                   // dropDownMenuItems = snapshot.data!
+    //                   //     .map((doc) =>
+    //                   //     DropdownMenuItem<String>(
+    //                   //       value: doc.docType,
+    //                   //       child: Text(doc.docType!),
+    //                   //     ))
+    //                   //     .toList();
+    //                   // docTypeId = snapshot.data![0].docTypeId!;
+    //                   // documentTypeName = snapshot.data![0].docType!;
+    //                   // return CICCDropdown(
+    //                   //   initialValue: selectedDocType ??
+    //                   //       dropDownMenuItems[0].value,
+    //                 //     onChange: (val) {
+    //                 //       setState(() {
+    //                 //         selectedDocType = val;
+    //                 //         for (var doc in snapshot.data!) {
+    //                 //           if (doc.docType == val) {
+    //                 //             docTypeId = doc.docTypeId!;
+    //                 //             documentTypeName = doc.docType;
+    //                 //           }
+    //                 //         }
+    //                 //         getComplianceByPatientId(
+    //                 //             context,
+    //                 //             1
+    //                 //         ).then((data) {
+    //                 //           _compliancePatientDataController
+    //                 //               .add(data);
+    //                 //         }).catchError((error) {
+    //                 //           // Handle error
+    //                 //         });
+    //                 //       });
+    //                 // },
+    //                   //   items: dropDownMenuItems,
+    //                   // );
+    //                 } else {
+    //                   return const Offstage();
+    //                 }
+    //               },
+    //             ),
+    //             if (_selectDocError != null)
+    //               Text(
+    //                 _selectDocError!,
+    //                 style: CommonErrorMsg.customTextStyle(context),
+    //               ),
+    //             SizedBox(height: 10),
+    //             // Row(
+    //             //   mainAxisAlignment: MainAxisAlignment.start,
+    //             //   children: [
+    //             //     Text(
+    //             //       AppString.name_of_the_document,
+    //             //       style: GoogleFonts.firaSans(
+    //             //         fontSize: FontSize.s14,
+    //             //         fontWeight: FontWeightManager.bold,
+    //             //         color: ColorManager.textPrimaryColor,
+    //             //       ),
+    //             //     ),
+    //             //   ],
+    //             // ),
+    //             // SizedBox(height: 5),
+    //             ///name of doc
+    //             // Container(
+    //             //   height: AppSize.s30,
+    //             //   child: TextFormField(
+    //             //     cursorColor: Colors.black,
+    //             //     cursorHeight: 18,
+    //             //     controller: widget.nameDocController,
+    //             //     style: GoogleFonts.firaSans(
+    //             //       fontSize: AppSize.s12,
+    //             //       fontWeight: FontWeightManager.regular,
+    //             //       color: ColorManager.greylight,
+    //             //     ),
+    //             //     textAlignVertical: TextAlignVertical.center,
+    //             //     decoration: InputDecoration(
+    //             //       border: OutlineInputBorder(),
+    //             //       enabledBorder: OutlineInputBorder(
+    //             //         borderSide: BorderSide(
+    //             //           color: ColorManager.containerBorderGrey,
+    //             //           width: 1.0,
+    //             //         ),
+    //             //       ),
+    //             //       focusedBorder: OutlineInputBorder(
+    //             //         borderSide: BorderSide(
+    //             //           color: ColorManager.containerBorderGrey,
+    //             //           width: 1.0,
+    //             //         ),
+    //             //       ),
+    //             //       contentPadding:
+    //             //           EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+    //             //     ),
+    //             //   ),
+    //             // ),
+    //             SchedularTextField(
+    //               controller: widget.nameDocController,
+    //              // keyboardType: TextInputType.text,
+    //               labelText:  AppString.name_of_the_document,
+    //             ),
+    //             if (_nameDocError != null)
+    //               Text(
+    //                 _nameDocError!,
+    //                 style: CommonErrorMsg.customTextStyle(context),
+    //               ),
+    //             SizedBox(height: 10),
+    //
+    //             StatefulBuilder(
+    //               builder: (BuildContext context, void Function(void Function()) setState) {
+    //                 return Column(
+    //                   children: [
+    //                     Column(
+    //                       mainAxisAlignment: MainAxisAlignment.start,
+    //                       crossAxisAlignment:
+    //                       CrossAxisAlignment.start,
+    //                       children: [
+    //                         Text(
+    //                           "Expiry Type",
+    //                           style: AllPopupHeadings.customTextStyle(context)
+    //                         ),
+    //                         CustomRadioListTile(
+    //                           value: "Not Applicable",
+    //                           groupValue: selectedExpiryType,
+    //                           onChanged: (value) {
+    //                             setState(() {
+    //                               selectedExpiryType = value;
+    //                             });
+    //                           },
+    //                           title: "Not Applicable",
+    //                         ),
+    //                         CustomRadioListTile(
+    //                           value: 'Scheduled',
+    //                           groupValue: selectedExpiryType,
+    //                           onChanged: (value) {
+    //                             setState(() {
+    //                               selectedExpiryType = value;
+    //                             });
+    //                           },
+    //                           title: 'Scheduled',
+    //                         ),
+    //                         CustomRadioListTile(
+    //                           value: 'Issuer Expiry',
+    //                           groupValue: selectedExpiryType,
+    //                           onChanged: (value) {
+    //                             setState(() {
+    //                               selectedExpiryType = value;
+    //                             });
+    //                           },
+    //                           title: 'Issuer Expiry',
+    //                         ),
+    //                         if (_selectExpTypeError != null)
+    //                           Text(
+    //                             _selectExpTypeError!,
+    //                             style: CommonErrorMsg.customTextStyle(context),
+    //                           ),
+    //                       ],
+    //                     ),
+    //                     SizedBox(height: 5,),
+    //                     Visibility(
+    //                       visible: selectedExpiryType ==
+    //                           "Scheduled" ||
+    //                           selectedExpiryType == "Issuer Expiry",
+    //                       child: Column(
+    //                         crossAxisAlignment:
+    //                         CrossAxisAlignment.start,
+    //                         children: [
+    //                           SchedularTextField(labelText: 'Expiry Date',
+    //                               showDatePicker:true,
+    //                             controller: widget.calenderController,
+    //
+    //                           )
+    //                           // Text(
+    //                           //   "Expiry Date",
+    //                           //   style: AllPopupHeadings.customTextStyle(context)
+    //                           // ),
+    //                           // FormField<String>(
+    //                           //   builder:
+    //                           //       (FormFieldState<String> field) {
+    //                           //     return SizedBox(
+    //                           //       width: 354,
+    //                           //       height: 30,
+    //                           //       child: TextFormField(
+    //                           //         controller: widget.calenderController,
+    //                           //         cursorColor: ColorManager.black,
+    //                           //         style: DocumentTypeDataStyle.customTextStyle(context),
+    //                           //         decoration: InputDecoration(
+    //                           //           enabledBorder:
+    //                           //           OutlineInputBorder(
+    //                           //             borderSide: BorderSide(
+    //                           //                 color: ColorManager
+    //                           //                     .fmediumgrey,
+    //                           //                 width: 1),
+    //                           //             borderRadius:
+    //                           //             BorderRadius.circular(
+    //                           //                 8),
+    //                           //           ),
+    //                           //           focusedBorder:
+    //                           //           OutlineInputBorder(
+    //                           //             borderSide: BorderSide(
+    //                           //                 color: ColorManager
+    //                           //                     .fmediumgrey,
+    //                           //                 width: 1),
+    //                           //             borderRadius:
+    //                           //             BorderRadius.circular(
+    //                           //                 8),
+    //                           //           ),
+    //                           //           hintText: 'yyyy-MM-dd',
+    //                           //           hintStyle:
+    //                           //           DocumentTypeDataStyle.customTextStyle(context),
+    //                           //           border: OutlineInputBorder(
+    //                           //             borderRadius:
+    //                           //             BorderRadius.circular(
+    //                           //                 8),
+    //                           //             borderSide: BorderSide(
+    //                           //                 width: 1,
+    //                           //                 color: ColorManager
+    //                           //                     .fmediumgrey),
+    //                           //           ),
+    //                           //           contentPadding:
+    //                           //           EdgeInsets.symmetric(
+    //                           //               horizontal: 16),
+    //                           //           suffixIcon: Icon(
+    //                           //               Icons
+    //                           //                   .calendar_month_outlined,
+    //                           //               color: ColorManager
+    //                           //                   .blueprime),
+    //                           //           errorText: field.errorText,
+    //                           //         ),
+    //                           //         onTap: () async {
+    //                           //           DateTime? pickedDate =
+    //                           //           await showDatePicker(
+    //                           //             context: context,
+    //                           //             initialDate: DateTime.now(),
+    //                           //             firstDate: DateTime(2000),
+    //                           //             lastDate: DateTime(3101),
+    //                           //           );
+    //                           //           if (pickedDate != null) {
+    //                           //             widget.calenderController.text =
+    //                           //                 DateFormat('yyyy-MM-dd')
+    //                           //                     .format(pickedDate);
+    //                           //           }
+    //                           //         },
+    //                           //         validator: (value) {
+    //                           //           if (value == null ||
+    //                           //               value.isEmpty) {
+    //                           //             return 'please select birth date';
+    //                           //           }
+    //                           //           return null;
+    //                           //         },
+    //                           //       ),
+    //                           //     );
+    //                           //   },
+    //                           // ),
+    //                         ],
+    //                       ),
+    //                     ),
+    //                   ],
+    //                 );
+    //               },
+    //             ),
+    //            // SizedBox(height: 10),
+    //             widget.child2 ?? Offstage(),
+    //             SizedBox(height: 10),
+    //             Row(
+    //               mainAxisAlignment: MainAxisAlignment.start,
+    //               children: [
+    //                 Text(
+    //                   AppString.upload_document,
+    //                   style:AllPopupHeadings.customTextStyle(context)
+    //                 ),
+    //               ],
+    //             ),
+    //             SizedBox(
+    //               height: 5,
+    //             ),
+    //             /// upload  doc
+    //     Container(
+    //       height: AppSize.s30,
+    //       width: AppSize.s360,
+    //      // margin: EdgeInsets.symmetric(horizontal: 5),
+    //       decoration: BoxDecoration(
+    //         border: Border.all(
+    //           color: ColorManager.containerBorderGrey,
+    //           width: 1,
+    //         ),
+    //         borderRadius: BorderRadius.circular(10),
+    //       ),
+    //       child: StatefulBuilder(
+    //         builder: (BuildContext context, void Function(void Function()) setState) {
+    //           return InkWell(onTap:_pickFile ,
+    //             child: Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: [
+    //                 Padding(
+    //                   padding: const EdgeInsets.only(left: 15),
+    //                   child: Text(
+    //                     fileName,
+    //                     style: DocumentTypeDataStyle.customTextStyle(context)
+    //                   ),
+    //                 ),
+    //                 IconButton(
+    //                   padding: EdgeInsets.all(4),
+    //                   onPressed:  _pickFile,
+    //                   icon: Icon(
+    //                     Icons.file_upload_outlined,
+    //                     color: ColorManager.black,
+    //                     size: 17,
+    //                   ),
+    //                   splashColor: Colors.transparent,
+    //                   highlightColor: Colors.transparent,
+    //                   hoverColor: Colors.transparent,
+    //                 ),
+    //               ],
+    //             ),
+    //           );
+    //         },
+    //       ),
+    //     ),
+    //             if (_uploadDocError != null)
+    //               Text(
+    //                 _uploadDocError!,
+    //                 style: CommonErrorMsg.customTextStyle(context),
+    //               ),
+    //
+    //           ],
+    //         ),
+    //         // SizedBox(
+    //         //   height: 10,
+    //         // ),
+    //         Spacer(),
+    //         Padding(
+    //           padding: const EdgeInsets.only(bottom: 10),
+    //           child: Center(
+    //             child: widget.loadingDuration == true
+    //                 ? SizedBox(
+    //                     height: 25,
+    //                     width: 25,
+    //                     child: CircularProgressIndicator(
+    //                       color: ColorManager.blueprime,
+    //                     ),
+    //                   )
+    //                 : CustomElevatedButton(
+    //                     width: AppSize.s105,
+    //                     height: AppSize.s30,
+    //                     text: AppStringEM.save,
+    //                     onPressed: () async {
+    //                       print('File path on pressed ${filePath}');
+    //                       _validateFields();
+    //                       if(_uploadDocError == null && _selectDocError == null &&
+    //                           _selectDocError == null && _selectExpTypeError == null){
+    //                         if(fileAbove20Mb){
+    //                           setState(() {
+    //                             _isLoading = true;
+    //                           });
+    //                           String expiryTypeToSend =
+    //                           selectedExpiryType == "Not Applicable"
+    //                               ? "--"
+    //                               : widget.calenderController.text;
+    //                           try {
+    //                             ApiData response =  await addLabReport(
+    //                               context: context,
+    //                               patientId: widget.patientId!,
+    //                               docTypeId: docTypeId,
+    //                               docType: widget.nameDocController.text,
+    //                               name: widget.nameDocController.text,
+    //                               docUrl: "url",
+    //                               createdAt: DateTime.now().toIso8601String() + "Z",
+    //                               expDate: widget.calenderController.text.isEmpty ? null : "${widget.calenderController.text}T00:00:00Z",
+    //                             );
+    //                             if(response.statusCode == 200 ||response.statusCode == 201 ){
+    //                               await uploadDocumentsLabReport(
+    //                                   context: context,
+    //                                   documentFile: filePath,
+    //                                   labReportId: response.labReportId!);
+    //                               Navigator.pop(context);
+    //                               showDialog(
+    //                                 context: context,
+    //                                 builder: (BuildContext context) {
+    //                                   return AddSuccessPopup(
+    //                                     message: 'Record Added Successfully',
+    //                                   );
+    //                                 },
+    //                               );
+    //                             }
+    //                             print("DocName${widget.nameDocController.text}");
+    //                             //GetLabReport(context, 1);
+    //                             //Navigator.pop(context);
+    //                             setState(() {
+    //                               selectedExpiryType = '';
+    //                               fileName ='';
+    //                               widget.calenderController.clear();
+    //                               //docIdController.clear();
+    //                               widget.nameDocController.clear();
+    //                             });
+    //                           } finally {
+    //                             setState(() {
+    //                               _isLoading = false;
+    //                             });
+    //                           }
+    //                         }else{
+    //                           Navigator.pop(context);
+    //                           showDialog(
+    //                             context: context,
+    //                             builder: (BuildContext context) {
+    //                               return AddErrorPopup(
+    //                                 message: 'File is too large!',
+    //                               );
+    //                             },
+    //                           );
+    //                         }
+    //
+    //                       }
+    //
+    //                     },
+    //                   ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }
 
