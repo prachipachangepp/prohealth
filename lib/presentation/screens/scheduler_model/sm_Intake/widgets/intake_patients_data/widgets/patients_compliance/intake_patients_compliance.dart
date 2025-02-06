@@ -15,6 +15,7 @@ import 'package:prohealth/data/api_data/sm_data/patient_data/patient_data_compli
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_flow_contgainer_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_compliance/widget/compliance_add_popup.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -378,21 +379,8 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
             SizedBox(height: MediaQuery.of(context).size.height / 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
+              child: IntakeFlowContainerConst(
                 height: MediaQuery.of(context).size.height/1.5,
-                // width: MediaQuery.of(context).size.width * 0.95,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30.0),
                   child: Column(

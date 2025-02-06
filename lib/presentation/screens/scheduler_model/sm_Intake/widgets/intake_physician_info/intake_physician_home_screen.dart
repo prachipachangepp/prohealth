@@ -38,10 +38,10 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
       children: [
         SizedBox(height: AppSize.s15),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: MediaQuery.of(context).size.width/2.466, //2.4
+              width: MediaQuery.of(context).size.width/1.9585, //2.4
               height: AppSize.s30,
               decoration: BoxDecoration(
                   boxShadow: [
@@ -200,44 +200,74 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                     ),
                     onTap: () => selectButton(3),
                   ),
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    child: Container(
+                      height: AppSize.s30,
+                      width: MediaQuery.of(context).size.width / 9.5,
+                      padding: EdgeInsets.symmetric(vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: selectedIndex == 4
+                            ? ColorManager.white
+                            : null,
+                      ),
+                      child: Text(
+                        'History and Physical',
+                        textAlign: TextAlign.center,
+                       style: TextStyle(
+                          fontSize: FontSize.s14,
+                          fontWeight:selectedIndex == 4
+                              ? FontWeight.w600
+                              : FontWeight.w500,
+                          color: selectedIndex == 4
+                              ? ColorManager.mediumgrey
+                              : ColorManager.white,
+                        ),
+                      ),
+                    ),
+                    onTap: () => selectButton(4),
+                  ),
                 ],
               ),
             ),
-            SizedBox(width: MediaQuery.of(context).size.width/5),
-            Padding(
-              padding: const EdgeInsets.only(right: 40.0),
-              child: Container(
-                height: AppSize.s26,
-                width: AppSize.s102,
-                // child: ElevatedButton(
-                //   onPressed: () {
-                //     showDialog(
-                //       context: context,
-                //       builder: (BuildContext context) {
-                //         return SchedularSuccessPopup(title: 'Success',);
-                //       },
-                //     );
-                //   },
-                //   child: Text(AppString.save,
-                //     style: GoogleFonts.firaSans(
-                //       fontSize: FontSize.s12,
-                //       fontWeight: FontWeightManager.bold,
-                //       color: ColorManager.white,
-                //     ),
-                //   ),
-                //   style: ElevatedButton.styleFrom(
-                //     padding: const EdgeInsets.symmetric(
-                //       horizontal: 25,
-                //       vertical: 10,
-                //     ),
-                //     backgroundColor: ColorManager.blueprime,
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(12),
-                //     ),
-                //   ),
-                // ),
-              ),
-            ),
+            // SizedBox(width: MediaQuery.of(context).size.width/5),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 40.0),
+            //   child: Container(
+            //     height: AppSize.s26,
+            //     width: AppSize.s102,
+            //     // child: ElevatedButton(
+            //     //   onPressed: () {
+            //     //     showDialog(
+            //     //       context: context,
+            //     //       builder: (BuildContext context) {
+            //     //         return SchedularSuccessPopup(title: 'Success',);
+            //     //       },
+            //     //     );
+            //     //   },
+            //     //   child: Text(AppString.save,
+            //     //     style: GoogleFonts.firaSans(
+            //     //       fontSize: FontSize.s12,
+            //     //       fontWeight: FontWeightManager.bold,
+            //     //       color: ColorManager.white,
+            //     //     ),
+            //     //   ),
+            //     //   style: ElevatedButton.styleFrom(
+            //     //     padding: const EdgeInsets.symmetric(
+            //     //       horizontal: 25,
+            //     //       vertical: 10,
+            //     //     ),
+            //     //     backgroundColor: ColorManager.blueprime,
+            //     //     shape: RoundedRectangleBorder(
+            //     //       borderRadius: BorderRadius.circular(12),
+            //     //     ),
+            //     //   ),
+            //     // ),
+            //   ),
+            // ),
           ],
         ),
         const SizedBox(
@@ -256,7 +286,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                   PhysicianInfoInfoScreen(patientId: widget.patientId),
                   ReferringDiagnososScreen(patientId: widget.patientId,),
                   PhysicianOrder(patientId: widget.patientId,),
-
+                  PhysicianFaceToFace(patientId: widget.patientId,),
                   PhysicianFaceToFace(patientId: widget.patientId,),
                 ]),
           ),
