@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,7 @@ import '../../../../../../../app/services/api/managers/hr_module_manager/manage_
 import '../../../../../../../app/services/api/managers/hr_module_manager/onboarding_manager/form_status_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/legal_document_data/legal_oncall_doc_data.dart';
 import '../../../../../../../data/api_data/hr_module_data/onboarding_data/form_status_data.dart';
+import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_legal_doc_data.dart';
 import '../../../../../../widgets/error_popups/four_not_four_popup.dart';
 import '../../../../../em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
@@ -71,6 +73,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
 
   @override
   void initState() {
+    _initializeFormWithPrefilledData();
     super.initState();
 
   }
@@ -113,7 +116,29 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
   dynamic? filePath;
   File? xfileToFile;
   var finalPath;
+  String? docName;
+  String? docUrl;
   // PlatformFile? fileName;
+
+
+  Future<void> _initializeFormWithPrefilledData() async {
+    try {
+
+      List<EmployeeLegalDocument> prefilledData = await legalDocumentPrifill(context, widget.employeeID); // Assuming getLegalDocuments is your GET API function
+
+      if (prefilledData.isNotEmpty) {
+        var data = prefilledData[0]; // Assuming index matches the data list
+        setState(() {
+          docUrl = data.docUrl ; // URL for the document
+          docName = data.docName ?? '--'; // Default value if no docName is found
+        });
+      }
+    } catch (e) {
+      print('Failed to load prefilled data: $e');
+    }
+  }
+
+
 
   Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
     // Get the directory to save the file.
@@ -571,44 +596,76 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     //     // User canceled the picker
                     //   }
                     // },
+
+
+
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xff50B5E5),
-                      // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                    icon: const Icon(Icons.file_upload_outlined,
-                        color: Colors.white),
-                    label: Text(
-                      'Upload Document',
+                    icon: docName == "--" ? Icon(Icons.upload, color: Colors.white) : null,
+                    label: docName == null || docName == "--"
+                        ? Text(
+                      'Upload File',
+                      style: BlueButtonTextConst.customTextStyle(context),
+                    )
+                        : Text(
+                      'Uploaded',
                       style: BlueButtonTextConst.customTextStyle(context),
                     ),
                   ),
-                  _loading
-                      ? SizedBox(
-                          width: 25,
-                          height: 25,
-                          child: CircularProgressIndicator(
-                            color: ColorManager.blueprime, // Loader color
-                            // Loader size
-                          ),
-                        )
-                      : _fileNames.isNotEmpty
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: _fileNames
-                                  .map((fileName) => Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'File picked: $fileName',
-                                          style: onlyFormDataStyle
-                                              .customTextStyle(context),
-                                        ),
-                                      ))
-                                  .toList(),
-                            )
-                          : const SizedBox(),
+                  SizedBox(height: 8),
+                  docName != null
+                      ? AutoSizeText(
+                    'Uploaded File: $docName',
+                    style: onlyFormDataStyle.customTextStyle(context),
+                  )
+                      : fileName != null
+                      ? AutoSizeText(
+                    'File picked: $fileName',
+                    style: onlyFormDataStyle.customTextStyle(context),
+                  )
+                      : SizedBox(),
+                  //   style: ElevatedButton.styleFrom(
+                  //     backgroundColor: const Color(0xff50B5E5),
+                  //     // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(8.0),
+                  //     ),
+                  //   ),
+                  //   icon: const Icon(Icons.file_upload_outlined,
+                  //       color: Colors.white),
+                  //   label: Text(
+                  //     'Upload Document',
+                  //     style: BlueButtonTextConst.customTextStyle(context),
+                  //   ),
+                  // ),
+                  // _loading
+                  //     ? SizedBox(
+                  //         width: 25,
+                  //         height: 25,
+                  //         child: CircularProgressIndicator(
+                  //           color: ColorManager.blueprime, // Loader color
+                  //           // Loader size
+                  //         ),
+                  //       )
+                  //     : _fileNames.isNotEmpty
+                  //         ? Column(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             children: _fileNames
+                  //                 .map((fileName) => Padding(
+                  //                       padding: const EdgeInsets.all(8.0),
+                  //                       child: Text(
+                  //                         'File picked: $fileName',
+                  //                         style: onlyFormDataStyle
+                  //                             .customTextStyle(context),
+                  //                       ),
+                  //                     ))
+                  //                 .toList(),
+                  //           )
+                  //         : const SizedBox(),
                 ],
               ), // Display file names if picked
             ],
@@ -894,6 +951,13 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       // If file is selected, check if it's under 20 MB
                       if (fileAbove20Mb) {
                         // Show error message if file is too large
+
+                        await saveDataWithFile();
+
+                      } else {
+                        // If file size is acceptable, proceed with saving data and uploading the file
+                        // await saveDataWithFile();
+                        // Function to save data and upload the file
                         await showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -902,9 +966,6 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                             );
                           },
                         );
-                      } else {
-                        // If file size is acceptable, proceed with saving data and uploading the file
-                        await saveDataWithFile(); // Function to save data and upload the file
                       }
                     }
 

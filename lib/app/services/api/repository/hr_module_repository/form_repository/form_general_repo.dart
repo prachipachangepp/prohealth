@@ -23,6 +23,7 @@ static String verifyuserpopup = "/auth/Otp";
 
 static String addLegalDocument = "/employee-legal-document/add";
 static String uploadLegalDocument = "/employee-legal-document/attach-docbase64";
+static String getprifilluploadDocument = "/employee-legal-document/ByemployeeId";
 ///patch api
   ///
   static String educationscreen  ="/employee-educations";
@@ -98,6 +99,11 @@ static String postlicensesscreen(){
   }
   static String addLegalDocumentForm(){
     return "$addLegalDocument";
+  }
+
+
+  static String priLegalDocumentForm({required int employeeID}){
+    return "$getprifilluploadDocument/$employeeID";
   }
 
 

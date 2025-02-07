@@ -1,6 +1,7 @@
 class AllRegisterRepository{
 
   static String empEnroll = "/employee-enroll";
+  static String patchempEnroll = "//employee-enroll/updateCoverage";
   static String add = "/add";
   static String offers = "/addOffers";
   static String addZipCode = "/addZipCodes";
@@ -49,7 +50,7 @@ class AllRegisterRepository{
   }
   ///employee-enroll/addCoverage
   static String PatchEmpEnrolladdCoverage({required int empEnrollId}){
-    return "$empEnroll/updateCoverage/$empEnrollId";
+    return "$patchempEnroll/$empEnrollId";
   }
   /// employee_onboarding patch
   static String patchOnboardingEmployee({required int employeeId}){

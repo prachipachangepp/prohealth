@@ -401,6 +401,9 @@ Future<ApiData> addEmpEnrollAddCoverage(
 
 /// Patch employee-enroll
 ///employee-enroll/addCoverage
+///
+///
+///
 Future<ApiData> patchEmpEnrollAddCoverage(BuildContext context,
     int employeeEnrollId,
     int employeeId,
@@ -413,7 +416,7 @@ Future<ApiData> patchEmpEnrollAddCoverage(BuildContext context,
       "coverageDetails": coverageDetails.map((item) => item.toJson()).toList(),
     };
 
-    print("Coverage Data: $data");
+    print(">>>>Coverage Data: $data");
 
     var response = await Api(context).patch(
       path: AllRegisterRepository.PatchEmpEnrolladdCoverage(empEnrollId: employeeEnrollId),
@@ -421,7 +424,7 @@ Future<ApiData> patchEmpEnrollAddCoverage(BuildContext context,
     );
 
     print(response);
-
+    print(">>>>>>>>Full Response: ${response.data}");
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Coverage updated successfully");
       return ApiData(
@@ -430,7 +433,7 @@ Future<ApiData> patchEmpEnrollAddCoverage(BuildContext context,
         message: response.statusMessage!,
       );
     } else {
-      print("Error: Coverage update failed");
+      print(">>>>>>>Error: Coverage update failed<<<<<<");
       return ApiData(
         statusCode: response.statusCode!,
         success: false,

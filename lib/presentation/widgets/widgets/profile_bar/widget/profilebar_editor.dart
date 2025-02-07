@@ -1222,7 +1222,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                                                               }, countyNameValue: snapshotPreFill.data!.coverageDetails.countyName,
                                                                               zoneNameValue: snapshotPreFill.data!.coverageDetails.zoneName,
                                                                               zoneId: snapshotPreFill.data!.coverageDetails.zoneId,
-                                                                              countyId: snapshotPreFill.data!.coverageDetails.countyId, zipCode: snapshotPreFill.data!.coverageDetails.zipCodes,);
+                                                                              countyId: snapshotPreFill.data!.coverageDetails.countyId,
+                                                                              zipCode: snapshotPreFill.data!.coverageDetails.zipCodes,);
                                                                           }
                                                                         );
                                                                       },
