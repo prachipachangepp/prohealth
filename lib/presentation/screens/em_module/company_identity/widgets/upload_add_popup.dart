@@ -18,6 +18,7 @@ import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../widgets/error_popups/failed_popup.dart';
 import '../../../../widgets/error_popups/four_not_four_popup.dart';
+import '../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
@@ -78,6 +79,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
   String selectedExpiryType = "Not Applicable";
   bool _isFormValid = true;
   String? selectedYear = AppConfig.year;
+  bool isDropdownAvailability = false;
   String? _idDocError;
   String? _nameDocError;
   String? _dropdownError;
@@ -473,6 +475,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
               /// Upload document
               HeaderContentConst(
                   isAsterisk: true,
+                 // isDoc: true,
                   heading: AppString.upload_document,
                   content: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -629,51 +632,70 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                               ),
                               SizedBox(width: AppSize.s10),
                               Container(
-                                height: AppSize.s30,
                                 width: AppSize.s80,
-                                padding:
-                                EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: ColorManager.fmediumgrey),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: DropdownButtonFormField<String>(
-                                  value: selectedYear, // Initial value (you should define this variable)
+                                height: AppSize.s30,
+                                child:CustomDropdownTextFieldwidh(
                                   items: [
-                                    DropdownMenuItem(
-                                      value: AppConfig.year,
-                                      child: Text(
-                                        AppConfig.year,
-                                        style: DocumentTypeDataStyle.customTextStyle(context),
-                                      ),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: AppConfig.month,
-                                      child: Text(
-                                        AppConfig.month,
-                                        style: DocumentTypeDataStyle.customTextStyle(context),
-                                      ),
-                                    ),
+                                    AppConfig.year,
+                                    AppConfig.month,
                                   ],
+
+                                  // labelStyle: SearchDropdownConst.customTextStyle(context),
                                   onChanged: (value) {
-                                    setState(() {
-                                      selectedYear = value; // Update the selected option (Year/Month)
-                                    });
+                                    //  setState(() {
+                                    selectedYear = value;
+                                    isDropdownAvailability = true;
+                                    print("Year,month Status :: ${selectedYear}");
+                                    //  });
                                   },
-                                  decoration: InputDecoration(
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    hintText: AppConfig.year,
-                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                    contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
-                                  ),
-                                  icon: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: ColorManager.black,
-                                    size: IconSize.I16,
-                                  ),
                                 ),
-                              ),
+                              )
+                              // Container(
+                              //   height: AppSize.s30,
+                              //   width: AppSize.s80,
+                              //   padding:
+                              //   EdgeInsets.symmetric(horizontal: AppPadding.p5),
+                              //   decoration: BoxDecoration(
+                              //     border: Border.all(color: ColorManager.fmediumgrey),
+                              //     borderRadius: BorderRadius.circular(8),
+                              //   ),
+                              //   child: DropdownButtonFormField<String>(
+                              //     value: selectedYear, // Initial value (you should define this variable)
+                              //     items: [
+                              //       DropdownMenuItem(
+                              //         value: AppConfig.year,
+                              //         child: Text(
+                              //           AppConfig.year,
+                              //           style: DocumentTypeDataStyle.customTextStyle(context),
+                              //         ),
+                              //       ),
+                              //       DropdownMenuItem(
+                              //         value: AppConfig.month,
+                              //         child: Text(
+                              //           AppConfig.month,
+                              //           style: DocumentTypeDataStyle.customTextStyle(context),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //     onChanged: (value) {
+                              //       setState(() {
+                              //         selectedYear = value; // Update the selected option (Year/Month)
+                              //       });
+                              //     },
+                              //     decoration: InputDecoration(
+                              //       enabledBorder: InputBorder.none,
+                              //       focusedBorder: InputBorder.none,
+                              //       hintText: AppConfig.year,
+                              //       hintStyle: DocumentTypeDataStyle.customTextStyle(context),
+                              //       contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
+                              //     ),
+                              //     icon: Icon(
+                              //       Icons.arrow_drop_down,
+                              //       color: ColorManager.black,
+                              //       size: IconSize.I16,
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ],

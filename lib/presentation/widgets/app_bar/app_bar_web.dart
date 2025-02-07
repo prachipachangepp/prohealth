@@ -29,7 +29,7 @@ class _AppBarWebState extends State<AppBarWeb> {
   String? _selectedValue;
 
   String? loginName = '';
-  int loginUserId = 0;
+ //int loginUserId = 0;
   bool isLoggedIn = true;
   Future<String> user() async {
     loginName = await TokenManager.getUserName();
@@ -37,17 +37,17 @@ class _AppBarWebState extends State<AppBarWeb> {
     print("UserName login ${loginName}");
     return loginName!;
   }
-  Future<void> setUserId() async {
-    loginUserId = await TokenManager.getuserId();
-    print("UserId: $loginUserId");
-    setState(() {}); // Ensure UI updates with the new user ID
-  }
+  // Future<void> setUserId() async {
+  //   loginUserId = await TokenManager.getuserId();
+  //   print("UserId for appbar: $loginUserId");
+  //   setState(() {}); // Ensure UI updates with the new user ID
+  // }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    setUserId();
+   // setUserId();
   }
 
   @override
@@ -444,14 +444,12 @@ class _AppBarWebState extends State<AppBarWeb> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       MouseRegion(
-                                        onEnter: (_) {
-                                          // Handle mouse hover on profile icon
-                                        },
+                                        onEnter: (_) {},
                                         onExit: (_) {
                                           // Handle mouse leave
                                         },
                                         child: FutureBuilder<UserAppBar>(
-                                          future: getAppBarDetails(context, loginUserId), // Call the API method
+                                          future: getAppBarDetails(context),
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState == ConnectionState.waiting) {
                                               return GestureDetector(
@@ -460,7 +458,14 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                   radius: 14,
                                                   backgroundImage: AssetImage("images/profilepic.png"),
                                                 ),
-                                                onTap: () { },
+                                                onTap: () {
+                                                  print("userid appbar : ${snapshot.data?.userId}");
+                                                  print(snapshot.data?.employeeId);
+                                                  print(snapshot.data?.imgUrl);
+                                                  print(snapshot.data?.companyId);
+                                                  print(snapshot.data?.userId);
+                                                  // Optional: Handle tap on the profile image
+                                                },
                                               );
                                             } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.imgUrl.isEmpty) {
                                               return GestureDetector(
@@ -469,15 +474,43 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                   radius: 14,
                                                   backgroundImage: AssetImage("images/profilepic.png"),
                                                 ),
-                                                onTap: () { },
+                                                onTap: () {
+                                                  print("userid appbar : ${snapshot.data?.userId}");
+                                                  print(snapshot.data?.employeeId);
+                                                  print(snapshot.data?.imgUrl);
+                                                  print(snapshot.data?.companyId);
+                                                  print(snapshot.data?.userId);
+                                                  // Optional: Handle tap on the profile image
+                                                },
                                               );
+                                            } else if(snapshot.hasData) {
+                                            return GestureDetector(
+                                            child: CircleAvatar(
+                                            backgroundImage: NetworkImage(snapshot.data!.imgUrl),
+                                            radius: 14, // Adjust size as needed
+                                            ),
+                                            onTap: () {
+                                            print("userid appbar : ${snapshot.data?.userId}");
+                                            print(snapshot.data?.employeeId);
+                                            print(snapshot.data?.imgUrl);
+                                            print(snapshot.data?.companyId);
+                                            print(snapshot.data?.userId);
+                                            // Optional: Handle tap on the profile image
+                                            },
+                                            );
                                             } else {
                                               return GestureDetector(
                                                 child: CircleAvatar(
-                                                  backgroundImage: NetworkImage(snapshot.data!.imgUrl),
-                                                  radius: 14, // Adjust size as needed
+                                                  backgroundColor: Colors.grey[100],
+                                                  radius: 14,
+                                                  backgroundImage: AssetImage("images/profilepic.png"),
                                                 ),
                                                 onTap: () {
+                                                  print("userid appbar : ${snapshot.data?.userId}");
+                                                  print(snapshot.data?.employeeId);
+                                                  print(snapshot.data?.imgUrl);
+                                                  print(snapshot.data?.companyId);
+                                                  print(snapshot.data?.userId);
                                                   // Optional: Handle tap on the profile image
                                                 },
                                               );

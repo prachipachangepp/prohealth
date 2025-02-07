@@ -6,25 +6,26 @@ import '../../token/token_manager.dart';
 import '../api.dart';
 import '../repository/establishment_manager/establishment_repository.dart';
 
-Future<UserAppBar> getAppBarDetails(BuildContext context, int userId) async {
+Future<UserAppBar> getAppBarDetails(BuildContext context) async {
   var itemsList;
   try{
     final companyId = await TokenManager.getCompanyId();
+    final loginUserId = await TokenManager.getuserId();
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.userPrefillGet(userId: userId));
+        path: EstablishmentManagerRepository.userPrefillGet(userId: loginUserId));
     if(response.statusCode == 200 || response.statusCode == 201){
       itemsList = UserAppBar(
-          userId: response.data['userId'],
-          firstName: response.data['firstName'],
-          lastName: response.data['lastName'],
-          departmentId: response.data['departmentId'],
-          department: response.data['department'],
-          email: response.data['email'],
+          userId: response.data['userId'] ?? 0,
+          firstName: response.data['firstName']?? "",
+          lastName: response.data['lastName']?? "",
+          departmentId: response.data['departmentId'] ?? 0,
+          department: response.data['department']?? "",
+          email: response.data['email']?? "",
           companyId: companyId,
-          password: response.data['password'],
-          status: response.data['status'],
-          employeeId: response.data['employeeId'],
-          imgUrl: response.data['imgUrl']);
+          password: response.data['password']?? "",
+          status: response.data['status'] ?? "",
+          employeeId: response.data['employeeId'] ?? 0,
+          imgUrl: response.data['imgUrl']?? "");
       print("User Data for Appbar : $itemsList");
     }
     else{

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -48,6 +49,14 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
     LatLng(37.7949, -122.4394), // Example Zone 3
   ];
 
+
+  final List<LatLng> _zoneDataSquare = [
+    LatLng(37.7822, -122.4664), // Example Zone 1 (San Francisco)
+    LatLng(37.7839, -122.4215), // Example Zone 2
+    LatLng(37.7637, -122.4176), // Example Zone 3
+    LatLng(37.7627, -122.4644), // Example Zone 3
+  ];
+
   final List<LatLng> _countyData = [
     LatLng(37.7849, -122.4194), // Example County 1
     LatLng(37.7949, -122.4094), // Example County 2
@@ -76,6 +85,52 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
     LatLng(31.7649, -189.4184),// Example Zip Code 2
   ];
 
+
+
+  // Set<Polygon> _polygons = {}; // Store polygons (squares)
+  //
+  // // Function to calculate the corners of a square around a point
+  // List<LatLng> _calculateSquare(LatLng center, double sideLength) {
+  //   double latOffset = sideLength / 2 / 111.32; // Approximate conversion to degrees
+  //   double lngOffset = sideLength / 2 / (111.32 * cos(center.latitude * pi / 180));
+  //
+  //   return [
+  //     LatLng(center.latitude + latOffset, center.longitude - lngOffset),
+  //     LatLng(center.latitude + latOffset, center.longitude + lngOffset),
+  //     LatLng(center.latitude - latOffset, center.longitude + lngOffset),
+  //     LatLng(center.latitude - latOffset, center.longitude - lngOffset),
+  //   ];
+  // }
+
+
+  // Function to handle tapping on the map
+  // void _onTapZone(LatLng position) {
+  //   setState(() {
+  //     // Define square side length (e.g., 0.01 degrees)
+  //     double squareSideLength = 0.01;
+  //     // Calculate the square's corners
+  //     List<LatLng> square = _calculateSquare(position, squareSideLength);
+  //     // Add the square as a polygon
+  //     _polygons.add(
+  //       Polygon(
+  //         polygonId: PolygonId('square-${position.latitude}-${position.longitude}'),
+  //         points: square,
+  //         strokeColor: Colors.blue,
+  //         fillColor: Colors.grey.withOpacity(0.3),
+  //         strokeWidth: 2,
+  //       ),
+  //     );
+  //   });
+  //   // Print the square corners (latitude, longitude)
+  //   for (var corner in _calculateSquare(position, squareSideLength)) {
+  //     print("Corner: ${corner.latitude}, ${corner.longitude}");
+  //   }
+  // }
+
+// Function to generate square-shaped zones
+
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -90,6 +145,97 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
     );
     setState(() {});
   }
+
+
+
+
+
+  void _generateSquareZones() {
+    Set<Polygon> squareZones = {};
+    Set<Marker> markers = {}; // Set to store markers
+
+    // For each zone, define a square shape and place a marker at each center point.
+    for (int i = 0; i < _zoneDataSquare.length; i++) {
+      LatLng center = _zoneDataSquare[i];
+
+      // Add a marker at the center of each square zone (highlight the point)
+      markers.add(
+        Marker(
+          markerId: MarkerId('highlighted-zone-$i'),
+          position: center,
+          infoWindow: InfoWindow(title: 'Zone ${i + 1}', snippet: 'Latitude: ${center.latitude}, Longitude: ${center.longitude}'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),  // Use red to highlight the points
+        ),
+      );
+
+      // Define square around the point and add the polygon
+      double delta = 0.01;  // Adjust this to control the size of the square
+      List<LatLng> squareCoords = [
+        LatLng(center.latitude + delta, center.longitude - delta), // top-left
+        LatLng(center.latitude + delta, center.longitude + delta), // top-right
+        LatLng(center.latitude - delta, center.longitude + delta), // bottom-right
+        LatLng(center.latitude - delta, center.longitude - delta), // bottom-left
+      ];
+
+      // Add the square polygon
+      squareZones.add(
+        Polygon(
+          polygonId: PolygonId('zone-square-$i'),
+          points: squareCoords,
+          strokeColor: Colors.blue,  // Blue border for square
+          fillColor: Colors.blue.withOpacity(0.2),  // Light blue fill for the square
+          strokeWidth: 2,
+        ),
+      );
+    }
+
+    setState(() {
+      _heatMapCircles = squareZones;  // Set the square polygons as heatmap zones
+      _markers = markers;  // Set the highlighted markers (points)
+    });
+  }
+
+// List of zone data (LatLng points) to highlight and draw squares around
+//   final List<LatLng> _zoneDataSquare = [
+//     LatLng(37.7822, -122.4664), // Example Zone 1 (San Francisco)
+//     LatLng(37.7839, -122.4215), // Example Zone 2
+//     LatLng(37.7637, -122.4176), // Example Zone 3
+//     LatLng(37.7627, -122.4644), // Example Zone 4
+//   ];
+
+
+
+
+
+
+  // void _generateSquareZones() {
+  //   Set<Polygon> squareZones = {};
+  //
+  //   // For each zone, define a square shape. Here we're assuming each zone is represented by a LatLng center and a fixed size.
+  //   for (int i = 0; i < _zoneDataSquare.length; i++) {
+  //    // LatLng center = _zoneDataSquare[i];
+  //     // Add the polygon to the set
+  //     squareZones.add(
+  //       Polygon(
+  //         polygonId: PolygonId('zone-square-$i'),
+  //         points: _zoneDataSquare,
+  //         strokeColor: Colors.blue,  // Blue border
+  //         fillColor: Colors.blue.withOpacity(0.2),  // Light blue fill
+  //         strokeWidth: 2,
+  //       ),
+  //     );
+  //   }
+  //
+  //   setState(() {
+  //     _heatMapCircles = squareZones;  // Set the squares as heatmap polygons
+  //   });
+  // }
+
+
+
+
+
+
 
 
   // Function to generate heatmap circles
@@ -127,7 +273,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
   void _updateMarkers() {
     Set<Marker> markers = {};
     switch(_selectedView){
-      case 'Zones':for (var zone in _zoneData) {
+      case 'Zones':for (var zone in _zoneDataSquare) {
         markers.add(Marker(
           markerId: MarkerId('zone-${zone.latitude}-${zone.longitude}'),
           position: zone,
@@ -172,36 +318,7 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
         }
     }
 
-    // if (_selectedView == 'Zones') {
-    //   // Add Zone markers
-    //   for (var zone in _zoneData) {
-    //     markers.add(Marker(
-    //       markerId: MarkerId('zone-${zone.latitude}-${zone.longitude}'),
-    //       position: zone,
-    //       infoWindow: InfoWindow(title: 'Zone'),
-    //     ));
-    //   }
-    // } else if (_selectedView == 'Counties') {
-    //   // Add County markers
-    //   for (var county in _countyData) {
-    //     markers.add(Marker(
-    //       markerId: MarkerId('county-${county.latitude}-${county.longitude}'),
-    //       position: county,
-    //       infoWindow: InfoWindow(title: 'County'),
-    //     ));
-    //   }
-    // } else if (_selectedView == 'Zip Codes') {
-    //   // Add Zip Code markers
-    //   for (var zip in _zipCodeData) {
-    //     markers.add(Marker(
-    //       markerId: MarkerId('zip-${zip.latitude}-${zip.longitude}'),
-    //       position: zip,
-    //       infoWindow: InfoWindow(title: 'Zip Code'),
-    //     ));
-    //   }
-    // }
 
-    // Update the markers on the map
     setState(() {
       _markers = markers;
     });
@@ -282,14 +399,29 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                       position: LatLng(latitudeL!, longitudeL!),
                       infoWindow: InfoWindow(title: 'Location'),
                     ),}:_markers,
-                  polygons: _selectedView == 'Heat Map' ? _heatMapCircles : {if (_polygonCoordinates.isNotEmpty)
-                    Polygon(
-                      polygonId: PolygonId('highlightedArea'),
-                      points: _polygonCoordinates,
-                      fillColor: Colors.red.withOpacity(0.3),
-                      strokeColor: Colors.red,
-                      strokeWidth: 2,
-                    ),},// Use the markers set here
+
+                  polygons: _selectedView == 'Heat Map'
+                      ? _heatMapCircles  // Use heatmap squares
+                      : _selectedView == 'Zones'
+                      ? _heatMapCircles  // Add zone squares
+                      : {
+                    if (_polygonCoordinates.isNotEmpty)
+                      Polygon(
+                        polygonId: PolygonId('highlightedArea'),
+                        points: _polygonCoordinates,
+                        fillColor: Colors.red.withOpacity(0.3),
+                        strokeColor: Colors.red,
+                        strokeWidth: 2,
+                      ),
+                  },
+                  // polygons: _selectedView == 'Heat Map' ? _heatMapCircles : {if (_polygonCoordinates.isNotEmpty)
+                  //   Polygon(
+                  //     polygonId: PolygonId('highlightedArea'),
+                  //     points: _polygonCoordinates,
+                  //     fillColor: Colors.red.withOpacity(0.3),
+                  //     strokeColor: Colors.red,
+                  //     strokeWidth: 2,
+                  //   ),},// Use the markers set here
                 ),
               ),
               Positioned(
@@ -312,38 +444,18 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
                         print('Address Changed: $value');
                        // Triggered on every text change
                       },),
-                    //   width: 320,
-                    //   height: 35,
-                  // Container(
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.white,
-                    //     borderRadius: BorderRadius.circular(8.0),
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //         color: Colors.black26,
-                    //         blurRadius: 5.0,
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   child: TextField(
-                    //     controller: _searchController,
-                    //     textInputAction: TextInputAction.search,
-                    //     onSubmitted: (value) => _performSearch(),
-                    //     decoration: InputDecoration(
-                    //       hintText: "Search location",
-                    //       suffixIcon: Icon(Icons.search,),
-                    //       border: InputBorder.none,
-                    //       contentPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical:4),
-                    //     ),
-                    //   ),
-                    // ),
+
                     SizedBox(width: 50),
                     Row(
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            setState(() => _selectedView = 'Zones');
-                            _updateMarkers(); // Update map with zone markers
+                            //setState(() {
+                            setState(() => _selectedView = 'Zones'); // Switch view to 'Zones'
+                            _generateSquareZones();  // Call function to generate square zones
+                           // });
+                            // setState(() => _selectedView = 'Zones');
+                            // _updateMarkers(); // Update map with zone markers
                           },
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
@@ -490,7 +602,9 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
       ),
     );
   }
-//
+
+
+
   Future<void> _performSearch() async {
     final query = _searchController.text.trim(); // Trim extra spaces
     if (query.isNotEmpty) {
@@ -531,34 +645,4 @@ class _SmLiveViewMapScreenState extends State<SmLiveViewMapScreen> {
       );
     }
   }
-
-  // Future<void> _performSearch() async {
-  //   final query = _searchController.text;
-  //   if (query.isNotEmpty) {
-  //     try {
-  //       List<Location> locations = await locationFromAddress(query);
-  //       if (locations.isNotEmpty) {
-  //         final location = locations.first;
-  //         mapController.animateCamera(
-  //           CameraUpdate.newLatLngZoom(
-  //             LatLng(location.latitude, location.longitude),
-  //             15.0,
-  //           ),
-  //         );
-  //         setState(() {
-  //           _searchedMarker = Marker(
-  //             markerId: MarkerId('searched-location'),
-  //             position: LatLng(location.latitude, location.longitude),
-  //             infoWindow: InfoWindow(title: query),
-  //           );
-  //           _markers.add(_searchedMarker!); // Add the searched marker to the map
-  //         });
-  //       }
-  //     } catch (e) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text("Location not found! Please try again.")),
-  //       );
-  //     }
-  //   }
-  // }
 }

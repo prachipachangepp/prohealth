@@ -6,12 +6,14 @@ class HeaderContentConst extends StatelessWidget {
   final String heading;
   final Widget content;
   final bool isAsterisk;
+  final bool isDoc;
 
   const HeaderContentConst({
     super.key,
     required this.heading,
     required this.content,
     this.isAsterisk = false, // Default value is false
+    this.isDoc = false, // Default value is false
   });
 
   @override
@@ -26,17 +28,42 @@ class HeaderContentConst extends StatelessWidget {
             text: TextSpan(
               text: heading, // Main heading text
               style: AllPopupHeadings.customTextStyle(context), // Main style
-              children: isAsterisk
-                  ? [
-                TextSpan(
-                  text: ' *', // Asterisk
-                  style: AllPopupHeadings
-                      .customTextStyle(context)
-                      ?.copyWith(color: Colors.red), // Red color for asterisk
-                ),
-              ]
-                  : [], // Empty if isAsterisk is false
-            ),
+              children: [
+                if (isAsterisk)
+                  TextSpan(
+                    text: ' *', // Asterisk
+                    style: AllPopupHeadings
+                        .customTextStyle(context)
+                        ?.copyWith(color: Colors.red), // Red color for asterisk
+                  ),
+                if (isDoc)
+                  TextSpan(
+                    text: ' Upload document upto 20MB only',
+                    style: CommonErrorMsg.customTextStyle(context), // Custom style
+                  ),
+              ],
+            )
+            ,
+            // text: TextSpan(
+            //   text: heading, // Main heading text
+            //   style: AllPopupHeadings.customTextStyle(context), // Main style
+            //   children: isAsterisk
+            //       ? [
+            //     TextSpan(
+            //       text: ' *', // Asterisk
+            //       style: AllPopupHeadings
+            //           .customTextStyle(context)?.copyWith(color: Colors.red), // Red color for asterisk
+            //     ),
+            //   ]
+            //       : isDoc ?
+            //       [
+            //         TextSpan(
+            //           text: 'upload upto 20MB',
+            //             style: CommonErrorMsg.customTextStyle(context), // Red color for asterisk
+            //         ),
+            //       ]
+            //   : [], // Empty if isAsterisk is false
+            // ),
           ),
           const SizedBox(height: AppSize.s5),
 
