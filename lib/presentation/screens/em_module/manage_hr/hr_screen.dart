@@ -346,6 +346,7 @@ class HrWidget extends StatelessWidget {
                       padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width/24),
                       child: CustomIconButtonConst(
                           width: AppSize.s181,
+                          height: AppSize.s30,
                           text: AppString.addemployeetype,
                           icon: Icons.add,
                           onPressed: () {

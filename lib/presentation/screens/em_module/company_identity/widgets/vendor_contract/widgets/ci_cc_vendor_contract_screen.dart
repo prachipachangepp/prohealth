@@ -15,6 +15,7 @@ import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../../widgets/app_clickable_widget.dart';
+import '../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../company_identity_screen.dart';
 import '../../error_pop_up.dart';
 import '../../upload_add_popup.dart';
@@ -90,11 +91,8 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                       ? AppConfig.subDocId9MD
                       : AppConfig.subDocId10MISC);
     });
-    _tabPageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
+    _tabPageController.jumpToPage(
+      index, );
   }
 
   String fileName = '';
@@ -174,9 +172,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
               Expanded(
                   flex: 1,
                   child: Container()),
-              CustomIconButton(
-                  icon: CupertinoIcons.plus,
-                  text: "Add Document",
+              CustomIconButtonConst(
+                  icon: Icons.add,
+                  text: AppStringEM.addDocument,
                   onPressed: () async {
                     String? selectedExpiryType = expiryType;
                     calenderController.clear();

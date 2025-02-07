@@ -148,7 +148,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                   children: [
                                     // SizedBox(height: 5),
                                     Padding(
-                                      padding: const EdgeInsets.all(AppPadding.p8),
+                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -164,10 +164,10 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                               ),
                                             ],
                                           ),
-                                          height: AppSize.s50,
+                                          height: AppSize.s65,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: AppPadding.p15),
+                                                horizontal: AppPadding.p30),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -185,34 +185,36 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
+                                                    Container(
+                                                        width: 62,
+                                                        height: 45,
+                                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(4),
+                                                          border: Border.all(width: 2, color: ColorManager.faintGrey),
+                                                        ),
+                                                        child: Image.asset('images/Vector.png')),
                                                     SizedBox(width: AppSize.s10),
                                                     Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Text(
                                                           "ID : ${balReport.idOfDocument}",
-                                                          //balReport.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  DocDefineTableDataID.customTextStyle(context),
                                                         ),
+                                                        SizedBox(height: AppSize.s8,),
                                                         Text(
-                                                          balReport.fileName
-                                                              .toString(),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          balReport.fileName.toString(),
+                                                          textAlign: TextAlign.center,
+                                                          style:  DocDefineTableData.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     IconButton(
                                                       onPressed: () {
@@ -228,19 +230,16 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                       },
                                                       icon:Icon(
                                                         Icons.history,
-                                                        size: IconSize.I18,
+                                                        size: IconSize.I22,
                                                         color: IconColorManager
                                                             .bluebottom,
                                                       ),
-                                                      splashColor:
-                                                      Colors.transparent,
-                                                      highlightColor:
-                                                      Colors.transparent,
-                                                      hoverColor:
-                                                      Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
 
                                                     ),
-
+                                                    SizedBox(width: AppSize.s10,),
                                                     ///print
                                                     IconButton(
                                                       onPressed: () {
@@ -252,21 +251,19 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(
-                                                        Icons
-                                                            .print_outlined,
-                                                        size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                        Icons.print_outlined,
+                                                        size:IconSize.I22,color: IconColorManager.bluebottom,
                                                       ),
-                                                      splashColor:
-                                                      Colors.transparent,
-                                                      highlightColor:
-                                                      Colors.transparent,
-                                                      hoverColor:
-                                                      Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     ///download saloni
                                                     PdfDownloadButton(apiUrl: balReport.docurl,
+                                                        iconsize: IconSize.I22,
                                                         documentName: balReport.docName!),
-
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
                                                       onPressed: () {
                                                         String?
@@ -318,11 +315,12 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                         );
                                                       },
                                                       icon: Icon(Icons.edit_outlined,
-                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
+                                                        size:IconSize.I22,color: IconColorManager.bluebottom,),
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
                                                       hoverColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
                                                         splashColor: Colors.transparent,
                                                         highlightColor: Colors.transparent,
@@ -360,7 +358,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,
-                                                          size: IconSize.I18,
+                                                          size: IconSize.I22,
                                                           color: ColorManager.red,
                                                         )),
                                                   ],

@@ -54,37 +54,35 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.p8),
-            child: Container(
-              height: AppSize.s30,
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    // Text(''),
-                    Text(
-                      AppString.srNo,
-                      style:TableHeading.customTextStyle(context),
-                    ),
-            //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                    Text('Name  ',
-                        textAlign: TextAlign.start,
-                      style:TableHeading.customTextStyle(context),),
+          Container(
+            height: AppSize.s30,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  // Text(''),
+                  Text(
+                    AppString.srNo,
+                    style:TableHeading.customTextStyle(context),
+                  ),
+          //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                  Text('Name  ',
+                      textAlign: TextAlign.start,
+                    style:TableHeading.customTextStyle(context),),
 
-                    Text(AppString.actions,
-                        textAlign: TextAlign.start,
-                      style:TableHeading.customTextStyle(context),),
-                  ],
-                ),
+                  Text(AppString.actions,
+                      textAlign: TextAlign.start,
+                    style:TableHeading.customTextStyle(context),),
+                ],
               ),
             ),
           ),
@@ -131,120 +129,118 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(AppPadding.p8),
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(4),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Color(0xff000000)
-                                                    .withOpacity(0.25),
-                                                spreadRadius: 0,
-                                                blurRadius: 4,
-                                                offset: Offset(0, 2),
-                                              ),
-                                            ],
-                                          ),
-                                          height: AppSize.s50,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: AppPadding.p15),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.only(left: AppSize.s165),
-                                                    child: Text(
-                                                      formattedSerialNumber,
-                                                      textAlign: TextAlign.center,
-                                                      style:  TableSubHeading.customTextStyle(context),
-                                                    ),
-                                                  ),
-                                                ),
-                                                // Text(''),
-                                                Expanded(
-                                                  flex: 3,
+                                    Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(4),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0xff000000)
+                                                  .withOpacity(0.25),
+                                              spreadRadius: 0,
+                                              blurRadius: 4,
+                                              offset: Offset(0, 2),
+                                            ),
+                                          ],
+                                        ),
+                                        height: AppSize.s50,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: AppPadding.p15),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(left: AppSize.s165),
                                                   child: Text(
-                                                    vendorData.vendorName
-                                                        .toString(),
+                                                    formattedSerialNumber,
                                                     textAlign: TextAlign.center,
                                                     style:  TableSubHeading.customTextStyle(context),
                                                   ),
                                                 ),
-                                                //  Text(''),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Row(
-                                                    children: [
-                                                      IconButton(
-                                                          onPressed: () {
-                                                            showDialog(
-                                                                context: context,
-                                                                builder: (BuildContext
-                                                                    context) {
-                                                                  return FutureBuilder<ManageVendorPrefill>(
-                                                                    future: getPrefillVendor(context,vendorData.insuranceVendorId),
-                                                                    builder: (context, snapshotPrefill) {
-                                                                      if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                                        return Center(
-                                                                          child: CircularProgressIndicator(color: ColorManager.blueprime,),
-                                                                        );
-                                                                      }
-                                                                      var name = snapshotPrefill.data!.vendorName;
-                                                                      nameController = TextEditingController(text: snapshotPrefill.data!.vendorName);
-                                                                      return CustomPopup(
-                                                                          namecontroller: snapshotPrefill.data!.vendorName!,
-                                                                          insuranceVendorId:  vendorData.insuranceVendorId,
-                                                                          officeId: widget.officeId,
-                                                                            );
-                                                  
+                                              ),
+                                              // Text(''),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Text(
+                                                  vendorData.vendorName
+                                                      .toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style:  TableSubHeading.customTextStyle(context),
+                                                ),
+                                              ),
+                                              //  Text(''),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Row(
+                                                  children: [
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (BuildContext
+                                                                  context) {
+                                                                return FutureBuilder<ManageVendorPrefill>(
+                                                                  future: getPrefillVendor(context,vendorData.insuranceVendorId),
+                                                                  builder: (context, snapshotPrefill) {
+                                                                    if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                                      return Center(
+                                                                        child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                                                      );
                                                                     }
-                                                                  );
-                                                                        });
-                                                                        },
-                                                          icon: Icon(Icons.edit_outlined,
-                                                            size:IconSize.I18,color: IconColorManager.bluebottom,)),
-                                                      IconButton(
-                                                          onPressed: () {
-                                                            showDialog(context: context,
-                                                                builder: (context) => StatefulBuilder(
-                                                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                                                    return  DeletePopup(
-                                                                        title: 'Delete Vendor',
-                                                                        loadingDuration: _isLoading,
-                                                                        onCancel: (){
-                                                                          Navigator.pop(context);
-                                                                        }, onDelete: () async{
-                                                                      setState(() {
-                                                                        _isLoading = true;
+                                                                    var name = snapshotPrefill.data!.vendorName;
+                                                                    nameController = TextEditingController(text: snapshotPrefill.data!.vendorName);
+                                                                    return CustomPopup(
+                                                                        namecontroller: snapshotPrefill.data!.vendorName!,
+                                                                        insuranceVendorId:  vendorData.insuranceVendorId,
+                                                                        officeId: widget.officeId,
+                                                                          );
+
+                                                                  }
+                                                                );
                                                                       });
-                                                                      try {
-                                                                        await deleteVendor(context, vendorData.insuranceVendorId!);
+                                                                      },
+                                                        icon: Icon(Icons.edit_outlined,
+                                                          size:IconSize.I22,color: IconColorManager.bluebottom,)),
+                                                    SizedBox(width: AppSize.s10,),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          showDialog(context: context,
+                                                              builder: (context) => StatefulBuilder(
+                                                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                  return  DeletePopup(
+                                                                      title: 'Delete Vendor',
+                                                                      loadingDuration: _isLoading,
+                                                                      onCancel: (){
                                                                         Navigator.pop(context);
-                                                                        showDialog(context: context, builder: (context) => DeleteSuccessPopup());
-                                                                      } finally {
-                                                                        setState(() {
-                                                                          _isLoading = false;
-                                                                        });
-                                                                      }
+                                                                      }, onDelete: () async{
+                                                                    setState(() {
+                                                                      _isLoading = true;
                                                                     });
-                                                                  },
-                                                  
-                                                                ));
-                                                          },
-                                                          icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )),
-                                    ),
+                                                                    try {
+                                                                      await deleteVendor(context, vendorData.insuranceVendorId!);
+                                                                      Navigator.pop(context);
+                                                                      showDialog(context: context, builder: (context) => DeleteSuccessPopup());
+                                                                    } finally {
+                                                                      setState(() {
+                                                                        _isLoading = false;
+                                                                      });
+                                                                    }
+                                                                  });
+                                                                },
+
+                                                              ));
+                                                        },
+                                                        icon:  Icon(Icons.delete_outline,size:IconSize.I22,color: IconColorManager.red,)),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )),
                                   ],
                                 );
                               }),

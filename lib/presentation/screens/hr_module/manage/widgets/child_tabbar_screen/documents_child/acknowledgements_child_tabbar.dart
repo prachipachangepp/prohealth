@@ -1,15 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:pdf/pdf.dart';
-import 'package:printing/printing.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
@@ -20,17 +14,12 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:http/http.dart' as http;
-import 'dart:html' as html;
-import 'dart:js' as js;
 import 'dart:html' as html;
 import 'package:flutter/material.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
-import '../../../../../../../app/services/token/token_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import '../../../../onboarding/download_doc_const.dart';
 
@@ -199,7 +188,7 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            height: 65,
+                            height: AppSize.s65,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -208,17 +197,13 @@ class AcknowledgementsChildBar extends StatelessWidget {
                                     Container(
                                         width: 62,
                                         height: 45,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10),
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          border: Border.all(
-                                              width: 2,
+                                          borderRadius: BorderRadius.circular(4),
+                                          border: Border.all(width: 2,
                                               color: ColorManager.faintGrey),
                                         ),
-                                        child:
-                                            Image.asset('images/Vector.png')),
+                                        child: Image.asset('images/Vector.png')),
                                     SizedBox(width: 10),
                                     Column(
                                       mainAxisAlignment:

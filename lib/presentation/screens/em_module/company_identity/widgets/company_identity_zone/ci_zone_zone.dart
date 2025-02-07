@@ -50,122 +50,121 @@ class _CIZoneZoneState extends State<CIZoneZone> {
   }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: AppSize.s30,
-          decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // Text(''),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      AppStringEM.zoneName,
-                      style:TableHeading.customTextStyle(context),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
+      child: Column(
+        children: [
+          Container(
+            height: AppSize.s30,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  // Text(''),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        AppStringEM.zoneName,
+                        style:TableHeading.customTextStyle(context),
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(AppStringEM.zipCodes,
-                      style:TableHeading.customTextStyle(context),),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(AppStringEM.county,
-                      style:TableHeading.customTextStyle(context),),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      AppStringEM.actions,
-                      style:TableHeading.customTextStyle(context),
+                  Expanded(
+                    child: Center(
+                      child: Text(AppStringEM.zipCodes,
+                        style:TableHeading.customTextStyle(context),),
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Center(
+                      child: Text(AppStringEM.county,
+                        style:TableHeading.customTextStyle(context),),
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        AppStringEM.actions,
+                        style:TableHeading.customTextStyle(context),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: AppSize.s10,
-        ),
-        Expanded(
-          child: StreamBuilder<List<AllCountyZoneGet>>(
-            stream: _zoneController.stream,
-            builder: (context, snapshot) {
-              getZoneByCounty(context, widget.officeId,widget.countyId, 1, 20).then((data) {
-                data.sort((a, b) => b.countyId.compareTo(a.countyId));
-                _zoneController.add(data);
-              }).catchError((error) {});
-              print('1111111');
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                );
-              }
-              if (snapshot.data!.isEmpty) {
-                return Center(
-                  child: Text(
-                    ErrorMessageString.noZones,
-                    style: AllNoDataAvailable.customTextStyle(context),
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                int totalItems = snapshot.data!.length;
-                int totalPages = (totalItems / itemsPerPage).ceil();
-                List<AllCountyZoneGet> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
-                return Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                          // scrollDirection: Axis.vertical,
-                          // itemCount: paginatedData.length,
-                          // itemBuilder: (context, index) {
-                          //   int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                          //   String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                          //   AllCountyZoneGet zone = paginatedData[index];
-                          scrollDirection: Axis.vertical,
-                          itemCount: paginatedData.length,
-                          itemBuilder: (context, index) {
-                            // Reverse the index to show newly added items at the top
-                            int reverseIndex = paginatedData.length - 1 - index;
-                            int serialNumber = reverseIndex + 1 + (currentPage - 1) * itemsPerPage;
-                            String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            AllCountyZoneGet zone = paginatedData[reverseIndex];  // Use reverseIndex here
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // SizedBox(height: 5),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: AppPadding.p8),
-                                  child: Container(
+          SizedBox(
+            height: AppSize.s10,
+          ),
+          Expanded(
+            child: StreamBuilder<List<AllCountyZoneGet>>(
+              stream: _zoneController.stream,
+              builder: (context, snapshot) {
+                getZoneByCounty(context, widget.officeId,widget.countyId, 1, 20).then((data) {
+                  data.sort((a, b) => b.countyId.compareTo(a.countyId));
+                  _zoneController.add(data);
+                }).catchError((error) {});
+                print('1111111');
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
+                  );
+                }
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      ErrorMessageString.noZones,
+                      style: AllNoDataAvailable.customTextStyle(context),
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  int totalItems = snapshot.data!.length;
+                  int totalPages = (totalItems / itemsPerPage).ceil();
+                  List<AllCountyZoneGet> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                            // scrollDirection: Axis.vertical,
+                            // itemCount: paginatedData.length,
+                            // itemBuilder: (context, index) {
+                            //   int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                            //   String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                            //   AllCountyZoneGet zone = paginatedData[index];
+                            scrollDirection: Axis.vertical,
+                            itemCount: paginatedData.length,
+                            itemBuilder: (context, index) {
+                              // Reverse the index to show newly added items at the top
+                              int reverseIndex = paginatedData.length - 1 - index;
+                              int serialNumber = reverseIndex + 1 + (currentPage - 1) * itemsPerPage;
+                              String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                              AllCountyZoneGet zone = paginatedData[reverseIndex];  // Use reverseIndex here
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 8),
+                                  Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(4),
                                         boxShadow: [
                                           BoxShadow(
-                                            color:
-                                                Color(0xff000000).withOpacity(0.25),
+                                            color: Color(0xff000000).withOpacity(0.25),
                                             spreadRadius: 0,
                                             blurRadius: 4,
                                             offset: Offset(0, 2),
                                           ),
                                         ],
                                       ),
-                                      height: AppSize.s50,
+                                      height: AppSize.s56,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: AppPadding.p15),
@@ -397,7 +396,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                             });
                                                       },
                                                       icon:Icon(Icons.edit_outlined,
-                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),),
+                                                        size:IconSize.I22,color: IconColorManager.bluebottom,),),
                                                   // IconButton(
                                                   //     splashColor: Colors.transparent,
                                                   //     hoverColor: Colors.transparent,
@@ -444,40 +443,40 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                           ],
                                         ),
                                       )),
-                                ),
-                              ],
-                            );
-                          }),
-                    ),
-                    // Pagination Controls
-                    PaginationControlsWidget(
-                      currentPage: currentPage,
-                      items: snapshot.data!,
-                      itemsPerPage: itemsPerPage,
-                      onPreviousPagePressed: () {
-                        setState(() {
-                          currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                        });
-                      },
-                      onPageNumberPressed: (pageNumber) {
-                        setState(() {
-                          currentPage = pageNumber;
-                        });
-                      },
-                      onNextPagePressed: () {
-                        setState(() {
-                          currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-                        });
-                      },
-                    ),
-                  ],
-                );
-              }
-              return Offstage();
-            },
+                                ],
+                              );
+                            }),
+                      ),
+                      // Pagination Controls
+                      PaginationControlsWidget(
+                        currentPage: currentPage,
+                        items: snapshot.data!,
+                        itemsPerPage: itemsPerPage,
+                        onPreviousPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                          });
+                        },
+                        onPageNumberPressed: (pageNumber) {
+                          setState(() {
+                            currentPage = pageNumber;
+                          });
+                        },
+                        onNextPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                          });
+                        },
+                      ),
+                    ],
+                  );
+                }
+                return Offstage();
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

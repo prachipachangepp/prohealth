@@ -8,6 +8,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_vendor_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/org_add_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../company_identity_screen.dart';
@@ -227,37 +228,34 @@ class CiOrgDocument extends StatelessWidget {
   Widget _buildAddButton(BuildContext context, CiOrgDocumentProvider provider) {
     return Align(
       alignment: Alignment.bottomRight,
-      child: Container(
+      child: CustomIconButtonConst(
         height: AppSize.s30,
-        width: AppSize.s150,
-        child: CustomIconButton(
-          icon: Icons.add,
-          text: AddPopupString.addDocType,
-          onPressed: ()async{
-            showDialog(
-              context: context,
-              builder: (context) {
-                return ChangeNotifierProvider(
-                  create: (_) => AddNewOrgDocButtonProviider(),
-                  child: AddNewOrgDocButton(
-                    title: provider.selectedIndex == 0 ? AddPopupString.addCorporate : provider.selectedIndex == 1 ? AddPopupString.addVendor : AddPopupString.addPolicy,
-                    docTypeText:  provider.selectedIndex == 0
-                        ? AppStringEM.corporateAndComplianceDocuments : provider.selectedIndex == 1
-                        ? AppStringEM.vendorContracts : AppStringEM.policiesAndProcedures,
-                    docTypeId: provider.selectedIndex == 0
-                        ? AppConfig.corporateAndCompliance : provider.selectedIndex == 1
-                        ? AppConfig.vendorContracts : AppConfig.policiesAndProcedure,
+        icon: Icons.add,
+        text: AddPopupString.addDocType,
+        onPressed: ()async{
+          showDialog(
+            context: context,
+            builder: (context) {
+              return ChangeNotifierProvider(
+                create: (_) => AddNewOrgDocButtonProviider(),
+                child: AddNewOrgDocButton(
+                  title: provider.selectedIndex == 0 ? AddPopupString.addCorporate : provider.selectedIndex == 1 ? AddPopupString.addVendor : AddPopupString.addPolicy,
+                  docTypeText:  provider.selectedIndex == 0
+                      ? AppStringEM.corporateAndComplianceDocuments : provider.selectedIndex == 1
+                      ? AppStringEM.vendorContracts : AppStringEM.policiesAndProcedures,
+                  docTypeId: provider.selectedIndex == 0
+                      ? AppConfig.corporateAndCompliance : provider.selectedIndex == 1
+                      ? AppConfig.vendorContracts : AppConfig.policiesAndProcedure,
 
-                    selectedSubDocType:provider.selectedSubDocType,
-                    subDocTypeId: provider.selectedIndex == 2
-                        ? AppConfig.subDocId0 : provider.selectedSubDocId,
-                    subDocTypeText: provider.selectedSubDocType,
-                  ),
-                );
-              },
-            );
-          },
-        ),
+                  selectedSubDocType:provider.selectedSubDocType,
+                  subDocTypeId: provider.selectedIndex == 2
+                      ? AppConfig.subDocId0 : provider.selectedSubDocId,
+                  subDocTypeText: provider.selectedSubDocType,
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }

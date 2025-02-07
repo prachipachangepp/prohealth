@@ -21,6 +21,8 @@ class AppStringEM{
   static const String services = "Services";
   static const String save = "Save";
   static const String add = "Add";
+  static const String addDocument = "Add Document";
+  static const String addVendor = "Add  Vendor";
   static const String addShift = "Add Shift";
   static const String submit = "Submit";
   static const String roleManager =  "Role Manager";
@@ -79,7 +81,7 @@ class AppStringEM{
   static const String officeName = 'Office Name :';
   static const String manage = 'Manage';
   static const String officeAddress = "Office Address :";
-  static const String whitelabelling = 'White Labelling  ';
+  static const String whitelabelling = 'White Labelling';
   static const String headOffice = 'Head Office';
   static const String companyName = "Company Name";
   static const String primaryNo = "Primary No.";

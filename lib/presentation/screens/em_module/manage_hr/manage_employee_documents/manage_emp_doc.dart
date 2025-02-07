@@ -116,7 +116,8 @@ class ManageEmpDocWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomIconButtonConst(
-                      width: AppSize.s170,
+                     // width: AppSize.s170,
+                      height: AppSize.s30,
                       text: AppStringEM.adddoctype,
                       onPressed: () async {
                         provider.setExpiryType(null);

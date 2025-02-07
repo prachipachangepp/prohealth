@@ -345,7 +345,7 @@ class EmpDocADDPopup extends StatelessWidget {
                 child: CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.save,
+                  text: AppStringEM.add,
                   onPressed: () async {
                     provider.validateFields();
                     if (provider._isFormValid) {

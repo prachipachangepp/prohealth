@@ -140,6 +140,7 @@ class AppSize {
   static const double s137 = 137.0;
   static const double s140 = 140.0;
   static const double s144 = 144.0;
+  static const double s145 = 145.0;
   static const double s150 = 150.0;
   static const double s152 = 152.0;
   static const double s155 = 155.0;
@@ -232,6 +233,7 @@ class IconSize{
   static const double I16 = 16;
   static const double I18 = 18;
   static const double I20 = 20;
+  static const double I22 = 22;
   static const double I24 = 24;
   static const double I30 = 30;
   static const double I45 = 45;

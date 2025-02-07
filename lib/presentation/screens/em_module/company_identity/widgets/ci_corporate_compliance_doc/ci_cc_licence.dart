@@ -137,7 +137,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8, vertical: AppPadding.p5),
+                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: ColorManager.white,
@@ -151,14 +151,11 @@ class _CICCLicenseState extends State<CICCLicense> {
                                               ),
                                             ],
                                           ),
-                                          height: AppSize.s50,
+                                          height: AppSize.s65,
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: AppPadding.p15),
+                                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
@@ -173,6 +170,15 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                     //IconButton(onPressed: (){},
                                                     // icon: Icon(Icons.remove_red_eye_outlined,
                                                     // size:20,color: ColorManager.blueprime,)),
+                                                    Container(
+                                                        width: 62,
+                                                        height: 45,
+                                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(4),
+                                                          border: Border.all(width: 2, color: ColorManager.faintGrey),
+                                                        ),
+                                                        child: Image.asset('images/Vector.png')),
                                                     SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,12 +187,13 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         Text(
                                                           "ID : ${manageCCLicence.idOfDocument}",
                                                           textAlign: TextAlign.center,
-                                                          style:  TableSubHeading.customTextStyle(context),
+                                                          style:  DocDefineTableDataID.customTextStyle(context),
                                                         ),
+                                                        SizedBox(height: AppSize.s8,),
                                                         Text(
                                                           manageCCLicence.fileName.toString(),
                                                           textAlign: TextAlign.center,
-                                                          style:  TableSubHeading.customTextStyle(context),
+                                                          style:  DocDefineTableData.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),
@@ -207,13 +214,14 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       },
                                                       icon: Icon(
                                                         Icons.history,
-                                                        size: IconSize.I18,
+                                                        size: IconSize.I22,
                                                         color: IconColorManager.bluebottom,
                                                       ),
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
                                                       hoverColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     ///print
                                                     IconButton(
                                                       onPressed: () {
@@ -222,14 +230,16 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                       },
                                                       icon: Icon(
                                                         Icons.print_outlined,
-                                                        size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                        size:IconSize.I22,color: IconColorManager.bluebottom,
                                                       ),
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
                                                       hoverColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     ///download saloni
-                                                    PdfDownloadButton(apiUrl: manageCCLicence.docurl, documentName: manageCCLicence.docName!),
+                                                    PdfDownloadButton(apiUrl: manageCCLicence.docurl,iconsize: IconSize.I22, documentName: manageCCLicence.docName!),
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
                                                       onPressed: () {
                                                         showDialog(
@@ -280,11 +290,12 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         );
                                                       },
                                                       icon:  Icon(Icons.edit_outlined,
-                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
+                                                        size:IconSize.I22,color: IconColorManager.bluebottom,),
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
                                                       hoverColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
                                                       splashColor: Colors.transparent,
                                                       highlightColor: Colors.transparent,
@@ -325,7 +336,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                         },
                                                         icon: Icon(
                                                           Icons.delete_outline,
-                                                          size: IconSize.I18,
+                                                          size: IconSize.I22,
                                                           color: IconColorManager.red,
                                                         ),
                                                     ),

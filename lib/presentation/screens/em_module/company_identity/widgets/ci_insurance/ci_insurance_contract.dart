@@ -117,7 +117,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -132,32 +132,30 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                         ),
                                       ],
                                     ),
-                                    height: AppSize.s50,
+                                    height: AppSize.s65,
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: AppPadding.p15),
+                                      padding: const EdgeInsets.only(right: AppPadding.p30, left: AppPadding.p15),
                                       child: Row(
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                         children: [
                                           Row(
                                             children: [
-                                              Padding(
-                                                padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: AppPadding.p10),
-                                                // child: InkWell(
-                                                //   onTap: () {
-                                                //     // Implement the view action
-                                                //   },
-                                                //   child: Image.asset(
-                                                //     'images/eye.png',
-                                                //     height: 15,
-                                                //     width: 22,
-                                                //   ),
-                                                // ),
+                                              InkWell(
+                                                onTap: () {
+                                                  // Implement the view action
+                                                },
+                                                child: Container(
+                                                  width: 62,
+                                                  height: 45,
+                                                  child: Image.asset(
+                                                    'images/eye.png',
+                                                    height: 15,
+                                                    width: 22,
+                                                  ),
+                                                ),
                                               ),
-                                             // SizedBox(width: AppSize.s10),
+                                             SizedBox(width: AppSize.s10),
                                               Column(
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -167,14 +165,14 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                   Text(
                                                    "ID: ${contract.contractId}",
                                                     textAlign: TextAlign.center,
-                                                    style:  TableSubHeading.customTextStyle(context),
+                                                    style:  DocDefineTableDataID.customTextStyle(context),
                                                   ),
-                                                  SizedBox(height: AppSize.s5,),
+                                                  SizedBox(height: AppSize.s8,),
                                                   Text(
                                                     contract.contractName
                                                         .toString(),
                                                     textAlign: TextAlign.center,
-                                                    style:  TableSubHeading.customTextStyle(context),
+                                                    style:  DocDefineTableData.customTextStyle(context),
                                                   ),
                                                 ],
                                               ),
@@ -182,8 +180,6 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                           ),
                                           Row(
                                             children: [
-
-                                         /////////////////////////////
                                               IconButton(
                                                 onPressed: () {
                                                   String? selectedExpiryType =
@@ -226,11 +222,12 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                   );
                                                 },
                                                 icon: Icon(Icons.edit_outlined,
-                                                  size:IconSize.I18,color: IconColorManager.bluebottom,),
+                                                  size:IconSize.I22,color: IconColorManager.bluebottom,),
                                                 splashColor: Colors.transparent,
                                                 highlightColor: Colors.transparent,
                                                 hoverColor: Colors.transparent,
                                               ),
+                                              SizedBox(width: AppSize.s10,),
                                               IconButton(
                                                   splashColor: Colors.transparent,
                                                   highlightColor: Colors.transparent,
@@ -262,7 +259,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
 
                                                         ));
                                                   },
-                                                  icon:  Icon(Icons.delete_outline,size:IconSize.I18,color: IconColorManager.red,)),
+                                                  icon:  Icon(Icons.delete_outline,size:IconSize.I22,color: IconColorManager.red,)),
                                             ],
                                           ),
                                         ],

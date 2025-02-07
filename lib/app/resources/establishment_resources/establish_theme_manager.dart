@@ -386,15 +386,25 @@ class LegalDocumentPopupMessage{
 // }
 
 
-///document definition
-// class DocDefineTableData {
-//   static TextStyle customTextStyle(BuildContext context) {
-//     return GoogleFonts.firaSans(
-//       fontWeight: FontWeight.w400,
-//       fontSize: FontSize.s11,
-//       color: ColorManager.mediumgrey,
-//       decoration: TextDecoration.none,
-//     );
-//   }
-// }
+///document manage id
+class DocDefineTableData {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w700,
+      fontSize: FontSize.s12,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}
 
+class DocDefineTableDataID {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: FontSize.s12,
+      color: ColorManager.mediumgrey,
+      decoration: TextDecoration.none,
+    );
+  }
+}

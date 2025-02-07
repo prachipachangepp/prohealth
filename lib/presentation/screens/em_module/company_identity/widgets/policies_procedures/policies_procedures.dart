@@ -14,6 +14,7 @@ import '../../../../../../app/resources/establishment_resources/establish_theme_
 import '../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
 import '../../../../../widgets/error_popups/delete_success_popup.dart';
+import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../error_pop_up.dart';
@@ -96,9 +97,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  CustomIconButton(
+                  CustomIconButtonConst(
                       icon: Icons.add,
-                      text: "Add Document",
+                      text: AppStringEM.addDocument,
                       onPressed: () async {
                         int? selectedDocTypeId;
                         String? selectedExpiryType = expiryType;
@@ -187,13 +188,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                 scrollDirection: Axis.vertical,
                                 itemCount: paginatedData.length,
                                 itemBuilder: (context, index) {
-                                  int serialNumber = index +
-                                      1 +
-                                      (currentPage - 1) * itemsPerPage;
-                                  String formattedSerialNumber =
-                                      serialNumber.toString().padLeft(2, '0');
-                                  MCorporateComplianceModal policiesdata =
-                                      paginatedData[index];
+                                  int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                  String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                                  MCorporateComplianceModal policiesdata = paginatedData[index];
                                   var fileUrl = policiesdata.docurl;
                                   final fileExtension = fileUrl.split('/').last;
 
@@ -217,7 +214,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                       size: IconSize.I45,
                                       color: ColorManager.faintGrey,
                                     );
-                                  } else {
+                                  }
+                                  else {
                                     fileWidget = Icon(
                                       Icons.insert_drive_file,
                                       size: IconSize.I45,
@@ -225,12 +223,11 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     );
                                   }
                                   return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       //SizedBox(height: 5),
                                       Padding(
-                                        padding: const EdgeInsets.all(AppPadding.p8),
+                                        padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
                                         child: Container(
                                             decoration: BoxDecoration(
                                               color: Colors.white,
@@ -238,49 +235,52 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                   BorderRadius.circular(4),
                                               boxShadow: [
                                                 BoxShadow(
-                                                  color: const Color(0xff000000)
-                                                      .withOpacity(0.25),
+                                                  color: const Color(0xff000000).withOpacity(0.25),
                                                   spreadRadius: 0,
                                                   blurRadius: 4,
                                                   offset: const Offset(0, 2),
                                                 ),
                                               ],
                                             ),
-                                            height: AppSize.s50,
+                                            height: AppSize.s65,
                                             child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: AppPadding.p15),
+                                              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30),
                                               child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                  Row(
                                                     children: [
-                                                      Text(
-                                                        "ID : ${policiesdata.idOfDocument}",
-                                                        style:  DocumentTypeDataStyle.customTextStyle(context),
-                                                      ),
-
-                                                      Text(
-                                                        policiesdata.fileName.toString(),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                      Container(
+                                                          width: 62,
+                                                          height: 45,
+                                                          padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(4),
+                                                            border: Border.all(width: 2, color: ColorManager.faintGrey),
+                                                          ),
+                                                          child: Image.asset('images/Vector.png')),
+                                                      SizedBox(width: AppSize.s10,),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            "ID : ${policiesdata.idOfDocument}",
+                                                            style:  DocDefineTableDataID.customTextStyle(context),
+                                                          ),
+                                                          SizedBox(height: AppSize.s8,),
+                                                          Text(
+                                                            policiesdata.fileName.toString(),
+                                                            textAlign: TextAlign.center,
+                                                            style:  DocDefineTableData.customTextStyle(context),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
+
                                                   Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       IconButton(
                                                         onPressed: () {
@@ -288,23 +288,19 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                             context: context,
                                                             builder: (context) =>
                                                                 ManageHistoryPopup(
-                                                              docHistory:
-                                                                  policiesdata
-                                                                      .docHistory,
+                                                              docHistory: policiesdata.docHistory,
                                                             ),
                                                           );
                                                         },
                                                         icon: Icon(
                                                           Icons.history,
-                                                          size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                          size:IconSize.I22,color: IconColorManager.bluebottom,
                                                         ),
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                       ),
+                                                      SizedBox(width: AppSize.s10,),
                                                       ///print
                                                       IconButton(
                                                         onPressed: () {
@@ -318,7 +314,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         icon: Icon(
                                                           Icons
                                                               .print_outlined,
-                                                          size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                          size:IconSize.I22,color: IconColorManager.bluebottom,
                                                         ),
                                                         splashColor:
                                                         Colors.transparent,
@@ -327,9 +323,12 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         hoverColor:
                                                         Colors.transparent,
                                                       ),
+                                                      SizedBox(width: AppSize.s10,),
                                                       ///download saloni
                                                       PdfDownloadButton(apiUrl: policiesdata.docurl,
+                                                          iconsize: IconSize.I22,
                                                           documentName: policiesdata.docName!),
+                                                      SizedBox(width: AppSize.s10,),
                                                       ///edit
                                                       IconButton(
                                                         onPressed: () {
@@ -407,7 +406,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         },
                                                         icon: Icon(
                                                           Icons.edit_outlined,
-                                                          size:IconSize.I18,color: IconColorManager.bluebottom,
+                                                          size:IconSize.I22,color: IconColorManager.bluebottom,
                                                         ),
                                                         splashColor:
                                                             Colors.transparent,
@@ -416,6 +415,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                         hoverColor:
                                                             Colors.transparent,
                                                       ),
+                                                      SizedBox(width: AppSize.s10,),
                                                       ///delete
                                                       IconButton(
                                                           splashColor: Colors.transparent,
@@ -453,7 +453,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                           icon: Icon(
                                                             Icons
                                                                 .delete_outline,
-                                                            size:IconSize.I18,color: IconColorManager.red,
+                                                            size:IconSize.I24,color: IconColorManager.red,
                                                           )),
                                                     ],
                                                   )
