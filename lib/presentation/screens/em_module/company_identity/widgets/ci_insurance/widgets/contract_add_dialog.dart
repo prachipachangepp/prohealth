@@ -187,15 +187,13 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                              decoration: InputDecoration(
                                enabledBorder: OutlineInputBorder(
                                  borderSide: BorderSide(
-                                     color: ColorManager.fmediumgrey,
-                                     width: 2),
-                                 borderRadius: BorderRadius.circular(8),
+                                     color: Colors.grey),
+                                 borderRadius: BorderRadius.circular(4),
                                ),
                                focusedBorder: OutlineInputBorder(
                                  borderSide: BorderSide(
-                                     color: ColorManager.fmediumgrey,
-                                     width: 2),
-                                 borderRadius: BorderRadius.circular(8),
+                                     color: Colors.grey),
+                                 borderRadius: BorderRadius.circular(4),
                                ),
                                contentPadding:
                                EdgeInsets.symmetric(horizontal: AppPadding.p10),
@@ -227,53 +225,6 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                              },
                            ),
                          )
-                         // Container(
-                         //   height: AppSize.s30,
-                         //   width: AppSize.s80,
-                         //   padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                         //   decoration: BoxDecoration(
-                         //     border: Border.all(
-                         //         color: ColorManager.fmediumgrey),
-                         //     borderRadius: BorderRadius.circular(8),
-                         //   ),
-                         //   child: DropdownButtonFormField<String>(
-                         //     value:
-                         //     selectedYear, // Initial value (you should define this variable)
-                         //     items: [
-                         //       DropdownMenuItem(
-                         //         value: AppConfig.year,
-                         //         child: Text(
-                         //           AppConfig.year,
-                         //           style:  DocumentTypeDataStyle.customTextStyle(context),
-                         //         ),
-                         //       ),
-                         //       DropdownMenuItem(
-                         //         value: AppConfig.month,
-                         //         child: Text(
-                         //           AppConfig.month,
-                         //           style:  DocumentTypeDataStyle.customTextStyle(context),
-                         //         ),
-                         //       ),
-                         //     ],
-                         //     onChanged: (value) {
-                         //       setState(() {
-                         //         selectedYear = value; // Update the selected option (Year/Month)
-                         //       });
-                         //     },
-                         //     decoration: InputDecoration(
-                         //       enabledBorder: InputBorder.none,
-                         //       focusedBorder: InputBorder.none,
-                         //       hintText: AppConfig.year,
-                         //       hintStyle:   DocumentTypeDataStyle.customTextStyle(context),
-                         //       contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
-                         //     ),
-                         //     icon: Icon(
-                         //       Icons.arrow_drop_down,
-                         //       color: ColorManager.black,
-                         //       size: IconSize.I16,
-                         //     ),
-                         //   ),
-                         // ),
                        ],
                      ),
                    ),
@@ -302,17 +253,17 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                                enabledBorder: OutlineInputBorder(
                                  borderSide: BorderSide(
                                      color: ColorManager.fmediumgrey, width: 1),
-                                 borderRadius: BorderRadius.circular(6),
+                                 borderRadius: BorderRadius.circular(8),
                                ),
                                focusedBorder: OutlineInputBorder(
                                  borderSide: BorderSide(
                                      color: ColorManager.fmediumgrey, width: 1),
-                                 borderRadius: BorderRadius.circular(6),
+                                 borderRadius: BorderRadius.circular(8),
                                ),
                                hintText: 'yyyy-mm-dd',
                                hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                                border: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(6),
+                                 borderRadius: BorderRadius.circular(8),
                                  borderSide: BorderSide(
                                      width: 1, color: ColorManager.fmediumgrey),
                                ),

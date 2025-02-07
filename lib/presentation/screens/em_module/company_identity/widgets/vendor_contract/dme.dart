@@ -154,7 +154,7 @@ class _CiDmeState extends State<CiDme> {
                                   children: [
                                     // SizedBox(height: 5),
                                     Padding(
-                                      padding: const EdgeInsets.all(AppPadding.p8),
+                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -170,10 +170,10 @@ class _CiDmeState extends State<CiDme> {
                                               ),
                                             ],
                                           ),
-                                          height: AppSize.s50,
+                                          height: AppSize.s65,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: AppPadding.p15),
+                                                horizontal: AppPadding.p30),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -191,6 +191,15 @@ class _CiDmeState extends State<CiDme> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
+                                                    Container(
+                                                        width: 62,
+                                                        height: 45,
+                                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(4),
+                                                          border: Border.all(width: 2, color: ColorManager.faintGrey),
+                                                        ),
+                                                        child: Image.asset('images/Vector.png')),
                                                     SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
@@ -202,14 +211,15 @@ class _CiDmeState extends State<CiDme> {
                                                       children: [
                                                         Text(
                                                           "ID : ${dmeData.idOfDocument}",
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  DocDefineTableDataID.customTextStyle(context),
                                                         ),
+                                                        SizedBox(height: AppSize.s8,),
                                                         Text(
                                                           dmeData.fileName
                                                               .toString(),
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  DocDefineTableData.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),
@@ -232,17 +242,15 @@ class _CiDmeState extends State<CiDme> {
                                                       },
                                                       icon:  Icon(
                                                         Icons.history,
-                                                        size: IconSize.I18,
+                                                        size: IconSize.I22,
                                                         color: IconColorManager
                                                             .bluebottom,
                                                       ),
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
                                                       onPressed: () {
                                                         print(
@@ -256,19 +264,18 @@ class _CiDmeState extends State<CiDme> {
                                                       icon:  Icon(
                                                           Icons
                                                               .print_outlined,
-                                                          size: IconSize.I18,
+                                                          size: IconSize.I22,
                                                           color: IconColorManager
                                                               .bluebottom),
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     PdfDownloadButton(apiUrl: dmeData.docurl,
+                                                        iconsize: IconSize.I22,
                                                         documentName: dmeData.docName!),
-
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
                                                       onPressed: () {
                                                         String?
@@ -346,22 +353,16 @@ class _CiDmeState extends State<CiDme> {
                                                         );
                                                       },
                                                       icon: Icon(Icons.edit_outlined,
-                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                        size:IconSize.I22,color: IconColorManager.bluebottom,),
+                                                      hoverColor: Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
                                                     ),
-
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
+                                                        hoverColor: Colors.transparent,
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,
@@ -403,7 +404,7 @@ class _CiDmeState extends State<CiDme> {
                                                         },
                                                         icon:  Icon(
                                                           Icons.delete_outline,
-                                                          size:IconSize.I18,color: IconColorManager.red,
+                                                          size:IconSize.I22,color: IconColorManager.red,
                                                         )),
                                                   ],
                                                 ),

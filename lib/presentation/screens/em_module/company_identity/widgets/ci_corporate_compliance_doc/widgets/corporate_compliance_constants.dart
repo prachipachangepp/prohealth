@@ -158,11 +158,13 @@ class CICCDropdown extends StatefulWidget {
   final Function(String)? onChange;
   final bool? isEnabled;
   final double? constraintHeight;
+  final double? borderRadius;
 
   const CICCDropdown({
     Key? key,
     required this.items,
     this.width,
+    this.borderRadius,
     this.initialValue,
     String? hintText,
     this.onChange,
@@ -243,7 +245,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
         height: AppSize.s30,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey, width: 1),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(widget.borderRadius ?? 5.0),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

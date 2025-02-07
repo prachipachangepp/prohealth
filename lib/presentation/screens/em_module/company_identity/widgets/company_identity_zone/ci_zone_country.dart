@@ -46,109 +46,109 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
   }
     @override
   Widget build(BuildContext context) {
-    return  Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        const SizedBox(
-          height: AppSize.s5,
-        ),
-        Container(
-          height: AppSize.s30,
-          decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.circular(12),
+    return  Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          const SizedBox(
+            height: AppSize.s5,
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Center(
-                    child: Text(
-                        AppStringEM.srno,
-                      style: TableHeading.customTextStyle(context)
+          Container(
+            height: AppSize.s30,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                          AppStringEM.srno,
+                        style: TableHeading.customTextStyle(context)
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                        AppStringEM.name,
-                      style: TableHeading.customTextStyle(context)
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                          AppStringEM.name,
+                        style: TableHeading.customTextStyle(context)
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                        AppStringEM.zones,
-                      style: TableHeading.customTextStyle(context)
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                          AppStringEM.zones,
+                        style: TableHeading.customTextStyle(context)
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      AppStringEM.actions,
-                      style: TableHeading.customTextStyle(context)
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        AppStringEM.actions,
+                        style: TableHeading.customTextStyle(context)
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: AppSize.s10,
-        ),
-        Expanded(
-          child:
-          StreamBuilder<List<AllCountyGet>>(
-            stream: _contyController.stream,
-            builder: (context, snapshot) {
-              getZoneBYcompOffice(context, widget.officeId, 1, 50).then((data) {
-                data.sort((a, b) => b.countyId.compareTo(a.countyId)); // Assuming countyId for sorting
-                _contyController.add(data);
-              }).catchError((error) {});
-              print('1111111');
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                );
-              }
-              if (snapshot.data!.isEmpty) {
-                return Center(
-                  child: Text(
-                    ErrorMessageString.noCounties,
-                    style: AllNoDataAvailable.customTextStyle(context),
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                int totalItems = snapshot.data!.length;
-                int totalPages = (totalItems / itemsPerPage).ceil();
-                List<AllCountyGet> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+          const SizedBox(
+            height: AppSize.s10,
+          ),
+          Expanded(
+            child:
+            StreamBuilder<List<AllCountyGet>>(
+              stream: _contyController.stream,
+              builder: (context, snapshot) {
+                getZoneBYcompOffice(context, widget.officeId, 1, 50).then((data) {
+                  data.sort((a, b) => b.countyId.compareTo(a.countyId)); // Assuming countyId for sorting
+                  _contyController.add(data);
+                }).catchError((error) {});
+                print('1111111');
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
+                  );
+                }
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      ErrorMessageString.noCounties,
+                      style: AllNoDataAvailable.customTextStyle(context),
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  int totalItems = snapshot.data!.length;
+                  int totalPages = (totalItems / itemsPerPage).ceil();
+                  List<AllCountyGet> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
 
-                return Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: paginatedData.length,
-                          itemBuilder: (context, index) {
-                            int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                            String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            AllCountyGet county = paginatedData[index];
-                            return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // SizedBox(height: 5),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: AppPadding.p8),
-                            child: Container(
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: paginatedData.length,
+                            itemBuilder: (context, index) {
+                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                              String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                              AllCountyGet county = paginatedData[index];
+                              return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 8),
+                            Container(
                                 decoration: BoxDecoration(
                                   color: ColorManager.white,
                                   borderRadius: BorderRadius.circular(4),
@@ -268,7 +268,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                   );
                                                 });
                                               }, icon: Icon(Icons.edit_outlined,
-                                                size:IconSize.I18,color: IconColorManager.bluebottom,),),
+                                                size:IconSize.I22,color: IconColorManager.bluebottom,),),
                                             ],
                                           ),
                                         ),
@@ -276,40 +276,40 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                     ],
                                   ),
                                 )),
-                          ),
-                        ],
-                      );
-                                    }),
-                    ),
-                    // Pagination Controls
-                    PaginationControlsWidget(
-                      currentPage: currentPage,
-                      items: snapshot.data!,
-                      itemsPerPage: itemsPerPage,
-                      onPreviousPagePressed: () {
-                        setState(() {
-                          currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                        });
-                      },
-                      onPageNumberPressed: (pageNumber) {
-                        setState(() {
-                          currentPage = pageNumber;
-                        });
-                      },
-                      onNextPagePressed: () {
-                        setState(() {
-                          currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-                        });
-                      },
-                    ),
-                  ],
-                );
-    }
-  return Offstage();
-},
-),
-        ),
-      ],
+                          ],
+                        );
+                                      }),
+                      ),
+                      // Pagination Controls
+                      PaginationControlsWidget(
+                        currentPage: currentPage,
+                        items: snapshot.data!,
+                        itemsPerPage: itemsPerPage,
+                        onPreviousPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                          });
+                        },
+                        onPageNumberPressed: (pageNumber) {
+                          setState(() {
+                            currentPage = pageNumber;
+                          });
+                        },
+                        onNextPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                          });
+                        },
+                      ),
+                    ],
+                  );
+      }
+        return Offstage();
+      },
+      ),
+          ),
+        ],
+      ),
     );
   }
 }

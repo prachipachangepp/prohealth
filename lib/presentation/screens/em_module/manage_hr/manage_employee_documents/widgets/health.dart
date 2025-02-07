@@ -307,7 +307,7 @@ class HealthEmpDoc extends StatelessWidget {
                                                     highlightColor: Colors.transparent,
                                                     hoverColor: Colors.transparent,
                                                   ),
-                                                  const SizedBox(width: 3),
+                                                  const SizedBox(width: 10),
                                                   IconButton(
                                                     splashColor: Colors.transparent,
                                                     highlightColor: Colors.transparent,

@@ -18,6 +18,7 @@ import 'package:prohealth/presentation/widgets/error_popups/delete_success_popup
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import 'see_all_provider.dart';
 
 ///see all screen using provider working code
@@ -1107,32 +1108,30 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
+                  CustomIconButtonConst(
                     height: AppSize.s30,
-                    width: AppSize.s150,
-                    child: CustomIconButton(
-                      icon: Icons.add,
-                      text: 'Create User',
-                      onPressed: () async {
-                        lastNameController.clear();
-                        emailController.clear();
-                        firstNameController.clear();
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CustomDialogSEE(
-                              title: "Create User",
-                              //userIdController: userIdController,
-                              lastNameController: lastNameController,
-                              emailController: emailController,
-                              firstNameController: firstNameController,
-                              // roleController: roleController,
-                              passwordController: passwordController,
-                            );
-                          },
-                        );
-                      },
-                    ),
+                    width: AppSize.s120,
+                    icon: Icons.add,
+                    text: 'Create User',
+                    onPressed: () async {
+                      lastNameController.clear();
+                      emailController.clear();
+                      firstNameController.clear();
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CustomDialogSEE(
+                            title: "Create User",
+                            //userIdController: userIdController,
+                            lastNameController: lastNameController,
+                            emailController: emailController,
+                            firstNameController: firstNameController,
+                            // roleController: roleController,
+                            passwordController: passwordController,
+                          );
+                        },
+                      );
+                    },
                   ),
                 ],
               ),

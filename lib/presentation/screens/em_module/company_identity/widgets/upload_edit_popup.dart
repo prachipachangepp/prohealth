@@ -16,6 +16,7 @@ import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../widgets/error_popups/failed_popup.dart';
+import '../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../widgets/text_form_field_const.dart';
 
@@ -80,6 +81,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
   bool _isFormValid = true;
   bool isFileErrorVisible = false;
   String? selectedYear = AppConfig.year;
+  bool isDropdownAvailability = false;
   String? _idDocError;
   String? _nameDocError;
   String? _expiryTypeError;
@@ -204,7 +206,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                 padding: EdgeInsets.symmetric(vertical: AppPadding.p3, horizontal: AppPadding.p10),
                 decoration: BoxDecoration(
                   color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: ColorManager.fmediumgrey, width: 1),
                 ),
                 child: Row(
@@ -238,7 +240,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                         color: ColorManager.containerBorderGrey,
                         width: 1,
                       ),
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: StatefulBuilder(
                       builder: (BuildContext context,
@@ -292,17 +294,17 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: ColorManager.fmediumgrey, width: 1),
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: ColorManager.fmediumgrey, width: 1),
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           hintText: 'yyyy-mm-dd',
                           hintStyle: ConstTextFieldRegister.customTextStyle(context),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
                                 width: 1, color: ColorManager.fmediumgrey),
                           ),
@@ -388,7 +390,7 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                               color: ColorManager.containerBorderGrey,
                               width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(0),
@@ -550,28 +552,18 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                   daysController, // Use the controller initialized with "1"
                                   cursorColor: ColorManager.black,
                                   cursorWidth: 1,
-                                  style: DocumentTypeDataStyle
-                                      .customTextStyle(context),
+                                  style: DocumentTypeDataStyle.customTextStyle(context),
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color:
-                                          ColorManager.fmediumgrey,
-                                          width: 2),
-                                      borderRadius:
-                                      BorderRadius.circular(8),
+                                      borderSide: BorderSide(color:Colors.grey,),
+                                      borderRadius: BorderRadius.circular(4),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color:
-                                          ColorManager.fmediumgrey,
-                                          width: 2),
+                                      borderSide: BorderSide(color:Colors.grey,),
                                       borderRadius:
-                                      BorderRadius.circular(8),
+                                      BorderRadius.circular(4),
                                     ),
-                                    contentPadding:
-                                    EdgeInsets.symmetric(
-                                        horizontal: AppPadding.p10),
+                                    contentPadding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                                   ),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
@@ -582,57 +574,24 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                               ),
                               SizedBox(width: AppSize.s10),
                               Container(
-                                height: AppSize.s30,
                                 width: AppSize.s80,
-                                padding:
-                                EdgeInsets.symmetric(horizontal: 5),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ColorManager.fmediumgrey),
-                                  borderRadius:
-                                  BorderRadius.circular(8),
-                                ),
-                                child: DropdownButtonFormField<String>(
-                                  value:
-                                  selectedYear, // Initial value (you should define this variable)
+                                height: AppSize.s30,
+                                child:CustomDropdownTextFieldwidh(
                                   items: [
-                                    DropdownMenuItem(
-                                      value: AppConfig.year,
-                                      child: Text(
-                                        AppConfig.year,
-                                        style: DocumentTypeDataStyle.customTextStyle(context),
-                                      ),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: AppConfig.month,
-                                      child: Text(
-                                        AppConfig.month,
-                                        style: DocumentTypeDataStyle.customTextStyle(context),
-                                      ),
-                                    ),
+                                    AppConfig.year,
+                                    AppConfig.month,
                                   ],
+
+                                  // labelStyle: SearchDropdownConst.customTextStyle(context),
                                   onChanged: (value) {
-                                    setState(() {
-                                      selectedYear = value; // Update the selected option (Year/Month)
-                                    });
+                                    //  setState(() {
+                                    selectedYear = value;
+                                    isDropdownAvailability = true;
+                                    print("Year,month Status :: ${selectedYear}");
+                                    //  });
                                   },
-                                  decoration: InputDecoration(
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    hintText: AppConfig.year,
-                                    hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                                    contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
-                                  ),
-                                  icon: Padding(
-                                    padding: const EdgeInsets.only(top: AppPadding.p4),
-                                    child: Icon(
-                                      Icons.arrow_drop_down,
-                                      color: ColorManager.black,
-                                      size: IconSize.I16,
-                                    ),
-                                  ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ],
@@ -672,20 +631,20 @@ class _VCScreenPopupEditConstState extends State<VCScreenPopupEditConst> {
                                     borderSide: BorderSide(
                                         color: ColorManager.fmediumgrey,
                                         width: 1),
-                                    borderRadius: BorderRadius.circular(6),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: ColorManager.fmediumgrey,
                                         width: 1),
-                                    borderRadius: BorderRadius.circular(6),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                   hintText: 'yyyy-mm-dd',
                                   hintStyle:
                                   DocumentTypeDataStyle.customTextStyle(
                                       context),
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(6),
+                                    borderRadius: BorderRadius.circular(8),
                                     borderSide: BorderSide(
                                         width: 1,
                                         color: ColorManager.fmediumgrey),

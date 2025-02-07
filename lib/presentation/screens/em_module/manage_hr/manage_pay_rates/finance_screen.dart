@@ -18,6 +18,7 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/error_popups/failed_popup.dart';
 import 'package:prohealth/presentation/widgets/error_popups/four_not_four_popup.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:provider/provider.dart';
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -333,7 +334,9 @@ class FinanceScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          CustomIconButton(
+                          CustomIconButtonConst(
+                            height: AppSize.s30,
+                            width: AppSize.s130,
                             text: AddPopupString.addPayrate,
                             icon: Icons.add,
                             onPressed: () async {

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'dart:html' as html;
@@ -17,8 +18,9 @@ Future<void> downloadFile(String url) async {
 class PdfDownloadButton extends StatelessWidget {
   final String apiUrl;
   final String documentName;
+  final double? iconsize;
 
-  PdfDownloadButton({required this.apiUrl, required this.documentName});
+  PdfDownloadButton({required this.apiUrl, required this.documentName, this.iconsize});
 
   Future<void> _downloadPdf() async {
     try {
@@ -50,7 +52,7 @@ class PdfDownloadButton extends StatelessWidget {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
-      icon: Icon(Icons.save_alt_outlined, size: 20, color: Color(0xff1696C8),),
+      icon: Icon(Icons.save_alt_outlined, size: iconsize ?? IconSize.I20, color: Color(0xff1696C8),),
       onPressed: _downloadPdf,
       tooltip: 'Download PDF',
     );

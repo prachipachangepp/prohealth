@@ -50,7 +50,7 @@ class CustomButtonTransparentSM extends StatelessWidget {
 class CustomElevatedButton extends StatefulWidget {
   final String? text;
   final VoidCallback onPressed;
-  // final Color color;
+  final Color? color;
   final Color textColor;
   final double borderRadius;
   final double paddingVertical;
@@ -65,13 +65,12 @@ class CustomElevatedButton extends StatefulWidget {
     Key? key,
     this.text,
     required this.onPressed,
-    // this.color = Colors.blue,
+    this.color,
     this.textColor = Colors.white,
     this.borderRadius = 12.0,
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 16.0,
     this.width = 150,
-    //this.width = double.infinity,
     this.height = 35.0,
     this.style = const TextStyle(color: Colors.white),
     this.child,  this.loadingDuration,
@@ -105,7 +104,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
       child: ElevatedButton(
         onPressed: widget.onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF1696C8),
+          backgroundColor: widget.color ?? Color(0xFF1696C8),
           foregroundColor: widget.textColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(widget.borderRadius),

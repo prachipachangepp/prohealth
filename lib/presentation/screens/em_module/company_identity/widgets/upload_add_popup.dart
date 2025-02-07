@@ -203,6 +203,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                   children: [
                     CICCDropdown(
                       width: AppSize.s354,
+                      borderRadius: 8,
                       initialValue: dropDownMenuItems.isEmpty ? "No available documents":selectedDocType ?? "Select",
                       onChange: (val) {
                         setState(() {
@@ -257,18 +258,18 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                               borderSide: BorderSide(
                                   color: ColorManager.fmediumgrey,
                                   width: 1),
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: ColorManager.fmediumgrey,
                                   width: 1),
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             hintText: 'yyyy-mm-dd',
                             hintStyle: DocumentTypeDataStyle.customTextStyle(context),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(
                                   width: 1,
                                   color: ColorManager.fmediumgrey),
@@ -325,7 +326,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                               color: ColorManager.containerBorderGrey,
                               width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(0),
@@ -492,7 +493,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                               color: ColorManager.containerBorderGrey,
                               width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(0),
@@ -607,26 +608,22 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color:
-                                          ColorManager.fmediumgrey,
-                                          width: 2),
+                                          color: Colors.grey),
                                       borderRadius:
-                                      BorderRadius.circular(8),
+                                      BorderRadius.circular(4),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: ColorManager.fmediumgrey,
-                                          width: 2),
+                                          color: Colors.grey),
                                       borderRadius:
-                                      BorderRadius.circular(8),
+                                      BorderRadius.circular(4),
                                     ),
                                     contentPadding:
                                     EdgeInsets.symmetric(horizontal: AppPadding.p10),
                                   ),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
-                                    FilteringTextInputFormatter
-                                        .digitsOnly, // This ensures only digits are accepted
+                                    FilteringTextInputFormatter.digitsOnly, // This ensures only digits are accepted
                                   ],
                                 ),
                               ),
@@ -650,52 +647,6 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   },
                                 ),
                               )
-                              // Container(
-                              //   height: AppSize.s30,
-                              //   width: AppSize.s80,
-                              //   padding:
-                              //   EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                              //   decoration: BoxDecoration(
-                              //     border: Border.all(color: ColorManager.fmediumgrey),
-                              //     borderRadius: BorderRadius.circular(8),
-                              //   ),
-                              //   child: DropdownButtonFormField<String>(
-                              //     value: selectedYear, // Initial value (you should define this variable)
-                              //     items: [
-                              //       DropdownMenuItem(
-                              //         value: AppConfig.year,
-                              //         child: Text(
-                              //           AppConfig.year,
-                              //           style: DocumentTypeDataStyle.customTextStyle(context),
-                              //         ),
-                              //       ),
-                              //       DropdownMenuItem(
-                              //         value: AppConfig.month,
-                              //         child: Text(
-                              //           AppConfig.month,
-                              //           style: DocumentTypeDataStyle.customTextStyle(context),
-                              //         ),
-                              //       ),
-                              //     ],
-                              //     onChanged: (value) {
-                              //       setState(() {
-                              //         selectedYear = value; // Update the selected option (Year/Month)
-                              //       });
-                              //     },
-                              //     decoration: InputDecoration(
-                              //       enabledBorder: InputBorder.none,
-                              //       focusedBorder: InputBorder.none,
-                              //       hintText: AppConfig.year,
-                              //       hintStyle: DocumentTypeDataStyle.customTextStyle(context),
-                              //       contentPadding: EdgeInsets.only(bottom: AppPadding.p20),
-                              //     ),
-                              //     icon: Icon(
-                              //       Icons.arrow_drop_down,
-                              //       color: ColorManager.black,
-                              //       size: IconSize.I16,
-                              //     ),
-                              //   ),
-                              // ),
                             ],
                           ),
                         ],
@@ -729,18 +680,18 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                                   borderSide: BorderSide(
                                       color: ColorManager.fmediumgrey,
                                       width: 1),
-                                  borderRadius: BorderRadius.circular(6),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: ColorManager.fmediumgrey,
                                       width: 1),
-                                  borderRadius: BorderRadius.circular(6),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 hintText: 'yyyy-mm-dd',
                                 hintStyle: TableSubHeading.customTextStyle(context),
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(6),
+                                  borderRadius: BorderRadius.circular(8),
                                   borderSide: BorderSide(
                                       width: 1,
                                       color: ColorManager.fmediumgrey),
@@ -875,7 +826,7 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
         ),
       )
           : selectedRadio == "Pre-defined"
-          ?CustomElevatedButton(
+          ? CustomElevatedButton(
         width: AppSize.s105,
         height: AppSize.s30,
         text: AppStringEM.add, // submit
@@ -979,13 +930,15 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                     },
                   );
                 }
-              } else if (response.statusCode == 400 || response.statusCode == 404) {
+              }
+              else if (response.statusCode == 400 || response.statusCode == 404) {
                 Navigator.pop(context);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => const FourNotFourPopup(),
                 );
-              } else {
+              }
+              else {
                 Navigator.pop(context);
                 showDialog(
                   context: context,
@@ -1058,7 +1011,8 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
             }
 
             int threshold = 0;
-            if (selectedExpiryType == AppConfig.scheduled && daysController.text.isNotEmpty) {
+            if (selectedExpiryType == AppConfig.scheduled &&
+                daysController.text.isNotEmpty) {
               int enteredValue = int.parse(daysController.text);
               if (selectedYear == AppConfig.year) {
                 threshold = enteredValue * 365;
@@ -1066,94 +1020,111 @@ class _UploadDocumentAddPopupState extends State<UploadDocumentAddPopup> {
                 threshold = enteredValue * 30;
               }
             }
+            if (fileAbove20Mb) {
+              ApiData newResponse = await addOtherOfficeDocPost(
+                context: context,
+                docTypeid: widget.docTypeMetaIdCC,
+                docSubTypeid: widget.selectedSubDocId == AppConfig.subDocId0
+                    ? AppConfig.subDocId0
+                    : widget.selectedSubDocId,
+                documentName: nameDocController.text,
+                expiryType: selectedExpiryType.toString(),
+                threshold: threshold,
+                expiryDate: expiryDate,
+                expiryReminder: selectedExpiryType.toString(),
+                idOfDoc: idDocController.text,
+                docCreated: DateTime.now().toIso8601String() + "Z",
+                fileName: fileName,
+                url: 'url',
+                officeId: widget.officeId,
+              );
 
-            ApiData newResponse = await addOtherOfficeDocPost(
-              context: context,
-              docTypeid: widget.docTypeMetaIdCC,
-              docSubTypeid: widget.selectedSubDocId == AppConfig.subDocId0
-                  ? AppConfig.subDocId0
-                  : widget.selectedSubDocId,
-              documentName: nameDocController.text,
-              expiryType: selectedExpiryType.toString(),
-              threshold: threshold,
-              expiryDate: expiryDate,
-              expiryReminder: selectedExpiryType.toString(),
-              idOfDoc: idDocController.text,
-              docCreated: DateTime.now().toIso8601String() + "Z",
-              fileName: fileName,
-              url: 'url',
-              officeId: widget.officeId,
-            );
-
-            if (newResponse.statusCode == 200 || newResponse.statusCode == 201) {
-              try {
-                var uploadDocNew = await uploadDocumentsoffice(
-                  context: context,
-                  documentFile: filePath,
-                  fileName: fileName,
-                  orgOfficeDocumentId: newResponse.orgOfficeDocumentId!,
-                );
-
-                if (uploadDocNew.statusCode == 413) {
-                  Navigator.pop(context);
-                  showDialog(
+              if (newResponse.statusCode == 200 ||
+                  newResponse.statusCode == 201) {
+                try {
+                  var uploadDocNew = await uploadDocumentsoffice(
                     context: context,
-                    builder: (BuildContext context) {
-                      return AddErrorPopup(
-                        message: 'Request entity too large! File size exceeds limit.',
-                      );
-                    },
+                    documentFile: filePath,
+                    fileName: fileName,
+                    orgOfficeDocumentId: newResponse.orgOfficeDocumentId!,
                   );
-                } else if (uploadDocNew.statusCode == 200 || uploadDocNew.statusCode == 201) {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CountySuccessPopup(
-                        message: 'Saved Successfully',
-                      );
-                    },
-                  );
-                } else {
-                  Navigator.pop(context);
+
+                  if (uploadDocNew.statusCode == 413) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddErrorPopup(
+                          message: 'Request entity too large! File size exceeds limit.',
+                        );
+                      },
+                    );
+                  } else if (uploadDocNew.statusCode == 200 ||
+                      uploadDocNew.statusCode == 201) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CountySuccessPopup(
+                          message: 'Saved Successfully',
+                        );
+                      },
+                    );
+                  } else {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return FailedPopup(
+                          text: 'Failed to upload document. Please edit upload again.',
+                        );
+                      },
+                    );
+                  }
+                } catch (e) {
+                  Navigator.pop(context); // Close the loader
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return FailedPopup(
-                        text: 'Failed to upload document. Please edit upload again.',
+                        text: 'An error occurred during file upload. Check your connection or file size.',
                       );
                     },
                   );
                 }
-              } catch (e) {
+              }
+              else if (newResponse.statusCode == 400 ||
+                  newResponse.statusCode == 404) {
+                Navigator.pop(context); // Close the loader
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const FourNotFourPopup(),
+                );
+              }
+              else {
                 Navigator.pop(context); // Close the loader
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return FailedPopup(
-                      text: 'An error occurred during file upload. Check your connection or file size.',
+                      text: newResponse.message ??
+                          'An error occurred. Please try again.',
                     );
                   },
                 );
               }
-            } else if (newResponse.statusCode == 400 || newResponse.statusCode == 404) {
-              Navigator.pop(context); // Close the loader
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => const FourNotFourPopup(),
-              );
             } else {
-              Navigator.pop(context); // Close the loader
+              Navigator.pop(context);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return FailedPopup(
-                    text: newResponse.message ?? 'An error occurred. Please try again.',
+                  return AddErrorPopup(
+                    message: 'File is too large!',
                   );
                 },
               );
             }
-          } catch (e) {
+          }catch (e) {
             Navigator.pop(context); // Close the loader
             showDialog(
               context: context,

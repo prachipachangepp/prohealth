@@ -10,6 +10,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/error_pop_up.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/newpopup_manager.dart';
 import '../../../../../../../data/api_data/establishment_data/ci_manage_button/newpopup_data.dart';
+import '../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../company_identity_screen.dart';
 import '../../upload_add_popup.dart';
@@ -100,11 +101,8 @@ class _CiCorporateComplianceScreenState
                       ? AppConfig.subDocId4CapReport
                       : AppConfig.subDocId5BalReport);
     });
-    _tabPageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
+    _tabPageController.jumpToPage(
+      index,);
   }
 
   void _updateSelectedSubDocId(int subDocId) {
@@ -173,9 +171,9 @@ class _CiCorporateComplianceScreenState
            ///button
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p5, right: AppPadding.p20),
-              child: CustomIconButton(
-                  icon: CupertinoIcons.plus,
-                  text: "Add Document",
+              child: CustomIconButtonConst(
+                  icon: Icons.add,
+                  text: AppStringEM.addDocument,
                   onPressed: () async {
                     String? selectedExpiryType = expiryType;
                     calenderController.clear();

@@ -164,7 +164,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                   children: [
                                     // SizedBox(height: 5),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p8, horizontal: AppPadding.p35),
                                       child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -172,22 +172,18 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                 BorderRadius.circular(4),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Color(0xff000000)
-                                                    .withOpacity(0.25),
+                                                color: Color(0xff000000).withOpacity(0.25),
                                                 spreadRadius: 0,
                                                 blurRadius: 4,
                                                 offset: Offset(0, 2),
                                               ),
                                             ],
                                           ),
-                                          height: AppSize.s50,
+                                          height: AppSize.s65,
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: AppPadding.p15),
+                                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p30),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
@@ -200,6 +196,15 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                     //   ),
                                                     // ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
+                                                    Container(
+                                                        width: 62,
+                                                        height: 45,
+                                                        padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(4),
+                                                          border: Border.all(width: 2, color: ColorManager.faintGrey),
+                                                        ),
+                                                        child: Image.asset('images/Vector.png')),
                                                     SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment:
@@ -211,16 +216,16 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                       children: [
                                                         Text(
                                                           "ID : ${leasesData.idOfDocument}",
-                                                          //leasesData.doccreatedAt.toString(),textAlign:TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  DocDefineTableDataID.customTextStyle(context),
                                                         ),
+                                                        SizedBox(height: AppSize.s8,),
                                                         Text(
                                                           leasesData.fileName
                                                               .toString()
                                                               .capitalizeFirst!,
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style:  DocumentTypeDataStyle.customTextStyle(context),
+                                                          style:  DocDefineTableData.customTextStyle(context),
                                                         ),
                                                       ],
                                                     ),
@@ -244,7 +249,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                       },
                                                       icon:  Icon(
                                                         Icons.history,
-                                                        size: IconSize.I18,
+                                                        size: IconSize.I22,
                                                         color: IconColorManager
                                                             .bluebottom,
                                                       ),
@@ -255,6 +260,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                       hoverColor:
                                                           Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
                                                       onPressed: () {
                                                         print(
@@ -266,21 +272,18 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                         downloadFile(fileUrl);
                                                       },
                                                       icon: Icon(
-                                                          Icons
-                                                              .print_outlined,
-                                                          size: IconSize.I18,
-                                                          color: IconColorManager
-                                                              .bluebottom),
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                          Icons.print_outlined,
+                                                          size: IconSize.I22,
+                                                          color: IconColorManager.bluebottom),
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
+                                                    SizedBox(width: AppSize.s10,),
                                                     PdfDownloadButton(apiUrl: leasesData.docurl,
+                                                        iconsize: IconSize.I22,
                                                         documentName: leasesData.docName!),
-
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
                                                       onPressed: () {
                                                         String?
@@ -358,22 +361,16 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                         );
                                                       },
                                                       icon: Icon(Icons.edit_outlined,
-                                                        size:IconSize.I18,color: IconColorManager.bluebottom,),
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                        size:IconSize.I22,color: IconColorManager.bluebottom,),
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
-
+                                                    SizedBox(width: AppSize.s10,),
                                                     IconButton(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,
@@ -407,7 +404,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                         },
                                                         icon:  Icon(
                                                           Icons.delete_outline,
-                                                          size:IconSize.I18,color: IconColorManager.red,
+                                                          size:IconSize.I22,color: IconColorManager.red,
                                                         )),
                                                   ],
                                                 ),
