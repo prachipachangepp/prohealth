@@ -203,6 +203,7 @@ class RegisterScreen extends StatelessWidget {
                                       Colors.grey.withOpacity(0.1)), // Background color when pressed.
                                 ),
 
+
                                 /// buttonPadding: const EdgeInsets.symmetric(horizontal: 8),
                                 // dropdownMaxHeight: 200,
                                 // dropdownDecoration: BoxDecoration(
