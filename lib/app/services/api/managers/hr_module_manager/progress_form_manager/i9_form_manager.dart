@@ -6,6 +6,7 @@ import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 
+import '../../../../../../data/api_data/hr_module_data/progress_form_data/form_legal_doc_data.dart';
 import '../../../../../../presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 
 Future<ApiDataRegister> addEmployeeI9Form({
@@ -178,5 +179,39 @@ Future<ApiDataRegister> uploadLegalDocumentBase64({
         statusCode: 404,
         success: false,
         message: AppString.somethingWentWrong);
+  }
+}
+
+
+Future<List<EmployeeLegalDocument>>  legalDocumentPrifill(
+    BuildContext context, int employeeId) async {
+//var itemList ;
+  List<EmployeeLegalDocument> itemsData = [];
+  try {
+    final response = await ApiOffer(context).get(
+        path: ProgressBarRepository.priLegalDocumentForm(employeeID: employeeId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+
+      for (var item in response.data) {
+
+        itemsData.add(EmployeeLegalDocument(
+          EmployeeLegalDocumentId:  item['EmployeeLegalDocumentId'],
+          employeeId: item['employeeId'],
+          docName: item['docName'],
+          docUrl:  item['docUrl'],
+          companyId: item['companyId'],
+          officeId:  item['officeId'],
+          approved: item['approved'],
+
+        ));
+        // itemsData.sort((a, b) => a.educationId.compareTo(b.educationId));
+      }
+    } else {
+      print("Employee legal docoment prifill");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
   }
 }

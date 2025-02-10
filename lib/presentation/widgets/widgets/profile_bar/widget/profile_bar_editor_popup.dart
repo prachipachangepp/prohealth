@@ -42,6 +42,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
   void initState() {
     // TODO: implement initState
     selectedCounty = widget.countyNameValue;
+    countyName =widget.countyNameValue;
     zoneName = widget.zoneNameValue;
     docZoneId = widget.zoneId;
     selectedCountyId = widget.countyId;
@@ -449,7 +450,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
             // _showErrorDialog('Please select a zone.');
             return;
           }
-
+          List<int> zipCodesAsInt = selectedZipCodes.map((zip) => int.parse(zip)).toList();
 
 
           addCovrage.add(ApiPatchCovrageData(
@@ -458,7 +459,7 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
               countyId: selectedCountyId,
               countyName: countyName,
               zoneId: docZoneId,
-              zoneName: zoneName!, zipCodes: zipCodes)
+              zoneName: zoneName!, zipCodes: zipCodesAsInt)
           );
           //var patchCoverage =
           patchEmpEnrollAddCoverage(context,widget.employeeEnrollId,widget.employeeId,addCovrage);
@@ -471,8 +472,9 @@ class _ProfileBarEditPopupState extends State<ProfileBarEditPopup> {
           print('Selected County ID: $selectedCountyId');
           print('Selected coverage ID::::::::::::::::: ${widget.employeeEnrollCoverageId} ...................,');
           print('Selected Zone ID: $docZoneId');
-          print('Selected Zip Codes: $selectedZipCodes');
-          print('Selected City: $selectedCityName');
+          print('//////Selected Zip Codes: $selectedZipCodes');
+          print('?>>>>>>>>>>>Selected Zip Codes: $zipCodesAsInt');
+        //  print('Selected City: $selectedCityName');
           setState((){
             getCoverageList(context: context, employeeId: widget.employeeId,
                 employeeEnrollId:widget.employeeEnrollId );

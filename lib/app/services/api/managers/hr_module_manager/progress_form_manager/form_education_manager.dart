@@ -223,6 +223,8 @@ Future<List<EducationDataForm>> getEmployeeEducationForm(
     return itemsData;
   }
 }
+
+
 Future<List<EduactionDegree>> getDegreeDropDown(
     BuildContext context,) async {
   List<EduactionDegree> itemsList = [];
