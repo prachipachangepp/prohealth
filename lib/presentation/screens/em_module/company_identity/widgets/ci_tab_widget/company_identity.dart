@@ -164,8 +164,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                             return FutureBuilder<List<ServicesMetaData>>(
                                 future: getServicesMetaData(context),
                                 builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
                                     return Center(
                                         child: CircularProgressIndicator());
                                   }
@@ -183,35 +182,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                       formKey: _formKey,
                                       servicesList: snapshot.data!,
                                     );
-                                    ///provider
-                                    //   ChangeNotifierProvider(
-                                    //   create: (_)=> AddOfficeSubmitButtonProvider(
-                                    //     nameController: nameController,
-                                    //     addressController: addressController,
-                                    //     emailController: emailController,
-                                    //     stateController: stateNameController,
-                                    //     countryController: countryNameController,
-                                    //     mobNumController: mobNumController,
-                                    //     secNumController: secNumController,
-                                    //     optionalController: OptionalController,
-                                    //     formKey: _formKey,
-                                    //     servicesList: snapshot.data!,
-                                    //   ),
-                                    //   lazy: false,
-                                    //   child: AddOfficeSubmitButton(
-                                    //     // nameController: nameController,
-                                    //     // addressController: addressController,
-                                    //     // emailController: emailController,
-                                    //     // stateController: stateNameController,
-                                    //     // countryController: countryNameController,
-                                    //     // mobNumController: mobNumController,
-                                    //     // secNumController: secNumController,
-                                    //     // OptionalController: OptionalController,
-                                    //     //onPressed: () async {},
-                                    //     // formKey: _formKey,
-                                    //     //servicesList: snapshot.data!,
-                                    //   ),
-                                    // );
                                   } else {
                                     return ErrorPopUp(
                                         title: "Received Error",

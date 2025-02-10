@@ -141,24 +141,24 @@ class CiOrgDocument extends StatelessWidget {
               Expanded(
                 child: Stack(
           children: [
-          provider.selectedIndex != 5
-          ? Container(
-          // height: MediaQuery.of(context).size.height / 3.5,
-                decoration: BoxDecoration(
-                    color: Color(0xFFF2F9FC),
-                    borderRadius: BorderRadius.only(
+          provider.selectedIndex == 2
+          ? Offstage()
+              :Container(
+            // height: MediaQuery.of(context).size.height / 3.5,
+            decoration: BoxDecoration(
+                color: Color(0xFFF2F9FC),
+                borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20)),
-                    boxShadow: [
-                        BoxShadow(
-                        color: ColorManager.faintGrey,
-                        blurRadius: 2,
-                        spreadRadius: -2,
-                        offset: Offset(0, -4),
-                        ),
-                    ]),
-          )
-              : Offstage(),
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorManager.faintGrey,
+                    blurRadius: 2,
+                    spreadRadius: -2,
+                    offset: Offset(0, -4),
+                  ),
+                ]),
+          ),
                 NonScrollablePageView(
                   controller: provider.tabPageController,
                   onPageChanged: provider.selectButton,

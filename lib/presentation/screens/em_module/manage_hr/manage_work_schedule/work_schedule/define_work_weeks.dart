@@ -132,13 +132,13 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                             )),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: AppPadding.p8, vertical: AppPadding.p2),
+                                              horizontal: AppPadding.p6, vertical: AppPadding.p2),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.only(left:AppPadding.p8),
+                                                padding: const EdgeInsets.only(left:AppPadding.p5),
                                                 child: Text(
                                                   AppStringEM.officeStartTime,
                                                   style: DefineWorkWeekStyle.customTextStyle(context)
@@ -303,7 +303,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                   '${snapshot.data![index].officeStartTime} - ${snapshot.data![index].officeEndTime}',
                                                                                                   style: TextStyle(
                                                                                                     fontSize: FontSize.s11,
-                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                    fontWeight: FontWeight.w700,
                                                                                                     color: ColorManager.mediumgrey,
                                                                                                     decoration: TextDecoration.none,
                                                                                                   ),
@@ -472,7 +472,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                             ),
                                             const Spacer(),
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                                              padding: const EdgeInsets.only(left: AppPadding.p8,right: AppPadding.p8, bottom: AppPadding.p8),
                                               child: Align(alignment: Alignment.bottomRight,
                                                   child: CustomeTransparentAddShift(
                                                     text: 'Add Shift',

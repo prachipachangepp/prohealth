@@ -282,13 +282,13 @@ class AddNewOrgDocButton extends StatelessWidget {
                                           borderSide: BorderSide(
                                               color: Colors.grey,
                                               width: 1),
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius: BorderRadius.circular(4),
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey,
                                               width: 1),
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius: BorderRadius.circular(4),
                                         ),
                                         contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                       ),

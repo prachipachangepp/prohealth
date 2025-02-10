@@ -129,6 +129,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    SizedBox(height: 5,),
                                     Container(
                                         decoration: BoxDecoration(
                                           color: Colors.white,

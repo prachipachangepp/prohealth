@@ -233,13 +233,13 @@ class EmpDocADDPopup extends StatelessWidget {
                                         borderSide: BorderSide(
                                             color: Colors.grey,
                                             width: 1),
-                                        borderRadius: BorderRadius.circular(6),
+                                        borderRadius: BorderRadius.circular(4),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                             color: Colors.grey,
                                             width: 1),
-                                        borderRadius: BorderRadius.circular(6),
+                                        borderRadius: BorderRadius.circular(4),
                                       ),
                                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                     ),
@@ -271,56 +271,6 @@ class EmpDocADDPopup extends StatelessWidget {
                                     },
                                   ),
                                 )
-                                // Container(
-                                //   height: AppSize.s30,
-                                //   width: AppSize.s80,
-                                //   padding: EdgeInsets.symmetric(horizontal: AppPadding.p5),
-                                //   decoration: BoxDecoration(
-                                //     border: Border.all(color: ColorManager.fmediumgrey),
-                                //     borderRadius: BorderRadius.circular(8),
-                                //   ),
-                                //   child:
-                                //   DropdownButtonFormField<String>(
-                                //     value: provider.selectedYear, // Initial value (you should define this variable)
-                                //     items: [
-                                //       DropdownMenuItem(
-                                //         value: AppConfig.year,
-                                //         child: Text(
-                                //           AppConfig.year,
-                                //           style: DocumentTypeDataStyle.customTextStyle(context),
-                                //         ),
-                                //       ),
-                                //       DropdownMenuItem(
-                                //         value: AppConfig.month,
-                                //         child: Text(
-                                //           AppConfig.month,
-                                //           style: DocumentTypeDataStyle.customTextStyle(context),
-                                //         ),
-                                //       ),
-                                //     ],
-                                //     onChanged: (value) {
-                                //       // setState(() {
-                                //       provider.selectedYear = value; // Update the selected option (Year/Month)
-                                //       provider.notifyListeners();
-                                //       //});
-                                //     },
-                                //     decoration: InputDecoration(
-                                //       enabledBorder: InputBorder.none,
-                                //       focusedBorder: InputBorder.none,
-                                //       hintText: AppConfig.year,
-                                //       hintStyle:
-                                //           DocumentTypeDataStyle.customTextStyle(
-                                //               context),
-                                //       contentPadding: EdgeInsets.only(
-                                //           bottom: AppPadding.p20),
-                                //     ),
-                                //     icon: Icon(
-                                //       Icons.arrow_drop_down,
-                                //       color: ColorManager.mediumgrey,
-                                //       size: IconSize.I16,
-                                //     ),
-                                //   ),
-                                // ),
                               ],
                             ),
                           ],

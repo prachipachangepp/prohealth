@@ -111,7 +111,7 @@ class ManageEmpDocWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: AppPadding.p75, vertical: AppPadding.p20),
+                    horizontal: AppPadding.p60, vertical: AppPadding.p20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

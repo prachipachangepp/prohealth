@@ -188,7 +188,7 @@ class BlueBgTabbar {
       fontSize: FontSize.s14,
       fontWeight: selectedIndex == currentIndex
           ? FontWeight.w700
-          : FontWeight.w500,
+          : FontWeight.w600,
       color: selectedIndex == currentIndex
           ? ColorManager.mediumgrey
           : ColorManager.white,
