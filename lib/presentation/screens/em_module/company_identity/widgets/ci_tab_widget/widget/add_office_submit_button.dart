@@ -1152,137 +1152,9 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       locationProvider.updateLocation(pickedLocation);
     }
   }
-  // void _pickLocation() async {
-  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
-  //     MaterialPageRoute(
-  //       builder: (context) => MapScreen(
-  //         initialLocation: _selectedLocation,
-  //         onLocationPicked: (location) {
-  //           if (!_isDisposed) { // Check if the widget is still active
-  //             setState(() {
-  //               _selectedLocation = location;
-  //               _latitude = location.latitude;
-  //               _longitude = location.longitude;
-  //             });
-  //
-  //             final latlong = _formatLatLong(_latitude, _longitude);
-  //             print("Selected LatLong :: $latlong");
-  //
-  //             // Update the location in the UI directly
-  //             _updateLocation(latlong);
-  //           }
-  //         },
-  //       ),
-  //     ),
-  //   );
-  //
-  //   // Handle the picked location after returning from MapScreen
-  //   if (pickedLocation != null && !_isDisposed) {
-  //     setState(() {
-  //       _selectedLocation = pickedLocation;
-  //       _latitude = pickedLocation.latitude;
-  //       _longitude = pickedLocation.longitude;
-  //     });
-  //
-  //     final latlong = _formatLatLong(_latitude, _longitude);
-  //     _updateLocation(latlong);
-  //   }
-  // }
-  // void _pickLocation() async {
-  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
-  //     MaterialPageRoute(
-  //       builder: (context) => MapScreen(
-  //         initialLocation: _selectedLocation,
-  //         onLocationPicked: (location) {
-  //           if (mounted) {
-  //             setState(() {
-  //               _selectedLocation = location;
-  //               _latitude = location.latitude;
-  //               _longitude = location.longitude;
-  //             });
-  //
-  //             final latlong = _formatLatLong(_latitude, _longitude);
-  //             print("Selected LatLong :: $latlong");
-  //
-  //             // Update the location in the UI directly
-  //             _updateLocation(latlong);
-  //           }
-  //         },
-  //       ),
-  //     ),
-  //   );
-  //
-  //   // Handle the picked location after returning from MapScreen
-  //   if (pickedLocation != null && mounted) {
-  //     setState(() {
-  //       _selectedLocation = pickedLocation;
-  //       _latitude = pickedLocation.latitude;
-  //       _longitude = pickedLocation.longitude;
-  //     });
-  //
-  //     final latlong = _formatLatLong(_latitude, _longitude);
-  //     _updateLocation(latlong);
-  //   }
-  // }
-
-  // String _formatLatLong(double? latitude, double? longitude) {
-  //   if (latitude != null && longitude != null) {
-  //     return 'Lat: ${latitude.toStringAsFixed(4)}, Long: ${longitude.toStringAsFixed(4)}';
-  //   } else {
-  //     return 'Lat/Long not selected';
-  //   }
-  // }
-  // void _updateLocation(String latlong) {
-  //   setState(() {
-  //     _location = latlong;
-  //     print("Updated Location: $_location");
-  //    // locationController = TextEditingController(text:_location);
-  //     //print("locationController ${locationController.text}");// Check this log to see if the value updates
-  //   });
-  // }
-  // void _pickLocation() async {
-  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
-  //     MaterialPageRoute(
-  //       builder: (context) => MapScreen(
-  //         initialLocation: _selectedLocation,
-  //         onLocationPicked: (location) {
-  //           if (mounted) {
-  //             print('Picked location inside MapScreen: $location'); // Debugging
-  //
-  //             setState(() {
-  //               _selectedLocation = location; // Update selected location
-  //               _latitude = location.latitude;
-  //               _longitude = location.longitude;
-  //               _location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
-  //             });
-  //           }
-  //         },
-  //       ),
-  //     ),
-  //   );
-  //
-  //   if (pickedLocation != null) {
-  //     print('Picked location from Navigator: $pickedLocation'); // Debugging
-  //
-  //     if (mounted) {
-  //       setState(() {
-  //         _selectedLocation = pickedLocation; // Update selected location
-  //         _latitude = pickedLocation.latitude;
-  //         _longitude = pickedLocation.longitude;
-  //         _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-  //         _locationError = null;
-  //       });
-  //     }
-  //   } else {
-  //     print('No location was picked.');
-  //   }
-  // }
   @override
   Widget build(BuildContext context) {
     final locationProvider = Provider.of<LocationProvider>(context);
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   locationProvider.clearAllData();
-    // });
 
     return DialogueTemplate(
       width: AppSize.s800,
@@ -1406,6 +1278,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                                                 onChanged: (value) {
                                                   locationProvider.toggleService(serviceID);
                                                   print("Service Id List ${locationProvider.selectedServices}");
+                                                  _checkboxError = null;
                                                   // setState(() {
                                                   //   if (value == true) {
                                                   //     selectedServices.add(ServiceList(

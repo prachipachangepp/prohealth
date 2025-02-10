@@ -90,7 +90,7 @@ class CICorporateCompilianceDocument extends StatelessWidget {
 
           return Column(
             children: [
-              SizedBox(height: AppSize.s10),
+              SizedBox(height: AppSize.s20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
