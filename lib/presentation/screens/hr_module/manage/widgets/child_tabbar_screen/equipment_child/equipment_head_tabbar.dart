@@ -54,7 +54,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
             Padding(
               padding: const EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
-                  width: 100,
+                  width: 130,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
@@ -99,54 +99,59 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
 
                   child: Column(
                     children: [
-                      Container(
-                        height: 30,
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              // Text(''),
-                              Expanded(
-                                child: Center(
-                                  child: Text(
-                                      AppString.srNo,
-                                      style: EquipmentStyleHeading.customTextStyle(context)
+                      Padding(
+                        padding:EdgeInsets.symmetric(
+                          horizontal: 15),
+                        child: Container(
+                          height: 35,
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                // Text(''),
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                        AppString.srNo,
+                                        style: EquipmentStyleHeading.customTextStyle(context)
+                                    ),
                                   ),
                                 ),
-                              ),
-                              //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                              Expanded(
-                                child: Center(
-                                  child: Text(
-                                      AppStringHr.inventoryid,
-                                      style: EquipmentStyleHeading.customTextStyle(context)),
+                                //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                        AppStringHr.inventoryid,
+                                        style: EquipmentStyleHeading.customTextStyle(context)),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Center(
-                                  child: Text(AppStringHr.docName,
-                                      style: EquipmentStyleHeading.customTextStyle(context)),
+                                Expanded(
+                                  child: Center(
+                                    child: Text(AppStringHr.docName,
+                                        style: EquipmentStyleHeading.customTextStyle(context)),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Center(
-                                  child: Text('Device Description',
-                                      style: EquipmentStyleHeading.customTextStyle(context)),
+                                Expanded(
+                                  child: Center(
+                                    child: Text('Device Description',
+                                        style: EquipmentStyleHeading.customTextStyle(context)),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Center(
-                                  child: Text('Assign Date   ',
-                                      style: EquipmentStyleHeading.customTextStyle(context)),
+                                Expanded(
+                                  child: Center(
+                                    child: Text('Assign Date   ',
+                                        style: EquipmentStyleHeading.customTextStyle(context)),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -168,7 +173,9 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                        vertical: 5),
                                     child: Container(
                                         decoration: BoxDecoration(
                                           color: Colors.white,
@@ -178,13 +185,13 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                               color: Color(0xff000000)
                                                   .withOpacity(0.25),
                                               spreadRadius: 0,
-                                              blurRadius: 4,
+                                              blurRadius: 2,
                                               offset: Offset(0, 2),
                                             ),
                                           ],
                                         ),
-                                        height: 50,
-                                        margin: EdgeInsets.symmetric(horizontal: 9),
+                                        height:AppSize.s65,
+                                        margin: EdgeInsets.symmetric(horizontal: 10),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 15),

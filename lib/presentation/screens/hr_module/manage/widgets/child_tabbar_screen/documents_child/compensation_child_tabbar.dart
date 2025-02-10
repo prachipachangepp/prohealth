@@ -28,6 +28,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 
 class CompensationChildTabbar extends StatelessWidget {
@@ -178,7 +179,7 @@ class CompensationChildTabbar extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            height: 65,
+                            height: AppSize.s65,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

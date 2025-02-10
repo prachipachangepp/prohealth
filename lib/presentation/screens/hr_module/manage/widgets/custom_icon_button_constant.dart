@@ -51,7 +51,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: FontSize.s14,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               color: widget.textColor == null ?ColorManager.white:widget.textColor)),
       style: ElevatedButton.styleFrom(
         padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),

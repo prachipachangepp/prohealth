@@ -376,7 +376,7 @@ class OfferLetterScreen extends StatelessWidget {
                               SizedBox(
                                 height: 30,
                                 width: 300,
-                                child: CustomDropdownTextFieldwidh(
+                                child: CustomDropdownTextFieldpadding(
                                   hintText: 'Salaried',
                                   // Conditionally show "Per Visit" in the dropdown if depId is not salesId or AdministrationId
                                   items: depId == AppConfig.salesId || depId == AppConfig.AdministrationId
@@ -1395,7 +1395,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                         //   ),
                                         // ),
 
-                                        child: CustomDropdownTextFieldwidh(
+                                        child: CustomDropdownTextFieldpadding(
                                           dropDownMenuList: dropDownList,
                                           onChanged: (newValue) {
                                             setState(() {
@@ -1556,7 +1556,7 @@ class _DynamciContainerState extends State<DynamciContainer> {
                                       //   ),
                                       // ),
 
-                                      child:CustomDropdownTextFieldwidh(
+                                      child:CustomDropdownTextFieldpadding(
                                         dropDownMenuList: dropDownTypesList,
                                         onChanged: (newValue) {
                                           setState(() {

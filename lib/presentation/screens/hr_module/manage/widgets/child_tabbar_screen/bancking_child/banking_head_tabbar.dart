@@ -44,7 +44,7 @@ class BankingHeadTabbar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 20),
+                padding: const EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
                     width: 130,
                     text: AppStringHr.addNew,

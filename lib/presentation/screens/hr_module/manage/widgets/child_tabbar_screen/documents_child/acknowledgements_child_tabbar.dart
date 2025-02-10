@@ -175,7 +175,7 @@ class AcknowledgementsChildBar extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.only(
                                 top: 5, bottom: 5, left: 10, right: 100),
-                            margin: EdgeInsets.symmetric(horizontal: 40),
+                            margin: EdgeInsets.symmetric(horizontal: 60),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8),

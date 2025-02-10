@@ -112,7 +112,7 @@ class _DetailsFormateState extends State<DetailsFormate> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: widget.row2Child2),
               ],
-            )
+            ),
           ],
         ),
         SizedBox(

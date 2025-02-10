@@ -18,6 +18,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/common_resources/common_theme_const.dart';
+import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../em_module/company_identity/widgets/error_pop_up.dart';
 import 'dart:typed_data';
 class AdditionalVaccinationsChildBar extends StatelessWidget {
@@ -158,7 +159,7 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                         SizedBox(height: 5),
                         Container(
                           padding: EdgeInsets.only(top: 5,bottom:5, left: 10,right: 100),
-                          margin: EdgeInsets.symmetric(horizontal: 40),
+                          margin: EdgeInsets.symmetric(horizontal: 60),
                           decoration: BoxDecoration(
                             color:Colors.white,
                             borderRadius: BorderRadius.circular(8),
@@ -171,7 +172,7 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                               ),
                             ],
                           ),
-                          height: 65,
+                          height:  AppSize.s65,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
